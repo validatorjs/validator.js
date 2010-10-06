@@ -328,6 +328,22 @@ module.exports = {
             Validator.check(123).notRegex(/123/);
             assert.ok(false, 'regex failed');
         } catch (e) {}
+    },
+    
+    'test #len()': function(assert) {             
+        assert.ok(Validator.check('a').len(1)); 
+        assert.ok(Validator.check(123).len(2));
+        assert.ok(Validator.check(123).len(2, 4));
+        assert.ok(Validator.check(12).len(2,2));
+        
+        try {
+            Validator.check('abc').len(4);
+            assert.ok(false, 'len failed');
+        } catch (e) {}
+        try {
+            Validator.check('abcd').len(1, 3);
+            assert.ok(false, 'len failed');
+        } catch (e) {}
     }
 }
 

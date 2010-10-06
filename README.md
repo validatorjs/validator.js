@@ -5,10 +5,8 @@ To install pillar, use [npm](http://github.com/isaacs/npm):
     $ npm install validator
     
 ## Example
-
-    var Validator = require('validator').Validator;
         
-    Validator.check('test@email.com').length(3, 40).isEmail();
+    Validator.check('test@email.com').len(3, 40).isEmail();
     
 ## Error handling
 
@@ -31,7 +29,7 @@ To set a custom error message, set the second param of check()
 To attach a custom error handler
 
     Validator.error = function(msg) {
-        //Do smoething
+        //Do something
     }
 
 To see the library in use, check out [pillar](http://github.com/chriso/pillar)
