@@ -1,0 +1,23 @@
+{ "name"          : "validator",
+  "description"   : "Validation, sanitization and filtering for node.js",
+  "version"       : "0.0.1",
+  "homepage"      : "http://github.com/chriso/node-validator",
+  "keywords"      : ["validator", "validation", "filter", "filtering", "xss", "sanitization", "sanitize"],
+  "author"        : "Chris O'Hara <cohara87@gmail.com>",
+  "main"          : "./lib",
+  "directories"   : { "lib" : "./lib" },
+  "bugs" :
+    { "mail" : "",
+      "web" : "http://github.com/chriso/node-validator/issues"
+    },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/chriso/node-validator.git"
+  },
+  "engines" : { "node" : ">=0.2.2" },
+  "licenses" :
+    [ { "type" : "MIT" 
+      , "url" : "http://github.com/chriso/node-validator/raw/master/LICENSE"
+      }
+    ]
+}
