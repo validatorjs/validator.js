@@ -211,6 +211,11 @@ module.exports = {
         });
     },
     
+    //Alias for isDecimal()
+    'test #isFloat()': function(assert) {          
+        assert.ok(Validator.check('0.5').isFloat());
+    },
+    
     'test #isNull()': function(assert) {          
         assert.ok(Validator.check('').isNull());
         assert.ok(Validator.check().isNull());

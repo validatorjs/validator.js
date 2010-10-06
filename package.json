@@ -1,6 +1,6 @@
 { "name"          : "validator",
   "description"   : "Validation, sanitization and filtering for node.js",
-  "version"       : "0.0.1",
+  "version"       : "0.0.2",
   "homepage"      : "http://github.com/chriso/node-validator",
   "keywords"      : ["validator", "validation", "filter", "filtering", "xss", "sanitization", "sanitize"],
   "author"        : "Chris O'Hara <cohara87@gmail.com>",

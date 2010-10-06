@@ -82,5 +82,17 @@ module.exports = {
         
         //Test rtrim() with a mixture of \t, \s, \r and \n
         assert.equal('	\r\n  abc', Filter.sanitize('	\r\n  abc\r\n	  ').rtrim());
+    },
+    
+    'test #toInt()': function(assert) {
+        assert.ok(3 === Filter.sanitize('3').toInt());
+        assert.ok(3 === Filter.sanitize('   3   ').toInt());
+    },
+    
+    'test #toFloat()': function(assert) {
+        assert.ok(3 === Filter.sanitize('3.').toFloat());
+        assert.ok(3 === Filter.sanitize('   3   ').toFloat());
+        assert.ok(0 === Filter.sanitize('.0').toFloat());
+        assert.ok(13.13 === Filter.sanitize('13.13').toFloat());
     }
 }    
