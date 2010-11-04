@@ -70,7 +70,7 @@ When adding to the Validator prototype, use this.str to access the string and th
         return this; //Allow method chaining
     }
 
-When adding to the Filter prototype, use this.str to access the string and this.modify(new_str) to update it
+When adding to the Filter (&sanitize) prototype, use this.str to access the string and this.modify(new_str) to update it
 
     var Filter = require('filter').Filter;
     Filter.prototype.removeNumbers = function() {
@@ -103,4 +103,4 @@ To attach a custom error handler, modify the onError method of the Validator cla
         //Do something
     }
 
-To see the library in use, check out [pillar](http://github.com/chriso/pillar)
+To see the library in use in a web framework, see [pillar](http://github.com/chriso/pillar)
