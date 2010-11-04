@@ -1,5 +1,5 @@
 { "name"          : "validator",
-  "description"   : "Data validation and sanitization for node.js",
+  "description"   : "Data validation, filtering and sanitization for node.js",
   "version"       : "0.1.0",
   "homepage"      : "http://github.com/chriso/node-validator",
   "keywords"      : ["validator", "validation", "assert", "params", "sanitization", "xss", "entities", "sanitize", "sanitisation", "input"],

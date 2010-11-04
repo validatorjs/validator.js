@@ -1,4 +1,4 @@
-A library of string validation, filter and sanitization methods.
+A library of string validation, filtering and sanitization methods.
 
 To install node-validator, use [npm](http://github.com/isaacs/npm):
 
@@ -60,7 +60,7 @@ To install node-validator, use [npm](http://github.com/isaacs/npm):
 
 ## Extending the library
 
-When adding to the Validator prototype, use this.str to access the string and this.error(this.msg || default_msg) when the string is invalid
+When adding to the Validator prototype, use `this.str` to access the string and `this.error(this.msg || default_msg)` when the string is invalid
 
     var Validator = require('validator').Validator;
     Validator.prototype.contains = function(str) {
@@ -70,7 +70,7 @@ When adding to the Validator prototype, use this.str to access the string and th
         return this; //Allow method chaining
     }
 
-When adding to the Filter (&sanitize) prototype, use this.str to access the string and this.modify(new_str) to update it
+When adding to the Filter (&sanitize) prototype, use `this.str` to access the string and `this.modify(new_str)` to update it
 
     var Filter = require('filter').Filter;
     Filter.prototype.removeNumbers = function() {
@@ -89,7 +89,7 @@ By default, the validation methods throw an exception when a check fails
         console.log(e); //Invalid integer
     }
 
-To set a custom error message, set the second param
+To set a custom error message, set the second param of `check()`
 
     try {
         check('abc', 'Please enter a valid integer').notNull().isInt()
@@ -97,7 +97,7 @@ To set a custom error message, set the second param
         console.log(e); //Please enter a valid integer
     }
 
-To attach a custom error handler, modify the onError method of the Validator class
+To attach a custom error handler, modify the `onError` method of Validator
     
     Validator.error = function(msg) {
         //Do something
