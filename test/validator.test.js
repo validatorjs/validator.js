@@ -311,7 +311,10 @@ module.exports = {
         assert.ok(Validator.check('abc').regex('abc'));
         assert.ok(Validator.check('ABC').regex(/^abc$/i));
         assert.ok(Validator.check('ABC').regex('abc', 'i'));
-        assert.ok(Validator.check(12390947686129).regex(/^[0-9]+$/i));
+        assert.ok(Validator.check(12390947686129).regex(/^[0-9]+$/));
+        
+        //Check the is() alias
+        assert.ok(Validator.check(12390947686129).is(/^[0-9]+$/));
         
         try {
             Validator.check(123).regex(/^1234$/);
@@ -319,10 +322,13 @@ module.exports = {
         } catch (e) {}
     },
     
-    'test #regex()': function(assert) {          
+    'test #notRegex()': function(assert) {          
         assert.ok(Validator.check('foobar').notRegex(/e/));
         assert.ok(Validator.check('ABC').notRegex('abc'));
         assert.ok(Validator.check(12390947686129).notRegex(/a/));
+        
+        //Check the not() alias
+        assert.ok(Validator.check(12390947686129).not(/^[a-z]+$/));
         
         try {
             Validator.check(123).notRegex(/123/);

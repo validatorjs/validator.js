@@ -56,6 +56,10 @@ module.exports = {
         
         //Test trim() with a mixture of \t, \s, \r and \n
         assert.equal('abc', Filter.sanitize('	\r\n  abc\r\n	  ').trim());
+        
+        //Test trim() with custom chars
+        assert.equal('2', Filter.sanitize('000020000').trim('0'));
+        assert.equal('202', Filter.sanitize('01000202100101').trim('01'));
     }, 
     
     'test #ltrim()': function(assert) {
@@ -69,6 +73,10 @@ module.exports = {
         
         //Test ltrim() with a mixture of \t, \s, \r and \n
         assert.equal('abc\r\n', Filter.sanitize('	\r\n  abc\r\n').ltrim());
+        
+        //Test ltrim() with custom chars
+        assert.equal('20', Filter.sanitize('000020').ltrim('0'));
+        assert.equal('201', Filter.sanitize('010100201').ltrim('01'));
     },
     
     'test #rtrim()': function(assert) {
@@ -82,6 +90,10 @@ module.exports = {
         
         //Test rtrim() with a mixture of \t, \s, \r and \n
         assert.equal('	\r\n  abc', Filter.sanitize('	\r\n  abc\r\n	  ').rtrim());
+        
+        //Test rtrim() with custom chars
+        assert.equal('02', Filter.sanitize('02000').rtrim('0'));
+        assert.equal('012', Filter.sanitize('01201001').rtrim('01'));
     },
     
     'test #toInt()': function(assert) {

@@ -1,4 +1,4 @@
-A library of string validation methods.
+A library of string validation, filter and sanitization methods.
 
 To install node-validator, use [npm](http://github.com/isaacs/npm):
 
@@ -10,9 +10,10 @@ To install node-validator, use [npm](http://github.com/isaacs/npm):
     var convert = sanitize = require('validator').sanitize
         
     //Validate
-    check('test@email.com').len(6, 64).isEmail();
+    check('test@email.com').len(6, 64).isEmail(); //Methods are chainable
+    check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
     
-    //Filter
+    //Sanitize / Filter
     var int = convert('0123').toInt();
     var bool = convert('true').toBoolean();
     var str = sanitize(' \s\t\r hello \n').trim();
@@ -20,13 +21,15 @@ To install node-validator, use [npm](http://github.com/isaacs/npm):
 
 ## List of validation methods
 
+    is()                            //Alias for regex()
+    not()                           //Alias for notRegex()
     isEmail()
-    isUrl()                         //Accepts https? || ftp
+    isUrl()                         //Accepts http, https, ftp
     isIP()
     isAlpha()
     isAlphanumeric()
     isNumeric()                     
-    isInt()                         //isNumeric accepts '001' but isInt doesn't
+    isInt()                         //isNumeric accepts zero padded ints, e.g. '001' but isInt doesn't
     isLowercase()
     isUppercase()
     isDecimal()
@@ -41,11 +44,11 @@ To install node-validator, use [npm](http://github.com/isaacs/npm):
     notRegex(pattern, modifiers)
     len(min, max)                   //max is optional
 
-## List of sanitization methods
+## List of sanitization / filter methods
 
-    trim()
-    ltrim()
-    rtrim()
+    trim(chars)                     //Trim optional `chars`, default is to trim whitespace (\r\n\t\s)
+    ltrim(chars)                    
+    rtrim(chars)                    
     ifNull(replace)
     toFloat()
     toInt()
