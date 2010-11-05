@@ -10,14 +10,16 @@ To install node-validator, use [npm](http://github.com/isaacs/npm):
     var convert = sanitize = require('validator').sanitize
         
     //Validate
-    check('test@email.com').len(6, 64).isEmail(); //Methods are chainable
+    check('test@email.com').len(6, 64).isEmail();       //Methods are chainable
     check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
     
     //Sanitize / Filter
-    var int = convert('0123').toInt();
-    var bool = convert('true').toBoolean();
-    var str = sanitize(' \s\t\r hello \n').trim();
+    var int = convert('0123').toInt();                  //123
+    var bool = convert('true').toBoolean();             //true
+    var str = sanitize(' \s\t\r hello \n').trim();      //'hello'
+    var str = sanitize('aaaaaaaaab').ltrim('a');        //'b'
     var str = sanitize(large_input_str).xss();
+    var str = sanitize('&lt;a&gt;').entityDecode();     //'<a>'
 
 ## List of validation methods
 
@@ -103,4 +105,3 @@ To attach a custom error handler, modify the `onError` method of Validator
         //Do something
     }
 
-To see the library in use in a web framework, see [pillar](http://github.com/chriso/pillar)
