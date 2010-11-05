@@ -11,6 +11,7 @@ To install node-validator, use [npm](http://github.com/isaacs/npm):
         
     //Validate
     check('test@email.com').len(6, 64).isEmail();       //Methods are chainable
+    check('abc').isInt();                               //Throws 'Invalid integer'
     check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
     
     //Sanitize / Filter
@@ -72,12 +73,11 @@ When adding to the Validator prototype, use `this.str` to access the string and 
         return this; //Allow method chaining
     }
 
-When adding to the Filter (&sanitize) prototype, use `this.str` to access the string and `this.modify(new_str)` to update it
+When adding to the Filter (sanitize) prototype, use `this.str` to access the string and `this.modify(new_str)` to update it
 
     var Filter = require('filter').Filter;
     Filter.prototype.removeNumbers = function() {
-        this.str = this.str.replace(/[0-9]+/g, '');
-        this.modify(this.str);
+        this.modify(this.str.replace(/[0-9]+/g, ''));
         return this.str;
     }
     
@@ -99,9 +99,12 @@ To set a custom error message, set the second param of `check()`
         console.log(e); //Please enter a valid integer
     }
 
-To attach a custom error handler, modify the `onError` method of Validator
+To attach a custom error handler, modify the `error` method of the Validator class
     
-    Validator.error = function(msg) {
-        //Do something
+    var Validator = require('validator').Validator;
+    var v = new Validator();
+    v.error = function(msg) {
+        console.log('Fail');
     }
+    v.check('abc').isInt(); //'Fail'
 
