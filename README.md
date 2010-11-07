@@ -32,7 +32,7 @@ To install node-validator, use [npm](http://github.com/isaacs/npm):
     isAlpha()
     isAlphanumeric()
     isNumeric()                     
-    isInt()                         //isNumeric accepts zero padded ints, e.g. '001' but isInt doesn't
+    isInt()                         //isNumeric accepts zero padded numbers, e.g. '001', isInt doesn't
     isLowercase()
     isUppercase()
     isDecimal()
