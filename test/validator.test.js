@@ -1,8 +1,9 @@
 var node_validator = require('../lib'),
-    Validator = new node_validator.Validator();
+    Validator = new node_validator.Validator(),
+    assert = require('assert');
 
 module.exports = {
-    'test #isEmail()': function(assert) {
+    'test #isEmail()': function () {
         //Try some invalid emails
         var invalid = [
             'invalidemail@',
@@ -34,7 +35,7 @@ module.exports = {
         }
     },
     
-    'test #isUrl()': function(assert) {
+    'test #isUrl()': function () {
         //Try some invalid URLs
         var invalid = [
             'xyz://foobar.com', //Only http, https and ftp are valid
@@ -76,7 +77,7 @@ module.exports = {
         }
     },
     
-    'test #isIP()': function(assert) {
+    'test #isIP()': function () {
         //Try some invalid IPs
         var invalid = [
             'abc',
@@ -108,7 +109,7 @@ module.exports = {
         }
     },
     
-    'test #isAlpha()': function(assert) {
+    'test #isAlpha()': function () {
         assert.ok(Validator.check('abc').isAlpha());
         assert.ok(Validator.check('ABC').isAlpha());
         assert.ok(Validator.check('FoObAr').isAlpha());
@@ -121,7 +122,7 @@ module.exports = {
         });
     },
     
-    'test #isAlphanumeric()': function(assert) {
+    'test #isAlphanumeric()': function () {
         assert.ok(Validator.check('abc13').isAlphanumeric());
         assert.ok(Validator.check('123').isAlphanumeric());
         assert.ok(Validator.check('F1oO3bAr').isAlphanumeric());
@@ -134,7 +135,7 @@ module.exports = {
         });
     },
     
-    'test #isNumeric()': function(assert) {
+    'test #isNumeric()': function () {
         assert.ok(Validator.check('123').isNumeric());
         assert.ok(Validator.check('00123').isNumeric());
         assert.ok(Validator.check('-00123').isNumeric());
@@ -149,7 +150,7 @@ module.exports = {
         });
     },
     
-    'test #isLowercase()': function(assert) {
+    'test #isLowercase()': function () {
         assert.ok(Validator.check('abc').isLowercase());
         assert.ok(Validator.check('foobar').isLowercase());
         assert.ok(Validator.check('a').isLowercase());
@@ -164,7 +165,7 @@ module.exports = {
         });
     },
     
-    'test #isUppercase()': function(assert) {
+    'test #isUppercase()': function () {
         assert.ok(Validator.check('FOOBAR').isUppercase());
         assert.ok(Validator.check('A').isUppercase());
         assert.ok(Validator.check('123').isUppercase());
@@ -178,7 +179,7 @@ module.exports = {
         });
     },
     
-    'test #isInt()': function(assert) {        
+    'test #isInt()': function () {        
         assert.ok(Validator.check('13').isInt());
         assert.ok(Validator.check('123').isInt());
         assert.ok(Validator.check('0').isInt());
@@ -192,7 +193,7 @@ module.exports = {
         });
     },
     
-    'test #isDecimal()': function(assert) {          
+    'test #isDecimal()': function () {          
         assert.ok(Validator.check('123').isDecimal());
         assert.ok(Validator.check('123.').isDecimal());
         assert.ok(Validator.check('123.123').isDecimal());
@@ -212,11 +213,11 @@ module.exports = {
     },
     
     //Alias for isDecimal()
-    'test #isFloat()': function(assert) {          
+    'test #isFloat()': function () {          
         assert.ok(Validator.check('0.5').isFloat());
     },
     
-    'test #isNull()': function(assert) {          
+    'test #isNull()': function () {          
         assert.ok(Validator.check('').isNull());
         assert.ok(Validator.check().isNull());
         
@@ -228,7 +229,7 @@ module.exports = {
         });
     },
     
-    'test #notNull()': function(assert) {          
+    'test #notNull()': function () {          
         assert.ok(Validator.check('abc').notNull());
         assert.ok(Validator.check('123').notNull());
         assert.ok(Validator.check('   ').notNull());
@@ -241,7 +242,7 @@ module.exports = {
         });
     },
     
-    'test #notEmpty()': function(assert) {          
+    'test #notEmpty()': function () {          
         assert.ok(Validator.check('abc').notEmpty());
         assert.ok(Validator.check('123').notEmpty());
         assert.ok(Validator.check('   123   ').notEmpty());
@@ -254,7 +255,7 @@ module.exports = {
         });
     },
     
-    'test #equals()': function(assert) {          
+    'test #equals()': function () {          
         assert.ok(Validator.check('abc').equals('abc'));
         assert.ok(Validator.check('123').equals(123));
         assert.ok(Validator.check('   ').equals('   '));
@@ -271,7 +272,7 @@ module.exports = {
         } catch (e) {}
     },
     
-    'test #contains()': function(assert) {          
+    'test #contains()': function () {          
         assert.ok(Validator.check('abc').contains('abc'));
         assert.ok(Validator.check('foobar').contains('oo'));
         assert.ok(Validator.check('abc').contains('a'));
@@ -289,7 +290,7 @@ module.exports = {
         } catch (e) {}
     },
     
-    'test #notContains()': function(assert) {          
+    'test #notContains()': function () {          
         assert.ok(Validator.check('abc').notContains('a '));
         assert.ok(Validator.check('foobar').notContains('foobars'));
         assert.ok(Validator.check('abc').notContains('123'));
@@ -305,7 +306,7 @@ module.exports = {
         } catch (e) {}
     },
     
-    'test #regex()': function(assert) {          
+    'test #regex()': function () {          
         assert.ok(Validator.check('abc').regex(/a/));
         assert.ok(Validator.check('abc').regex(/^abc$/));
         assert.ok(Validator.check('abc').regex('abc'));
@@ -322,7 +323,7 @@ module.exports = {
         } catch (e) {}
     },
     
-    'test #notRegex()': function(assert) {          
+    'test #notRegex()': function () {          
         assert.ok(Validator.check('foobar').notRegex(/e/));
         assert.ok(Validator.check('ABC').notRegex('abc'));
         assert.ok(Validator.check(12390947686129).notRegex(/a/));
@@ -336,7 +337,7 @@ module.exports = {
         } catch (e) {}
     },
     
-    'test #len()': function(assert) {             
+    'test #len()': function () {             
         assert.ok(Validator.check('a').len(1)); 
         assert.ok(Validator.check(123).len(2));
         assert.ok(Validator.check(123).len(2, 4));

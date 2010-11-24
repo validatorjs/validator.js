@@ -1,8 +1,9 @@
 var node_validator = require('../lib'),
-    Filter = new node_validator.Filter();
+    Filter = new node_validator.Filter(),
+    assert = require('assert');
 
 module.exports = {
-    'test #ifNull()': function(assert) {
+    'test #ifNull()': function () {
         //Make sure sanitize returns the new string
         assert.equal(5, Filter.sanitize('').ifNull(5));
         assert.equal('abc', Filter.sanitize().ifNull('abc'));
@@ -17,7 +18,7 @@ module.exports = {
         assert.equal('foobar', param);
     }, 
     
-    'test #toBoolean()': function(assert) {
+    'test #toBoolean()': function () {
         assert.equal(true, Filter.sanitize('1').toBoolean());
         assert.equal(true, Filter.sanitize('true').toBoolean());
         assert.equal(true, Filter.sanitize('foobar').toBoolean());
@@ -30,7 +31,7 @@ module.exports = {
         assert.equal(false, Filter.sanitize('false').toBoolean());
     }, 
     
-    'test #toBooleanStrict()': function(assert) {
+    'test #toBooleanStrict()': function () {
         assert.equal(true, Filter.sanitize('1').toBooleanStrict());
         assert.equal(true, Filter.sanitize('true').toBooleanStrict());
         
@@ -43,7 +44,7 @@ module.exports = {
         assert.equal(false, Filter.sanitize('false').toBooleanStrict());
     }, 
     
-    'test #trim()': function(assert) {
+    'test #trim()': function () {
         //Test trim() with spaces
         assert.equal('abc', Filter.sanitize('  abc').trim());
         assert.equal('abc', Filter.sanitize('abc  ').trim());
@@ -62,7 +63,7 @@ module.exports = {
         assert.equal('202', Filter.sanitize('01000202100101').trim('01'));
     }, 
     
-    'test #ltrim()': function(assert) {
+    'test #ltrim()': function () {
         //Test ltrim() with spaces
         assert.equal('abc', Filter.sanitize('  abc').ltrim());
         assert.equal('abc  ', Filter.sanitize('   abc  ').ltrim());
@@ -79,7 +80,7 @@ module.exports = {
         assert.equal('201', Filter.sanitize('010100201').ltrim('01'));
     },
     
-    'test #rtrim()': function(assert) {
+    'test #rtrim()': function () {
         //Test rtrim() with spaces
         assert.equal('  abc', Filter.sanitize('  abc  ').rtrim());
         assert.equal('abc', Filter.sanitize('abc  ').rtrim());
@@ -96,29 +97,33 @@ module.exports = {
         assert.equal('012', Filter.sanitize('01201001').rtrim('01'));
     },
     
-    'test #toInt()': function(assert) {
+    'test #toInt()': function () {
         assert.ok(3 === Filter.sanitize('3').toInt());
         assert.ok(3 === Filter.sanitize('   3   ').toInt());
     },
     
-    'test #toFloat()': function(assert) {
+    'test #toFloat()': function () {
         assert.ok(3 === Filter.sanitize('3.').toFloat());
         assert.ok(3 === Filter.sanitize('   3   ').toFloat());
         assert.ok(0 === Filter.sanitize('.0').toFloat());
         assert.ok(13.13 === Filter.sanitize('13.13').toFloat());
     },
     
-    'test #entityDecode()': function(assert) {
+    'test #entityDecode()': function () {
         assert.equal('&', Filter.sanitize('&amp;').entityDecode());
+        assert.equal('&&', Filter.sanitize('&amp;&amp;').entityDecode());
+        assert.equal('""', Filter.sanitize('&quot;&quot;').entityDecode());
         assert.equal('€', Filter.sanitize('&curren;').entityDecode());
     },
     
-    'test #entityEncode()': function(assert) {
+    'test #entityEncode()': function () {
         assert.equal('&amp;', Filter.sanitize('&').entityEncode());
+        assert.equal('&amp;&amp;', Filter.sanitize('&&').entityEncode());
+        assert.equal('&quot;&quot;', Filter.sanitize('""').entityEncode());
         assert.equal('&curren;', Filter.sanitize('€').entityEncode());
     },
     
-    'test #xss()': function(assert) {
+    'test #xss()': function () {
         //Need more tests!
         assert.equal('[removed] foobar', Filter.sanitize('javascript  : foobar').xss());
         assert.equal('[removed] foobar', Filter.sanitize('j a vasc ri pt: foobar').xss());
