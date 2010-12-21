@@ -4,6 +4,8 @@ To install node-validator, use [npm](http://github.com/isaacs/npm):
 
     $ npm install validator
     
+To use the library in the browser, include `validator-min.js`
+    
 ## Example
     
     var check = require('validator').check;
