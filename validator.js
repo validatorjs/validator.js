@@ -778,4 +778,4 @@
         return validator.check(str, fail_msg);
     }
 
-})(exports || this);
+})(this);
