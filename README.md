@@ -25,6 +25,29 @@ To use the library in the browser, include `validator-min.js`
     var str = sanitize(large_input_str).xss();
     var str = sanitize('&lt;a&gt;').entityDecode();     //'<a>'
 
+## Web development
+
+Often it's more desirable to check or automatically sanitize parameters by name (rather than the string). See [this gist](https://gist.github.com/752126) for instructions on binding the library to the `request` prototype.
+
+Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
+
+    get('/', function (req, res) {
+        req.onValidationError(function() {
+            //Redirect the user..
+        });
+        
+        //Validate user input
+        req.check('zip', 'Please enter a valid ZIP code').len(4,5).isInt();
+        req.check('email', 'Please enter a valid email').len(6,64).isEmail();
+        req.checkHeader('referer').contains('localhost');
+        
+        //Sanitize user input
+        req.sanitize('textarea').xss();
+        req.sanitize('foo').toBoolean();
+        
+        //etc.
+    });
+
 ## List of validation methods
 
     is()                            //Alias for regex()
@@ -63,29 +86,6 @@ To use the library in the browser, include `validator-min.js`
     entityDecode()                  //Decode HTML entities
     entityEncode()
     xss(is_image)                   //Remove common xss attack vectors
-
-## Web development
-
-Often it's more desirable to check or automatically sanitize parameters by name (rather than the string). See this gist (https://gist.github.com/752126) for instructions on binding the library to the `request` prototype.
-
-Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
-
-    get('/', function (req, res) {
-        req.onValidationError(function() {
-            //Redirect the user..
-        });
-        
-        //Validate user input
-        req.check('zip', 'Please enter a valid ZIP code').len(4,5).isInt();
-        req.check('email', 'Please enter a valid email').len(6,64).isEmail();
-        req.checkHeader('referer').contains('localhost');
-        
-        //Sanitize user input
-        req.sanitize('textarea').xss();
-        req.sanitize('foo').toBoolean();
-        
-        //etc.
-    });
 
 ## Extending the library
 
