@@ -1,4 +1,4 @@
-A library of string validation, filtering and sanitization methods.
+**node-validator is a library of string validation, filtering and sanitization methods.**
 
 To install node-validator, use [npm](http://github.com/isaacs/npm):
 
@@ -8,8 +8,8 @@ To use the library in the browser, include `validator-min.js`
     
 ## Example
     
-    var check = require('validator').check;
-    var convert = sanitize = require('validator').sanitize
+    var check = require('validator').check,
+        sanitize = require('validator').sanitize
         
     //Validate
     check('test@email.com').len(6, 64).isEmail();       //Methods are chainable
@@ -18,8 +18,8 @@ To use the library in the browser, include `validator-min.js`
     check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
     
     //Sanitize / Filter
-    var int = convert('0123').toInt();                  //123
-    var bool = convert('true').toBoolean();             //true
+    var int = sanitize('0123').toInt();                  //123
+    var bool = sanitize('true').toBoolean();             //true
     var str = sanitize(' \s\t\r hello \n').trim();      //'hello'
     var str = sanitize('aaaaaaaaab').ltrim('a');        //'b'
     var str = sanitize(large_input_str).xss();
@@ -27,7 +27,7 @@ To use the library in the browser, include `validator-min.js`
 
 ## Web development
 
-Often it's more desirable to check or automatically sanitize parameters by name (rather than the string). See [this gist](https://gist.github.com/752126) for instructions on binding the library to the `request` prototype.
+Often it's more desirable to check or automatically sanitize parameters by name (rather than the actual string). See [this gist](https://gist.github.com/752126) for instructions on binding the library to the `request` prototype.
 
 Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
 
@@ -85,7 +85,8 @@ Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
     toBooleanStrict()	            //False unless str = '1' or 'true'
     entityDecode()                  //Decode HTML entities
     entityEncode()
-    xss(is_image)                   //Remove common xss attack vectors
+    xss()                           //Remove common XSS attack vectors from text (default)
+    xss(true)                       //Remove common XSS attack vectors from images
 
 ## Extending the library
 
@@ -125,7 +126,7 @@ To set a custom error message, set the second param of `check()`
         console.log(e); //Please enter a valid integer
     }
 
-To attach a custom error handler, modify the `error` method of the Validator class
+To attach a custom error handler, set the `error` method of the validator instance
     
     var Validator = require('validator').Validator;
     var v = new Validator();
