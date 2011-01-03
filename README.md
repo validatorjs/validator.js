@@ -32,8 +32,8 @@ Often it's more desirable to check or automatically sanitize parameters by name 
 Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
 
     get('/', function (req, res) {
-        req.onValidationError(function() {
-            //Redirect the user..
+        req.onValidationError(function (msg) {
+            //Redirect the user with error 'msg'
         });
         
         //Validate user input
