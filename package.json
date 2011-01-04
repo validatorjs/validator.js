@@ -1,6 +1,6 @@
 { "name"          : "validator",
   "description"   : "Data validation, filtering and sanitization for node.js",
-  "version"       : "0.1.1",
+  "version"       : "0.1.2",
   "homepage"      : "http://github.com/chriso/node-validator",
   "keywords"      : ["validator", "validation", "assert", "params", "sanitization", "xss", "entities", "sanitize", "sanitisation", "input"],
   "author"        : "Chris O'Hara <cohara87@gmail.com>",
@@ -14,6 +14,9 @@
     "type": "git",
     "url": "http://github.com/chriso/node-validator.git"
   },
+  "contributors": [ 
+    { "name": "PING", "github": "https://github.com/PlNG" }
+  ],
   "engines" : { "node" : ">=0.2.2" },
   "licenses" :
     [ { "type" : "MIT" 
