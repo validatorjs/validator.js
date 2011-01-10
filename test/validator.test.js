@@ -41,6 +41,7 @@ module.exports = {
             'xyz://foobar.com', //Only http, https and ftp are valid
             'invalid/',
             'invalid.x',
+            'invalid.',
             '.com',
             'http://com/',
             'http://300.0.0.1/'
