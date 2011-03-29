@@ -1,6 +1,6 @@
 /*!
  * Copyright (c) 2010 Chris O'Hara <cohara87@gmail.com>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -8,10 +8,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -280,35 +280,35 @@
 
     var decode = function (str) {
         if (!~str.indexOf('&')) return str;
-        
+
         //Decode literal entities
         for (var i in entities) {
-            str = str.replace(new RegExp(i, 'g'), entities[i]); 
+            str = str.replace(new RegExp(i, 'g'), entities[i]);
         }
-        
+
         //Decode hex entities
         str = str.replace(/&#x(0*[0-9a-f]{2,5});?/gi, function (m, code) {
             return String.fromCharCode(parseInt(+code, 16));
         });
-        
+
         //Decode numeric entities
         str = str.replace(/&#([0-9]{2,4});?/gi, function (m, code) {
             return String.fromCharCode(+code);
         });
 
-        str = str.replace(/&amp;/g, '&'); 
-        
+        str = str.replace(/&amp;/g, '&');
+
         return str;
     }
 
     var encode = function (str) {
         str = str.replace(/&/g, '&amp;');
-        
+
         //Encode literal entities
         for (var i in entities) {
             str = str.replace(new RegExp(entities[i], 'g'), i);
         }
-                
+
         return str;
     }
 
@@ -348,67 +348,67 @@
     ];
 
     var compact_words = [
-        'javascript', 'expression', 'vbscript', 
-        'script', 'applet', 'alert', 'document', 
+        'javascript', 'expression', 'vbscript',
+        'script', 'applet', 'alert', 'document',
         'write', 'cookie', 'window'
     ];
 
     exports.xssClean = function(str, is_image) {
-        
+
         //Recursively clean objects and arrays
-        if (typeof str === 'array' || typeof str === 'object') {
+        if (str instanceof Array || typeof str === 'object') {
             for (var i in str) {
-                str[i] = xssClean(str[i]);
+                str[i] = exports.xssClean(str[i]);
             }
             return str;
         }
-        
+
         //Remove invisible characters
         str = remove_invisible_characters(str);
-        
+
         //Protect query string variables in URLs => 901119URL5918AMP18930PROTECT8198
         str = str.replace(/\&([a-z\_0-9]+)\=([a-z\_0-9]+)/i, xss_hash() + '$1=$2');
-        
+
         //Validate standard character entities - add a semicolon if missing.  We do this to enable
         //the conversion of entities to ASCII later.
         str = str.replace(/(&\#?[0-9a-z]{2,})([\x00-\x20])*;?/i, '$1;$2');
-        
+
         //Validate UTF16 two byte encoding (x00) - just as above, adds a semicolon if missing.
         str = str.replace(/(&\#x?)([0-9A-F]+);?/i, '$1;$2');
-        
+
         //Un-protect query string variables
         str = str.replace(xss_hash(), '&');
 
-        //Decode just in case stuff like this is submitted: 
+        //Decode just in case stuff like this is submitted:
         //<a href="http://%77%77%77%2E%67%6F%6F%67%6C%65%2E%63%6F%6D">Google</a>
         str = decodeURIComponent(str);
-        
+
         //Convert character entities to ASCII - this permits our tests below to work reliably.
         //We only convert entities that are within tags since these are the ones that will pose security problems.
         str = str.replace(/[a-z]+=([\'\"]).*?\\1/gi, function(m, match) {
             return m.replace(match, convert_attribute(match));
         });
         str = str.replace(/<\w+.*?(?=>|<|$)/gi, function(m, match) {
-            
+
         });
-        
+
         //Remove invisible characters again
         str = remove_invisible_characters(str);
-        
+
         //Convert tabs to spaces
         str = str.replace('\t', ' ');
-        
+
         //Captured the converted string for later comparison
         var converted_string = str;
-        
+
         //Remove strings that are never allowed
         for (var i in never_allowed_str) {
-            str = str.replace(i, never_allowed_str[i]);   
+            str = str.replace(i, never_allowed_str[i]);
         }
-        
+
         //Remove regex patterns that are never allowed
         for (var i in never_allowed_regex) {
-            str = str.replace(new RegExp(i, 'i'), never_allowed_regex[i]);   
+            str = str.replace(new RegExp(i, 'i'), never_allowed_regex[i]);
         }
 
         //Compact any exploded words like:  j a v a s c r i p t
@@ -420,7 +420,7 @@
                 return compat.replace(/\s+/g, '') + after;
             });
         }
-        
+
         //Remove disallowed Javascript in links or img tags
         do {
             var original = str;
@@ -442,21 +442,21 @@
             if (str.match(/script/i) || str.match(/xss/i)) {
                 str = str.replace(/<(\/*)(script|xss)(.*?)\>/gi, '[removed]');
             }
-            
+
         } while(original != str);
-        
-        //Remove JavaScript Event Handlers - Note: This code is a little blunt.  It removes the event 
+
+        //Remove JavaScript Event Handlers - Note: This code is a little blunt.  It removes the event
         //handler and anything up to the closing >, but it's unlikely to be a problem.
         event_handlers = ['[^a-z_\-]on\w*'];
 
-        //Adobe Photoshop puts XML metadata into JFIF images, including namespacing, 
+        //Adobe Photoshop puts XML metadata into JFIF images, including namespacing,
         //so we have to allow this for images
         if (!is_image) {
             event_handlers.push('xmlns');
-        } 
+        }
 
         str = str.replace(new RegExp("<([^><]+?)("+event_handlers.join('|')+")(\\s*=\\s*[^><]*)([><]*)", 'i'), '<$1$4');
-        
+
         //Sanitize naughty HTML elements
         //If a tag containing any of the words in the list
         //below is found, the tag gets converted to entities.
@@ -466,27 +466,27 @@
         str = str.replace(new RegExp('<(/*\\s*)('+naughty+')([^><]*)([><]*)', 'gi'), function(m, a, b, c, d) {
             return '&lt;' + a + b + c + d.replace('>','&gt;').replace('<','&lt;');
         });
-        
+
         //Sanitize naughty scripting elements Similar to above, only instead of looking for
         //tags it looks for PHP and JavaScript commands that are disallowed.  Rather than removing the
         //code, it simply converts the parenthesis to entities rendering the code un-executable.
         //For example:	eval('some code')
         //Becomes:		eval&#40;'some code'&#41;
         str = str.replace(/(alert|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\\s*)\((.*?)\)/gi, '$1$2&#40;$3&#41;');
-        
+
         //This adds a bit of extra precaution in case something got through the above filters
         for (var i in never_allowed_str) {
-            str = str.replace(i, never_allowed_str[i]);   
+            str = str.replace(i, never_allowed_str[i]);
         }
         for (var i in never_allowed_regex) {
-            str = str.replace(new RegExp(i, 'i'), never_allowed_regex[i]);   
+            str = str.replace(new RegExp(i, 'i'), never_allowed_regex[i]);
         }
-        
+
         //Images are handled in a special way
         if (is_image && str !== converted_string) {
             throw 'Image may contain XSS';
-        }   
-        
+        }
+
         return str;
     }
 
@@ -513,7 +513,7 @@
         str.replace(/\\s*[a-z\-]+\\s*=\\s*(?:\042|\047)(?:[^\\1]*?)\\1/gi, function(m) {
             $out += m.replace(/\/\*.*?\*\//g, '');
         });
-        
+
         return out;
     }
 
