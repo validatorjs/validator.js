@@ -304,6 +304,9 @@
     var encode = function (str) {
         str = str.replace(/&/g, '&amp;');
 
+        //IE doesn't accept &apos;
+        str = str.replace(/'/g, '&#39;');
+
         //Encode literal entities
         for (var i in entities) {
             str = str.replace(new RegExp(entities[i], 'g'), i);
@@ -340,11 +343,11 @@
     };
 
     var non_displayables = [
-        /%0[0-8bcef]/g,			// url encoded 00-08, 11, 12, 14, 15
-        /%1[0-9a-f]/g,			// url encoded 16-31
-        /[\x00-\x08]/g,			// 00-08
-        /\x0b/g, /\x0c/g,		// 11,12
-        /[\x0e-\x1f]/g			// 14-31
+        /%0[0-8bcef]/g,         // url encoded 00-08, 11, 12, 14, 15
+        /%1[0-9a-f]/g,          // url encoded 16-31
+        /[\x00-\x08]/g,         // 00-08
+        /\x0b/g, /\x0c/g,       // 11,12
+        /[\x0e-\x1f]/g,         // 14-31
     ];
 
     var compact_words = [
@@ -470,8 +473,8 @@
         //Sanitize naughty scripting elements Similar to above, only instead of looking for
         //tags it looks for PHP and JavaScript commands that are disallowed.  Rather than removing the
         //code, it simply converts the parenthesis to entities rendering the code un-executable.
-        //For example:	eval('some code')
-        //Becomes:		eval&#40;'some code'&#41;
+        //For example:  eval('some code')
+        //Becomes:      eval&#40;'some code'&#41;
         str = str.replace(/(alert|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\\s*)\((.*?)\)/gi, '$1$2&#40;$3&#41;');
 
         //This adds a bit of extra precaution in case something got through the above filters
