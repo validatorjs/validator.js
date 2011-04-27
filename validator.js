@@ -523,7 +523,7 @@
     var Validator = exports.Validator = function() {}
 
     Validator.prototype.check = function(str, fail_msg) {
-        this.str = String(str || '');
+        this.str = str == null ? '' : str+'';
         this.msg = fail_msg;
         return this;
     }
