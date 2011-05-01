@@ -487,7 +487,7 @@
 
         //Images are handled in a special way
         if (is_image && str !== converted_string) {
-            throw 'Image may contain XSS';
+            throw new Error('Image may contain XSS');
         }
 
         return str;
@@ -533,7 +533,7 @@
     Validator.prototype.assert = Validator.prototype.check;
 
     Validator.prototype.error = function(msg) {
-        throw msg;
+        throw new Error(msg);
     }
 
     Validator.prototype.isEmail = function() {
