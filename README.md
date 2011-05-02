@@ -3,27 +3,27 @@
 To install node-validator, use [npm](http://github.com/isaacs/npm):
 
     $ npm install validator
-    
+
 To use the library in the browser, include `validator-min.js`
-    
+
 ## Example
-    
+
     var check = require('validator').check,
         sanitize = require('validator').sanitize
-        
+
     //Validate
-    check('test@email.com').len(6, 64).isEmail();       //Methods are chainable
-    check('abc').isInt();                               //Throws 'Invalid integer'
-    check('abc', 'Please enter a number').isInt();      //Throws 'Please enter a number'
+    check('test@email.com').len(6, 64).isEmail();        //Methods are chainable
+    check('abc').isInt();                                //Throws 'Invalid integer'
+    check('abc', 'Please enter a number').isInt();       //Throws 'Please enter a number'
     check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
-    
+
     //Sanitize / Filter
     var int = sanitize('0123').toInt();                  //123
     var bool = sanitize('true').toBoolean();             //true
-    var str = sanitize(' \s\t\r hello \n').trim();      //'hello'
-    var str = sanitize('aaaaaaaaab').ltrim('a');        //'b'
+    var str = sanitize(' \s\t\r hello \n').trim();       //'hello'
+    var str = sanitize('aaaaaaaaab').ltrim('a');         //'b'
     var str = sanitize(large_input_str).xss();
-    var str = sanitize('&lt;a&gt;').entityDecode();     //'<a>'
+    var str = sanitize('&lt;a&gt;').entityDecode();      //'<a>'
 
 ## Web development
 
@@ -35,16 +35,16 @@ Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
         req.onValidationError(function (msg) {
             //Redirect the user with error 'msg'
         });
-        
+
         //Validate user input
         req.check('zip', 'Please enter a valid ZIP code').len(4,5).isInt();
         req.check('email', 'Please enter a valid email').len(6,64).isEmail();
         req.checkHeader('referer').contains('localhost');
-        
+
         //Sanitize user input
         req.sanitize('textarea').xss();
         req.sanitize('foo').toBoolean();
-        
+
         //etc.
     });
 
@@ -57,7 +57,7 @@ Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
     isIP()
     isAlpha()
     isAlphanumeric()
-    isNumeric()                     
+    isNumeric()
     isInt()                         //isNumeric accepts zero padded numbers, e.g. '001', isInt doesn't
     isLowercase()
     isUppercase()
@@ -76,13 +76,13 @@ Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
 ## List of sanitization / filter methods
 
     trim(chars)                     //Trim optional `chars`, default is to trim whitespace (\r\n\t\s)
-    ltrim(chars)                    
-    rtrim(chars)                    
+    ltrim(chars)
+    rtrim(chars)
     ifNull(replace)
     toFloat()
     toInt()
-    toBoolean()		                //True unless str = '0', 'false', or str.length == 0
-    toBooleanStrict()	            //False unless str = '1' or 'true'
+    toBoolean()                     //True unless str = '0', 'false', or str.length == 0
+    toBooleanStrict()               //False unless str = '1' or 'true'
     entityDecode()                  //Decode HTML entities
     entityEncode()
     xss()                           //Remove common XSS attack vectors from text (default)
@@ -107,7 +107,7 @@ When adding to the Filter (sanitize) prototype, use `this.str` to access the str
         this.modify(this.str.replace(/[0-9]+/g, ''));
         return this.str;
     }
-    
+
 ## Error handling
 
 By default, the validation methods throw an exception when a check fails
@@ -115,7 +115,7 @@ By default, the validation methods throw an exception when a check fails
     try {
         check('abc').notNull().isInt()
     } catch (e) {
-        console.log(e); //Invalid integer
+        console.log(e.message); //Invalid integer
     }
 
 To set a custom error message, set the second param of `check()`
@@ -123,11 +123,11 @@ To set a custom error message, set the second param of `check()`
     try {
         check('abc', 'Please enter a valid integer').notNull().isInt()
     } catch (e) {
-        console.log(e); //Please enter a valid integer
+        console.log(e.message); //Please enter a valid integer
     }
 
 To attach a custom error handler, set the `error` method of the validator instance
-    
+
     var Validator = require('validator').Validator;
     var v = new Validator();
     v.error = function(msg) {

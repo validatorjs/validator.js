@@ -15,7 +15,7 @@ module.exports = {
                 Validator.check(email, 'Invalid').isEmail();
                 assert.ok(false, 'Invalid email ('+email+') passed validation');
             } catch(e) {
-                assert.equal('Invalid', e);
+                assert.equal('Invalid', e.message);
             }
         });
 
@@ -51,7 +51,7 @@ module.exports = {
                 Validator.check(url, 'Invalid').isUrl();
                 assert.ok(false, 'Invalid url ('+url+') passed validation');
             } catch(e) {
-                assert.equal('Invalid', e);
+                assert.equal('Invalid', e.message);
             }
         });
 
@@ -90,7 +90,7 @@ module.exports = {
                 Validator.check(ip, 'Invalid').isIP();
                 assert.ok(false, 'Invalid IP ('+ip+') passed validation');
             } catch(e) {
-                assert.equal('Invalid', e);
+                assert.equal('Invalid', e.message);
             }
         });
 
