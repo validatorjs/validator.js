@@ -250,7 +250,7 @@ module.exports = {
         assert.ok(Validator.check('123').notEmpty());
         assert.ok(Validator.check('   123   ').notEmpty());
 
-        [false,'  ','\r\n','	',''].forEach(function(str) {
+        [false,'  ','\r\n','	','', NaN].forEach(function(str) {
             try {
                 Validator.check(str).notEmpty();
                 assert.ok(false, 'notEmpty failed');
