@@ -390,7 +390,36 @@ module.exports = {
             assert.ok(false, 'isUUID failed');
         } catch (e) {}
 
+    },
+    
+    'test #in(options)': function () {
+
+        assert.ok(Validator.check('foo').in('foobar'));
+        assert.ok(Validator.check('foo').in('I love football'));
+        
+        assert.ok(Validator.check('foo').in(['foo', 'bar', 'baz']));
+        
+        assert.throws(function() {
+            Validator.check('foo').in(['bar', 'baz']);
+          }, /not in list/
+        );
+        
+        assert.throws(function() {
+            Validator.check('foo').in('bar, baz');
+          }, /not in string/
+        );
+        
+        assert.throws(function() {
+            Validator.check('foo').in(1234567);
+          }, /not an array/
+        );
+        
+        assert.throws(function() {
+            Validator.check('foo').in({foo:"foo",bar:"bar"});
+          }, /not an array/
+        );
     }
+    
 
 }
 
