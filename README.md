@@ -72,6 +72,7 @@ Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
     regex(pattern, modifiers)       //Usage: regex(/[a-z]/i) or regex('[a-z]','i')
     notRegex(pattern, modifiers)
     len(min, max)                   //max is optional
+    in(options)                     //Accepts an array or string
 
 ## List of sanitization / filter methods
 
