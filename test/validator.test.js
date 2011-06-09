@@ -401,22 +401,22 @@ module.exports = {
         
         assert.throws(function() {
             Validator.check('foo').in(['bar', 'baz']);
-          }, /not in list/
+          }, /unexpected/i
         );
         
         assert.throws(function() {
             Validator.check('foo').in('bar, baz');
-          }, /not in string/
+          }, /unexpected/i
         );
         
         assert.throws(function() {
             Validator.check('foo').in(1234567);
-          }, /not an array/
+          }, /invalid/i
         );
         
         assert.throws(function() {
             Validator.check('foo').in({foo:"foo",bar:"bar"});
-          }, /not an array/
+          }, /invalid/i
         );
     }
     
