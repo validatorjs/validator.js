@@ -391,9 +391,6 @@
         str = str.replace(/[a-z]+=([\'\"]).*?\\1/gi, function(m, match) {
             return m.replace(match, convert_attribute(match));
         });
-        str = str.replace(/<\w+.*?(?=>|<|$)/gi, function(m, match) {
-
-        });
 
         //Remove invisible characters again
         str = remove_invisible_characters(str);
