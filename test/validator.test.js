@@ -391,35 +391,64 @@ module.exports = {
         } catch (e) {}
 
     },
-    
+
     'test #in(options)': function () {
 
         assert.ok(Validator.check('foo').in('foobar'));
         assert.ok(Validator.check('foo').in('I love football'));
-        
+
         assert.ok(Validator.check('foo').in(['foo', 'bar', 'baz']));
-        
+
         assert.throws(function() {
             Validator.check('foo').in(['bar', 'baz']);
           }, /unexpected/i
         );
-        
+
         assert.throws(function() {
             Validator.check('foo').in('bar, baz');
           }, /unexpected/i
         );
-        
+
         assert.throws(function() {
             Validator.check('foo').in(1234567);
           }, /invalid/i
         );
-        
+
         assert.throws(function() {
             Validator.check('foo').in({foo:"foo",bar:"bar"});
           }, /invalid/i
         );
+    },
+
+    'test #notIn(options)': function () {
+
+        assert.ok(Validator.check('foo').notIn('bar'));
+        assert.ok(Validator.check('foo').notIn('awesome'));
+
+        assert.ok(Validator.check('foo').notIn(['foobar', 'bar', 'baz']));
+
+        assert.throws(function() {
+            Validator.check('foo').notIn(['foo', 'bar', 'baz']);
+          }, /unexpected/i
+        );
+
+        assert.throws(function() {
+            Validator.check('foo').notIn('foobar');
+          }, /unexpected/i
+        );
+
+        assert.throws(function() {
+            Validator.check('foo').notIn(1234567);
+          }, /invalid/i
+        );
+
+        assert.throws(function() {
+            Validator.check('foo').notIn({foo:"foo",bar:"bar"});
+          }, /invalid/i
+        );
     }
-    
+
+
 
 }
 

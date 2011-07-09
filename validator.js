@@ -718,6 +718,28 @@
         return this;
     }
 
+    Validator.prototype.in = function(options) {
+        if (options && typeof options.indexOf === 'function') {
+            if (!~options.indexOf(this.str)) {
+                return this.error(this.msg || 'Unexpected value');
+            }
+            return this;
+        } else {
+            return this.error(this.msg || 'Invalid in() argument');
+        }
+    }
+
+    Validator.prototype.notIn = function(options) {
+        if (options && typeof options.indexOf === 'function') {
+            if (options.indexOf(this.str) !== -1) {
+                return this.error(this.msg || 'Unexpected value');
+            }
+            return this;
+        } else {
+            return this.error(this.msg || 'Invalid notIn() argument');
+        }
+    }
+
     var Filter = exports.Filter = function() {}
 
     var whitespace = '\\r\\n\\t\\s';
