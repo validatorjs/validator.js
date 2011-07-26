@@ -345,6 +345,8 @@ module.exports = {
         assert.ok(Validator.check(123).len(2));
         assert.ok(Validator.check(123).len(2, 4));
         assert.ok(Validator.check(12).len(2,2));
+        assert.ok(Validator.check([1, 2]).len(2,2));
+        assert.ok(Validator.check([1, 2, 3]).len(2,4));
 
         try {
             Validator.check('abc').len(4);
@@ -471,7 +473,7 @@ module.exports = {
             assert.ok(Validator.check(new Object()).isArray());
             assert.ok(false, 'len failed');
         } catch (e) {}
-    }
+    },
 
 
 }
