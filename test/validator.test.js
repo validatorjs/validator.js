@@ -446,8 +446,32 @@ module.exports = {
             Validator.check('foo').notIn({foo:"foo",bar:"bar"});
           }, /invalid/i
         );
-    }
+    },
 
+    'test #isArray()': function () {
+        assert.ok(Validator.check(new Array()).isArray());
+        assert.ok(Validator.check([]).isArray());
+        assert.ok(Validator.check([1, 2]).isArray());
+        assert.ok(Validator.check(['a', 'b', 'c']).isArray());
+        assert.ok(Validator.check([{}, {}]).isArray());
+
+        try {
+            assert.ok(Validator.check('a').isArray());
+            assert.ok(false, 'len failed');
+        } catch (e) {}
+        try {
+            assert.ok(Validator.check({}).isArray());
+            assert.ok(false, 'len failed');
+        } catch (e) {}
+        try {
+            assert.ok(Validator.check({a: 1, b: 2}).isArray());
+            assert.ok(false, 'len failed');
+        } catch (e) {}
+        try {
+            assert.ok(Validator.check(new Object()).isArray());
+            assert.ok(false, 'len failed');
+        } catch (e) {}
+    }
 
 
 }
