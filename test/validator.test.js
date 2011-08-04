@@ -448,7 +448,7 @@ module.exports = {
         );
     },
 
-    'test #minx()': function() {
+    'test #min()': function() {
         assert.ok(Validator.check('4').min(2));
         assert.ok(Validator.check('5').min(5));
 
