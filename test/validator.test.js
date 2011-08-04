@@ -455,9 +455,6 @@ module.exports = {
         assert.throws(function() {
           Validator.check('5').min(10);
         });
-        assert.throws(function() {
-          Validator.check('foo').min(5);
-        });
     },
 
     'test #max()': function() {
@@ -466,9 +463,6 @@ module.exports = {
 
         assert.throws(function() {
           Validator.check('5').max(2);
-        });
-        assert.throws(function() {
-          Validator.check('foo').max(5);
         });
     }
 
