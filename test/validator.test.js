@@ -458,6 +458,18 @@ module.exports = {
         assert.throws(function() {
           Validator.check('foo').min(5);
         });
+    },
+
+    'test #max()': function() {
+        assert.ok(Validator.check('4').max(5));
+        assert.ok(Validator.check('7').max(7));
+
+        assert.throws(function() {
+          Validator.check('5').max(2);
+        });
+        assert.throws(function() {
+          Validator.check('foo').max(5);
+        });
     }
 
 }
