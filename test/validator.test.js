@@ -446,9 +446,19 @@ module.exports = {
             Validator.check('foo').notIn({foo:"foo",bar:"bar"});
           }, /invalid/i
         );
+    },
+
+    'test #minx()': function() {
+        assert.ok(Validator.check('4').min(2));
+        assert.ok(Validator.check('5').min(5));
+
+        assert.throws(function() {
+          Validator.check('5').min(10);
+        });
+        assert.throws(function() {
+          Validator.check('foo').min(5);
+        });
     }
-
-
 
 }
 
