@@ -446,9 +446,35 @@ module.exports = {
             Validator.check('foo').notIn({foo:"foo",bar:"bar"});
           }, /invalid/i
         );
+    },
+
+    'test #min()': function() {
+        assert.ok(Validator.check('4').min(2));
+        assert.ok(Validator.check('5').min(5));
+        assert.ok(Validator.check('3.2').min(3));
+        assert.ok(Validator.check('4.2').min(4.2));
+
+        assert.throws(function() {
+            Validator.check('5').min(10);
+        });
+        assert.throws(function() {
+            Validator.check('5.1').min(5.11);
+        });
+
+    },
+
+    'test #max()': function() {
+        assert.ok(Validator.check('4').max(5));
+        assert.ok(Validator.check('7').max(7));
+        assert.ok(Validator.check('6.3').max(7));
+        assert.ok(Validator.check('2.9').max(2.9));
+
+        assert.throws(function() {
+            Validator.check('5').max(2);
+        });
+        assert.throws(function() {
+            Validator.check('4.9').max(4.2);
+        });
     }
 
-
-
 }
-
