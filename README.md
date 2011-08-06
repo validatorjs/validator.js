@@ -145,6 +145,9 @@ To attach a custom error handler, set the `error` method of the validator instan
 
 - [PING](https://github.com/PlNG) - Fixed entity encoding
 - [Dan VerWeire](https://github.com/wankdanker) - Modified the behaviour of the error handler
+- [ctavan](https://github.com/ctavan) - Added isArray and isUUID()
+- [foxbunny](https://github.com/foxbunny) - Added min() and max()
+- [oris](https://github.com/orls) - Addded in()
 
 ## LICENSE
 
