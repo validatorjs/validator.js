@@ -178,7 +178,7 @@ Validator.prototype.getErrors = function () {
 - [PING](https://github.com/PlNG) - Fixed entity encoding
 - [Dan VerWeire](https://github.com/wankdanker) - Modified the behaviour of the error handler
 - [ctavan](https://github.com/ctavan) - Added isArray and isUUID()
-- [foxbunny](https://github.com/foxbunny) - Added min() and max()
+- [foxbunny](https://github.com/foxbunny) - Added min() and max(), and improved isDate()
 - [oris](https://github.com/orls) - Addded in()
 
 ## LICENSE

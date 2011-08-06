@@ -502,5 +502,18 @@ module.exports = {
             assert.ok(Validator.check(new Object()).isArray());
             assert.ok(false, 'len failed');
         } catch (e) {}
+    },
+
+    'test #isDate()': function() {
+        assert.ok(Validator.check('2011-08-04').isDate());
+        assert.ok(Validator.check('04. 08. 2011.').isDate());
+        assert.ok(Validator.check('08/04/2011').isDate());
+        assert.ok(Validator.check('2011.08.04').isDate());
+        assert.ok(Validator.check('4. 8. 2011. GMT').isDate());
+        assert.ok(Validator.check('2011-08-04 12:00').isDate());
+
+        assert.throws(Validator.check('foo').isDate);
+        assert.throws(Validator.check('2011-foo-04').isDate);
+        assert.throws(Validator.check('GMT').isDate);
     }
 }
