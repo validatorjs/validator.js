@@ -2,6 +2,17 @@ var node_validator = require('../lib'),
     Validator = new node_validator.Validator(),
     assert = require('assert');
 
+function dateFixture() {
+    var d = new Date();
+    var Y = d.getFullYear();
+    var M = d.getMonth() + 1; // 0-index
+    var D = d.getDate();
+    return {
+        tomorrow: Y + '-' + M + '-' + (D + 1), // YYYY-MM-DD
+        yesterday: Y + '-' + M + '-' + (D - 1) // YYYY-MM-DD
+    };
+}
+
 module.exports = {
     'test #isEmail()': function () {
         //Try some invalid emails
@@ -515,5 +526,35 @@ module.exports = {
         assert.throws(Validator.check('foo').isDate);
         assert.throws(Validator.check('2011-foo-04').isDate);
         assert.throws(Validator.check('GMT').isDate);
+    },
+
+    'test #isAfter()': function() {
+        var f = dateFixture();
+
+        assert.ok(Validator.check('2011-08-04').isAfter('2011-08-03'));
+        assert.ok(Validator.check('08. 04. 2011.').isAfter(new Date('2011-08-04')));
+        assert.ok(Validator.check(f.tomorrow).isAfter());
+        
+        assert.throws(function() {
+            Validator.check('08/04/2011').isAfter('2011-09-01');
+        });
+        assert.throws(function() {
+            Validator.check(f.yesterday).isAfter();
+        });
+    },
+
+    'test #isBefore()': function() {
+        var f = dateFixture();
+
+        assert.ok(Validator.check('2011-08-04').isBefore('2011-08-06'));
+        assert.ok(Validator.check('08. 04. 2011.').isBefore(new Date('2011-08-04')));
+        assert.ok(Validator.check(f.yesterday).isBefore());
+        
+        assert.throws(function() {
+            Validator.check('08/04/2011').isBefore('2011-07-01');
+        });
+        assert.throws(function() {
+            Validator.check(f.tomorrow).isBefore();
+        });
     }
 }
