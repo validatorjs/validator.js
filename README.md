@@ -75,6 +75,8 @@ Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
     isDate(date)
     in(options)                     //Accepts an array or string
     notIn(options)
+    max(val)
+    min(val)
 
 ## List of sanitization / filter methods
 
