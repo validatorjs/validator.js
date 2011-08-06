@@ -515,5 +515,25 @@ module.exports = {
         assert.throws(Validator.check('foo').isDate);
         assert.throws(Validator.check('2011-foo-04').isDate);
         assert.throws(Validator.check('GMT').isDate);
+    },
+
+    'test #isAfter()': function() {
+        var d = new Date();
+        var Y = d.getFullYear();
+        var M = d.getMonth() + 1; // 0-index
+        var D = d.getDate();
+        var tomorrow = Y + '-' + M + '-' + (D + 1); // YYYY-MM-DD
+        var yesterday = Y + '-' + M + '-' + (D - 1); // YYYY-MM-DD
+
+        assert.ok(Validator.check('2011-08-04').isAfter('2011-08-03'));
+        assert.ok(Validator.check('08. 04. 2011.').isAfter(new Date('2011-08-04')));
+        assert.ok(Validator.check(tomorrow).isAfter());
+        
+        assert.throws(function() {
+          Validator.check('08/04/2011').isAfter('2011-09-01');
+        });
+        assert.throws(function() {
+          Validator.check(yesterday).isAfter();
+        });
     }
 }
