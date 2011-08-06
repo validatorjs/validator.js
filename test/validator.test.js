@@ -2,6 +2,17 @@ var node_validator = require('../lib'),
     Validator = new node_validator.Validator(),
     assert = require('assert');
 
+function dateFixture() {
+    var d = new Date();
+    var Y = d.getFullYear();
+    var M = d.getMonth() + 1; // 0-index
+    var D = d.getDate();
+    return {
+        tomorrow: Y + '-' + M + '-' + (D + 1), // YYYY-MM-DD
+        yesterday: Y + '-' + M + '-' + (D - 1) // YYYY-MM-DD
+    };
+}
+
 module.exports = {
     'test #isEmail()': function () {
         //Try some invalid emails
@@ -518,22 +529,18 @@ module.exports = {
     },
 
     'test #isAfter()': function() {
-        var d = new Date();
-        var Y = d.getFullYear();
-        var M = d.getMonth() + 1; // 0-index
-        var D = d.getDate();
-        var tomorrow = Y + '-' + M + '-' + (D + 1); // YYYY-MM-DD
-        var yesterday = Y + '-' + M + '-' + (D - 1); // YYYY-MM-DD
+        var f = dateFixture();
 
         assert.ok(Validator.check('2011-08-04').isAfter('2011-08-03'));
         assert.ok(Validator.check('08. 04. 2011.').isAfter(new Date('2011-08-04')));
-        assert.ok(Validator.check(tomorrow).isAfter());
+        assert.ok(Validator.check(f.tomorrow).isAfter());
         
         assert.throws(function() {
-          Validator.check('08/04/2011').isAfter('2011-09-01');
+            Validator.check('08/04/2011').isAfter('2011-09-01');
         });
         assert.throws(function() {
-          Validator.check(yesterday).isAfter();
+            Validator.check(f.yesterday).isAfter();
+        });
         });
     }
 }
