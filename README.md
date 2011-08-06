@@ -80,7 +80,7 @@ regex(pattern, modifiers)       //Usage: regex(/[a-z]/i) or regex('[a-z]','i')
 notRegex(pattern, modifiers)
 len(min, max)                   //max is optional
 isUUID(version)                 //Version can be 3 or 4 or empty, see http://en.wikipedia.org/wiki/Universally_unique_identifier
-isDate(date)                    //Uses Date.parse() - regex is probably a better choice
+isDate()                        //Uses Date.parse() - regex is probably a better choice
 in(options)                     //Accepts an array or string
 notIn(options)
 max(val)
