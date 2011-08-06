@@ -737,6 +737,31 @@
         }
     }
 
+    Validator.prototype.min = function(val) {
+        var number = parseFloat(this.str);
+
+        if (!isNaN(number) && number < val) {
+            return this.error(this.msg || 'Invalid number');
+        }
+
+        return this;
+    }
+
+    Validator.prototype.max = function(val) {
+        var number = parseFloat(this.str);
+        if (!isNaN(number) && number > val) {
+            return this.error(this.msg || 'Invalid number');
+        }
+        return this;
+    }
+
+    Validator.prototype.isArray = function() {
+        if (!Array.isArray(this.str)) {
+            return this.error(this.msg || 'Not an array');
+        }
+        return this;
+    }
+
     var Filter = exports.Filter = function() {}
 
     var whitespace = '\\r\\n\\t\\s';
