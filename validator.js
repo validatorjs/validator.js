@@ -765,7 +765,7 @@
     }
 
     Filter.prototype.xss = function(is_image) {
-        this.modify(xssClean(this.str, is_image));
+        this.modify(exports.xssClean(this.str, is_image));
         return this.str;
     }
 
