@@ -547,7 +547,7 @@ module.exports = {
         var f = dateFixture();
 
         assert.ok(Validator.check('2011-08-04').isBefore('2011-08-06'));
-        assert.ok(Validator.check('08. 04. 2011.').isBefore(new Date('2011-08-04')));
+        assert.ok(Validator.check('08. 04. 2011. ').isBefore(new Date('2011-08-04')));
         assert.ok(Validator.check(f.yesterday).isBefore());
         
         assert.throws(function() {
