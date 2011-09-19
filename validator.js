@@ -857,4 +857,5 @@
         return validator.check(str, fail_msg);
     }
 
-})(this);
+})(typeof(exports) === 'undefined' ? window : exports);
+
