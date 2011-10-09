@@ -130,5 +130,10 @@ module.exports = {
         //Need more tests!
         assert.equal('[removed] foobar', Filter.sanitize('javascript  : foobar').xss());
         assert.equal('[removed] foobar', Filter.sanitize('j a vasc ri pt: foobar').xss());
+    },
+
+    'test chaining': function () {
+        assert.equal('&amp;amp;amp;', Filter.sanitize('&').chain().entityEncode().entityEncode().entityEncode().value());
     }
+
 }
