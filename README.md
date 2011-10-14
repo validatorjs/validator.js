@@ -89,6 +89,8 @@ in(options)                     //Accepts an array or string
 notIn(options)
 max(val)
 min(val)
+isArray()
+isCreditCard()                  //Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
 ```
 
 ## List of sanitization / filter methods
