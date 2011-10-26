@@ -8,7 +8,7 @@
   "directories"   : { "lib" : "./lib" },
   "bugs" :
     { "mail" : "",
-      "web" : "http://github.com/chriso/node-validator/issues"
+      "url" : "http://github.com/chriso/node-validator/issues"
     },
   "repository": {
     "type": "git",
