@@ -198,12 +198,20 @@ module.exports = {
         assert.ok(Validator.check(0).isInt());
         assert.ok(Validator.check(123).isInt());
         assert.ok(Validator.check('-0').isInt());
+        assert.ok(Validator.check('01').isInt());
+        assert.ok(Validator.check('-01').isInt());
+        assert.ok(Validator.check('000').isInt());
 
-        ['123.123','01','000','  ',''].forEach(function(str) {
+        ['123.123','  ',''].forEach(function(str) {
             try {
                 Validator.check(str).isInt();
-                assert.ok(false, 'isInt failed');
-            } catch (e) {}
+                assert.ok(false, 'falsepositive');
+            } catch (e) {
+              if (e.message == 'falsepositive') {
+                e.message = 'isInt had a false positive: ' + str;
+                throw e;
+              }
+            }
         });
     },
 
