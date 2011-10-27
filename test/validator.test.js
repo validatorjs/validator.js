@@ -217,12 +217,22 @@ module.exports = {
         assert.ok(Validator.check('.0').isDecimal());
         assert.ok(Validator.check('0').isDecimal());
         assert.ok(Validator.check('-0').isDecimal());
+        assert.ok(Validator.check('01.123').isDecimal());
 
-        ['-.123','01.123','  ',''].forEach(function(str) {
+        assert.ok(Validator.check('2.2250738585072011e-308').isDecimal());
+        assert.ok(Validator.check('-0.22250738585072011e-307').isDecimal());
+        assert.ok(Validator.check('-0.22250738585072011E-307').isDecimal());
+
+        ['-.123','  ',''].forEach(function(str) {
             try {
                 Validator.check(str).isDecimal();
-                assert.ok(false, 'isDecimal failed');
-            } catch (e) {}
+                assert.ok(false, 'falsepositive');
+            } catch (e) {
+              if (e.message == 'falsepositive') {
+                e.message = 'isDecimal had a false positive: ' + str;
+                throw e;
+              }
+            }
         });
     },
 
