@@ -423,30 +423,30 @@ module.exports = {
 
     },
 
-    'test #in(options)': function () {
+    'test #isIn(options)': function () {
 
-        assert.ok(Validator.check('foo').in('foobar'));
-        assert.ok(Validator.check('foo').in('I love football'));
+        assert.ok(Validator.check('foo').isIn('foobar'));
+        assert.ok(Validator.check('foo').isIn('I love football'));
 
-        assert.ok(Validator.check('foo').in(['foo', 'bar', 'baz']));
+        assert.ok(Validator.check('foo').isIn(['foo', 'bar', 'baz']));
 
         assert.throws(function() {
-            Validator.check('foo').in(['bar', 'baz']);
+            Validator.check('foo').isIn(['bar', 'baz']);
           }, /unexpected/i
         );
 
         assert.throws(function() {
-            Validator.check('foo').in('bar, baz');
+            Validator.check('foo').isIn('bar, baz');
           }, /unexpected/i
         );
 
         assert.throws(function() {
-            Validator.check('foo').in(1234567);
+            Validator.check('foo').isIn(1234567);
           }, /invalid/i
         );
 
         assert.throws(function() {
-            Validator.check('foo').in({foo:"foo",bar:"bar"});
+            Validator.check('foo').isIn({foo:"foo",bar:"bar"});
           }, /invalid/i
         );
     },

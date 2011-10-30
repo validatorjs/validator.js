@@ -712,7 +712,7 @@
         return this;
     }
 
-    Validator.prototype.in = function(options) {
+    Validator.prototype.isIn = function(options) {
         if (options && typeof options.indexOf === 'function') {
             if (!~options.indexOf(this.str)) {
                 return this.error(this.msg || 'Unexpected value');
