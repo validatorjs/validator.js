@@ -388,7 +388,7 @@
 
         //Convert character entities to ASCII - this permits our tests below to work reliably.
         //We only convert entities that are within tags since these are the ones that will pose security problems.
-        str = str.replace(/[a-z]+=([\'\"]).*?\\1/gi, function(m, match) {
+        str = str.replace(/[a-z]+=([\'\"]).*?\1/gi, function(m, match) {
             return m.replace(match, convert_attribute(match));
         });
 
@@ -426,16 +426,16 @@
             var original = str;
 
             if (str.match(/<a/i)) {
-                str = str.replace(/<a\\s+([^>]*?)(>|$)/gi, function(m, attributes, end_tag) {
+                str = str.replace(/<a\s+([^>]*?)(>|$)/gi, function(m, attributes, end_tag) {
                     attributes = filter_attributes(attributes.replace('<','').replace('>',''));
-                    return m.replace(attributes, attributes.replace(/href=.*?(alert\(|alert&\#40;|javascript\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\\s*,)/gi, ''));
+                    return m.replace(attributes, attributes.replace(/href=.*?(alert\(|alert&\#40;|javascript\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)/gi, ''));
                 });
             }
 
             if (str.match(/<img/i)) {
-                str = str.replace(/<img\\s+([^>]*?)(\\s?\/?>|$)/gi, function(m, attributes, end_tag) {
+                str = str.replace(/<img\s+([^>]*?)(\s?\/?>|$)/gi, function(m, attributes, end_tag) {
                     attributes = filter_attributes(attributes.replace('<','').replace('>',''));
-                    return m.replace(attributes, attributes.replace(/src=.*?(alert\(|alert&\#40;|javascript\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\\s*,)/gi, ''));
+                    return m.replace(attributes, attributes.replace(/src=.*?(alert\(|alert&\#40;|javascript\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)/gi, ''));
                 });
             }
 
@@ -472,7 +472,7 @@
         //code, it simply converts the parenthesis to entities rendering the code un-executable.
         //For example:  eval('some code')
         //Becomes:      eval&#40;'some code'&#41;
-        str = str.replace(/(alert|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\\s*)\((.*?)\)/gi, '$1$2&#40;$3&#41;');
+        str = str.replace(/(alert|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)/gi, '$1$2&#40;$3&#41;');
 
         //This adds a bit of extra precaution in case something got through the above filters
         for (var i in never_allowed_str) {
@@ -510,7 +510,7 @@
     function filter_attributes(str) {
         out = '';
 
-        str.replace(/\\s*[a-z\-]+\\s*=\\s*(?:\042|\047)(?:[^\\1]*?)\\1/gi, function(m) {
+        str.replace(/\s*[a-z\-]+\s*=\s*(?:\042|\047)(?:[^\1]*?)\1/gi, function(m) {
             $out += m.replace(/\/\*.*?\*\//g, '');
         });
 
