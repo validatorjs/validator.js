@@ -177,6 +177,13 @@ Validator.prototype.error = function (msg) {
 Validator.prototype.getErrors = function () {
     return this._errors;
 }
+
+var validator = new Validator();
+
+validator.check('abc').isEmail();
+validator.check('hello').len(10,30);
+
+var errors = validator.getErrors(); // ['Invalid email', 'String is too small']
 ```
 
 ## Contributors
