@@ -472,7 +472,7 @@ module.exports = {
         assert.throws(Validator.check('foo').isDate);
         assert.throws(Validator.check('2011-foo-04').isDate);
         assert.throws(Validator.check('GMT').isDate);
-    }
+    },
 
     'test #min()': function() {
         assert.ok(Validator.check('4').min(2));
@@ -567,6 +567,19 @@ module.exports = {
         });
         assert.throws(function() {
             Validator.check(f.tomorrow).isBefore();
+        });
+    },
+
+    'test #isDivisibleBy()': function() {
+        assert.ok(Validator.check('10').isDivisibleBy(2));
+        assert.ok(Validator.check('6').isDivisibleBy(3));
+        
+        assert.throws(function() {
+            Validator.check('5').isDivisibleBy(2);
+        });
+
+        assert.throws(function() {
+            Validator.check('6.7').isDivisibleBy(3);
         });
     }
 }
