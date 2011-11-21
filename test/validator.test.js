@@ -479,6 +479,19 @@ module.exports = {
           }, /invalid/i
         );
     },
+    
+    'test #isDate()': function() {
+        assert.ok(Validator.check('2011-08-04').isDate());
+        assert.ok(Validator.check('04. 08. 2011.').isDate());
+        assert.ok(Validator.check('08/04/2011').isDate());
+        assert.ok(Validator.check('2011.08.04').isDate());
+        assert.ok(Validator.check('4. 8. 2011. GMT').isDate());
+        assert.ok(Validator.check('2011-08-04 12:00').isDate());
+
+        assert.throws(Validator.check('foo').isDate);
+        assert.throws(Validator.check('2011-foo-04').isDate);
+        assert.throws(Validator.check('GMT').isDate);
+    },
 
     'test #min()': function() {
         assert.ok(Validator.check('4').min(2));
@@ -492,7 +505,6 @@ module.exports = {
         assert.throws(function() {
             Validator.check('5.1').min(5.11);
         });
-
     },
 
     'test #max()': function() {
@@ -574,6 +586,19 @@ module.exports = {
         });
         assert.throws(function() {
             Validator.check(f.tomorrow).isBefore();
+        });
+    },
+
+    'test #isDivisibleBy()': function() {
+        assert.ok(Validator.check('10').isDivisibleBy(2));
+        assert.ok(Validator.check('6').isDivisibleBy(3));
+        
+        assert.throws(function() {
+            Validator.check('5').isDivisibleBy(2);
+        });
+
+        assert.throws(function() {
+            Validator.check('6.7').isDivisibleBy(3);
         });
     }
 }
