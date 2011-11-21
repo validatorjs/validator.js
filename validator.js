@@ -388,7 +388,7 @@
 
         //Convert character entities to ASCII - this permits our tests below to work reliably.
         //We only convert entities that are within tags since these are the ones that will pose security problems.
-        str = str.replace(/[a-z]+=([\'\"]).*?\\1/gi, function(m, match) {
+        str = str.replace(/[a-z]+=([\'\"]).*?\1/gi, function(m, match) {
             return m.replace(match, convert_attribute(match));
         });
 
@@ -426,16 +426,16 @@
             var original = str;
 
             if (str.match(/<a/i)) {
-                str = str.replace(/<a\\s+([^>]*?)(>|$)/gi, function(m, attributes, end_tag) {
+                str = str.replace(/<a\s+([^>]*?)(>|$)/gi, function(m, attributes, end_tag) {
                     attributes = filter_attributes(attributes.replace('<','').replace('>',''));
-                    return m.replace(attributes, attributes.replace(/href=.*?(alert\(|alert&\#40;|javascript\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\\s*,)/gi, ''));
+                    return m.replace(attributes, attributes.replace(/href=.*?(alert\(|alert&\#40;|javascript\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)/gi, ''));
                 });
             }
 
             if (str.match(/<img/i)) {
-                str = str.replace(/<img\\s+([^>]*?)(\\s?\/?>|$)/gi, function(m, attributes, end_tag) {
+                str = str.replace(/<img\s+([^>]*?)(\s?\/?>|$)/gi, function(m, attributes, end_tag) {
                     attributes = filter_attributes(attributes.replace('<','').replace('>',''));
-                    return m.replace(attributes, attributes.replace(/src=.*?(alert\(|alert&\#40;|javascript\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\\s*,)/gi, ''));
+                    return m.replace(attributes, attributes.replace(/src=.*?(alert\(|alert&\#40;|javascript\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)/gi, ''));
                 });
             }
 
@@ -472,7 +472,7 @@
         //code, it simply converts the parenthesis to entities rendering the code un-executable.
         //For example:  eval('some code')
         //Becomes:      eval&#40;'some code'&#41;
-        str = str.replace(/(alert|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\\s*)\((.*?)\)/gi, '$1$2&#40;$3&#41;');
+        str = str.replace(/(alert|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)/gi, '$1$2&#40;$3&#41;');
 
         //This adds a bit of extra precaution in case something got through the above filters
         for (var i in never_allowed_str) {
@@ -510,7 +510,7 @@
     function filter_attributes(str) {
         out = '';
 
-        str.replace(/\\s*[a-z\-]+\\s*=\\s*(?:\042|\047)(?:[^\\1]*?)\\1/gi, function(m) {
+        str.replace(/\s*[a-z\-]+\s*=\s*(?:\042|\047)(?:[^\1]*?)\1/gi, function(m) {
             $out += m.replace(/\/\*.*?\*\//g, '');
         });
 
@@ -541,8 +541,17 @@
         return this;
     }
 
+	//Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
+	Validator.prototype.isCreditCard = function() {
+		this.str.replace(/[^0-9]+/g, ''); //remove all dashes, spaces, etc.
+        if (!this.str.match(/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/)) {
+            return this.error(this.msg || 'Invalid credit card');
+        }
+        return this;
+    }
+
     Validator.prototype.isUrl = function() {
-        if (!this.str.match(/^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/)) {
+        if (!this.str.match(/^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i)) {
             return this.error(this.msg || 'Invalid URL');
         }
         return this;
@@ -703,7 +712,7 @@
         return this;
     }
 
-    Validator.prototype.in = function(options) {
+    Validator.prototype.isIn = function(options) {
         if (options && typeof options.indexOf === 'function') {
             if (!~options.indexOf(this.str)) {
                 return this.error(this.msg || 'Unexpected value');
@@ -765,7 +774,7 @@
     }
 
     Filter.prototype.xss = function(is_image) {
-        this.modify(xssClean(this.str, is_image));
+        this.modify(exports.xssClean(this.str, is_image));
         return this.str;
     }
 
@@ -848,4 +857,5 @@
         return validator.check(str, fail_msg);
     }
 
-})(this);
+})(typeof(exports) === 'undefined' ? window : exports);
+

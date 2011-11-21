@@ -33,6 +33,8 @@ var str = sanitize('&lt;a&gt;').entityDecode();      //'<a>'
 
 Often it's more desirable to check or automatically sanitize parameters by name (rather than the actual string). See [this gist](https://gist.github.com/752126) for instructions on binding the library to the `request` prototype.
 
+If you are using the [express.js framework](https://github.com/visionmedia/express) you can use the [express-validator middleware](https://github.com/ctavan/express-validator) to seamlessly integrate node-validator.
+
 Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
 
 ```javascript
@@ -83,10 +85,12 @@ isUUID(version)                 //Version can be 3 or 4 or empty, see http://en.
 isDate()                        //Uses Date.parse() - regex is probably a better choice
 isAfter(date)                   //Argument is optional and defaults to today
 isBefore(date)                  //Argument is optional and defaults to today
-in(options)                     //Accepts an array or string
+isIn(options)                   //Accepts an array or string
 notIn(options)
 max(val)
 min(val)
+isArray()
+isCreditCard()                  //Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
 ```
 
 ## List of sanitization / filter methods
@@ -173,6 +177,13 @@ Validator.prototype.error = function (msg) {
 Validator.prototype.getErrors = function () {
     return this._errors;
 }
+
+var validator = new Validator();
+
+validator.check('abc').isEmail();
+validator.check('hello').len(10,30);
+
+var errors = validator.getErrors(); // ['Invalid email', 'String is too small']
 ```
 
 ## Contributors
@@ -180,7 +191,7 @@ Validator.prototype.getErrors = function () {
 - [PING](https://github.com/PlNG) - Fixed entity encoding
 - [Dan VerWeire](https://github.com/wankdanker) - Modified the behaviour of the error handler
 - [ctavan](https://github.com/ctavan) - Added isArray and isUUID()
-- [foxbunny](https://github.com/foxbunny) - Added min() and max(), and improved isDate()
+- [foxbunny](https://github.com/foxbunny) - Added min(), max(), isAfter(), isBefore(), and improved isDate()
 - [oris](https://github.com/orls) - Addded in()
 
 ## LICENSE

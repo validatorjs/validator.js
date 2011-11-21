@@ -78,7 +78,8 @@ module.exports = {
             'http://www.foobar.com/~foobar',
             'http://user:pass@www.foobar.com/',
             'http://127.0.0.1/',
-            'http://255.255.255.255/'
+            'http://255.255.255.255/',
+            'http://duckduckgo.com/?q=%2F'
         ];
         try {
             valid.forEach(function(url) {
@@ -198,12 +199,20 @@ module.exports = {
         assert.ok(Validator.check(0).isInt());
         assert.ok(Validator.check(123).isInt());
         assert.ok(Validator.check('-0').isInt());
+        assert.ok(Validator.check('01').isInt());
+        assert.ok(Validator.check('-01').isInt());
+        assert.ok(Validator.check('000').isInt());
 
-        ['123.123','01','000','  ',''].forEach(function(str) {
+        ['123.123','  ',''].forEach(function(str) {
             try {
                 Validator.check(str).isInt();
-                assert.ok(false, 'isInt failed');
-            } catch (e) {}
+                assert.ok(false, 'falsepositive');
+            } catch (e) {
+              if (e.message == 'falsepositive') {
+                e.message = 'isInt had a false positive: ' + str;
+                throw e;
+              }
+            }
         });
     },
 
@@ -217,12 +226,22 @@ module.exports = {
         assert.ok(Validator.check('.0').isDecimal());
         assert.ok(Validator.check('0').isDecimal());
         assert.ok(Validator.check('-0').isDecimal());
+        assert.ok(Validator.check('01.123').isDecimal());
 
-        ['-.123','01.123','  ',''].forEach(function(str) {
+        assert.ok(Validator.check('2.2250738585072011e-308').isDecimal());
+        assert.ok(Validator.check('-0.22250738585072011e-307').isDecimal());
+        assert.ok(Validator.check('-0.22250738585072011E-307').isDecimal());
+
+        ['-.123','  ',''].forEach(function(str) {
             try {
                 Validator.check(str).isDecimal();
-                assert.ok(false, 'isDecimal failed');
-            } catch (e) {}
+                assert.ok(false, 'falsepositive');
+            } catch (e) {
+              if (e.message == 'falsepositive') {
+                e.message = 'isDecimal had a false positive: ' + str;
+                throw e;
+              }
+            }
         });
     },
 
@@ -405,30 +424,30 @@ module.exports = {
 
     },
 
-    'test #in(options)': function () {
+    'test #isIn(options)': function () {
 
-        assert.ok(Validator.check('foo').in('foobar'));
-        assert.ok(Validator.check('foo').in('I love football'));
+        assert.ok(Validator.check('foo').isIn('foobar'));
+        assert.ok(Validator.check('foo').isIn('I love football'));
 
-        assert.ok(Validator.check('foo').in(['foo', 'bar', 'baz']));
+        assert.ok(Validator.check('foo').isIn(['foo', 'bar', 'baz']));
 
         assert.throws(function() {
-            Validator.check('foo').in(['bar', 'baz']);
+            Validator.check('foo').isIn(['bar', 'baz']);
           }, /unexpected/i
         );
 
         assert.throws(function() {
-            Validator.check('foo').in('bar, baz');
+            Validator.check('foo').isIn('bar, baz');
           }, /unexpected/i
         );
 
         assert.throws(function() {
-            Validator.check('foo').in(1234567);
+            Validator.check('foo').isIn(1234567);
           }, /invalid/i
         );
 
         assert.throws(function() {
-            Validator.check('foo').in({foo:"foo",bar:"bar"});
+            Validator.check('foo').isIn({foo:"foo",bar:"bar"});
           }, /invalid/i
         );
     },

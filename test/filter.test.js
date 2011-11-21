@@ -4,6 +4,7 @@ var node_validator = require('../lib'),
 
 module.exports = {
     'test #ifNull()': function () {
+
         //Make sure sanitize returns the new string
         assert.equal(5, Filter.sanitize('').ifNull(5));
         assert.equal('abc', Filter.sanitize().ifNull('abc'));
@@ -130,5 +131,15 @@ module.exports = {
         //Need more tests!
         assert.equal('[removed] foobar', Filter.sanitize('javascript  : foobar').xss());
         assert.equal('[removed] foobar', Filter.sanitize('j a vasc ri pt: foobar').xss());
+    },
+
+    'test chaining': function () {
+        assert.equal('&amp;amp;amp;', Filter.sanitize('&').chain().entityEncode().entityEncode().entityEncode().value());
+
+        //Return the default behaviour
+        Filter.wrap = function (str) {
+            return str;
+        }
     }
+
 }
