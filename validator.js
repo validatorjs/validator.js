@@ -543,7 +543,7 @@
 
 	//Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
 	Validator.prototype.isCreditCard = function() {
-		this.str.replace(/[^0-9]+/g, ''); //remove all dashes, spaces, etc.
+		this.str = this.str.replace(/[^0-9]+/g, ''); //remove all dashes, spaces, etc.
         if (!this.str.match(/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/)) {
             return this.error(this.msg || 'Invalid credit card');
         }
