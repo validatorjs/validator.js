@@ -447,7 +447,7 @@
 
         //Remove JavaScript Event Handlers - Note: This code is a little blunt.  It removes the event
         //handler and anything up to the closing >, but it's unlikely to be a problem.
-        event_handlers = ['[^a-z_\-]on\w*'];
+        event_handlers = ['[^a-z_\-]on\\w*'];
 
         //Adobe Photoshop puts XML metadata into JFIF images, including namespacing,
         //so we have to allow this for images
