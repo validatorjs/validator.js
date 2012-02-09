@@ -343,11 +343,11 @@
     };
 
     var non_displayables = [
-        /%0[0-8bcef]/g,         // url encoded 00-08, 11, 12, 14, 15
-        /%1[0-9a-f]/g,          // url encoded 16-31
-        /[\x00-\x08]/g,         // 00-08
-        /\x0b/g, /\x0c/g,       // 11,12
-        /[\x0e-\x1f]/g,         // 14-31
+        /%0[0-8bcef]/g,           // url encoded 00-08, 11, 12, 14, 15
+        /%1[0-9a-f]/g,            // url encoded 16-31
+        /[\x00-\x08]/g,           // 00-08
+        /\x0b/g, /\x0c/g,         // 11,12
+        /[\x0e-\x1f]/g            // 14-31
     ];
 
     var compact_words = [
@@ -359,7 +359,7 @@
     exports.xssClean = function(str, is_image) {
 
         //Recursively clean objects and arrays
-        if (str instanceof Array || typeof str === 'object') {
+        if (typeof str === 'array' || typeof str === 'object') {
             for (var i in str) {
                 str[i] = exports.xssClean(str[i]);
             }
@@ -384,7 +384,11 @@
 
         //Decode just in case stuff like this is submitted:
         //<a href="http://%77%77%77%2E%67%6F%6F%67%6C%65%2E%63%6F%6D">Google</a>
-        str = decodeURIComponent(str);
+        try {
+          str = decodeURIComponent(str);
+        } catch (e) {
+          // str was not actually URI-encoded
+        }
 
         //Convert character entities to ASCII - this permits our tests below to work reliably.
         //We only convert entities that are within tags since these are the ones that will pose security problems.
@@ -470,8 +474,8 @@
         //Sanitize naughty scripting elements Similar to above, only instead of looking for
         //tags it looks for PHP and JavaScript commands that are disallowed.  Rather than removing the
         //code, it simply converts the parenthesis to entities rendering the code un-executable.
-        //For example:  eval('some code')
-        //Becomes:      eval&#40;'some code'&#41;
+        //For example:    eval('some code')
+        //Becomes:        eval&#40;'some code'&#41;
         str = str.replace(/(alert|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)/gi, '$1$2&#40;$3&#41;');
 
         //This adds a bit of extra precaution in case something got through the above filters
@@ -511,7 +515,7 @@
         out = '';
 
         str.replace(/\s*[a-z\-]+\s*=\s*(?:\042|\047)(?:[^\1]*?)\1/gi, function(m) {
-            $out += m.replace(/\/\*.*?\*\//g, '');
+            out += m.replace(/\/\*.*?\*\//g, '');
         });
 
         return out;
