@@ -17,7 +17,8 @@
   "contributors": [
     { "name": "PING", "github": "https://github.com/PlNG" },
     { "name": "Dan VerWeire", "github": "https://github.com/wankdanker" },
-    { "name": "Branko Vukelic", "github": "https://github.com/foxbunny" }
+    { "name": "Branko Vukelic", "github": "https://github.com/foxbunny" },
+    { "name": "Mark Engel", "github": "https://github.com/mren" }
   ],
   "engines" : { "node" : ">=0.2.2" },
   "licenses" :

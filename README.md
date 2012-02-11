@@ -192,7 +192,8 @@ var errors = validator.getErrors(); // ['Invalid email', 'String is too small']
 - [Dan VerWeire](https://github.com/wankdanker) - Modified the behaviour of the error handler
 - [ctavan](https://github.com/ctavan) - Added isArray and isUUID()
 - [foxbunny](https://github.com/foxbunny) - Added min(), max(), isAfter(), isBefore(), and improved isDate()
-- [oris](https://github.com/orls) - Addded in()
+- [oris](https://github.com/orls) - Added in()
+- [mren](https://github.com/mren) - Decoupled rules
 
 ## LICENSE
 

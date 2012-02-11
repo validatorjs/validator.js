@@ -359,7 +359,7 @@
     exports.xssClean = function(str, is_image) {
 
         //Recursively clean objects and arrays
-        if (typeof str === 'array' || typeof str === 'object') {
+        if (typeof str === 'object') {
             for (var i in str) {
                 str[i] = exports.xssClean(str[i]);
             }
