@@ -79,7 +79,8 @@ module.exports = {
             'http://user:pass@www.foobar.com/',
             'http://127.0.0.1/',
             'http://255.255.255.255/',
-            'http://duckduckgo.com/?q=%2F'
+            'http://duckduckgo.com/?q=%2F',
+            'http://foobar.com/t$-_.+!*\'(),'
         ];
         try {
             valid.forEach(function(url) {
@@ -281,7 +282,7 @@ module.exports = {
         assert.ok(Validator.check('123').notEmpty());
         assert.ok(Validator.check('   123   ').notEmpty());
 
-        [false,'  ','\r\n','	','', NaN].forEach(function(str) {
+        [false,'  ','\r\n','  ','', NaN].forEach(function(str) {
             try {
                 Validator.check(str).notEmpty();
                 assert.ok(false, 'notEmpty failed');
@@ -480,7 +481,7 @@ module.exports = {
           }, /invalid/i
         );
     },
-    
+
     'test #isDate()': function() {
         assert.ok(Validator.check('2011-08-04').isDate());
         assert.ok(Validator.check('04. 08. 2011.').isDate());
@@ -566,7 +567,7 @@ module.exports = {
         assert.ok(Validator.check('2011-08-04').isAfter('2011-08-03'));
         assert.ok(Validator.check('08. 04. 2011.').isAfter(new Date('2011-08-04')));
         assert.ok(Validator.check(f.tomorrow).isAfter());
-        
+
         assert.throws(function() {
             Validator.check('08/04/2011').isAfter('2011-09-01');
         });
@@ -581,7 +582,7 @@ module.exports = {
         assert.ok(Validator.check('2011-08-04').isBefore('2011-08-06'));
         assert.ok(Validator.check('08. 04. 2011.').isBefore(new Date('2011-08-04')));
         assert.ok(Validator.check(f.yesterday).isBefore());
-        
+
         assert.throws(function() {
             Validator.check('08/04/2011').isBefore('2011-07-01');
         });
@@ -593,7 +594,7 @@ module.exports = {
     'test #isDivisibleBy()': function() {
         assert.ok(Validator.check('10').isDivisibleBy(2));
         assert.ok(Validator.check('6').isDivisibleBy(3));
-        
+
         assert.throws(function() {
             Validator.check('5').isDivisibleBy(2);
         });
