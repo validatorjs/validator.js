@@ -106,7 +106,7 @@ toBoolean()                     //True unless str = '0', 'false', or str.length 
 toBooleanStrict()               //False unless str = '1' or 'true'
 entityDecode()                  //Decode HTML entities
 entityEncode()
-xss()                           //Remove common XSS attack vectors from text (default)
+xss()                           //Remove common XSS attack vectors from user-supplied HTML
 xss(true)                       //Remove common XSS attack vectors from images
 ```
 
