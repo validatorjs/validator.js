@@ -824,7 +824,7 @@
 
     Filter.prototype.toInt = function(radix) {
         radix = radix || 10;
-        this.modify(parseInt(this.str), radix);
+        this.modify(parseInt(this.str, radix));
         return this.str;
     }
 

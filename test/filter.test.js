@@ -101,6 +101,7 @@ module.exports = {
     'test #toInt()': function () {
         assert.ok(3 === Filter.sanitize('3').toInt());
         assert.ok(3 === Filter.sanitize('   3   ').toInt());
+        assert.ok(255 === Filter.sanitize('ff').toInt(16));
     },
 
     'test #toFloat()': function () {
