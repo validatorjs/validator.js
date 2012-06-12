@@ -115,7 +115,7 @@ module.exports = {
         assert.equal('&', Filter.sanitize('&amp;').entityDecode());
         assert.equal('&&', Filter.sanitize('&amp;&amp;').entityDecode());
         assert.equal('""', Filter.sanitize('&quot;&quot;').entityDecode());
-        assert.equal('€', Filter.sanitize('&curren;').entityDecode());
+        assert.equal('€', Filter.sanitize('&euro;').entityDecode());
         assert.equal("'", Filter.sanitize("&#39;").entityDecode());
         assert.equal("'", Filter.sanitize("&apos;").entityDecode());
     },
@@ -125,7 +125,7 @@ module.exports = {
         assert.equal('&amp;&amp;', Filter.sanitize('&&').entityEncode());
         assert.equal('&#39;', Filter.sanitize("'").entityEncode());
         assert.equal('&quot;&quot;', Filter.sanitize('""').entityEncode());
-        assert.equal('&curren;', Filter.sanitize('€').entityEncode());
+        assert.equal('&euro;', Filter.sanitize('€').entityEncode());
     },
 
     'test #xss()': function () {
