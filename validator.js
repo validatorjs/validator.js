@@ -512,13 +512,14 @@
 
     //Filter Attributes - filters tag attributes for consistency and safety
     function filter_attributes(str) {
-        out = '';
-
-        str.replace(/\s*[a-z\-]+\s*=\s*(?:\042|\047)(?:[^\1]*?)\1/gi, function(m) {
-            out += m.replace(/\/\*.*?\*\//g, '');
+        var comments = /\/\*.*?\*\//g;
+        return str.replace(/\s*[a-z-]+\s*=\s*'[^']*'/gi, function (m) {
+            return m.replace(comments, '');
+        }).replace(/\s*[a-z-]+\s*=\s*"[^"]*"/gi, function (m) {
+            return m.replace(comments, '');
+        }).replace(/\s*[a-z-]+\s*=\s*[^\s]+/gi, function (m) {
+            return m.replace(comments, '');
         });
-
-        return out;
     }
 
     var Validator = exports.Validator = function() {}
