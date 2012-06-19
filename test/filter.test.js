@@ -130,8 +130,8 @@ module.exports = {
 
     'test #xss()': function () {
         //Need more tests!
-        assert.equal('[removed] foobar', Filter.sanitize('javascript  : foobar').xss());
-        assert.equal('[removed] foobar', Filter.sanitize('j a vasc ri pt: foobar').xss());
+        assert.equal(' foobar', Filter.sanitize('javascript  : foobar').xss());
+        assert.equal(' foobar', Filter.sanitize('j a vasc ri pt: foobar').xss());
 
         var url = 'http://www.example.com/test.php?a=b&b=c&c=d';
         assert.equal(url, Filter.sanitize(url).xss());
