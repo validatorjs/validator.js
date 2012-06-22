@@ -552,6 +552,36 @@
         if (!this.str.match(/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/)) {
             return this.error(this.msg || 'Invalid credit card');
         }
+        // Doing Luhn check
+        var sum = 0;
+        var digit;
+        var tmpNum;
+        var shouldDouble = false;
+        for (var i = this.length - 1; i >= 0; i--) {
+                digit = this.substring(i, (i + 1));
+                tmpNum = parseInt(digit, 10);
+                if (shouldDouble) {
+                    tmpNum *= 2;
+                    if (tmpNum >= 10) {
+                        sum += ((tmpNum % 10) + 1);
+                    }
+                    else {
+                        sum += tmpNum;
+                    }
+                }
+                else {
+                    sum += tmpNum;
+                }
+                if (shouldDouble) {
+                    shouldDouble = false;
+                }
+                else {
+                    shouldDouble = true;
+                }
+            }
+            if ((sum % 10) !== 0) {
+                return this.error(this.msg || 'Invalid credit card');
+            }      
         return this;
     }
 
