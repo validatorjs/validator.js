@@ -324,22 +324,22 @@
     //The license is available at http://codeigniter.com/
 
     var never_allowed_str = {
-        'document.cookie':              '[removed]',
-        'document.write':               '[removed]',
-        '.parentNode':                  '[removed]',
-        '.innerHTML':                   '[removed]',
-        'window.location':              '[removed]',
-        '-moz-binding':                 '[removed]',
+        'document.cookie':              '',
+        'document.write':               '',
+        '.parentNode':                  '',
+        '.innerHTML':                   '',
+        'window.location':              '',
+        '-moz-binding':                 '',
         '<!--':                         '&lt;!--',
         '-->':                          '--&gt;',
         '<![CDATA[':                    '&lt;![CDATA['
     };
 
     var never_allowed_regex = {
-        'javascript\\s*:':              '[removed]',
-        'expression\\s*(\\(|&\\#40;)':  '[removed]',
-        'vbscript\\s*:':                '[removed]',
-        'Redirect\\s+302':              '[removed]'
+        'javascript\\s*:':              '',
+        'expression\\s*(\\(|&\\#40;)':  '',
+        'vbscript\\s*:':                '',
+        'Redirect\\s+302':              ''
     };
 
     var non_displayables = [
@@ -444,7 +444,7 @@
             }
 
             if (str.match(/script/i) || str.match(/xss/i)) {
-                str = str.replace(/<(\/*)(script|xss)(.*?)\>/gi, '[removed]');
+                str = str.replace(/<(\/*)(script|xss)(.*?)\>/gi, '');
             }
 
         } while(original != str);
