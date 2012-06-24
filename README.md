@@ -127,7 +127,7 @@ Validator.prototype.contains = function(str) {
 When adding to the Filter (sanitize) prototype, use `this.str` to access the string and `this.modify(new_str)` to update it
 
 ```javascript
-var Filter = require('filter').Filter;
+var Filter = require('validator').Filter;
 Filter.prototype.removeNumbers = function() {
     this.modify(this.str.replace(/[0-9]+/g, ''));
     return this.str;
