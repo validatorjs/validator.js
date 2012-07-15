@@ -695,7 +695,7 @@
     }
 
     Validator.prototype.regex = Validator.prototype.is = function(pattern, modifiers) {
-        if (typeof pattern !== 'function') {
+        if (Object.prototype.toString.call(pattern).slice(8, -1) !== 'RegExp') {
             pattern = new RegExp(pattern, modifiers);
         }
         if (! this.str.match(pattern)) {
@@ -705,7 +705,7 @@
     }
 
     Validator.prototype.notRegex = Validator.prototype.not = function(pattern, modifiers) {
-        if (typeof pattern !== 'function') {
+        if (Object.prototype.toString.call(pattern).slice(8, -1) !== 'RegExp') {
             pattern = new RegExp(pattern, modifiers);
         }
         if (this.str.match(pattern)) {
