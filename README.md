@@ -83,8 +83,8 @@ notRegex(pattern, modifiers)
 len(min, max)                   //max is optional
 isUUID(version)                 //Version can be 3 or 4 or empty, see http://en.wikipedia.org/wiki/Universally_unique_identifier
 isDate()                        //Uses Date.parse() - regex is probably a better choice
-isAfter(date)                   //Argument is optional and defaults to today
-isBefore(date)                  //Argument is optional and defaults to today
+isAfter(date)                   //Argument is optional and defaults to today. Comparison is non-inclusive
+isBefore(date)                  //Argument is optional and defaults to today. Comparison is non-inclusive
 isIn(options)                   //Accepts an array or string
 notIn(options)
 max(val)
