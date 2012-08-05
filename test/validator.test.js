@@ -615,5 +615,38 @@ module.exports = {
         assert.throws(function() {
             Validator.check('6.7').isDivisibleBy(3);
         });
+    },
+    'test #throws(false) stops throwing': function() { 
+        var c = (new node_validator.Validator()).check(1).throws(false);
+        assert.doesNotThrow( function() { 
+            c.min(2);
+            c.max(0);
+        });
+        assert.equal(c._errors.length, 2);
+    },
+    'test #throws(true) brings back throwing' : function() { 
+        var c = (new node_validator.Validator()).check(1);
+        
+        c.throws(false);
+        assert.doesNotThrow( function() { 
+            c.min(2);
+            c.max(0);
+        });
+        assert.equal(c._errors.length, 2);
+        
+        c.throws(true);
+        assert.throws( function() { 
+            c.min(2);
+            c.max(0);
+        });
+        assert.equal(c._errors.length, 3);
+    },
+    'test #check keeps arrays': function(){ 
+        Validator.check([1,2,3], " a test array");
+        assert.deepEqual(Validator.str, [1,2,3]);
+    },
+    'test #check keeps objects': function(){ 
+        Validator.check({test:'object'}, " a test object");
+        assert.deepEqual(Validator.str, {test:'object'});
     }
 }
