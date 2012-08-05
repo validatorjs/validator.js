@@ -640,5 +640,13 @@ module.exports = {
             c.max(0);
         });
         assert.equal(c._errors.length, 3);
+    },
+    'test #check keeps arrays': function(){ 
+        Validator.check([1,2,3], " a test array");
+        assert.deepEqual(Validator.str, [1,2,3]);
+    },
+    'test #check keeps objects': function(){ 
+        Validator.check({test:'object'}, " a test object");
+        assert.deepEqual(Validator.str, {test:'object'});
     }
 }
