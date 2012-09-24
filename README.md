@@ -172,6 +172,7 @@ You might want to collect errors instead of throwing each time
 ```javascript
 Validator.prototype.error = function (msg) {
     this._errors.push(msg);
+    return this;
 }
 
 Validator.prototype.getErrors = function () {
