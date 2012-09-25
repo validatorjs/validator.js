@@ -716,7 +716,7 @@
 
     Validator.prototype.len = function(min, max) {
         if (this.str.length < min) {
-            this.error(this.msg || 'String is too small');
+            return this.error(this.msg || 'String is too small');
         }
         if (typeof max !== undefined && this.str.length > max) {
             return this.error(this.msg || 'String is too large');
