@@ -78,7 +78,7 @@ module.exports = {
             'http://www.foobar.com/~foobar',
             'http://user:pass@www.foobar.com/',
             'http://127.0.0.1/',
-            'http://255.255.255.255/',
+            'http://189.123.14.13/',
             'http://duckduckgo.com/?q=%2F',
             'http://foobar.com/t$-_.+!*\'(),',
             'http://localhost:3000/'
