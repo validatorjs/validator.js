@@ -55,7 +55,8 @@ module.exports = {
             'invalid.',
             '.com',
             'http://com/',
-            'http://300.0.0.1/'
+            'http://300.0.0.1/',
+            'mailto:foo@bar.com'
         ];
         invalid.forEach(function(url) {
             try {
