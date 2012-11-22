@@ -589,6 +589,9 @@ module.exports = {
         assert.throws(function() {
             Validator.check(f.yesterday).isAfter();
         });
+        assert.throws(function() {
+            Validator.check('2011-09-01').isAfter('2011-09-01');
+        });
     },
 
     'test #isBefore()': function() {
@@ -602,6 +605,9 @@ module.exports = {
         });
         assert.throws(function() {
             Validator.check(f.tomorrow).isBefore();
+        });
+        assert.throws(function() {
+            Validator.check('2011-09-01').isBefore('2011-09-01');
         });
     },
 
