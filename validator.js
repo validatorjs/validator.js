@@ -800,12 +800,12 @@
     var whitespace = '\\r\\n\\t\\s';
 
     Filter.prototype.modify = function(str) {
-        this.str = str;
+        this.str = str == null ? '' : str + '';
     }
 
     //Create some aliases - may help code readability
     Filter.prototype.convert = Filter.prototype.sanitize = function(str) {
-        this.str = str;
+        this.str = str == null ? '' : str + '';
         return this;
     }
 
