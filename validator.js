@@ -800,7 +800,7 @@
     var whitespace = '\\r\\n\\t\\s';
 
     Filter.prototype.modify = function(str) {
-        this.str = str == null ? '' : str + '';
+        this.str = str;
     }
 
     //Create some aliases - may help code readability
