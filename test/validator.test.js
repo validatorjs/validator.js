@@ -1,5 +1,7 @@
 var node_validator = require('../lib'),
+    util = require('util')
     Validator = new node_validator.Validator(),
+    ValidatorError = node_validator.ValidatorError,
     assert = require('assert');
 
 function dateFixture() {
@@ -12,6 +14,14 @@ function dateFixture() {
         yesterday: Y + '-' + M + '-' + (D - 1) // YYYY-MM-DD
     };
 }
+
+var FakeError = function(msg) {
+    Error.captureStackTrace(this, this);
+    this.name = 'FakeError';
+    this.message = msg;
+};
+util.inherits(FakeError, Error);
+
 
 module.exports = {
     'test #isEmail()': function () {
@@ -622,5 +632,15 @@ module.exports = {
         assert.throws(function() {
             Validator.check('6.7').isDivisibleBy(3);
         });
+    },
+
+    'test error is instanceof ValidatorError': function() {
+        try {
+            Validator.check('not_an_email', 'Invalid').isEmail();
+        } catch(e) {
+            assert.strictEqual(true, e instanceof ValidatorError);
+            assert.strictEqual(true, e instanceof Error);
+            assert.notStrictEqual(true, e instanceof FakeError);
+        }
     }
 }
