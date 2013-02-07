@@ -145,6 +145,10 @@ module.exports = {
         Filter.wrap = function (str) {
             return str;
         }
+    },
+
+    'test #escape': function () {
+        assert.equal('&amp;&lt;&quot;&gt;', Filter.sanitize('&<">').escape());
     }
 
 }

@@ -824,6 +824,14 @@
         return this.str;
     }
 
+    Filter.prototype.escape = function() {
+        this.modify(this.str.replace(/&/g, '&amp;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;'));
+        return this.str;
+    };
+
     Filter.prototype.ltrim = function(chars) {
         chars = chars || whitespace;
         this.modify(this.str.replace(new RegExp('^['+chars+']+', 'g'), ''));
