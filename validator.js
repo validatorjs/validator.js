@@ -539,6 +539,37 @@
         throw new Error(msg);
     }
 
+    function toDate(date) {
+        if (date instanceof Date) {
+            return date;
+        }
+        var intDate = Date.parse(date);
+        if (isNaN(intDate)) {
+            return null;
+        }
+        return new Date(intDate);
+    }
+
+    Validator.prototype.isAfter = function(date) {
+        date = date || new Date();
+        var origDate = toDate(this.str)
+          , compDate = toDate(date);
+        if (!(origDate && compDate && origDate >= compDate)) {
+            return this.error(this.msg || 'Invalid date');
+        }
+        return this;
+    };
+
+    Validator.prototype.isBefore = function(date) {
+        date = date || new Date();
+        var origDate = toDate(this.str)
+          , compDate = toDate(date);
+        if (!(origDate && compDate && origDate <= compDate)) {
+            return this.error(this.msg || 'Invalid date');
+        }
+        return this;
+    };
+
     Validator.prototype.isEmail = function() {
         if (!this.str.match(/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/)) {
             return this.error(this.msg || 'Invalid email');
