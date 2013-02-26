@@ -685,14 +685,14 @@
 
     Validator.prototype.notNull = function() {
         if (this.str === '') {
-            return this.error(this.msg || 'Invalid characters');
+            return this.error(this.msg || 'String is empty');
         }
         return this;
     }
 
     Validator.prototype.isNull = function() {
         if (this.str !== '') {
-            return this.error(this.msg || 'Invalid characters');
+            return this.error(this.msg || 'String is not empty');
         }
         return this;
     }
