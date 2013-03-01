@@ -574,6 +574,25 @@ module.exports = {
         } catch (e) {}
     },
 
+    'test #isIntArray()': function () {
+        assert.ok(Validator.check([1, 2]).isIntArray());
+        assert.ok(Validator.check([1.0, 2.0]).isIntArray());
+        assert.ok(Validator.check(['1', '2']).isIntArray());
+
+        try {
+            assert.ok(Validator.check([]).isIntArray());
+            assert.ok(false, 'isIntArray failed');
+        } catch (e) {}
+        try {
+            assert.ok(Validator.check([1.1,2.0]).isIntArray());
+            assert.ok(false, 'isIntArray failed');
+        } catch (e) {}
+        try {
+            assert.ok(Validator.check('[0,1]').isIntArray());
+            assert.ok(false, 'isIntArray failed');
+        } catch (e) {}
+    },
+
     'test #isDate()': function() {
         assert.ok(Validator.check('2011-08-04').isDate());
         assert.ok(Validator.check('04. 08. 2011.').isDate());
