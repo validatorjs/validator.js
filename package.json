@@ -20,6 +20,9 @@
     { "name": "Branko Vukelic", "github": "https://github.com/foxbunny" },
     { "name": "Mark Engel", "github": "https://github.com/mren" }
   ],
+  "scripts": {
+    "test": "node test/run.js"
+  },
   "engines" : { "node" : ">=0.2.2" },
   "licenses" :
     [ { "type" : "MIT"
