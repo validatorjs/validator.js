@@ -67,6 +67,8 @@ isIP()
 isAlpha()
 isAlphanumeric()
 isNumeric()
+isHexadecimal()
+isHexColor()                    //Accepts valid hexcolors with or without # prefix
 isInt()                         //isNumeric accepts zero padded numbers, e.g. '001', isInt doesn't
 isLowercase()
 isUppercase()

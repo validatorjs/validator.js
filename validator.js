@@ -651,6 +651,20 @@
         return this;
     }
 
+    Validator.prototype.isHexadecimal = function() {
+        if (!this.str.match(/^[0-9a-fA-F]+$/)) {
+            return this.error(this.msg || 'Invalid hexadecimal');
+        }
+        return this;
+    }
+
+    Validator.prototype.isHexColor = function() {
+        if (!this.str.match(/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/)) {
+            return this.error(this.msg || 'Invalid hexcolor');
+        }
+        return this;
+    }
+
     Validator.prototype.isLowercase = function() {
         if (!this.str.match(/^[a-z0-9]+$/)) {
             return this.error(this.msg || 'Invalid characters');
