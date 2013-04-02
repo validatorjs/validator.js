@@ -634,6 +634,31 @@ module.exports = {
         });
     },
 
+    'test #isPhoneNumber()': function() {
+        // Valid US Numbers
+        assert.ok(Validator.check('(555)123-4567').isPhoneNumber());
+        assert.ok(Validator.check('5551234567').isPhoneNumber());
+        assert.ok(Validator.check('555-123-4567').isPhoneNumber());
+        assert.ok(Validator.check('(555) 123 4567').isPhoneNumber());
+        assert.ok(Validator.check('(555) 123-4567').isPhoneNumber());
+
+        // Valid International Numbers
+        assert.ok(Validator.check('+1 5551234567').isPhoneNumber(true));
+        assert.ok(Validator.check('+15551234567').isPhoneNumber(true));
+        assert.ok(Validator.check('+44 7700 954 321').isPhoneNumber(true));
+
+        // Invalid US Numbers
+        assert.throws(function() { Validator.check('foo').isPhoneNumber(); });
+        assert.throws(function() { Validator.check('555123456').isPhoneNumber(); });
+        assert.throws(function() { Validator.check('55512345678').isPhoneNumber(); });
+        assert.throws(function() { Validator.check('+1 5551234567').isPhoneNumber(); });
+
+        // Invalid International Numbers
+        assert.throws(function() { Validator.check('foo').isPhoneNumber(true); });
+        assert.throws(function() { Validator.check('(555) 123-4567').isPhoneNumber(true); });
+        assert.throws(function() { Validator.check('1234567890').isPhoneNumber(true); });
+    },    
+
     'test error is instanceof ValidatorError': function() {
         try {
             Validator.check('not_an_email', 'Invalid').isEmail();
