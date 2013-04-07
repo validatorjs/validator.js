@@ -693,6 +693,10 @@
         return this;
     }
 
+    Validator.prototype.isDivisibleBy = function(n) {
+        return (parseFloat(this.str) % parseInt(n, 10)) === 0;
+    }
+
     Validator.prototype.isFloat = function() {
         return this.isDecimal();
     }
