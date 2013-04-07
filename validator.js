@@ -666,14 +666,14 @@
     }
 
     Validator.prototype.isLowercase = function() {
-        if (!this.str.match(/^[a-z0-9]+$/)) {
+        if (this.str !== this.str.toLowerCase()) {
             return this.error(this.msg || 'Invalid characters');
         }
         return this;
     }
 
     Validator.prototype.isUppercase = function() {
-        if (!this.str.match(/^[A-Z0-9]+$/)) {
+        if (this.str !== this.str.toUpperCase()) {
             return this.error(this.msg || 'Invalid characters');
         }
         return this;
