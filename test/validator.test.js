@@ -324,7 +324,11 @@ module.exports = {
         assert.ok(Validator.check('foobar').contains('oo'));
         assert.ok(Validator.check('abc').contains('a'));
         assert.ok(Validator.check('  ').contains(' '));
-        assert.ok(Validator.check('abc').contains(''));
+
+        try {
+            Validator.check('abc').contains('');
+            assert.ok(false, 'contains failed');
+        } catch (e) {}
 
         try {
             Validator.check(123).contains('abc');

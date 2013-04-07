@@ -726,7 +726,7 @@
     }
 
     Validator.prototype.contains = function(str) {
-        if (this.str.indexOf(str) === -1) {
+        if (this.str.indexOf(str) === -1 || !str) {
             return this.error(this.msg || 'Invalid characters');
         }
         return this;
