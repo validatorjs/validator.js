@@ -531,6 +531,25 @@
         return this;
     }
 
+    function internal_is_ipv4(str) {
+        if (/^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$/.test(str)) {
+            var parts = str.split('.').sort();
+            // no need to check for < 0 as regex won't match in that case
+            if (parts[3] > 255) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    function internal_is_ipv6(str) {
+        if (/^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/.test(str)) {
+            return true;
+        }
+        return false;
+    }
+
     //Create some aliases - may help code readability
     Validator.prototype.validate = Validator.prototype.check;
     Validator.prototype.assert = Validator.prototype.check;
@@ -623,11 +642,25 @@
         return this;
     }
 
-    Validator.prototype.isIP = function() {
-        if (!this.str.match(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)) {
-            return this.error(this.msg || 'Invalid IP');
+    Validator.prototype.isIPv4 = function() {
+        if (internal_is_ipv4(this.str)) {
+            return this;
         }
-        return this;
+        return this.error(this.msg || 'Invalid IP');
+    }
+
+    Validator.prototype.isIPv6 = function() {
+        if (internal_is_ipv6(this.str)) {
+            return this;
+        }
+        return this.error(this.msg || 'Invalid IP');
+    }
+
+    Validator.prototype.isIP = function() {
+        if (internal_is_ipv4(this.str) || internal_is_ipv6(this.str)) {
+            return this;
+        }
+        return this.error(this.msg || 'Invalid IP');
     }
 
     Validator.prototype.isAlpha = function() {
