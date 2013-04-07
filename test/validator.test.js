@@ -212,12 +212,8 @@ module.exports = {
         assert.ok(Validator.check(0).isInt());
         assert.ok(Validator.check(123).isInt());
         assert.ok(Validator.check('-0').isInt());
-        assert.ok(Validator.check('01').isInt());
-        assert.ok(Validator.check('-01').isInt());
-        assert.ok(Validator.check('000').isInt());
-        assert.ok(Validator.check('100e10').isInt());
 
-        ['123.123','  ',''].forEach(function(str) {
+        ['01', '-01', '000', '100e10', '123.123', '  ', ''].forEach(function(str) {
             try {
                 Validator.check(str).isInt();
                 assert.ok(false, 'falsepositive');
