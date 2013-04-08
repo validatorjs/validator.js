@@ -626,6 +626,18 @@ module.exports = {
         assert.ok(Validator.check('6').isDivisibleBy(3));
 
         assert.throws(function() {
+            Validator.check('10').isDivisibleBy('alpha');
+        });
+
+        assert.throws(function() {
+            Validator.check('alpha').isDivisibleBy(2);
+        });
+
+        assert.throws(function() {
+            Validator.check('alpha').isDivisibleBy('alpha');
+        });
+
+        assert.throws(function() {
             Validator.check('5').isDivisibleBy(2);
         });
 
