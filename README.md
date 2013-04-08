@@ -202,6 +202,7 @@ var errors = validator.getErrors(); // ['Invalid email', 'String is too small']
 - [foxbunny](https://github.com/foxbunny) - Added min(), max(), isAfter(), isBefore(), and improved isDate()
 - [oris](https://github.com/orls) - Added in()
 - [mren](https://github.com/mren) - Decoupled rules
+- [Thorsten Basse](https://github.com/tbasse) - Cleanup and refinement of existing validators
 
 ## LICENSE
 
