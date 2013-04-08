@@ -822,6 +822,14 @@
         return this;
     }
 
+    Validator.prototype.isUUIDv3 = function() {
+        return this.isUUID(3);
+    }
+
+    Validator.prototype.isUUIDv4 = function() {
+        return this.isUUID(4);
+    }
+
     Validator.prototype.isDate = function() {
         var intDate = Date.parse(this.str);
         if (isNaN(intDate)) { 

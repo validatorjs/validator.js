@@ -86,6 +86,8 @@ regex(pattern, modifiers)       //Usage: regex(/[a-z]/i) or regex('[a-z]','i')
 notRegex(pattern, modifiers)
 len(min, max)                   //max is optional
 isUUID(version)                 //Version can be 3 or 4 or empty, see http://en.wikipedia.org/wiki/Universally_unique_identifier
+isUUIDv3()                      //Alias for isUUID(3)
+isUUIDv4()                      //Alias for isUUID(4)
 isDate()                        //Uses Date.parse() - regex is probably a better choice
 isAfter(date)                   //Argument is optional and defaults to today. Comparison is non-inclusive
 isBefore(date)                  //Argument is optional and defaults to today. Comparison is non-inclusive
