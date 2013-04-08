@@ -182,6 +182,8 @@ module.exports = {
         assert.ok(Validator.check('a').isLowercase());
         assert.ok(Validator.check('123').isLowercase());
         assert.ok(Validator.check('abc123').isLowercase());
+        assert.ok(Validator.check('this is lowercase.').isLowercase());
+        assert.ok(Validator.check('très über').isLowercase());
 
         ['123A','ABC','.',''].forEach(function(str) {
             try {
