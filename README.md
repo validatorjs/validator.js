@@ -63,7 +63,9 @@ is()                            //Alias for regex()
 not()                           //Alias for notRegex()
 isEmail()
 isUrl()                         //Accepts http, https, ftp
-isIP()
+isIP()                          //Combines isIPv4 and isIPv6
+isIPv4()
+isIPv6()
 isAlpha()
 isAlphanumeric()
 isNumeric()
