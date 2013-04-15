@@ -391,8 +391,6 @@ module.exports = {
         assert.ok(Validator.check(123).len(2));
         assert.ok(Validator.check(123).len(2, 4));
         assert.ok(Validator.check(12).len(2,2));
-        assert.ok(Validator.check([1, 2]).len(2,2));
-        assert.ok(Validator.check([1, 2, 3]).len(2,4));
 
         try {
             Validator.check('abc').len(4);
@@ -549,31 +547,6 @@ module.exports = {
         assert.throws(function() {
             Validator.check('4.9').max(4.2);
         });
-    },
-
-    'test #isArray()': function () {
-        assert.ok(Validator.check(new Array()).isArray());
-        assert.ok(Validator.check([]).isArray());
-        assert.ok(Validator.check([1, 2]).isArray());
-        assert.ok(Validator.check(['a', 'b', 'c']).isArray());
-        assert.ok(Validator.check([{}, {}]).isArray());
-
-        try {
-            assert.ok(Validator.check('a').isArray());
-            assert.ok(false, 'len failed');
-        } catch (e) {}
-        try {
-            assert.ok(Validator.check({}).isArray());
-            assert.ok(false, 'len failed');
-        } catch (e) {}
-        try {
-            assert.ok(Validator.check({a: 1, b: 2}).isArray());
-            assert.ok(false, 'len failed');
-        } catch (e) {}
-        try {
-            assert.ok(Validator.check(new Object()).isArray());
-            assert.ok(false, 'len failed');
-        } catch (e) {}
     },
 
     'test #isDate()': function() {

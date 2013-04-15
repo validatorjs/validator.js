@@ -878,13 +878,6 @@
         return this;
     }
 
-    Validator.prototype.isArray = function() {
-        if (!Array.isArray(this.str)) {
-            return this.error(this.msg || 'Not an array');
-        }
-        return this;
-    }
-
     var Filter = exports.Filter = function() {}
 
     var whitespace = '\\r\\n\\t\\s';
