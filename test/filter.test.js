@@ -134,9 +134,23 @@ module.exports = {
 
     'test #xss()': function () {
         //Need more tests!
-        assert.equal(' foobar', Filter.sanitize('javascript  : foobar').xss());
-        assert.equal(' foobar', Filter.sanitize('j a vasc ri pt: foobar').xss());
+        assert.equal('[removed] foobar', Filter.sanitize('javascript  : foobar').xss());
+        assert.equal('[removed] foobar', Filter.sanitize('j a vasc ri pt: foobar').xss());
         assert.equal('<a >some text</a>', Filter.sanitize('<a href="javascript:alert(\'xss\')">some text</a>').xss());
+
+        assert.equal('<s <> <s >This is a test</s>', Filter.sanitize('<s <onmouseover="alert(1)"> <s onmouseover="alert(1)">This is a test</s>').xss());
+        assert.equal('<a >">test</a>', Filter.sanitize('<a href="javascriptJ a V a S c R iPt::alert(1)" "<s>">test</a>').xss());
+        assert.equal('<div ><h1>You have won</h1>Please click the link and enter your login details: <a href="http://example.com/">http://good.com</a></div>', Filter.sanitize('<div style="z-index: 9999999; background-color: green; width: 100%; height: 100%"><h1>You have won</h1>Please click the link and enter your login details: <a href="http://example.com/">http://good.com</a></div>').xss());
+        assert.equal('<scrRedirec[removed]t 302ipt type="text/javascript">prompt(1);</scrRedirec[removed]t 302ipt>', Filter.sanitize('<scrRedirecRedirect 302t 302ipt type="text/javascript">prompt(1);</scrRedirecRedirect 302t 302ipt>').xss());
+        assert.equal('<img src="a" ', Filter.sanitize('<img src="a" onerror=\'eval(atob("cHJvbXB0KDEpOw=="))\'').xss());
+
+
+        // Source: http://blog.kotowicz.net/2012/07/codeigniter-210-xssclean-cross-site.html
+        assert.equal('<img src=">" >', Filter.sanitize('<img/src=">" onerror=alert(1)>').xss());
+        assert.equal('<button a=">" autofocus ></button>', Filter.sanitize('<button/a=">" autofocus onfocus=alert&#40;1&#40;></button>').xss());
+        assert.equal('<button a=">" autofocus >', Filter.sanitize('<button a=">" autofocus onfocus=alert&#40;1&#40;>').xss());
+        assert.equal('<a target="_blank">clickme in firefox</a>', Filter.sanitize('<a target="_blank" href="data:text/html;BASE64youdummy,PHNjcmlwdD5hbGVydCh3aW5kb3cub3BlbmVyLmRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5pbm5lckhUTUwpPC9zY3JpcHQ+">clickme in firefox</a>').xss());
+        assert.equal('<a/\'\'\' target="_blank" href=[removed]PHNjcmlwdD5hbGVydChvcGVuZXIuZG9jdW1lbnQuYm9keS5pbm5lckhUTUwpPC9zY3JpcHQ+>firefox11</a>', Filter.sanitize('<a/\'\'\' target="_blank" href=data:text/html;;base64,PHNjcmlwdD5hbGVydChvcGVuZXIuZG9jdW1lbnQuYm9keS5pbm5lckhUTUwpPC9zY3JpcHQ+>firefox11</a>').xss());
 
         var url = 'http://www.example.com/test.php?a=b&b=c&c=d';
         assert.equal(url, Filter.sanitize(url).xss());
