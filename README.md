@@ -202,6 +202,7 @@ var errors = validator.getErrors(); // ['Invalid email', 'String is too small']
 - [oris](https://github.com/orls) - Added in()
 - [mren](https://github.com/mren) - Decoupled rules
 - [Thorsten Basse](https://github.com/tbasse) - Cleanup and refinement of existing validators
+- [Neal Poole](https://github.com/nealpoole) - Port the latest xss() updates from CodeIgniter
 
 ## LICENSE
 
