@@ -460,6 +460,8 @@ module.exports = {
 
         assert.ok(Validator.check('foo').isIn(['foo', 'bar', 'baz']));
 
+        assert.ok(Validator.check('1').isIn([1, 2, 3]));
+
         assert.throws(function() {
             Validator.check('foo').isIn(['bar', 'baz']);
           }, /unexpected/i
