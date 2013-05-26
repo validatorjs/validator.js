@@ -501,6 +501,10 @@ module.exports = {
         );
 
         assert.throws(function() {
+            Validator.check('1').notIn([1, 2, 3]);
+        }, /unexpected/i);
+
+        assert.throws(function() {
             Validator.check('foo').notIn(1234567);
           }, /invalid/i
         );
