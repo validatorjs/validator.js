@@ -19,6 +19,12 @@ check('test@email.com').len(6, 64).isEmail();        //Methods are chainable
 check('abc').isInt();                                //Throws 'Invalid integer'
 check('abc', 'Please enter a number').isInt();       //Throws 'Please enter a number'
 check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
+// Throws 'This is not a number you silly goose!' if not isNumeric
+// Throw 'The value doesn't have a 0 in it, and it really needs it' if isNumeric passes, but there isn't a 0
+check('ff', {
+    isNumeric: 'This is not a number you silly goose!',
+    contains: 'The value doesn't have a 0 in it, and it really needs it'
+}).isNumeric().contains('0')
 
 //Sanitize / Filter
 var int = sanitize('0123').toInt();                  //123
@@ -195,6 +201,7 @@ var errors = validator.getErrors(); // ['Invalid email', 'String is too small']
 
 ## Contributors
 
+- [zero21xxx](https://github.com/zero21xxx) - Added per check messages
 - [PING](https://github.com/PlNG) - Fixed entity encoding
 - [Dan VerWeire](https://github.com/wankdanker) - Modified the behaviour of the error handler
 - [ctavan](https://github.com/ctavan) - Added isArray and isUUID()
