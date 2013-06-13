@@ -19,17 +19,20 @@ check('test@email.com').len(6, 64).isEmail();        //Methods are chainable
 check('abc').isInt();                                //Throws 'Invalid integer'
 check('abc', 'Please enter a number').isInt();       //Throws 'Please enter a number'
 check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
-// Throws 'This is not a number you silly goose!' if not isNumeric
-// Throw 'The value doesn't have a 0 in it, and it really needs it' if isNumeric passes, but there isn't a 0
-check('ff', {
-    isNumeric: 'This is not a number you silly goose!',
-    contains: 'The value doesn't have a 0 in it, and it really needs it'
-}).isNumeric().contains('0')
+
+//Set a message per validator
+check('foo', {
+    isNumeric: 'This is not a number',
+    contains: 'The value doesn't have a 0 in it'
+}).isNumeric().contains('0');
+
+//Referencing validator args from the message
+check('foo', 'The message needs to be between %1 and %2 characters long (you passed "%0")').len(2, 6);
 
 //Sanitize / Filter
 var int = sanitize('0123').toInt();                  //123
 var bool = sanitize('true').toBoolean();             //true
-var str = sanitize(' \t\r hello \n').trim();       //'hello'
+var str = sanitize(' \t\r hello \n').trim();         //'hello'
 var str = sanitize('aaaaaaaaab').ltrim('a');         //'b'
 var str = sanitize(large_input_str).xss();
 var str = sanitize('&lt;a&gt;').entityDecode();      //'<a>'
