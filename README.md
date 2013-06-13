@@ -23,7 +23,7 @@ check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
 //Set a message per validator
 check('foo', {
     isNumeric: 'This is not a number',
-    contains: 'The value doesn't have a 0 in it'
+    contains: 'The value doesn\'t have a 0 in it'
 }).isNumeric().contains('0');
 
 //Referencing validator args from the message
