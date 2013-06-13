@@ -8,3 +8,8 @@ for (test in filterTests) {
 	console.log('Initializing filter test:', test);
   filterTests[test]();
 }
+var messageTests = require('./messages.test.js')
+for (test in messageTests) {
+  console.log('Initializing messages test:', test);
+  messageTests[test]();
+}
