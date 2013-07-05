@@ -105,6 +105,7 @@ notIn(options)
 max(val)
 min(val)
 isCreditCard()                  //Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
+isCanadaPostCode()              //Accepts both spaced and non-spaced formats (e.g. H2G 1M1 & H2G1M1)
 ```
 
 ## List of sanitization / filter methods
