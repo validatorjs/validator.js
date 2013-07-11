@@ -89,6 +89,7 @@ module.exports = {
             'http://www.foobar.com/~foobar',
             'http://user:pass@www.foobar.com/',
             'http://127.0.0.1/',
+            'http://10.0.0.0/',
             'http://189.123.14.13/',
             'http://duckduckgo.com/?q=%2F',
             'http://foobar.com/t$-_.+!*\'(),',
