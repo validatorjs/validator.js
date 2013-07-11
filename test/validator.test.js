@@ -454,6 +454,33 @@ module.exports = {
 
     },
 
+    'test #isUUIDv3()': function () {
+      ////xxxxxxxx-xxxx-3xxx-yxxx-xxxxxxxxxxxx where x is any hexadecimal digit and y is one of 8, 9, A, or B
+
+      var goodUuidV3s = [
+        "987FBC97-4BED-3078-AF07-9141BA07C9F3"
+      ]
+
+      goodUuidV3s.forEach(function (item) {
+        assert.ok(Validator.check(item).isUUIDv3());
+      });
+
+      var badUuidV3s = [
+        "",
+        null,
+        "xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3",
+        "A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx",
+        "A987FBC94BED3078CF079141BA07C9F3",
+        "934859",
+        "987FBC9-4BED-3078-CF07A-9141BA07C9F3",
+        "AAAAAAAA-1111-1111-AAAG-111111111111"
+      ]
+
+      badUuidV3s.forEach(function (item) {
+        assert.throws(function() { Validator.check(item).isUUIDv3() },  /not a uuid v3/i);
+      });
+    },
+
     'test #isIn(options)': function () {
 
         assert.ok(Validator.check('foo').isIn('foobar'));
