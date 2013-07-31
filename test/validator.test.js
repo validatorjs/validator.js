@@ -5,13 +5,9 @@ var node_validator = require('../lib'),
     assert = require('assert');
 
 function dateFixture() {
-    var d = new Date();
-    var Y = d.getFullYear();
-    var M = d.getMonth() + 1; // 0-index
-    var D = d.getDate();
     return {
-        tomorrow: Y + '-' + M + '-' + (D + 1), // YYYY-MM-DD
-        yesterday: Y + '-' + M + '-' + (D - 1) // YYYY-MM-DD
+        tomorrow: new Date(Date.now() + 86400000)
+      , yesterday: new Date(Date.now() - 86400000)
     };
 }
 
