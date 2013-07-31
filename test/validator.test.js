@@ -408,6 +408,7 @@ module.exports = {
         assert.ok(Validator.check('A987FBC9-4BED-3078-CF07-9141BA07C9F3').isUUID(2));
         assert.ok(Validator.check('A987FBC9-4BED-3078-CF07-9141BA07C9F3').isUUID(3));
         assert.ok(Validator.check('A987FBC9-4BED-4078-8F07-9141BA07C9F3').isUUID(4));
+        assert.ok(Validator.check('A987FBC9-4BED-5078-AF07-9141BA07C9F3').isUUID(5));
 
         var badUuids = [
             "",
@@ -426,7 +427,13 @@ module.exports = {
             assert.throws(function() { Validator.check(item).isUUID(2) }, /not a uuid/i);
             assert.throws(function() { Validator.check(item).isUUID(3) }, /not a uuid/i);
             assert.throws(function() { Validator.check(item).isUUID(4) }, /not a uuid/i);
+            assert.throws(function() { Validator.check(item).isUUID(5) }, /not a uuid/i);
         });
+
+        try {
+            Validator.check('A987FBC9-4BED-5078-0F07-9141BA07C9F3').isUUID(5);
+            assert.ok(false, 'isUUID failed');
+        } catch (e) {}
 
         try {
             Validator.check('A987FBC9-4BED-4078-0F07-9141BA07C9F3').isUUID(4);
@@ -507,6 +514,36 @@ module.exports = {
         assert.throws(function() { Validator.check(item).isUUIDv4() },  /not a uuid v4/i);
       });
     },
+
+    'test #isUUIDv5()': function () {
+        ////xxxxxxxx-xxxx-5xxx-yxxx-xxxxxxxxxxxx where x is any hexadecimal digit and y is one of 8, 9, A, or B
+
+        var goodUuidV5s = [
+          "987FBC97-4BED-5078-AF07-9141BA07C9F3",
+          "987FBC97-4BED-5078-BF07-9141BA07C9F3",
+          "987FBC97-4BED-5078-8F07-9141BA07C9F3",
+          "987FBC97-4BED-5078-9F07-9141BA07C9F3"
+        ];
+
+        goodUuidV5s.forEach(function (item) {
+          assert.ok(Validator.check(item).isUUIDv5());
+        });
+
+        var badUuidV5s = [
+          "",
+          null,
+          "xxxA987FBC9-4BED-5078-CF07-9141BA07C9F3",
+          "A987FBC9-4BED-5078-CF07-9141BA07C9F3xxx",
+          "A987FBC94BED5078CF079141BA07C9F3",
+          "934859",
+          "987FBC9-4BED-5078-CF07A-9141BA07C9F3",
+          "AAAAAAAA-1111-1111-AAAG-111111111111"
+        ];
+
+        badUuidV5s.forEach(function (item) {
+          assert.throws(function() { Validator.check(item).isUUIDv5(); },  /not a uuid v5/i);
+        });
+      },
 
     'test #isIn(options)': function () {
 
