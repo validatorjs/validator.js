@@ -813,6 +813,8 @@
             pattern = /[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i;
         } else if (version == 4 || version == 'v4') {
             pattern = /[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
+        } else if (version == 5 || version == 'v5') {
+            pattern = /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
         } else {
             pattern = /[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i;
         }
@@ -828,6 +830,10 @@
 
     Validator.prototype.isUUIDv4 = function() {
         return this.isUUID(4);
+    }
+
+    Validator.prototype.isUUIDv5 = function() {
+        return this.isUUID(5);
     }
 
     Validator.prototype.isDate = function() {
