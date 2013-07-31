@@ -691,5 +691,15 @@ module.exports = {
             assert.strictEqual(true, e instanceof Error);
             assert.notStrictEqual(true, e instanceof FakeError);
         }
+    },
+
+    'test false as error message': function() {
+        var v = new node_validator.Validator()
+          , error = null;
+        v.error = function (msg) {
+            error = msg;
+        };
+        v.check('not_an_email', false).isEmail();
+        assert.strictEqual(error, false);
     }
 }
