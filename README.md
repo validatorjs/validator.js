@@ -65,6 +65,14 @@ get('/', function (req, res) {
 });
 ```
 
+## An important note
+
+This library validates **strings** only. If you pass something that's not a string as input it will be coerced to a string using the following rules:
+
+- Is it an object with a `toString` property? Call `input.toString()`
+- Is it `null`, `undefined`, or `NaN`? Replace with an empty string
+- All other input? Coerce to a string using `'' + input`
+
 ## List of validation methods
 
 ```javascript
@@ -85,9 +93,9 @@ isLowercase()
 isUppercase()
 isDecimal()
 isFloat()                       //Alias for isDecimal
-notNull()
+notNull()                       //Check if length is 0
 isNull()
-notEmpty()                      //i.e. not just whitespace
+notEmpty()                      //Not just whitespace (input.trim().length !== 0)
 equals(equals)
 contains(str)
 notContains(str)
