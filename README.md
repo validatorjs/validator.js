@@ -216,7 +216,7 @@ var errors = validator.getErrors(); // ['Invalid email', 'String is too small']
 - [zero21xxx](https://github.com/zero21xxx) - Added per check messages
 - [PING](https://github.com/PlNG) - Fixed entity encoding
 - [Dan VerWeire](https://github.com/wankdanker) - Modified the behaviour of the error handler
-- [ctavan](https://github.com/ctavan) - Added isArray and isUUID()
+- [ctavan](https://github.com/ctavan) - Added isArray (since removed) and isUUID
 - [foxbunny](https://github.com/foxbunny) - Added min(), max(), isAfter(), isBefore(), and improved isDate()
 - [oris](https://github.com/orls) - Added in()
 - [mren](https://github.com/mren) - Decoupled rules
