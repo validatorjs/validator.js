@@ -75,5 +75,21 @@ var util = require('util')
         assert.equal(errors.length, 2);
         assert.equal(errors[0], 'testData.number should be a real number');
         assert.equal(errors[1], 'testData.number ff should contain a 0');
+      },
+      'test: custom messages with custom messageBuilder': function  () {
+        var v = new Validator({
+            messageBuilder: function(msg, args) {
+                return msg + " " + args.join(' ');
+          }});
+        v.check(testData.number, {
+            isNumeric: 'testData.number should be a real number',
+            contains: 'testData.number should contain a'
+        }).isNumeric().contains('0');
+
+        errors = v.getErrors();
+
+        assert.equal(errors.length, 2);
+        assert.equal(errors[0], 'testData.number should be a real number ff');
+        assert.equal(errors[1], 'testData.number should contain a ff 0');
       }
     }
