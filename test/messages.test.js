@@ -24,9 +24,9 @@ var util = require('util')
 
         errors = v.getErrors();
 
-        assert.equal(errors.length, 2)
-        assert.equal(errors[0], 'testData.number should be a real number')
-        assert.equal(errors[1], 'testData.number should contain a 0')
+        assert.equal(errors.length, 2);
+        assert.equal(errors[0], 'testData.number should be a real number');
+        assert.equal(errors[1], 'testData.number should contain a 0');
       },
       'test: one custom message, one default': function() {
         var v = new Validator();
@@ -36,9 +36,9 @@ var util = require('util')
 
         errors = v.getErrors();
 
-        assert.equal(errors.length, 2)
-        assert.equal(errors[0], 'testData.number should be a real number')
-        assert.equal(errors[1], 'Invalid characters')
+        assert.equal(errors.length, 2);
+        assert.equal(errors[0], 'testData.number should be a real number');
+        assert.equal(errors[1], 'Invalid characters');
       },
       'test: global error message': function() {
         var v = new Validator();
@@ -46,9 +46,9 @@ var util = require('util')
 
         errors = v.getErrors();
 
-        assert.equal(errors.length, 2)
-        assert.equal(errors[0], 'The value you entered is not valid')
-        assert.equal(errors[1], 'The value you entered is not valid')
+        assert.equal(errors.length, 2);
+        assert.equal(errors[0], 'The value you entered is not valid');
+        assert.equal(errors[1], 'The value you entered is not valid');
       },
       'test: custom message for a validation that is not used': function() {
         var v = new Validator();
@@ -59,8 +59,21 @@ var util = require('util')
 
         errors = v.getErrors();
 
-        assert.equal(errors.length, 2)
-        assert.equal(errors[0], 'testData.number should be a real number')
-        assert.equal(errors[1], 'Invalid characters')
+        assert.equal(errors.length, 2);
+        assert.equal(errors[0], 'testData.number should be a real number');
+        assert.equal(errors[1], 'Invalid characters');
+      },
+      'test: custom messages with parameters': function  () {
+        var v = new Validator();
+        v.check(testData.number, {
+            isNumeric: 'testData.number should be a real number',
+            contains: 'testData.number %0 should contain a %1'
+        }).isNumeric().contains('0');
+
+        errors = v.getErrors();
+
+        assert.equal(errors.length, 2);
+        assert.equal(errors[0], 'testData.number should be a real number');
+        assert.equal(errors[1], 'testData.number ff should contain a 0');
       }
     }
