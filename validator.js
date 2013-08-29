@@ -21,7 +21,22 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-(function(exports) {
+// follow Universal Module Definition (UMD) pattern for defining module as AMD, CommonJS, and Browser compatible
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['exports'], factory);
+    } else if (typeof exports === 'object') {
+        // CommonJS
+        factory(exports);
+    } else {
+        // Browser globals
+        // N.B. Here is a slight difference to regular UMD as the current API for node-validator in browser adds each export directly to the window
+        // rather than to a namespaced object such as window.nodeValidator, which would be better practice, but would break backwards compatibility
+        // as such unable to use build tools like grunt-umd
+        factory(root);
+    }
+}(this, function(exports) {
 
     var entities = {
         '&nbsp;': '\u00a0',
@@ -596,9 +611,9 @@
         return this;
     }
 
-	//Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
-	Validator.prototype.isCreditCard = function() {
-		this.str = this.str.replace(/[^0-9]+/g, ''); //remove all dashes, spaces, etc.
+  //Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
+  Validator.prototype.isCreditCard = function() {
+    this.str = this.str.replace(/[^0-9]+/g, ''); //remove all dashes, spaces, etc.
         if (!this.str.match(/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/)) {
             return this.error(this.msg || 'Invalid credit card');
         }
@@ -631,7 +646,7 @@
             }
             if ((sum % 10) !== 0) {
                 return this.error(this.msg || 'Invalid credit card');
-            }      
+            }
         return this;
     }
 
@@ -838,8 +853,8 @@
 
     Validator.prototype.isDate = function() {
         var intDate = Date.parse(this.str);
-        if (isNaN(intDate)) { 
-            return this.error(this.msg || 'Not a date'); 
+        if (isNaN(intDate)) {
+            return this.error(this.msg || 'Not a date');
         }
         return this;
     }
@@ -990,5 +1005,6 @@
         return validator.check(str, fail_msg);
     }
 
-})(typeof(exports) === 'undefined' ? window : exports);
+    return exports;
 
+}));
