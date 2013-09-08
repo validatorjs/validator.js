@@ -42,7 +42,7 @@ var str = sanitize('&lt;a&gt;').entityDecode();      //'<a>'
 
 Often it's more desirable to check or automatically sanitize parameters by name (rather than the actual string). See [this gist](https://gist.github.com/752126) for instructions on binding the library to the `request` prototype.
 
-If you are using the [express.js framework](https://github.com/visionmedia/express) you can use the [express-validator middleware](https://github.com/ctavan/express-validator) to seamlessly integrate node-validator.
+If you are using the [express.js framework](https://github.com/visionmedia/express) (or an Express-based framework like [Sails.js](https://github.com/balderdashy/sails) or [Compound](https://github.com/1602/compound)) you can use the [express-validator middleware](https://github.com/ctavan/express-validator) to seamlessly integrate node-validator.
 
 Example `http://localhost:8080/?zip=12345&foo=1&textarea=large_string`
 
