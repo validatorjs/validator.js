@@ -8,5 +8,6 @@
       test;
   for (test in tests) {
     console.log('Initializing ' + suite.name + ' test:', test);
+    tests[test]();
   }
 });
