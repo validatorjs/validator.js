@@ -144,6 +144,8 @@ module.exports = {
         assert.equal('<scrRedirec[removed]t 302ipt type="text/javascript">prompt(1);</scrRedirec[removed]t 302ipt>', Filter.sanitize('<scrRedirecRedirect 302t 302ipt type="text/javascript">prompt(1);</scrRedirecRedirect 302t 302ipt>').xss());
         assert.equal('<img src="a" ', Filter.sanitize('<img src="a" onerror=\'eval(atob("cHJvbXB0KDEpOw=="))\'').xss());
 
+        assert.equal('Write "Hello World"', Filter.sanitize('Write "Hello World"').xss());
+
 
         // Source: http://blog.kotowicz.net/2012/07/codeigniter-210-xssclean-cross-site.html
         assert.equal('<img src=">" >', Filter.sanitize('<img/src=">" onerror=alert(1)>').xss());
