@@ -34,7 +34,6 @@ var int = sanitize('0123').toInt();                  //123
 var bool = sanitize('true').toBoolean();             //true
 var str = sanitize(' \t\r hello \n').trim();         //'hello'
 var str = sanitize('aaaaaaaaab').ltrim('a');         //'b'
-var str = sanitize(large_input_str).xss();
 var str = sanitize('&lt;a&gt;').entityDecode();      //'<a>'
 ```
 
@@ -58,7 +57,6 @@ get('/', function (req, res) {
     req.checkHeader('referer').contains('localhost');
 
     //Sanitize user input
-    req.sanitize('textarea').xss();
     req.sanitize('foo').toBoolean();
 
     //etc.
@@ -130,8 +128,6 @@ toBooleanStrict()               //False unless str = '1' or 'true'
 entityDecode()                  //Decode HTML entities
 entityEncode()
 escape()                        //Escape &, <, >, and "
-xss()                           //Remove common XSS attack vectors from user-supplied HTML
-xss(true)                       //Remove common XSS attack vectors from images
 ```
 
 ## Extending the library
@@ -221,7 +217,6 @@ var errors = validator.getErrors(); // ['Invalid email', 'String is too small']
 - [oris](https://github.com/orls) - Added in()
 - [mren](https://github.com/mren) - Decoupled rules
 - [Thorsten Basse](https://github.com/tbasse) - Cleanup and refinement of existing validators
-- [Neal Poole](https://github.com/nealpoole) - Port the latest xss() updates from CodeIgniter
 
 ## LICENSE
 
