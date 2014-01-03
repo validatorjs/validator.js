@@ -89,7 +89,8 @@ module.exports = {
             'http://189.123.14.13/',
             'http://duckduckgo.com/?q=%2F',
             'http://foobar.com/t$-_.+!*\'(),',
-            'http://localhost:3000/'
+            'http://localhost:3000/',
+            'http://foo_bar.foobar.com/'
         ];
         try {
             valid.forEach(function(url) {
