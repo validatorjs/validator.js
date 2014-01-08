@@ -40,15 +40,10 @@ var str = validator.sanitize('&lt;a&gt;').entityDecode();      //'<a>'
 To use the library in the browser, include `dist/validator.min.js`
 
 ```html
-<script type="text/javascript" src="dist/validator.min.js"></script>
+<script type="text/javascript" src="validator.min.js"></script>
 <script type="text/javascript">
-    validator.check('foo@bar.com').isEmail();
+  validator.check('foo@bar.com').isEmail();
 </script>
-```
-
-## Example
-
-```javascript
 ```
 
 ## An important note
