@@ -15,12 +15,6 @@
     "type": "git",
     "url": "http://github.com/chriso/node-validator.git"
   },
-  "contributors": [
-    { "name": "PING", "github": "https://github.com/PlNG" },
-    { "name": "Dan VerWeire", "github": "https://github.com/wankdanker" },
-    { "name": "Branko Vukelic", "github": "https://github.com/foxbunny" },
-    { "name": "Mark Engel", "github": "https://github.com/mren" }
-  ],
   "scripts": {
     "test": "./node_modules/.bin/_mocha --reporter spec"
   },

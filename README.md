@@ -189,17 +189,6 @@ validator.check('hello').len(10,30);
 console.log(validator.errors); // ['Invalid email', 'String is too small']
 ```
 
-## Contributors
-
-- [zero21xxx](https://github.com/zero21xxx) - Added per check messages
-- [PING](https://github.com/PlNG) - Fixed entity encoding
-- [Dan VerWeire](https://github.com/wankdanker) - Modified the behaviour of the error handler
-- [ctavan](https://github.com/ctavan) - Added isArray (since removed) and isUUID
-- [foxbunny](https://github.com/foxbunny) - Added min(), max(), isAfter(), isBefore(), and improved isDate()
-- [oris](https://github.com/orls) - Added in()
-- [mren](https://github.com/mren) - Decoupled rules
-- [Thorsten Basse](https://github.com/tbasse) - Cleanup and refinement of existing validators
-
 ## License (MIT)
 
 Copyright (c) 2014 Chris O'Hara <cohara87@gmail.com>
