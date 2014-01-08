@@ -1,15 +1,15 @@
-{ "name"          : "validator",
-  "description"   : "Data validation, filtering and sanitization for node.js",
-  "version"       : "2.1.0",
-  "homepage"      : "http://github.com/chriso/node-validator",
-  "keywords"      : [
+{ "name": "validator",
+  "description": "Data validation, filtering and sanitization for node.js",
+  "version": "2.1.0",
+  "homepage": "http://github.com/chriso/node-validator",
+  "keywords": [
     "validator", "validation", "assert", "params", "sanitization",
     "entities", "sanitize", "sanitisation", "input"
   ],
-  "author"        : "Chris O'Hara <cohara87@gmail.com>",
-  "main"          : "index.js",
+  "author": "Chris O'Hara <cohara87@gmail.com>",
+  "main": "index.js",
   "bugs": {
-    "url" : "http://github.com/chriso/node-validator/issues"
+    "url": "http://github.com/chriso/node-validator/issues"
   },
   "repository": {
     "type": "git",
@@ -31,9 +31,9 @@
     "browserify": "latest",
     "uglify-js": "1.3.5"
   },
-  "engines" : { "node" : ">= 0.8" },
-  "licenses" : [
-    { "type" : "MIT"
-    , "url" : "http://github.com/chriso/node-validator/raw/master/LICENSE" }
+  "engines": { "node" : ">= 0.8" },
+  "licenses": [
+    { "type": "MIT"
+    , "url": "http://github.com/chriso/node-validator/raw/master/LICENSE" }
   ]
 }
