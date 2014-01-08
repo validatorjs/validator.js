@@ -68,7 +68,7 @@
     };
 
     validator.toDate = function (date) {
-        if (date instanceof Date) {
+        if (Object.prototype.toString.call(date) === '[object Date]') {
             return date;
         }
         date = Date.parse(date);
@@ -265,7 +265,7 @@
 
     //Coerce the first argument of each validator function
     for (var name in validator) {
-        if (name === 'toString' || typeof validator[name] !== 'function') {
+        if (name === 'toString' || name === 'toDate' || typeof validator[name] !== 'function') {
             continue;
         }
         (function (name) {
