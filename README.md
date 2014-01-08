@@ -119,6 +119,7 @@ When adding to the Validator prototype, use `this.str` to access the string and 
 
 ```javascript
 var Validator = require('validator').Validator;
+
 Validator.prototype.contains = function (seed) {
     if (this.str.indexOf(seed) === -1) {
         this.error(this.msg || this.str + ' does not contain ' + seed);
@@ -131,9 +132,10 @@ When adding to the Filter (sanitize) prototype, use `this.str` to access the str
 
 ```javascript
 var Filter = require('validator').Filter;
+
 Filter.prototype.removeNumbers = function() {
     this.modify(this.str.replace(/[0-9]+/g, ''));
-    return this.str;
+    return this.wrap(this.str);
 }
 ```
 
