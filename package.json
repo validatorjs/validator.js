@@ -6,10 +6,9 @@
   "author"        : "Chris O'Hara <cohara87@gmail.com>",
   "main"          : "./lib",
   "directories"   : { "lib" : "./lib" },
-  "bugs" :
-    { "mail" : "",
-      "url" : "http://github.com/chriso/node-validator/issues"
-    },
+  "bugs": {
+    "url" : "http://github.com/chriso/node-validator/issues"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/chriso/node-validator.git"
@@ -23,10 +22,14 @@
   "scripts": {
     "test": "node test/run.js"
   },
-  "engines" : { "node" : ">=0.2.2" },
-  "licenses" :
-    [ { "type" : "MIT"
-      , "url" : "http://github.com/chriso/node-validator/raw/master/LICENSE"
-      }
-    ]
+  "devDependencies": {
+    "mocha": "latest",
+    "istanbul": "latest",
+    "jshint": "latest"
+  },
+  "engines" : { "node" : ">= 0.8" },
+  "licenses" : [
+    { "type" : "MIT"
+    , "url" : "http://github.com/chriso/node-validator/raw/master/LICENSE" }
+  ]
 }
