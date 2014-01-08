@@ -2,10 +2,12 @@
   "description"   : "Data validation, filtering and sanitization for node.js",
   "version"       : "2.0.0",
   "homepage"      : "http://github.com/chriso/node-validator",
-  "keywords"      : ["validator", "validation", "assert", "params", "sanitization", "entities", "sanitize", "sanitisation", "input"],
+  "keywords"      : [
+    "validator", "validation", "assert", "params", "sanitization",
+    "entities", "sanitize", "sanitisation", "input"
+  ],
   "author"        : "Chris O'Hara <cohara87@gmail.com>",
   "main"          : "index.js",
-  "directories"   : { "lib" : "./lib" },
   "bugs": {
     "url" : "http://github.com/chriso/node-validator/issues"
   },
@@ -20,7 +22,7 @@
     { "name": "Mark Engel", "github": "https://github.com/mren" }
   ],
   "scripts": {
-    "test": "node test/run.js"
+    "test": "make check"
   },
   "devDependencies": {
     "mocha": "latest",
