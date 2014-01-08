@@ -90,17 +90,30 @@
         return str !== '0' && str !== 'false' && str !== '';
     };
 
+    validator.equals = function (str, comparison) {
+        return str === validator.toString(comparison);
+    };
+
+    validator.contains = function (str, elem) {
+        return str.indexOf(validator.toString(elem)) >= 0;
+    };
+
+    validator.matches = function (str, pattern, modifiers) {
+        if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
+            pattern = new RegExp(pattern, modifiers);
+        }
+        return pattern.test(str);
+    };
+
     validator.isEmail = function (str) {
         return email.test(str);
     };
 
-    validator.isUrl = function (str) {
-        str = str;
+    validator.isURL = function (str) {
         return str.length < 2083 && url.test(str);
     };
 
     validator.isIP = function (str) {
-        str = str;
         if (validator.isIPv4(str)) {
             return 4;
         } else if (validator.isIPv6(str)) {
@@ -110,7 +123,6 @@
     };
 
     validator.isIPv4 = function (str) {
-        str = str;
         if (!ipv4Maybe.test(str)) {
             return false;
         }
@@ -143,12 +155,10 @@
     };
 
     validator.isLowercase = function (str) {
-        str = str;
         return str === str.toLowerCase();
     };
 
     validator.isUppercase = function (str) {
-        str = str;
         return str === str.toUpperCase();
     };
 
@@ -157,7 +167,6 @@
     };
 
     validator.isFloat = function (str) {
-        str = str;
         return str !== '' && float.test(str);
     };
 
@@ -169,41 +178,13 @@
         return str.length === 0;
     };
 
-    validator.equals = function (str, comparison) {
-        return str === validator.toString(comparison);
-    };
-
-    validator.contains = function (str, elem) {
-        return str.indexOf(validator.toString(elem)) >= 0;
-    };
-
-    validator.regex = function (str, pattern, modifiers) {
-        if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
-            pattern = new RegExp(pattern, modifiers);
-        }
-        return pattern.test(str);
-    };
-
-    validator.len = function (str, min, max) {
-        str = str;
+    validator.isLength = function (str, min, max) {
         return str.length >= min && (typeof max === 'undefined' || str.length <= max);
     };
 
     validator.isUUID = function (str, version) {
         var pattern = uuid[version ? version : 'all'];
         return pattern && pattern.test(str);
-    };
-
-    validator.isUUIDv3 = function (str) {
-        return validator.isUUID(str, 3);
-    };
-
-    validator.isUUIDv4 = function (str) {
-        return validator.isUUID(str, 4);
-    };
-
-    validator.isUUIDv5 = function (str) {
-        return validator.isUUID(str, 5);
     };
 
     validator.isDate = function (str) {
@@ -234,16 +215,6 @@
             options = array;
         }
         return options.indexOf(str) >= 0;
-    };
-
-    validator.min = function (str, min) {
-        str = validator.toFloat(str);
-        return !isNaN(str) && str >= min;
-    };
-
-    validator.max = function (str, max) {
-        str = validator.toFloat(str);
-        return !isNaN(str) && str <= max;
     };
 
     validator.isCreditCard = function (str) {

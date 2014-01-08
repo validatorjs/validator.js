@@ -47,7 +47,7 @@ describe('Validators', function () {
 
     it('should validate URLs', function () {
         test({
-            validator: 'isUrl'
+            validator: 'isURL'
           , valid: [
                 'foobar.com'
               , 'www.foobar.com'
@@ -280,18 +280,18 @@ describe('Validators', function () {
             invalid: ['bar', 'fobar'] });
     });
 
-    it('should validate strings against a regex', function () {
-        test({ validator: 'regex', args: [/abc/], valid: ['abc', 'abcdef', '123abc'],
+    it('should validate strings against a pattern', function () {
+        test({ validator: 'matches', args: [/abc/], valid: ['abc', 'abcdef', '123abc'],
             invalid: ['acb', 'Abc'] });
-        test({ validator: 'regex', args: ['abc'], valid: ['abc', 'abcdef', '123abc'],
+        test({ validator: 'matches', args: ['abc'], valid: ['abc', 'abcdef', '123abc'],
             invalid: ['acb', 'Abc'] });
-        test({ validator: 'regex', args: ['abc', 'i'], valid: ['abc', 'abcdef', '123abc', 'AbC'],
+        test({ validator: 'matches', args: ['abc', 'i'], valid: ['abc', 'abcdef', '123abc', 'AbC'],
             invalid: ['acb'] });
     });
 
     it('should validate strings by length', function () {
-        test({ validator: 'len', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
-        test({ validator: 'len', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
+        test({ validator: 'isLength', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
+        test({ validator: 'isLength', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
     });
 
     it('should validate UUIDs', function () {
@@ -313,7 +313,8 @@ describe('Validators', function () {
             ]
         });
         test({
-            validator: 'isUUIDv3'
+            validator: 'isUUID'
+          , args: [ 3 ]
           , valid: [
                 'A987FBC9-4BED-3078-CF07-9141BA07C9F3'
             ]
@@ -327,7 +328,8 @@ describe('Validators', function () {
             ]
         });
         test({
-            validator: 'isUUIDv4'
+            validator: 'isUUID'
+          , args: [ 4 ]
           , valid: [
                 '713ae7e3-cb32-45f9-adcb-7c4fa86b90c1'
               , '625e63f3-58f5-40b7-83a1-a72ad31acffb'
@@ -344,7 +346,8 @@ describe('Validators', function () {
             ]
         });
         test({
-            validator: 'isUUIDv5'
+            validator: 'isUUID'
+          , args: [ 5 ]
           , valid: [
                 '987FBC97-4BED-5078-AF07-9141BA07C9F3'
               , '987FBC97-4BED-5078-BF07-9141BA07C9F3'
@@ -389,13 +392,6 @@ describe('Validators', function () {
               , 'GMT'
             ]
         });
-    });
-
-    it('should validate numbers against a min or max', function () {
-        test({ validator: 'min', args: [ 2 ], valid: [ '4', '2', '2.1', '100' ],
-            invalid: [ '0', '-1' ] });
-        test({ validator: 'max', args: [ 2 ], valid: [ '1', '2', '-2.1', '0' ],
-            invalid: [ '10', '2.1' ] });
     });
 
     it('should validate dates against a start date', function () {
