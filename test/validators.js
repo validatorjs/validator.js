@@ -10,7 +10,6 @@ function test(options) {
     if (options.valid) {
         options.valid.forEach(function (valid) {
             try {
-                //console.log('Checking the valid %s(%s)', options.validator, valid);
                 check(valid)[options.validator].apply(validator, options.args || []);
             } catch (err) {
                 var warning = format('%s(%s%s) failed but should have passed', options.validator,
@@ -22,7 +21,6 @@ function test(options) {
     if (options.invalid) {
         options.invalid.forEach(function (invalid) {
             try {
-                //console.log('Checking the invalid %s(%s)', options.validator, invalid);
                 check(invalid)[options.validator].apply(validator, options.args || []);
             } catch (err) {
                 return;
@@ -105,6 +103,8 @@ describe('Validators', function () {
               , '0.0.0.0'
               , '255.255.255.255'
               , '1.2.3.4'
+              , '::1'
+              , '2001:db8:0000:1:1:1:1:1'
             ]
           , invalid: [
                 'abc'
@@ -235,6 +235,38 @@ describe('Validators', function () {
               , '  '
               , ''
               , 'foo'
+            ]
+        });
+    });
+
+    it('should validate hexadecimal strings', function () {
+        test({
+            validator: 'isHexadecimal'
+          , valid: [
+                'deadBEEF'
+              , 'ff0044'
+            ]
+          , invalid: [
+                'abcdefg'
+              , ''
+              , '..'
+            ]
+        });
+    });
+
+    it('should validate hexadecimal color strings', function () {
+        test({
+            validator: 'isHexColor'
+          , valid: [
+                '#ff0034'
+              , '#CCCCCC'
+              , 'fff'
+              , '#f00'
+            ]
+          , invalid: [
+                '#ff'
+              , 'fff0'
+              , '#ff12FG'
             ]
         });
     });
@@ -404,6 +436,7 @@ describe('Validators', function () {
             invalid: ['foobar', 'barfoo', ''] });
         test({ validator: 'isIn', args: [[1, 2, 3]], valid: ['1', '2', '3'],
             invalid: ['4', ''] });
+        test({ validator: 'isIn', invalid: ['foo', ''] });
     });
 
     it('should invalidate a string that is in another string or array', function () {
@@ -413,6 +446,7 @@ describe('Validators', function () {
             invalid: ['foo', 'bar'] });
         test({ validator: 'notIn', args: [[1, 2, 3]], valid: ['4', ''],
             invalid: ['1', '2', '3'] });
+        test({ validator: 'notIn', invalid: ['foo', ''] });
     });
 
     it('should validate dates', function () {
@@ -444,7 +478,7 @@ describe('Validators', function () {
     it('should validate dates against a start date', function () {
         test({ validator: 'isAfter', args: ['2011-08-03'],
             valid: [ '2011-08-04', new Date(2011, 8, 10) ],
-            invalid: [ '2010-07-02', '2011-08-03', new Date(0) ] });
+            invalid: [ '2010-07-02', '2011-08-03', new Date(0), 'foo'] });
         test({ validator: 'isAfter',
             valid: [ '2100-08-04', new Date(Date.now() + 86400000) ],
             invalid: [ '2010-07-02', new Date(0) ] });
@@ -540,6 +574,25 @@ describe('Validators', function () {
             message = err.message;
         }
         assert.equal(message, 'Validator failed (foo, bar)');
+    });
+
+    it('should validate credit cards', function () {
+        test({
+            validator: 'isCreditCard'
+          , valid: [
+                '375556917985515'
+              , '36050234196908'
+              , '4716461583322103'
+              , '4716-2210-5188-5662'
+              , '4929 7226 5379 7141'
+              , '5398228707871527'
+            ]
+          , invalid: [
+                'foo'
+              , 'foo'
+              , '5398228707871528'
+            ]
+        });
     });
 
 });

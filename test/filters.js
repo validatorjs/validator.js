@@ -55,13 +55,18 @@ describe('Filters', function () {
     });
 
     it('should encode and decode entities', function () {
-        assert.equal(sanitize('&amp;&unknown;&amp&#39;&apos;&oelig;&frac12;').entityDecode(),
-            '&&unknown;&amp\'\'œ½');
+        assert.equal(sanitize('&amp;&unknown;&amp&#39;&#x27;&apos;&oelig;&frac12;').entityDecode(),
+            '&&unknown;&amp\'\'\'œ½');
         assert.equal(sanitize('\'"€½').entityEncode(), '&#39;&quot;&euro;&frac12;');
+        assert.equal(sanitize('foobar').entityDecode(), 'foobar');
     });
 
     it('should escape HTML', function () {
         assert.equal(sanitize('&<">').escape(), '&amp;&lt;&quot;&gt;');
+    });
+
+    it('should let the user chain filters', function () {
+        assert.equal(sanitize('   ').chain().trim().ifNull('foobar').value(), 'foobar');
     });
 
 });

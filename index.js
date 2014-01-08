@@ -4,7 +4,7 @@ exports.Validator = node_validator.Validator;
 exports.ValidatorError = node_validator.ValidatorError;
 exports.Filter = require('./lib/filter').Filter;
 exports.validators = require('./lib/validators');
-exports.validators = require('./lib/patterns');
+exports.patterns = require('./lib/patterns');
 exports.defaultError = require('./lib/defaultError');
 exports.entities = require('./lib/entities');
 
