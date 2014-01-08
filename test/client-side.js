@@ -1,37 +1,26 @@
 var assert = require('assert')
-  , server = require('../')
-  , client;
+  , validator = require('../validator')
+  , min = require('../validator.min');
 
-try {
-    client = require('../dist/validator.min.js');
-} catch (err) {
-    throw new Error('Failed to load the client-side version. Try a `make min`');
-}
-
-describe('Client-side version', function () {
+describe('Minified version', function () {
 
     it('should export the same things as the server-side version', function () {
-        for (var key in server) {
-            assert.equal(typeof server[key], typeof client[key],
-                'Client did not export ' + key);
+        for (var key in validator) {
+            assert.equal(typeof validator[key], typeof min[key], 'Minified version did not export ' + key);
         }
-        assert.equal(client.version, server.version, 'Client-side version mismatch');
+    });
+
+    it('should be up to date', function () {
+        assert.equal(min.version, validator.version, 'Minified version mismatch. Run `make min`');
     });
 
     it('should validate strings', function () {
-        client.check('foo@bar.com').isEmail();
-        var message;
-        try {
-            client.check('foo', 'Invalid email').isEmail();
-        } catch (err) {
-            assert(err instanceof client.ValidatorError);
-            message = err.message;
-        }
-        assert.equal(message, 'Invalid email');
+        assert.equal(min.isEmail('foo@bar.com'), true);
+        assert.equal(min.isEmail('foo'), false);
     });
 
-    it('should filter strings', function () {
-        assert.equal(client.sanitize('1').toBoolean(), true);
+    it('should sanitize strings', function () {
+        assert.equal(min.toBoolean('1'), true);
     });
 
 });

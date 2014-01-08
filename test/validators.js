@@ -1,50 +1,32 @@
-var assert = require('assert')
-  , format = require('util').format
-  , Validator = require('../').Validator
-  , ValidatorError = require('../').ValidatorError;
-
-var validator = new Validator()
-  , check = validator.check.bind(validator);
+var validator = require('../validator')
+  , format = require('util').format;
 
 function test(options) {
+    var args = options.args || [];
+    args.unshift(null);
     if (options.valid) {
         options.valid.forEach(function (valid) {
-            try {
-                check(valid)[options.validator].apply(validator, options.args || []);
-            } catch (err) {
-                var warning = format('%s(%s%s) failed but should have passed', options.validator,
-                    valid, options.args ? ', ' + options.args.join(', ') : '');
+            args[0] = valid;
+            if (!validator[options.validator].apply(validator, args)) {
+                var warning = format('validator.%s(%s) failed but should have passed',
+                    options.validator, args.join(', '));
                 throw new Error(warning);
             }
         });
     }
     if (options.invalid) {
         options.invalid.forEach(function (invalid) {
-            try {
-                check(invalid)[options.validator].apply(validator, options.args || []);
-            } catch (err) {
-                return;
+            args[0] = invalid;
+            if (validator[options.validator].apply(validator, args)) {
+                var warning = format('validator.%s(%s) passed but should have failed',
+                    options.validator, args.join(', '));
+                throw new Error(warning);
             }
-            var warning = format('%s(%s%s) passed but should have failed', options.validator,
-                invalid, options.args ? ', ' + options.args.join(', ') : '');
-            throw new Error(warning);
         });
     }
 }
 
 describe('Validators', function () {
-
-    it('should throw errors that are instances of ValidatorError', function () {
-        try {
-            check('foo', 'Not a valid email').isEmail();
-            assert(false, 'Expected an error');
-        } catch (err) {
-            assert(err instanceof ValidatorError);
-            assert(err instanceof Error);
-            assert.equal(err.name, 'ValidatorError');
-            assert.equal(err.message, 'Not a valid email');
-        }
-    });
 
     it('should validate email addresses', function () {
         test({
@@ -447,74 +429,6 @@ describe('Validators', function () {
               , ''
             ]
         });
-    });
-
-    it('should allow for false as a sentinel error message', function () {
-        var validator = new Validator()
-          , error;
-        validator.error = function (msg) {
-            error = msg;
-        };
-        validator.check('not_an_email', false).isEmail();
-        assert.strictEqual(error, false);
-    });
-
-    it('should allow for an error message per validator', function () {
-        var validator = new Validator()
-          , errors = [];
-        validator.error = function (err) {
-            errors.push(err);
-            return this;
-        };
-        validator.check('foo', {
-            isNumeric: 'the string is not numeric'
-          , contains: 'the string does not contain bar'
-        }).isNumeric().contains('bar');
-        assert.deepEqual(errors, [
-            'the string is not numeric'
-          , 'the string does not contain bar'
-        ]);
-    });
-
-    it('should allow for an error message per validator but use defaults if necessary', function () {
-        var validator = new Validator()
-          , errors = [];
-        validator.error = function (err) {
-            errors.push(err);
-            return this;
-        };
-        validator.check('foo', {
-            isNumeric: 'the string is not numeric'
-        }).isNumeric().contains('bar');
-        assert.deepEqual(errors, [
-            'the string is not numeric'
-          , 'Invalid characters'
-        ]);
-    });
-
-    it('should let users reference validator arguments in the messages', function () {
-        var message;
-        try {
-            check('foo', 'the string "%0" does not contain "%1"').contains('bar');
-        } catch (err) {
-            message = err.message;
-        }
-        assert.equal(message, 'the string "foo" does not contain "bar"');
-    });
-
-    it('should let users specify a custom message builder', function () {
-        var validator = new Validator({
-            messageBuilder: function (msg, args) {
-                return format('%s (%s)', msg, args.join(', '));
-            }
-        });
-        var message;
-        try {
-            validator.check('foo', 'Validator failed').contains('bar');
-        } catch (err) {
-            message = err.message;
-        }
-        assert.equal(message, 'Validator failed (foo, bar)');
     });
 
     it('should validate credit cards', function () {

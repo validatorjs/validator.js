@@ -1,193 +1,47 @@
-**node-validator is a library of string validation, filtering and sanitization methods.**
+**node-validator is a library of string validators and sanitizers**
 
 ![tests](https://api.travis-ci.org/chriso/node-validator.png?branch=master)
 
 ### Server-side usage
 
-To install node-validator, use [npm](http://github.com/isaacs/npm)
-
-```bash
-$ npm install validator
-```
+Install the library with `npm install validator`
 
 ```javascript
-var check = require('validator').check,
-    sanitize = require('validator').sanitize
+var validator = require('validator');
 
-//Validate
-validator.check('test@email.com').len(6, 64).isEmail();        //Methods are chainable
-validator.check('abc').isInt();                                //Throws 'Invalid integer'
-validator.check('abc', 'Please enter a number').isInt();       //Throws 'Please enter a number'
-validator.check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
-
-//Set a message per validator
-validator.check('foo', {
-    isNumeric: 'This is not a number',
-    contains: 'The value doesn\'t have a 0 in it'
-}).isNumeric().contains('0');
-
-//Referencing validator args from the message
-validator.check('foo', 'The message needs to be between %1 and %2 characters long (you passed "%0")').len(2, 6);
-
-//Sanitize / Filter
-var int = validator.sanitize('0123').toInt();                  //123
-var bool = validator.sanitize('true').toBoolean();             //true
-var str = validator.sanitize(' \t\r hello \n').trim();         //'hello'
-var str = validator.sanitize('aaaaaaaaab').ltrim('a');         //'b'
+validator.isEmail('foo@bar.com'); //=> true
 ```
 
 ### Client-side usage
 
-To use the library in the browser, include `dist/validator.min.js`
+The library can be loaded as a script and supports [AMD](http://requirejs.org/docs/whyamd.html)
 
 ```html
 <script type="text/javascript" src="validator.min.js"></script>
 <script type="text/javascript">
-  validator.check('foo@bar.com').isEmail();
+  validator.isEmail('foo@bar.com'); //=> true
 </script>
 ```
 
-## An important note
+## API
 
-This library validates **strings** only. If you pass something that's not a string as input it will be coerced to a string using the following rules:
+See the [wiki](#) for the full list of validators and sanitizers.
 
-- Is it an object with a `toString` property? Call `input.toString()`
-- Is it `null`, `undefined`, or `NaN`? Replace with an empty string
-- All other input? Coerce to a string using `'' + input`
+## Strings only
 
-## List of validators
+This library validates and sanitizes **strings** only. All input will be coerced to a string using the following rules
 
-```javascript
-is()                            //Alias for regex()
-not()                           //Alias for notRegex()
-isEmail()
-isUrl()                         //Accepts http, https, ftp
-isIP()                          //Combines isIPv4 and isIPv6
-isIPv4()
-isIPv6()
-isAlpha()
-isAlphanumeric()
-isNumeric()
-isHexadecimal()
-isHexColor()                    //Accepts valid hexcolors with or without # prefix
-isInt()                         //isNumeric accepts zero padded numbers, e.g. '001', isInt doesn't
-isLowercase()
-isUppercase()
-isDecimal()
-isFloat()                       //Alias for isDecimal
-notNull()                       //Check if length is 0
-isNull()
-notEmpty()                      //Not just whitespace (input.trim().length !== 0)
-equals(equals)
-contains(str)
-notContains(str)
-regex(pattern, modifiers)       //Usage: regex(/[a-z]/i) or regex('[a-z]','i')
-notRegex(pattern, modifiers)
-len(min, max)                   //max is optional
-isUUID(version)                 //Version can be 3, 4 or 5 or empty, see http://en.wikipedia.org/wiki/Universally_unique_identifier
-isUUIDv3()                      //Alias for isUUID(3)
-isUUIDv4()                      //Alias for isUUID(4)
-isUUIDv5()                      //Alias for isUUID(5)
-isDate()                        //Uses Date.parse() - regex is probably a better choice
-isAfter(date)                   //Argument is optional and defaults to today. Comparison is non-inclusive
-isBefore(date)                  //Argument is optional and defaults to today. Comparison is non-inclusive
-isIn(options)                   //Accepts an array or string
-notIn(options)
-max(val)
-min(val)
-isCreditCard()                  //Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
-```
+- Call the `toString` property if available
+- Replace `null`, `undefined` or `NaN` with an empty string
+- Everything else is coerced with `input + ''`
 
-## List of sanitizers / filters
+## Deprecations
 
-```javascript
-trim(chars)                     //Trim optional `chars`, default is to trim whitespace (\r\n\t )
-ltrim(chars)
-rtrim(chars)
-ifNull(replace)
-toFloat()
-toInt()
-toBoolean()                     //True unless str = '0', 'false', or str.length == 0
-toBooleanStrict()               //False unless str = '1' or 'true'
-escape()                        //Escape &, <, >, and "
-```
+Version 3 of the library deprecated some functionality
 
-## Extending the library
-
-When adding to the Validator prototype, use `this.str` to access the string and `this.error(this.msg || default_msg)` when the string is invalid
-
-```javascript
-var Validator = require('validator').Validator;
-
-Validator.prototype.contains = function (seed) {
-    if (this.str.indexOf(seed) === -1) {
-        this.error(this.msg || this.str + ' does not contain ' + seed);
-    }
-    return this; //(for chaining)
-}
-```
-
-When adding to the Filter (sanitize) prototype, use `this.str` to access the string and `this.modify(new_str)` to update it
-
-```javascript
-var Filter = require('validator').Filter;
-
-Filter.prototype.removeNumbers = function() {
-    this.modify(this.str.replace(/[0-9]+/g, ''));
-    return this.wrap(this.str);
-}
-```
-
-## Error handling
-
-By default, the validation methods throw an exception when a check fails
-
-```javascript
-try {
-    validator.check('abc').notNull().isInt()
-} catch (err) {
-    console.log(err.message); //Invalid integer
-}
-```
-
-To set a custom error message, set the second param of `check()`
-
-```javascript
-try {
-    validator.check('abc', 'Please enter a valid integer').notNull().isInt()
-} catch (err) {
-    console.log(err.message); //Please enter a valid integer
-}
-```
-
-To attach a custom error handler, set the `error` method of the validator instance
-
-```javascript
-var Validator = require('validator').Validator;
-
-var validator = new Validator();
-validator.error = function(msg) {
-    console.log('Fail');
-}
-validator.check('abc').isInt(); //'Fail'
-```
-
-You might want to collect errors instead of throwing each time
-
-```javascript
-Validator.prototype.error = function (msg) {
-    this.errors = this.errors || [];
-    this.errors.push(msg);
-    return this;
-}
-
-var validator = new Validator();
-
-validator.check('abc').isEmail();
-validator.check('hello').len(10,30);
-
-console.log(validator.errors); // ['Invalid email', 'String is too small']
-```
+- **XSS sanitizer**: Use [Google Caja](https://code.google.com/p/google-caja/source/browse/trunk/src/com/google/caja/plugin/html-sanitizer.js).
+- **Entity encoding**: Use [fb55/entities](https://github.com/fb55/node-entities) or [substack/node-ent](https://github.com/substack/node-ent).
+- **Validator chaining**: The API was too unintuitive. I'd prefer to let users create their own higher-level patterns from the provided building blocks.
 
 ## License (MIT)
 

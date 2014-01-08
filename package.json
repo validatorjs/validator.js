@@ -1,13 +1,13 @@
 { "name": "validator",
-  "description": "Data validation, filtering and sanitization for node.js",
+  "description": "String validation and sanitization",
   "version": "2.1.0",
   "homepage": "http://github.com/chriso/node-validator",
   "keywords": [
-    "validator", "validation", "assert", "params", "sanitization",
-    "entities", "sanitize", "sanitisation", "input"
+    "validator", "validation", "validate", "sanitization",
+    "sanitize", "sanitisation", "sanitise", "assert"
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
-  "main": "index.js",
+  "main": "validator.js",
   "bugs": {
     "url": "http://github.com/chriso/node-validator/issues"
   },
@@ -22,7 +22,6 @@
     "mocha": "latest",
     "istanbul": "latest",
     "jshint": "latest",
-    "browserify": "latest",
     "uglify-js": "1.3.5"
   },
   "engines": { "node" : ">= 0.8" },
