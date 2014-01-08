@@ -54,13 +54,6 @@ describe('Filters', function () {
         assert.equal(sanitize('.5').toFloat(), 0.5);
     });
 
-    it('should encode and decode entities', function () {
-        assert.equal(sanitize('&amp;&unknown;&amp&#39;&#x27;&apos;&oelig;&frac12;').entityDecode(),
-            '&&unknown;&amp\'\'\'œ½');
-        assert.equal(sanitize('\'"€½').entityEncode(), '&#39;&quot;&euro;&frac12;');
-        assert.equal(sanitize('foobar').entityDecode(), 'foobar');
-    });
-
     it('should escape HTML', function () {
         assert.equal(sanitize('&<">').escape(), '&amp;&lt;&quot;&gt;');
     });

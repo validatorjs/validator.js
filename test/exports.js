@@ -11,10 +11,6 @@ describe('Exports', function () {
         assert.equal(typeof validator.validators, 'object');
     });
 
-    it('should export entities', function () {
-        assert.equal(typeof validator.entities, 'object');
-    });
-
     it('should export default error messages', function () {
         assert.equal(typeof validator.defaultError, 'object');
     });

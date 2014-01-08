@@ -34,7 +34,6 @@ var int = validator.sanitize('0123').toInt();                  //123
 var bool = validator.sanitize('true').toBoolean();             //true
 var str = validator.sanitize(' \t\r hello \n').trim();         //'hello'
 var str = validator.sanitize('aaaaaaaaab').ltrim('a');         //'b'
-var str = validator.sanitize('&lt;a&gt;').entityDecode();      //'<a>'
 ```
 
 ### Client-side usage
@@ -110,8 +109,6 @@ toFloat()
 toInt()
 toBoolean()                     //True unless str = '0', 'false', or str.length == 0
 toBooleanStrict()               //False unless str = '1' or 'true'
-entityDecode()                  //Decode HTML entities
-entityEncode()
 escape()                        //Escape &, <, >, and "
 ```
 

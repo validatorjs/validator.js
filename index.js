@@ -6,7 +6,6 @@ exports.Filter = require('./lib/filter').Filter;
 exports.validators = require('./lib/validators');
 exports.patterns = require('./lib/patterns');
 exports.defaultError = require('./lib/defaultError');
-exports.entities = require('./lib/entities');
 
 exports.sanitize = exports.convert = function (str) {
     var filter = new exports.Filter();

@@ -32,7 +32,6 @@ describe('Client-side version', function () {
 
     it('should filter strings', function () {
         assert.equal(client.sanitize('1').toBoolean(), true);
-        assert.equal(client.sanitize('&amp;').entityDecode(), '&');
     });
 
 });
