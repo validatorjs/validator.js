@@ -22,7 +22,7 @@
     { "name": "Mark Engel", "github": "https://github.com/mren" }
   ],
   "scripts": {
-    "test": "make check"
+    "test": "./node_modules/.bin/_mocha --reporter spec"
   },
   "devDependencies": {
     "mocha": "latest",
