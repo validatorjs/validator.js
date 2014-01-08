@@ -29,7 +29,8 @@ distclean: clean
 	@rm -rf node_modules
 
 min:
-	@$(NPM)/uglifyjs --ascii validator.js > validator.min.js
+	@$(NPM)/uglifyjs --compress --mangle --comments all \
+		< validator.js > validator.min.js
 
 check: test
 deps: dependencies

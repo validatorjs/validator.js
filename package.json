@@ -22,7 +22,7 @@
     "mocha": "latest",
     "istanbul": "latest",
     "jshint": "latest",
-    "uglify-js": "1.3.5"
+    "uglify-js": "latest"
   },
   "engines": { "node" : ">= 0.8" },
   "licenses": [
