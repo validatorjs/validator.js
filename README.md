@@ -23,11 +23,11 @@ The library can be loaded as a script and supports [AMD](http://requirejs.org/do
 </script>
 ```
 
-## API
+### API
 
 See the [wiki](#) for the full list of validators and sanitizers.
 
-## Strings only
+### Strings only
 
 This library validates and sanitizes **strings** only. All input will be coerced to a string using the following rules
 
@@ -35,7 +35,7 @@ This library validates and sanitizes **strings** only. All input will be coerced
 - Replace `null`, `undefined` or `NaN` with an empty string
 - Everything else is coerced with `input + ''`
 
-## Deprecations
+### Deprecations
 
 Version 3 of the library deprecated some functionality
 
@@ -43,16 +43,15 @@ Version 3 of the library deprecated some functionality
 - **Entity encoding**: Use [fb55/entities](https://github.com/fb55/node-entities) or [substack/node-ent](https://github.com/substack/node-ent).
 - **Validator chaining**: The API was too unintuitive. I'd prefer to let users create their own higher-level patterns from the provided building blocks.
 
-## Tests
+### Tests
 
 - `make test` - run the test suite
 - `make test V=1` - run the test suite with added verbosity
 - `make test TEST=pattern` - run tests that match a pattern
-- `make coverage` - run coverage analysis
-- `make coverage-html` - run coverage analysis and open a HTML report
+- `make coverage` - run a coverage analysis tool
 - `make lint` - run a lint tool
 
-## License (MIT)
+### License (MIT)
 
 Copyright (c) 2014 Chris O'Hara <cohara87@gmail.com>
 
