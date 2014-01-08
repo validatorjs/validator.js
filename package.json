@@ -4,7 +4,7 @@
   "homepage"      : "http://github.com/chriso/node-validator",
   "keywords"      : ["validator", "validation", "assert", "params", "sanitization", "entities", "sanitize", "sanitisation", "input"],
   "author"        : "Chris O'Hara <cohara87@gmail.com>",
-  "main"          : "./lib",
+  "main"          : "index.js",
   "directories"   : { "lib" : "./lib" },
   "bugs": {
     "url" : "http://github.com/chriso/node-validator/issues"
