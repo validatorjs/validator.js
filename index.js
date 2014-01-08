@@ -18,4 +18,4 @@ exports.check = exports.validate = exports.assert = function  (str, fail_msg) {
     return validator.check(str, fail_msg);
 };
 
-exports.version = '2.0.0';
+exports.version = '2.1.0';
