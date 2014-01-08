@@ -289,42 +289,6 @@ describe('Validators', function () {
         });
     });
 
-    it('should invalidate null strings', function () {
-        test({
-            validator: 'notNull'
-          , valid: [
-                '123'
-              , '  '
-              , 'foo'
-            ]
-          , invalid: [
-                ''
-              , NaN
-              , []
-              , undefined
-              , null
-            ]
-        });
-    });
-
-    it('should invalidate strings that are null or whitespace', function () {
-        test({
-            validator: 'notEmpty'
-          , valid: [
-                'foo'
-              , '  bar'
-            ]
-          , invalid: [
-                ''
-              , '  \r\n     '
-              , NaN
-              , []
-              , undefined
-              , null
-            ]
-        });
-    });
-
     it('should validate strings against an expected value', function () {
         test({ validator: 'equals', args: ['abc'], valid: ['abc'], invalid: ['Abc', '123'] });
     });
@@ -334,11 +298,6 @@ describe('Validators', function () {
             invalid: ['bar', 'fobar'] });
     });
 
-    it('should invalidate strings that contain another string', function () {
-        test({ validator: 'notContains', args: ['foo'], valid: ['bar', 'fobar'],
-            invalid: ['foo', 'foobar', 'bazfoo'] });
-    });
-
     it('should validate strings against a regex', function () {
         test({ validator: 'regex', args: [/abc/], valid: ['abc', 'abcdef', '123abc'],
             invalid: ['acb', 'Abc'] });
@@ -346,15 +305,6 @@ describe('Validators', function () {
             invalid: ['acb', 'Abc'] });
         test({ validator: 'regex', args: ['abc', 'i'], valid: ['abc', 'abcdef', '123abc', 'AbC'],
             invalid: ['acb'] });
-    });
-
-    it('should invalidate strings against a regex', function () {
-        test({ validator: 'notRegex', args: [/abc/], valid: ['acb', 'Abc'],
-            invalid: ['abc', 'abcdef', '123abc'] });
-        test({ validator: 'notRegex', args: ['abc'], valid: ['acb', 'Abc'],
-            invalid: ['abc', 'abcdef', '123abc'] });
-        test({ validator: 'notRegex', args: ['abc', 'i'], valid: ['acb'],
-            invalid: ['abc', 'abcdef', '123abc', 'AbC'] });
     });
 
     it('should validate strings by length', function () {
@@ -438,16 +388,6 @@ describe('Validators', function () {
         test({ validator: 'isIn', args: [[1, 2, 3]], valid: ['1', '2', '3'],
             invalid: ['4', ''] });
         test({ validator: 'isIn', invalid: ['foo', ''] });
-    });
-
-    it('should invalidate a string that is in another string or array', function () {
-        test({ validator: 'notIn', args: ['foobar'], valid: ['foobarbaz', 'barfoo'],
-            invalid: ['foo', 'bar', 'foobar', ''] });
-        test({ validator: 'notIn', args: [['foo', 'bar']], valid: ['foobar', 'barfoo', ''],
-            invalid: ['foo', 'bar'] });
-        test({ validator: 'notIn', args: [[1, 2, 3]], valid: ['4', ''],
-            invalid: ['1', '2', '3'] });
-        test({ validator: 'notIn', invalid: ['foo', ''] });
     });
 
     it('should validate dates', function () {

@@ -6,12 +6,6 @@ var filter = new validator.Filter()
 
 describe('Filters', function () {
 
-    it('should sanitize null values', function () {
-        assert.equal(sanitize('').ifNull('foo'), 'foo');
-        assert.equal(sanitize().ifNull('bar'), 'bar');
-        assert.equal(sanitize('baz').ifNull('qux'), 'baz');
-    });
-
     it('should sanitize boolean values', function () {
         assert.equal(sanitize('0').toBoolean(), false);
         assert.equal(sanitize('').toBoolean(), false);
@@ -59,7 +53,7 @@ describe('Filters', function () {
     });
 
     it('should let the user chain filters', function () {
-        assert.equal(sanitize('   ').chain().trim().ifNull('foobar').value(), 'foobar');
+        assert.equal(sanitize('   ').chain().trim().value(), '');
     });
 
 });
