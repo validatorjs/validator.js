@@ -1,5 +1,7 @@
 **node-validator is a library of string validation, filtering and sanitization methods.**
 
+![tests](https://api.travis-ci.org/chriso/node-validator.png?branch=master)
+
 ### Server-side usage
 
 To install node-validator, use [npm](http://github.com/isaacs/npm)
