@@ -30,4 +30,9 @@ describe('Exports', function () {
         assert.equal(validator.sanitize('1').toBoolean(), true);
     });
 
+    it('should export the version number', function () {
+        assert.equal(validator.version, require('../package.json').version,
+            'Version number mismatch between package.json and validator.version in index.js');
+    });
+
 });
