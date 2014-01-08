@@ -113,25 +113,18 @@
         return str.length < 2083 && url.test(str);
     };
 
-    validator.isIP = function (str) {
-        if (validator.isIPv4(str)) {
-            return 4;
-        } else if (validator.isIPv6(str)) {
-            return 6;
+    validator.isIP = function (str, version) {
+        version = validator.toString(version);
+        if (!version) {
+            return validator.isIP(str, 4) || validator.isIP(str, 6);
+        } else if (version === '4') {
+            if (!ipv4Maybe.test(str)) {
+                return false;
+            }
+            var parts = str.split('.').sort();
+            return parts[3] <= 255;
         }
-        return false;
-    };
-
-    validator.isIPv4 = function (str) {
-        if (!ipv4Maybe.test(str)) {
-            return false;
-        }
-        var parts = str.split('.').sort();
-        return parts[3] <= 255;
-    };
-
-    validator.isIPv6 = function (str) {
-        return ipv6.test(str);
+        return version === '6' && ipv6.test(str);
     };
 
     validator.isAlpha = function (str) {
