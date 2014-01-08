@@ -23,12 +23,18 @@ coverage-html: coverage
 	fi;
 
 clean:
-	@rm -rf coverage compiled/*
+	@rm -rf coverage compiled/* dist/validator_?.js
 
 distclean: clean
 	@rm -rf node_modules
 
+min:
+	@$(NPM)/browserify index.js -o dist/validator.js -s validator
+	@$(NPM)/uglifyjs --ascii dist/validator.js > dist/validator_.js
+	@cat lib/license.js dist/validator_.js > dist/validator.min.js
+	@rm dist/validator_.js dist/validator.js
+
 check: test
 deps: dependencies
 
-.PHONY: dependencies clean
+.PHONY: dependencies clean min

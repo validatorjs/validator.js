@@ -37,6 +37,7 @@ describe('Validators', function () {
     it('should throw errors that are instances of ValidatorError', function () {
         try {
             check('foo', 'Not a valid email').isEmail();
+            assert(false, 'Expected an error');
         } catch (err) {
             assert(err instanceof ValidatorError);
             assert(err instanceof Error);
