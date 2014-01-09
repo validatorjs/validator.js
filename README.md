@@ -49,6 +49,9 @@ The library can be loaded as a script and supports [AMD](http://requirejs.org/do
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isCreditCard(str)** - check if the string is a credit card.
+- **isISBN10(str)** - check if the string is an ISBN-10.
+- **isISBN13(str)** - check if the string is an ISBN-13.
+- **isISBN(str)** - check if the string is either of an ISBN-10 or ISBN-13.
 
 ### Sanitizers
 
