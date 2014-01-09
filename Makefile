@@ -6,7 +6,7 @@ test: dependencies
 		--grep '$(TEST)'
 
 lint: dependencies
-	@$(NPM)/jshint --config .jshintrc lib test/*.js
+	@$(NPM)/jshint --config .jshintrc validator.js test/*.js
 
 dependencies:
 	@if [ ! -d node_modules ]; then \
@@ -16,23 +16,17 @@ dependencies:
 
 coverage: dependencies
 	@$(NPM)/istanbul cover $(NPM)/_mocha -- --reporter spec
-
-coverage-html: coverage
-	@if [ -f coverage/lcov-report/index.html ]; then \
-		open coverage/lcov-report/index.html; \
-	fi;
+	@open coverage/lcov-report/node-validator/validator.js.html
 
 clean:
-	@rm -rf coverage compiled/* dist/validator_?.js
+	@rm -rf coverage compiled/*
 
 distclean: clean
 	@rm -rf node_modules
 
 min:
-	@$(NPM)/browserify index.js -o dist/validator.js -s validator
-	@$(NPM)/uglifyjs --ascii dist/validator.js > dist/validator_.js
-	@cat lib/license.js dist/validator_.js > dist/validator.min.js
-	@rm dist/validator_.js dist/validator.js
+	@$(NPM)/uglifyjs --compress --mangle --comments all \
+		< validator.js > validator.min.js
 
 check: test
 deps: dependencies

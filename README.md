@@ -1,209 +1,94 @@
-**node-validator is a library of string validation, filtering and sanitization methods.**
+**node-validator is a library of string validators and sanitizers**
 
 ![tests](https://api.travis-ci.org/chriso/node-validator.png?branch=master)
 
 ### Server-side usage
 
-To install node-validator, use [npm](http://github.com/isaacs/npm)
-
-```bash
-$ npm install validator
-```
+Install the library with `npm install validator`
 
 ```javascript
-var check = require('validator').check,
-    sanitize = require('validator').sanitize
+var validator = require('validator');
 
-//Validate
-validator.check('test@email.com').len(6, 64).isEmail();        //Methods are chainable
-validator.check('abc').isInt();                                //Throws 'Invalid integer'
-validator.check('abc', 'Please enter a number').isInt();       //Throws 'Please enter a number'
-validator.check('abcdefghijklmnopzrtsuvqxyz').is(/^[a-z]+$/);
-
-//Set a message per validator
-validator.check('foo', {
-    isNumeric: 'This is not a number',
-    contains: 'The value doesn\'t have a 0 in it'
-}).isNumeric().contains('0');
-
-//Referencing validator args from the message
-validator.check('foo', 'The message needs to be between %1 and %2 characters long (you passed "%0")').len(2, 6);
-
-//Sanitize / Filter
-var int = validator.sanitize('0123').toInt();                  //123
-var bool = validator.sanitize('true').toBoolean();             //true
-var str = validator.sanitize(' \t\r hello \n').trim();         //'hello'
-var str = validator.sanitize('aaaaaaaaab').ltrim('a');         //'b'
-var str = validator.sanitize('&lt;a&gt;').entityDecode();      //'<a>'
+validator.isEmail('foo@bar.com'); //=> true
 ```
 
 ### Client-side usage
 
-To use the library in the browser, include `dist/validator.min.js`
+The library can be loaded as a script and supports [AMD](http://requirejs.org/docs/whyamd.html)
 
 ```html
 <script type="text/javascript" src="validator.min.js"></script>
 <script type="text/javascript">
-  validator.check('foo@bar.com').isEmail();
+  validator.isEmail('foo@bar.com'); //=> true
 </script>
 ```
 
-## An important note
+### Validators
 
-This library validates **strings** only. If you pass something that's not a string as input it will be coerced to a string using the following rules:
+- **equals(str, comparison)** - check if the string matches the comparison
+- **contains(str, seed)** - check if the string contains the seed
+- **matches(str, pattern [, modifiers])** - check if string matches the pattern. Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`
+- **isEmail(str)** - check if the string is an email
+- **isUrl(str)** - check if the string is an URL
+- **isIP(str [, version])** - check if the string is an IP
+- **isAlpha(str)** - check if the string contains only letters (a-zA-Z)
+- **isNumeric(str)** - check if the string contains only numbers
+- **isAlphanumeric(str)** - check if the string contains only letters and numbers
+- **isHexadecimal(str)** - check if the string is a hexadecimal number
+- **isHexColor(str)** - check if the string is a hexadecimal color
+- **isLowercase(str)** - check if the string is lowercase
+- **isUppercase(str)** - check if the string is uppercase
+- **isInt(str)** - check if the string is an integer
+- **isFloat(str)** - check if the string is a float
+- **isDivisibleBy(str, number)** - check if the string is a number that's divisible by another
+- **isNull(str)** - check if the string is null
+- **isLength(str, min [, max])** - check if the string's length falls in a range
+- **isUUID(str [, version])** - check if the string is a UUID
+- **isDate(str)** - check if the string is a date
+- **isAfter(str [, date])** - check if the string is a date that's after the specified date (defaults to now)
+- **isBefore(str [, date])** - check if the string is a date that's before the specified date
+- **isIn(str, values)** - check if the string is in a array of allowed values
+- **isCreditCard(str)** - check if the string is a credit card
 
-- Is it an object with a `toString` property? Call `input.toString()`
-- Is it `null`, `undefined`, or `NaN`? Replace with an empty string
-- All other input? Coerce to a string using `'' + input`
+### Sanitizers
 
-## List of validators
+- **toString(input)** - convert the input to a string.
+- **toDate(input)** - convert the input to a date, or `null` if the input is not a date.
+- **toFloat(input)** - convert the input to a float, or `NaN` if the input is not a float.
+- **toFloat(input [, radix])** - convert the input to an integer, or `NaN` if the input is not an integer.
+- **toBoolean(input [, strict)** - convert the input to a boolean. Everything except for `'0'`, `'false'` and `''` returns `true`. In strict mode only `'1'` and `'true'` return `true`.
+- **trim(input [, chars])** - trim characters (whitespace by default) from both sides of the input.
+- **ltrim(input [, chars])** - trim characters from the left-side of the input.
+- **rtrim(input [, chars])** - trim characters from the right-side of the input.
+- **escape(input)** - replace `<`, `>`, `&` and `"` with HTML entities.
+- **whitelist(input, chars)** - remove characters that do not appear in the whitelist
+- **blacklist(input, chars)** - remove characters that appear in the blacklist
 
-```javascript
-is()                            //Alias for regex()
-not()                           //Alias for notRegex()
-isEmail()
-isUrl()                         //Accepts http, https, ftp
-isIP()                          //Combines isIPv4 and isIPv6
-isIPv4()
-isIPv6()
-isAlpha()
-isAlphanumeric()
-isNumeric()
-isHexadecimal()
-isHexColor()                    //Accepts valid hexcolors with or without # prefix
-isInt()                         //isNumeric accepts zero padded numbers, e.g. '001', isInt doesn't
-isLowercase()
-isUppercase()
-isDecimal()
-isFloat()                       //Alias for isDecimal
-notNull()                       //Check if length is 0
-isNull()
-notEmpty()                      //Not just whitespace (input.trim().length !== 0)
-equals(equals)
-contains(str)
-notContains(str)
-regex(pattern, modifiers)       //Usage: regex(/[a-z]/i) or regex('[a-z]','i')
-notRegex(pattern, modifiers)
-len(min, max)                   //max is optional
-isUUID(version)                 //Version can be 3, 4 or 5 or empty, see http://en.wikipedia.org/wiki/Universally_unique_identifier
-isUUIDv3()                      //Alias for isUUID(3)
-isUUIDv4()                      //Alias for isUUID(4)
-isUUIDv5()                      //Alias for isUUID(5)
-isDate()                        //Uses Date.parse() - regex is probably a better choice
-isAfter(date)                   //Argument is optional and defaults to today. Comparison is non-inclusive
-isBefore(date)                  //Argument is optional and defaults to today. Comparison is non-inclusive
-isIn(options)                   //Accepts an array or string
-notIn(options)
-max(val)
-min(val)
-isCreditCard()                  //Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
-```
+### Strings only
 
-## List of sanitizers / filters
+This library validates and sanitizes **strings** only. All input will be coerced to a string using the following rules
 
-```javascript
-trim(chars)                     //Trim optional `chars`, default is to trim whitespace (\r\n\t )
-ltrim(chars)
-rtrim(chars)
-ifNull(replace)
-toFloat()
-toInt()
-toBoolean()                     //True unless str = '0', 'false', or str.length == 0
-toBooleanStrict()               //False unless str = '1' or 'true'
-entityDecode()                  //Decode HTML entities
-entityEncode()
-escape()                        //Escape &, <, >, and "
-```
+- Call the `toString` property if available
+- Replace `null`, `undefined` or `NaN` with an empty string
+- Everything else is coerced with `input + ''`
 
-## Extending the library
+### Deprecations
 
-When adding to the Validator prototype, use `this.str` to access the string and `this.error(this.msg || default_msg)` when the string is invalid
+Version 3 of the library deprecated some functionality
 
-```javascript
-var Validator = require('validator').Validator;
+- **XSS sanitizer**: Use [Google Caja](https://code.google.com/p/google-caja/source/browse/trunk/src/com/google/caja/plugin/html-sanitizer.js).
+- **Entity encoding**: Use [fb55/entities](https://github.com/fb55/node-entities) or [substack/node-ent](https://github.com/substack/node-ent).
+- **Validator chaining**: The API was too unintuitive. I'd prefer to let users create their own higher-level patterns from the provided building blocks.
 
-Validator.prototype.contains = function (seed) {
-    if (this.str.indexOf(seed) === -1) {
-        this.error(this.msg || this.str + ' does not contain ' + seed);
-    }
-    return this; //(for chaining)
-}
-```
+### Tests
 
-When adding to the Filter (sanitize) prototype, use `this.str` to access the string and `this.modify(new_str)` to update it
+- `make test` - run the test suite
+- `make test V=1` - run the test suite with added verbosity
+- `make test TEST=pattern` - run tests that match a pattern
+- `make coverage` - run a coverage analysis tool
+- `make lint` - run a lint tool
 
-```javascript
-var Filter = require('validator').Filter;
-
-Filter.prototype.removeNumbers = function() {
-    this.modify(this.str.replace(/[0-9]+/g, ''));
-    return this.wrap(this.str);
-}
-```
-
-## Error handling
-
-By default, the validation methods throw an exception when a check fails
-
-```javascript
-try {
-    validator.check('abc').notNull().isInt()
-} catch (err) {
-    console.log(err.message); //Invalid integer
-}
-```
-
-To set a custom error message, set the second param of `check()`
-
-```javascript
-try {
-    validator.check('abc', 'Please enter a valid integer').notNull().isInt()
-} catch (err) {
-    console.log(err.message); //Please enter a valid integer
-}
-```
-
-To attach a custom error handler, set the `error` method of the validator instance
-
-```javascript
-var Validator = require('validator').Validator;
-
-var validator = new Validator();
-validator.error = function(msg) {
-    console.log('Fail');
-}
-validator.check('abc').isInt(); //'Fail'
-```
-
-You might want to collect errors instead of throwing each time
-
-```javascript
-Validator.prototype.error = function (msg) {
-    this.errors = this.errors || [];
-    this.errors.push(msg);
-    return this;
-}
-
-var validator = new Validator();
-
-validator.check('abc').isEmail();
-validator.check('hello').len(10,30);
-
-console.log(validator.errors); // ['Invalid email', 'String is too small']
-```
-
-## Contributors
-
-- [zero21xxx](https://github.com/zero21xxx) - Added per check messages
-- [PING](https://github.com/PlNG) - Fixed entity encoding
-- [Dan VerWeire](https://github.com/wankdanker) - Modified the behaviour of the error handler
-- [ctavan](https://github.com/ctavan) - Added isArray (since removed) and isUUID
-- [foxbunny](https://github.com/foxbunny) - Added min(), max(), isAfter(), isBefore(), and improved isDate()
-- [oris](https://github.com/orls) - Added in()
-- [mren](https://github.com/mren) - Decoupled rules
-- [Thorsten Basse](https://github.com/tbasse) - Cleanup and refinement of existing validators
-
-## License (MIT)
+### License (MIT)
 
 Copyright (c) 2014 Chris O'Hara <cohara87@gmail.com>
 

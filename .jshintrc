@@ -3,7 +3,8 @@
     "it": false,
     "console": false,
     "describe": false,
-    "setImmediate": false
+    "setImmediate": false,
+    "define": false
   },
   "node" : true,
   "browser" : true,

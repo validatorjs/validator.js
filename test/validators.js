@@ -1,50 +1,32 @@
-var assert = require('assert')
-  , format = require('util').format
-  , Validator = require('../').Validator
-  , ValidatorError = require('../').ValidatorError;
-
-var validator = new Validator()
-  , check = validator.check.bind(validator);
+var validator = require('../validator')
+  , format = require('util').format;
 
 function test(options) {
+    var args = options.args || [];
+    args.unshift(null);
     if (options.valid) {
         options.valid.forEach(function (valid) {
-            try {
-                check(valid)[options.validator].apply(validator, options.args || []);
-            } catch (err) {
-                var warning = format('%s(%s%s) failed but should have passed', options.validator,
-                    valid, options.args ? ', ' + options.args.join(', ') : '');
+            args[0] = valid;
+            if (!validator[options.validator].apply(validator, args)) {
+                var warning = format('validator.%s(%s) failed but should have passed',
+                    options.validator, args.join(', '));
                 throw new Error(warning);
             }
         });
     }
     if (options.invalid) {
         options.invalid.forEach(function (invalid) {
-            try {
-                check(invalid)[options.validator].apply(validator, options.args || []);
-            } catch (err) {
-                return;
+            args[0] = invalid;
+            if (validator[options.validator].apply(validator, args)) {
+                var warning = format('validator.%s(%s) passed but should have failed',
+                    options.validator, args.join(', '));
+                throw new Error(warning);
             }
-            var warning = format('%s(%s%s) passed but should have failed', options.validator,
-                invalid, options.args ? ', ' + options.args.join(', ') : '');
-            throw new Error(warning);
         });
     }
 }
 
 describe('Validators', function () {
-
-    it('should throw errors that are instances of ValidatorError', function () {
-        try {
-            check('foo', 'Not a valid email').isEmail();
-            assert(false, 'Expected an error');
-        } catch (err) {
-            assert(err instanceof ValidatorError);
-            assert(err instanceof Error);
-            assert.equal(err.name, 'ValidatorError');
-            assert.equal(err.message, 'Not a valid email');
-        }
-    });
 
     it('should validate email addresses', function () {
         test({
@@ -65,7 +47,7 @@ describe('Validators', function () {
 
     it('should validate URLs', function () {
         test({
-            validator: 'isUrl'
+            validator: 'isURL'
           , valid: [
                 'foobar.com'
               , 'www.foobar.com'
@@ -111,6 +93,48 @@ describe('Validators', function () {
                 'abc'
               , '256.0.0.0'
               , '0.0.0.256'
+            ]
+        });
+        test({
+            validator: 'isIP'
+          , args: [ 4 ]
+          , valid: [
+                '127.0.0.1'
+              , '0.0.0.0'
+              , '255.255.255.255'
+              , '1.2.3.4'
+            ]
+          , invalid: [
+                '::1'
+              , '2001:db8:0000:1:1:1:1:1'
+            ]
+        });
+        test({
+            validator: 'isIP'
+          , args: [ 6 ]
+          , valid: [
+                '::1'
+              , '2001:db8:0000:1:1:1:1:1'
+            ]
+          , invalid: [
+                '127.0.0.1'
+              , '0.0.0.0'
+              , '255.255.255.255'
+              , '1.2.3.4'
+            ]
+        });
+        test({
+            validator: 'isIP'
+          , args: [ 10 ]
+          , valid: [
+            ]
+          , invalid: [
+                '127.0.0.1'
+              , '0.0.0.0'
+              , '255.255.255.255'
+              , '1.2.3.4'
+              , '::1'
+              , '2001:db8:0000:1:1:1:1:1'
             ]
         });
     });
@@ -289,42 +313,6 @@ describe('Validators', function () {
         });
     });
 
-    it('should invalidate null strings', function () {
-        test({
-            validator: 'notNull'
-          , valid: [
-                '123'
-              , '  '
-              , 'foo'
-            ]
-          , invalid: [
-                ''
-              , NaN
-              , []
-              , undefined
-              , null
-            ]
-        });
-    });
-
-    it('should invalidate strings that are null or whitespace', function () {
-        test({
-            validator: 'notEmpty'
-          , valid: [
-                'foo'
-              , '  bar'
-            ]
-          , invalid: [
-                ''
-              , '  \r\n     '
-              , NaN
-              , []
-              , undefined
-              , null
-            ]
-        });
-    });
-
     it('should validate strings against an expected value', function () {
         test({ validator: 'equals', args: ['abc'], valid: ['abc'], invalid: ['Abc', '123'] });
     });
@@ -334,32 +322,18 @@ describe('Validators', function () {
             invalid: ['bar', 'fobar'] });
     });
 
-    it('should invalidate strings that contain another string', function () {
-        test({ validator: 'notContains', args: ['foo'], valid: ['bar', 'fobar'],
-            invalid: ['foo', 'foobar', 'bazfoo'] });
-    });
-
-    it('should validate strings against a regex', function () {
-        test({ validator: 'regex', args: [/abc/], valid: ['abc', 'abcdef', '123abc'],
+    it('should validate strings against a pattern', function () {
+        test({ validator: 'matches', args: [/abc/], valid: ['abc', 'abcdef', '123abc'],
             invalid: ['acb', 'Abc'] });
-        test({ validator: 'regex', args: ['abc'], valid: ['abc', 'abcdef', '123abc'],
+        test({ validator: 'matches', args: ['abc'], valid: ['abc', 'abcdef', '123abc'],
             invalid: ['acb', 'Abc'] });
-        test({ validator: 'regex', args: ['abc', 'i'], valid: ['abc', 'abcdef', '123abc', 'AbC'],
+        test({ validator: 'matches', args: ['abc', 'i'], valid: ['abc', 'abcdef', '123abc', 'AbC'],
             invalid: ['acb'] });
     });
 
-    it('should invalidate strings against a regex', function () {
-        test({ validator: 'notRegex', args: [/abc/], valid: ['acb', 'Abc'],
-            invalid: ['abc', 'abcdef', '123abc'] });
-        test({ validator: 'notRegex', args: ['abc'], valid: ['acb', 'Abc'],
-            invalid: ['abc', 'abcdef', '123abc'] });
-        test({ validator: 'notRegex', args: ['abc', 'i'], valid: ['acb'],
-            invalid: ['abc', 'abcdef', '123abc', 'AbC'] });
-    });
-
     it('should validate strings by length', function () {
-        test({ validator: 'len', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
-        test({ validator: 'len', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
+        test({ validator: 'isLength', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
+        test({ validator: 'isLength', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
     });
 
     it('should validate UUIDs', function () {
@@ -381,7 +355,8 @@ describe('Validators', function () {
             ]
         });
         test({
-            validator: 'isUUIDv3'
+            validator: 'isUUID'
+          , args: [ 3 ]
           , valid: [
                 'A987FBC9-4BED-3078-CF07-9141BA07C9F3'
             ]
@@ -395,7 +370,8 @@ describe('Validators', function () {
             ]
         });
         test({
-            validator: 'isUUIDv4'
+            validator: 'isUUID'
+          , args: [ 4 ]
           , valid: [
                 '713ae7e3-cb32-45f9-adcb-7c4fa86b90c1'
               , '625e63f3-58f5-40b7-83a1-a72ad31acffb'
@@ -412,7 +388,8 @@ describe('Validators', function () {
             ]
         });
         test({
-            validator: 'isUUIDv5'
+            validator: 'isUUID'
+          , args: [ 5 ]
           , valid: [
                 '987FBC97-4BED-5078-AF07-9141BA07C9F3'
               , '987FBC97-4BED-5078-BF07-9141BA07C9F3'
@@ -440,16 +417,6 @@ describe('Validators', function () {
         test({ validator: 'isIn', invalid: ['foo', ''] });
     });
 
-    it('should invalidate a string that is in another string or array', function () {
-        test({ validator: 'notIn', args: ['foobar'], valid: ['foobarbaz', 'barfoo'],
-            invalid: ['foo', 'bar', 'foobar', ''] });
-        test({ validator: 'notIn', args: [['foo', 'bar']], valid: ['foobar', 'barfoo', ''],
-            invalid: ['foo', 'bar'] });
-        test({ validator: 'notIn', args: [[1, 2, 3]], valid: ['4', ''],
-            invalid: ['1', '2', '3'] });
-        test({ validator: 'notIn', invalid: ['foo', ''] });
-    });
-
     it('should validate dates', function () {
         test({
             validator: 'isDate'
@@ -469,13 +436,6 @@ describe('Validators', function () {
         });
     });
 
-    it('should validate numbers against a min or max', function () {
-        test({ validator: 'min', args: [ 2 ], valid: [ '4', '2', '2.1', '100' ],
-            invalid: [ '0', '-1' ] });
-        test({ validator: 'max', args: [ 2 ], valid: [ '1', '2', '-2.1', '0' ],
-            invalid: [ '10', '2.1' ] });
-    });
-
     it('should validate dates against a start date', function () {
         test({ validator: 'isAfter', args: ['2011-08-03'],
             valid: [ '2011-08-04', new Date(2011, 8, 10) ],
@@ -487,6 +447,9 @@ describe('Validators', function () {
 
     it('should validate dates against an end date', function () {
         test({ validator: 'isBefore', args: ['08/04/2011'],
+            valid: [ '2010-07-02', '2010-08-04', new Date(0) ],
+            invalid: [ '2011-08-04', new Date(2011, 9, 10) ] });
+        test({ validator: 'isBefore', args: [ new Date(2011, 7, 4) ],
             valid: [ '2010-07-02', '2010-08-04', new Date(0) ],
             invalid: [ '2011-08-04', new Date(2011, 9, 10) ] });
         test({ validator: 'isBefore',
@@ -507,74 +470,6 @@ describe('Validators', function () {
               , ''
             ]
         });
-    });
-
-    it('should allow for false as a sentinel error message', function () {
-        var validator = new Validator()
-          , error;
-        validator.error = function (msg) {
-            error = msg;
-        };
-        validator.check('not_an_email', false).isEmail();
-        assert.strictEqual(error, false);
-    });
-
-    it('should allow for an error message per validator', function () {
-        var validator = new Validator()
-          , errors = [];
-        validator.error = function (err) {
-            errors.push(err);
-            return this;
-        };
-        validator.check('foo', {
-            isNumeric: 'the string is not numeric'
-          , contains: 'the string does not contain bar'
-        }).isNumeric().contains('bar');
-        assert.deepEqual(errors, [
-            'the string is not numeric'
-          , 'the string does not contain bar'
-        ]);
-    });
-
-    it('should allow for an error message per validator but use defaults if necessary', function () {
-        var validator = new Validator()
-          , errors = [];
-        validator.error = function (err) {
-            errors.push(err);
-            return this;
-        };
-        validator.check('foo', {
-            isNumeric: 'the string is not numeric'
-        }).isNumeric().contains('bar');
-        assert.deepEqual(errors, [
-            'the string is not numeric'
-          , 'Invalid characters'
-        ]);
-    });
-
-    it('should let users reference validator arguments in the messages', function () {
-        var message;
-        try {
-            check('foo', 'the string "%0" does not contain "%1"').contains('bar');
-        } catch (err) {
-            message = err.message;
-        }
-        assert.equal(message, 'the string "foo" does not contain "bar"');
-    });
-
-    it('should let users specify a custom message builder', function () {
-        var validator = new Validator({
-            messageBuilder: function (msg, args) {
-                return format('%s (%s)', msg, args.join(', '));
-            }
-        });
-        var message;
-        try {
-            validator.check('foo', 'Validator failed').contains('bar');
-        } catch (err) {
-            message = err.message;
-        }
-        assert.equal(message, 'Validator failed (foo, bar)');
     });
 
     it('should validate credit cards', function () {
