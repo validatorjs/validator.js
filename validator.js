@@ -203,7 +203,7 @@
         if (Object.prototype.toString.call(options) === '[object Array]') {
             var array = [];
             for (var i = 0, len = options.length; i < len; i++) {
-                array[i] = options[i] + '';
+                array[i] = validator.toString(options[i]);
             }
             options = array;
         }
