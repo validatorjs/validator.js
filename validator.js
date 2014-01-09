@@ -255,6 +255,14 @@
             .replace(/>/g, '&gt;'));
     };
 
+    validator.whitelist = function (str, chars) {
+        return str.replace(new RegExp('[^' + chars + ']+', 'g'), '');
+    };
+
+    validator.blacklist = function (str, chars) {
+        return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
+    };
+
     for (var name in validator) {
         if (name === 'toString' || name === 'toDate' || typeof validator[name] !== 'function') {
             continue;

@@ -61,6 +61,8 @@ The library can be loaded as a script and supports [AMD](http://requirejs.org/do
 - **ltrim(input [, chars])** - trim characters from the left-side of the input.
 - **rtrim(input [, chars])** - trim characters from the right-side of the input.
 - **escape(input)** - replace `<`, `>`, `&` and `"` with HTML entities.
+- **whitelist(input, chars)** - remove characters that do not appear in the whitelist
+- **blacklist(input, chars)** - remove characters that appear in the blacklist
 
 ### Strings only
 
