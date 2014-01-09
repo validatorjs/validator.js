@@ -39,8 +39,8 @@
 
     var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
 
-    var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/;
-    var isbn13Maybe = /^(?:[0-9]{13})$/;
+    var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
+      , isbn13Maybe = /^(?:[0-9]{13})$/;
 
     var ipv4Maybe = /^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$/
       , ipv6 = /^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/;
@@ -63,7 +63,7 @@
     validator.toString = function (input) {
         if (input === null || typeof input === 'undefined' || (isNaN(input) && !input.length)) {
             input = '';
-        } else if (typeof input === 'object' && input !== null && input.toString) {
+        } else if (typeof input === 'object' && input.toString) {
             input = input.toString();
         }
         return input + '';
