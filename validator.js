@@ -39,6 +39,9 @@
 
     var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
 
+    var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/;
+    var isbn13Maybe = /^(?:[0-9]{13})$/;
+
     var ipv4Maybe = /^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$/
       , ipv6 = /^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/;
 
@@ -231,6 +234,60 @@
             shouldDouble = !shouldDouble;
         }
         return (sum % 10) === 0 ? sanitized : false;
+    };
+
+    validator.isISBN10 = function (str) {
+        // Remove spaces and hyphens, convert x to uppercase.
+        var sanitized = str.replace(/[\s-]+/g, '').toUpperCase();
+
+        // Ensure it is a 10 digit ISBN.
+        if (!isbn10Maybe.test(sanitized)) {
+            return false;
+        }
+
+        // Calculate the checksum.
+        var checksum = 0;
+        for (var i = 0; i < 9; i++) {
+            checksum += (i + 1) * sanitized.charAt(i);
+        }
+
+        // Add the last digit.
+        if (sanitized.charAt(9) == 'X') {
+            checksum += 10 * 10;
+        } else {
+            checksum += 10 * sanitized.charAt(9);
+        }
+
+        // Check.
+        return (checksum % 11) === 0 ? sanitized : false;
+    };
+
+    validator.isISBN13 = function (str) {
+        // Remove spaces and hyphens.
+        var sanitized = str.replace(/[\s-]+/g, '');
+
+        // Ensure it is a 13 digit ISBN.
+        if (!isbn13Maybe.test(sanitized)) {
+            return false;
+        }
+
+        // Calculate the checksum.
+        var checksum = 0;
+        var factor = [1, 3];
+        for (var i = 0; i < 12; i++) {
+            checksum += factor[i % 2] * sanitized.charAt(i);
+        }
+
+        // Check.
+        if (sanitized.charAt(12) - ((10 - (checksum % 10)) % 10) === 0) {
+            return sanitized;
+        } else {
+            return false;
+        }
+    };
+
+    validator.isISBN = function (str) {
+        return validator.isISBN10(str) || validator.isISBN13(str);
     };
 
     validator.ltrim = function (str, chars) {
