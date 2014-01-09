@@ -493,7 +493,8 @@ describe('Validators', function () {
 
     it('should validate ISBNs', function () {
         test({
-            validator: 'isISBN10'
+            validator: 'isISBN'
+          , args: [ 10 ]
           , valid: [
                 '3836221195', '3-8362-2119-5', '3 8362 2119 5'
               , '1617290858', '1-61729-085-8', '1 61729 085-8'
@@ -504,11 +505,12 @@ describe('Validators', function () {
           , invalid: [
                 '3423214121', '3-423-21412-1', '3 423 21412 1'
               , '978-3836221191', '9783836221191',
-              , '123456789a'
+              , '123456789a', 'foo', ''
             ]
         });
         test({
-            validator: 'isISBN13'
+            validator: 'isISBN'
+          , args: [ 13 ]
           , valid: [
                 '9783836221191', '978-3-8362-2119-1', '978 3 8362 2119 1'
               , '9783401013190', '978-3401013190', '978 3401013190'
@@ -517,7 +519,7 @@ describe('Validators', function () {
           , invalid: [
                 '9783836221190', '978-3-8362-2119-0', '978 3 8362 2119 0'
               , '3836221195', '3-8362-2119-5', '3 8362 2119 5'
-              , '01234567890ab'
+              , '01234567890ab', 'foo', ''
             ]
         });
         test({
@@ -529,6 +531,14 @@ describe('Validators', function () {
           , invalid: [
                 '3423214121'
               , '9783836221190'
+            ]
+        });
+        test({
+            validator: 'isISBN'
+          , args: [ 'foo' ]
+          , invalid: [
+                '340101319X'
+              , '9784873113685'
             ]
         });
     });

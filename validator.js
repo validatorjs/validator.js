@@ -236,58 +236,41 @@
         return (sum % 10) === 0 ? sanitized : false;
     };
 
-    validator.isISBN10 = function (str) {
-        // Remove spaces and hyphens, convert x to uppercase.
-        var sanitized = str.replace(/[\s-]+/g, '').toUpperCase();
-
-        // Ensure it is a 10 digit ISBN.
-        if (!isbn10Maybe.test(sanitized)) {
-            return false;
+    validator.isISBN = function (str, version) {
+        version = validator.toString(version);
+        if (!version) {
+            return validator.isISBN(str, 10) || validator.isISBN(str, 13);
         }
-
-        // Calculate the checksum.
-        var checksum = 0;
-        for (var i = 0; i < 9; i++) {
-            checksum += (i + 1) * sanitized.charAt(i);
+        var sanitized = str.replace(/[\s-]+/g, '')
+          , checksum = 0, i;
+        if (version === '10') {
+            if (!isbn10Maybe.test(sanitized)) {
+                return false;
+            }
+            for (i = 0; i < 9; i++) {
+                checksum += (i + 1) * sanitized.charAt(i);
+            }
+            if (sanitized.charAt(9) === 'X') {
+                checksum += 10 * 10;
+            } else {
+                checksum += 10 * sanitized.charAt(9);
+            }
+            if ((checksum % 11) === 0) {
+                return sanitized;
+            }
+        } else  if (version === '13') {
+            if (!isbn13Maybe.test(sanitized)) {
+                return false;
+            }
+            var factor = [ 1, 3 ];
+            for (i = 0; i < 12; i++) {
+                checksum += factor[i % 2] * sanitized.charAt(i);
+            }
+            if (sanitized.charAt(12) - ((10 - (checksum % 10)) % 10) === 0) {
+                return sanitized;
+            }
         }
-
-        // Add the last digit.
-        if (sanitized.charAt(9) == 'X') {
-            checksum += 10 * 10;
-        } else {
-            checksum += 10 * sanitized.charAt(9);
-        }
-
-        // Check.
-        return (checksum % 11) === 0 ? sanitized : false;
-    };
-
-    validator.isISBN13 = function (str) {
-        // Remove spaces and hyphens.
-        var sanitized = str.replace(/[\s-]+/g, '');
-
-        // Ensure it is a 13 digit ISBN.
-        if (!isbn13Maybe.test(sanitized)) {
-            return false;
-        }
-
-        // Calculate the checksum.
-        var checksum = 0;
-        var factor = [1, 3];
-        for (var i = 0; i < 12; i++) {
-            checksum += factor[i % 2] * sanitized.charAt(i);
-        }
-
-        // Check.
-        if (sanitized.charAt(12) - ((10 - (checksum % 10)) % 10) === 0) {
-            return sanitized;
-        } else {
-            return false;
-        }
-    };
-
-    validator.isISBN = function (str) {
-        return validator.isISBN10(str) || validator.isISBN13(str);
+        return false;
     };
 
     validator.ltrim = function (str, chars) {

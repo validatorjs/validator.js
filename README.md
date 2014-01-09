@@ -30,7 +30,7 @@ The library can be loaded as a script and supports [AMD](http://requirejs.org/do
 - **matches(str, pattern [, modifiers])** - check if string matches the pattern. Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
 - **isEmail(str)** - check if the string is an email.
 - **isURL(str)** - check if the string is an URL.
-- **isIP(str [, version])** - check if the string is an IP.
+- **isIP(str [, version])** - check if the string is an IP (version 4 or 6).
 - **isAlpha(str)** - check if the string contains only letters (a-zA-Z).
 - **isNumeric(str)** - check if the string contains only numbers.
 - **isAlphanumeric(str)** - check if the string contains only letters and numbers.
@@ -43,15 +43,13 @@ The library can be loaded as a script and supports [AMD](http://requirejs.org/do
 - **isDivisibleBy(str, number)** - check if the string is a number that's divisible by another.
 - **isNull(str)** - check if the string is null.
 - **isLength(str, min [, max])** - check if the string's length falls in a range.
-- **isUUID(str [, version])** - check if the string is a UUID.
+- **isUUID(str [, version])** - check if the string is a UUID (version 3, 4 or 5).
 - **isDate(str)** - check if the string is a date.
 - **isAfter(str [, date])** - check if the string is a date that's after the specified date (defaults to now).
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isCreditCard(str)** - check if the string is a credit card.
-- **isISBN10(str)** - check if the string is an ISBN-10.
-- **isISBN13(str)** - check if the string is an ISBN-13.
-- **isISBN(str)** - check if the string is either of an ISBN-10 or ISBN-13.
+- **isISBN(str [, version])** - check if the string is an ISBN (version 10 or 13).
 
 ### Sanitizers
 
