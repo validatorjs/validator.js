@@ -112,7 +112,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[travis]: https://api.travis-ci.org/chriso/node-validator.png?branch=master
+[travis]: https://api.travis-ci.org/chriso/validator.js.png?branch=master
 [amd]: http://requirejs.org/docs/whyamd.html
 [remove-xss]: https://github.com/chriso/node-validator/commit/2d5d6999541add350fb396ef02dc42ca3215049e
 [caja]: https://code.google.com/p/google-caja/source/browse/trunk/src/com/google/caja/plugin/html-sanitizer.js
