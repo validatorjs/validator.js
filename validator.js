@@ -173,8 +173,20 @@
         return str.length === 0;
     };
 
+    validator.notNull = function (str) {
+        return !validator.isNull(str);
+    };
+
     validator.isLength = function (str, min, max) {
         return str.length >= min && (typeof max === 'undefined' || str.length <= max);
+    };
+
+    validator.notEmpty = function (str) {
+        return validator.isLength(str, 1);
+    };
+
+    validator.isEmpty = function (str) {
+        return validator.isLength(str, 0, 0);
     };
 
     validator.isUUID = function (str, version) {
