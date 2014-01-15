@@ -29,7 +29,7 @@ The library can be loaded as a script and supports [AMD][amd]
 - **contains(str, seed)** - check if the string contains the seed.
 - **matches(str, pattern [, modifiers])** - check if string matches the pattern. Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
 - **isEmail(str)** - check if the string is an email.
-- **isURL(str)** - check if the string is an URL.
+- **isUrl(str)** - check if the string is an URL.
 - **isIP(str [, version])** - check if the string is an IP (version 4 or 6).
 - **isAlpha(str)** - check if the string contains only letters (a-zA-Z).
 - **isNumeric(str)** - check if the string contains only numbers.
