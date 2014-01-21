@@ -73,6 +73,18 @@ This library validates and sanitizes **strings** only. All input will be coerced
 - Replace `null`, `undefined` or `NaN` with an empty string.
 - Everything else is coerced with `input + ''`.
 
+### Extensions
+
+You can add your own validators using `validator.extend(name, fn)`
+
+```javascript
+validator.extend('isFinite', function (str) {
+    return isFinite(str);
+});
+```
+
+Note that the first argument will be automatically coerced to a string.
+
 ### Deprecations
 
 Version 3 of the library deprecated some functionality

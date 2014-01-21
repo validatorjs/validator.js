@@ -305,18 +305,21 @@
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
 
+    validator.extend = function (name, fn) {
+        validator[name] = function () {
+            var args = Array.prototype.slice.call(arguments);
+            args[0] = validator.toString(args[0]);
+            return fn.apply(validator, args);
+        };
+    };
+
+    validator.noCoerce = ['toString', 'toDate', 'extend'];
+
     for (var name in validator) {
-        if (name === 'toString' || name === 'toDate' || typeof validator[name] !== 'function') {
+        if (typeof validator[name] !== 'function' || validator.noCoerce.indexOf(name) >= 0) {
             continue;
         }
-        (function (name) {
-            var original = validator[name];
-            validator[name] = function () {
-                var args = Array.prototype.slice.call(arguments);
-                args[0] = validator.toString(args[0]);
-                return original.apply(validator, args);
-            };
-        })(name);
+        validator.extend(name, validator[name]);
     }
 
     return validator;
