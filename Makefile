@@ -18,7 +18,7 @@ dependencies:
 
 coverage: dependencies
 	@$(NPM)/istanbul cover $(NPM)/_mocha -- --reporter spec
-	@open coverage/lcov-report/node-validator/validator.js.html
+	@open coverage/lcov-report/validator.js/validator.js.html
 
 clean:
 	@rm -rf coverage
