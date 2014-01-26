@@ -23,6 +23,12 @@ The library can be loaded as a script and supports [AMD][amd]
 </script>
 ```
 
+The library can also be installed through [bower][bower]
+
+```bash
+$ bower install git@github.com:chriso/validator.js.git
+```
+
 ### Validators
 
 - **equals(str, comparison)** - check if the string matches the comparison.
@@ -126,6 +132,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [travis]: https://api.travis-ci.org/chriso/validator.js.png?branch=master
 [amd]: http://requirejs.org/docs/whyamd.html
+[bower]: http://bower.io/
 [remove-xss]: https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e
 [caja]: https://code.google.com/p/google-caja/source/browse/trunk/src/com/google/caja/plugin/html-sanitizer.js
 [entities]: https://github.com/fb55/node-entities
