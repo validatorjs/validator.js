@@ -67,8 +67,10 @@
             input = '';
         } else if (typeof input === 'object' && input.toString) {
             input = input.toString();
+        } else if (typeof input !== 'string') {
+            input += '';
         }
-        return input + '';
+        return input;
     };
 
     validator.toDate = function (date) {
