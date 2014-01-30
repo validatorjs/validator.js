@@ -67,8 +67,12 @@
             input = '';
         } else if (typeof input === 'object' && input.toString) {
             input = input.toString();
+        } else if (typeof(input) !== 'string') {
+            // do not create a new string if input is already a string
+            input = '' + input;
         }
-        return input + '';
+
+        return input;
     };
 
     validator.toDate = function (date) {
@@ -99,7 +103,7 @@
     };
 
     validator.contains = function (str, elem) {
-        return str.indexOf(validator.toString(elem)) >= 0;
+        return validator.toString(str).indexOf(validator.toString(elem)) >= 0;
     };
 
     validator.matches = function (str, pattern, modifiers) {
@@ -114,7 +118,7 @@
     };
 
     validator.isURL = function (str) {
-        return str.length < 2083 && url.test(str);
+        return str && str.length < 2083 && url.test(str);
     };
 
     validator.isIP = function (str, version) {
@@ -152,11 +156,11 @@
     };
 
     validator.isLowercase = function (str) {
-        return str === str.toLowerCase();
+        return str === validator.toString(str).toLowerCase();
     };
 
     validator.isUppercase = function (str) {
-        return str === str.toUpperCase();
+        return str === validator.toString(str).toUpperCase();
     };
 
     validator.isInt = function (str) {
@@ -172,11 +176,12 @@
     };
 
     validator.isNull = function (str) {
-        return str.length === 0;
+        return validator.toString(str).length === 0;
     };
 
     validator.isLength = function (str, min, max) {
-        return str.length >= min && (typeof max === 'undefined' || str.length <= max);
+        var length = str && str.length || 0;
+        return length >= min && (typeof max === 'undefined' || length <= max);
     };
 
     validator.isUUID = function (str, version) {
@@ -277,32 +282,32 @@
 
     validator.ltrim = function (str, chars) {
         var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
-        return str.replace(pattern, '');
+        return validator.toString(str).replace(pattern, '');
     };
 
     validator.rtrim = function (str, chars) {
         var pattern = chars ? new RegExp('[' + chars + ']+$', 'g') : /\s+$/g;
-        return str.replace(pattern, '');
+        return validator.toString(str).replace(pattern, '');
     };
 
     validator.trim = function (str, chars) {
         var pattern = chars ? new RegExp('^[' + chars + ']+|[' + chars + ']+$', 'g') : /^\s+|\s+$/g;
-        return str.replace(pattern, '');
+        return validator.toString(str).replace(pattern, '');
     };
 
     validator.escape = function (str) {
-        return (str.replace(/&/g, '&amp;')
+        return (validator.toString(str).replace(/&/g, '&amp;')
             .replace(/"/g, '&quot;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;'));
     };
 
     validator.whitelist = function (str, chars) {
-        return str.replace(new RegExp('[^' + chars + ']+', 'g'), '');
+        return validator.toString(str).replace(new RegExp('[^' + chars + ']+', 'g'), '');
     };
 
     validator.blacklist = function (str, chars) {
-        return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
+        return validator.toString(str).replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
 
     validator.extend = function (name, fn) {
