@@ -62,6 +62,27 @@
       , hexadecimal = /^[0-9a-fA-F]+$/
       , hexcolor = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
+    validator.extend = function (name, fn) {
+        validator[name] = function () {
+            var args = Array.prototype.slice.call(arguments);
+            args[0] = validator.toString(args[0]);
+            return fn.apply(validator, args);
+        };
+    };
+
+    validator.noCoerce = ['toString', 'toDate', 'extend', 'init'];
+
+    //Right before exporting the validator object, pass each of the builtins
+    //through extend() so that their first argument is coerced to a string
+    validator.init = function () {
+        for (var name in validator) {
+            if (typeof validator[name] !== 'function' || validator.noCoerce.indexOf(name) >= 0) {
+                continue;
+            }
+            validator.extend(name, validator[name]);
+        }
+    };
+
     validator.toString = function (input) {
         if (input === null || typeof input === 'undefined' || (isNaN(input) && !input.length)) {
             input = '';
@@ -307,22 +328,7 @@
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
 
-    validator.extend = function (name, fn) {
-        validator[name] = function () {
-            var args = Array.prototype.slice.call(arguments);
-            args[0] = validator.toString(args[0]);
-            return fn.apply(validator, args);
-        };
-    };
-
-    validator.noCoerce = ['toString', 'toDate', 'extend'];
-
-    for (var name in validator) {
-        if (typeof validator[name] !== 'function' || validator.noCoerce.indexOf(name) >= 0) {
-            continue;
-        }
-        validator.extend(name, validator[name]);
-    }
+    validator.init();
 
     return validator;
 
