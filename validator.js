@@ -156,11 +156,11 @@
     };
 
     validator.isLowercase = function (str) {
-        return str === str.toLowerCase();
+        return str === validator.toString(str).toLowerCase();
     };
 
     validator.isUppercase = function (str) {
-        return str === str.toUpperCase();
+        return str === validator.toString(str).toUpperCase();
     };
 
     validator.isInt = function (str) {
@@ -176,11 +176,12 @@
     };
 
     validator.isNull = function (str) {
-        return str.length === 0;
+        return validator.toString(str).length === 0;
     };
 
     validator.isLength = function (str, min, max) {
-        return str.length >= min && (typeof max === 'undefined' || str.length <= max);
+        var length = str && str.length || 0;
+        return length >= min && (typeof max === 'undefined' || length <= max);
     };
 
     validator.isUUID = function (str, version) {
@@ -281,32 +282,32 @@
 
     validator.ltrim = function (str, chars) {
         var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
-        return str.replace(pattern, '');
+        return validator.toString(str).replace(pattern, '');
     };
 
     validator.rtrim = function (str, chars) {
         var pattern = chars ? new RegExp('[' + chars + ']+$', 'g') : /\s+$/g;
-        return str.replace(pattern, '');
+        return validator.toString(str).replace(pattern, '');
     };
 
     validator.trim = function (str, chars) {
         var pattern = chars ? new RegExp('^[' + chars + ']+|[' + chars + ']+$', 'g') : /^\s+|\s+$/g;
-        return str.replace(pattern, '');
+        return validator.toString(str).replace(pattern, '');
     };
 
     validator.escape = function (str) {
-        return (str.replace(/&/g, '&amp;')
+        return (validator.toString(str).replace(/&/g, '&amp;')
             .replace(/"/g, '&quot;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;'));
     };
 
     validator.whitelist = function (str, chars) {
-        return str.replace(new RegExp('[^' + chars + ']+', 'g'), '');
+        return validator.toString(str).replace(new RegExp('[^' + chars + ']+', 'g'), '');
     };
 
     validator.blacklist = function (str, chars) {
-        return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
+        return validator.toString(str).replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
 
     validator.extend = function (name, fn) {
