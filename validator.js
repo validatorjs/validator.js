@@ -103,7 +103,7 @@
     };
 
     validator.contains = function (str, elem) {
-        return str.indexOf(validator.toString(elem)) >= 0;
+        return validator.toString(str).indexOf(validator.toString(elem)) >= 0;
     };
 
     validator.matches = function (str, pattern, modifiers) {
