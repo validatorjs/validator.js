@@ -114,7 +114,7 @@
     };
 
     validator.isURL = function (str) {
-        return str.length < 2083 && url.test(str);
+        return str && str.length < 2083 && url.test(str);
     };
 
     validator.isIP = function (str, version) {
