@@ -63,7 +63,7 @@ $ bower install git@github.com:chriso/validator.js.git
 - **toDate(input)** - convert the input to a date, or `null` if the input is not a date.
 - **toFloat(input)** - convert the input to a float, or `NaN` if the input is not a float.
 - **toInt(input [, radix])** - convert the input to an integer, or `NaN` if the input is not an integer.
-- **toBoolean(input [, strict)** - convert the input to a boolean. Everything except for `'0'`, `'false'` and `''` returns `true`. In strict mode only `'1'` and `'true'` return `true`.
+- **toBoolean(input [, strict])** - convert the input to a boolean. Everything except for `'0'`, `'false'` and `''` returns `true`. In strict mode only `'1'` and `'true'` return `true`.
 - **trim(input [, chars])** - trim characters (whitespace by default) from both sides of the input.
 - **ltrim(input [, chars])** - trim characters from the left-side of the input.
 - **rtrim(input [, chars])** - trim characters from the right-side of the input.
