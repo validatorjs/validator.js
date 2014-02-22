@@ -74,6 +74,22 @@ describe('Validators', function () {
               , 'http://com/'
               , 'http://300.0.0.1/'
               , 'mailto:foo@bar.com'
+              , 'rtmp://foobar.com'
+            ]
+        });
+    });
+
+    it('should validate URLs with custom protocols', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                protocols: [ 'rtmp' ]
+            }]
+          , valid: [
+              , 'rtmp://foobar.com'
+            ]
+          , invalid: [
+                'http://foobar.com'
             ]
         });
     });
