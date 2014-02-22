@@ -99,6 +99,8 @@ Version 3 of the library deprecated some functionality
 - **Entity encoding**: Use [fb55/entities][entities] or [substack/node-ent][node-ent].
 - **Validator chaining**: The API was too unintuitive. I'd prefer to let users create their own higher-level patterns from the provided building blocks.
 
+If you're migrating from version `1.x` or `2.x`, check out the [migration guide](https://github.com/chriso/validator.js/wiki/Migrating-from-1.x-and-2.x).
+
 ### Tests
 
 - `make test` - run the test suite.
