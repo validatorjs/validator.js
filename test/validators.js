@@ -94,6 +94,24 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate URLs that do not have a TLD', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                require_tld: false
+            }]
+          , valid: [
+              , 'http://foobar.com/'
+              , 'http://foobar/'
+              , 'foobar/'
+              , 'foobar'
+            ]
+          , invalid: [
+                'foobar.'
+            ]
+        });
+    });
+
     it('should validate IP addresses', function () {
         test({
             validator: 'isIP'

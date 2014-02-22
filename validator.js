@@ -68,7 +68,7 @@
         };
     };
 
-    validator.noCoerce = ['toString', 'toDate', 'extend', 'init', 'flatten'];
+    validator.noCoerce = ['toString', 'toDate', 'extend', 'init', 'flatten', 'merge'];
 
     //Right before exporting the validator object, pass each of the builtins
     //through extend() so that their first argument is coerced to a string
@@ -126,6 +126,16 @@
         return str;
     };
 
+    validator.merge = function (obj, defaults) {
+        obj = obj || {};
+        for (var key in defaults) {
+            if (typeof obj[key] === 'undefined') {
+                obj[key] = defaults[key];
+            }
+        }
+        return obj;
+    };
+
     validator.equals = function (str, comparison) {
         return str === validator.toString(comparison);
     };
@@ -147,11 +157,12 @@
 
     var default_url_options = {
         protocols: [ 'http', 'https', 'ftp' ]
+      , require_tld: true
     };
 
     validator.isURL = function (str, options) {
-        options = options || default_url_options;
-        var url = new RegExp('^(?!mailto:)(?:(?:' + validator.flatten(options.protocols, '|') + ')://)?(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:/[^\\s]*)?$', 'i');
+        options = validator.merge(options, default_url_options);
+        var url = new RegExp('^(?!mailto:)(?:(?:' + validator.flatten(options.protocols, '|') + ')://)?(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?') + ')|localhost)(?::\\d{2,5})?(?:/[^\\s]*)?$', 'i');
         return str.length < 2083 && url.test(str);
     };
 
