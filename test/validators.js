@@ -64,6 +64,9 @@ describe('Validators', function () {
               , 'http://duckduckgo.com/?q=%2F'
               , 'http://foobar.com/t$-_.+!*\'(),'
               , 'http://localhost:3000/'
+              , 'http://foobar.com/?foo=bar#baz=qux'
+              , 'http://foobar.com?foo=bar'
+              , 'http://foobar.com#baz=qux'
             ]
           , invalid: [
                 'xyz://foobar.com'
