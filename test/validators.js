@@ -502,10 +502,10 @@ describe('Validators', function () {
     it('should validate dates against an end date', function () {
         test({ validator: 'isBefore', args: ['08/04/2011'],
             valid: [ '2010-07-02', '2010-08-04', new Date(0) ],
-            invalid: [ '2011-08-04', new Date(2011, 9, 10) ] });
+            invalid: [ '08/04/2011', new Date(2011, 9, 10) ] });
         test({ validator: 'isBefore', args: [ new Date(2011, 7, 4) ],
             valid: [ '2010-07-02', '2010-08-04', new Date(0) ],
-            invalid: [ '2011-08-04', new Date(2011, 9, 10) ] });
+            invalid: [ '08/04/2011', new Date(2011, 9, 10) ] });
         test({ validator: 'isBefore',
             valid: [ '2000-08-04', new Date(0), new Date(Date.now() - 86400000) ],
             invalid: [ '2100-07-02', new Date(2017, 10, 10) ] });
