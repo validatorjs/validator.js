@@ -115,6 +115,23 @@ describe('Validators', function () {
         });
     });
 
+    it('should let users specify whether URLs require a protocol', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                require_protocol: true
+            }]
+          , valid: [
+              , 'http://foobar.com/'
+              , 'http://localhost/'
+            ]
+          , invalid: [
+                'foobar.com'
+              , 'foobar'
+            ]
+        });
+    });
+
     it('should validate IP addresses', function () {
         test({
             validator: 'isIP'
