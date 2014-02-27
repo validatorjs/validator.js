@@ -33,7 +33,7 @@
 
     'use strict';
 
-    validator = { version: '3.3.0' };
+    validator = { version: '3.4.0' };
 
     var email = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
 
@@ -328,7 +328,7 @@
     validator.isJSON = function (str) {
         try {
             JSON.parse(str);
-        } catch(e) {
+        } catch (e) {
             if (e instanceof SyntaxError) {
                 return false;
             }
