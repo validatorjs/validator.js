@@ -324,6 +324,17 @@
         return false;
     };
 
+    validator.isJSON = function (str) {
+        try {
+            JSON.parse(str);
+        } catch(e) {
+            if (e instanceof SyntaxError) {
+                return false;
+            }
+        }
+        return true;
+    };
+
     validator.ltrim = function (str, chars) {
         var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
         return str.replace(pattern, '');

@@ -579,4 +579,20 @@ describe('Validators', function () {
             ]
         });
     });
+
+    it('should validate JSON', function () {
+        test({
+            validator: 'isJSON'
+          , valid: [
+                '{ "key": "value" }'
+            ]
+          , invalid: [
+                '{ key: "value" }'
+              , { "key": "value" }
+              , { key: 'value' }
+              , '{ \'key\': \'value\' }'
+            ]
+        });
+    });
+
 });
