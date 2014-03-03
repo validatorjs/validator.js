@@ -612,4 +612,22 @@ describe('Validators', function () {
         });
     });
 
+
+
+    it('should validate Phone', function () {
+        test({
+            validator: 'isPhone'
+          , valid: [
+              '+32476022010',
+	      '+014543456123'
+            ]
+          , invalid: [
+              '+019283', //Too short
+              '01098787', //No +
+	      '0340109878784742834278', //Too long
+            ]
+        });
+    });
+
+    
 });

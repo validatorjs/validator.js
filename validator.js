@@ -60,6 +60,8 @@
       , hexadecimal = /^[0-9a-fA-F]+$/
       , hexcolor = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
+    var intlPhone = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+    
     validator.extend = function (name, fn) {
         validator[name] = function () {
             var args = Array.prototype.slice.call(arguments);
@@ -336,6 +338,12 @@
         return true;
     };
 
+
+    validator.isPhone = function (str) {
+        var pattern = intlPhone;
+        return pattern.test(str);
+    };
+    
     validator.ltrim = function (str, chars) {
         var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
         return str.replace(pattern, '');
