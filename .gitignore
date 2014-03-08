@@ -1,5 +1,3 @@
 .DS_Store
 node_modules
 coverage
-dist/validator.js
-dist/validator_.js
