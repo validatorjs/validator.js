@@ -36,6 +36,9 @@ describe('Validators', function () {
               , 'x@x.x'
               , 'foo@bar.com.au'
               , 'foo+bar@bar.com'
+              , 'hans.müller@test.com'
+              , 'hans@müller.com'
+              , 'test|123@müller.com'
             ]
           , invalid: [
                 'invalidemail@'
