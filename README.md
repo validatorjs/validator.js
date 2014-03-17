@@ -14,7 +14,7 @@ validator.isEmail('foo@bar.com'); //=> true
 
 ### Client-side usage
 
-The library can be loaded as a script and supports [AMD][amd]
+The library can be loaded either as a standalone script, or through an [AMD][amd]-compatible loader
 
 ```html
 <script type="text/javascript" src="validator.min.js"></script>
@@ -35,7 +35,7 @@ $ bower install git@github.com:chriso/validator.js.git
 - **contains(str, seed)** - check if the string contains the seed.
 - **matches(str, pattern [, modifiers])** - check if string matches the pattern. Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
 - **isEmail(str)** - check if the string is an email.
-- **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: true }`.
+- **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false }`.
 - **isIP(str [, version])** - check if the string is an IP (version 4 or 6).
 - **isAlpha(str)** - check if the string contains only letters (a-zA-Z).
 - **isNumeric(str)** - check if the string contains only numbers.
@@ -92,6 +92,11 @@ validator.extend('isFinite', function (str) {
 
 Note that the first argument will be automatically coerced to a string.
 
+```javascript
+validator.isFinite(12345); // => true
+validator.isFinite('foo'); // => false
+```
+
 ### Deprecations
 
 Version 3 of the library deprecated some functionality
@@ -112,6 +117,7 @@ If you're migrating from version `1.x` or `2.x`, check out the [migration guide]
 
 ### License (MIT)
 
+```
 Copyright (c) 2014 Chris O'Hara <cohara87@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -132,6 +138,8 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
 
 [travis]: https://api.travis-ci.org/chriso/validator.js.png?branch=master
 [amd]: http://requirejs.org/docs/whyamd.html
