@@ -68,13 +68,12 @@
         };
     };
 
-    validator.noCoerce = ['toString', 'toDate', 'extend', 'init', 'flatten', 'merge'];
-
     //Right before exporting the validator object, pass each of the builtins
     //through extend() so that their first argument is coerced to a string
     validator.init = function () {
         for (var name in validator) {
-            if (typeof validator[name] !== 'function' || validator.noCoerce.indexOf(name) >= 0) {
+            if (typeof validator[name] !== 'function' || name === 'toString' ||
+                    name === 'toDate' || name === 'extend' || name === 'init') {
                 continue;
             }
             validator.extend(name, validator[name]);
@@ -115,27 +114,6 @@
         return str !== '0' && str !== 'false' && str !== '';
     };
 
-    validator.flatten = function (array, separator) {
-        if (!array) {
-            return '';
-        }
-        var str = array[0];
-        for (var i = 1; i < array.length; i++) {
-            str += separator + array[i];
-        }
-        return str;
-    };
-
-    validator.merge = function (obj, defaults) {
-        obj = obj || {};
-        for (var key in defaults) {
-            if (typeof obj[key] === 'undefined') {
-                obj[key] = defaults[key];
-            }
-        }
-        return obj;
-    };
-
     validator.equals = function (str, comparison) {
         return str === validator.toString(comparison);
     };
@@ -162,8 +140,8 @@
     };
 
     validator.isURL = function (str, options) {
-        options = validator.merge(options, default_url_options);
-        var url = new RegExp('^(?!mailto:)(?:(?:' + validator.flatten(options.protocols, '|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?') + ')|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$', 'i');
+        options = merge(options, default_url_options);
+        var url = new RegExp('^(?!mailto:)(?:(?:' + flatten(options.protocols, '|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?') + ')|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$', 'i');
         return str.length < 2083 && url.test(str);
     };
 
@@ -365,6 +343,27 @@
     validator.blacklist = function (str, chars) {
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
+
+    function flatten(array, separator) {
+        if (!array) {
+            return '';
+        }
+        var str = array[0];
+        for (var i = 1; i < array.length; i++) {
+            str += separator + array[i];
+        }
+        return str;
+    }
+
+    function merge(obj, defaults) {
+        obj = obj || {};
+        for (var key in defaults) {
+            if (typeof obj[key] === 'undefined') {
+                obj[key] = defaults[key];
+            }
+        }
+        return obj;
+    }
 
     validator.init();
 
