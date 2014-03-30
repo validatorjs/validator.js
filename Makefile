@@ -10,11 +10,11 @@ lint: dependencies
 	@$(NPM)/jshint --config .jshintrc \
 		validator.js test/*.js
 
-dependencies:
-	@if [ ! -d node_modules ]; then \
-		echo "Installing dependencies.."; \
-		npm install --silent; \
-	fi
+dependencies: node_modules
+
+node_modules:
+	@echo "Installing dependencies.."
+	@npm install
 
 coverage: dependencies
 	@$(NPM)/istanbul cover $(NPM)/_mocha -- --reporter spec
@@ -26,11 +26,10 @@ clean:
 distclean: clean
 	@rm -rf node_modules
 
-min:
-	@$(NPM)/uglifyjs --compress --mangle --comments '/Copyright/' \
-		< validator.js > validator.min.js
+min: validator.min.js
+
+%.min.js: %.js dependencies
+	@$(NPM)/uglifyjs --compress --mangle --comments '/Copyright/' $< > $@
 
 check: test
 deps: dependencies
-
-.PHONY: dependencies clean min
