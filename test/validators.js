@@ -70,6 +70,8 @@ describe('Validators', function () {
               , 'http://foobar.com/?foo=bar#baz=qux'
               , 'http://foobar.com?foo=bar'
               , 'http://foobar.com#baz=qux'
+              , 'http://www.xn--froschgrn-x9a.net/'
+              , 'http://xn--froschgrn-x9a.com/'
             ]
           , invalid: [
                 'xyz://foobar.com'
@@ -81,6 +83,10 @@ describe('Validators', function () {
               , 'http://300.0.0.1/'
               , 'mailto:foo@bar.com'
               , 'rtmp://foobar.com'
+              , 'http://www.xn--.com/'
+              , 'http://xn--.com/'
+              , 'http://www.xn--foo--bar.com/'
+              , 'http://xn--foo--bar.com/'
             ]
         });
     });
