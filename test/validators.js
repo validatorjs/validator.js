@@ -625,13 +625,17 @@ describe('Validators', function () {
         test({
             validator: 'isMultibyte'
           , valid: [
-                '夫日互卅’市正市瓜﹜‘期儂'
+                '～∩〞〝'
+              , '夫日互卅’市正市瓜﹜‘期儂'
               , 'ㄢ□ㄟ﹛€→�聜鵃�'
             ]
           , invalid: [
-                'abc'
-              , 'abc123'
+                'abc丐'
+              , 'abc123中'
               , '<>@" *.'
+              , '丐 '
+              , '<>'
+              , 'ㄟㄟ-ㄠㄠ'
             ]
         });
     });

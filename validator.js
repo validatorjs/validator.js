@@ -60,7 +60,7 @@
       , hexadecimal = /^[0-9a-fA-F]+$/
       , hexcolor = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
-    var multibyte = /[^\x00-\x7F]/;
+    var multibyte = /^[^ -~｡-ﾟ]*$/;
 
     validator.extend = function (name, fn) {
         validator[name] = function () {
