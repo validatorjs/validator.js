@@ -56,7 +56,8 @@ $ bower install https://github.com/chriso/validator.js.git
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isCreditCard(str)** - check if the string is a credit card.
 - **isISBN(str [, version])** - check if the string is an ISBN (version 10 or 13).
-- **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse)
+- **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
+- **isMultibyte(str)** - check if the string contains one or more multibyte chars.
 
 ### Sanitizers
 
