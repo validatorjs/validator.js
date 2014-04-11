@@ -621,4 +621,19 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate multibyte strings', function () {
+        test({
+            validator: 'isMultibyte'
+          , valid: [
+                '夫日互卅’市正市瓜﹜‘期儂'
+              , 'ㄢ□ㄟ﹛€→�聜鵃�'
+            ]
+          , invalid: [
+                'abc'
+              , 'abc123'
+              , '<>@" *.'
+            ]
+        });
+    });
+
 });
