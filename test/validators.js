@@ -36,9 +36,9 @@ describe('Validators', function () {
               , 'x@x.x'
               , 'foo@bar.com.au'
               , 'foo+bar@bar.com'
-              , 'hans.müller@test.com'
-              , 'hans@müller.com'
-              , 'test|123@müller.com'
+              , 'hans.m端ller@test.com'
+              , 'hans@m端ller.com'
+              , 'test|123@m端ller.com'
             ]
           , invalid: [
                 'invalidemail@'
@@ -257,7 +257,7 @@ describe('Validators', function () {
                 'abc'
               , 'abc123'
               , 'this is lowercase.'
-              , 'très über'
+              , 'tr竪s 端ber'
             ]
           , invalid: [
                 'fooBar'
@@ -621,20 +621,38 @@ describe('Validators', function () {
         });
     });
 
-    it('should validate ascii strings', function () {
+    it('should validate variable-width strings', function () {
         test({
-            validator: 'isAscii'
+            validator: 'isVariableWidth'
           , valid: [
-                '<>@" *./'
+                'ひらがな・カタカナ、．漢字'
+              , '３ー０　ａ＠ｃｏｍ'
+              , 'ｶﾀｶﾅﾞﾬ'
+              , 'Good＝Parts'
+            ]
+          , invalid: [
+                'abc'
+              , 'abc123'
+              , '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
+            ]
+        });
+    });
+
+    it('should validate half-width strings', function () {
+        test({
+            validator: 'isHalfWidth'
+          , valid: [
+                '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
               , 'l-btn_02--active'
               , 'abcz'
               , '944141243'
             ]
           , invalid: [
-                'abc��'
-              , 'abc123��'
-              , '�� '
-              , '����-����'
+                'abcあ'
+              , 'abc123い'
+              , 'あ '
+              , '００-１１'
+              , 'ｶﾀｶﾅﾞﾬ'
             ]
         });
     });
