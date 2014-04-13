@@ -621,20 +621,19 @@ describe('Validators', function () {
         });
     });
 
-    it('should validate multibyte strings', function () {
+    it('should validate ascii strings', function () {
         test({
-            validator: 'isMultibyte'
+            validator: 'isAscii'
           , valid: [
-                '～∩〞〝'
-              , '夫日互卅’市正市瓜﹜‘期儂'
-              , 'ㄢ□ㄟ﹛€→�聜鵃�'
+                '<>@" *./'
+              , 'l-btn_02--active'
+              , 'abcz'
+              , '944141243'
             ]
           , invalid: [
                 'abc丐'
               , 'abc123中'
-              , '<>@" *.'
               , '丐 '
-              , '<>'
               , 'ㄟㄟ-ㄠㄠ'
             ]
         });
