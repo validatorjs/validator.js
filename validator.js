@@ -60,8 +60,10 @@
       , hexadecimal = /^[0-9a-fA-F]+$/
       , hexcolor = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
-    var variableWidth = /[^\x00-\x7F]/
-      , halfWidth = /^[\x00-\x7F]+$/;
+    var ascii = /^[\x00-\x7F]+$/
+      , multibyte = /[^\x00-\x7F]/
+      , fullWidth = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/
+      , halfWidth = /[\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/;
 
     validator.extend = function (name, fn) {
         validator[name] = function () {
@@ -317,12 +319,24 @@
         return true;
     };
 
-    validator.isVariableWidth = function (str) {
-        return variableWidth.test(str);
+    validator.isMultibyte = function (str) {
+        return multibyte.test(str);
+    };
+
+    validator.isAscii = function (str) {
+        return ascii.test(str);
+    };
+
+    validator.isFullWidth = function (str) {
+        return fullWidth.test(str);
     };
 
     validator.isHalfWidth = function (str) {
         return halfWidth.test(str);
+    };
+
+    validator.isVariableWidth = function (str) {
+        return fullWidth.test(str) && halfWidth.test(str);
     };
 
     validator.ltrim = function (str, chars) {

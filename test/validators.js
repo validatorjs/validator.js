@@ -621,13 +621,49 @@ describe('Validators', function () {
         });
     });
 
-    it('should validate variable-width strings', function () {
+    it('should validate multibyte strings', function () {
         test({
-            validator: 'isVariableWidth'
+            validator: 'isMultibyte'
+          , valid: [
+                'ひらがな・カタカナ、．漢字'
+              , 'あいうえお foobar'
+              , 'test＠example.com'
+              , '1234abcDEｘｙｚ'
+              , 'ｶﾀｶﾅ'
+            ]
+          , invalid: [
+                'abc'
+              , 'abc123'
+              , '<>@" *.'
+            ]
+        });
+    });
+
+    it('should validate ascii strings', function () {
+        test({
+            validator: 'isAscii'
+          , valid: [
+                'foobar'
+              , '0987654321'
+              , 'test@example.com'
+              , '1234abcDEF'
+            ]
+          , invalid: [
+                'ｆｏｏbar'
+              , 'ｘｙｚ０９８'
+              , '１２３456'
+              , 'ｶﾀｶﾅ'
+            ]
+        });
+    });
+
+    it('should validate full-width strings', function () {
+        test({
+            validator: 'isFullWidth'
           , valid: [
                 'ひらがな・カタカナ、．漢字'
               , '３ー０　ａ＠ｃｏｍ'
-              , 'ｶﾀｶﾅﾞﾬ'
+              , 'Ｆｶﾀｶﾅﾞﾬ'
               , 'Good＝Parts'
             ]
           , invalid: [
@@ -644,14 +680,31 @@ describe('Validators', function () {
           , valid: [
                 '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
               , 'l-btn_02--active'
-              , 'abcz'
-              , '944141243'
+              , 'abc123い'
+              , 'ｶﾀｶﾅﾞﾬ￩'
             ]
           , invalid: [
-                'abcあ'
-              , 'abc123い'
-              , 'あ '
-              , '００-１１'
+              , 'あいうえお'
+              , '００１１'
+            ]
+        });
+    });
+
+    it('should validate variable-width strings', function () {
+        test({
+            validator: 'isVariableWidth'
+          , valid: [
+                'ひらがなカタカナ漢字ABCDE'
+              , '３ー０123'
+              , 'Ｆｶﾀｶﾅﾞﾬ'
+              , 'Good＝Parts'
+            ]
+          , invalid: [
+                'abc'
+              , 'abc123'
+              , '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
+              , 'ひらがな・カタカナ、．漢字'
+              , '１２３４５６'
               , 'ｶﾀｶﾅﾞﾬ'
             ]
         });
