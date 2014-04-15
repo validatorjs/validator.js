@@ -26,7 +26,7 @@ The library can be loaded either as a standalone script, or through an [AMD][amd
 The library can also be installed through [bower][bower]
 
 ```bash
-$ bower install https://github.com/chriso/validator.js.git
+$ bower install validator-js
 ```
 
 ### Validators
