@@ -36,9 +36,9 @@ describe('Validators', function () {
               , 'x@x.x'
               , 'foo@bar.com.au'
               , 'foo+bar@bar.com'
-              , 'hans.müller@test.com'
-              , 'hans@müller.com'
-              , 'test|123@müller.com'
+              , 'hans.m端ller@test.com'
+              , 'hans@m端ller.com'
+              , 'test|123@m端ller.com'
             ]
           , invalid: [
                 'invalidemail@'
@@ -257,7 +257,7 @@ describe('Validators', function () {
                 'abc'
               , 'abc123'
               , 'this is lowercase.'
-              , 'très über'
+              , 'tr竪s 端ber'
             ]
           , invalid: [
                 'fooBar'
@@ -625,13 +625,87 @@ describe('Validators', function () {
         test({
             validator: 'isMultibyte'
           , valid: [
-                '�Ҥ餬�ʡ��������ʡ�������'
-              , '���������������'
+                'ひらがな・カタカナ、．漢字'
+              , 'あいうえお foobar'
+              , 'test＠example.com'
+              , '1234abcDEｘｙｚ'
+              , 'ｶﾀｶﾅ'
             ]
           , invalid: [
                 'abc'
               , 'abc123'
               , '<>@" *.'
+            ]
+        });
+    });
+
+    it('should validate ascii strings', function () {
+        test({
+            validator: 'isAscii'
+          , valid: [
+                'foobar'
+              , '0987654321'
+              , 'test@example.com'
+              , '1234abcDEF'
+            ]
+          , invalid: [
+                'ｆｏｏbar'
+              , 'ｘｙｚ０９８'
+              , '１２３456'
+              , 'ｶﾀｶﾅ'
+            ]
+        });
+    });
+
+    it('should validate full-width strings', function () {
+        test({
+            validator: 'isFullWidth'
+          , valid: [
+                'ひらがな・カタカナ、．漢字'
+              , '３ー０　ａ＠ｃｏｍ'
+              , 'Ｆｶﾀｶﾅﾞﾬ'
+              , 'Good＝Parts'
+            ]
+          , invalid: [
+                'abc'
+              , 'abc123'
+              , '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
+            ]
+        });
+    });
+
+    it('should validate half-width strings', function () {
+        test({
+            validator: 'isHalfWidth'
+          , valid: [
+                '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
+              , 'l-btn_02--active'
+              , 'abc123い'
+              , 'ｶﾀｶﾅﾞﾬ￩'
+            ]
+          , invalid: [
+              , 'あいうえお'
+              , '００１１'
+            ]
+        });
+    });
+
+    it('should validate variable-width strings', function () {
+        test({
+            validator: 'isVariableWidth'
+          , valid: [
+                'ひらがなカタカナ漢字ABCDE'
+              , '３ー０123'
+              , 'Ｆｶﾀｶﾅﾞﾬ'
+              , 'Good＝Parts'
+            ]
+          , invalid: [
+                'abc'
+              , 'abc123'
+              , '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
+              , 'ひらがな・カタカナ、．漢字'
+              , '１２３４５６'
+              , 'ｶﾀｶﾅﾞﾬ'
             ]
         });
     });
