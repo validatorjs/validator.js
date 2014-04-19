@@ -57,6 +57,9 @@ describe('Validators', function () {
               , 'foobar.com/'
               , 'valid.au'
               , 'http://www.foobar.com/'
+              , 'http://www.foobar.com:23/'
+              , 'http://www.foobar.com:65535/'
+              , 'http://www.foobar.com:5/'
               , 'https://www.foobar.com/'
               , 'ftp://www.foobar.com/'
               , 'http://www.foobar.com/~foobar'
@@ -87,6 +90,9 @@ describe('Validators', function () {
               , 'http://xn--.com/'
               , 'http://www.xn--foo--bar.com/'
               , 'http://xn--foo--bar.com/'
+              , 'http://www.foobar.com:0/'
+              , 'http://www.foobar.com:70000/'
+              , 'http://www.foobar.com:99999/'
             ]
         });
     });
