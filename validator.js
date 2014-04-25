@@ -373,6 +373,14 @@
     validator.blacklist = function (str, chars) {
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
+    
+    validator.stripLow = function(str) {
+        return str.replace(/[\x00-\x1F\x7F]/g, '');
+    };
+    
+    validator.stripLowKeepNewLines = function(str) {
+        return str.replace(/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/g, '');
+    };
 
     function flatten(array, separator) {
         if (!array) {
