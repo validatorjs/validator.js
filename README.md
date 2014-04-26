@@ -74,6 +74,7 @@ $ bower install validator-js
 - **ltrim(input [, chars])** - trim characters from the left-side of the input.
 - **rtrim(input [, chars])** - trim characters from the right-side of the input.
 - **escape(input)** - replace `<`, `>`, `&` and `"` with HTML entities.
+- **stripLow(input [, keep_new_lines])** - remove characters with a numerical value < 32 and 127, mostly control characters. If `keep_new_lines` is `true`, newline characters are preserved (`\n` and `\r`, hex `0xA` and `0xD`). Unicode-safe in JavaScript.
 - **whitelist(input, chars)** - remove characters that do not appear in the whitelist.
 - **blacklist(input, chars)** - remove characters that appear in the blacklist.
 

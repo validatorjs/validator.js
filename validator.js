@@ -366,20 +366,17 @@
             .replace(/>/g, '&gt;'));
     };
 
+    validator.stripLow = function (str, keep_new_lines) {
+        var regexp = keep_new_lines ? /[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/g : /[\x00-\x1F\x7F]/g;
+        return str.replace(regexp, '');
+    };
+
     validator.whitelist = function (str, chars) {
         return str.replace(new RegExp('[^' + chars + ']+', 'g'), '');
     };
 
     validator.blacklist = function (str, chars) {
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
-    };
-    
-    validator.stripLow = function(str) {
-        return str.replace(/[\x00-\x1F\x7F]/g, '');
-    };
-    
-    validator.stripLowKeepNewLines = function(str) {
-        return str.replace(/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/g, '');
     };
 
     function flatten(array, separator) {
