@@ -179,6 +179,3 @@ describe('Sanitizers', function () {
     });
 
 });
-
-
-console.log(JSON.stringify(validator.stripLow("\x01\x09")))

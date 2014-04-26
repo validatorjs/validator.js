@@ -367,8 +367,8 @@
     };
 
     validator.stripLow = function (str, keep_new_lines) {
-        var regexp = keep_new_lines ? /[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/g : /[\x00-\x1F\x7F]/g;
-        return str.replace(regexp, '');
+        var chars = keep_new_lines ? '\x00-\x09\x0B\x0C\x0E-\x1F\x7F' : '\x00-\x1F\x7F';
+        return validator.blacklist(str, chars);
     };
 
     validator.whitelist = function (str, chars) {
