@@ -317,9 +317,7 @@
         try {
             JSON.parse(str);
         } catch (e) {
-            if (e instanceof SyntaxError) {
-                return false;
-            }
+            return false;
         }
         return true;
     };

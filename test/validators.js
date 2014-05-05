@@ -1,5 +1,11 @@
 var validator = require('../validator')
-  , format = require('util').format;
+  , format = require('util').format
+  , contextify = require('contextify')
+  , assert = require('assert')
+  , path = require('path')
+  , fs = require('fs');
+
+var validator_js = fs.readFileSync(path.join(__dirname, '../validator.js')).toString();
 
 function test(options) {
     var args = options.args || [];
@@ -93,6 +99,8 @@ describe('Validators', function () {
               , 'http://www.foobar.com:0/'
               , 'http://www.foobar.com:70000/'
               , 'http://www.foobar.com:99999/'
+              , ''
+              , 'http://foobar.com/' + new Array(2083).join('f')
             ]
         });
     });
@@ -714,6 +722,28 @@ describe('Validators', function () {
               , 'ｶﾀｶﾅﾞﾬ'
             ]
         });
+    });
+
+    it('should define the module using an AMD-compatible loader', function () {
+        var window = {
+            validator: null
+          , define: function (module) {
+                this.validator = module;
+            }
+        };
+        window.define.amd = true;
+        var sandbox = contextify(window);
+        sandbox.run(validator_js);
+        sandbox.dispose();
+        assert.equal(window.validator.trim('  foobar '), 'foobar');
+    });
+
+    it('should bind validator to the window if no module loaders are available', function () {
+        var window = {};
+        var sandbox = contextify(window);
+        sandbox.run(validator_js);
+        sandbox.dispose();
+        assert.equal(window.validator.trim('  foobar '), 'foobar');
     });
 
 });

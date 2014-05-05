@@ -23,7 +23,8 @@
     "istanbul": "latest",
     "jshint": "latest",
     "uglify-js": "latest",
-    "coveralls": "latest"
+    "coveralls": "latest",
+    "contextify": "latest"
   },
   "scripts": {
     "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
