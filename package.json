@@ -22,7 +22,11 @@
     "mocha": "latest",
     "istanbul": "latest",
     "jshint": "latest",
-    "uglify-js": "latest"
+    "uglify-js": "latest",
+    "coveralls": "latest"
+  },
+  "scripts": {
+    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "engines": { "node" : ">= 0.8" },
   "licenses": [
