@@ -1,7 +1,7 @@
 {
   "name": "validator-js",
   "main": "validator.js",
-  "version": "3.8.1",
+  "version": "3.11.2",
   "homepage": "https://github.com/chriso/validator.js",
   "authors": [
     "Chris O'Hara <cohara87+gh@gmail.com>"
