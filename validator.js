@@ -221,6 +221,10 @@
         return len >= min && (typeof max === 'undefined' || len <= max);
     };
 
+    validator.isByteLength = function (str, min, max) {
+        return str.length >= min && (typeof max === 'undefined' || str.length <= max);
+    };
+
     validator.isUUID = function (str, version) {
         var pattern = uuid[version ? version : 'all'];
         return pattern && pattern.test(str);

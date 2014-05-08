@@ -50,7 +50,8 @@ $ bower install validator-js
 - **isFloat(str)** - check if the string is a float.
 - **isDivisibleBy(str, number)** - check if the string is a number that's divisible by another.
 - **isNull(str)** - check if the string is null.
-- **isLength(str, min [, max])** - check if the string's length falls in a range.
+- **isLength(str, min [, max])** - check if the string's length falls in a range. Note: this function takes into account surrogate pairs.
+- **isByteLength(str, min [, max])** - check if the string's length (in bytes) falls in a range.
 - **isUUID(str [, version])** - check if the string is a UUID (version 3, 4 or 5).
 - **isDate(str)** - check if the string is a date.
 - **isAfter(str [, date])** - check if the string is a date that's after the specified date (defaults to now).

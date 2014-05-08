@@ -414,6 +414,11 @@ describe('Validators', function () {
         test({ validator: 'isLength', args: [2, 3], valid: ['干𩸽', '𠮷野家'], invalid: [ '', '𠀋', '千竈通り' ] });
     });
 
+    it('should validate strings by byte length', function () {
+        test({ validator: 'isLength', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
+        test({ validator: 'isLength', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
+    });
+
     it('should validate UUIDs', function () {
         test({
             validator: 'isUUID'
