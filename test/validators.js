@@ -415,8 +415,8 @@ describe('Validators', function () {
     });
 
     it('should validate strings by byte length', function () {
-        test({ validator: 'isLength', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
-        test({ validator: 'isLength', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
+        test({ validator: 'isByteLength', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
+        test({ validator: 'isByteLength', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
     });
 
     it('should validate UUIDs', function () {
