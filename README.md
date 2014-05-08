@@ -65,6 +65,7 @@ $ bower install validator-js
 - **isFullWidth(str)** - check if the string contains any full-width chars.
 - **isHalfWidth(str)** - check if the string contains any half-width chars.
 - **isVariableWidth(str)** - check if the string contains a mixture of full and half-width chars.
+- **isSurrogatePair(str)** - check if the string contains any surrogate pairs chars.
 
 ### Sanitizers
 
