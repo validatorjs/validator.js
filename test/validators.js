@@ -411,6 +411,7 @@ describe('Validators', function () {
     it('should validate strings by length', function () {
         test({ validator: 'isLength', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
         test({ validator: 'isLength', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
+        test({ validator: 'isLength', args: [2, 3], valid: ['干𩸽', '𠮷野家'], invalid: [ '', '𠀋', '千竈通り' ] });
     });
 
     it('should validate UUIDs', function () {
@@ -720,6 +721,22 @@ describe('Validators', function () {
               , 'ひらがな・カタカナ、．漢字'
               , '１２３４５６'
               , 'ｶﾀｶﾅﾞﾬ'
+            ]
+        });
+    });
+
+    it('should validate surrogate pair strings', function () {
+        test({
+            validator: 'isSurrogatePair'
+          , valid: [
+                '𠮷野𠮷'
+              , '𩸽'
+              , 'ABC千𥧄1-2-3'
+            ]
+          , invalid: [
+                '吉野竈'
+              , '鮪'
+              , 'ABC1-2-3'
             ]
         });
     });
