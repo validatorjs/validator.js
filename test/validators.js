@@ -13,7 +13,7 @@ function test(options) {
     if (options.valid) {
         options.valid.forEach(function (valid) {
             args[0] = valid;
-            if (!validator[options.validator].apply(validator, args)) {
+            if (validator[options.validator].apply(validator, args) !== true) {
                 var warning = format('validator.%s(%s) failed but should have passed',
                     options.validator, args.join(', '));
                 throw new Error(warning);
@@ -23,7 +23,7 @@ function test(options) {
     if (options.invalid) {
         options.invalid.forEach(function (invalid) {
             args[0] = invalid;
-            if (validator[options.validator].apply(validator, args)) {
+            if (validator[options.validator].apply(validator, args) !== false) {
                 var warning = format('validator.%s(%s) passed but should have failed',
                     options.validator, args.join(', '));
                 throw new Error(warning);

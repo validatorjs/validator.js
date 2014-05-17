@@ -154,7 +154,7 @@
         var url = new RegExp('^(?!mailto:)(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:www.)?xn--)?(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?') + ')|localhost)(?::(\\d{1,5}))?(?:(?:/|\\?|#)[^\\s]*)?$', 'i');
         var match = str.match(url)
           , port = match ? match[1] : 0;
-        return match && (!port || (port > 0 && port <= 65535));
+        return !!(match && (!port || (port > 0 && port <= 65535)));
     };
 
     validator.isIP = function (str, version) {
@@ -237,7 +237,7 @@
     validator.isAfter = function (str, date) {
         var comparison = validator.toDate(date || new Date())
           , original = validator.toDate(str);
-        return original && comparison && original > comparison;
+        return !!(original && comparison && original > comparison);
     };
 
     validator.isBefore = function (str, date) {
@@ -281,7 +281,7 @@
             }
             shouldDouble = !shouldDouble;
         }
-        return (sum % 10) === 0 ? sanitized : false;
+        return !!((sum % 10) === 0 ? sanitized : false);
     };
 
     validator.isISBN = function (str, version) {
@@ -304,7 +304,7 @@
                 checksum += 10 * sanitized.charAt(9);
             }
             if ((checksum % 11) === 0) {
-                return sanitized;
+                return !!sanitized;
             }
         } else  if (version === '13') {
             if (!isbn13Maybe.test(sanitized)) {
@@ -315,7 +315,7 @@
                 checksum += factor[i % 2] * sanitized.charAt(i);
             }
             if (sanitized.charAt(12) - ((10 - (checksum % 10)) % 10) === 0) {
-                return sanitized;
+                return !!sanitized;
             }
         }
         return false;
