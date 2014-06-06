@@ -746,6 +746,22 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate base64 strings', function () {
+        test({
+            validator: 'isBase64'
+          , valid: [
+                'TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4='
+              , 'Vml2YW11cyBmZXJtZW50dW0gc2VtcGVyIHBvcnRhLg=='
+              , 'U3VzcGVuZGlzc2UgbGVjdHVzIGxlbw=='
+            ]
+          , invalid: [
+                '12345'
+              , ''
+              , 'Vml2YW11cyBmZXJtZtesting123'
+            ]
+        });
+    });
+
     it('should define the module using an AMD-compatible loader', function () {
         var window = {
             validator: null

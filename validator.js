@@ -67,6 +67,8 @@
 
     var surrogatePair = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
 
+    var base64 = /^(?:[A-Za-z0-9+]{4})*(?:[A-Za-z0-9+]{2}==|[A-Za-z0-9+]{3}=|[A-Za-z0-9+]{4})$/;
+
     validator.extend = function (name, fn) {
         validator[name] = function () {
             var args = Array.prototype.slice.call(arguments);
@@ -352,6 +354,10 @@
 
     validator.isSurrogatePair = function (str) {
         return surrogatePair.test(str);
+    };
+
+    validator.isBase64 = function (str) {
+        return base64.test(str);
     };
 
     validator.ltrim = function (str, chars) {
