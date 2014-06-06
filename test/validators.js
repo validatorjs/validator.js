@@ -760,6 +760,14 @@ describe('Validators', function () {
               , 'Vml2YW11cyBmZXJtZtesting123'
             ]
         });
+        for (var i = 0, str = '', encoded; i < 1000; i++) {
+            str += String.fromCharCode(Math.random() * 26 | 97);
+            encoded = new Buffer(str).toString('base64');
+            if (!validator.isBase64(encoded)) {
+                var msg = format('validator.isBase64() failed with "%s"', encoded);
+                throw new Error(msg);
+            }
+        }
     });
 
     it('should define the module using an AMD-compatible loader', function () {

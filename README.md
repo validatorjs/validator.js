@@ -42,6 +42,7 @@ $ bower install validator-js
 - **isAlpha(str)** - check if the string contains only letters (a-zA-Z).
 - **isNumeric(str)** - check if the string contains only numbers.
 - **isAlphanumeric(str)** - check if the string contains only letters and numbers.
+- **isBase64(str)** - check if a string is base64 encoded.
 - **isHexadecimal(str)** - check if the string is a hexadecimal number.
 - **isHexColor(str)** - check if the string is a hexadecimal color.
 - **isLowercase(str)** - check if the string is lowercase.
