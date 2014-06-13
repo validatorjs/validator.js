@@ -81,6 +81,7 @@ describe('Validators', function () {
               , 'http://foobar.com#baz=qux'
               , 'http://www.xn--froschgrn-x9a.net/'
               , 'http://xn--froschgrn-x9a.com/'
+              , 'http://foo--bar.com'
             ]
           , invalid: [
                 'xyz://foobar.com'
@@ -94,11 +95,12 @@ describe('Validators', function () {
               , 'rtmp://foobar.com'
               , 'http://www.xn--.com/'
               , 'http://xn--.com/'
-              , 'http://www.xn--foo--bar.com/'
-              , 'http://xn--foo--bar.com/'
               , 'http://www.foobar.com:0/'
               , 'http://www.foobar.com:70000/'
               , 'http://www.foobar.com:99999/'
+              , 'http://www.-foobar.com/'
+              , 'http://www.foobar-.com/'
+              , 'http://www.foo---bar.com/'
               , ''
               , 'http://foobar.com/' + new Array(2083).join('f')
             ]
