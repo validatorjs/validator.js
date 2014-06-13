@@ -101,6 +101,7 @@ describe('Validators', function () {
               , 'http://www.-foobar.com/'
               , 'http://www.foobar-.com/'
               , 'http://www.foo---bar.com/'
+              , 'http://www.foo_bar.com/'
               , ''
               , 'http://foobar.com/' + new Array(2083).join('f')
             ]
@@ -118,6 +119,22 @@ describe('Validators', function () {
             ]
           , invalid: [
                 'http://foobar.com'
+            ]
+        });
+    });
+
+    it('should validate URLs with underscores', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                allow_underscores: true
+            }]
+          , valid: [
+                'http://foo_bar.com'
+              , 'http://pr.example_com.294.example.com/'
+            ]
+          , invalid: [
+                'http://foo__bar.com'
             ]
         });
     });
