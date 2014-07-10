@@ -1,6 +1,6 @@
 { "name": "validator",
   "description": "String validation and sanitization",
-  "version": "3.16.0",
+  "version": "3.16.1",
   "homepage": "http://github.com/chriso/validator.js",
   "keywords": [
     "validator", "validation", "validate", "sanitization",
@@ -15,9 +15,6 @@
     "type": "git",
     "url": "http://github.com/chriso/validator.js.git"
   },
-  "scripts": {
-    "test": "./node_modules/.bin/_mocha --reporter spec"
-  },
   "devDependencies": {
     "mocha": "latest",
     "istanbul": "latest",
@@ -27,6 +24,7 @@
     "contextify": "latest"
   },
   "scripts": {
+    "test": "./node_modules/.bin/_mocha --reporter spec",
     "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "engines": { "node" : ">= 0.10" },
