@@ -138,6 +138,22 @@
         return pattern.test(str);
     };
 
+    validator.isSIN = function(str) {
+        var number = parseInt(input);
+        var i = true;
+        var sum = 0;
+        while(number > 0) {
+        	var mult = (number % 10) * (i ? 1 : 2);
+        	i = !i;
+        	if(mult > 9) {
+        		mult = mult % 10 + (mult / 10 | 0);
+        	}
+        	sum += mult;
+        	number = number / 10 | 0;
+        }
+        return !(sum % 10);
+    };
+
     validator.isEmail = function (str) {
         return email.test(str);
     };
