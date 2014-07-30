@@ -189,6 +189,7 @@ describe('Validators', function () {
                 'abc'
               , '256.0.0.0'
               , '0.0.0.256'
+              , '26.0.0.256'
             ]
         });
         test({
