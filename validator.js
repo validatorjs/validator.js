@@ -169,7 +169,7 @@
             if (!ipv4Maybe.test(str)) {
                 return false;
             }
-            var parts = str.split('.').sort();
+            var parts = str.split('.').sort(function (a, b) { return a-b });
             return parts[3] <= 255;
         }
         return version === '6' && ipv6.test(str);
