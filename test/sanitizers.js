@@ -179,4 +179,17 @@ describe('Sanitizers', function () {
         });
     });
 
+    it('should normalize an email based on domain', function () {
+        test({
+            sanitizer: 'normalizeEmail'
+          , expect: {
+                'some.name@gmail.com': 'somename@gmail.com'
+              , 'some.name@google.com': 'somename@google.com'
+              , 'some.name+extension@gmail.com': 'somename@gmail.com'
+              , 'some.Name+extension@Google.com': 'someName@Google.com'
+              , 'some.name+extension@unknown.com': 'some.name+extension@unknown.com'
+            }
+        });
+    });
+
 });
