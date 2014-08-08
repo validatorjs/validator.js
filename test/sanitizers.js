@@ -8,7 +8,7 @@ function test(options) {
         args[0] = input;
         var result = validator[options.sanitizer].apply(validator, args)
           , expected = options.expect[input];
-        if (isNaN(result) && isNaN(expected)) {
+        if (isNaN(result) && !result.length && isNaN(expected)) {
             return;
         }
         if (result !== expected) {
