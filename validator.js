@@ -400,6 +400,23 @@
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
 
+    validator.normalizeEmail = function (email) {
+        if (!email) { return email; }
+        email = email.toLowerCase();
+        var domains = ['gmail.com','googlemail.com'];
+        var emailParts = email.split('@');
+        if (emailParts.length !== 2) {
+            return email;
+        }
+        if (~domains.indexOf(emailParts[1])) {
+            emailParts[0] = emailParts[0].replace('.','');
+            emailParts[0] = emailParts[0].split('+')[0];
+            email = emailParts[0] + '@' + emailParts[1];
+        }
+
+        return email;
+    };
+
     function merge(obj, defaults) {
         obj = obj || {};
         for (var key in defaults) {
