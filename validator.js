@@ -401,19 +401,11 @@
     };
 
     validator.normalizeEmail = function (email) {
-        if (!email) { return email; }
-        email = email.toLowerCase();
-        var domains = ['gmail.com','googlemail.com'];
-        var emailParts = email.split('@');
-        if (emailParts.length !== 2) {
-            return email;
+        var parts = email.toLowerCase().split('@', 2);
+        if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
+            parts[0] = parts[0].replace('.', '').split('+')[0];
+            email = parts.join('@');
         }
-        if (~domains.indexOf(emailParts[1])) {
-            emailParts[0] = emailParts[0].replace('.','');
-            emailParts[0] = emailParts[0].split('+')[0];
-            email = emailParts[0] + '@' + emailParts[1];
-        }
-
         return email;
     };
 
