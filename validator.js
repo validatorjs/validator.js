@@ -404,8 +404,8 @@
         var parts = email.toLowerCase().split('@', 2);
         if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
             parts[0] = parts[0].replace('.', '').split('+')[0];
-            email = parts.join('@');
         }
+        email = parts.join('@');
         return email;
     };
 
