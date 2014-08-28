@@ -50,6 +50,8 @@ describe('Validators', function () {
                 'invalidemail@'
               , 'invalid.com'
               , '@invalid.com'
+              , 'foo@bar.com.'
+              , 'foo@bar.co.uk.'
             ]
         });
     });
