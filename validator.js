@@ -43,7 +43,8 @@
       , isbn13Maybe = /^(?:[0-9]{13})$/;
 
     var ipv4Maybe = /^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$/
-      , ipv6 = /^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/;
+      , ipv6 = /^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/
+      , domain = /^((?:(?:(?:\w[\.\-\+]?)*)\w)+)((?:(?:(?:\w[\.\-\+]?){0,62})\w)+)\.(\w{2,6})$/;
 
     var uuid = {
         '3': /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i
@@ -175,6 +176,10 @@
             return parts[3] <= 255;
         }
         return version === '6' && ipv6.test(str);
+    };
+
+    validator.isDomain = function (str) {
+      return domain.test(str);
     };
 
     validator.isAlpha = function (str) {

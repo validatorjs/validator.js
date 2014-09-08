@@ -238,6 +238,26 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate domain name', function () {
+        test({
+            validator: 'isDomain'
+          , valid: [
+                'domain.com'
+              , 'dom.plato'
+              , 'a.domain.co'
+            ]
+          , invalid: [
+                'abc'
+              , '256.0.0.0'
+              , 'a.asdsadadasdsadas'
+              , '_.com',
+              , '*.some.com',
+              , 'domain.com/',
+              , '/more.com'
+            ]
+        });
+    });
+
     it('should validate alpha strings', function () {
         test({
             validator: 'isAlpha'
