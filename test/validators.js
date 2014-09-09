@@ -105,7 +105,10 @@ describe('Validators', function () {
               , 'http://www.foo---bar.com/'
               , 'http://www.foo_bar.com/'
               , ''
-              , 'http://foobar.com/' + new Array(2083).join('f')
+              , 'http://foobar.com/' + new Array(2083).join('f'),
+              , 'http://*.foo.com',
+              , '*.foo.com',
+              , '!.foo.com'
             ]
         });
     });
@@ -238,20 +241,23 @@ describe('Validators', function () {
         });
     });
 
-    it('should validate domain name', function () {
+    it('should validate FQDN', function () {
         test({
-            validator: 'isDomain'
+            validator: 'isFQDN'
           , valid: [
                 'domain.com'
               , 'dom.plato'
-              , 'a.domain.co'
+              , 'a.domain.co',
+              , 'foo--bar.com',
+              , 'xn--froschgrn-x9a.com',
+              , 'rebecca.blackfriday'
             ]
           , invalid: [
                 'abc'
               , '256.0.0.0'
-              , 'a.asdsadadasdsadas'
               , '_.com',
               , '*.some.com',
+              , 's!ome.com',
               , 'domain.com/',
               , '/more.com'
             ]
