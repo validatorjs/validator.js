@@ -38,6 +38,7 @@ $ bower install validator-js
 - **matches(str, pattern [, modifiers])** - check if string matches the pattern. Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
 - **isEmail(str)** - check if the string is an email.
 - **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, allow_underscores: false }`.
+- **isFQDN(str [, options])** - check if the string is a fully qualified domain name (e.g. domain.com). `options` is an object which defaults to `{ require_tld: true, allow_underscores: false }`.
 - **isIP(str [, version])** - check if the string is an IP (version 4 or 6).
 - **isAlpha(str)** - check if the string contains only letters (a-zA-Z).
 - **isNumeric(str)** - check if the string contains only numbers.
