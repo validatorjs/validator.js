@@ -154,11 +154,20 @@
             return false;
         }
         options = merge(options, default_url_options);
-        var ip = '(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))';
-        var host = domain(options);
-        var port = '(\\d{1,5})';
-        var url = new RegExp('^(?!mailto:)(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:' + ip + '|' + host + ')|localhost)(?::' + port + ')?(?:(?:/|\\?|#)[^\\s]*)?$', 'i');
-        var match = str.match(url)
+        var ipv4_url_parts = [
+            '(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])'
+          , '(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}',
+          , '(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))'
+        ];
+        var protocol = '(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?')
+          , auth = '(?:\\S+(?::\\S*)?@)?'
+          , ipv4 = '(?:' + ipv4_url_parts.join('') + ')'
+          , hostname = '(?:' + ipv4 + '|' + domain(options) + '|localhost)'
+          , port = '(\\d{1,5})'
+          , host = hostname + '(?::' + port + ')?'
+          , path_query_anchor = '(?:(?:/|\\?|#)[^\\s]*)?';
+        var is_url = new RegExp('^(?!mailto:)' + protocol + auth + host + path_query_anchor + '$', 'i');
+        var match = str.match(is_url)
           , port_match = match ? match[1] : 0;
         return !!(match && (!port_match || (port_match > 0 && port_match <= 65535)));
     };
@@ -434,8 +443,12 @@
     }
 
     function domain(options) {
-      var separators = '-?-?' + (options.allow_underscores ? '_?' : '');
-      return '(?:(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?');
+      var sep = '-?-?' + (options.allow_underscores ? '_?' : '')
+        , alpha = 'a-z\\u00a1-\\uffff'
+        , alphanum = alpha + '0-9'
+        , subdomain = '(?:(?:[' + alphanum + ']+' + sep + ')*[' + alphanum + ']+)'
+        , tld = '(?:\\.(?:[' + alpha + ']{2,}))' + (options.require_tld ? '' : '?');
+      return '(?:' + subdomain + '(?:\\.' + subdomain + ')*' + tld + ')';
     }
 
     validator.init();
