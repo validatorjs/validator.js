@@ -154,11 +154,13 @@
             return false;
         }
         options = merge(options, default_url_options);
-        var separators = '-?-?' + (options.allow_underscores ? '_?' : '');
-        var url = new RegExp('^(?!mailto:)(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:www.)?)?(?:(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?') + ')|localhost)(?::(\\d{1,5}))?(?:(?:/|\\?|#)[^\\s]*)?$', 'i');
+        var ip = '(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))';
+        var host = domain(options);
+        var port = '(\\d{1,5})';
+        var url = new RegExp('^(?!mailto:)(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:' + ip + '|' + host + ')|localhost)(?::' + port + ')?(?:(?:/|\\?|#)[^\\s]*)?$', 'i');
         var match = str.match(url)
-          , port = match ? match[1] : 0;
-        return !!(match && (!port || (port > 0 && port <= 65535)));
+          , port_match = match ? match[1] : 0;
+        return !!(match && (!port_match || (port_match > 0 && port_match <= 65535)));
     };
 
     validator.isIP = function (str, version) {
@@ -175,6 +177,18 @@
             return parts[3] <= 255;
         }
         return version === '6' && ipv6.test(str);
+    };
+
+    var default_fqdn_options = {
+        require_tld: true
+      , allow_underscores: false
+    };
+
+    validator.isFQDN = function (str, options) {
+      options = merge(options, default_fqdn_options);
+      var fqdn = new RegExp('^' + domain(options) + '$', 'i');
+      var match = str.match(fqdn);
+      return !! match;
     };
 
     validator.isAlpha = function (str) {
@@ -417,6 +431,11 @@
             }
         }
         return obj;
+    }
+
+    function domain(options) {
+      var separators = '-?-?' + (options.allow_underscores ? '_?' : '');
+      return '(?:(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?');
     }
 
     validator.init();
