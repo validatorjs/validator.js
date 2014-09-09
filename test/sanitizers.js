@@ -115,7 +115,7 @@ describe('Sanitizers', function () {
             sanitizer: 'escape'
           , expect: {
                 '<img alt="foo&bar">': '&lt;img alt=&quot;foo&amp;bar&quot;&gt;'
-              , "<img alt='foo&bar'>": '&lt;img alt=&apos;foo&amp;bar&apos;&gt;'
+              , "<img alt='foo&bar'>": '&lt;img alt=&#x27;foo&amp;bar&#x27;&gt;'
             }
         });
     });
