@@ -195,9 +195,7 @@
 
     validator.isFQDN = function (str, options) {
       options = merge(options, default_fqdn_options);
-      var fqdn = new RegExp('^' + domain(options) + '$', 'i');
-      var match = str.match(fqdn);
-      return !! match;
+      return new RegExp('^' + domain(options) + '$', 'i').test(str);
     };
 
     validator.isAlpha = function (str) {
