@@ -22,7 +22,7 @@
  */
 
 (function (name, definition) {
-    if (typeof module !== 'undefined') {
+    if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
         module.exports = definition();
     } else if (typeof define === 'function' && typeof define.amd === 'object') {
         define(definition);
