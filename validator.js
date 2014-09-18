@@ -69,6 +69,15 @@
 
     var base64 = /^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})$/;
 
+	var default_url_options = {
+		protocols: [ 'http', 'https', 'ftp' ]
+		, require_tld: true
+		, require_protocol: false
+		, allow_underscores: false
+		, include: ''
+		, exclude: ''
+	};
+
     validator.extend = function (name, fn) {
         validator[name] = function () {
             var args = Array.prototype.slice.call(arguments);
@@ -142,23 +151,19 @@
         return email.test(str);
     };
 
-    var default_url_options = {
-        protocols: [ 'http', 'https', 'ftp' ]
-      , require_tld: true
-      , require_protocol: false
-      , allow_underscores: false
-    };
-
     validator.isURL = function (str, options) {
         if (!str || str.length >= 2083) {
             return false;
         }
         options = merge(options, default_url_options);
-        var separators = '-?-?' + (options.allow_underscores ? '_?' : '');
-        var url = new RegExp('^(?!mailto:)(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:www.)?)?(?:(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?') + ')|localhost)(?::(\\d{1,5}))?(?:(?:/|\\?|#)[^\\s]*)?$', 'i');
-        var match = str.match(url)
-          , port = match ? match[1] : 0;
-        return !!(match && (!port || (port > 0 && port <= 65535)));
+        var separators = '-?-?' + (options.allow_underscores ? '_?' : '')
+	      , url = new RegExp('^(?!mailto:)(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:www.)?)?(?:(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?') + ')|localhost)(?::(\\d{1,5}))?(?:(?:/|\\?|#)[^\\s]*)?$', 'i')
+	      , match = str.match(url)
+          , port = match ? match[1] : 0
+	      , passInclude = filterInEx(str, options, 'include')
+	      , passExclude = filterInEx(str, options, 'exclude');
+
+        return !!(match && (!port || (port > 0 && port <= 65535)) && passInclude && passExclude);
     };
 
     validator.isIP = function (str, version) {
@@ -418,6 +423,26 @@
         }
         return obj;
     }
+
+	function filterInEx(str, options, filter) {
+		var passFilter = filter === 'include' ? false : true,
+			items;
+
+		if (options[filter]) {
+			items = options[filter].split(',');
+			for (var item in items) {
+				if (filter === 'include' && (str.indexOf(items[item].trim()) > -1) || false) {
+					return !passFilter;
+				} else if (filter === 'exclude' && !((str.indexOf(items[item].trim()) < 0) || false)) {
+					return !passFilter;
+				}
+			}
+		} else {
+			passFilter = true;
+		}
+
+		return passFilter;
+	}
 
     validator.init();
 
