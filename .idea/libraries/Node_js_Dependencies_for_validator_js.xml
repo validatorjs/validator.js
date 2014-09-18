@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Node.js Dependencies for validator.js" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/node_modules" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/node_modules" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
