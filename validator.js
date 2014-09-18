@@ -22,7 +22,7 @@
  */
 
 (function (name, definition) {
-    if (typeof module !== 'undefined') {
+    if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
         module.exports = definition();
     } else if (typeof define === 'function' && typeof define.amd === 'object') {
         define(definition);
@@ -33,7 +33,7 @@
 
     'use strict';
 
-    validator = { version: '3.17.2' };
+    validator = { version: '3.18.1' };
 
     var email = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i;
 
@@ -156,14 +156,25 @@
             return false;
         }
         options = merge(options, default_url_options);
-        var separators = '-?-?' + (options.allow_underscores ? '_?' : '')
-	      , url = new RegExp('^(?!mailto:)(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?') + '(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:www.)?)?(?:(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+' + separators + ')*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + (options.require_tld ? '' : '?') + ')|localhost)(?::(\\d{1,5}))?(?:(?:/|\\?|#)[^\\s]*)?$', 'i')
-	      , match = str.match(url)
-          , port = match ? match[1] : 0
+        var ipv4_url_parts = [
+            '(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])'
+          , '(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}',
+          , '(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))'
+        ];
+        var protocol = '(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?')
+          , auth = '(?:\\S+(?::\\S*)?@)?'
+          , ipv4 = '(?:' + ipv4_url_parts.join('') + ')'
+          , hostname = '(?:' + ipv4 + '|' + domain(options) + '|localhost)'
+          , port = '(\\d{1,5})'
+          , host = hostname + '(?::' + port + ')?'
+          , path_query_anchor = '(?:(?:/|\\?|#)[^\\s]*)?'
 	      , passInclude = filterInEx(str, options, 'include')
-	      , passExclude = filterInEx(str, options, 'exclude');
+		  , passExclude = filterInEx(str, options, 'exclude');
 
-        return !!(match && (!port || (port > 0 && port <= 65535)) && passInclude && passExclude);
+        var is_url = new RegExp('^(?!mailto:)' + protocol + auth + host + path_query_anchor + '$', 'i');
+        var match = str.match(is_url)
+          , port_match = match ? match[1] : 0;
+        return !!(match && (!port_match || (port_match > 0 && port_match <= 65535)));
     };
 
     validator.isIP = function (str, version) {
@@ -180,6 +191,16 @@
             return parts[3] <= 255;
         }
         return version === '6' && ipv6.test(str);
+    };
+
+    var default_fqdn_options = {
+        require_tld: true
+      , allow_underscores: false
+    };
+
+    validator.isFQDN = function (str, options) {
+      options = merge(options, default_fqdn_options);
+      return new RegExp('^' + domain(options) + '$', 'i').test(str);
     };
 
     validator.isAlpha = function (str) {
@@ -422,6 +443,15 @@
             }
         }
         return obj;
+    }
+
+    function domain(options) {
+      var sep = '-?-?' + (options.allow_underscores ? '_?' : '')
+        , alpha = 'a-z\\u00a1-\\uffff'
+        , alphanum = alpha + '0-9'
+        , subdomain = '(?:(?:[' + alphanum + ']+' + sep + ')*[' + alphanum + ']+)'
+        , tld = '(?:\\.(?:[' + alpha + ']{2,}))' + (options.require_tld ? '' : '?');
+      return '(?:' + subdomain + '(?:\\.' + subdomain + ')*' + tld + ')';
     }
 
 	function filterInEx(str, options, filter) {

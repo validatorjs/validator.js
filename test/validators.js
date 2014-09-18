@@ -105,7 +105,10 @@ describe('Validators', function () {
               , 'http://www.foo---bar.com/'
               , 'http://www.foo_bar.com/'
               , ''
-              , 'http://foobar.com/' + new Array(2083).join('f')
+              , 'http://foobar.com/' + new Array(2083).join('f'),
+              , 'http://*.foo.com',
+              , '*.foo.com',
+              , '!.foo.com'
             ]
         });
     });
@@ -276,6 +279,29 @@ describe('Validators', function () {
               , '1.2.3.4'
               , '::1'
               , '2001:db8:0000:1:1:1:1:1'
+            ]
+        });
+    });
+
+    it('should validate FQDN', function () {
+        test({
+            validator: 'isFQDN'
+          , valid: [
+                'domain.com'
+              , 'dom.plato'
+              , 'a.domain.co',
+              , 'foo--bar.com',
+              , 'xn--froschgrn-x9a.com',
+              , 'rebecca.blackfriday'
+            ]
+          , invalid: [
+                'abc'
+              , '256.0.0.0'
+              , '_.com',
+              , '*.some.com',
+              , 's!ome.com',
+              , 'domain.com/',
+              , '/more.com'
             ]
         });
     });
