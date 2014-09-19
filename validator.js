@@ -456,26 +456,6 @@
             return '(?:' + subdomain + '(?:\\.' + subdomain + ')*' + tld + ')';
 	    }
 
-		function filterInEx(str, options, filter) {
-			var passFilter = filter === 'include' ? false : true,
-				items;
-
-			if (options[filter]) {
-				items = options[filter].split(',');
-				for (var item in items) {
-					if (filter === 'include' && (str.indexOf(items[item].trim()) > -1) || false) {
-						return !passFilter;
-					} else if (filter === 'exclude' && !((str.indexOf(items[item].trim()) < 0) || false)) {
-						return !passFilter;
-					}
-				}
-			} else {
-				passFilter = true;
-			}
-
-			return passFilter;
-		}
-
 	    validator.init();
 
 	    return validator;
