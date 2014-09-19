@@ -162,6 +162,48 @@ describe('Validators', function () {
         });
     });
 
+	it('should validate URLs including a domain', function () {
+		test({
+			validator: 'isURL'
+			, args: [{
+				include: 'foobar.com, rocketman.com, playcoders.org'
+			}]
+			, valid: [
+				'http://foobar.com/',
+				'http://rocketman.com/',
+				'https://playcoders.org'
+			]
+		});
+	});
+
+	it('should validate URLs excluding a domain', function () {
+		test({
+			validator: 'isURL'
+			, args: [{
+				exclude: 'google.com'
+			}]
+			, valid: [
+				'http://foobar.com/',
+				'http://rocketman.com/',
+				'https://playcoders.org'
+			]
+		});
+	});
+
+	it('should validate URLs including and excluding domains', function () {
+		test({
+			validator: 'isURL'
+			, args: [{
+				include: 'nodejs.org, rocketman.com',
+				exclude: 'google.com, bladerunners.org'
+			}]
+			, valid: [
+				'http://nodejs.org/',
+				'http://rocketman.com/'
+			]
+		});
+	});
+
     it('should let users specify whether URLs require a protocol', function () {
         test({
             validator: 'isURL'
