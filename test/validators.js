@@ -444,6 +444,32 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate prime numbers', function () {
+        test({
+            validator: 'isPrime'
+            , valid: [
+                '2'
+                , '3'
+                , '5'
+                , '7'
+                , '11'
+                , '13'
+                , '29'
+            ]
+            , invalid: [
+                '0'
+                , '4'
+                , '6'
+                , '8'
+                , '9'
+                , '11.5'
+                , '12',
+                , '12.9',
+                , ''
+            ]
+        });
+    });
+
     it('should validate floats', function () {
         test({
             validator: 'isFloat'
@@ -713,7 +739,7 @@ describe('Validators', function () {
             ]
           , invalid: [
                 '3423214121', '3-423-21412-1', '3 423 21412 1'
-              , '978-3836221191', '9783836221191',
+              , '978-3836221191', '9783836221191'
               , '123456789a', 'foo', ''
             ]
         });
