@@ -105,9 +105,9 @@ describe('Validators', function () {
                 , 'http://www.foo---bar.com/'
                 , 'http://www.foo_bar.com/'
                 , ''
-                , 'http://foobar.com/' + new Array(2083).join('f'),
-                , 'http://*.foo.com',
-                , '*.foo.com',
+                , 'http://foobar.com/' + new Array(2083).join('f')
+                , 'http://*.foo.com'
+                , '*.foo.com'
                 , '!.foo.com'
             ]
         });
@@ -283,18 +283,18 @@ describe('Validators', function () {
             , valid: [
                 'domain.com'
                 , 'dom.plato'
-                , 'a.domain.co',
-                , 'foo--bar.com',
-                , 'xn--froschgrn-x9a.com',
+                , 'a.domain.co'
+                , 'foo--bar.com'
+                , 'xn--froschgrn-x9a.com'
                 , 'rebecca.blackfriday'
             ]
             , invalid: [
                 'abc'
                 , '256.0.0.0'
-                , '_.com',
-                , '*.some.com',
-                , 's!ome.com',
-                , 'domain.com/',
+                , '_.com'
+                , '*.some.com'
+                , 's!ome.com'
+                , 'domain.com/'
                 , '/more.com'
             ]
         });
@@ -697,7 +697,7 @@ describe('Validators', function () {
             ]
             , invalid: [
                 '3423214121', '3-423-21412-1', '3 423 21412 1'
-                , '978-3836221191', '9783836221191',
+                , '978-3836221191', '9783836221191'
                 , '123456789a', 'foo', ''
             ]
         });
