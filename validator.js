@@ -33,7 +33,7 @@
 
     'use strict';
 
-    validator = { version: '3.18.1' };
+    validator = { version: '3.19.0' };
 
     var email = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i;
 
@@ -162,14 +162,27 @@
         var protocol = '(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?')
           , auth = '(?:\\S+(?::\\S*)?@)?'
           , ipv4 = '(?:' + ipv4_url_parts.join('') + ')'
-          , hostname = '(?:' + ipv4 + '|' + domain(options) + '|localhost)'
+          , hostname = '(' + ipv4 + '|' + domain(options) + '|localhost)'
           , port = '(\\d{1,5})'
           , host = hostname + '(?::' + port + ')?'
           , path_query_anchor = '(?:(?:/|\\?|#)[^\\s]*)?';
-        var is_url = new RegExp('^(?!mailto:)' + protocol + auth + host + path_query_anchor + '$', 'i');
-        var match = str.match(is_url)
-          , port_match = match ? match[1] : 0;
-        return !!(match && (!port_match || (port_match > 0 && port_match <= 65535)));
+        var is_url = new RegExp('^(?!mailto:)' + protocol + auth + host + path_query_anchor + '$', 'i')
+          , match = str.match(is_url);
+        if (!match) {
+            return false;
+        }
+        host = match[1];
+        port = match[2];
+        if (port && !(port > 0 && port <= 65535)) {
+            return false;
+        }
+        if (options.host_whitelist && options.host_whitelist.indexOf(host) === -1) {
+            return false;
+        }
+        if (options.host_blacklist && options.host_blacklist.indexOf(host) !== -1) {
+            return false;
+        }
+        return true;
     };
 
     validator.isIP = function (str, version) {

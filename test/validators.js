@@ -179,6 +179,42 @@ describe('Validators', function () {
         });
     });
 
+    it('should let users specify a host whitelist', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                host_whitelist: ['foo.com', 'bar.com']
+            }]
+          , valid: [
+                'http://bar.com/'
+              , 'http://foo.com/'
+            ]
+          , invalid: [
+                'http://foobar.com'
+              , 'http://foo.bar.com/'
+              , 'http://qux.com'
+            ]
+        });
+    });
+
+    it('should let users specify a host blacklist', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                host_blacklist: ['foo.com', 'bar.com']
+            }]
+          , valid: [
+                'http://foobar.com'
+              , 'http://foo.bar.com/'
+              , 'http://qux.com'
+            ]
+          , invalid: [
+                'http://bar.com/'
+              , 'http://foo.com/'
+            ]
+        });
+    });
+
     it('should validate IP addresses', function () {
         test({
             validator: 'isIP'
