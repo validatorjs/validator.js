@@ -49,6 +49,7 @@ $ bower install validator-js
 - **isLowercase(str)** - check if the string is lowercase.
 - **isUppercase(str)** - check if the string is uppercase.
 - **isInt(str)** - check if the string is an integer.
+- **isPrime(str)** - check if the string is an integer and a prime.
 - **isFloat(str)** - check if the string is a float.
 - **isDivisibleBy(str, number)** - check if the string is a number that's divisible by another.
 - **isNull(str)** - check if the string is null.
