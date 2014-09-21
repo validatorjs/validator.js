@@ -1,9 +1,9 @@
 var validator = require('../validator')
-  , format = require('util').format
-  , contextify = require('contextify')
-  , assert = require('assert')
-  , path = require('path')
-  , fs = require('fs');
+    , format = require('util').format
+    , contextify = require('contextify')
+    , assert = require('assert')
+    , path = require('path')
+    , fs = require('fs');
 
 var validator_js = fs.readFileSync(path.join(__dirname, '../validator.js')).toString();
 
@@ -37,21 +37,21 @@ describe('Validators', function () {
     it('should validate email addresses', function () {
         test({
             validator: 'isEmail'
-          , valid: [
+            , valid: [
                 'foo@bar.com'
-              , 'x@x.x'
-              , 'foo@bar.com.au'
-              , 'foo+bar@bar.com'
-              , 'hans.m端ller@test.com'
-              , 'hans@m端ller.com'
-              , 'test|123@m端ller.com'
+                , 'x@x.x'
+                , 'foo@bar.com.au'
+                , 'foo+bar@bar.com'
+                , 'hans.m端ller@test.com'
+                , 'hans@m端ller.com'
+                , 'test|123@m端ller.com'
             ]
-          , invalid: [
+            , invalid: [
                 'invalidemail@'
-              , 'invalid.com'
-              , '@invalid.com'
-              , 'foo@bar.com.'
-              , 'foo@bar.co.uk.'
+                , 'invalid.com'
+                , '@invalid.com'
+                , 'foo@bar.com.'
+                , 'foo@bar.co.uk.'
             ]
         });
     });
@@ -59,56 +59,56 @@ describe('Validators', function () {
     it('should validate URLs', function () {
         test({
             validator: 'isURL'
-          , valid: [
+            , valid: [
                 'foobar.com'
-              , 'www.foobar.com'
-              , 'foobar.com/'
-              , 'valid.au'
-              , 'http://www.foobar.com/'
-              , 'http://www.foobar.com:23/'
-              , 'http://www.foobar.com:65535/'
-              , 'http://www.foobar.com:5/'
-              , 'https://www.foobar.com/'
-              , 'ftp://www.foobar.com/'
-              , 'http://www.foobar.com/~foobar'
-              , 'http://user:pass@www.foobar.com/'
-              , 'http://127.0.0.1/'
-              , 'http://10.0.0.0/'
-              , 'http://189.123.14.13/'
-              , 'http://duckduckgo.com/?q=%2F'
-              , 'http://foobar.com/t$-_.+!*\'(),'
-              , 'http://localhost:3000/'
-              , 'http://foobar.com/?foo=bar#baz=qux'
-              , 'http://foobar.com?foo=bar'
-              , 'http://foobar.com#baz=qux'
-              , 'http://www.xn--froschgrn-x9a.net/'
-              , 'http://xn--froschgrn-x9a.com/'
-              , 'http://foo--bar.com'
+                , 'www.foobar.com'
+                , 'foobar.com/'
+                , 'valid.au'
+                , 'http://www.foobar.com/'
+                , 'http://www.foobar.com:23/'
+                , 'http://www.foobar.com:65535/'
+                , 'http://www.foobar.com:5/'
+                , 'https://www.foobar.com/'
+                , 'ftp://www.foobar.com/'
+                , 'http://www.foobar.com/~foobar'
+                , 'http://user:pass@www.foobar.com/'
+                , 'http://127.0.0.1/'
+                , 'http://10.0.0.0/'
+                , 'http://189.123.14.13/'
+                , 'http://duckduckgo.com/?q=%2F'
+                , 'http://foobar.com/t$-_.+!*\'(),'
+                , 'http://localhost:3000/'
+                , 'http://foobar.com/?foo=bar#baz=qux'
+                , 'http://foobar.com?foo=bar'
+                , 'http://foobar.com#baz=qux'
+                , 'http://www.xn--froschgrn-x9a.net/'
+                , 'http://xn--froschgrn-x9a.com/'
+                , 'http://foo--bar.com'
             ]
-          , invalid: [
+            , invalid: [
                 'xyz://foobar.com'
-              , 'invalid/'
-              , 'invalid.x'
-              , 'invalid.'
-              , '.com'
-              , 'http://com/'
-              , 'http://300.0.0.1/'
-              , 'mailto:foo@bar.com'
-              , 'rtmp://foobar.com'
-              , 'http://www.xn--.com/'
-              , 'http://xn--.com/'
-              , 'http://www.foobar.com:0/'
-              , 'http://www.foobar.com:70000/'
-              , 'http://www.foobar.com:99999/'
-              , 'http://www.-foobar.com/'
-              , 'http://www.foobar-.com/'
-              , 'http://www.foo---bar.com/'
-              , 'http://www.foo_bar.com/'
-              , ''
-              , 'http://foobar.com/' + new Array(2083).join('f'),
-              , 'http://*.foo.com',
-              , '*.foo.com',
-              , '!.foo.com'
+                , 'invalid/'
+                , 'invalid.x'
+                , 'invalid.'
+                , '.com'
+                , 'http://com/'
+                , 'http://300.0.0.1/'
+                , 'mailto:foo@bar.com'
+                , 'rtmp://foobar.com'
+                , 'http://www.xn--.com/'
+                , 'http://xn--.com/'
+                , 'http://www.foobar.com:0/'
+                , 'http://www.foobar.com:70000/'
+                , 'http://www.foobar.com:99999/'
+                , 'http://www.-foobar.com/'
+                , 'http://www.foobar-.com/'
+                , 'http://www.foo---bar.com/'
+                , 'http://www.foo_bar.com/'
+                , ''
+                , 'http://foobar.com/' + new Array(2083).join('f'),
+                , 'http://*.foo.com',
+                , '*.foo.com',
+                , '!.foo.com'
             ]
         });
     });
@@ -116,13 +116,13 @@ describe('Validators', function () {
     it('should validate URLs with custom protocols', function () {
         test({
             validator: 'isURL'
-          , args: [{
+            , args: [{
                 protocols: [ 'rtmp' ]
             }]
-          , valid: [
-              , 'rtmp://foobar.com'
+            , valid: [
+                , 'rtmp://foobar.com'
             ]
-          , invalid: [
+            , invalid: [
                 'http://foobar.com'
             ]
         });
@@ -131,14 +131,14 @@ describe('Validators', function () {
     it('should validate URLs with underscores', function () {
         test({
             validator: 'isURL'
-          , args: [{
+            , args: [{
                 allow_underscores: true
             }]
-          , valid: [
+            , valid: [
                 'http://foo_bar.com'
-              , 'http://pr.example_com.294.example.com/'
+                , 'http://pr.example_com.294.example.com/'
             ]
-          , invalid: [
+            , invalid: [
                 'http://foo__bar.com'
             ]
         });
@@ -147,76 +147,34 @@ describe('Validators', function () {
     it('should validate URLs that do not have a TLD', function () {
         test({
             validator: 'isURL'
-          , args: [{
+            , args: [{
                 require_tld: false
             }]
-          , valid: [
-              , 'http://foobar.com/'
-              , 'http://foobar/'
-              , 'foobar/'
-              , 'foobar'
+            , valid: [
+                , 'http://foobar.com/'
+                , 'http://foobar/'
+                , 'foobar/'
+                , 'foobar'
             ]
-          , invalid: [
+            , invalid: [
                 'foobar.'
             ]
         });
     });
 
-	it('should validate URLs including a domain', function () {
-		test({
-			validator: 'isURL'
-			, args: [{
-				include: 'foobar.com, rocketman.com, playcoders.org'
-			}]
-			, valid: [
-				'http://foobar.com/',
-				'http://rocketman.com/',
-				'https://playcoders.org'
-			]
-		});
-	});
-
-	it('should validate URLs excluding a domain', function () {
-		test({
-			validator: 'isURL'
-			, args: [{
-				exclude: 'google.com'
-			}]
-			, valid: [
-				'http://foobar.com/',
-				'http://rocketman.com/',
-				'https://playcoders.org'
-			]
-		});
-	});
-
-	it('should validate URLs including and excluding domains', function () {
-		test({
-			validator: 'isURL'
-			, args: [{
-				include: 'nodejs.org, rocketman.com',
-				exclude: 'google.com, bladerunners.org'
-			}]
-			, valid: [
-				'http://nodejs.org/',
-				'http://rocketman.com/'
-			]
-		});
-	});
-
     it('should let users specify whether URLs require a protocol', function () {
         test({
             validator: 'isURL'
-          , args: [{
+            , args: [{
                 require_protocol: true
             }]
-          , valid: [
-              , 'http://foobar.com/'
-              , 'http://localhost/'
+            , valid: [
+                , 'http://foobar.com/'
+                , 'http://localhost/'
             ]
-          , invalid: [
+            , invalid: [
                 'foobar.com'
-              , 'foobar'
+                , 'foobar'
             ]
         });
     });
@@ -224,17 +182,17 @@ describe('Validators', function () {
     it('should let users specify a host whitelist', function () {
         test({
             validator: 'isURL'
-          , args: [{
+            , args: [{
                 host_whitelist: ['foo.com', 'bar.com']
             }]
-          , valid: [
+            , valid: [
                 'http://bar.com/'
-              , 'http://foo.com/'
+                , 'http://foo.com/'
             ]
-          , invalid: [
+            , invalid: [
                 'http://foobar.com'
-              , 'http://foo.bar.com/'
-              , 'http://qux.com'
+                , 'http://foo.bar.com/'
+                , 'http://qux.com'
             ]
         });
     });
@@ -242,17 +200,17 @@ describe('Validators', function () {
     it('should let users specify a host blacklist', function () {
         test({
             validator: 'isURL'
-          , args: [{
+            , args: [{
                 host_blacklist: ['foo.com', 'bar.com']
             }]
-          , valid: [
+            , valid: [
                 'http://foobar.com'
-              , 'http://foo.bar.com/'
-              , 'http://qux.com'
+                , 'http://foo.bar.com/'
+                , 'http://qux.com'
             ]
-          , invalid: [
+            , invalid: [
                 'http://bar.com/'
-              , 'http://foo.com/'
+                , 'http://foo.com/'
             ]
         });
     });
@@ -260,61 +218,61 @@ describe('Validators', function () {
     it('should validate IP addresses', function () {
         test({
             validator: 'isIP'
-          , valid: [
+            , valid: [
                 '127.0.0.1'
-              , '0.0.0.0'
-              , '255.255.255.255'
-              , '1.2.3.4'
-              , '::1'
-              , '2001:db8:0000:1:1:1:1:1'
+                , '0.0.0.0'
+                , '255.255.255.255'
+                , '1.2.3.4'
+                , '::1'
+                , '2001:db8:0000:1:1:1:1:1'
             ]
-          , invalid: [
+            , invalid: [
                 'abc'
-              , '256.0.0.0'
-              , '0.0.0.256'
-              , '26.0.0.256'
+                , '256.0.0.0'
+                , '0.0.0.256'
+                , '26.0.0.256'
             ]
         });
         test({
             validator: 'isIP'
-          , args: [ 4 ]
-          , valid: [
+            , args: [ 4 ]
+            , valid: [
                 '127.0.0.1'
-              , '0.0.0.0'
-              , '255.255.255.255'
-              , '1.2.3.4'
+                , '0.0.0.0'
+                , '255.255.255.255'
+                , '1.2.3.4'
             ]
-          , invalid: [
+            , invalid: [
                 '::1'
-              , '2001:db8:0000:1:1:1:1:1'
+                , '2001:db8:0000:1:1:1:1:1'
             ]
         });
         test({
             validator: 'isIP'
-          , args: [ 6 ]
-          , valid: [
+            , args: [ 6 ]
+            , valid: [
                 '::1'
-              , '2001:db8:0000:1:1:1:1:1'
+                , '2001:db8:0000:1:1:1:1:1'
             ]
-          , invalid: [
+            , invalid: [
                 '127.0.0.1'
-              , '0.0.0.0'
-              , '255.255.255.255'
-              , '1.2.3.4'
+                , '0.0.0.0'
+                , '255.255.255.255'
+                , '1.2.3.4'
             ]
         });
         test({
             validator: 'isIP'
-          , args: [ 10 ]
-          , valid: [
+            , args: [ 10 ]
+            , valid: [
             ]
-          , invalid: [
+            , invalid: [
                 '127.0.0.1'
-              , '0.0.0.0'
-              , '255.255.255.255'
-              , '1.2.3.4'
-              , '::1'
-              , '2001:db8:0000:1:1:1:1:1'
+                , '0.0.0.0'
+                , '255.255.255.255'
+                , '1.2.3.4'
+                , '::1'
+                , '2001:db8:0000:1:1:1:1:1'
             ]
         });
     });
@@ -322,22 +280,22 @@ describe('Validators', function () {
     it('should validate FQDN', function () {
         test({
             validator: 'isFQDN'
-          , valid: [
+            , valid: [
                 'domain.com'
-              , 'dom.plato'
-              , 'a.domain.co',
-              , 'foo--bar.com',
-              , 'xn--froschgrn-x9a.com',
-              , 'rebecca.blackfriday'
+                , 'dom.plato'
+                , 'a.domain.co',
+                , 'foo--bar.com',
+                , 'xn--froschgrn-x9a.com',
+                , 'rebecca.blackfriday'
             ]
-          , invalid: [
+            , invalid: [
                 'abc'
-              , '256.0.0.0'
-              , '_.com',
-              , '*.some.com',
-              , 's!ome.com',
-              , 'domain.com/',
-              , '/more.com'
+                , '256.0.0.0'
+                , '_.com',
+                , '*.some.com',
+                , 's!ome.com',
+                , 'domain.com/',
+                , '/more.com'
             ]
         });
     });
@@ -345,15 +303,15 @@ describe('Validators', function () {
     it('should validate alpha strings', function () {
         test({
             validator: 'isAlpha'
-          , valid: [
+            , valid: [
                 'abc'
-              , 'ABC'
-              , 'FoObar'
+                , 'ABC'
+                , 'FoObar'
             ]
-          , invalid: [
+            , invalid: [
                 'abc1'
-              , '  foo  '
-              , ''
+                , '  foo  '
+                , ''
             ]
         });
     });
@@ -361,13 +319,13 @@ describe('Validators', function () {
     it('should validate alphanumeric strings', function () {
         test({
             validator: 'isAlphanumeric'
-          , valid: [
+            , valid: [
                 'abc123'
-              , 'ABC11'
+                , 'ABC11'
             ]
-          , invalid: [
+            , invalid: [
                 'abc '
-              , 'foo!!'
+                , 'foo!!'
             ]
         });
     });
@@ -375,17 +333,17 @@ describe('Validators', function () {
     it('should validate numeric strings', function () {
         test({
             validator: 'isNumeric'
-          , valid: [
+            , valid: [
                 '123'
-              , '00123'
-              , '-00123'
-              , '0'
-              , '-0'
+                , '00123'
+                , '-00123'
+                , '0'
+                , '-0'
             ]
-          , invalid: [
+            , invalid: [
                 '123.123'
-              , ' '
-              , '.'
+                , ' '
+                , '.'
             ]
         });
     });
@@ -393,15 +351,15 @@ describe('Validators', function () {
     it('should validate lowercase strings', function () {
         test({
             validator: 'isLowercase'
-          , valid: [
+            , valid: [
                 'abc'
-              , 'abc123'
-              , 'this is lowercase.'
-              , 'tr竪s 端ber'
+                , 'abc123'
+                , 'this is lowercase.'
+                , 'tr竪s 端ber'
             ]
-          , invalid: [
+            , invalid: [
                 'fooBar'
-              , '123A'
+                , '123A'
             ]
         });
     });
@@ -409,15 +367,15 @@ describe('Validators', function () {
     it('should validate uppercase strings', function () {
         test({
             validator: 'isUppercase'
-          , valid: [
+            , valid: [
                 'ABC'
-              , 'ABC123'
-              , 'ALL CAPS IS FUN.'
-              , '   .'
+                , 'ABC123'
+                , 'ALL CAPS IS FUN.'
+                , '   .'
             ]
-          , invalid: [
+            , invalid: [
                 'fooBar'
-              , '123abc'
+                , '123abc'
             ]
         });
     });
@@ -425,21 +383,21 @@ describe('Validators', function () {
     it('should validate integers', function () {
         test({
             validator: 'isInt'
-          , valid: [
+            , valid: [
                 '13'
-              , '123'
-              , '0'
-              , '123'
-              , '-0'
+                , '123'
+                , '0'
+                , '123'
+                , '-0'
             ]
-          , invalid: [
+            , invalid: [
                 '01'
-              , '-01'
-              , '000'
-              , '100e10'
-              , '123.123'
-              , '   '
-              , ''
+                , '-01'
+                , '000'
+                , '100e10'
+                , '123.123'
+                , '   '
+                , ''
             ]
         });
     });
@@ -473,22 +431,22 @@ describe('Validators', function () {
     it('should validate floats', function () {
         test({
             validator: 'isFloat'
-          , valid: [
+            , valid: [
                 '123'
-              , '123.'
-              , '123.123'
-              , '-123.123'
-              , '-0.123'
-              , '0.123'
-              , '.0'
-              , '01.123'
-              , '-0.22250738585072011e-307'
+                , '123.'
+                , '123.123'
+                , '-123.123'
+                , '-0.123'
+                , '0.123'
+                , '.0'
+                , '01.123'
+                , '-0.22250738585072011e-307'
             ]
-          , invalid: [
+            , invalid: [
                 '-.123'
-              , '  '
-              , ''
-              , 'foo'
+                , '  '
+                , ''
+                , 'foo'
             ]
         });
     });
@@ -496,14 +454,14 @@ describe('Validators', function () {
     it('should validate hexadecimal strings', function () {
         test({
             validator: 'isHexadecimal'
-          , valid: [
+            , valid: [
                 'deadBEEF'
-              , 'ff0044'
+                , 'ff0044'
             ]
-          , invalid: [
+            , invalid: [
                 'abcdefg'
-              , ''
-              , '..'
+                , ''
+                , '..'
             ]
         });
     });
@@ -511,16 +469,16 @@ describe('Validators', function () {
     it('should validate hexadecimal color strings', function () {
         test({
             validator: 'isHexColor'
-          , valid: [
+            , valid: [
                 '#ff0034'
-              , '#CCCCCC'
-              , 'fff'
-              , '#f00'
+                , '#CCCCCC'
+                , 'fff'
+                , '#f00'
             ]
-          , invalid: [
+            , invalid: [
                 '#ff'
-              , 'fff0'
-              , '#ff12FG'
+                , 'fff0'
+                , '#ff12FG'
             ]
         });
     });
@@ -528,16 +486,16 @@ describe('Validators', function () {
     it('should validate null strings', function () {
         test({
             validator: 'isNull'
-          , valid: [
+            , valid: [
                 ''
-              , NaN
-              , []
-              , undefined
-              , null
+                , NaN
+                , []
+                , undefined
+                , null
             ]
-          , invalid: [
-              , ' '
-              , 'foo'
+            , invalid: [
+                , ' '
+                , 'foo'
             ]
         });
     });
@@ -574,70 +532,70 @@ describe('Validators', function () {
     it('should validate UUIDs', function () {
         test({
             validator: 'isUUID'
-          , valid: [
+            , valid: [
                 'A987FBC9-4BED-3078-CF07-9141BA07C9F3'
-              , 'A987FBC9-4BED-4078-8F07-9141BA07C9F3'
-              , 'A987FBC9-4BED-5078-AF07-9141BA07C9F3'
+                , 'A987FBC9-4BED-4078-8F07-9141BA07C9F3'
+                , 'A987FBC9-4BED-5078-AF07-9141BA07C9F3'
             ]
-          , invalid: [
+            , invalid: [
                 ''
-              , 'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3'
-              , 'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx'
-              , 'A987FBC94BED3078CF079141BA07C9F3'
-              , '934859'
-              , '987FBC9-4BED-3078-CF07A-9141BA07C9F3'
-              , 'AAAAAAAA-1111-1111-AAAG-111111111111'
+                , 'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3'
+                , 'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx'
+                , 'A987FBC94BED3078CF079141BA07C9F3'
+                , '934859'
+                , '987FBC9-4BED-3078-CF07A-9141BA07C9F3'
+                , 'AAAAAAAA-1111-1111-AAAG-111111111111'
             ]
         });
         test({
             validator: 'isUUID'
-          , args: [ 3 ]
-          , valid: [
+            , args: [ 3 ]
+            , valid: [
                 'A987FBC9-4BED-3078-CF07-9141BA07C9F3'
             ]
-          , invalid: [
+            , invalid: [
                 ''
-              , 'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3'
-              , '934859'
-              , 'AAAAAAAA-1111-1111-AAAG-111111111111'
-              , 'A987FBC9-4BED-4078-8F07-9141BA07C9F3'
-              , 'A987FBC9-4BED-5078-AF07-9141BA07C9F3'
+                , 'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3'
+                , '934859'
+                , 'AAAAAAAA-1111-1111-AAAG-111111111111'
+                , 'A987FBC9-4BED-4078-8F07-9141BA07C9F3'
+                , 'A987FBC9-4BED-5078-AF07-9141BA07C9F3'
             ]
         });
         test({
             validator: 'isUUID'
-          , args: [ 4 ]
-          , valid: [
+            , args: [ 4 ]
+            , valid: [
                 '713ae7e3-cb32-45f9-adcb-7c4fa86b90c1'
-              , '625e63f3-58f5-40b7-83a1-a72ad31acffb'
-              , '57b73598-8764-4ad0-a76a-679bb6640eb1'
-              , '9c858901-8a57-4791-81fe-4c455b099bc9'
+                , '625e63f3-58f5-40b7-83a1-a72ad31acffb'
+                , '57b73598-8764-4ad0-a76a-679bb6640eb1'
+                , '9c858901-8a57-4791-81fe-4c455b099bc9'
             ]
-          , invalid: [
+            , invalid: [
                 ''
-              , 'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3'
-              , '934859'
-              , 'AAAAAAAA-1111-1111-AAAG-111111111111'
-              , 'A987FBC9-4BED-5078-AF07-9141BA07C9F3'
-              , 'A987FBC9-4BED-3078-CF07-9141BA07C9F3'
+                , 'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3'
+                , '934859'
+                , 'AAAAAAAA-1111-1111-AAAG-111111111111'
+                , 'A987FBC9-4BED-5078-AF07-9141BA07C9F3'
+                , 'A987FBC9-4BED-3078-CF07-9141BA07C9F3'
             ]
         });
         test({
             validator: 'isUUID'
-          , args: [ 5 ]
-          , valid: [
+            , args: [ 5 ]
+            , valid: [
                 '987FBC97-4BED-5078-AF07-9141BA07C9F3'
-              , '987FBC97-4BED-5078-BF07-9141BA07C9F3'
-              , '987FBC97-4BED-5078-8F07-9141BA07C9F3'
-              , '987FBC97-4BED-5078-9F07-9141BA07C9F3'
+                , '987FBC97-4BED-5078-BF07-9141BA07C9F3'
+                , '987FBC97-4BED-5078-8F07-9141BA07C9F3'
+                , '987FBC97-4BED-5078-9F07-9141BA07C9F3'
             ]
-          , invalid: [
+            , invalid: [
                 ''
-              , 'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3'
-              , '934859'
-              , 'AAAAAAAA-1111-1111-AAAG-111111111111'
-              , '9c858901-8a57-4791-81fe-4c455b099bc9'
-              , 'A987FBC9-4BED-3078-CF07-9141BA07C9F3'
+                , 'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3'
+                , '934859'
+                , 'AAAAAAAA-1111-1111-AAAG-111111111111'
+                , '9c858901-8a57-4791-81fe-4c455b099bc9'
+                , 'A987FBC9-4BED-3078-CF07-9141BA07C9F3'
             ]
         });
     });
@@ -655,18 +613,18 @@ describe('Validators', function () {
     it('should validate dates', function () {
         test({
             validator: 'isDate'
-          , valid: [
+            , valid: [
                 '2011-08-04'
-              , '04. 08. 2011.'
-              , '08/04/2011'
-              , '2011.08.04'
-              , '4. 8. 2011. GMT'
-              , '2011-08-04 12:00'
+                , '04. 08. 2011.'
+                , '08/04/2011'
+                , '2011.08.04'
+                , '4. 8. 2011. GMT'
+                , '2011-08-04 12:00'
             ]
-          , invalid: [
+            , invalid: [
                 'foo'
-              , '2011-foo-04'
-              , 'GMT'
+                , '2011-foo-04'
+                , 'GMT'
             ]
         });
     });
@@ -695,14 +653,14 @@ describe('Validators', function () {
     it('should validate that integer strings are divisible by a number', function () {
         test({
             validator: 'isDivisibleBy'
-          , args: [ 2 ]
-          , valid: [ '2', '4', '100', '1000' ]
-          , invalid: [
+            , args: [ 2 ]
+            , valid: [ '2', '4', '100', '1000' ]
+            , invalid: [
                 '1'
-              , '2.5'
-              , '101'
-              , 'foo'
-              , ''
+                , '2.5'
+                , '101'
+                , 'foo'
+                , ''
             ]
         });
     });
@@ -710,18 +668,18 @@ describe('Validators', function () {
     it('should validate credit cards', function () {
         test({
             validator: 'isCreditCard'
-          , valid: [
+            , valid: [
                 '375556917985515'
-              , '36050234196908'
-              , '4716461583322103'
-              , '4716-2210-5188-5662'
-              , '4929 7226 5379 7141'
-              , '5398228707871527'
+                , '36050234196908'
+                , '4716461583322103'
+                , '4716-2210-5188-5662'
+                , '4929 7226 5379 7141'
+                , '5398228707871527'
             ]
-          , invalid: [
+            , invalid: [
                 'foo'
-              , 'foo'
-              , '5398228707871528'
+                , 'foo'
+                , '5398228707871528'
             ]
         });
     });
@@ -729,51 +687,51 @@ describe('Validators', function () {
     it('should validate ISBNs', function () {
         test({
             validator: 'isISBN'
-          , args: [ 10 ]
-          , valid: [
+            , args: [ 10 ]
+            , valid: [
                 '3836221195', '3-8362-2119-5', '3 8362 2119 5'
-              , '1617290858', '1-61729-085-8', '1 61729 085-8'
-              , '0007269706', '0-00-726970-6', '0 00 726970 6'
-              , '3423214120', '3-423-21412-0', '3 423 21412 0'
-              , '340101319X', '3-401-01319-X', '3 401 01319 X'
+                , '1617290858', '1-61729-085-8', '1 61729 085-8'
+                , '0007269706', '0-00-726970-6', '0 00 726970 6'
+                , '3423214120', '3-423-21412-0', '3 423 21412 0'
+                , '340101319X', '3-401-01319-X', '3 401 01319 X'
             ]
-          , invalid: [
+            , invalid: [
                 '3423214121', '3-423-21412-1', '3 423 21412 1'
-              , '978-3836221191', '9783836221191'
-              , '123456789a', 'foo', ''
+                , '978-3836221191', '9783836221191',
+                , '123456789a', 'foo', ''
             ]
         });
         test({
             validator: 'isISBN'
-          , args: [ 13 ]
-          , valid: [
+            , args: [ 13 ]
+            , valid: [
                 '9783836221191', '978-3-8362-2119-1', '978 3 8362 2119 1'
-              , '9783401013190', '978-3401013190', '978 3401013190'
-              , '9784873113685', '978-4-87311-368-5', '978 4 87311 368 5'
+                , '9783401013190', '978-3401013190', '978 3401013190'
+                , '9784873113685', '978-4-87311-368-5', '978 4 87311 368 5'
             ]
-          , invalid: [
+            , invalid: [
                 '9783836221190', '978-3-8362-2119-0', '978 3 8362 2119 0'
-              , '3836221195', '3-8362-2119-5', '3 8362 2119 5'
-              , '01234567890ab', 'foo', ''
+                , '3836221195', '3-8362-2119-5', '3 8362 2119 5'
+                , '01234567890ab', 'foo', ''
             ]
         });
         test({
             validator: 'isISBN'
-          , valid: [
+            , valid: [
                 '340101319X'
-              , '9784873113685'
+                , '9784873113685'
             ]
-          , invalid: [
+            , invalid: [
                 '3423214121'
-              , '9783836221190'
+                , '9783836221190'
             ]
         });
         test({
             validator: 'isISBN'
-          , args: [ 'foo' ]
-          , invalid: [
+            , args: [ 'foo' ]
+            , invalid: [
                 '340101319X'
-              , '9784873113685'
+                , '9784873113685'
             ]
         });
     });
@@ -781,14 +739,14 @@ describe('Validators', function () {
     it('should validate JSON', function () {
         test({
             validator: 'isJSON'
-          , valid: [
+            , valid: [
                 '{ "key": "value" }'
             ]
-          , invalid: [
+            , invalid: [
                 '{ key: "value" }'
-              , { "key": "value" }
-              , { key: 'value' }
-              , '{ \'key\': \'value\' }'
+                , { "key": "value" }
+                , { key: 'value' }
+                , '{ \'key\': \'value\' }'
             ]
         });
     });
@@ -796,17 +754,17 @@ describe('Validators', function () {
     it('should validate multibyte strings', function () {
         test({
             validator: 'isMultibyte'
-          , valid: [
+            , valid: [
                 'ひらがな・カタカナ、．漢字'
-              , 'あいうえお foobar'
-              , 'test＠example.com'
-              , '1234abcDEｘｙｚ'
-              , 'ｶﾀｶﾅ'
+                , 'あいうえお foobar'
+                , 'test＠example.com'
+                , '1234abcDEｘｙｚ'
+                , 'ｶﾀｶﾅ'
             ]
-          , invalid: [
+            , invalid: [
                 'abc'
-              , 'abc123'
-              , '<>@" *.'
+                , 'abc123'
+                , '<>@" *.'
             ]
         });
     });
@@ -814,17 +772,17 @@ describe('Validators', function () {
     it('should validate ascii strings', function () {
         test({
             validator: 'isAscii'
-          , valid: [
+            , valid: [
                 'foobar'
-              , '0987654321'
-              , 'test@example.com'
-              , '1234abcDEF'
+                , '0987654321'
+                , 'test@example.com'
+                , '1234abcDEF'
             ]
-          , invalid: [
+            , invalid: [
                 'ｆｏｏbar'
-              , 'ｘｙｚ０９８'
-              , '１２３456'
-              , 'ｶﾀｶﾅ'
+                , 'ｘｙｚ０９８'
+                , '１２３456'
+                , 'ｶﾀｶﾅ'
             ]
         });
     });
@@ -832,16 +790,16 @@ describe('Validators', function () {
     it('should validate full-width strings', function () {
         test({
             validator: 'isFullWidth'
-          , valid: [
+            , valid: [
                 'ひらがな・カタカナ、．漢字'
-              , '３ー０　ａ＠ｃｏｍ'
-              , 'Ｆｶﾀｶﾅﾞﾬ'
-              , 'Good＝Parts'
+                , '３ー０　ａ＠ｃｏｍ'
+                , 'Ｆｶﾀｶﾅﾞﾬ'
+                , 'Good＝Parts'
             ]
-          , invalid: [
+            , invalid: [
                 'abc'
-              , 'abc123'
-              , '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
+                , 'abc123'
+                , '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
             ]
         });
     });
@@ -849,15 +807,15 @@ describe('Validators', function () {
     it('should validate half-width strings', function () {
         test({
             validator: 'isHalfWidth'
-          , valid: [
+            , valid: [
                 '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
-              , 'l-btn_02--active'
-              , 'abc123い'
-              , 'ｶﾀｶﾅﾞﾬ￩'
+                , 'l-btn_02--active'
+                , 'abc123い'
+                , 'ｶﾀｶﾅﾞﾬ￩'
             ]
-          , invalid: [
-              , 'あいうえお'
-              , '００１１'
+            , invalid: [
+                , 'あいうえお'
+                , '００１１'
             ]
         });
     });
@@ -865,19 +823,19 @@ describe('Validators', function () {
     it('should validate variable-width strings', function () {
         test({
             validator: 'isVariableWidth'
-          , valid: [
+            , valid: [
                 'ひらがなカタカナ漢字ABCDE'
-              , '３ー０123'
-              , 'Ｆｶﾀｶﾅﾞﾬ'
-              , 'Good＝Parts'
+                , '３ー０123'
+                , 'Ｆｶﾀｶﾅﾞﾬ'
+                , 'Good＝Parts'
             ]
-          , invalid: [
+            , invalid: [
                 'abc'
-              , 'abc123'
-              , '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
-              , 'ひらがな・カタカナ、．漢字'
-              , '１２３４５６'
-              , 'ｶﾀｶﾅﾞﾬ'
+                , 'abc123'
+                , '!"#$%&()<>/+=-_? ~^|.,@`{}[]'
+                , 'ひらがな・カタカナ、．漢字'
+                , '１２３４５６'
+                , 'ｶﾀｶﾅﾞﾬ'
             ]
         });
     });
@@ -885,15 +843,15 @@ describe('Validators', function () {
     it('should validate surrogate pair strings', function () {
         test({
             validator: 'isSurrogatePair'
-          , valid: [
+            , valid: [
                 '𠮷野𠮷'
-              , '𩸽'
-              , 'ABC千𥧄1-2-3'
+                , '𩸽'
+                , 'ABC千𥧄1-2-3'
             ]
-          , invalid: [
+            , invalid: [
                 '吉野竈'
-              , '鮪'
-              , 'ABC1-2-3'
+                , '鮪'
+                , 'ABC1-2-3'
             ]
         });
     });
@@ -901,11 +859,11 @@ describe('Validators', function () {
     it('should validate base64 strings', function () {
         test({
             validator: 'isBase64'
-          , valid: [
+            , valid: [
                 'TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4='
-              , 'Vml2YW11cyBmZXJtZW50dW0gc2VtcGVyIHBvcnRhLg=='
-              , 'U3VzcGVuZGlzc2UgbGVjdHVzIGxlbw=='
-              , 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuMPNS1Ufof9EW/M98FNw'+
+                , 'Vml2YW11cyBmZXJtZW50dW0gc2VtcGVyIHBvcnRhLg=='
+                , 'U3VzcGVuZGlzc2UgbGVjdHVzIGxlbw=='
+                , 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuMPNS1Ufof9EW/M98FNw'+
                 'UAKrwflsqVxaxQjBQnHQmiI7Vac40t8x7pIb8gLGV6wL7sBTJiPovJ0V7y7oc0Ye'+
                 'rhKh0Rm4skP2z/jHwwZICgGzBvA0rH8xlhUiTvcwDCJ0kc+fh35hNt8srZQM4619'+
                 'FTgB66Xmp4EtVyhpQV+t02g6NzK72oZI0vnAvqhpkxLeLiMCyrI416wHm5Tkukhx'+
@@ -913,10 +871,10 @@ describe('Validators', function () {
                 'Fwrd1mnfnDbYohX2zRptLy2ZUn06Qo9pkG5ntvFEPo9bfZeULtjYzIl6K8gJ2uGZ'+
                 'HQIDAQAB'
             ]
-          , invalid: [
+            , invalid: [
                 '12345'
-              , ''
-              , 'Vml2YW11cyBmZXJtZtesting123'
+                , ''
+                , 'Vml2YW11cyBmZXJtZtesting123'
             ]
         });
         for (var i = 0, str = '', encoded; i < 1000; i++) {
@@ -932,7 +890,7 @@ describe('Validators', function () {
     it('should define the module using an AMD-compatible loader', function () {
         var window = {
             validator: null
-          , define: function (module) {
+            , define: function (module) {
                 this.validator = module;
             }
         };
