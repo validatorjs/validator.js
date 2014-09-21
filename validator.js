@@ -33,37 +33,37 @@
 
     'use strict';
 
-    validator = { version: '3.20.0' };
+    validator = { version: '3.19.0' };
 
     var email = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i;
 
     var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
 
     var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
-      , isbn13Maybe = /^(?:[0-9]{13})$/;
+        , isbn13Maybe = /^(?:[0-9]{13})$/;
 
     var ipv4Maybe = /^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$/
-      , ipv6 = /^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/;
+        , ipv6 = /^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/;
 
     var uuid = {
         '3': /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i
-      , '4': /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
-      , '5': /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
-      , all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
+        , '4': /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+        , '5': /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+        , all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
     };
 
     var alpha = /^[a-zA-Z]+$/
-      , alphanumeric = /^[a-zA-Z0-9]+$/
-      , numeric = /^-?[0-9]+$/
-      , int = /^(?:-?(?:0|[1-9][0-9]*))$/
-      , float = /^(?:-?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/
-      , hexadecimal = /^[0-9a-fA-F]+$/
-      , hexcolor = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+        , alphanumeric = /^[a-zA-Z0-9]+$/
+        , numeric = /^-?[0-9]+$/
+        , int = /^(?:-?(?:0|[1-9][0-9]*))$/
+        , float = /^(?:-?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/
+        , hexadecimal = /^[0-9a-fA-F]+$/
+        , hexcolor = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
     var ascii = /^[\x00-\x7F]+$/
-      , multibyte = /[^\x00-\x7F]/
-      , fullWidth = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/
-      , halfWidth = /[\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/;
+        , multibyte = /[^\x00-\x7F]/
+        , fullWidth = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/
+        , halfWidth = /[\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/;
 
     var surrogatePair = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
 
@@ -82,7 +82,7 @@
     validator.init = function () {
         for (var name in validator) {
             if (typeof validator[name] !== 'function' || name === 'toString' ||
-                    name === 'toDate' || name === 'extend' || name === 'init') {
+                name === 'toDate' || name === 'extend' || name === 'init') {
                 continue;
             }
             validator.extend(name, validator[name]);
@@ -144,9 +144,9 @@
 
     var default_url_options = {
         protocols: [ 'http', 'https', 'ftp' ]
-      , require_tld: true
-      , require_protocol: false
-      , allow_underscores: false
+        , require_tld: true
+        , require_protocol: false
+        , allow_underscores: false
     };
 
     validator.isURL = function (str, options) {
@@ -156,18 +156,18 @@
         options = merge(options, default_url_options);
         var ipv4_url_parts = [
             '(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])'
-          , '(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}'
-          , '(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))'
+            , '(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}',
+            , '(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))'
         ];
         var protocol = '(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?')
-          , auth = '(?:\\S+(?::\\S*)?@)?'
-          , ipv4 = '(?:' + ipv4_url_parts.join('') + ')'
-          , hostname = '(' + ipv4 + '|' + domain(options) + '|localhost)'
-          , port = '(\\d{1,5})'
-          , host = hostname + '(?::' + port + ')?'
-          , path_query_anchor = '(?:(?:/|\\?|#)[^\\s]*)?';
+            , auth = '(?:\\S+(?::\\S*)?@)?'
+            , ipv4 = '(?:' + ipv4_url_parts.join('') + ')'
+            , hostname = '(' + ipv4 + '|' + domain(options) + '|localhost)'
+            , port = '(\\d{1,5})'
+            , host = hostname + '(?::' + port + ')?'
+            , path_query_anchor = '(?:(?:/|\\?|#)[^\\s]*)?';
         var is_url = new RegExp('^(?!mailto:)' + protocol + auth + host + path_query_anchor + '$', 'i')
-          , match = str.match(is_url);
+            , match = str.match(is_url);
         if (!match) {
             return false;
         }
@@ -203,12 +203,12 @@
 
     var default_fqdn_options = {
         require_tld: true
-      , allow_underscores: false
+        , allow_underscores: false
     };
 
     validator.isFQDN = function (str, options) {
-      options = merge(options, default_fqdn_options);
-      return new RegExp('^' + domain(options) + '$', 'i').test(str);
+        options = merge(options, default_fqdn_options);
+        return new RegExp('^' + domain(options) + '$', 'i').test(str);
     };
 
     validator.isAlpha = function (str) {
@@ -291,13 +291,13 @@
 
     validator.isAfter = function (str, date) {
         var comparison = validator.toDate(date || new Date())
-          , original = validator.toDate(str);
+            , original = validator.toDate(str);
         return !!(original && comparison && original > comparison);
     };
 
     validator.isBefore = function (str, date) {
         var comparison = validator.toDate(date || new Date())
-          , original = validator.toDate(str);
+            , original = validator.toDate(str);
         return original && comparison && original < comparison;
     };
 
@@ -345,7 +345,7 @@
             return validator.isISBN(str, 10) || validator.isISBN(str, 13);
         }
         var sanitized = str.replace(/[\s-]+/g, '')
-          , checksum = 0, i;
+            , checksum = 0, i;
         if (version === '10') {
             if (!isbn10Maybe.test(sanitized)) {
                 return false;
@@ -469,12 +469,12 @@
     }
 
     function domain(options) {
-      var sep = '-?-?' + (options.allow_underscores ? '_?' : '')
-        , alpha = 'a-z\\u00a1-\\uffff'
-        , alphanum = alpha + '0-9'
-        , subdomain = '(?:(?:[' + alphanum + ']+' + sep + ')*[' + alphanum + ']+)'
-        , tld = '(?:\\.(?:[' + alpha + ']{2,}))' + (options.require_tld ? '' : '?');
-      return '(?:' + subdomain + '(?:\\.' + subdomain + ')*' + tld + ')';
+        var sep = '-?-?' + (options.allow_underscores ? '_?' : '')
+            , alpha = 'a-z\\u00a1-\\uffff'
+            , alphanum = alpha + '0-9'
+            , subdomain = '(?:(?:[' + alphanum + ']+' + sep + ')*[' + alphanum + ']+)'
+            , tld = '(?:\\.(?:[' + alpha + ']{2,}))' + (options.require_tld ? '' : '?');
+        return '(?:' + subdomain + '(?:\\.' + subdomain + ')*' + tld + ')';
     }
 
     validator.init();
