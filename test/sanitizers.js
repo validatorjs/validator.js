@@ -189,7 +189,7 @@ describe('Sanitizers', function () {
               , 'some.Name+extension@GoogleMail.com': 'somename@googlemail.com'
               , 'some.name.middleName+extension@gmail.com': 'somenamemiddlename@gmail.com'
               , 'some.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
-		      , 'some.name.midd..leNa...me...+extension@gmail.com': 'somenamemiddlename@gmail.com'
+              , 'some.name.midd..leNa...me...+extension@gmail.com': 'somenamemiddlename@gmail.com'
               , 'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
               , 'some.name+extension@unknown.com': 'some.name+extension@unknown.com'
               , 'an invalid email address': 'an invalid email address'
