@@ -185,13 +185,13 @@ describe('Sanitizers', function () {
           , expect: {
                 'test@me.com': 'test@me.com'
               , 'some.name@gmail.com': 'somename@gmail.com'
-              , 'some.name@googleMail.com': 'somename@googlemail.com'
+              , 'some.name@googleMail.com': 'somename@gmail.com'
               , 'some.name+extension@gmail.com': 'somename@gmail.com'
-              , 'some.Name+extension@GoogleMail.com': 'somename@googlemail.com'
+              , 'some.Name+extension@GoogleMail.com': 'somename@gmail.com'
               , 'some.name.middleName+extension@gmail.com': 'somenamemiddlename@gmail.com'
-              , 'some.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
+              , 'some.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
               , 'some.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
-              , 'some.name.midd.leNa.me.+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
+              , 'some.name.midd.leNa.me.+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
               , 'some.name+extension@unknown.com': 'some.name+extension@unknown.com'
               , 'hans@m端ller.com': 'hans@m端ller.com'
               , 'an invalid email address': false
@@ -212,18 +212,18 @@ describe('Sanitizers', function () {
                 
                 // Domains that are known for being case-insensitive are always lowercased
               , 'SOME.name@GMAIL.com': 'somename@gmail.com'
-              , 'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
+              , 'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
               , 'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
             }
         });
         test({
             sanitizer: 'normalizeEmail'
-          , args: [{googlemail_to_gmail: true}]
+          , args: [{googlemail_to_gmail: false}]
           , expect: {
                 'SOME.name@GMAIL.com': 'somename@gmail.com'
-              , 'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
+              , 'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
               , 'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
-              , 'test@googlemail.com': 'test@gmail.com'
+              , 'test@googlemail.com': 'test@googlemail.com'
               , 'foo@bar.com': 'foo@bar.com'
             }
         });

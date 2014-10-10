@@ -438,7 +438,7 @@
         // Lowercase the local part for all domains (domains that are known for having case-insensitive local parts are always lowercased, such as gmail.com)
         lowercase: true
         // Convert googlemail.com to gmail.com
-      , googlemail_to_gmail: false
+      , googlemail_to_gmail: true
     };
 
     validator.normalizeEmail = function (email, options) {
