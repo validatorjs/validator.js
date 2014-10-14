@@ -216,17 +216,6 @@ describe('Sanitizers', function () {
               , 'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
             }
         });
-        test({
-            sanitizer: 'normalizeEmail'
-          , args: [{googlemail_to_gmail: false}]
-          , expect: {
-                'SOME.name@GMAIL.com': 'somename@gmail.com'
-              , 'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
-              , 'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
-              , 'test@googlemail.com': 'test@googlemail.com'
-              , 'foo@bar.com': 'foo@bar.com'
-            }
-        });
     });
 
 });
