@@ -183,17 +183,37 @@ describe('Sanitizers', function () {
         test({
             sanitizer: 'normalizeEmail'
           , expect: {
-                'some.name@gmail.com': 'somename@gmail.com'
-              , 'some.name@googleMail.com': 'somename@googlemail.com'
+                'test@me.com': 'test@me.com'
+              , 'some.name@gmail.com': 'somename@gmail.com'
+              , 'some.name@googleMail.com': 'somename@gmail.com'
               , 'some.name+extension@gmail.com': 'somename@gmail.com'
-              , 'some.Name+extension@GoogleMail.com': 'somename@googlemail.com'
+              , 'some.Name+extension@GoogleMail.com': 'somename@gmail.com'
               , 'some.name.middleName+extension@gmail.com': 'somenamemiddlename@gmail.com'
-              , 'some.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
-              , 'some.name.midd..leNa...me...+extension@gmail.com': 'somenamemiddlename@gmail.com'
-              , 'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemiddlename@googlemail.com'
+              , 'some.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
+              , 'some.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
+              , 'some.name.midd.leNa.me.+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
               , 'some.name+extension@unknown.com': 'some.name+extension@unknown.com'
-              , 'an invalid email address': 'an invalid email address'
-              , '': ''
+              , 'hans@m端ller.com': 'hans@m端ller.com'
+              , 'an invalid email address': false
+              , '': false
+              // some.name.midd..leNa...me...+extension@GoogleMail.com was removed from test cases because of a bug with validator.isEmail. See issue #258
+            }
+        });
+        test({
+            sanitizer: 'normalizeEmail'
+          , args: [{lowercase: false}]
+          , expect: {
+                'test@me.com': 'test@me.com'
+              , 'hans@m端ller.com': 'hans@m端ller.com'
+              , 'test@ME.COM': 'test@me.com' // Hostname is always lowercased
+              , 'TEST@me.com': 'TEST@me.com'
+              , 'TEST@ME.COM': 'TEST@me.com'
+              , 'blAH@x.com': 'blAH@x.com'
+                
+                // Domains that are known for being case-insensitive are always lowercased
+              , 'SOME.name@GMAIL.com': 'somename@gmail.com'
+              , 'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
+              , 'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
             }
         });
     });
