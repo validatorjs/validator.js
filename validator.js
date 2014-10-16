@@ -433,37 +433,28 @@
     validator.blacklist = function (str, chars) {
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
-    
+
     var default_normalize_email_options = {
-        // Lowercase the local part for all domains (domains that are known for having case-insensitive local parts are always lowercased, such as gmail.com)
         lowercase: true
     };
 
     validator.normalizeEmail = function (email, options) {
         options = merge(options, default_normalize_email_options);
-        
-        // Fail if the email address is invalid
         if (!validator.isEmail(email)) {
             return false;
         }
-        
         var parts = email.split('@', 2);
-        
-        // Always lowercase the domain, but the local part only if requested
         parts[1] = parts[1].toLowerCase();
         if (options.lowercase) {
             parts[0] = parts[0].toLowerCase();
         }
-        
-        // gmail.com and googlemail.com
         if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
-            if (!options.lowercase) { // case-insensitive
+            if (!options.lowercase) {
                 parts[0] = parts[0].toLowerCase();
             }
             parts[0] = parts[0].replace(/\./g, '').split('+')[0];
-            parts[1] = 'gmail.com'; // Always replace googlemail.com to gmail.com
+            parts[1] = 'gmail.com';
         }
-        
         return parts.join('@');
     };
 
