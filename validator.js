@@ -149,37 +149,78 @@
       , allow_underscores: false
     };
 
-    validator.isURL = function (str, options) {
-        if (!str || str.length >= 2083) {
+    validator.isURL = function (url, options) {
+        if (!url || url.length >= 2083) {
+            return false;
+        }
+        if (url.indexOf('mailto:') === 0) {
             return false;
         }
         options = merge(options, default_url_options);
-        var ipv4_url_parts = [
-            '(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])'
-          , '(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}',
-          , '(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))'
-        ];
-        var protocol = '(?:(?:' + options.protocols.join('|') + ')://)' + (options.require_protocol ? '' : '?')
-          , auth = '(?:\\S+(?::\\S*)?@)?'
-          , ipv4 = '(?:' + ipv4_url_parts.join('') + ')'
-          , hostname = '(' + ipv4 + '|' + domain(options) + '|localhost)'
-          , port = '(\\d{1,5})'
-          , host = hostname + '(?::' + port + ')?'
-          , path_query_anchor = '(?:(?:/|\\?|#)[^\\s]*)?';
-        var is_url = new RegExp('^(?!mailto:)' + protocol + auth + host + path_query_anchor + '$', 'i')
-          , match = str.match(is_url);
-        if (!match) {
+        var protocol, user, pass, auth, host, hostname, port,
+            path, query, hash, split;
+        split = url.split('://');
+        if (split.length > 1) {
+            protocol = split.shift();
+            if (options.protocols.indexOf(protocol) === -1) {
+                return false;
+            }
+        } else if (options.require_protocol) {
             return false;
         }
-        host = match[1];
-        port = match[2];
-        if (port && !(port > 0 && port <= 65535)) {
+        url = split.join('://');
+        split = url.split('#');
+        url = split.shift();
+        hash = split.join('#');
+        if (hash && /\s/.test(hash)) {
             return false;
         }
-        if (options.host_whitelist && options.host_whitelist.indexOf(host) === -1) {
+        split = url.split('?');
+        url = split.shift();
+        query = split.join('?');
+        if (query && /\s/.test(query)) {
             return false;
         }
-        if (options.host_blacklist && options.host_blacklist.indexOf(host) !== -1) {
+        split = url.split('/');
+        url = split.shift();
+        path = split.join('/');
+        if (path && /\s/.test(path)) {
+            return false;
+        }
+        split = url.split('@');
+        if (split.length > 1) {
+            auth = split.shift();
+            if (auth.indexOf(':') >= 0) {
+                auth = auth.split(':');
+                user = auth.shift();
+                if (!/^\S+$/.test(user)) {
+                    return false;
+                }
+                pass = auth.join(':');
+                if (!/^\S*$/.test(user)) {
+                    return false;
+                }
+            }
+        }
+        hostname = split.join('@');
+        split = hostname.split(':');
+        host = split.shift();
+        if (split.length) {
+            port = parseInt(split.join(':'), 10);
+            if (port <= 0 || port > 65535) {
+                return false;
+            }
+        }
+        if (!validator.isIP(host) && !validator.isFQDN(host, options) &&
+                host !== 'localhost') {
+            return false;
+        }
+        if (options.host_whitelist &&
+                options.host_whitelist.indexOf(host) === -1) {
+            return false;
+        }
+        if (options.host_blacklist &&
+                options.host_blacklist.indexOf(host) !== -1) {
             return false;
         }
         return true;
@@ -207,8 +248,31 @@
     };
 
     validator.isFQDN = function (str, options) {
-      options = merge(options, default_fqdn_options);
-      return new RegExp('^' + domain(options) + '$', 'i').test(str);
+        options = merge(options, default_fqdn_options);
+        var parts = str.split('.');
+        if (options.require_tld) {
+            var tld = parts.pop();
+            if (!parts.length || !/^[a-z]{2,}$/i.test(tld)) {
+                return false;
+            }
+        }
+        for (var part, i = 0; i < parts.length; i++) {
+            part = parts[i];
+            if (options.allow_underscores) {
+                if (part.indexOf('__') >= 0) {
+                    return false;
+                }
+                part = part.replace(/_/g, '');
+            }
+            if (!/^[a-z\\u00a1-\\uffff0-9-]+$/i.test(part)) {
+                return false;
+            }
+            if (part[0] === '-' || part[part.length - 1] === '-' ||
+                    part.indexOf('---') >= 0) {
+                return false;
+            }
+        }
+        return true;
     };
 
     validator.isAlpha = function (str) {
@@ -466,15 +530,6 @@
             }
         }
         return obj;
-    }
-
-    function domain(options) {
-      var sep = '-?-?' + (options.allow_underscores ? '_?' : '')
-        , alpha = 'a-z\\u00a1-\\uffff'
-        , alphanum = alpha + '0-9'
-        , subdomain = '(?:(?:[' + alphanum + ']+' + sep + ')*[' + alphanum + ']+)'
-        , tld = '(?:\\.(?:[' + alpha + ']{2,}))' + (options.require_tld ? '' : '?');
-      return '(?:' + subdomain + '(?:\\.' + subdomain + ')*' + tld + ')';
     }
 
     validator.init();
