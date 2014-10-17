@@ -462,6 +462,10 @@
         return base64.test(str);
     };
 
+    validator.isMongoId = function (str) {
+        return validator.isHexadecimal(str) && str.length === 24;
+    };
+
     validator.ltrim = function (str, chars) {
         var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
         return str.replace(pattern, '');
