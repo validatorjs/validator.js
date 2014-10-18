@@ -68,6 +68,7 @@ $ bower install validator-js
 - **isHalfWidth(str)** - check if the string contains any half-width chars.
 - **isVariableWidth(str)** - check if the string contains a mixture of full and half-width chars.
 - **isSurrogatePair(str)** - check if the string contains any surrogate pairs chars.
+- **isMongoId(str)** - check if the string is a valid hex-encoded representation of a [MongoDB ObjectId][mongoid].
 
 ### Sanitizers
 
@@ -166,6 +167,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [amd]: http://requirejs.org/docs/whyamd.html
 [bower]: http://bower.io/
+
+[mongoid]: http://docs.mongodb.org/manual/reference/object-id/
 
 [remove-xss]: https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e
 [caja]: https://code.google.com/p/google-caja/source/browse/trunk/src/com/google/caja/plugin/html-sanitizer.js
