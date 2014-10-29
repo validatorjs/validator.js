@@ -158,7 +158,7 @@
         }
         options = merge(options, default_url_options);
         var protocol, user, pass, auth, host, hostname, port,
-            path, query, hash, split;
+            port_str, path, query, hash, split;
         split = url.split('://');
         if (split.length > 1) {
             protocol = split.shift();
@@ -206,8 +206,9 @@
         split = hostname.split(':');
         host = split.shift();
         if (split.length) {
-            port = parseInt(split.join(':'), 10);
-            if (port <= 0 || port > 65535) {
+            port_str = split.join(':');
+            port = parseInt(port_str, 10);
+            if (!/^[0-9]+$/.test(port_str) || port <= 0 || port > 65535) {
                 return false;
             }
         }

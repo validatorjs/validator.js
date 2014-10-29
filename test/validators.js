@@ -111,6 +111,7 @@ describe('Validators', function () {
               , 'http://*.foo.com',
               , '*.foo.com',
               , '!.foo.com'
+              , 'http://localhost:61500this is an invalid url!!!!'
             ]
         });
     });
