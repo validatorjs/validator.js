@@ -265,7 +265,7 @@
                 }
                 part = part.replace(/_/g, '');
             }
-            if (!/^[a-z\\u00a1-\\uffff0-9-]+$/i.test(part)) {
+            if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {
                 return false;
             }
             if (part[0] === '-' || part[part.length - 1] === '-' ||

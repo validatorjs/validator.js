@@ -86,6 +86,7 @@ describe('Validators', function () {
               , 'http://www.xn--froschgrn-x9a.net/'
               , 'http://xn--froschgrn-x9a.com/'
               , 'http://foo--bar.com'
+              , 'http://høyfjellet.no'
             ]
           , invalid: [
                 'xyz://foobar.com'
