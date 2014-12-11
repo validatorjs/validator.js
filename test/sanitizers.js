@@ -114,8 +114,8 @@ describe('Sanitizers', function () {
         test({
             sanitizer: 'escape'
           , expect: {
-                '<img alt="foo&bar">': '&lt;img alt=&quot;foo&amp;bar&quot;&gt;'
-              , "<img alt='foo&bar'>": '&lt;img alt=&#x27;foo&amp;bar&#x27;&gt;'
+                '<script> alert("xss&fun"); </script>': '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;'
+              , "<script> alert('xss&fun'); </script>": '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;'
             }
         });
     });
