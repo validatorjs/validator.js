@@ -352,17 +352,21 @@
     };
 
     validator.isIn = function (str, options) {
-        if (!options || typeof options.indexOf !== 'function') {
+        if (!options) {
             return false;
         }
         if (Object.prototype.toString.call(options) === '[object Array]') {
             var array = [];
-            for (var i = 0, len = options.length; i < len; i++) {
+            for (var i in options) {
                 array[i] = validator.toString(options[i]);
             }
-            options = array;
+            return array.indexOf(str) >= 0;
+        } else if (typeof options === 'object') {
+            return options.hasOwnProperty(str)
+        } else if (typeof options.indexOf === 'function') {
+            return options.indexOf(str) >= 0;
         }
-        return options.indexOf(str) >= 0;
+        return false;
     };
 
     validator.isCreditCard = function (str) {
