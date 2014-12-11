@@ -482,13 +482,13 @@
         return str.replace(pattern, '');
     };
 
-    validator.escape = function (str, owasp) {
-        var escaped = str.replace(/&/g, '&amp;')
+    validator.escape = function (str) {
+        return (str.replace(/&/g, '&amp;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#x27;')
                 .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        return (owasp ? escaped.replace(/\//g, '&#x2F;') : escaped);
+                .replace(/>/g, '&gt;')
+                .replace(/\//g, '&#x2F;'));
     };
 
     validator.stripLow = function (str, keep_new_lines) {
