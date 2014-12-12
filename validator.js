@@ -364,7 +364,7 @@
                 return true;
             }
             for (i in options) {
-                if (str === validator.toString(options[i])) return true;
+                if (str == validator.toString(options[i])) return true;
             }
             return false;
         } else if (options && typeof options.indexOf === 'function') {
