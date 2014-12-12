@@ -352,9 +352,6 @@
     };
 
     validator.isIn = function (str, options) {
-        if (!options) {
-            return false;
-        }
         var i;
         if (Object.prototype.toString.call(options) === '[object Array]') {
             var array = [];
@@ -370,7 +367,7 @@
                 if (str === validator.toString(options[i])) return true;
             }
             return false;
-        } else if (typeof options.indexOf === 'function') {
+        } else if (options && typeof options.indexOf === 'function') {
             return options.indexOf(str) >= 0;
         }
         return false;
