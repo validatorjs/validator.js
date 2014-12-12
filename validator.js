@@ -355,14 +355,21 @@
         if (!options) {
             return false;
         }
+        var i;
         if (Object.prototype.toString.call(options) === '[object Array]') {
             var array = [];
-            for (var i in options) {
+            for (i in options) {
                 array[i] = validator.toString(options[i]);
             }
             return array.indexOf(str) >= 0;
         } else if (typeof options === 'object') {
-            return options.hasOwnProperty(str)
+            if (options.hasOwnProperty(str)) {
+                return true;
+            }
+            for (i in options) {
+                if (str === validator.toString(options[i])) return true;
+            }
+            return false;
         } else if (typeof options.indexOf === 'function') {
             return options.indexOf(str) >= 0;
         }
