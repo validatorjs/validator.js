@@ -250,6 +250,11 @@
 
     validator.isFQDN = function (str, options) {
         options = merge(options, default_fqdn_options);
+
+        /* Remove the optional trailing dot before checking validity */
+        if (str[str.length - 1] === '.') {
+            str = str.substring(0, str.length - 1);
+        }
         var parts = str.split('.');
         if (options.require_tld) {
             var tld = parts.pop();

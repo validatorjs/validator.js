@@ -86,7 +86,8 @@ describe('Validators', function () {
               , 'http://www.xn--froschgrn-x9a.net/'
               , 'http://xn--froschgrn-x9a.com/'
               , 'http://foo--bar.com'
-              , 'http://høyfjellet.no'
+              , 'http://høyfjellet.no',
+              , 'http://example.com.'
             ]
           , invalid: [
                 'xyz://foobar.com'
@@ -158,10 +159,10 @@ describe('Validators', function () {
               , 'http://foobar.com/'
               , 'http://foobar/'
               , 'foobar/'
-              , 'foobar'
+              , 'foobar',
+              , 'foobar.'
             ]
           , invalid: [
-                'foobar.'
             ]
         });
     });
@@ -290,7 +291,8 @@ describe('Validators', function () {
               , 'a.domain.co',
               , 'foo--bar.com',
               , 'xn--froschgrn-x9a.com',
-              , 'rebecca.blackfriday'
+              , 'rebecca.blackfriday',
+              , 'example.com.'
             ]
           , invalid: [
                 'abc'
@@ -871,7 +873,7 @@ describe('Validators', function () {
             }
         }
     });
-    
+
     it('should validate hex-encoded MongoDB ObjectId', function () {
         test({
             validator: 'isMongoId'
