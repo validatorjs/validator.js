@@ -87,7 +87,6 @@ describe('Validators', function () {
               , 'http://xn--froschgrn-x9a.com/'
               , 'http://foo--bar.com'
               , 'http://høyfjellet.no',
-              , 'http://example.com.'
             ]
           , invalid: [
                 'xyz://foobar.com'
@@ -113,6 +112,7 @@ describe('Validators', function () {
               , 'http://*.foo.com',
               , '*.foo.com',
               , '!.foo.com'
+              , 'http://example.com.'
               , 'http://localhost:61500this is an invalid url!!!!'
             ]
         });
@@ -159,14 +159,26 @@ describe('Validators', function () {
               , 'http://foobar.com/'
               , 'http://foobar/'
               , 'foobar/'
-              , 'foobar',
-              , 'foobar.'
+              , 'foobar'
             ]
           , invalid: [
             ]
         });
     });
 
+    it('should validate URLs with a trailing dot option', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                allow_trailing_dot: true
+              , require_tld: false
+            }]
+          , valid: [
+                'http://example.com.'
+              , 'foobar.'
+            ]
+        });
+    });
     it('should let users specify whether URLs require a protocol', function () {
         test({
             validator: 'isURL'
@@ -291,8 +303,7 @@ describe('Validators', function () {
               , 'a.domain.co',
               , 'foo--bar.com',
               , 'xn--froschgrn-x9a.com',
-              , 'rebecca.blackfriday',
-              , 'example.com.'
+              , 'rebecca.blackfriday'
             ]
           , invalid: [
                 'abc'
@@ -303,6 +314,17 @@ describe('Validators', function () {
               , 'domain.com/',
               , '/more.com'
             ]
+        });
+    });
+    it('should validate FQDN with trailing dot option', function() {
+        test({
+            validator: 'isFQDN'
+          , args: [
+                {allow_trailing_dot:true}
+            ]
+          , valid: [
+                'example.com.'
+          ]
         });
     });
 
