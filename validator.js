@@ -147,6 +147,7 @@
       , require_tld: true
       , require_protocol: false
       , allow_underscores: false
+      , allow_trailing_dot: false
     };
 
     validator.isURL = function (url, options) {
@@ -246,10 +247,16 @@
     var default_fqdn_options = {
         require_tld: true
       , allow_underscores: false
+      , allow_trailing_dot: false
     };
 
     validator.isFQDN = function (str, options) {
         options = merge(options, default_fqdn_options);
+
+        /* Remove the optional trailing dot before checking validity */
+        if (options.allow_trailing_dot && str[str.length - 1] === '.') {
+            str = str.substring(0, str.length - 1);
+        }
         var parts = str.split('.');
         if (options.require_tld) {
             var tld = parts.pop();

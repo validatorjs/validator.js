@@ -86,7 +86,7 @@ describe('Validators', function () {
               , 'http://www.xn--froschgrn-x9a.net/'
               , 'http://xn--froschgrn-x9a.com/'
               , 'http://foo--bar.com'
-              , 'http://høyfjellet.no'
+              , 'http://høyfjellet.no',
             ]
           , invalid: [
                 'xyz://foobar.com'
@@ -112,6 +112,7 @@ describe('Validators', function () {
               , 'http://*.foo.com',
               , '*.foo.com',
               , '!.foo.com'
+              , 'http://example.com.'
               , 'http://localhost:61500this is an invalid url!!!!'
             ]
         });
@@ -161,11 +162,23 @@ describe('Validators', function () {
               , 'foobar'
             ]
           , invalid: [
-                'foobar.'
             ]
         });
     });
 
+    it('should validate URLs with a trailing dot option', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                allow_trailing_dot: true
+              , require_tld: false
+            }]
+          , valid: [
+                'http://example.com.'
+              , 'foobar.'
+            ]
+        });
+    });
     it('should let users specify whether URLs require a protocol', function () {
         test({
             validator: 'isURL'
@@ -301,6 +314,17 @@ describe('Validators', function () {
               , 'domain.com/',
               , '/more.com'
             ]
+        });
+    });
+    it('should validate FQDN with trailing dot option', function() {
+        test({
+            validator: 'isFQDN'
+          , args: [
+                {allow_trailing_dot:true}
+            ]
+          , valid: [
+                'example.com.'
+          ]
         });
     });
 
@@ -871,7 +895,7 @@ describe('Validators', function () {
             }
         }
     });
-    
+
     it('should validate hex-encoded MongoDB ObjectId', function () {
         test({
             validator: 'isMongoId'
