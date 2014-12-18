@@ -957,7 +957,7 @@ describe('Validators', function () {
 
     test({
       validator: 'isMobilePhone'
-      , valid: [
+      , invalid: [
         '15323456787'
         , '13523333233',
         , '13898728332',

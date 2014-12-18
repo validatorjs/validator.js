@@ -440,13 +440,10 @@
     };
 
     validator.isMobilePhone = function(str, locale) {
-
-      locale = locale || 'zh-CN';
-      switch (locale) {
-        case 'zh-CN':
-          return phones[locale].test(str);
+      if (locale in phones) {
+        return phones[locale].test(str);
       }
-      return true;
+      return false;
     };
 
     validator.isJSON = function (str) {
