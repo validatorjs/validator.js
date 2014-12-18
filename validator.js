@@ -69,6 +69,10 @@
 
     var base64 = /^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})$/;
 
+    var phones = {
+      'zh-CN': /^(\+?0?86\-?)?1[345789][0-9]{9}$/
+    };
+
     validator.extend = function (name, fn) {
         validator[name] = function () {
             var args = Array.prototype.slice.call(arguments);
@@ -433,6 +437,17 @@
             }
         }
         return false;
+    };
+
+    validator.isPhone = function(str, locale) {
+
+      locale = locale || 'zh-CN';
+      switch (locale) {
+        case 'zh-CN':
+          return phones[locale].test(str);
+          break;
+      }
+      return true;
     };
 
     validator.isJSON = function (str) {
