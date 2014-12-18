@@ -950,7 +950,8 @@ describe('Validators', function () {
         '12345'
         , ''
         , 'Vml2YW11cyBmZXJtZtesting123'
-      ]
+      ],
+      args: ['zh-CN']
     });
   });
 
