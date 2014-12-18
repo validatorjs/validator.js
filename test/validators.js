@@ -934,9 +934,9 @@ describe('Validators', function () {
         assert.equal(window.validator.trim('  foobar '), 'foobar');
     });
 
-  it('should validate iphone number', function () {
+  it('should validate mobile phone number', function () {
     test({
-      validator: 'isPhone'
+      validator: 'isMobilePhone'
       , valid: [
         '15323456787'
         , '13523333233',
@@ -950,6 +950,7 @@ describe('Validators', function () {
         '12345'
         , ''
         , 'Vml2YW11cyBmZXJtZtesting123'
+        , '010-38238383'
       ],
       args: ['zh-CN']
     });

@@ -439,7 +439,7 @@
         return false;
     };
 
-    validator.isPhone = function(str, locale) {
+    validator.isMobilePhone = function(str, locale) {
 
       locale = locale || 'zh-CN';
       switch (locale) {
