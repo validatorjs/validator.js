@@ -445,7 +445,6 @@
       switch (locale) {
         case 'zh-CN':
           return phones[locale].test(str);
-          break;
       }
       return true;
     };
