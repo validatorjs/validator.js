@@ -769,6 +769,7 @@ describe('Validators', function () {
               , 'test＠example.com'
               , '1234abcDEｘｙｚ'
               , 'ｶﾀｶﾅ'
+              , '中文'
             ]
           , invalid: [
                 'abc'
@@ -932,5 +933,41 @@ describe('Validators', function () {
         sandbox.dispose();
         assert.equal(window.validator.trim('  foobar '), 'foobar');
     });
+
+  it('should validate mobile phone number', function () {
+    test({
+      validator: 'isMobilePhone'
+      , valid: [
+        '15323456787'
+        , '13523333233',
+        , '13898728332',
+        , '+086-13238234822',
+        , '08613487234567'
+        , '8617823492338'
+        , '86-17823492338'
+      ]
+      , invalid: [
+        '12345'
+        , ''
+        , 'Vml2YW11cyBmZXJtZtesting123'
+        , '010-38238383'
+      ],
+      args: ['zh-CN']
+    });
+
+    test({
+      validator: 'isMobilePhone'
+      , invalid: [
+        '15323456787'
+        , '13523333233',
+        , '13898728332',
+        , '+086-13238234822',
+        , '08613487234567'
+        , '8617823492338'
+        , '86-17823492338'
+      ],
+      args: ['en']
+    });
+  });
 
 });
