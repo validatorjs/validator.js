@@ -133,7 +133,7 @@ If you're migrating from version `1.x` or `2.x`, check out the [migration guide]
 ### License (MIT)
 
 ```
-Copyright (c) 2014 Chris O'Hara <cohara87@gmail.com>
+Copyright (c) 2015 Chris O'Hara <cohara87@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
