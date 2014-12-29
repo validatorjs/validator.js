@@ -442,10 +442,10 @@
     };
 
     validator.isMobilePhone = function(str, locale) {
-      if (locale in phones) {
-        return phones[locale].test(str);
-      }
-      return false;
+        if (locale in phones) {
+            return phones[locale].test(str);
+        }
+        return false;
     };
 
     validator.isJSON = function (str) {
