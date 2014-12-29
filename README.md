@@ -61,7 +61,7 @@ $ bower install validator-js
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isCreditCard(str)** - check if the string is a credit card.
 - **isISBN(str [, version])** - check if the string is an ISBN (version 10 or 13).
-- **isMobilePhone(str, [, locale])** - check if the string is a mobile phone number, (locale should be locales, like 'zh-CN', currently only support 'zh-CN').
+- **isMobilePhone(str [, locale])** - check if the string is a mobile phone number, (locale is one of 'zh-CN', 'en-ZA' or 'en-AU' with more coming soon).
 - **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
 - **isMultibyte(str)** - check if the string contains one or more multibyte chars.
 - **isAscii(str)** - check if the string contains ASCII chars only.
