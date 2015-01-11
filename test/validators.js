@@ -367,6 +367,7 @@ describe('Validators', function () {
               , '-00123'
               , '0'
               , '-0'
+              , '+123'
             ]
           , invalid: [
                 '123.123'
@@ -417,6 +418,7 @@ describe('Validators', function () {
               , '0'
               , '123'
               , '-0'
+              , '+1'
             ]
           , invalid: [
                 '01'
@@ -439,6 +441,7 @@ describe('Validators', function () {
               , '123.123'
               , '-123.123'
               , '-0.123'
+              , '+0.123'
               , '0.123'
               , '.0'
               , '01.123'
