@@ -267,7 +267,7 @@
         var parts = str.split('.');
         if (options.require_tld) {
             var tld = parts.pop();
-            if (!parts.length || !/^[a-z]{2,}$/i.test(tld)) {
+            if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
                 return false;
             }
         }
