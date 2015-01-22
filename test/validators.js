@@ -87,8 +87,8 @@ describe('Validators', function () {
               , 'http://xn--froschgrn-x9a.com/'
               , 'http://foo--bar.com'
               , 'http://høyfjellet.no'
-              , 'http://xn--j1aac5a4g.xn--j1amh',
-              , 'http://кулік.укр',
+              , 'http://xn--j1aac5a4g.xn--j1amh'
+              , 'http://кулік.укр'
             ]
           , invalid: [
                 'xyz://foobar.com'
@@ -110,9 +110,9 @@ describe('Validators', function () {
               , 'http://www.foo---bar.com/'
               , 'http://www.foo_bar.com/'
               , ''
-              , 'http://foobar.com/' + new Array(2083).join('f'),
-              , 'http://*.foo.com',
-              , '*.foo.com',
+              , 'http://foobar.com/' + new Array(2083).join('f')
+              , 'http://*.foo.com'
+              , '*.foo.com'
               , '!.foo.com'
               , 'http://example.com.'
               , 'http://localhost:61500this is an invalid url!!!!'
@@ -127,7 +127,7 @@ describe('Validators', function () {
                 protocols: [ 'rtmp' ]
             }]
           , valid: [
-              , 'rtmp://foobar.com'
+                'rtmp://foobar.com'
             ]
           , invalid: [
                 'http://foobar.com'
@@ -158,7 +158,7 @@ describe('Validators', function () {
                 require_tld: false
             }]
           , valid: [
-              , 'http://foobar.com/'
+                'http://foobar.com/'
               , 'http://foobar/'
               , 'foobar/'
               , 'foobar'
@@ -188,7 +188,7 @@ describe('Validators', function () {
                 require_protocol: true
             }]
           , valid: [
-              , 'http://foobar.com/'
+                'http://foobar.com/'
               , 'http://localhost/'
             ]
           , invalid: [
@@ -302,18 +302,18 @@ describe('Validators', function () {
           , valid: [
                 'domain.com'
               , 'dom.plato'
-              , 'a.domain.co',
-              , 'foo--bar.com',
-              , 'xn--froschgrn-x9a.com',
+              , 'a.domain.co'
+              , 'foo--bar.com'
+              , 'xn--froschgrn-x9a.com'
               , 'rebecca.blackfriday'
             ]
           , invalid: [
                 'abc'
               , '256.0.0.0'
-              , '_.com',
-              , '*.some.com',
-              , 's!ome.com',
-              , 'domain.com/',
+              , '_.com'
+              , '*.some.com'
+              , 's!ome.com'
+              , 'domain.com/'
               , '/more.com'
             ]
         });
@@ -501,7 +501,7 @@ describe('Validators', function () {
               , null
             ]
           , invalid: [
-              , ' '
+                ' '
               , 'foo'
             ]
         });
@@ -711,7 +711,7 @@ describe('Validators', function () {
             ]
           , invalid: [
                 '3423214121', '3-423-21412-1', '3 423 21412 1'
-              , '978-3836221191', '9783836221191',
+              , '978-3836221191', '9783836221191'
               , '123456789a', 'foo', ''
             ]
         });
@@ -829,7 +829,7 @@ describe('Validators', function () {
               , 'ｶﾀｶﾅﾞﾬ￩'
             ]
           , invalid: [
-              , 'あいうえお'
+                'あいうえお'
               , '００１１'
             ]
         });
@@ -943,16 +943,16 @@ describe('Validators', function () {
       test({
         validator: 'isMobilePhone'
         , valid: [
-          '15323456787'
-          , '13523333233',
-          , '13898728332',
-          , '+086-13238234822',
+            '15323456787'
+          , '13523333233'
+          , '13898728332'
+          , '+086-13238234822'
           , '08613487234567'
           , '8617823492338'
           , '86-17823492338'
         ]
         , invalid: [
-          '12345'
+            '12345'
           , ''
           , 'Vml2YW11cyBmZXJtZtesting123'
           , '010-38238383'
@@ -963,10 +963,10 @@ describe('Validators', function () {
       test({
         validator: 'isMobilePhone'
         , invalid: [
-          '15323456787'
-          , '13523333233',
-          , '13898728332',
-          , '+086-13238234822',
+            '15323456787'
+          , '13523333233'
+          , '13898728332'
+          , '+086-13238234822'
           , '08613487234567'
           , '8617823492338'
           , '86-17823492338'
@@ -977,12 +977,12 @@ describe('Validators', function () {
       test({
         validator: 'isMobilePhone'
         , valid: [
-          '0821231234'
+            '0821231234'
           , '+27821231234'
           , '27821231234'
         ]
         , invalid: [
-          '082123'
+            '082123'
           , '08212312345'
           , '21821231234'
           , '+21821231234'
@@ -999,7 +999,7 @@ describe('Validators', function () {
           , '0417123456'
         ]
         , invalid: [
-          '082123'
+            '082123'
           , '08212312345'
           , '21821231234'
           , '+21821231234'
@@ -1019,7 +1019,7 @@ describe('Validators', function () {
           , '33712457898'
         ]
         , invalid: [
-          '061245789'
+            '061245789'
           , '06124578980'
           , '0112457898'
           , '0212457898'
