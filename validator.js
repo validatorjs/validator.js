@@ -538,15 +538,15 @@
         }
         var parts = email.split('@', 2);
         parts[1] = parts[1].toLowerCase();
-        if (options.lowercase) {
-            parts[0] = parts[0].toLowerCase();
-        }
         if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
-            if (!options.lowercase) {
-                parts[0] = parts[0].toLowerCase();
+            parts[0] = parts[0].toLowerCase().replace(/\./g, '');
+            if (parts[0][0] === '+') {
+                return false;
             }
-            parts[0] = parts[0].replace(/\./g, '').split('+')[0];
+            parts[0] = parts[0].split('+')[0];
             parts[1] = 'gmail.com';
+        } else if (options.lowercase) {
+            parts[0] = parts[0].toLowerCase();
         }
         return parts.join('@');
     };

@@ -196,6 +196,7 @@ describe('Sanitizers', function () {
               , 'hans@m端ller.com': 'hans@m端ller.com'
               , 'an invalid email address': false
               , '': false
+              , '+extension@gmail.com': false
               // some.name.midd..leNa...me...+extension@GoogleMail.com was removed from test cases because of a bug with validator.isEmail. See issue #258
             }
         });
