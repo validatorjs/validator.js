@@ -76,6 +76,8 @@
       'fr-FR': /^(\+?33|0)(6|7)\d{8}$/
     };
 
+    var indianNumber = /^[\u0660-\u0669]+$/;
+
     validator.extend = function (name, fn) {
         validator[name] = function () {
             var args = Array.prototype.slice.call(arguments);
@@ -447,6 +449,10 @@
             return phones[locale].test(str);
         }
         return false;
+    };
+
+    validator.isIndianNumber = function(str) {
+        return indianNumber.test(str);
     };
 
     validator.isJSON = function (str) {

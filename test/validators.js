@@ -1034,6 +1034,17 @@ describe('Validators', function () {
         ]
         , args: ['fr-FR']
       });
+
+      test({
+        validator: 'isIndianNumber'
+        , valid: [
+          '١٢٣٤٥٦٧٨٩٠'
+        ]
+        , invalid: [
+          '1234567890'
+        ]
+      });
+
     });
 
 });
