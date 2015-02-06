@@ -149,8 +149,14 @@
         return pattern.test(str);
     };
 
-    validator.isEmail = function (str, allowDisplayName) {
-        return email.test(str) || (allowDisplayName === true && emailWithDisplayName.test(str));
+    var default_email_options = {
+        allowDisplayName: false
+    };
+
+    validator.isEmail = function (str, options) {
+        options = merge(options, default_email_options);
+
+        return email.test(str) || (options.allowDisplayName === true && emailWithDisplayName.test(str));
     };
 
     var default_url_options = {
