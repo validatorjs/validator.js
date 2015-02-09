@@ -61,7 +61,7 @@ describe('Validators', function () {
     it('should validate email addresses with display names', function () {
         test({
             validator: 'isEmail'
-          , args: [{ allowDisplayName: true }]
+          , args: [{ allow_display_name: true }]
           , valid: [
                 'foo@bar.com'
               , 'x@x.x'

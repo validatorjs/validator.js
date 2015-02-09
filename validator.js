@@ -150,13 +150,13 @@
     };
 
     var default_email_options = {
-        allowDisplayName: false
+        allow_display_name: false
     };
 
     validator.isEmail = function (str, options) {
         options = merge(options, default_email_options);
 
-        return email.test(str) || (options.allowDisplayName === true && emailWithDisplayName.test(str));
+        return email.test(str) || (options.allow_display_name === true && emailWithDisplayName.test(str));
     };
 
     var default_url_options = {
