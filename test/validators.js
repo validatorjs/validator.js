@@ -227,6 +227,44 @@ describe('Validators', function () {
             ]
         });
     });
+
+    it('should validate protocol relative URLs', function () {
+        test({
+            validator: 'isURL'
+            , args: [{
+                allow_protocol_relative_urls: true
+            }]
+            , valid: [
+                '//foobar.com',
+                'http://foobar.com',
+                'foobar.com'
+            ]
+            , invalid: [
+                '://foobar.com',
+                '/foobar.com'
+            ]
+        });
+    });
+
+    it('should not validate protocol relative URLs when require protocol is true', function () {
+        test({
+            validator: 'isURL'
+            , args: [{
+                allow_protocol_relative_urls: true,
+                require_protocol: true
+            }]
+            , valid: [
+                'http://foobar.com'
+            ]
+            , invalid: [
+                '//foobar.com',
+                '://foobar.com',
+                '/foobar.com',
+                'foobar.com'
+            ]
+        });
+    });
+
     it('should let users specify whether URLs require a protocol', function () {
         test({
             validator: 'isURL'
