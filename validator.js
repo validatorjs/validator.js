@@ -83,8 +83,6 @@
       'el-GR' : /^(\+30)?((2\d{9})|(69\d{8}))$/
     };
 
-    var protocolRelativeURLPrefix = /^\/\/(.*)/;
-
     validator.extend = function (name, fn) {
         validator[name] = function () {
             var args = Array.prototype.slice.call(arguments);
@@ -191,6 +189,8 @@
             }
         } else if (options.require_protocol) {
             return false;
+        }  else if (options.allow_protocol_relative_urls && url.substr(0, 2) == '//') {
+            split[0] = url.substr(2);
         }
         url = split.join('://');
         split = url.split('#');
@@ -204,10 +204,6 @@
         query = split.join('?');
         if (query && /\s/.test(query)) {
             return false;
-        }
-
-        if (options.allow_protocol_relative_urls && protocolRelativeURLPrefix.test(url)) {
-            url = protocolRelativeURLPrefix.exec(url)[1];
         }
 
         split = url.split('/');

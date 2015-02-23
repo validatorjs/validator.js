@@ -162,6 +162,8 @@ describe('Validators', function () {
               , '!.foo.com'
               , 'http://example.com.'
               , 'http://localhost:61500this is an invalid url!!!!'
+              ,  '////foobar.com',
+              ,  'http:////foobar.com'
             ]
         });
     });
@@ -235,13 +237,15 @@ describe('Validators', function () {
                 allow_protocol_relative_urls: true
             }]
             , valid: [
-                '//foobar.com',
-                'http://foobar.com',
-                'foobar.com'
+                  '//foobar.com'
+                , 'http://foobar.com'
+                , 'foobar.com'
             ]
             , invalid: [
-                '://foobar.com',
-                '/foobar.com'
+                  '://foobar.com'
+                , '/foobar.com'
+                , '////foobar.com'
+                , 'http:////foobar.com'
             ]
         });
     });
@@ -257,10 +261,10 @@ describe('Validators', function () {
                 'http://foobar.com'
             ]
             , invalid: [
-                '//foobar.com',
-                '://foobar.com',
-                '/foobar.com',
-                'foobar.com'
+                  '//foobar.com'
+                , '://foobar.com'
+                , '/foobar.com'
+                , 'foobar.com'
             ]
         });
     });
