@@ -76,7 +76,7 @@
     var phones = {
       'zh-CN': /^(\+?0?86\-?)?1[345789]\d{9}$/,
       'en-ZA': /^(\+?27|0)\d{9}$/,
-      'en-AU': /^(\+?61|0)4\d{8}/,
+      'en-AU': /^(\+?61|0)4\d{8}$/,
       // http://en.wikipedia.org/wiki/Telephone_numbers_in_Hong_Kong#2000_onwards
       'en-HK': /^(\+?852\-?)?[569]\d{3}\-?\d{4}$/,
       'fr-FR': /^(\+?33|0)[67]\d{8}$/,
