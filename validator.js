@@ -168,6 +168,7 @@
       , require_protocol: false
       , allow_underscores: false
       , allow_trailing_dot: false
+      , allow_protocol_relative_urls: false
     };
 
     validator.isURL = function (url, options) {
@@ -188,6 +189,8 @@
             }
         } else if (options.require_protocol) {
             return false;
+        }  else if (options.allow_protocol_relative_urls && url.substr(0, 2) == '//') {
+            split[0] = url.substr(2);
         }
         url = split.join('://');
         split = url.split('#');
@@ -202,6 +205,7 @@
         if (query && /\s/.test(query)) {
             return false;
         }
+
         split = url.split('/');
         url = split.shift();
         path = split.join('/');
