@@ -162,8 +162,8 @@ describe('Validators', function () {
               , '!.foo.com'
               , 'http://example.com.'
               , 'http://localhost:61500this is an invalid url!!!!'
-              ,  '////foobar.com',
-              ,  'http:////foobar.com'
+              , '////foobar.com'
+              , 'http:////foobar.com'
             ]
         });
     });
@@ -1600,7 +1600,7 @@ describe('Validators', function () {
           , 'kr. -##.###,## (da-DK)'
         ]
         , valid: [
-          , '123.456,78'
+            '123.456,78'
           , '-10.123'
           , 'kr. -10.123'
           , 'kr.-10.123'
@@ -1623,7 +1623,7 @@ describe('Validators', function () {
           , 'kr.-10123'
         ]
         , invalid: [
-            '1,234',
+            '1,234'
           , 'kr.  -10123'
           , 'kr.,1'
           , ',0001'
@@ -1665,7 +1665,7 @@ describe('Validators', function () {
           , 'kr. ##.###,## with no negatives (da-DK)'
         ]
         , valid: [
-          , '123.456,78'
+            '123.456,78'
           , '10.123'
           , 'kr. 10.123'
           , 'kr.10.123'
@@ -1688,7 +1688,7 @@ describe('Validators', function () {
           , 'kr.10123'
         ]
         , invalid: [
-            '1,234',
+            '1,234'
           , '-10.123'
           , 'kr. -10.123'
           , 'kr. -1.234.567,89'

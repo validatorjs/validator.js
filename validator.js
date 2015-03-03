@@ -189,7 +189,7 @@
             }
         } else if (options.require_protocol) {
             return false;
-        }  else if (options.allow_protocol_relative_urls && url.substr(0, 2) == '//') {
+        }  else if (options.allow_protocol_relative_urls && url.substr(0, 2) === '//') {
             split[0] = url.substr(2);
         }
         url = split.join('://');
