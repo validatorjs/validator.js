@@ -1125,5 +1125,26 @@ describe('Validators', function () {
             , args: ['el-GR']
         });
     });
+    
+    it('should validate semver strings', function(){
+        test({
+            validator : 'isSemVer'
+            , valid: [
+                '1',
+                '1.2',
+                '1.2.3'
+                '12.23.34',
+                '123.1.1',
+                '123'
+            ]
+            , invalid : [
+                '1.',
+                '1.4.'
+                '2,4.3',
+                '23.a.34',
+                '235-'
+            ]
+        });
+    });
 
 });
