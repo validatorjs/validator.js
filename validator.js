@@ -70,6 +70,8 @@
       , halfWidth = /[\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/;
 
     var surrogatePair = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
+    
+    var semVer = /^\d+(\.\d+){0,2}$/,
 
     var base64 = /^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})$/;
 
@@ -501,6 +503,10 @@
     validator.isMongoId = function (str) {
         return validator.isHexadecimal(str) && str.length === 24;
     };
+    
+    validator.isSemVer = function(str){
+        return semVer.test(str);
+    }
 
     validator.ltrim = function (str, chars) {
         var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
