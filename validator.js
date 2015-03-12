@@ -42,6 +42,8 @@
     var emailWithDisplayName = new RegExp('^' + displayName.source + '<' + emailAddress.source + '>$', 'i');
 
     var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
+    
+    var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
 
     var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
       , isbn13Maybe = /^(?:[0-9]{13})$/;
@@ -420,6 +422,36 @@
             shouldDouble = !shouldDouble;
         }
         return !!((sum % 10) === 0 ? sanitized : false);
+    };
+
+    validator.isISIN = function (str) {
+        if (!isin.test(str)) {
+            return false;
+        }
+        
+        var checksumStr = str.replace(/[A-Z]/g, function(character) {
+            return parseInt(character, 36);
+        });
+        
+        var sum = 0, digit, tmpNum, shouldDouble = true;
+        for (var i = checksumStr.length - 2; i >= 0; i--) {
+            digit = checksumStr.substring(i, (i + 1));
+            tmpNum = parseInt(digit, 10);
+            if (shouldDouble) {
+                tmpNum *= 2;
+                if (tmpNum >= 10) {
+                    sum += tmpNum + 1;
+                } else {
+                    sum += tmpNum;
+                }
+            } else {
+                
+                sum += tmpNum;
+            }
+            shouldDouble = !shouldDouble;
+        }
+        
+        return parseInt(str.substr(str.length - 1), 10) === (10000 - sum) % 10;
     };
 
     validator.isISBN = function (str, version) {
