@@ -60,6 +60,7 @@ $ bower install validator-js
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isCreditCard(str)** - check if the string is a credit card.
+- **isISIN(str)** - check if the string is an ISIN.
 - **isISBN(str [, version])** - check if the string is an ISBN (version 10 or 13).
 - **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['zh-CN', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR']`).
 - **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
