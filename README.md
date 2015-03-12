@@ -60,7 +60,7 @@ $ bower install validator-js
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isCreditCard(str)** - check if the string is a credit card.
-- **isISIN(str)** - check if the string is an ISIN.
+- **isISIN(str)** - check if the string is an [ISIN][ISIN] (stock/security identifier).
 - **isISBN(str [, version])** - check if the string is an ISBN (version 10 or 13).
 - **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['zh-CN', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR']`).
 - **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
@@ -172,6 +172,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [bower]: http://bower.io/
 
 [mongoid]: http://docs.mongodb.org/manual/reference/object-id/
+[ISIN]: https://en.wikipedia.org/wiki/International_Securities_Identification_Number
 
 [remove-xss]: https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e
 [caja]: https://code.google.com/p/google-caja/source/browse/trunk/src/com/google/caja/plugin/html-sanitizer.js
