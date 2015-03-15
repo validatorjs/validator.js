@@ -49,7 +49,7 @@
       , isbn13Maybe = /^(?:[0-9]{13})$/;
 
     var ipv4Maybe = /^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$/
-      , ipv6 = /^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/;
+      , ipv6Block = /^[0-9A-Fa-f]{1,4}$/;
 
     var uuid = {
         '3': /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i
@@ -266,8 +266,44 @@
                 return a - b;
             });
             return parts[3] <= 255;
+        } else if (version === '6') {
+            var blocks = str.split(':');
+            var foundOmissionBlock = false; // marker to indicate ::
+            
+            if (blocks.length > 8)
+                return false;
+            
+            // initial or final ::
+            if (str == '::') {
+                return true;
+            } else if (str.substr(0, 2) == '::') {
+                blocks.shift();
+                blocks.shift();
+                foundOmissionBlock = true;
+            } else if (str.substr(str.length - 2) == '::') {
+                blocks.pop();
+                blocks.pop();
+                foundOmissionBlock = true;
+            }
+            
+            for (var i = 0; i < blocks.length; ++i) {
+                // test for a :: which can not be at the string start/end
+                // since those cases have been handled above
+                if (blocks[i] == '' && i > 0 && i < blocks.length -1) {
+                    if (foundOmissionBlock)
+                        return false; // multiple :: in address
+                    foundOmissionBlock = true;
+                } else if (!ipv6Block.test(blocks[i])) {
+                    return false;
+                }
+            }
+            
+            if (foundOmissionBlock)
+                return blocks.length >= 1;
+            else
+                return blocks.length == 8;
         }
-        return version === '6' && ipv6.test(str);
+        return false;
     };
 
     var default_fqdn_options = {
