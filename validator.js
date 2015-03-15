@@ -42,14 +42,14 @@
     var emailWithDisplayName = new RegExp('^' + displayName.source + '<' + emailAddress.source + '>$', 'i');
 
     var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
-    
+
     var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
 
     var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
       , isbn13Maybe = /^(?:[0-9]{13})$/;
 
     var ipv4Maybe = /^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$/
-      , ipv6Block = /^[0-9A-Fa-f]{1,4}$/;
+      , ipv6Block = /^[0-9A-F]{1,4}$/i;
 
     var uuid = {
         '3': /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i
@@ -269,27 +269,27 @@
         } else if (version === '6') {
             var blocks = str.split(':');
             var foundOmissionBlock = false; // marker to indicate ::
-            
+
             if (blocks.length > 8)
                 return false;
-            
+
             // initial or final ::
-            if (str == '::') {
+            if (str === '::') {
                 return true;
-            } else if (str.substr(0, 2) == '::') {
+            } else if (str.substr(0, 2) === '::') {
                 blocks.shift();
                 blocks.shift();
                 foundOmissionBlock = true;
-            } else if (str.substr(str.length - 2) == '::') {
+            } else if (str.substr(str.length - 2) === '::') {
                 blocks.pop();
                 blocks.pop();
                 foundOmissionBlock = true;
             }
-            
+
             for (var i = 0; i < blocks.length; ++i) {
                 // test for a :: which can not be at the string start/end
                 // since those cases have been handled above
-                if (blocks[i] == '' && i > 0 && i < blocks.length -1) {
+                if (blocks[i] === '' && i > 0 && i < blocks.length -1) {
                     if (foundOmissionBlock)
                         return false; // multiple :: in address
                     foundOmissionBlock = true;
@@ -297,11 +297,12 @@
                     return false;
                 }
             }
-            
-            if (foundOmissionBlock)
+
+            if (foundOmissionBlock) {
                 return blocks.length >= 1;
-            else
-                return blocks.length == 8;
+            } else {
+                return blocks.length === 8;
+            }
         }
         return false;
     };
