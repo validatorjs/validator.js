@@ -181,7 +181,7 @@
             return false;
         }
         options = merge(options, default_url_options);
-        var protocol, user, pass, auth, host, hostname, port,
+        var protocol, auth, host, hostname, port,
             port_str, path, query, hash, split;
         split = url.split('://');
         if (split.length > 1) {
@@ -217,16 +217,11 @@
         split = url.split('@');
         if (split.length > 1) {
             auth = split.shift();
-            if (auth.indexOf(':') >= 0) {
-                auth = auth.split(':');
-                user = auth.shift();
-                if (!/^\S+$/.test(user)) {
-                    return false;
-                }
-                pass = auth.join(':');
-                if (!/^\S*$/.test(user)) {
-                    return false;
-                }
+            if (/\s/.test(auth)) {
+                return false;
+            }
+            if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
+                return false;
             }
         }
         hostname = split.join('@');
