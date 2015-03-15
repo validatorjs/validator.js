@@ -1,7 +1,7 @@
 NPM=./node_modules/.bin
 
 test: dependencies
-	@$(NPM)/_mocha \
+	@node $(NPM)/_mocha \
 		--reporter $(if $(or $(TEST),$(V)),spec,dot) \
 		--slow 600 --timeout 2000 \
 		--grep '$(TEST)'
