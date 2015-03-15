@@ -174,7 +174,7 @@
     };
 
     validator.isURL = function (url, options) {
-        if (!url || url.length >= 2083) {
+        if (!url || url.length >= 2083 || url.indexOf(' ') >= 0) {
             return false;
         }
         if (url.indexOf('mailto:') === 0) {
@@ -182,7 +182,7 @@
         }
         options = merge(options, default_url_options);
         var protocol, auth, host, hostname, port,
-            port_str, path, query, hash, split;
+            port_str, split;
         split = url.split('://');
         if (split.length > 1) {
             protocol = split.shift();
@@ -197,29 +197,15 @@
         url = split.join('://');
         split = url.split('#');
         url = split.shift();
-        hash = split.join('#');
-        if (hash && /\s/.test(hash)) {
-            return false;
-        }
+
         split = url.split('?');
         url = split.shift();
-        query = split.join('?');
-        if (query && /\s/.test(query)) {
-            return false;
-        }
 
         split = url.split('/');
         url = split.shift();
-        path = split.join('/');
-        if (path && /\s/.test(path)) {
-            return false;
-        }
         split = url.split('@');
         if (split.length > 1) {
             auth = split.shift();
-            if (/\s/.test(auth)) {
-                return false;
-            }
             if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
                 return false;
             }
