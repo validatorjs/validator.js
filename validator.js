@@ -461,11 +461,11 @@
         if (!isin.test(str)) {
             return false;
         }
-        
+
         var checksumStr = str.replace(/[A-Z]/g, function(character) {
             return parseInt(character, 36);
         });
-        
+
         var sum = 0, digit, tmpNum, shouldDouble = true;
         for (var i = checksumStr.length - 2; i >= 0; i--) {
             digit = checksumStr.substring(i, (i + 1));
@@ -478,12 +478,11 @@
                     sum += tmpNum;
                 }
             } else {
-                
                 sum += tmpNum;
             }
             shouldDouble = !shouldDouble;
         }
-        
+
         return parseInt(str.substr(str.length - 1), 10) === (10000 - sum) % 10;
     };
 
