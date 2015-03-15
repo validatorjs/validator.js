@@ -163,6 +163,8 @@ describe('Validators', function () {
               , 'http://lol:lol:lol@foobar.com/'
               , 'http://lol: @foobar.com/'
               , 'http://www.foo_bar.com/'
+              , 'http://www.foobar.com/\t'
+              , 'http://\n@www.foobar.com/'
               , ''
               , 'http://foobar.com/' + new Array(2083).join('f')
               , 'http://*.foo.com'
