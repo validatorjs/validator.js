@@ -58,6 +58,31 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate email addresses without UTF8 characters in local part', function () {
+        test({
+            validator: 'isEmail'
+          , args: [{ allow_utf8_local_part: false }]
+          , valid: [
+                'foo@bar.com'
+              , 'x@x.x'
+              , 'foo@bar.com.au'
+              , 'foo+bar@bar.com'
+              , 'hans@m端ller.com'
+              , 'test|123@m端ller.com'
+              , 'test+ext@gmail.com'
+              , 'some.name.midd.leNa.me.+extension@GoogleMail.com'
+            ]
+          , invalid: [
+                'invalidemail@'
+              , 'invalid.com'
+              , '@invalid.com'
+              , 'foo@bar.com.'
+              , 'foo@bar.co.uk.'
+              , 'hans.m端ller@test.com'
+            ]
+        });
+    });
+
     it('should validate email addresses with display names', function () {
         test({
             validator: 'isEmail'
