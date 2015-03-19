@@ -114,16 +114,6 @@ validator.isFinite(12345); // => true
 validator.isFinite('foo'); // => false
 ```
 
-### Deprecations
-
-Version 3 of the library deprecated some functionality
-
-- **XSS sanitizer**: Here's [why][remove-xss]. Use [Google Caja][caja] instead.
-- **Entity encoding**: Use [fb55/entities][entities] or [substack/node-ent][node-ent].
-- **Validator chaining**: The API was too unintuitive. I'd prefer to let users create their own higher-level patterns from the provided building blocks.
-
-If you're migrating from version `1.x` or `2.x`, check out the [migration guide](https://github.com/chriso/validator.js/wiki/Migrating-from-1.x-and-2.x).
-
 ### Tests
 
 - `make test` - run the test suite.
@@ -173,8 +163,3 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [mongoid]: http://docs.mongodb.org/manual/reference/object-id/
 [ISIN]: https://en.wikipedia.org/wiki/International_Securities_Identification_Number
-
-[remove-xss]: https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e
-[caja]: https://code.google.com/p/google-caja/source/browse/trunk/src/com/google/caja/plugin/html-sanitizer.js
-[entities]: https://github.com/fb55/node-entities
-[node-ent]: https://github.com/substack/node-ent
