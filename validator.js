@@ -179,9 +179,9 @@
             return false;
         }
 
-        return options.allow_utf8_local_part
-            ? emailUserUtf8.test(user)
-            : emailUser.test(user);
+        return options.allow_utf8_local_part ?
+            emailUserUtf8.test(user) :
+            emailUser.test(user);
     };
 
     var default_url_options = {
