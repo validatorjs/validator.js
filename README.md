@@ -36,7 +36,7 @@ $ bower install validator-js
 - **equals(str, comparison)** - check if the string matches the comparison.
 - **contains(str, seed)** - check if the string contains the seed.
 - **matches(str, pattern [, modifiers])** - check if string matches the pattern. Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
-- **isEmail(str [, options])** - check if the string is an email. `options` is an object which defaults to `{ allow_display_name: false }`. If `allow_display_name` is set to true, the validator will also match `Display Name <email-address>`.
+- **isEmail(str [, options])** - check if the string is an email. `options` is an object which defaults to `{ allow_display_name: false, allow_utf8_local_part: true }`. If `allow_display_name` is set to true, the validator will also match `Display Name <email-address>`. If `allow_utf8_local_part` is set to false, the validator will not allow any non-English UTF8 character in email address' local part.
 - **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false }`.
 - **isFQDN(str [, options])** - check if the string is a fully qualified domain name (e.g. domain.com). `options` is an object which defaults to `{ require_tld: true, allow_underscores: false, allow_trailing_dot: false }`.
 - **isIP(str [, version])** - check if the string is an IP (version 4 or 6).
