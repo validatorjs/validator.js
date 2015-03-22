@@ -116,8 +116,8 @@ validator.extend('isFinite', function (str) {
 Note that the first argument will be automatically coerced to a string.
 
 ```javascript
-validator.isFinite(12345); // => true
-validator.isFinite('foo'); // => false
+validator.isFinite(1111); // => true
+validator.isFinite(Infinity); // => false
 ```
 
 ### Tests
