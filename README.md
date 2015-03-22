@@ -108,16 +108,19 @@ This library validates and sanitizes **strings** only. All input will be coerced
 You can add your own validators using `validator.extend(name, fn)`
 
 ```javascript
-validator.extend('isFinite', function (str) {
-    return isFinite(str);
+validator.extend('isWhitespace', function (str) {
+    return /^\s+$/.test(str);
 });
 ```
 
 Note that the first argument will be automatically coerced to a string.
 
 ```javascript
-validator.isFinite(1111); // => true
-validator.isFinite(Infinity); // => false
+validator.isWhitespace('    \t\r\n');
+// => true
+
+validator.isWhitespace('foo bar');
+// => false
 ```
 
 ### Tests
