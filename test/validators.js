@@ -39,7 +39,7 @@ describe('Validators', function () {
             validator: 'isEmail'
           , valid: [
                 'foo@bar.com'
-              , 'x@x.x'
+              , 'x@x.au'
               , 'foo@bar.com.au'
               , 'foo+bar@bar.com'
               , 'hans.m端ller@test.com'
@@ -64,7 +64,7 @@ describe('Validators', function () {
           , args: [{ allow_utf8_local_part: false }]
           , valid: [
                 'foo@bar.com'
-              , 'x@x.x'
+              , 'x@x.au'
               , 'foo@bar.com.au'
               , 'foo+bar@bar.com'
               , 'hans@m端ller.com'
@@ -89,7 +89,7 @@ describe('Validators', function () {
           , args: [{ allow_display_name: true }]
           , valid: [
                 'foo@bar.com'
-              , 'x@x.x'
+              , 'x@x.au'
               , 'foo@bar.com.au'
               , 'foo+bar@bar.com'
               , 'hans.m端ller@test.com'
@@ -98,7 +98,7 @@ describe('Validators', function () {
               , 'test+ext@gmail.com'
               , 'some.name.midd.leNa.me.+extension@GoogleMail.com'
               , 'Some Name <foo@bar.com>'
-              , 'Some Name <x@x.x>'
+              , 'Some Name <x@x.au>'
               , 'Some Name <foo@bar.com.au>'
               , 'Some Name <foo+bar@bar.com>'
               , 'Some Name <hans.m端ller@test.com>'

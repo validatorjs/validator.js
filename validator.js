@@ -158,7 +158,7 @@
     var default_email_options = {
         allow_display_name: false,
         allow_utf8_local_part: true,
-        require_tld: false
+        require_tld: true
     };
 
     validator.isEmail = function (str, options) {
