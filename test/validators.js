@@ -54,6 +54,7 @@ describe('Validators', function () {
               , '@invalid.com'
               , 'foo@bar.com.'
               , 'foo@bar.co.uk.'
+              , 'foo@bar'
             ]
         });
     });
