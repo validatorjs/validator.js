@@ -157,7 +157,8 @@
 
     var default_email_options = {
         allow_display_name: false,
-        allow_utf8_local_part: true
+        allow_utf8_local_part: true,
+        require_tld: false
     };
 
     validator.isEmail = function (str, options) {
@@ -176,7 +177,7 @@
           , domain = parts.pop()
           , user = parts.join('@');
 
-        if (!validator.isFQDN(domain, {require_tld: false})) {
+        if (!validator.isFQDN(domain, {require_tld: options.require_tld})) {
             return false;
         }
 
