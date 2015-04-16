@@ -1278,6 +1278,26 @@ describe('Validators', function () {
         , args: ['en-US']
       });
 
+      test({
+        validator: 'isMobilePhone'
+        , valid: [
+            '0956684590'
+          , '0966684590'
+          , '0976684590'
+          , '+260956684590'
+          , '+260966684590'
+          , '+260976684590'
+        ]
+        , invalid: [
+            '12345'
+          , ''
+          , 'Vml2YW11cyBmZXJtZtesting123'
+          , '010-38238383'
+          , '966684590'
+          , '260976684590'
+        ],
+        args: ['en-ZM']
+      });
     });
 
     it('should validate currency', function() {
