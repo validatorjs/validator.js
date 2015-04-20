@@ -383,6 +383,10 @@
         return int.test(str);
     };
 
+    validator.isBetween = function(str, min, max){
+        return int.test(str) && str >= min && str <= max;
+    };
+
     validator.isFloat = function (str) {
         return str !== '' && float.test(str);
     };
