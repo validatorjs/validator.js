@@ -48,8 +48,8 @@ $ bower install validator-js
 - **isHexColor(str)** - check if the string is a hexadecimal color.
 - **isLowercase(str)** - check if the string is lowercase.
 - **isUppercase(str)** - check if the string is uppercase.
-- **isInt(str)** - check if the string is an integer.
-- **isFloat(str)** - check if the string is a float.
+- **isInt(str [, options])** - check if the string is an integer. `options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`).
+- **isFloat(str [, options])** - check if the string is a float. `options` is an object which can contain the keys `min` and/or `max` to validate the float is within boundaries (e.g. `{ min: 7.22, max: 9.55 }`).
 - **isDivisibleBy(str, number)** - check if the string is a number that's divisible by another.
 - **isNull(str)** - check if the string is null.
 - **isLength(str, min [, max])** - check if the string's length falls in a range. Note: this function takes into account surrogate pairs.
