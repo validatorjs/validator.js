@@ -573,6 +573,9 @@ describe('Validators', function () {
               , ''
             ]
         });
+
+        test({ validator: 'isInt', args: [{ min: 10 }], valid: [15, 80, 99], invalid: [9, 6, 3.2, 'a'] } );
+        test({ validator: 'isInt', args: [{ min: 10, max: 15 }], valid: [15, 11, 13], invalid: [9, 2, 17, 3.2, 33, 'a'] } );
     });
 
     it('should validate floats', function () {
@@ -597,6 +600,9 @@ describe('Validators', function () {
               , 'foo'
             ]
         });
+
+        test({ validator: 'isFloat', args: [{ min: 3.7 }], valid: [3.888, 3.92, 4.5, 50, 3.7, 3.71], invalid: [3.6, 3.69, 3, 1.5, 'a'] } );
+        test({ validator: 'isFloat', args: [{ min: 0.1, max: 1.0 }], valid: [0.1, 1.0, 0.15, 0.33, 0.57, 0.7], invalid: [0, 0.0, 'a', 1.3, 0.05, 5] } );
     });
 
     it('should validate hexadecimal strings', function () {

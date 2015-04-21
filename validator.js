@@ -379,12 +379,14 @@
         return str === str.toUpperCase();
     };
 
-    validator.isInt = function (str) {
-        return int.test(str);
+    validator.isInt = function (str, options) {
+        options = options || {};
+        return int.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max);
     };
 
-    validator.isFloat = function (str) {
-        return str !== '' && float.test(str);
+    validator.isFloat = function (str, options) {
+        options = options || {};
+        return str !== '' && float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max);
     };
 
     validator.isDivisibleBy = function (str, num) {
