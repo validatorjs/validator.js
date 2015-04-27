@@ -844,7 +844,7 @@ describe('Validators', function () {
             ]
         });
     });
-    
+
     it('should validate ISINs', function () {
         test({
             validator: 'isISIN'
@@ -1988,6 +1988,23 @@ describe('Validators', function () {
           , '-$10,123.45'
         ]
       });
+
+      test({
+          validator: 'isBoolean'
+        , valid: [
+            'true'
+          , 'false'
+          , '0'
+          , '1'
+        ]
+        , invalid: [
+            '1.0'
+          , '0.0'
+          , 'true '
+          , 'False'
+          , 'True'
+          , 'yes'
+        ]
+      });
     });
 });
-
