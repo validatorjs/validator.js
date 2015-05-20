@@ -351,6 +351,10 @@
         return true;
     };
 
+    validator.isBoolean = function(str) {
+        return (['true', 'false', '1', '0'].indexOf(str) >= 0);
+    };
+
     validator.isAlpha = function (str) {
         return alpha.test(str);
     };
