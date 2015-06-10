@@ -48,7 +48,7 @@
     var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
       , isbn13Maybe = /^(?:[0-9]{13})$/;
 
-    var ipv4Maybe = /^(::ffff:)?(\d+)\.(\d+)\.(\d+)\.(\d+)$/
+    var ipv4Maybe = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
       , ipv6Block = /^[0-9A-F]{1,4}$/i;
 
     var uuid = {
@@ -274,8 +274,15 @@
         } else if (version === '6') {
             var blocks = str.split(':');
             var foundOmissionBlock = false; // marker to indicate ::
+            
+            // At least some OS accept the last 32 bits of an IPv6 address
+            // (i.e. 2 of the blocks) in IPv4 notation, and RFC 3493 says
+            // that '::ffff:a.b.c.d' is valid for IPv4-mapped IPv6 addresses,
+            // and '::a.b.c.d' is deprecated, but also valid.
+            var foundIPv4TransitionBlock = validator.isIP(blocks[blocks.length - 1], 4);
+            var expectedNumberOfBlocks = foundIPv4TransitionBlock ? 7 : 8;
 
-            if (blocks.length > 8)
+            if (blocks.length > expectedNumberOfBlocks)
                 return false;
 
             // initial or final ::
@@ -298,6 +305,9 @@
                     if (foundOmissionBlock)
                         return false; // multiple :: in address
                     foundOmissionBlock = true;
+                } else if (foundIPv4TransitionBlock && i == blocks.length - 1) {
+                    // it has been checked before that the last
+                    // block is a valid IPv4 address
                 } else if (!ipv6Block.test(blocks[i])) {
                     return false;
                 }
@@ -306,7 +316,7 @@
             if (foundOmissionBlock) {
                 return blocks.length >= 1;
             } else {
-                return blocks.length === 8;
+                return blocks.length === expectedNumberOfBlocks;
             }
         }
         return false;
