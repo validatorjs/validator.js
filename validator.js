@@ -48,7 +48,7 @@
     var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
       , isbn13Maybe = /^(?:[0-9]{13})$/;
 
-    var ipv4Maybe = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
+    var ipv4Maybe = /^(::ffff:)?(\d+)\.(\d+)\.(\d+)\.(\d+)$/
       , ipv6Block = /^[0-9A-F]{1,4}$/i;
 
     var uuid = {
