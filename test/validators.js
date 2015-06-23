@@ -508,6 +508,22 @@ describe('Validators', function () {
             ]
         });
     });
+    
+    it('should validate groups of words', function () {
+        test({
+            validator: 'isGroupOfWords'
+          , valid: [
+                'the quick brown fox jumped over'
+              , 'The lazy dog'
+              , 'The 1st lazy River'
+            ]
+          , invalid: [
+                'This is actually a sentence!'
+              , 'So is this.'
+              , ')(KJ@#KJN@#)(DK@D#'
+            ]
+        });
+    });
 
     it('should validate numeric strings', function () {
         test({
