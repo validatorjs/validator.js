@@ -64,6 +64,7 @@
       , int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/
       , float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/
       , hexadecimal = /^[0-9A-F]+$/i
+      , decimal = /^[-+]?[0-9]*(\.[0-9]+)?$/
       , hexcolor = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
 
     var ascii = /^[\x00-\x7F]+$/
@@ -375,6 +376,10 @@
 
     validator.isNumeric = function (str) {
         return numeric.test(str);
+    };
+    
+    validator.isDecimal = function (str) {
+        return decimal.test(str);
     };
 
     validator.isHexadecimal = function (str) {
