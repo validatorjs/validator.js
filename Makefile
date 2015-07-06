@@ -1,14 +1,13 @@
 NPM=./node_modules/.bin
 
-test: dependencies
+test: lint
 	@node $(NPM)/_mocha \
 		--reporter $(if $(or $(TEST),$(V)),spec,dot) \
 		--slow 600 --timeout 2000 \
 		--grep '$(TEST)'
 
 lint: dependencies
-	@$(NPM)/jshint --config .jshintrc \
-		validator.js test/*.js
+	@$(NPM)/jshint --config .jshintrc validator.js test/*.js
 
 dependencies: node_modules
 
