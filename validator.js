@@ -85,7 +85,8 @@
       'el-GR': /^(\+30)?((2\d{9})|(69\d{8}))$/,
       'en-GB': /^(\+?44|0)7\d{9}$/,
       'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
-      'en-ZM': /^(\+26)?09[567]\d{7}$/
+      'en-ZM': /^(\+26)?09[567]\d{7}$/,
+      'ru-RU': /^(\+?7|8)?9\d{9}$/
     };
 
     validator.extend = function (name, fn) {
@@ -274,7 +275,7 @@
         } else if (version === '6') {
             var blocks = str.split(':');
             var foundOmissionBlock = false; // marker to indicate ::
-            
+
             // At least some OS accept the last 32 bits of an IPv6 address
             // (i.e. 2 of the blocks) in IPv4 notation, and RFC 3493 says
             // that '::ffff:a.b.c.d' is valid for IPv4-mapped IPv6 addresses,
