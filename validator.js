@@ -180,6 +180,11 @@
           , domain = parts.pop()
           , user = parts.join('@');
 
+        var lower_domain = domain.toLowerCase();
+        if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
+            user = user.replace(/\./g, '').toLowerCase();
+        }
+
         if (!validator.isFQDN(domain, {require_tld: options.require_tld})) {
             return false;
         }

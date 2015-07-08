@@ -47,6 +47,7 @@ describe('Validators', function () {
               , 'test|123@m端ller.com'
               , 'test+ext@gmail.com'
               , 'some.name.midd.leNa.me.+extension@GoogleMail.com'
+              , 'gmail...ignores...dots...@gmail.com'
             ]
           , invalid: [
                 'invalidemail@'
