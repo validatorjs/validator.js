@@ -48,7 +48,7 @@
     var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
       , isbn13Maybe = /^(?:[0-9]{13})$/;
 
-    var ipv4Maybe = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
+    var ipv4 = /^(25[0-5]|2[0-4]\d|1\d{2}|\d{1,2})\.(25[0-5]|2[0-4]\d|1\d{2}|\d{1,2})\.(25[0-5]|2[0-4]\d|1\d{2}|\d{1,2})\.(25[0-5]|2[0-4]\d|1\d{2}|\d{1,2})$/
       , ipv6Block = /^[0-9A-F]{1,4}$/i;
 
     var uuid = {
@@ -270,13 +270,7 @@
         if (!version) {
             return validator.isIP(str, 4) || validator.isIP(str, 6);
         } else if (version === '4') {
-            if (!ipv4Maybe.test(str)) {
-                return false;
-            }
-            var parts = str.split('.').sort(function (a, b) {
-                return a - b;
-            });
-            return parts[3] <= 255;
+            return ipv4.test(str);
         } else if (version === '6') {
             var blocks = str.split(':');
             var foundOmissionBlock = false; // marker to indicate ::
