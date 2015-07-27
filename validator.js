@@ -584,11 +584,10 @@
 
     validator.isJSON = function (str) {
         try {
-            JSON.parse(str);
-        } catch (e) {
-            return false;
-        }
-        return true;
+            var obj = JSON.parse(str);
+            return !!obj && typeof obj === 'object';
+        } catch (e) {}
+        return false;
     };
 
     validator.isMultibyte = function (str) {

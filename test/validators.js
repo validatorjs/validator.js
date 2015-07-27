@@ -932,12 +932,17 @@ describe('Validators', function () {
             validator: 'isJSON'
           , valid: [
                 '{ "key": "value" }'
+              , '{}'
             ]
           , invalid: [
                 '{ key: "value" }'
               , { "key": "value" }
               , { key: 'value' }
               , '{ \'key\': \'value\' }'
+              , 'null'
+              , '1234'
+              , 'false'
+              , '"nope"'
             ]
         });
     });
