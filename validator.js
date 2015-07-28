@@ -198,6 +198,7 @@
         protocols: [ 'http', 'https', 'ftp' ]
       , require_tld: true
       , require_protocol: false
+      , require_valid_protocol: true
       , allow_underscores: false
       , allow_trailing_dot: false
       , allow_protocol_relative_urls: false
@@ -216,7 +217,7 @@
         split = url.split('://');
         if (split.length > 1) {
             protocol = split.shift();
-            if (options.protocols.indexOf(protocol) === -1) {
+            if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
                 return false;
             }
         } else if (options.require_protocol) {
