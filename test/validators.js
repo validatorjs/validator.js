@@ -219,6 +219,23 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate URLs with any protocol', function () {
+        test({
+            validator: 'isURL'
+          , args: [{
+                require_valid_protocol: false
+            }]
+          , valid: [
+                'rtmp://foobar.com',
+                'http://foobar.com',
+                'test://foobar.com'
+            ]
+          , invalid: [
+                'mailto:test@example.com'
+            ]
+        });
+    });
+
     it('should validate URLs with underscores', function () {
         test({
             validator: 'isURL'
