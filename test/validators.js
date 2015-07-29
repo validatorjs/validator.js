@@ -545,6 +545,34 @@ describe('Validators', function () {
             ]
         });
     });
+    
+    it('should validate decimal numbers', function () {
+        test({
+            validator: 'isDecimal'
+          , valid: [
+                '123'
+              , '00123'
+              , '-00123'
+              , '0'
+              , '-0'
+              , '+123'
+              , '0.01'
+              , '.1'
+              , '1.0'
+              , '-.25'
+              , '-0'
+              , '0.0000000000001'
+            ]
+          , invalid: [
+                '....'
+              , ' '
+              , '.'
+              , '0.1a'
+              , 'a'
+              , '\n'
+            ]
+        });
+    });
 
     it('should validate lowercase strings', function () {
         test({
