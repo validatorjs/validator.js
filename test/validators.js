@@ -48,6 +48,9 @@ describe('Validators', function () {
               , 'test+ext@gmail.com'
               , 'some.name.midd.leNa.me.+extension@GoogleMail.com'
               , 'gmail...ignores...dots...@gmail.com'
+              , '"foobar"@example.com'
+              , '"  foo  m端ller "@example.com'
+              , '"foo\\@bar"@example.com'
             ]
           , invalid: [
                 'invalidemail@'
@@ -55,6 +58,7 @@ describe('Validators', function () {
               , '@invalid.com'
               , 'foo@bar.com.'
               , 'foo@bar.co.uk.'
+              , 'z@co.c'
             ]
         });
     });
@@ -72,6 +76,9 @@ describe('Validators', function () {
               , 'test|123@m端ller.com'
               , 'test+ext@gmail.com'
               , 'some.name.midd.leNa.me.+extension@GoogleMail.com'
+              , '"foobar"@example.com'
+              , '"foo\\@bar"@example.com'
+              , '"  foo  bar  "@example.com'
             ]
           , invalid: [
                 'invalidemail@'
@@ -80,6 +87,7 @@ describe('Validators', function () {
               , 'foo@bar.com.'
               , 'foo@bar.co.uk.'
               , 'hans.m端ller@test.com'
+              , 'z@co.c'
             ]
         });
     });
