@@ -57,6 +57,7 @@ describe('Validators', function () {
               , 'invalid.com'
               , '@invalid.com'
               , 'foo@bar.com.'
+              , 'somename@ｇｍａｉｌ.com'
               , 'foo@bar.co.uk.'
               , 'z@co.c'
             ]
@@ -742,8 +743,8 @@ describe('Validators', function () {
     });
 
     it('should validate strings by byte length', function () {
-        test({ validator: 'isByteLength', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
-        test({ validator: 'isByteLength', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
+        test({ validator: 'isByteLength', args: [2], valid: ['abc', 'de', 'abcd', 'ｇｍａｉｌ'], invalid: [ '', 'a' ] });
+        test({ validator: 'isByteLength', args: [2, 3], valid: ['abc', 'de', 'ｇ'], invalid: [ '', 'a', 'abcd', 'ｇｍ' ] });
     });
 
     it('should validate UUIDs', function () {

@@ -435,7 +435,8 @@
     };
 
     validator.isByteLength = function (str, min, max) {
-        return str.length >= min && (typeof max === 'undefined' || str.length <= max);
+        var len = encodeURI(str).split(/%..|./).length - 1;
+        return len >= min && (typeof max === 'undefined' || len <= max);
     };
 
     validator.isUUID = function (str, version) {
