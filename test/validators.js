@@ -32,6 +32,14 @@ function test(options) {
     }
 }
 
+function repeat(str, count) {
+    var result = '';
+    while (count--) {
+        result += str;
+    }
+    return result;
+}
+
 describe('Validators', function () {
 
     it('should validate email addresses', function () {
@@ -51,6 +59,7 @@ describe('Validators', function () {
               , '"foobar"@example.com'
               , '"  foo  m端ller "@example.com'
               , '"foo\\@bar"@example.com'
+              , repeat('a', 64) + '@' + repeat('a', 252) + '.com'
             ]
           , invalid: [
                 'invalidemail@'
@@ -60,6 +69,9 @@ describe('Validators', function () {
               , 'somename@ｇｍａｉｌ.com'
               , 'foo@bar.co.uk.'
               , 'z@co.c'
+              , 'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com'
+              , repeat('a', 64) + '@' + repeat('a', 253) + '.com'
+              , repeat('a', 65) + '@' + repeat('a', 252) + '.com'
             ]
         });
     });

@@ -187,6 +187,11 @@
             user = user.replace(/\./g, '').toLowerCase();
         }
 
+        if (!validator.isByteLength(user, 0, 64) ||
+                !validator.isByteLength(domain, 0, 256)) {
+            return false;
+        }
+
         if (!validator.isFQDN(domain, {require_tld: options.require_tld})) {
             return false;
         }
