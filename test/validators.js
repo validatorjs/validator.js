@@ -567,7 +567,7 @@ describe('Validators', function () {
             ]
         });
     });
-    
+
     it('should validate decimal numbers', function () {
         test({
             validator: 'isDecimal'
@@ -588,6 +588,9 @@ describe('Validators', function () {
           , invalid: [
                 '....'
               , ' '
+              , ''
+              , '-'
+              , '+'
               , '.'
               , '0.1a'
               , 'a'
