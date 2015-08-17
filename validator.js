@@ -450,33 +450,7 @@
     };
 
     validator.isDate = function (str) {
-        var normalizedDate = new Date((new Date(str)).toUTCString());
-        var regularDay = String(normalizedDate.getDate());
-        var utcDay = String(normalizedDate.getUTCDate());
-        var dayOrYear, dayOrYearMatches, year;
-        if (isNaN(Date.parse(normalizedDate))) {
-            return false;
-        }
-        //check for valid double digits that could be late days
-        //check for all matches since a string like '12/23' is a valid date
-        dayOrYearMatches = str.match(/[23]\d(\D|$)/g);
-        if (!dayOrYearMatches) {
-            return true;
-        }
-        dayOrYear = dayOrYearMatches.map(function(match) {
-            return match.slice(0,2);
-        }).join('/');
-        year = String(normalizedDate.getFullYear()).slice(-2);
-        //local date and UTC date can differ, but both are valid, so check agains both
-        if (dayOrYear === regularDay || dayOrYear === utcDay || dayOrYear === year) {
-            return true;
-        } else if ((dayOrYear === (regularDay + '/' + year)) || (dayOrYear === (year + '/' + regularDay))) {
-            return true;
-        } else if ((dayOrYear === (utcDay + '/' + year)) || (dayOrYear === (year + '/' + utcDay))) {
-            return true;
-        } else {
-            return false;
-        }
+        return !isNaN(Date.parse(str));
     };
 
     validator.isAfter = function (str, date) {
