@@ -250,6 +250,13 @@
             split[0] = url.substr(2);
         }
         url = split.join('://');
+
+        split = url.split('.');
+        if(split[0].toLowerCase() === 'www') {
+            split.shift();
+            url = split.join('.');
+        }
+        
         split = url.split('#');
         url = split.shift();
 
