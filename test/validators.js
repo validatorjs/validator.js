@@ -222,6 +222,7 @@ describe('Validators', function () {
               , 'http://localhost:61500this is an invalid url!!!!'
               , '////foobar.com'
               , 'http:////foobar.com'
+              , 'http://www.ww'
             ]
         });
     });
