@@ -468,7 +468,37 @@
     };
 
     validator.isDate = function (str) {
-        return !isNaN(Date.parse(str));
+        var normalizedDate = new Date((new Date(str)).toUTCString());
+        var regularDay = String(normalizedDate.getDate());
+        var utcDay = String(normalizedDate.getUTCDate());
+        var dayOrYear, dayOrYearMatches, year;
+        if (isNaN(Date.parse(normalizedDate))) {
+            return false;
+        }
+        if (typeof str !== 'string') {
+          return true;  //if Date.parse() passes, it's the current time
+        }
+        //check for valid double digits that could be late days
+        //check for all matches since a string like '12/23' is a valid date
+        //ignore everything with nearby colons
+        dayOrYearMatches = str.match(/(^|[^:])[23]\d([^:\d]|$)/g);
+        if (!dayOrYearMatches) {
+            return true;
+        }
+        dayOrYear = dayOrYearMatches.map(function(digitString) {
+            return digitString.match(/\d+/g)[0];
+        }).join('/');
+        year = String(normalizedDate.getFullYear()).slice(-2);
+        //local date and UTC date can differ, but both are valid, so check agains both
+        if (dayOrYear === regularDay || dayOrYear === utcDay || dayOrYear === year) {
+            return true;
+        } else if ((dayOrYear === (regularDay + '/' + year)) || (dayOrYear === (year + '/' + regularDay))) {
+            return true;
+        } else if ((dayOrYear === (utcDay + '/' + year)) || (dayOrYear === (year + '/' + utcDay))) {
+            return true;
+        } else {
+            return false;
+        }
     };
 
     validator.isAfter = function (str, date) {
