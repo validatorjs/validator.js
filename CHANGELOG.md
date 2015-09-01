@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added a Taiwan locale to `isMobilePhone()`
+  ([#432](https://github.com/chriso/validator.js/pull/432))
+
 #### 4.0.5
 
 - Fixed a denial of service vulnerability in the `isEmail()` regex
