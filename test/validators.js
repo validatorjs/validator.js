@@ -1214,6 +1214,24 @@ describe('Validators', function () {
 
       test({
         validator: 'isMobilePhone'
+        , valid: [
+            '0987123456'
+          , '+886987123456'
+          , '886987123456'
+          , '+886-987123456'
+          , '886-987123456'
+        ]
+        , invalid: [
+            '12345'
+          , ''
+          , 'Vml2YW11cyBmZXJtZtesting123'
+          , '0-987123456'
+        ],
+        args: ['zh-TW']
+      });
+
+      test({
+        validator: 'isMobilePhone'
         , invalid: [
             '15323456787'
           , '13523333233'
