@@ -2,6 +2,8 @@
 
 - Added a Taiwan locale to `isMobilePhone()`
   ([#432](https://github.com/chriso/validator.js/pull/432))
+- Fixed a bug in `isBefore()` where it would return `null`
+  ([#436](https://github.com/chriso/validator.js/pull/436))
 
 #### 4.0.5
 
