@@ -876,6 +876,11 @@ describe('Validators', function () {
         test({ validator: 'isAfter',
             valid: [ '2100-08-04', new Date(Date.now() + 86400000) ],
             invalid: [ '2010-07-02', new Date(0) ] });
+        test({ validator: 'isAfter', args: ['2011-08-03'],
+            valid: [ '2015-09-17' ],
+            invalid: [ 'invalid date' ] });
+        test({ validator: 'isAfter', args: ['invalid date'],
+            invalid: [ 'invalid date', '2015-09-17' ] });
     });
 
     it('should validate dates against an end date', function () {
@@ -888,6 +893,11 @@ describe('Validators', function () {
         test({ validator: 'isBefore',
             valid: [ '2000-08-04', new Date(0), new Date(Date.now() - 86400000) ],
             invalid: [ '2100-07-02', new Date(2017, 10, 10) ] });
+        test({ validator: 'isBefore', args: ['2011-08-03'],
+            valid: [ '1999-12-31' ],
+            invalid: [ 'invalid date' ] });
+        test({ validator: 'isBefore', args: ['invalid date'],
+            invalid: [ 'invalid date', '1999-12-31' ] });
     });
 
     it('should validate that integer strings are divisible by a number', function () {
