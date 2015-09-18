@@ -480,7 +480,7 @@
     validator.isBefore = function (str, date) {
         var comparison = validator.toDate(date || new Date())
           , original = validator.toDate(str);
-        return original && comparison && original < comparison;
+        return !!(original && comparison && original < comparison);
     };
 
     validator.isIn = function (str, options) {
