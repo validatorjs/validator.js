@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.0.6
 
 - Added a Taiwan locale to `isMobilePhone()`
   ([#432](https://github.com/chriso/validator.js/pull/432))
