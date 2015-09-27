@@ -854,7 +854,7 @@ describe('Validators', function () {
         test({
             validator: 'isDate'
           , valid: [
-              //NOTE: null pass as well in the regular function, but fails in the test suite
+              //NOTE: null passes as well in the regular function, but fails in the test suite
                 '2011-08-04'
               , '2011-09-30'
               , '04. 08. 2011.'
