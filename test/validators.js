@@ -1,9 +1,9 @@
 var validator = require('../validator')
   , format = require('util').format
-  , contextify = require('contextify')
   , assert = require('assert')
   , path = require('path')
-  , fs = require('fs');
+  , fs = require('fs')
+  , vm = require('vm');
 
 var validator_js = fs.readFileSync(path.join(__dirname, '../validator.js')).toString();
 
@@ -1187,17 +1187,16 @@ describe('Validators', function () {
             }
         };
         window.define.amd = true;
-        var sandbox = contextify(window);
-        sandbox.run(validator_js);
-        sandbox.dispose();
+
+        var sandbox = vm.createContext(window);
+        vm.runInContext(validator_js, sandbox);
         assert.equal(window.validator.trim('  foobar '), 'foobar');
     });
 
     it('should bind validator to the window if no module loaders are available', function () {
         var window = {};
-        var sandbox = contextify(window);
-        sandbox.run(validator_js);
-        sandbox.dispose();
+        var sandbox = vm.createContext(window);
+        vm.runInContext(validator_js, sandbox);
         assert.equal(window.validator.trim('  foobar '), 'foobar');
     });
 
