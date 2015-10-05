@@ -854,7 +854,7 @@ describe('Validators', function () {
         test({
             validator: 'isDate'
           , valid: [
-              //NOTE: null passes as well in the regular function, but fails in the test suite
+              // NOTE: null passes as well in the regular function, but fails in the test suite
                 '2011-08-04'
               , '2011-09-30'
               , '04. 08. 2011.'
@@ -874,7 +874,7 @@ describe('Validators', function () {
               , new Date()
               , 'Mon Aug 17 2015 00:24:56 GMT-0500 (CDT)'
               , '2/22/23 23:24:26'
-              //valid ISO 8601 dates below
+              // valid ISO 8601 dates below
               , '2009-12T12:34'
               , '2009'
               , '2009-05-19'
@@ -895,6 +895,25 @@ describe('Validators', function () {
               , '2009-'
               , '2009-05-19 14:'
               , '200912-01'
+              // RFC 2882 tests below borrowed from the timerep package in Hackage:
+              // https://hackage.haskell.org/package/timerep-1.0.3/docs/src/Data-Time-RFC2822.html
+              , 'Fri, 21 Nov 1997 09:55:06 -0600'
+              , 'Tue, 15 Nov 1994 12:45:26 GMT'
+              , 'Tue, 1 Jul 2003 10:52:37 +0200'
+              , 'Thu, 13 Feb 1969 23:32:54 -0330'
+              , 'Mon, 24 Nov 1997 14:22:01 -0800'
+              , 'Thu,          13\n     Feb\n  1969\n        23:32\n     -0330'
+              , 'Thu,          13\n     Feb\n  1969\n        23:32\n     -0330 (Newfoundland Time)'
+              ,'24 Nov 1997 14:22:01 -0800'
+              // slight variations of the above with end-of-month
+              , 'Thu,          29\n     Feb\n  1968\n        23:32\n     -0330'
+              , 'Fri, 30 Nov 1997 09:55:06 -0600'
+              // more RFC 2882 tests borrowed from libgit2:
+              // https://github.com/libgit2/libgit2/blob/master/tests/date/rfc2822.c
+              , 'Wed, 10 Apr 2014 08:21:03 +0000'
+              , 'Wed, 9 Apr 2014 10:21:03 +0200'
+              , 'Wed, 9 Apr 2014 06:21:03 -0200'
+              , 'Wed, 9 Apr 2014 08:21:03 +0000'
           ]
           , invalid: [
                 'foo'
@@ -927,6 +946,9 @@ describe('Validators', function () {
               , '2010-02-18T16,25:23:48,444'
               , '2009-02-30 14:'
               , '200912-32'
+              // hackage RFC2822 variants with invalid end-of-month
+              , 'Thu,          29\n     Feb\n  1969\n        23:32\n     -0330'
+              , 'Fri, 31 Nov 1997 09:55:06 -0600'
             ]
         });
     });

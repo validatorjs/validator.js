@@ -481,7 +481,7 @@
         //check for valid double digits that could be late days
         //check for all matches since a string like '12/23' is a valid date
         //ignore everything with nearby colons
-        dayOrYearMatches = str.match(/(^|[^:])[23]\d([^:\d]|$)/g);
+        dayOrYearMatches = str.match(/(^|[^:\d])[23]\d([^:\d]|$)/g);
         if (!dayOrYearMatches) {
             return true;
         }
