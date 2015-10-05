@@ -128,6 +128,8 @@ validator.isWhitespace('foo bar');
 
 ### Tests
 
+Tests require node v4.0+.
+
 - `make test` - run the test suite.
 - `make test V=1` - run the test suite with added verbosity.
 - `make test TEST=pattern` - run tests that match a pattern.
