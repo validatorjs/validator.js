@@ -854,7 +854,6 @@ describe('Validators', function () {
         test({
             validator: 'isDate'
           , valid: [
-              // NOTE: null passes as well in the regular function, but fails in the test suite
                 '2011-08-04'
               , '2011-09-30'
               , '04. 08. 2011.'
@@ -906,7 +905,7 @@ describe('Validators', function () {
               , 'Thu,          13\n     Feb\n  1969\n        23:32\n     -0330 (Newfoundland Time)'
               ,'24 Nov 1997 14:22:01 -0800'
               // slight variations of the above with end-of-month
-              , 'Thu,          29\n     Feb\n  1968\n        23:32\n     -0330'
+              , 'Thu,          29\n     Feb\n  1968\n        13:32\n     -0330'
               , 'Fri, 30 Nov 1997 09:55:06 -0600'
               // more RFC 2882 tests borrowed from libgit2:
               // https://github.com/libgit2/libgit2/blob/master/tests/date/rfc2822.c
@@ -947,7 +946,7 @@ describe('Validators', function () {
               , '2009-02-30 14:'
               , '200912-32'
               // hackage RFC2822 variants with invalid end-of-month
-              , 'Thu,          29\n     Feb\n  1969\n        23:32\n     -0330'
+              , 'Thu,          29\n     Feb\n  1969\n        13:32\n     -0330'
               , 'Fri, 31 Nov 1997 09:55:06 -0600'
             ]
         });
