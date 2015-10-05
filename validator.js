@@ -475,9 +475,6 @@
         if (isNaN(Date.parse(normalizedDate))) {
             return false;
         }
-        if (typeof str !== 'string') {
-          return true;  //if Date.parse() passes, it's the current time
-        }
         //check for valid double digits that could be late days
         //check for all matches since a string like '12/23' is a valid date
         //ignore everything with nearby colons
