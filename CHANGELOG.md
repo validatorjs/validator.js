@@ -1,3 +1,10 @@
+#### 4.1.0
+
+- General `isDate()` improvements
+  ([#431](https://github.com/chriso/validator.js/pull/431))
+- Tests now require node 4.0+
+  ([#438](https://github.com/chriso/validator.js/pull/438))
+
 #### 4.0.6
 
 - Added a Taiwan locale to `isMobilePhone()`
