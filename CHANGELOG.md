@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added a Norwegian locale to `isMobilePhone()`
+  ([#439](https://github.com/chriso/validator.js/pull/439))
+
 #### 4.1.0
 
 - General `isDate()` improvements
