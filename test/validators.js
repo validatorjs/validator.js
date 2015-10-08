@@ -1519,6 +1519,38 @@ describe('Validators', function () {
         ],
         args: ['ru-RU']
       });
+
+      var norwegian = {
+        valid: [
+          '+4796338855'
+          , '+4746338855'
+          , '4796338855'
+          , '4746338855'
+          , '46338855'
+          , '96338855'
+        ]
+        , invalid: [
+          '12345'
+          , ''
+          , 'Vml2YW11cyBmZXJtZtesting123'
+          , '+4676338855'
+          , '19676338855'
+          , '+4726338855'
+          , '4736338855'
+          , '66338855'
+      ]};
+      test({
+        validator: 'isMobilePhone'
+        , valid: norwegian.valid
+        , invalid: norwegian.invalid,
+        args: ['nb-NO']
+      });
+      test({
+        validator: 'isMobilePhone'
+        , valid: norwegian.valid
+        , invalid: norwegian.invalid,
+        args: ['nn-NO']
+      });
     });
 
     it('should validate currency', function() {
