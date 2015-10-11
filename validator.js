@@ -123,10 +123,8 @@
             input = input.toString();
         } else if (input === null || typeof input === 'undefined' || (isNaN(input) && !input.length)) {
             input = '';
-        } else if (typeof input !== 'string') {
-            input += '';
         }
-        return input;
+        return '' + input;
     };
 
     validator.toDate = function (date) {
