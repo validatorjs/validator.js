@@ -470,8 +470,35 @@
         return pattern && pattern.test(str);
     };
 
+    function getTimezoneOffset(str) {
+        var iso8601Parts = str.match(iso8601);
+        if (!iso8601Parts) {
+            return new Date().getTimezoneOffset();
+        }
+        var timezone = iso8601Parts[21];
+        if (!timezone || timezone === 'z' || timezone === 'Z') {
+            return 0;
+        }
+        var sign = iso8601Parts[22], hours, minutes;
+        if (timezone.indexOf(':') !== -1) {
+            hours = parseInt(iso8601Parts[23]);
+            minutes = parseInt(iso8601Parts[24]);
+        } else {
+            hours = 0;
+            minutes = parseInt(iso8601Parts[23]);
+        }
+        return (hours * 60 + minutes) * (sign === '-' ? 1 : -1);
+    }
+
     validator.isDate = function (str) {
         var normalizedDate = new Date((new Date(str)).toUTCString());
+        // normalizedDate is in the user's timezone. Apply the input
+        // timezone offset to the date so that the year and day match
+        // the input
+        var timezoneDifference = normalizedDate.getTimezoneOffset() -
+            getTimezoneOffset(str);
+        normalizedDate = new Date(normalizedDate.getTime() +
+            60000 * timezoneDifference);
         var regularDay = String(normalizedDate.getDate());
         var utcDay = String(normalizedDate.getUTCDate());
         var dayOrYear, dayOrYearMatches, year;
