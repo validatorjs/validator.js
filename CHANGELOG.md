@@ -1,5 +1,7 @@
 #### HEAD
 
+- Fix `isDate()` handling of ISO8601 timezones
+  ([#444](https://github.com/chriso/validator.js/pull/444))
 - Fix the incorrect `isFloat('.') === true`
   ([#443](https://github.com/chriso/validator.js/pull/443))
 - Added a Norwegian locale to `isMobilePhone()`
