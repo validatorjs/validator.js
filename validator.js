@@ -492,6 +492,7 @@
 
     validator.isDate = function (str) {
         var normalizedDate = new Date((new Date(str)).toUTCString());
+        var utcDay = String(normalizedDate.getUTCDate());
         // normalizedDate is in the user's timezone. Apply the input
         // timezone offset to the date so that the year and day match
         // the input
@@ -500,7 +501,6 @@
         normalizedDate = new Date(normalizedDate.getTime() +
             60000 * timezoneDifference);
         var regularDay = String(normalizedDate.getDate());
-        var utcDay = String(normalizedDate.getUTCDate());
         var dayOrYear, dayOrYearMatches, year;
         if (isNaN(Date.parse(normalizedDate))) {
             return false;
