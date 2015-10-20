@@ -440,7 +440,10 @@
 
     validator.isFloat = function (str, options) {
         options = options || {};
-        return str !== '' && float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max);
+        if (str === '' || str === '.') {
+            return false;
+        }
+        return float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max);
     };
 
     validator.isDivisibleBy = function (str, num) {

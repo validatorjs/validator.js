@@ -1,5 +1,7 @@
 #### HEAD
 
+- Fix the incorrect `isFloat('.') === true`
+  ([#443](https://github.com/chriso/validator.js/pull/443))
 - Added a Norwegian locale to `isMobilePhone()`
   ([#439](https://github.com/chriso/validator.js/pull/439))
 

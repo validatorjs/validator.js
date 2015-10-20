@@ -676,6 +676,7 @@ describe('Validators', function () {
                 '-.123'
               , '  '
               , ''
+              , '.'
               , 'foo'
             ]
         });
