@@ -512,7 +512,6 @@
         if (isNaN(normalizedDate)) {
             return false;
         }
-        var utcDay = String(normalizedDate.getUTCDate());
         // normalizedDate is in the user's timezone. Apply the input
         // timezone offset to the date so that the year and day match
         // the input
@@ -520,7 +519,7 @@
             getTimezoneOffset(str);
         normalizedDate = new Date(normalizedDate.getTime() +
             60000 * timezoneDifference);
-        var regularDay = String(normalizedDate.getDate());
+        var day = String(normalizedDate.getDate());
         var dayOrYear, dayOrYearMatches, year;
         //check for valid double digits that could be late days
         //check for all matches since a string like '12/23' is a valid date
@@ -533,16 +532,12 @@
             return digitString.match(/\d+/g)[0];
         }).join('/');
         year = String(normalizedDate.getFullYear()).slice(-2);
-        //local date and UTC date can differ, but both are valid, so check agains both
-        if (dayOrYear === regularDay || dayOrYear === utcDay || dayOrYear === year) {
+        if (dayOrYear === day || dayOrYear === year) {
             return true;
-        } else if ((dayOrYear === (regularDay + '/' + year)) || (dayOrYear === (year + '/' + regularDay))) {
+        } else if ((dayOrYear === (day + '/' + year)) || (dayOrYear === (year + '/' + day))) {
             return true;
-        } else if ((dayOrYear === (utcDay + '/' + year)) || (dayOrYear === (year + '/' + utcDay))) {
-            return true;
-        } else {
-            return false;
         }
+        return false;
     };
 
     validator.isAfter = function (str, date) {
