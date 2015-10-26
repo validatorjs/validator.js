@@ -508,7 +508,10 @@
     }
 
     validator.isDate = function (str) {
-        var normalizedDate = new Date((new Date(str)).toUTCString());
+        var normalizedDate = new Date(Date.parse(str));
+        if (isNaN(normalizedDate)) {
+            return false;
+        }
         var utcDay = String(normalizedDate.getUTCDate());
         // normalizedDate is in the user's timezone. Apply the input
         // timezone offset to the date so that the year and day match
@@ -519,9 +522,6 @@
             60000 * timezoneDifference);
         var regularDay = String(normalizedDate.getDate());
         var dayOrYear, dayOrYearMatches, year;
-        if (isNaN(Date.parse(normalizedDate))) {
-            return false;
-        }
         //check for valid double digits that could be late days
         //check for all matches since a string like '12/23' is a valid date
         //ignore everything with nearby colons
