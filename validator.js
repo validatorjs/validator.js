@@ -471,21 +471,38 @@
     };
 
     function getTimezoneOffset(str) {
-        var iso8601Parts = str.match(iso8601);
+        var iso8601Parts = str.match(iso8601)
+          , timezone, sign, hours, minutes;
         if (!iso8601Parts) {
-            return new Date().getTimezoneOffset();
-        }
-        var timezone = iso8601Parts[21];
-        if (!timezone || timezone === 'z' || timezone === 'Z') {
-            return 0;
-        }
-        var sign = iso8601Parts[22], hours, minutes;
-        if (timezone.indexOf(':') !== -1) {
-            hours = parseInt(iso8601Parts[23]);
-            minutes = parseInt(iso8601Parts[24]);
+            timezone = str.match(/(?:\s|GMT\s*)(-|\+)(\d{1,4})(\s|$)/);
+            if (!timezone) {
+                return new Date().getTimezoneOffset();
+            }
+            sign = timezone[1];
+            var offset = timezone[2];
+            if (offset.length === 3) {
+                offset = '0' + offset;
+            }
+            if (offset.length <= 2) {
+                hours = 0;
+                minutes = parseInt(offset);
+            } else {
+                hours = parseInt(offset.slice(0, 2));
+                minutes = parseInt(offset.slice(2, 4));
+            }
         } else {
-            hours = 0;
-            minutes = parseInt(iso8601Parts[23]);
+            timezone = iso8601Parts[21];
+            if (!timezone || timezone === 'z' || timezone === 'Z') {
+                return 0;
+            }
+            sign = iso8601Parts[22];
+            if (timezone.indexOf(':') !== -1) {
+                hours = parseInt(iso8601Parts[23]);
+                minutes = parseInt(iso8601Parts[24]);
+            } else {
+                hours = 0;
+                minutes = parseInt(iso8601Parts[23]);
+            }
         }
         return (hours * 60 + minutes) * (sign === '-' ? 1 : -1);
     }
