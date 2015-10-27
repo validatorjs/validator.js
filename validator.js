@@ -474,9 +474,10 @@
         var iso8601Parts = str.match(iso8601)
           , timezone, sign, hours, minutes;
         if (!iso8601Parts) {
-            timezone = str.match(/(?:\s|GMT\s*)(-|\+)(\d{1,4})(\s|$)/);
+            str = str.toLowerCase();
+            timezone = str.match(/(?:\s|gmt\s*)(-|\+)(\d{1,4})(\s|$)/);
             if (!timezone) {
-                return new Date().getTimezoneOffset();
+                return str.indexOf('gmt') !== -1 ? 0 : null;
             }
             sign = timezone[1];
             var offset = timezone[2];
@@ -515,10 +516,13 @@
         // normalizedDate is in the user's timezone. Apply the input
         // timezone offset to the date so that the year and day match
         // the input
-        var timezoneDifference = normalizedDate.getTimezoneOffset() -
-            getTimezoneOffset(str);
-        normalizedDate = new Date(normalizedDate.getTime() +
-            60000 * timezoneDifference);
+        var timezoneOffset = getTimezoneOffset(str);
+        if (timezoneOffset !== null) {
+            var timezoneDifference = normalizedDate.getTimezoneOffset() -
+                timezoneOffset;
+            normalizedDate = new Date(normalizedDate.getTime() +
+                60000 * timezoneDifference);
+        }
         var day = String(normalizedDate.getDate());
         var dayOrYear, dayOrYearMatches, year;
         //check for valid double digits that could be late days
