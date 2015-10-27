@@ -26,6 +26,8 @@
         module.exports = definition();
     } else if (typeof define === 'function' && typeof define.amd === 'object') {
         define(definition);
+    } else if (typeof define === 'function' && typeof define.petal === 'object') {
+        define(name, [], definition);
     } else {
         this[name] = definition();
     }
