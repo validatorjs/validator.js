@@ -1,3 +1,8 @@
+#### HEAD
+
+- Fix `isDate()` handling of RFC2822 timezones
+  ([#447](https://github.com/chriso/validator.js/pull/447))
+
 #### 4.2.0
 
 - Fix `isDate()` handling of ISO8601 timezones
