@@ -1,5 +1,10 @@
 #### HEAD
 
+- Support Ember CLI module definitions
+  ([#448](https://github.com/chriso/validator.js/pull/448))
+
+#### 4.2.1
+
 - Fix `isDate()` handling of RFC2822 timezones
   ([#447](https://github.com/chriso/validator.js/pull/447))
 
