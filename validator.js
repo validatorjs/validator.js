@@ -471,40 +471,60 @@
     };
 
     function getTimezoneOffset(str) {
-        var iso8601Parts = str.match(iso8601);
+        var iso8601Parts = str.match(iso8601)
+          , timezone, sign, hours, minutes;
         if (!iso8601Parts) {
-            return new Date().getTimezoneOffset();
-        }
-        var timezone = iso8601Parts[21];
-        if (!timezone || timezone === 'z' || timezone === 'Z') {
-            return 0;
-        }
-        var sign = iso8601Parts[22], hours, minutes;
-        if (timezone.indexOf(':') !== -1) {
-            hours = parseInt(iso8601Parts[23]);
-            minutes = parseInt(iso8601Parts[24]);
+            str = str.toLowerCase();
+            timezone = str.match(/(?:\s|gmt\s*)(-|\+)(\d{1,4})(\s|$)/);
+            if (!timezone) {
+                return str.indexOf('gmt') !== -1 ? 0 : null;
+            }
+            sign = timezone[1];
+            var offset = timezone[2];
+            if (offset.length === 3) {
+                offset = '0' + offset;
+            }
+            if (offset.length <= 2) {
+                hours = 0;
+                minutes = parseInt(offset);
+            } else {
+                hours = parseInt(offset.slice(0, 2));
+                minutes = parseInt(offset.slice(2, 4));
+            }
         } else {
-            hours = 0;
-            minutes = parseInt(iso8601Parts[23]);
+            timezone = iso8601Parts[21];
+            if (!timezone || timezone === 'z' || timezone === 'Z') {
+                return 0;
+            }
+            sign = iso8601Parts[22];
+            if (timezone.indexOf(':') !== -1) {
+                hours = parseInt(iso8601Parts[23]);
+                minutes = parseInt(iso8601Parts[24]);
+            } else {
+                hours = 0;
+                minutes = parseInt(iso8601Parts[23]);
+            }
         }
         return (hours * 60 + minutes) * (sign === '-' ? 1 : -1);
     }
 
     validator.isDate = function (str) {
-        var normalizedDate = new Date((new Date(str)).toUTCString());
-        var utcDay = String(normalizedDate.getUTCDate());
+        var normalizedDate = new Date(Date.parse(str));
+        if (isNaN(normalizedDate)) {
+            return false;
+        }
         // normalizedDate is in the user's timezone. Apply the input
         // timezone offset to the date so that the year and day match
         // the input
-        var timezoneDifference = normalizedDate.getTimezoneOffset() -
-            getTimezoneOffset(str);
-        normalizedDate = new Date(normalizedDate.getTime() +
-            60000 * timezoneDifference);
-        var regularDay = String(normalizedDate.getDate());
-        var dayOrYear, dayOrYearMatches, year;
-        if (isNaN(Date.parse(normalizedDate))) {
-            return false;
+        var timezoneOffset = getTimezoneOffset(str);
+        if (timezoneOffset !== null) {
+            var timezoneDifference = normalizedDate.getTimezoneOffset() -
+                timezoneOffset;
+            normalizedDate = new Date(normalizedDate.getTime() +
+                60000 * timezoneDifference);
         }
+        var day = String(normalizedDate.getDate());
+        var dayOrYear, dayOrYearMatches, year;
         //check for valid double digits that could be late days
         //check for all matches since a string like '12/23' is a valid date
         //ignore everything with nearby colons
@@ -516,16 +536,12 @@
             return digitString.match(/\d+/g)[0];
         }).join('/');
         year = String(normalizedDate.getFullYear()).slice(-2);
-        //local date and UTC date can differ, but both are valid, so check agains both
-        if (dayOrYear === regularDay || dayOrYear === utcDay || dayOrYear === year) {
+        if (dayOrYear === day || dayOrYear === year) {
             return true;
-        } else if ((dayOrYear === (regularDay + '/' + year)) || (dayOrYear === (year + '/' + regularDay))) {
+        } else if ((dayOrYear === (day + '/' + year)) || (dayOrYear === (year + '/' + day))) {
             return true;
-        } else if ((dayOrYear === (utcDay + '/' + year)) || (dayOrYear === (year + '/' + utcDay))) {
-            return true;
-        } else {
-            return false;
         }
+        return false;
     };
 
     validator.isAfter = function (str, date) {
