@@ -859,7 +859,7 @@ describe('Validators', function () {
               , '2011-09-30'
               , '04. 08. 2011.'
               , '08/04/2011'
-              , '08/31/2011'
+              , '08/31/2011' // Failing local
               , '2011.08.04'
               , '2/29/24'
               , '2-29-24'
@@ -874,6 +874,7 @@ describe('Validators', function () {
               , new Date()
               , 'Mon Aug 17 2015 00:24:56 GMT-0500 (CDT)'
               , '2/22/23 23:24:26'
+              , 'Mon Sep 28 1964 00:05:49 GMT+0200 (CEST)'
               // valid ISO 8601 dates below
               , '2009-12T12:34'
               , '2009'
