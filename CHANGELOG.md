@@ -2,6 +2,8 @@
 
 - Support Ember CLI module definitions
   ([#448](https://github.com/chriso/validator.js/pull/448))
+- Added a Vietnam locale to `isMobilePhone()`
+  ([#451](https://github.com/chriso/validator.js/pull/451))
 
 #### 4.2.1
 
