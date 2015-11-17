@@ -1562,6 +1562,28 @@ describe('Validators', function () {
         , invalid: norwegian.invalid,
         args: ['nn-NO']
       });
+
+      test({
+        validator: 'isMobilePhone'
+        , valid: [
+            '01636012403'
+          , '+841636012403'
+          , '1636012403'
+          , '841636012403'
+          , '+84999999999'
+          , '84999999999'
+          , '0999999999'
+          , '999999999'
+        ]
+        , invalid: [
+            '12345'
+          , ''
+          , 'Vml2YW11cyBmZXJtZtesting123'
+          , '010-38238383'
+          , '260976684590'
+        ],
+        args: ['vi-VN']
+      });
     });
 
     it('should validate currency', function() {
