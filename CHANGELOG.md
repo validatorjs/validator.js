@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added a New Zealand locale to `isMobilePhone()`
+  ([#452](https://github.com/chriso/validator.js/pull/452))
+
 #### 4.3.0
 
 - Support Ember CLI module definitions
