@@ -1531,6 +1531,28 @@ describe('Validators', function () {
         args: ['ru-RU']
       });
 
+      test({
+        validator: 'isMobilePhone'
+        , valid: [
+          '+6427987035'
+          , '642240512347'
+          , '0293981646'
+          , '029968425'
+        ]
+        , invalid: [
+          '12345'
+          , ''
+          , 'Vml2YW11cyBmZXJtZtesting123'
+          , '+642956696123566'
+          , '+02119620856'
+          , '+9676338855'
+          , '19676338855'
+          , '6676338855'
+          , '+99676338855'
+        ],
+        args: ['en-NZ']
+      });
+
       var norwegian = {
         valid: [
           '+4796338855'
