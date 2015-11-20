@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.3.0
 
 - Support Ember CLI module definitions
   ([#448](https://github.com/chriso/validator.js/pull/448))
