@@ -132,8 +132,17 @@
     };
 
     validator.toDate = function (date) {
+        /* jshint eqeqeq: false */
+        var asInt, asDate;
         if (Object.prototype.toString.call(date) === '[object Date]') {
             return date;
+        }
+        asInt = parseInt(date);
+        if (asInt == date && !isNaN(asInt)) {
+            asDate = new Date(asInt);
+            if (asDate.getTime() == date) {
+              return new Date(asInt);
+            }
         }
         date = Date.parse(date);
         return !isNaN(date) ? new Date(date) : null;
@@ -513,11 +522,20 @@
     }
 
     validator.isDate = function (str) {
+        /* jshint eqeqeq: false */
+        // milliseconds since epoc
+        var asInt = parseInt(str);
+        if (asInt == str && !isNaN(asInt)) {
+            var asDate = new Date(asInt);
+            if (asDate.getTime() == str) {
+              return true;
+            }
+        }
         var normalizedDate = new Date(Date.parse(str));
         if (isNaN(normalizedDate)) {
             return false;
         }
-        // normalizedDate is in the user's timezone. Apply the input
+        // normalizedDate is in the use r's timezone. Apply the input
         // timezone offset to the date so that the year and day match
         // the input
         var timezoneOffset = getTimezoneOffset(str);

@@ -11,6 +11,15 @@ function test(options) {
         if (isNaN(result) && !result.length && isNaN(expected)) {
             return;
         }
+
+        // can't compare objects referentially; use time integer
+        if ('object' === typeof result) {
+          if (result instanceof Date) {
+            result = result.getTime();
+            expected = expected.getTime();
+          }
+        }
+
         if (result !== expected) {
             var warning = format('validator.%s(%s) returned "%s" but should have returned "%s"',
                 options.sanitizer, args.join(', '), result, expected);
@@ -211,11 +220,39 @@ describe('Sanitizers', function () {
               , 'TEST@me.com': 'TEST@me.com'
               , 'TEST@ME.COM': 'TEST@me.com'
               , 'blAH@x.com': 'blAH@x.com'
-                
+
                 // Domains that are known for being case-insensitive are always lowercased
               , 'SOME.name@GMAIL.com': 'somename@gmail.com'
               , 'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
               , 'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
+            }
+        });
+    });
+
+    it('should convert date string to date', function () {
+        test({
+            sanitizer: 'toDate'
+          , expect: {
+                // RFC2822 / IETF
+                'Mon, 25 Dec 1995 13:30:00 GMT': new Date('Mon, 25 Dec 1995 13:30:00 GMT')
+              , 'Mon, 25 Dec 1995 13:30:00 +043': new Date('Mon, 25 Dec 1995 13:30:00 +043')
+                // ECMAScript 5 ISO-8601
+              , '2011-10-10T14:48:00': new Date('2011-10-10T14:48:00')
+            }
+        });
+    });
+
+    it('should convert milliseconds to date', function () {
+        test({
+            sanitizer: 'toDate'
+          , expect: {
+                // RFC2822 / IETF
+                'Mon, 25 Dec 1995 13:30:00 GMT': new Date('Mon, 25 Dec 1995 13:30:00 GMT')
+              , 'Mon, 25 Dec 1995 13:30:00 +043': new Date('Mon, 25 Dec 1995 13:30:00 +043')
+                // ECMAScript 5 ISO-8601
+              , '2011-10-10T14:48:00': new Date('2011-10-10T14:48:00')
+                // milliseconds
+              , 819898200000: new Date('Mon, 25 Dec 1995 13:30:00 GMT')
             }
         });
     });
