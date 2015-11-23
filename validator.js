@@ -535,7 +535,7 @@
         if (isNaN(normalizedDate)) {
             return false;
         }
-        // normalizedDate is in the use r's timezone. Apply the input
+        // normalizedDate is in the user's timezone. Apply the input
         // timezone offset to the date so that the year and day match
         // the input
         var timezoneOffset = getTimezoneOffset(str);
