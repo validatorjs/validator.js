@@ -776,6 +776,14 @@
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
     };
 
+    validator.isUnicode = function (str) {
+        if(str == null) { return false; }
+        for (var i = 0, n = str.length; i < n; i++) {
+            if (str.charCodeAt( i ) > 255) { return true; }
+        }
+        return false;
+    };
+
     var default_normalize_email_options = {
         lowercase: true
     };
