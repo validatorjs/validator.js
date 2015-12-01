@@ -52,6 +52,8 @@
     var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
       , isbn13Maybe = /^(?:[0-9]{13})$/;
 
+    var macAddressMaybe = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
+
     var ipv4Maybe = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
       , ipv6Block = /^[0-9A-F]{1,4}$/i;
 
@@ -293,6 +295,10 @@
             return false;
         }
         return true;
+    };
+
+    validator.isMACAddress = function (str) {
+        return macAddressMaybe.test(str);
     };
 
     validator.isIP = function (str, version) {

@@ -397,6 +397,25 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate MAC addresses', function () {
+        test({
+            validator: 'isMACAddress',
+            valid: [
+                'ab:ab:ab:ab:ab:ab',
+                'FF:FF:FF:FF:FF:FF',
+                '01:02:03:04:05:ab',
+                '01:AB:03:04:05:06'
+            ],
+            invalid: [
+                'abc',
+                '01:02:03:04:05',
+                '01:02:03:04::ab',
+                '1:2:3:4:5:6',
+                'AB:CD:EF:GH:01:02'
+            ]
+        });
+    });
+
     it('should validate IP addresses', function () {
         test({
             validator: 'isIP'
