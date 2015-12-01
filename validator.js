@@ -777,7 +777,9 @@
     };
 
     var default_normalize_email_options = {
-        lowercase: true
+        lowercase: true,
+        remove_dots: true,
+        remove_extension: true
     };
 
     validator.normalizeEmail = function (email, options) {
@@ -788,11 +790,16 @@
         var parts = email.split('@', 2);
         parts[1] = parts[1].toLowerCase();
         if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
-            parts[0] = parts[0].toLowerCase().replace(/\./g, '');
-            if (parts[0][0] === '+') {
+            if (options.remove_extension) {
+                parts[0] = parts[0].split('+')[0];
+            }
+            if (options.remove_dots) {
+                parts[0] = parts[0].replace(/\./g, '');
+            }
+            if (!parts[0].length) {
                 return false;
             }
-            parts[0] = parts[0].split('+')[0];
+            parts[0] = parts[0].toLowerCase();
             parts[1] = 'gmail.com';
         } else if (options.lowercase) {
             parts[0] = parts[0].toLowerCase();
