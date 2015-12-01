@@ -1,7 +1,11 @@
 #### HEAD
 
+- Added MAC address validation
+  ([#458](https://github.com/chriso/validator.js/pull/458))
 - Added a New Zealand locale to `isMobilePhone()`
   ([#452](https://github.com/chriso/validator.js/pull/452))
+- Added options to control GMail address normalization
+  ([#460](https://github.com/chriso/validator.js/pull/460))
 
 #### 4.3.0
 
