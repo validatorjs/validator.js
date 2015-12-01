@@ -198,7 +198,9 @@ describe('Sanitizers', function () {
               , 'an invalid email address': false
               , '': false
               , '+extension@gmail.com': false
-              // some.name.midd..leNa...me...+extension@GoogleMail.com was removed from test cases because of a bug with validator.isEmail. See issue #258
+              , '...@gmail.com': false
+              , '.+extension@googlemail.com': false
+              , 'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
             }
         });
         test({
@@ -211,11 +213,25 @@ describe('Sanitizers', function () {
               , 'TEST@me.com': 'TEST@me.com'
               , 'TEST@ME.COM': 'TEST@me.com'
               , 'blAH@x.com': 'blAH@x.com'
-                
+
                 // Domains that are known for being case-insensitive are always lowercased
               , 'SOME.name@GMAIL.com': 'somename@gmail.com'
               , 'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com'
               , 'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com'
+            }
+        });
+        test({
+            sanitizer: 'normalizeEmail'
+          , args: [{remove_dots: false}]
+          , expect: {
+                'SOME.name@GMAIL.com': 'some.name@gmail.com'
+            }
+        });
+        test({
+            sanitizer: 'normalizeEmail'
+          , args: [{remove_extension: false}]
+          , expect: {
+                'foo+bar@gmail.com': 'foo+bar@gmail.com'
             }
         });
     });
