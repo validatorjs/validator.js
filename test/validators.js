@@ -2402,4 +2402,9 @@ describe('Validators', function () {
             ]
         });
     });
+
+    it('should validate whitelisted characters', function () {
+        test({ validator: 'isWhitelisted', args: ['abcdefghijklmnopqrstuvwxyz-'], valid: ['foo', 'foobar', 'baz-foo'],
+            invalid: ['foo bar', 'fo.bar', 'türkçe'] });
+    });
 });
