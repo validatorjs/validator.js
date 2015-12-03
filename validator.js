@@ -582,6 +582,16 @@
         return false;
     };
 
+    validator.isWhitelisted = function (str, chars) {
+        for (var i = str.length - 1; i >= 0; i--) {
+            if (chars.indexOf(str[i]) === -1) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+
     validator.isCreditCard = function (str) {
         var sanitized = str.replace(/[^0-9]+/g, '');
         if (!creditCard.test(sanitized)) {

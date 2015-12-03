@@ -75,6 +75,7 @@ $ bower install validator-js
 - **isUUID(str [, version])** - check if the string is a UUID (version 3, 4 or 5).
 - **isUppercase(str)** - check if the string is uppercase.
 - **isVariableWidth(str)** - check if the string contains a mixture of full and half-width chars.
+- **isWhitelisted(str, chars)** - checks characters if they appear in the whitelist.
 - **matches(str, pattern [, modifiers])** - check if string matches the pattern. Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
 
 ### Sanitizers
