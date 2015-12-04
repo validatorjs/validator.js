@@ -773,7 +773,7 @@
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/\//g, '&#x2F;')
-            .replace(/\`/g, '&#96;'));
+            .replace(/`/g, '&#96;'));
     };
 
     validator.stripLow = function (str, keep_new_lines) {
