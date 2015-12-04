@@ -289,11 +289,8 @@
             options.host_whitelist.indexOf(host) === -1) {
             return false;
         }
-        if (options.host_blacklist &&
-            options.host_blacklist.indexOf(host) !== -1) {
-            return false;
-        }
-        return true;
+
+        return !(options.host_blacklist && options.host_blacklist.indexOf(host) !== -1);
     };
 
     validator.isMACAddress = function (str) {
