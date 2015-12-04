@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.4.0
 
 - Added `isMACAddress()` validator
   ([#458](https://github.com/chriso/validator.js/pull/458))
