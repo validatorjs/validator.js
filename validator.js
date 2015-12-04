@@ -112,8 +112,8 @@
         };
     };
 
-    //Right before exporting the validator object, pass each of the builtins
-    //through extend() so that their first argument is coerced to a string
+    // Right before exporting the validator object, pass each of the builtins
+    // through extend() so that their first argument is coerced to a string
     validator.init = function () {
         for (var name in validator) {
             if (typeof validator[name] !== 'function' || name === 'toString' ||
@@ -531,9 +531,9 @@
         }
         var day = String(normalizedDate.getDate());
         var dayOrYear, dayOrYearMatches, year;
-        //check for valid double digits that could be late days
-        //check for all matches since a string like '12/23' is a valid date
-        //ignore everything with nearby colons
+        // check for valid double digits that could be late days
+        // check for all matches since a string like '12/23' is a valid date
+        // ignore everything with nearby colons
         dayOrYearMatches = str.match(/(^|[^:\d])[23]\d([^:\d]|$)/g);
         if (!dayOrYearMatches) {
             return true;
