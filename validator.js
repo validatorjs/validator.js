@@ -35,7 +35,7 @@
 
     'use strict';
 
-    validator = { version: '4.4.0' };
+    validator = {version: '4.4.0'};
 
     var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
     var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
@@ -50,55 +50,55 @@
     var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
 
     var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
-      , isbn13Maybe = /^(?:[0-9]{13})$/;
+        , isbn13Maybe = /^(?:[0-9]{13})$/;
 
     var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 
     var ipv4Maybe = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
-      , ipv6Block = /^[0-9A-F]{1,4}$/i;
+        , ipv6Block = /^[0-9A-F]{1,4}$/i;
 
     var uuid = {
         '3': /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i
-      , '4': /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
-      , '5': /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
-      , all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
+        , '4': /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+        , '5': /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+        , all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
     };
 
     var alpha = /^[A-Z]+$/i
-      , alphanumeric = /^[0-9A-Z]+$/i
-      , numeric = /^[-+]?[0-9]+$/
-      , int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/
-      , float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/
-      , hexadecimal = /^[0-9A-F]+$/i
-      , decimal = /^[-+]?([0-9]+|\.[0-9]+|[0-9]+\.[0-9]+)$/
-      , hexcolor = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
+        , alphanumeric = /^[0-9A-Z]+$/i
+        , numeric = /^[-+]?[0-9]+$/
+        , int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/
+        , float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/
+        , hexadecimal = /^[0-9A-F]+$/i
+        , decimal = /^[-+]?([0-9]+|\.[0-9]+|[0-9]+\.[0-9]+)$/
+        , hexcolor = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
 
     var ascii = /^[\x00-\x7F]+$/
-      , multibyte = /[^\x00-\x7F]/
-      , fullWidth = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/
-      , halfWidth = /[\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/;
+        , multibyte = /[^\x00-\x7F]/
+        , fullWidth = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/
+        , halfWidth = /[\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/;
 
     var surrogatePair = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
 
     var base64 = /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
 
     var phones = {
-      'zh-CN': /^(\+?0?86\-?)?1[345789]\d{9}$/,
-      'zh-TW': /^(\+?886\-?|0)?9\d{8}$/,
-      'en-ZA': /^(\+?27|0)\d{9}$/,
-      'en-AU': /^(\+?61|0)4\d{8}$/,
-      'en-HK': /^(\+?852\-?)?[569]\d{3}\-?\d{4}$/,
-      'fr-FR': /^(\+?33|0)[67]\d{8}$/,
-      'pt-PT': /^(\+351)?9[1236]\d{7}$/,
-      'el-GR': /^(\+30)?((2\d{9})|(69\d{8}))$/,
-      'en-GB': /^(\+?44|0)7\d{9}$/,
-      'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
-      'en-ZM': /^(\+26)?09[567]\d{7}$/,
-      'ru-RU': /^(\+?7|8)?9\d{9}$/,
-      'nb-NO': /^(\+?47)?[49]\d{7}$/,
-      'nn-NO': /^(\+?47)?[49]\d{7}$/,
-      'vi-VN': /^(0|\+?84)?((1(2([0-9])|6([2-9])|88|99))|(9((?!5)[0-9])))([0-9]{7})$/,
-      'en-NZ': /^(\+?64|0)2\d{7,9}$/
+        'zh-CN': /^(\+?0?86\-?)?1[345789]\d{9}$/,
+        'zh-TW': /^(\+?886\-?|0)?9\d{8}$/,
+        'en-ZA': /^(\+?27|0)\d{9}$/,
+        'en-AU': /^(\+?61|0)4\d{8}$/,
+        'en-HK': /^(\+?852\-?)?[569]\d{3}\-?\d{4}$/,
+        'fr-FR': /^(\+?33|0)[67]\d{8}$/,
+        'pt-PT': /^(\+351)?9[1236]\d{7}$/,
+        'el-GR': /^(\+30)?((2\d{9})|(69\d{8}))$/,
+        'en-GB': /^(\+?44|0)7\d{9}$/,
+        'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
+        'en-ZM': /^(\+26)?09[567]\d{7}$/,
+        'ru-RU': /^(\+?7|8)?9\d{9}$/,
+        'nb-NO': /^(\+?47)?[49]\d{7}$/,
+        'nn-NO': /^(\+?47)?[49]\d{7}$/,
+        'vi-VN': /^(0|\+?84)?((1(2([0-9])|6([2-9])|88|99))|(9((?!5)[0-9])))([0-9]{7})$/,
+        'en-NZ': /^(\+?64|0)2\d{7,9}$/
     };
 
     // from http://goo.gl/0ejHHW
@@ -112,12 +112,12 @@
         };
     };
 
-    //Right before exporting the validator object, pass each of the builtins
-    //through extend() so that their first argument is coerced to a string
+    // Right before exporting the validator object, pass each of the builtins
+    // through extend() so that their first argument is coerced to a string
     validator.init = function () {
         for (var name in validator) {
             if (typeof validator[name] !== 'function' || name === 'toString' ||
-                    name === 'toDate' || name === 'extend' || name === 'init') {
+                name === 'toDate' || name === 'extend' || name === 'init') {
                 continue;
             }
             validator.extend(name, validator[name]);
@@ -188,16 +188,15 @@
         }
 
         var parts = str.split('@')
-          , domain = parts.pop()
-          , user = parts.join('@');
+            , domain = parts.pop()
+            , user = parts.join('@');
 
         var lower_domain = domain.toLowerCase();
         if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
             user = user.replace(/\./g, '').toLowerCase();
         }
 
-        if (!validator.isByteLength(user, 0, 64) ||
-                !validator.isByteLength(domain, 0, 256)) {
+        if (!validator.isByteLength(user, 0, 64) || !validator.isByteLength(domain, 0, 256)) {
             return false;
         }
 
@@ -226,13 +225,13 @@
     };
 
     var default_url_options = {
-        protocols: [ 'http', 'https', 'ftp' ]
-      , require_tld: true
-      , require_protocol: false
-      , require_valid_protocol: true
-      , allow_underscores: false
-      , allow_trailing_dot: false
-      , allow_protocol_relative_urls: false
+        protocols: ['http', 'https', 'ftp']
+        , require_tld: true
+        , require_protocol: false
+        , require_valid_protocol: true
+        , allow_underscores: false
+        , allow_trailing_dot: false
+        , allow_protocol_relative_urls: false
     };
 
     validator.isURL = function (url, options) {
@@ -253,7 +252,7 @@
             }
         } else if (options.require_protocol) {
             return false;
-        }  else if (options.allow_protocol_relative_urls && url.substr(0, 2) === '//') {
+        } else if (options.allow_protocol_relative_urls && url.substr(0, 2) === '//') {
             split[0] = url.substr(2);
         }
         url = split.join('://');
@@ -283,18 +282,15 @@
             }
         }
         if (!validator.isIP(host) && !validator.isFQDN(host, options) &&
-                host !== 'localhost') {
+            host !== 'localhost') {
             return false;
         }
         if (options.host_whitelist &&
-                options.host_whitelist.indexOf(host) === -1) {
+            options.host_whitelist.indexOf(host) === -1) {
             return false;
         }
-        if (options.host_blacklist &&
-                options.host_blacklist.indexOf(host) !== -1) {
-            return false;
-        }
-        return true;
+
+        return !(options.host_blacklist && options.host_blacklist.indexOf(host) !== -1);
     };
 
     validator.isMACAddress = function (str) {
@@ -343,7 +339,7 @@
             for (var i = 0; i < blocks.length; ++i) {
                 // test for a :: which can not be at the string start/end
                 // since those cases have been handled above
-                if (blocks[i] === '' && i > 0 && i < blocks.length -1) {
+                if (blocks[i] === '' && i > 0 && i < blocks.length - 1) {
                     if (foundOmissionBlock)
                         return false; // multiple :: in address
                     foundOmissionBlock = true;
@@ -366,8 +362,8 @@
 
     var default_fqdn_options = {
         require_tld: true
-      , allow_underscores: false
-      , allow_trailing_dot: false
+        , allow_underscores: false
+        , allow_trailing_dot: false
     };
 
     validator.isFQDN = function (str, options) {
@@ -400,14 +396,14 @@
                 return false;
             }
             if (part[0] === '-' || part[part.length - 1] === '-' ||
-                    part.indexOf('---') >= 0) {
+                part.indexOf('---') >= 0) {
                 return false;
             }
         }
         return true;
     };
 
-    validator.isBoolean = function(str) {
+    validator.isBoolean = function (str) {
         return (['true', 'false', '1', '0'].indexOf(str) >= 0);
     };
 
@@ -482,7 +478,7 @@
 
     function getTimezoneOffset(str) {
         var iso8601Parts = str.match(iso8601)
-          , timezone, sign, hours, minutes;
+            , timezone, sign, hours, minutes;
         if (!iso8601Parts) {
             str = str.toLowerCase();
             timezone = str.match(/(?:\s|gmt\s*)(-|\+)(\d{1,4})(\s|$)/);
@@ -535,14 +531,14 @@
         }
         var day = String(normalizedDate.getDate());
         var dayOrYear, dayOrYearMatches, year;
-        //check for valid double digits that could be late days
-        //check for all matches since a string like '12/23' is a valid date
-        //ignore everything with nearby colons
+        // check for valid double digits that could be late days
+        // check for all matches since a string like '12/23' is a valid date
+        // ignore everything with nearby colons
         dayOrYearMatches = str.match(/(^|[^:\d])[23]\d([^:\d]|$)/g);
         if (!dayOrYearMatches) {
             return true;
         }
-        dayOrYear = dayOrYearMatches.map(function(digitString) {
+        dayOrYear = dayOrYearMatches.map(function (digitString) {
             return digitString.match(/\d+/g)[0];
         }).join('/');
         year = String(normalizedDate.getFullYear()).slice(-2);
@@ -556,13 +552,13 @@
 
     validator.isAfter = function (str, date) {
         var comparison = validator.toDate(date || new Date())
-          , original = validator.toDate(str);
+            , original = validator.toDate(str);
         return !!(original && comparison && original > comparison);
     };
 
     validator.isBefore = function (str, date) {
         var comparison = validator.toDate(date || new Date())
-          , original = validator.toDate(str);
+            , original = validator.toDate(str);
         return !!(original && comparison && original < comparison);
     };
 
@@ -621,7 +617,7 @@
             return false;
         }
 
-        var checksumStr = str.replace(/[A-Z]/g, function(character) {
+        var checksumStr = str.replace(/[A-Z]/g, function (character) {
             return parseInt(character, 36);
         });
 
@@ -651,7 +647,7 @@
             return validator.isISBN(str, 10) || validator.isISBN(str, 13);
         }
         var sanitized = str.replace(/[\s-]+/g, '')
-          , checksum = 0, i;
+            , checksum = 0, i;
         if (version === '10') {
             if (!isbn10Maybe.test(sanitized)) {
                 return false;
@@ -667,11 +663,11 @@
             if ((checksum % 11) === 0) {
                 return !!sanitized;
             }
-        } else  if (version === '13') {
+        } else if (version === '13') {
             if (!isbn13Maybe.test(sanitized)) {
                 return false;
             }
-            var factor = [ 1, 3 ];
+            var factor = [1, 3];
             for (i = 0; i < 12; i++) {
                 checksum += factor[i % 2] * sanitized.charAt(i);
             }
@@ -682,7 +678,7 @@
         return false;
     };
 
-    validator.isMobilePhone = function(str, locale) {
+    validator.isMobilePhone = function (str, locale) {
         if (locale in phones) {
             return phones[locale].test(str);
         }
@@ -691,17 +687,17 @@
 
     var default_currency_options = {
         symbol: '$'
-      , require_symbol: false
-      , allow_space_after_symbol: false
-      , symbol_after_digits: false
-      , allow_negatives: true
-      , parens_for_negatives: false
-      , negative_sign_before_digits: false
-      , negative_sign_after_digits: false
-      , allow_negative_sign_placeholder: false
-      , thousands_separator: ','
-      , decimal_separator: '.'
-      , allow_space_after_digits: false
+        , require_symbol: false
+        , allow_space_after_symbol: false
+        , symbol_after_digits: false
+        , allow_negatives: true
+        , parens_for_negatives: false
+        , negative_sign_before_digits: false
+        , negative_sign_after_digits: false
+        , allow_negative_sign_placeholder: false
+        , thousands_separator: ','
+        , decimal_separator: '.'
+        , allow_space_after_digits: false
     };
 
     validator.isCurrency = function (str, options) {
@@ -714,7 +710,8 @@
         try {
             var obj = JSON.parse(str);
             return !!obj && typeof obj === 'object';
-        } catch (e) {}
+        } catch (e) {
+        }
         return false;
     };
 
@@ -776,7 +773,7 @@
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/\//g, '&#x2F;')
-            .replace(/\`/g, '&#96;'));
+            .replace(/`/g, '&#96;'));
     };
 
     validator.stripLow = function (str, keep_new_lines) {
@@ -876,7 +873,7 @@
         }
         return new RegExp(
             '^' +
-            // ensure there's a dollar and/or decimal amount, and that it doesn't start with a space or a negative sign followed by a space
+                // ensure there's a dollar and/or decimal amount, and that it doesn't start with a space or a negative sign followed by a space
             '(?!-? )(?=.*\\d)' +
             pattern +
             '$'
