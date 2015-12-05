@@ -1,5 +1,5 @@
 var assert = require('assert')
-  , validator = require('../validator');
+    , validator = require('../validator');
 
 describe('Exports', function () {
 

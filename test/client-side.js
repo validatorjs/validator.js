@@ -1,6 +1,6 @@
 var assert = require('assert')
-  , validator = require('../validator')
-  , min = require('../validator.min');
+    , validator = require('../validator')
+    , min = require('../validator.min');
 
 describe('Minified version', function () {
 
