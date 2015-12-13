@@ -1,3 +1,8 @@
+#### HEAD
+
+- Allow triple hyphens in IDNA hostnames
+  ([#466](https://github.com/chriso/validator.js/issues/466))
+
 #### 4.4.0
 
 - Added `isMACAddress()` validator
