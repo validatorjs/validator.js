@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.4.1
 
 - Allow triple hyphens in IDNA hostnames
   ([#466](https://github.com/chriso/validator.js/issues/466))
