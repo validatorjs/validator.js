@@ -1,3 +1,9 @@
+#### HEAD
+
+- Tweak Greek and Chinese mobile phone validation
+  ([#467](https://github.com/chriso/validator.js/pull/467),
+   [#468](https://github.com/chriso/validator.js/pull/468))
+
 #### 4.4.1
 
 - Allow triple hyphens in IDNA hostnames
