@@ -1,5 +1,7 @@
 #### HEAD
 
+- Add validation for Indian mobile phone numbers
+  ([#471](https://github.com/chriso/validator.js/pull/471))
 - Tweak Greek and Chinese mobile phone validation
   ([#467](https://github.com/chriso/validator.js/pull/467),
    [#468](https://github.com/chriso/validator.js/pull/468))
