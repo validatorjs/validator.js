@@ -5,6 +5,8 @@
 - Tweak Greek and Chinese mobile phone validation
   ([#467](https://github.com/chriso/validator.js/pull/467),
    [#468](https://github.com/chriso/validator.js/pull/468))
+- Fixed a bug in `isDate()` when validating ISO 8601 dates without a timezone
+  ([#472](https://github.com/chriso/validator.js/issues/472))
 
 #### 4.4.1
 
