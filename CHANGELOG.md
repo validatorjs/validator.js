@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.5.0
 
 - Add validation for Indian mobile phone numbers
   ([#471](https://github.com/chriso/validator.js/pull/471))
