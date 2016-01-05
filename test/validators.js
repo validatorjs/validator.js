@@ -944,6 +944,7 @@ describe('Validators', function () {
               , 'Wed, 9 Apr 2014 10:21:03 +0200'
               , 'Wed, 9 Apr 2014 06:21:03 -0200'
               , 'Wed, 9 Apr 2014 08:21:03 +0000'
+              , '2016-01-20 07:11'
           ]
           , invalid: [
                 'foo'

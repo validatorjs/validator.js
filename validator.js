@@ -506,7 +506,10 @@
             }
         } else {
             timezone = iso8601Parts[21];
-            if (!timezone || timezone === 'z' || timezone === 'Z') {
+            if (!timezone) {
+                return null;
+            }
+            if (timezone === 'z' || timezone === 'Z') {
                 return 0;
             }
             sign = iso8601Parts[22];
@@ -526,6 +529,7 @@
         if (isNaN(normalizedDate)) {
             return false;
         }
+
         // normalizedDate is in the user's timezone. Apply the input
         // timezone offset to the date so that the year and day match
         // the input
@@ -536,6 +540,7 @@
             normalizedDate = new Date(normalizedDate.getTime() +
                 60000 * timezoneDifference);
         }
+
         var day = String(normalizedDate.getDate());
         var dayOrYear, dayOrYearMatches, year;
         //check for valid double digits that could be late days
@@ -548,6 +553,7 @@
         dayOrYear = dayOrYearMatches.map(function(digitString) {
             return digitString.match(/\d+/g)[0];
         }).join('/');
+
         year = String(normalizedDate.getFullYear()).slice(-2);
         if (dayOrYear === day || dayOrYear === year) {
             return true;
