@@ -141,7 +141,7 @@ Tests require node v4.0+.
 ### License (MIT)
 
 ```
-Copyright (c) 2015 Chris O'Hara <cohara87@gmail.com>
+Copyright (c) 2016 Chris O'Hara <cohara87@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
