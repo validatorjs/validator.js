@@ -772,15 +772,32 @@ describe('Validators', function () {
             invalid: ['acb'] });
     });
 
-    it('should validate strings by length', function () {
+    it('should validate strings by length (deprecated api)', function () {
         test({ validator: 'isLength', args: [2], valid: ['abc', 'de', 'abcd'], invalid: [ '', 'a' ] });
         test({ validator: 'isLength', args: [2, 3], valid: ['abc', 'de'], invalid: [ '', 'a', 'abcd' ] });
         test({ validator: 'isLength', args: [2, 3], valid: ['干𩸽', '𠮷野家'], invalid: [ '', '𠀋', '千竈通り' ] });
+        test({ validator: 'isLength', args: [0, 0], valid: [''], invalid: ['a', 'ab'] });
+    });
+
+    it('should validate strings by byte length (deprecated api)', function () {
+        test({ validator: 'isByteLength', args: [2], valid: ['abc', 'de', 'abcd', 'ｇｍａｉｌ'], invalid: [ '', 'a' ] });
+        test({ validator: 'isByteLength', args: [2, 3], valid: ['abc', 'de', 'ｇ'], invalid: [ '', 'a', 'abcd', 'ｇｍ' ] });
+        test({ validator: 'isByteLength', args: [0, 0], valid: [''], invalid: ['ｇ', 'a'] });
+    });
+
+    it('should validate strings by length', function () {
+        test({ validator: 'isLength', args: [{min: 2}], valid: ['abc', 'de', 'abcd'], invalid: ['', 'a'] });
+        test({ validator: 'isLength', args: [{min: 2, max: 3}], valid: ['abc', 'de'], invalid: ['', 'a', 'abcd'] });
+        test({ validator: 'isLength', args: [{min: 2, max: 3}], valid: ['干𩸽', '𠮷野家'], invalid: [ '', '𠀋', '千竈通り' ] });
+        test({ validator: 'isLength', args: [{max: 3}], valid: ['abc', 'de', 'a', ''], invalid: ['abcd'] });
+        test({ validator: 'isLength', args: [{max: 0}], valid: [''], invalid: ['a', 'ab'] });
     });
 
     it('should validate strings by byte length', function () {
-        test({ validator: 'isByteLength', args: [2], valid: ['abc', 'de', 'abcd', 'ｇｍａｉｌ'], invalid: [ '', 'a' ] });
-        test({ validator: 'isByteLength', args: [2, 3], valid: ['abc', 'de', 'ｇ'], invalid: [ '', 'a', 'abcd', 'ｇｍ' ] });
+        test({ validator: 'isByteLength', args: [{min: 2}], valid: ['abc', 'de', 'abcd', 'ｇｍａｉｌ'], invalid: ['', 'a'] });
+        test({ validator: 'isByteLength', args: [{min: 2, max: 3}], valid: ['abc', 'de', 'ｇ'], invalid: ['', 'a', 'abcd', 'ｇｍ'] });
+        test({ validator: 'isByteLength', args: [{max: 3}], valid: ['abc', 'de', 'ｇ', 'a', ''], invalid: ['abcd', 'ｇｍ'] });
+        test({ validator: 'isByteLength', args: [{max: 0}], valid: [''], invalid: ['ｇ', 'a'] });
     });
 
     it('should validate UUIDs', function () {

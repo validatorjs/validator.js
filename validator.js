@@ -197,8 +197,8 @@
             user = user.replace(/\./g, '').toLowerCase();
         }
 
-        if (!validator.isByteLength(user, 0, 64) ||
-                !validator.isByteLength(domain, 0, 256)) {
+        if (!validator.isByteLength(user, {max: 64}) ||
+                !validator.isByteLength(domain, {max: 256})) {
             return false;
         }
 
@@ -467,13 +467,28 @@
         return str.length === 0;
     };
 
-    validator.isLength = function (str, min, max) {
+    validator.isLength = function (str, options) {
+        var min, max;
+        if (typeof(options) === 'object') {
+            min = options.min || 0;
+            max = options.max;
+        } else { // backwards compatibility: isLength(str, min [, max])
+            min = arguments[1];
+            max = arguments[2];
+        }
         var surrogatePairs = str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || [];
         var len = str.length - surrogatePairs.length;
         return len >= min && (typeof max === 'undefined' || len <= max);
     };
-
-    validator.isByteLength = function (str, min, max) {
+    validator.isByteLength = function (str, options) {
+        var min, max;
+        if (typeof(options) === 'object') {
+            min = options.min || 0;
+            max = options.max;
+        } else { // backwards compatibility: isByteLength(str, min [, max])
+            min = arguments[1];
+            max = arguments[2];
+        }
         var len = encodeURI(str).split(/%..|./).length - 1;
         return len >= min && (typeof max === 'undefined' || len <= max);
     };
