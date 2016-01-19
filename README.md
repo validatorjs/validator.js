@@ -42,7 +42,7 @@ $ bower install validator-js
 - **isBase64(str)** - check if a string is base64 encoded.
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
 - **isBoolean(str)** - check if a string is a boolean.
-- **isByteLength(str, min [, max])** - check if the string's length (in bytes) falls in a range.
+- **isByteLength(str, options)** - check if the string's length (in bytes) falls in a range.`options` is an object which defaults to `{min:0, max: undefined}`.
 - **isCreditCard(str)** - check if the string is a credit card.
 - **isCurrency(str, options)** - check if the string is a valid currency amount. `options` is an object which defaults to `{symbol: '$', require_symbol: false, allow_space_after_symbol: false, symbol_after_digits: false, allow_negatives: true, parens_for_negatives: false, negative_sign_before_digits: false, negative_sign_after_digits: false, allow_negative_sign_placeholder: false, thousands_separator: ',', decimal_separator: '.', allow_space_after_digits: false }`.
 - **isDate(str)** - check if the string is a date.
@@ -62,7 +62,7 @@ $ bower install validator-js
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isInt(str [, options])** - check if the string is an integer. `options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`).
 - **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
-- **isLength(str, min [, max])** - check if the string's length falls in a range. Note: this function takes into account surrogate pairs.
+- **isLength(str, options)** - check if the string's length falls in a range. `options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
 - **isLowercase(str)** - check if the string is lowercase.
 - **isMACAddress(str)** - check if the string is a MAC address.
 - **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN']`).

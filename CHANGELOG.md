@@ -1,3 +1,6 @@
+- Make `isLength() / isByteLength()` also accept `{min, max}` as options object.
+  ([#474](https://github.com/chriso/validator.js/issues/474))
+
 #### 4.5.0
 
 - Add validation for Indian mobile phone numbers
