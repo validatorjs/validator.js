@@ -1,4 +1,6 @@
-- Make `isLength() / isByteLength()` also accept `{min, max}` as options object.
+#### 4.5.1
+
+- Make `isLength()` / `isByteLength()` accept `{min, max}` as options object.
   ([#474](https://github.com/chriso/validator.js/issues/474))
 
 #### 4.5.0
