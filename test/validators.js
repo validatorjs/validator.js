@@ -546,6 +546,9 @@ describe('Validators', function () {
                 'abc'
               , 'ABC'
               , 'FoObar'
+              , 'ÄBC'
+              , 'FÜübar'
+              , 'Jön'
             ]
           , invalid: [
                 'abc1'
@@ -561,6 +564,9 @@ describe('Validators', function () {
           , valid: [
                 'abc123'
               , 'ABC11'
+              , 'ÄBC'
+              , 'FÜübar'
+              , 'Jön'
             ]
           , invalid: [
                 'abc '
@@ -1333,6 +1339,22 @@ describe('Validators', function () {
     });
 
     it('should validate mobile phone number', function () {
+      test({
+        validator: 'isMobilePhone'
+        , valid: [
+            '+49 (0) 123 456 789'
+          , '+49 (0) 123 456789'
+          , '0123/4567890'
+          , '+49 01234567890'
+          , '01234567890'
+        ]
+        , invalid: [
+            ''
+          , 'Vml2YW11cyBmZXJtZtesting123'
+        ],
+        args: ['de-DE']
+      });
+
       test({
         validator: 'isMobilePhone'
         , valid: [
