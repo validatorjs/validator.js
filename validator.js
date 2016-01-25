@@ -448,7 +448,7 @@
 
     validator.isInt = function (str, options) {
         options = options || {};
-        return int.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max);
+        return int.test(str) && (!options.hasOwnProperty('min') || parseFloat(str,10) >= options.min) && (!options.hasOwnProperty('max') || parseFloat(str,10) <= options.max);
     };
 
     validator.isFloat = function (str, options) {
