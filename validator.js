@@ -522,7 +522,8 @@
         } else {
             timezone = iso8601Parts[21];
             if (!timezone) {
-                return null;
+                // if no hour/minute was provided, the date is GMT
+                return !iso8601Parts[12] ? 0 : null;
             }
             if (timezone === 'z' || timezone === 'Z') {
                 return 0;
