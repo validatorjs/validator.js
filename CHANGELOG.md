@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.5.2
 
 - Fix a timezone issue with short-form ISO 8601 dates, e.g.
   `validator.isDate('2011-12-21')`
