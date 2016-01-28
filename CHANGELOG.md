@@ -1,3 +1,9 @@
+#### HEAD
+
+- Fix a timezone issue with short-form ISO 8601 dates, e.g.
+  `validator.isDate('2011-12-21')`
+  ([#480](https://github.com/chriso/validator.js/issues/480))
+
 #### 4.5.1
 
 - Make `isLength()` / `isByteLength()` accept `{min, max}` as options object.
