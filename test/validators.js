@@ -1645,6 +1645,32 @@ describe('Validators', function () {
         ],
         args: ['vi-VN']
       });
+
+      test({
+        validator: 'isMobilePhone'
+        , valid: [
+          '+34654789321'
+          , '654789321'
+          , '+34714789321'
+          , '714789321'
+          , '+34744789321'
+          , '744789321'
+        ]
+        , invalid: [
+          '12345'
+          , ''
+          , 'Vml2YW11cyBmZXJtZtesting123'
+          , '+3465478932'
+          , '65478932'
+          , '+346547893210'
+          , '6547893210'
+          , '+34704789321'
+          , '704789321'
+          , '+34754789321'
+          , '754789321'
+        ],
+        args: ['es-ES']
+      });
     });
 
     it('should validate currency', function() {
