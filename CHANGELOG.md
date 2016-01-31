@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added a Spanish locale to `isMobilePhone()`
+  ([#481](https://github.com/chriso/validator.js/pull/481))
+
 #### 4.5.2
 
 - Fix a timezone issue with short-form ISO 8601 dates, e.g.
