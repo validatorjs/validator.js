@@ -546,13 +546,30 @@ describe('Validators', function () {
                 'abc'
               , 'ABC'
               , 'FoObar'
-              , 'ÄBC'
-              , 'FÜübar'
-              , 'Jön'
             ]
           , invalid: [
                 'abc1'
               , '  foo  '
+              , ''
+              , 'ÄBC'
+              , 'FÜübar'
+              , 'Jön'
+            ]
+        });
+    });
+
+    it('should validate german alpha strings', function () {
+        test({
+            validator: 'isAlpha'
+          , args: ['de-DE']
+          , valid: [
+                'äbc'
+              , 'ÄBC'
+              , 'FöÖbär'
+            ]
+          , invalid: [
+                'äbc1'
+              , '  föö  '
               , ''
             ]
         });
@@ -564,13 +581,28 @@ describe('Validators', function () {
           , valid: [
                 'abc123'
               , 'ABC11'
-              , 'ÄBC'
-              , 'FÜübar'
-              , 'Jön'
             ]
           , invalid: [
                 'abc '
               , 'foo!!'
+              , 'ÄBC'
+              , 'FÜübar'
+              , 'Jön'
+            ]
+        });
+    });
+
+    it('should validate german alphanumeric strings', function () {
+        test({
+            validator: 'isAlphanumeric'
+          , args: ['de-DE']
+          , valid: [
+                'äbc123'
+              , 'ÄBC11'
+            ]
+          , invalid: [
+                'äca '
+              , 'föö!!'
             ]
         });
     });
