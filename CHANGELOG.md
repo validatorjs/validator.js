@@ -2,6 +2,8 @@
 
 - Added a Spanish locale to `isMobilePhone()`
   ([#481](https://github.com/chriso/validator.js/pull/481))
+- Fix string coercion of objects created with `Object.create(null)`
+  ([#484](https://github.com/chriso/validator.js/issues/484))
 
 #### 4.5.2
 
