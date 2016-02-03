@@ -31,6 +31,16 @@ The library can also be installed through [bower][bower]
 $ bower install validator-js
 ```
 
+### Strings only
+
+**This library validates and sanitizes strings only**.
+
+All input is coerced to a string using the following rules:
+
+- Call the `toString` property if available.
+- Replace `null`, `undefined`, `NaN` or items with `.length === 0` with an empty string.
+- Everything else is coerced with `'' + input`.
+
 ### Validators
 
 - **contains(str, seed)** - check if the string contains the seed.
@@ -99,14 +109,6 @@ $ bower install validator-js
 XSS sanitization was removed from the library in [2d5d6999](https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
 
 For an alternative, look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters).
-
-### Strings only
-
-This library validates and sanitizes **strings** only. All input will be coerced to a string using the following rules
-
-- Call the `toString` property if available.
-- Replace `null`, `undefined` or `NaN` with an empty string.
-- Everything else is coerced with `input + ''`.
 
 ### Extensions
 
