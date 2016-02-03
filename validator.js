@@ -127,13 +127,13 @@
     };
 
     validator.toString = function (input) {
-        if (typeof input === 'object') {
-            if (input !== null && typeof input.toString === 'function') {
+        if (typeof input === 'object' && input !== null) {
+            if (typeof input.toString === 'function') {
                 input = input.toString();
             } else {
-                input = '';
+                input = '[object Object]';
             }
-        } else if (typeof input === 'undefined' || (isNaN(input) && !input.length)) {
+        } else if (input === null || typeof input === 'undefined' || (isNaN(input) && !input.length)) {
             input = '';
         }
         return '' + input;

@@ -2455,10 +2455,15 @@ describe('Validators', function () {
     });
 
     it('should convert non-string input', function () {
-        var empty = [undefined, null, [], NaN, Object.create(null)];
+        var empty = [undefined, null, [], NaN];
         empty.forEach(function (item) {
             assert.equal(validator.toString(item), '');
             assert(validator.isNull(item));
+        });
+
+        var objects = [{}, Object.create(null)];
+        objects.forEach(function (item) {
+            assert.equal(validator.toString(item), '[object Object]');
         });
     });
 
