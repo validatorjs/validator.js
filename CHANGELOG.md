@@ -1,3 +1,7 @@
+#### 4.6.1
+
+- Fix coercion of objects: `Object.toString()` is `[object Object]` not `""`
+
 #### 4.6.0
 
 - Added a Spanish locale to `isMobilePhone()`
