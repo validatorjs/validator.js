@@ -126,8 +126,12 @@
     };
 
     validator.toString = function (input) {
-        if (typeof input === 'object' && input !== null && input.toString) {
-            input = input.toString();
+        if (typeof input === 'object' && input !== null) {
+            if (input.toString) {
+                input = input.toString();
+            } else {
+                input = '[Object object]';
+            }
         } else if (input === null || typeof input === 'undefined' || (isNaN(input) && !input.length)) {
             input = '';
         }
