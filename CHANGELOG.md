@@ -1,6 +1,7 @@
 #### 4.6.1
 
 - Fix coercion of objects: `Object.toString()` is `[object Object]` not `""`
+  ([a57f3c8](https://github.com/chriso/validator.js/commit/a57f3c843c715fba2664ee22ec80e9e28e88e0a6))
 
 #### 4.6.0
 
