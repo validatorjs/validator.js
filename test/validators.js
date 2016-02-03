@@ -2453,4 +2453,13 @@ describe('Validators', function () {
         test({ validator: 'isWhitelisted', args: ['abcdefghijklmnopqrstuvwxyz-'], valid: ['foo', 'foobar', 'baz-foo'],
             invalid: ['foo bar', 'fo.bar', 'türkçe'] });
     });
+
+    it('should convert non-string input', function () {
+        var empty = [undefined, null, [], NaN, Object.create(null)];
+        empty.forEach(function (item) {
+            assert.equal(validator.toString(item), '');
+            assert(validator.isNull(item));
+        });
+    });
+
 });
