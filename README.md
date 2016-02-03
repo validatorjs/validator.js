@@ -36,8 +36,8 @@ $ bower install validator-js
 - **contains(str, seed)** - check if the string contains the seed.
 - **equals(str, comparison)** - check if the string matches the comparison.
 - **isAfter(str [, date])** - check if the string is a date that's after the specified date (defaults to now).
-- **isAlpha(str)** - check if the string contains only letters (a-zA-Z).
-- **isAlphanumeric(str)** - check if the string contains only letters and numbers.
+- **isAlpha(str [, locale])** - check if the string contains only letters (a-zA-Z).
+- **isAlphanumeric(str [, locale])** - check if the string contains only letters and numbers.
 - **isAscii(str)** - check if the string contains ASCII chars only.
 - **isBase64(str)** - check if a string is base64 encoded.
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
