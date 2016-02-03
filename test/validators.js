@@ -554,6 +554,7 @@ describe('Validators', function () {
               , 'ÄBC'
               , 'FÜübar'
               , 'Jön'
+              , 'Heiß'
             ]
         });
     });
@@ -566,6 +567,7 @@ describe('Validators', function () {
                 'äbc'
               , 'ÄBC'
               , 'FöÖbär'
+              , 'Heiß'
             ]
           , invalid: [
                 'äbc1'
