@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.6.0
 
 - Added a Spanish locale to `isMobilePhone()`
   ([#481](https://github.com/chriso/validator.js/pull/481))
