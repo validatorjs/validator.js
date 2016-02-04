@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added a German locale to `isMobilePhone()`, `isAlpha()` and `isAlphanumeric()`
+  ([#477](https://github.com/chriso/validator.js/pull/477))
+
 #### 4.6.1
 
 - Fix coercion of objects: `Object.toString()` is `[object Object]` not `""`
