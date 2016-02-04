@@ -1,9 +1,11 @@
 #### HEAD
 
-- Added a German locale to `isMobilePhone()`, `isAlpha()` and `isAlphanumeric()`
-  ([#477](https://github.com/chriso/validator.js/pull/477))
 - Print a deprecation warning if validator input is not a string
   ([1f67e1e](https://github.com/chriso/validator.js/commit/1f67e1e15198c0ae735151290dc8dc2bf14da254))
+- Added a German locale to `isMobilePhone()`, `isAlpha()` and `isAlphanumeric()`
+  ([#477](https://github.com/chriso/validator.js/pull/477))
+- Added a Finnish locale to `isMobilePhone()`
+  ([#455](https://github.com/chriso/validator.js/pull/455))
 
 #### 4.6.1
 
