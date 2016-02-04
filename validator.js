@@ -35,7 +35,7 @@
 
     'use strict';
 
-    validator = { version: '4.6.1' };
+    validator = { version: '4.6.1', coerce: true };
 
     var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
     var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
@@ -136,11 +136,15 @@
     validator.toString = function (input) {
         // The library validates strings only. Currently it coerces all input to a string, but this
         // will go away in an upcoming major version change. Print a deprecation notice for now
-        if (typeof input !== 'string' && typeof console === 'object' && console
-                && typeof console.warn === 'function') {
-            console.warn('warning: you tried to validate a ' + typeof input + ' but this library ' +
-                '(github.com/chriso/validator.js) validates strings only. Please update your code ' +
-                'as this will be an error soon.')
+        if (typeof input !== 'string') {
+            if (!validator.coerce) {
+                throw new Error('this library validates strings only');
+            }
+            if (typeof console === 'object' && console && typeof console.warn === 'function') {
+                console.warn('warning: you tried to validate a ' + typeof input + ' but this library ' +
+                    '(github.com/chriso/validator.js) validates strings only. Please update your code ' +
+                    'as this will be an error soon.');
+            }
         }
         if (typeof input === 'object' && input !== null) {
             if (typeof input.toString === 'function') {

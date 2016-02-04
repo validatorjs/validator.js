@@ -2523,4 +2523,22 @@ describe('Validators', function () {
         });
     });
 
+    it('should error on non-string input when the coerce flag is false', function () {
+        validator.coerce = false;
+
+        try {
+            validator.toString({});
+            assert(false);
+        } catch (err) {
+        }
+
+        validator.coerce = true;
+
+        try {
+            validator.toString({});
+        } catch (err) {
+            assert(false);
+        }
+    });
+
 });
