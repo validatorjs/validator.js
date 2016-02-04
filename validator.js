@@ -64,8 +64,14 @@
       , all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
     };
 
-    var alpha = /^[A-Z]+$/i
-      , alphanumeric = /^[0-9A-Z]+$/i
+    var alpha = {
+        'en-US': /^[A-Z]+$/i,
+        'de-DE': /^[A-ZÄÖÜß]+$/i,
+      }
+      , alphanumeric = {
+        'en-US': /^[0-9A-Z]+$/i,
+        'de-DE': /^[0-9A-ZÄÖÜß]+$/i
+      }
       , numeric = /^[-+]?[0-9]+$/
       , int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/
       , float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/
@@ -100,7 +106,8 @@
       'vi-VN': /^(0|\+?84)?((1(2([0-9])|6([2-9])|88|99))|(9((?!5)[0-9])))([0-9]{7})$/,
       'en-NZ': /^(\+?64|0)2\d{7,9}$/,
       'en-IN': /^(\+?91|0)?[789]\d{9}$/,
-      'es-ES': /^(\+34)?(6\d{1}|7[1234])\d{7}$/
+      'es-ES': /^(\+34)?(6\d{1}|7[1234])\d{7}$/,
+      'de-DE': /^(\+?49[ \.\-])?([\(]{1}[0-9]{1,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/
     };
 
     // from http://goo.gl/0ejHHW
@@ -419,12 +426,14 @@
         return (['true', 'false', '1', '0'].indexOf(str) >= 0);
     };
 
-    validator.isAlpha = function (str) {
-        return alpha.test(str);
+    validator.isAlpha = function (str, locale) {
+        locale = locale || 'en-US';
+        return alpha[locale].test(str);
     };
 
-    validator.isAlphanumeric = function (str) {
-        return alphanumeric.test(str);
+    validator.isAlphanumeric = function (str, locale) {
+        locale = locale || 'en-US';
+        return alphanumeric[locale].test(str);
     };
 
     validator.isNumeric = function (str) {
