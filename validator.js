@@ -327,7 +327,7 @@
     };
 
     validator.isIP = function (str, version) {
-        version = validator.toString(version);
+        version = version ? version + '' : '';
         if (!version) {
             return validator.isIP(str, 4) || validator.isIP(str, 6);
         } else if (version === '4') {
@@ -486,7 +486,7 @@
     };
 
     validator.isDivisibleBy = function (str, num) {
-        return validator.toFloat(str) % validator.toInt(num) === 0;
+        return validator.toFloat(str) % parseInt(num, 10) === 0;
     };
 
     validator.isNull = function (str) {
@@ -697,7 +697,7 @@
     };
 
     validator.isISBN = function (str, version) {
-        version = validator.toString(version);
+        version = version ? version + '' : '';
         if (!version) {
             return validator.isISBN(str, 10) || validator.isISBN(str, 13);
         }

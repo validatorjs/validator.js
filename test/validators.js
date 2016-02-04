@@ -712,9 +712,43 @@ describe('Validators', function () {
               , ''
             ]
         });
-
-        test({ validator: 'isInt', args: [{ min: 10 }], valid: [15, 80, 99], invalid: [9, 6, 3.2, 'a'] } );
-        test({ validator: 'isInt', args: [{ min: 10, max: 15 }], valid: [15, 11, 13], invalid: [9, 2, 17, 3.2, 33, 'a'] } );
+        test({
+            validator: 'isInt'
+          , args: [{
+                min: 10
+            }]
+          , valid: [
+                '15'
+              , '80'
+              , '99'
+            ]
+          , invalid: [
+                '9'
+              , '6'
+              , '3.2'
+              , 'a'
+            ]
+        });
+        test({
+            validator: 'isInt'
+          , args: [{
+                min: 10
+              , max: 15
+            }]
+          , valid: [
+                '15'
+              , '11'
+              , '13'
+            ]
+          , invalid: [
+                '9'
+              , '2'
+              , '17'
+              , '3.2'
+              , '33'
+              , 'a'
+            ]
+        });
     });
 
     it('should validate floats', function () {
@@ -740,9 +774,50 @@ describe('Validators', function () {
               , 'foo'
             ]
         });
-
-        test({ validator: 'isFloat', args: [{ min: 3.7 }], valid: [3.888, 3.92, 4.5, 50, 3.7, 3.71], invalid: [3.6, 3.69, 3, 1.5, 'a'] } );
-        test({ validator: 'isFloat', args: [{ min: 0.1, max: 1.0 }], valid: [0.1, 1.0, 0.15, 0.33, 0.57, 0.7], invalid: [0, 0.0, 'a', 1.3, 0.05, 5] } );
+        test({
+            validator: 'isFloat'
+          , args: [{
+                min: 3.7
+            }]
+          , valid: [
+                '3.888'
+              , '3.92'
+              , '4.5'
+              , '50'
+              , '3.7'
+              , '3.71'
+            ]
+          , invalid: [
+                '3.6'
+              , '3.69'
+              , '3'
+              , '1.5'
+              , 'a'
+            ]
+        });
+        test({
+            validator: 'isFloat'
+          , args: [{
+                min: 0.1
+              , max: 1.0
+            }]
+          , valid: [
+                '0.1'
+              , '1.0'
+              , '0.15'
+              , '0.33'
+              , '0.57'
+              , '0.7'
+            ]
+          , invalid: [
+                '0'
+              , '0.0'
+              , 'a'
+              , '1.3'
+              , '0.05'
+              , '5'
+            ]
+        });
     });
 
     it('should validate hexadecimal strings', function () {
@@ -782,14 +857,11 @@ describe('Validators', function () {
             validator: 'isNull'
           , valid: [
                 ''
-              , NaN
-              , []
-              , undefined
-              , null
             ]
           , invalid: [
                 ' '
               , 'foo'
+              , '3'
             ]
         });
     });
@@ -916,7 +988,7 @@ describe('Validators', function () {
             invalid: ['foobarbaz', 'barfoo'] });
         test({ validator: 'isIn', args: [['foo', 'bar']], valid: ['foo', 'bar'],
             invalid: ['foobar', 'barfoo', ''] });
-        test({ validator: 'isIn', args: [[1, 2, 3]], valid: ['1', '2', '3'],
+        test({ validator: 'isIn', args: [['1', '2', '3']], valid: ['1', '2', '3'],
             invalid: ['4', ''] });
         test({ validator: 'isIn', invalid: ['foo', ''] });
     });
@@ -948,7 +1020,7 @@ describe('Validators', function () {
               , '2-23-22'
               , '12'
               , '11/2/23 12:24'
-              , new Date()
+              , new Date().toString()
               , 'Mon Aug 17 2015 00:24:56 GMT-0500 (CDT)'
               , '2/22/23 23:24:26'
               // valid ISO 8601 dates below
@@ -1043,11 +1115,11 @@ describe('Validators', function () {
 
     it('should validate dates against a start date', function () {
         test({ validator: 'isAfter', args: ['2011-08-03'],
-            valid: [ '2011-08-04', new Date(2011, 8, 10) ],
-            invalid: [ '2010-07-02', '2011-08-03', new Date(0), 'foo'] });
+            valid: [ '2011-08-04', new Date(2011, 8, 10).toString() ],
+            invalid: [ '2010-07-02', '2011-08-03', new Date(0).toString(), 'foo'] });
         test({ validator: 'isAfter',
-            valid: [ '2100-08-04', new Date(Date.now() + 86400000) ],
-            invalid: [ '2010-07-02', new Date(0) ] });
+            valid: [ '2100-08-04', new Date(Date.now() + 86400000).toString() ],
+            invalid: [ '2010-07-02', new Date(0).toString() ] });
         test({ validator: 'isAfter', args: ['2011-08-03'],
             valid: [ '2015-09-17' ],
             invalid: [ 'invalid date' ] });
@@ -1057,14 +1129,14 @@ describe('Validators', function () {
 
     it('should validate dates against an end date', function () {
         test({ validator: 'isBefore', args: ['08/04/2011'],
-            valid: [ '2010-07-02', '2010-08-04', new Date(0) ],
-            invalid: [ '08/04/2011', new Date(2011, 9, 10) ] });
-        test({ validator: 'isBefore', args: [ new Date(2011, 7, 4) ],
-            valid: [ '2010-07-02', '2010-08-04', new Date(0) ],
-            invalid: [ '08/04/2011', new Date(2011, 9, 10) ] });
+            valid: [ '2010-07-02', '2010-08-04', new Date(0).toString() ],
+            invalid: [ '08/04/2011', new Date(2011, 9, 10).toString() ] });
+        test({ validator: 'isBefore', args: [ new Date(2011, 7, 4).toString() ],
+            valid: [ '2010-07-02', '2010-08-04', new Date(0).toString() ],
+            invalid: [ '08/04/2011', new Date(2011, 9, 10).toString() ] });
         test({ validator: 'isBefore',
-            valid: [ '2000-08-04', new Date(0), new Date(Date.now() - 86400000) ],
-            invalid: [ '2100-07-02', new Date(2017, 10, 10) ] });
+            valid: [ '2000-08-04', new Date(0).toString(), new Date(Date.now() - 86400000).toString() ],
+            invalid: [ '2100-07-02', new Date(2017, 10, 10).toString() ] });
         test({ validator: 'isBefore', args: ['2011-08-03'],
             valid: [ '1999-12-31' ],
             invalid: [ 'invalid date' ] });
@@ -1188,8 +1260,6 @@ describe('Validators', function () {
             ]
           , invalid: [
                 '{ key: "value" }'
-              , { "key": "value" }
-              , { key: 'value' }
               , '{ \'key\': \'value\' }'
               , 'null'
               , '1234'
