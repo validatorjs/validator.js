@@ -551,6 +551,28 @@ describe('Validators', function () {
                 'abc1'
               , '  foo  '
               , ''
+              , 'ÄBC'
+              , 'FÜübar'
+              , 'Jön'
+              , 'Heiß'
+            ]
+        });
+    });
+
+    it('should validate german alpha strings', function () {
+        test({
+            validator: 'isAlpha'
+          , args: ['de-DE']
+          , valid: [
+                'äbc'
+              , 'ÄBC'
+              , 'FöÖbär'
+              , 'Heiß'
+            ]
+          , invalid: [
+                'äbc1'
+              , '  föö  '
+              , ''
             ]
         });
     });
@@ -565,6 +587,24 @@ describe('Validators', function () {
           , invalid: [
                 'abc '
               , 'foo!!'
+              , 'ÄBC'
+              , 'FÜübar'
+              , 'Jön'
+            ]
+        });
+    });
+
+    it('should validate german alphanumeric strings', function () {
+        test({
+            validator: 'isAlphanumeric'
+          , args: ['de-DE']
+          , valid: [
+                'äbc123'
+              , 'ÄBC11'
+            ]
+          , invalid: [
+                'äca '
+              , 'föö!!'
             ]
         });
     });
@@ -1333,6 +1373,22 @@ describe('Validators', function () {
     });
 
     it('should validate mobile phone number', function () {
+      test({
+        validator: 'isMobilePhone'
+        , valid: [
+            '+49 (0) 123 456 789'
+          , '+49 (0) 123 456789'
+          , '0123/4567890'
+          , '+49 01234567890'
+          , '01234567890'
+        ]
+        , invalid: [
+            ''
+          , 'Vml2YW11cyBmZXJtZtesting123'
+        ],
+        args: ['de-DE']
+      });
+
       test({
         validator: 'isMobilePhone'
         , valid: [
