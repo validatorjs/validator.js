@@ -1,3 +1,8 @@
+#### HEAD
+
+- Use [node-depd](https://github.com/dougwilson/nodejs-depd) to print deprecation notices
+  ([#487](https://github.com/chriso/validator.js/issues/487))
+
 #### 4.7.0
 
 - Print a deprecation warning if validator input is not a string

@@ -134,18 +134,27 @@
         }
     };
 
+    var depd = null;
+    validator.deprecation = function (msg) {
+        if (depd === null) {
+            if (typeof require !== 'function') {
+                return;
+            }
+            depd = require('depd')('validator');
+        }
+        depd(msg);
+    };
+
     validator.toString = function (input) {
-        // The library validates strings only. Currently it coerces all input to a string, but this
-        // will go away in an upcoming major version change. Print a deprecation notice for now
         if (typeof input !== 'string') {
+            // The library validates strings only. Currently it coerces all input to a string, but this
+            // will go away in an upcoming major version change. Print a deprecation notice for now
             if (!validator.coerce) {
                 throw new Error('this library validates strings only');
             }
-            if (typeof console === 'object' && console && typeof console.warn === 'function') {
-                console.warn('warning: you tried to validate a ' + typeof input + ' but this library ' +
-                    '(github.com/chriso/validator.js) validates strings only. Please update your code ' +
-                    'as this will be an error soon.');
-            }
+            validator.deprecation('you tried to validate a ' + typeof input + ' but this library ' +
+                    '(validator.js) validates strings only. Please update your code as this will ' +
+                    'be an error soon.');
         }
         if (typeof input === 'object' && input !== null) {
             if (typeof input.toString === 'function') {
