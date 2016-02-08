@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.7.1
 
 - Use [node-depd](https://github.com/dougwilson/nodejs-depd) to print deprecation notices
   ([#487](https://github.com/chriso/validator.js/issues/487))
