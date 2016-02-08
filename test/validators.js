@@ -609,6 +609,24 @@ describe('Validators', function () {
         });
     });
 
+    it('should default to en-US on alphanumeric strings', function () {
+        test({
+            validator: 'isAlphanumeric'
+          , args: ['en-GB']
+          , valid: [
+                'abc123'
+              , 'ABC11'
+            ]
+          , invalid: [
+              'abc '
+            , 'foo!!'
+            , 'ÄBC'
+            , 'FÜübar'
+            , 'Jön'
+            ]
+        });
+    });
+
     it('should validate numeric strings', function () {
         test({
             validator: 'isNumeric'

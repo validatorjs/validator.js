@@ -1,5 +1,7 @@
 #### 4.7.1
 
+- Default to en-US if locale is not found in `isAlpha()` and `isAlphanumeric()`
+  ([#488](https://github.com/chriso/validator.js/pull/488))
 - Use [node-depd](https://github.com/dougwilson/nodejs-depd) to print deprecation notices
   ([#487](https://github.com/chriso/validator.js/issues/487))
 
