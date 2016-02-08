@@ -449,13 +449,13 @@
     };
 
     validator.isAlpha = function (str, locale) {
-        locale = locale || 'en-US';
-        return alpha[locale].test(str);
+        var regex = alpha[locale] || alpha['en-US'];
+        return regex.test(str);
     };
 
     validator.isAlphanumeric = function (str, locale) {
-        locale = locale || 'en-US';
-        return alphanumeric[locale].test(str);
+        var regex = alphanumeric[locale] || alphanumeric['en-US'];
+        return regex.test(str);
     };
 
     validator.isNumeric = function (str) {
