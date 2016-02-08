@@ -33,13 +33,11 @@ $ bower install validator-js
 
 ### Strings only
 
-**This library validates and sanitizes strings only**.
+This library validates and sanitizes strings only.
 
-All input is coerced to a string using the following rules:
+**Repeat: this library validates and sanitizes strings only**.
 
-- Call the `toString` property if available.
-- Replace `null`, `undefined`, `NaN` or items with `.length === 0` with an empty string.
-- Everything else is coerced with `'' + input`.
+If you're not sure if your input is a string, coerce it using `input + ''`
 
 ### Validators
 
