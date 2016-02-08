@@ -1,5 +1,6 @@
 #### 4.7.1
 
+- Added validator for brazilian phone numbers ([#489](https://github.com/chriso/validator.js/pull/489))
 - Use [node-depd](https://github.com/dougwilson/nodejs-depd) to print deprecation notices
   ([#487](https://github.com/chriso/validator.js/issues/487))
 
