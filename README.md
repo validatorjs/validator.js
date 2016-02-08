@@ -37,7 +37,8 @@ This library validates and sanitizes strings only.
 
 **Repeat: this library validates and sanitizes strings only**.
 
-If you're not sure if your input is a string, coerce it using `input + ''`
+Passing input that isn't a string will be an error in an upcoming release.
+If you're not sure if your input is a string, coerce it using `input + ''`.
 
 ### Validators
 
