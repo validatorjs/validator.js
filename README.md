@@ -96,11 +96,10 @@ All input is coerced to a string using the following rules:
 - **normalizeEmail(email [, options])** - canonicalize an email address. `options` is an object which defaults to `{ lowercase: true, remove_dots: true, remove_extension: true }`. With `lowercase` set to `true`, the local part of the email address is lowercased for all domains; the hostname is always lowercased and the local part of the email address is always lowercased for hosts that are known to be case-insensitive (currently only GMail). Normalization follows special rules for known providers: currently, GMail addresses have dots removed in the local part and are stripped of extensions (e.g. `some.one+extension@gmail.com` becomes `someone@gmail.com`) and all `@googlemail.com` addresses are normalized to `@gmail.com`.
 - **rtrim(input [, chars])** - trim characters from the right-side of the input.
 - **stripLow(input [, keep_new_lines])** - remove characters with a numerical value < 32 and 127, mostly control characters. If `keep_new_lines` is `true`, newline characters are preserved (`\n` and `\r`, hex `0xA` and `0xD`). Unicode-safe in JavaScript.
-- **toBoolean(input [, strict])** - convert the input to a boolean. Everything except for `'0'`, `'false'` and `''` returns `true`. In strict mode only `'1'` and `'true'` return `true`.
-- **toDate(input)** - convert the input to a date, or `null` if the input is not a date.
-- **toFloat(input)** - convert the input to a float, or `NaN` if the input is not a float.
-- **toInt(input [, radix])** - convert the input to an integer, or `NaN` if the input is not an integer.
-- **toString(input)** - convert the input to a string.
+- **toBoolean(input [, strict])** - convert the input string to a boolean. Everything except for `'0'`, `'false'` and `''` returns `true`. In strict mode only `'1'` and `'true'` return `true`.
+- **toDate(input)** - convert the input string to a date, or `null` if the input is not a date.
+- **toFloat(input)** - convert the input string to a float, or `NaN` if the input is not a float.
+- **toInt(input [, radix])** - convert the input string to an integer, or `NaN` if the input is not an integer.
 - **trim(input [, chars])** - trim characters (whitespace by default) from both sides of the input.
 - **whitelist(input, chars)** - remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
 
