@@ -54,7 +54,7 @@
 
     var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 
-    var ipv4Maybe = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
+    var ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/
       , ipv6Block = /^[0-9A-F]{1,4}$/i;
 
     var uuid = {
