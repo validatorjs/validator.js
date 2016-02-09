@@ -2,6 +2,8 @@
 
 - Added a Brazilian locale to `isMobilePhone()`
   ([#489](https://github.com/chriso/validator.js/pull/489))
+- Reject IPv4 addresses with invalid zero padding
+  ([#490](https://github.com/chriso/validator.js/pull/490))
 
 #### 4.7.1
 
