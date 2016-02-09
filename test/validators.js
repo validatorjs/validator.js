@@ -598,6 +598,24 @@ describe('Validators', function () {
         });
     });
 
+    it('should validate defined english aliases', function () {
+        test({
+            validator: 'isAlphanumeric'
+          , args: ['en-GB']
+          , valid: [
+                'abc123'
+              , 'ABC11'
+            ]
+          , invalid: [
+                'abc '
+              , 'foo!!'
+              , 'ÄBC'
+              , 'FÜübar'
+              , 'Jön'
+            ]
+        });
+    });
+
     it('should validate german alphanumeric strings', function () {
         test({
             validator: 'isAlphanumeric'
@@ -611,6 +629,31 @@ describe('Validators', function () {
               , 'föö!!'
             ]
         });
+    });
+
+    it('should validate spanish alphanumeric strings', function () {
+        test({
+            validator: 'isAlphanumeric'
+          , args: ['es-ES']
+          , valid: [
+                'ábcó123'
+              , 'ÁBCÓ11'
+            ]
+          , invalid: [
+                'äca '
+              , 'abcß'
+              , 'föö!!'
+            ]
+        });
+    });
+
+    it('should error on invalid locale', function () {
+        try {
+            validator.isAlphanumeric("abc123", "in-INVALID");
+            assert(false);
+        } catch (err) {
+            assert(true);
+        }
     });
 
     it('should validate numeric strings', function () {

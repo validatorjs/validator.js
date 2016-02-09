@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added Spanish, French, Portuguese and Dutch support for `isAlpha()` and `isAlphanumeric()`
+  ([#492](https://github.com/chriso/validator.js/pull/492))
 - Added a Brazilian locale to `isMobilePhone()`
   ([#489](https://github.com/chriso/validator.js/pull/489))
 - Reject IPv4 addresses with invalid zero padding
