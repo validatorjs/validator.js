@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.8.0
 
 - Added Spanish, French, Portuguese and Dutch support for `isAlpha()` and `isAlphanumeric()`
   ([#492](https://github.com/chriso/validator.js/pull/492))
