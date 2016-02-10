@@ -144,17 +144,25 @@
     validator.init = function () {
         for (var name in validator) {
             if (typeof validator[name] !== 'function' || name === 'toString' ||
-                    name === 'toDate' || name === 'extend' || name === 'init') {
+                    name === 'toDate' || name === 'extend' || name === 'init' ||
+                    name === 'isServerSide') {
                 continue;
             }
             validator.extend(name, validator[name]);
         }
     };
 
+    validator.isServerSide = function () {
+        return typeof module === 'object' && module &&
+            typeof module.exports === 'object' &&
+            typeof process === 'object' &&
+            typeof require === 'function';
+    };
+
     var depd = null;
     validator.deprecation = function (msg) {
         if (depd === null) {
-            if (typeof require !== 'function') {
+            if (!validator.isServerSide()) {
                 return;
             }
             depd = require('depd')('validator');

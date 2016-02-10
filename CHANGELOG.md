@@ -6,6 +6,8 @@
   ([#489](https://github.com/chriso/validator.js/pull/489))
 - Reject IPv4 addresses with invalid zero padding
   ([#490](https://github.com/chriso/validator.js/pull/490))
+- Fix the client-side version when used with RequireJS
+  ([#494](https://github.com/chriso/validator.js/issues/494))
 
 #### 4.7.1
 
