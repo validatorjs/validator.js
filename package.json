@@ -19,11 +19,15 @@
     "depd": "1.1.0"
   },
   "devDependencies": {
-    "mocha": "latest",
+    "babel-preset-es2015-rollup": "^1.1.1",
+    "coveralls": "latest",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^5.0.0",
     "istanbul": "latest",
-    "jshint": "latest",
-    "uglify-js": "latest",
-    "coveralls": "latest"
+    "mocha": "latest",
+    "rollup": "^0.25.3",
+    "rollup-plugin-babel": "^2.3.9",
+    "uglify-js": "latest"
   },
   "scripts": {
     "test": "node ./node_modules/.bin/_mocha --reporter spec",
