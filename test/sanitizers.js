@@ -1,4 +1,4 @@
-var validator = require('../validator')
+var validator = require('../index')
   , format = require('util').format;
 
 function test(options) {

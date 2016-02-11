@@ -13,6 +13,7 @@
     "camelcase": [0],
     "prefer-template": 0,
     "no-param-reassign": [0],
-    "one-var": 0
+    "one-var": 0,
+    "func-names": 0
   }
 }

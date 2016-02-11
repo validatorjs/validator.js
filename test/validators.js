@@ -1,4 +1,4 @@
-var validator = require('../validator')
+var validator = require('../index')
   , format = require('util').format
   , assert = require('assert')
   , path = require('path')
@@ -1468,20 +1468,6 @@ describe('Validators', function () {
         });
     });
 
-    it('should define the module using an AMD-compatible loader', function () {
-        var window = {
-            validator: null
-          , define: function (module) {
-                this.validator = module;
-            }
-        };
-        window.define.amd = true;
-
-        var sandbox = vm.createContext(window);
-        vm.runInContext(validator_js, sandbox);
-        assert.equal(window.validator.trim('  foobar '), 'foobar');
-    });
-
     it('should bind validator to the window if no module loaders are available', function () {
         var window = {};
         var sandbox = vm.createContext(window);
@@ -2680,7 +2666,6 @@ describe('Validators', function () {
         var empty = [undefined, null, [], NaN];
         empty.forEach(function (item) {
             assert.equal(validator.toString(item), '');
-            assert(validator.isNull(item));
         });
 
         var objects = [{}, Object.create(null)];
@@ -2689,22 +2674,11 @@ describe('Validators', function () {
         });
     });
 
-    it('should error on non-string input when the coerce flag is false', function () {
-        validator.coerce = false;
-
-        try {
-            validator.toString({});
-            assert(false);
-        } catch (err) {
-        }
-
-        validator.coerce = true;
-
-        try {
-            validator.toString({});
-        } catch (err) {
-            assert(false);
-        }
+    it('should error on non-string input', function () {
+          var empty = [undefined, null, [], NaN];
+          empty.forEach(function (item) {
+              assert.throws(validator.isNull.bind(null, item));
+          });
     });
 
 });

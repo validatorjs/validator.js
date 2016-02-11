@@ -1,0 +1,12 @@
+{
+  "extends": "../.eslintrc",
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-var": 0,
+    "vars-on-top": 0,
+    "prefer-arrow-callback": 0
+  }
+}
