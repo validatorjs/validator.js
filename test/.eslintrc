@@ -1,5 +1,4 @@
 {
-  "extends": "../.eslintrc",
   "parserOptions": {
     "ecmaVersion": 5,
     "sourceType": "module"
