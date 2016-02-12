@@ -3,11 +3,6 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "ignore": [
-    "validator.js",
-    "validator.min.js",
-    "test"
-  ],
   "env": {  
     "es6": true,
     "browser": true,
