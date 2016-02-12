@@ -40,10 +40,14 @@
   },
   "scripts": {
     "lint": "eslint src",
-    "clean": "rm -rf index.js util lib validator*.js",
-    "build": "(npm run lint && npm run build-browser && npm run build-node && npm run test) || npm run clean",
-    "build-browser": "NODE_ENV=browser babel-node build-browser && uglifyjs validator.js -o validator.min.js  --compress --mangle --comments '/Copyright/'",
-    "build-node": "NODE_ENV=node babel src -d . --presets es2015 --plugins babel-plugin-add-module-exports,transform-node-env-inline",
+    "clean:node": "rm -rf index.js util lib",
+    "clean:browser": "rm -rf validator*.js",
+    "clean": "npm run clean:node && npm run clean:browser",
+    "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments",
+    "build:browser": "NODE_ENV=browser babel-node build-browser && uglifyjs validator.js -o validator.js --beautify -c dead_code --comments && npm run minify",
+    "build:node": "NODE_ENV=node babel src -d . --presets es2015 --plugins babel-plugin-add-module-exports,transform-node-env-inline",
+    "build": "npm run build:browser && npm run build:node",
+    "pretest": "npm run lint && npm run build",
     "test": "node ./node_modules/.bin/_mocha --reporter spec",
     "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
