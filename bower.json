@@ -9,10 +9,6 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "index.js",
-    "build*.js",
-    "package.json",
-    ".babelrc",
     "node_modules",
     "bower_components",
     "test",
