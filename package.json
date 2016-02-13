@@ -25,7 +25,6 @@
   "devDependencies": {
     "babel-cli": "^6.5.1",
     "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-plugin-transform-node-env-inline": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-es2015-rollup": "^1.1.1",
     "coveralls": "latest",
@@ -44,8 +43,8 @@
     "clean:browser": "rm -rf validator*.js",
     "clean": "npm run clean:node && npm run clean:browser",
     "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments '/Copyright/'",
-    "build:browser": "NODE_ENV=browser babel-node build-browser && uglifyjs validator.js -o validator.js -b indent_level=2 -c dead_code,join_vars=false,sequences=false --comments '/Copyright/' && npm run minify",
-    "build:node": "NODE_ENV=node babel src -d . --presets es2015 --plugins babel-plugin-add-module-exports,transform-node-env-inline",
+    "build:browser": "babel-node build-browser && npm run minify",
+    "build:node": "babel src -d . --presets es2015 --plugins babel-plugin-add-module-exports",
     "build": "npm run build:browser && npm run build:node",
     "pretest": "npm run lint && npm run build",
     "test": "node ./node_modules/.bin/_mocha --reporter spec",
@@ -54,8 +53,5 @@
   "engines": {
     "node": ">= 0.10"
   },
-  "license": "MIT",
-  "dependencies": {
-    "depd": "1.1.0"
-  }
+  "license": "MIT"
 }

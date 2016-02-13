@@ -8,7 +8,6 @@ rollup({
   plugins: [
     babel({
       presets: ['es2015-rollup'],
-      plugins: ['transform-node-env-inline'],
       babelrc: false,
     }),
   ],
