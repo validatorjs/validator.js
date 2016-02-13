@@ -677,7 +677,7 @@
       }
 
       function isAfter(str) {
-        var date = arguments.length <= 1 || arguments[1] === undefined ? new Date() : arguments[1];
+        var date = arguments.length <= 1 || arguments[1] === undefined ? String(new Date()) : arguments[1];
 
         assertString(str);
         var comparison = toDate(date);
@@ -685,9 +685,11 @@
         return !!(original && comparison && original > comparison);
       }
 
-      function isBefore(str, date) {
+      function isBefore(str) {
+        var date = arguments.length <= 1 || arguments[1] === undefined ? String(new Date()) : arguments[1];
+
         assertString(str);
-        var comparison = toDate(date || new Date());
+        var comparison = toDate(date);
         var original = toDate(str);
         return !!(original && comparison && original < comparison);
       }
