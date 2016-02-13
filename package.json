@@ -56,6 +56,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "depd": "^1.1.0"
+    "depd": "1.1.0"
   }
 }
