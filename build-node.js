@@ -6,20 +6,18 @@ const _ = require('async');
 const babelrc = {
   presets: ['es2015'],
   plugins: ['add-module-exports'],
+  resolveModuleSource(source) {
+    return source
+      .replace('./util', './lib/util')
+      .replace('../util', './util');
+  },
 };
 
 glob('{index,*/**}.js', { cwd: 'src' }, (globErr, files) => {
   _.each(files, (file, done) => {
     _.waterfall([
       (transformDone) => {
-        const options = Object.assign({
-          resolveModuleSource(source) {
-            return source
-              .replace('./util', './lib/util')
-              .replace('../util', './util');
-          },
-        }, babelrc);
-        babel.transformFile(`src/${file}`, options, transformDone);
+        babel.transformFile(`src/${file}`, babelrc, transformDone);
       },
       (result, writeDone) => {
         const dest = file.replace(/^util/, 'lib/util');
