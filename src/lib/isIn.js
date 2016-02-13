@@ -6,9 +6,10 @@ export default function isIn(str, options) {
   let i;
   if (Object.prototype.toString.call(options) === '[object Array]') {
     const array = [];
-    /* eslint-disable guard-for-in */
     for (i in options) {
-      array[i] = toString(options[i]);
+      if ({}.hasOwnProperty.call(options, i)) {
+        array[i] = toString(options[i]);
+      }
     }
     return array.indexOf(str) >= 0;
   } else if (typeof options === 'object') {
