@@ -2676,18 +2676,6 @@ describe('Validators', function () {
             invalid: ['foo bar', 'fo.bar', 'türkçe'] });
     });
 
-    it('should convert non-string input', function () {
-        var empty = [undefined, null, [], NaN];
-        empty.forEach(function (item) {
-            assert.equal(validator.toString(item), '');
-        });
-
-        var objects = [{}, Object.create(null)];
-        objects.forEach(function (item) {
-            assert.equal(validator.toString(item), '[object Object]');
-        });
-    });
-
     it('should error on non-string input', function () {
           var empty = [undefined, null, [], NaN];
           empty.forEach(function (item) {
