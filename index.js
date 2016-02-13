@@ -228,7 +228,7 @@ var _normalizeEmail = require('./lib/normalizeEmail');
 
 var _normalizeEmail2 = _interopRequireDefault(_normalizeEmail);
 
-var _toString = require('./util/toString');
+var _toString = require('./lib/util/toString');
 
 var _toString2 = _interopRequireDefault(_toString);
 

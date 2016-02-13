@@ -23,6 +23,7 @@
     "url": "http://github.com/chriso/validator.js.git"
   },
   "devDependencies": {
+    "async": "^1.5.2",
     "babel-cli": "^6.5.1",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-preset-es2015": "^6.5.0",
@@ -39,12 +40,12 @@
   },
   "scripts": {
     "lint": "eslint src",
-    "clean:node": "rm -rf index.js util lib",
+    "clean:node": "rm -rf index.js lib",
     "clean:browser": "rm -rf validator*.js",
     "clean": "npm run clean:node && npm run clean:browser",
     "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments '/Copyright/'",
     "build:browser": "babel-node build-browser && npm run minify",
-    "build:node": "babel src -d . --presets es2015 --plugins babel-plugin-add-module-exports",
+    "build:node": "mkdir -p lib/util && babel-node build-node --presets es2015",
     "build": "npm run build:browser && npm run build:node",
     "pretest": "npm run lint && npm run build",
     "test": "node ./node_modules/.bin/_mocha --reporter spec",
