@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
 const hexcolor = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
 

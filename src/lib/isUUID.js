@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
 const uuid = {
   3: /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i,

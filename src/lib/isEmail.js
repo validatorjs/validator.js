@@ -1,6 +1,6 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
-import merge from '../util/merge';
+import merge from './util/merge';
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
 

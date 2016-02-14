@@ -1,5 +1,5 @@
 import isEmail from './isEmail';
-import merge from '../util/merge';
+import merge from './util/merge';
 
 const default_normalize_email_options = {
   lowercase: true,

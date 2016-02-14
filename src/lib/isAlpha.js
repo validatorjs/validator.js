@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 import { alpha } from './alpha';
 
 export default function isAlpha(str, locale = 'en-US') {

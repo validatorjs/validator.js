@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
 export default function isLowercase(str) {
   assertString(str);

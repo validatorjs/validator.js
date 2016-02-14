@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
 export default function matches(str, pattern, modifiers) {
   assertString(str);

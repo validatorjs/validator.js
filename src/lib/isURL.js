@@ -1,8 +1,8 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
 import isFQDN from './isFQDN';
 import isIP from './isIP';
-import merge from '../util/merge';
+import merge from './util/merge';
 
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],

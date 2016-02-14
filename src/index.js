@@ -76,7 +76,7 @@ import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
 
-import toString from './util/toString';
+import toString from './lib/util/toString';
 
 const validator = {
   version,

@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 import { alphanumeric } from './alpha';
 
 export default function isAlphanumeric(str, locale = 'en-US') {

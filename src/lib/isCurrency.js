@@ -1,5 +1,5 @@
-import merge from '../util/merge';
-import assertString from '../util/assertString';
+import merge from './util/merge';
+import assertString from './util/assertString';
 
 function currencyRegex(options) {
   const symbol = '(\\' + options.symbol.replace(/\./g, '\\.') + ')' +

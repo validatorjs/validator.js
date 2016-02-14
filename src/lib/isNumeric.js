@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
 const numeric = /^[-+]?[0-9]+$/;
 

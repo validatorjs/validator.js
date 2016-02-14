@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 import { iso8601 } from './isISO8601';
 
 function getTimezoneOffset(str) {

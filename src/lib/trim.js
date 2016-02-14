@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
 export default function trim(str, chars) {
   assertString(str);

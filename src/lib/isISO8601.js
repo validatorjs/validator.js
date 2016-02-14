@@ -1,4 +1,4 @@
-import assertString from '../util/assertString';
+import assertString from './util/assertString';
 
 /* eslint-disable max-len */
 // from http://goo.gl/0ejHHW
