@@ -3,6 +3,14 @@
   "description": "String validation and sanitization",
   "version": "4.8.0",
   "homepage": "http://github.com/chriso/validator.js",
+  "files": [
+    "index.js",
+    "lib",
+    "README.md",
+    "LICENCE",
+    "validator.js",
+    "validator.min.js"
+  ],
   "keywords": [
     "validator",
     "validation",
