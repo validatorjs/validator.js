@@ -14,6 +14,8 @@ var validator = require('validator');
 validator.isEmail('foo@bar.com'); //=> true
 ```
 
+For Nodejs/Express bindings for `validator` check out: [property-validator](https://github.com/nettofarah/property-validator)
+
 ### Client-side usage
 
 The library can be loaded either as a standalone script, or through an [AMD][amd]-compatible loader
