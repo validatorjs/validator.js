@@ -36,7 +36,7 @@
 
       function assertString(input) {
         if (typeof input !== 'string') {
-          throw new Error('this library validates strings only');
+          throw new TypeError('This library (validator.js) validates strings only');
         }
       }
 
