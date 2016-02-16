@@ -411,6 +411,15 @@
         alphanumeric[locale] = alphanumeric['en-US'];
       }
 
+      // Source: http://www.localeplanet.com/java/
+      var arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
+
+      for (var locale, i = 0; i < arabicLocales.length; i++) {
+        locale = 'ar-' + arabicLocales[i];
+        alpha[locale] = alpha.ar;
+        alphanumeric[locale] = alphanumeric.ar;
+      }
+
       function isAlpha(str) {
         var locale = arguments.length <= 1 || arguments[1] === undefined ? 'en-US' : arguments[1];
 

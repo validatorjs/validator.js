@@ -25,3 +25,16 @@ for (let locale, i = 0; i < englishLocales.length; i++) {
   alpha[locale] = alpha['en-US'];
   alphanumeric[locale] = alphanumeric['en-US'];
 }
+
+
+// Source: http://www.localeplanet.com/java/
+export const arabicLocales = [
+  'AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
+  'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE',
+];
+
+for (let locale, i = 0; i < arabicLocales.length; i++) {
+  locale = `ar-${arabicLocales[i]}`;
+  alpha[locale] = alpha.ar;
+  alphanumeric[locale] = alphanumeric.ar;
+}

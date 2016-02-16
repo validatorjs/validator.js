@@ -578,6 +578,51 @@ describe('Validators', function () {
     });
   });
 
+
+  it('should validate arabic alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['ar'],
+      valid: [
+        'أبت',
+        'اَبِتَثّجً',
+      ],
+      invalid: [
+        '١٢٣أبت',
+        '١٢٣',
+        'abc1',
+        '  foo  ',
+        '',
+        'ÄBC',
+        'FÜübar',
+        'Jön',
+        'Heiß',
+      ],
+    });
+  });
+
+  it('should validate defined arabic locales alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['ar-SY'],
+      valid: [
+        'أبت',
+        'اَبِتَثّجً',
+      ],
+      invalid: [
+        '١٢٣أبت',
+        '١٢٣',
+        'abc1',
+        '  foo  ',
+        '',
+        'ÄBC',
+        'FÜübar',
+        'Jön',
+        'Heiß',
+      ],
+    });
+  });
+
   it('should validate alphanumeric strings', function () {
     test({
       validator: 'isAlphanumeric',
@@ -640,6 +685,40 @@ describe('Validators', function () {
         'äca ',
         'abcß',
         'föö!!',
+      ],
+    });
+  });
+
+  it('should validate arabic alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ar'],
+      valid: [
+        'أبت123',
+        'أبتَُِ١٢٣',
+      ],
+      invalid: [
+        'äca ',
+        'abcß',
+        'föö!!',
+      ],
+    });
+  });
+
+  it('should validate defined arabic aliases', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ar-SY'],
+      valid: [
+        'أبت123',
+        'أبتَُِ١٢٣',
+      ],
+      invalid: [
+        'abc ',
+        'foo!!',
+        'ÄBC',
+        'FÜübar',
+        'Jön',
       ],
     });
   });
