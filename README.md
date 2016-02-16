@@ -45,8 +45,8 @@ If you're not sure if your input is a string, coerce it using `input + ''`.
 - **contains(str, seed)** - check if the string contains the seed.
 - **equals(str, comparison)** - check if the string matches the comparison.
 - **isAfter(str [, date])** - check if the string is a date that's after the specified date (defaults to now).
-- **isAlpha(str [, locale])** - check if the string contains only letters (a-zA-Z). Locale is one of `['en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM']`) and defaults to `en-US`.
-- **isAlphanumeric(str [, locale])** - check if the string contains only letters and numbers. Locale is one of `['en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM']`) and defaults to `en-US`.
+- **isAlpha(str [, locale])** - check if the string contains only letters (a-zA-Z). Locale is one of `['ar', 'en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM']`) and defaults to `en-US`.
+- **isAlphanumeric(str [, locale])** - check if the string contains only letters and numbers. Locale is one of `['ar', 'en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM']`) and defaults to `en-US`.
 - **isAscii(str)** - check if the string contains ASCII chars only.
 - **isBase64(str)** - check if a string is base64 encoded.
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
@@ -74,7 +74,7 @@ If you're not sure if your input is a string, coerce it using `input + ''`.
 - **isLength(str, options)** - check if the string's length falls in a range. `options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
 - **isLowercase(str)** - check if the string is lowercase.
 - **isMACAddress(str)** - check if the string is a MAC address.
-- **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN', 'es-ES', 'de-DE', 'fi-FI']`).
+- **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['ar-SY', 'zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN', 'es-ES', 'de-DE', 'fi-FI']`).
 - **isMongoId(str)** - check if the string is a valid hex-encoded representation of a [MongoDB ObjectId][mongoid].
 - **isMultibyte(str)** - check if the string contains one or more multibyte chars.
 - **isNull(str)** - check if the string is null.

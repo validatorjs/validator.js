@@ -2,6 +2,7 @@ import assertString from './util/assertString';
 
 /* eslint-disable max-len */
 const phones = {
+  'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
   'de-DE': /^(\+?49[ \.\-])?([\(]{1}[0-9]{1,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
   'el-GR': /^(\+?30)?(69\d{8})$/,
