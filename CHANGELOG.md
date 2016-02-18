@@ -1,4 +1,4 @@
-#### HEAD
+#### 4.9.0
 
 - Added a Russian locale to `isAlpha()` and `isAlphanumeric()`
   ([#499](https://github.com/chriso/validator.js/pull/499))
