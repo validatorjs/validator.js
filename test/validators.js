@@ -203,7 +203,6 @@ describe('Validators', function () {
               , 'http://www.foobar.com:99999/'
               , 'http://www.-foobar.com/'
               , 'http://www.foobar-.com/'
-              , 'http://www.foo---bar.com/'
               , 'http://foobar/# lol'
               , 'http://foobar/? lol'
               , 'http://foobar/ lol/'

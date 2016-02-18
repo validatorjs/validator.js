@@ -35,7 +35,7 @@
 
     'use strict';
 
-    validator = { version: '4.8.0', coerce: true };
+    validator = { version: '4.9.0', coerce: true };
 
     var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
     var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
@@ -462,9 +462,6 @@
                 return false;
             }
             if (part[0] === '-' || part[part.length - 1] === '-') {
-                return false;
-            }
-            if (part.indexOf('---') >= 0 && part.slice(0, 4) !== 'xn--') {
                 return false;
             }
         }

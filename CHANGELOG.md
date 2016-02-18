@@ -1,3 +1,10 @@
+#### 4.9.0
+
+- Added a Russian locale to `isAlpha()` and `isAlphanumeric()`
+  ([#499](https://github.com/chriso/validator.js/pull/499))
+- Remove the restriction on adjacent hyphens in hostnames
+  ([#500](https://github.com/chriso/validator.js/issues/500))
+
 #### 4.8.0
 
 - Added Spanish, French, Portuguese and Dutch support for `isAlpha()` and `isAlphanumeric()`
