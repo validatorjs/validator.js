@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added a Russian locale to `isAlpha()` and `isAlphanumeric()`
+  ([#499](https://github.com/chriso/validator.js/pull/499))
+
 #### 4.8.0
 
 - Added Spanish, French, Portuguese and Dutch support for `isAlpha()` and `isAlphanumeric()`
