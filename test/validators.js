@@ -1425,7 +1425,13 @@ describe('Validators', function () {
         test({
             validator: 'isBase64'
           , valid: [
-                'TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4='
+                'Zg=='
+              , 'Zm8='
+              , 'Zm9v'
+              , 'Zm9vYg=='
+              , 'Zm9vYmE='
+              , 'Zm9vYmFy'
+              , 'TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4='
               , 'Vml2YW11cyBmZXJtZW50dW0gc2VtcGVyIHBvcnRhLg=='
               , 'U3VzcGVuZGlzc2UgbGVjdHVzIGxlbw=='
               , 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuMPNS1Ufof9EW/M98FNw'+
@@ -1440,6 +1446,10 @@ describe('Validators', function () {
                 '12345'
               , ''
               , 'Vml2YW11cyBmZXJtZtesting123'
+              , 'Zg='
+              , 'Zm=8'
+              , '=m9vYg=='
+              , 'Zm9vYmFy===='
             ]
         });
         for (var i = 0, str = '', encoded; i < 1000; i++) {
