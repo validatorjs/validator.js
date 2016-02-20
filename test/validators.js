@@ -1447,6 +1447,7 @@ describe('Validators', function () {
               , ''
               , 'Vml2YW11cyBmZXJtZtesting123'
               , 'Zg='
+              , 'Z==='
               , 'Zm=8'
               , '=m9vYg=='
               , 'Zm9vYmFy===='

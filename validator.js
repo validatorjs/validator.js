@@ -104,8 +104,7 @@
 
     var surrogatePair = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
 
-    var notBase64 = /[^A-Z0-9+\/=]/i
-      , lastBase64Block = /^(?:[^=]{2}==|[^=]{3}=|[^=]{4})$/i;
+    var notBase64 = /[^A-Z0-9+\/=]/i;
 
     var phones = {
       'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
@@ -836,18 +835,19 @@
 
     validator.isBase64 = function (str) {
         var len = str.length;
-        if (len % 4 !== 0) {
-            return false;
-        }
-        if (notBase64.test(str)) {
+        if (!len || len % 4 !== 0 || notBase64.test(str)) {
             return false;
         }
         var firstPaddingChar = str.indexOf('=');
-        if (firstPaddingChar >= 0 && len - firstPaddingChar > 4) {
-            return false;
+        if (firstPaddingChar >= 0) {
+            if (len - firstPaddingChar > 2) {
+                return false;
+            }
+            if (firstPaddingChar < len - 1 && str[len - 1] !== '=') {
+                return false;
+            }
         }
-        var lastBlock = str.substring(len - 4);
-        return lastBase64Block.test(lastBlock);
+        return true;
     };
 
     validator.isMongoId = function (str) {
