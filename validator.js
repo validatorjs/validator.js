@@ -839,15 +839,9 @@
             return false;
         }
         var firstPaddingChar = str.indexOf('=');
-        if (firstPaddingChar >= 0) {
-            if (len - firstPaddingChar > 2) {
-                return false;
-            }
-            if (firstPaddingChar < len - 1 && str[len - 1] !== '=') {
-                return false;
-            }
-        }
-        return true;
+        return firstPaddingChar === -1 ||
+            firstPaddingChar === len - 1 ||
+            (firstPaddingChar === len - 2 && str[len - 1] === '=');
     };
 
     validator.isMongoId = function (str) {
