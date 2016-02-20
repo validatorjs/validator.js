@@ -2,15 +2,15 @@ import merge from './util/merge';
 import assertString from './util/assertString';
 
 function currencyRegex(options) {
-  const symbol = '(\\' + options.symbol.replace(/\./g, '\\.') + ')' +
-    (options.require_symbol ? '' : '?'),
+  const symbol =
+    `(\\${options.symbol.replace(/\./g, '\\.')})${(options.require_symbol ? '' : '?')}`,
     negative = '-?',
     whole_dollar_amount_without_sep = '[1-9]\\d*',
-    whole_dollar_amount_with_sep = '[1-9]\\d{0,2}(\\' + options.thousands_separator + '\\d{3})*',
+    whole_dollar_amount_with_sep = `[1-9]\\d{0,2}(\\${options.thousands_separator}\\d{3})*`,
     valid_whole_dollar_amounts = [
       '0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
-    whole_dollar_amount = '(' + valid_whole_dollar_amounts.join('|') + ')?',
-    decimal_amount = '(\\' + options.decimal_separator + '\\d{2})?';
+    whole_dollar_amount = `(${valid_whole_dollar_amounts.join('|')})?`,
+    decimal_amount = `(\\${options.decimal_separator}\\d{2})?`;
   let pattern = whole_dollar_amount + decimal_amount;
 
   // default is negative sign before symbol, but there are two other options (besides parens)
@@ -24,9 +24,9 @@ function currencyRegex(options) {
 
   // South African Rand, for example, uses R 123 (space) and R-123 (no space)
   if (options.allow_negative_sign_placeholder) {
-    pattern = '( (?!\\-))?' + pattern;
+    pattern = `( (?!\\-))?${pattern}`;
   } else if (options.allow_space_after_symbol) {
-    pattern = ' ?' + pattern;
+    pattern = ` ?${pattern}`;
   } else if (options.allow_space_after_digits) {
     pattern += '( (?!$))?';
   }
@@ -39,12 +39,13 @@ function currencyRegex(options) {
 
   if (options.allow_negatives) {
     if (options.parens_for_negatives) {
-      pattern = '(\\(' + pattern + '\\)|' + pattern + ')';
+      pattern = `(\\(${pattern}\\)|${pattern})`;
     } else if (!(options.negative_sign_before_digits || options.negative_sign_after_digits)) {
       pattern = negative + pattern;
     }
   }
 
+  /* eslint-disable prefer-template */
   return new RegExp(
         '^' +
         // ensure there's a dollar and/or decimal amount, and that
@@ -53,6 +54,7 @@ function currencyRegex(options) {
         pattern +
         '$'
     );
+  /* eslint-enable prefer-template */
 }
 
 

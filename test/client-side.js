@@ -7,7 +7,7 @@ describe('Minified version', function () {
     for (var key in validator) {
       if ({}.hasOwnProperty.call(validator, key)) {
         assert.equal(typeof validator[key],
-          typeof min[key], 'Minified version did not export ' + key);
+          typeof min[key], `Minified version did not export ${key}`);
       }
     }
   });

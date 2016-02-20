@@ -13,7 +13,7 @@ function getTimezoneOffset(str) {
     sign = timezone[1];
     let offset = timezone[2];
     if (offset.length === 3) {
-      offset = '0' + offset;
+      offset = `0${offset}`;
     }
     if (offset.length <= 2) {
       hours = 0;

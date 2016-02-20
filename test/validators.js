@@ -58,7 +58,7 @@ describe('Validators', function () {
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
-        repeat('a', 64) + '@' + repeat('a', 252) + '.com',
+        `${repeat('a', 64)}@${repeat('a', 252)}.com`,
       ],
       invalid: [
         'invalidemail@',
@@ -69,8 +69,8 @@ describe('Validators', function () {
         'foo@bar.co.uk.',
         'z@co.c',
         'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com',
-        repeat('a', 64) + '@' + repeat('a', 253) + '.com',
-        repeat('a', 65) + '@' + repeat('a', 252) + '.com',
+        `${repeat('a', 64)}@${repeat('a', 253)}.com`,
+        `${repeat('a', 65)}@${repeat('a', 252)}.com`,
       ],
     });
   });
@@ -214,7 +214,7 @@ describe('Validators', function () {
         'http://www.foobar.com/\t',
         'http://\n@www.foobar.com/',
         '',
-        'http://foobar.com/' + new Array(2083).join('f'),
+        `http://foobar.com/${new Array(2083).join('f')}`,
         'http://*.foo.com',
         '*.foo.com',
         '!.foo.com',
