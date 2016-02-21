@@ -118,16 +118,6 @@ XSS sanitization was removed from the library in [2d5d6999](https://github.com/c
 
 For an alternative, look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters).
 
-Note that the first argument will be automatically coerced to a string.
-
-```javascript
-validator.isWhitespace('    \t\r\n');
-// => true
-
-validator.isWhitespace('foo bar');
-// => false
-```
-
 ### Tests
 
 Tests require node v4.0+.
