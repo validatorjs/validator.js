@@ -1,4 +1,4 @@
-#### HEAD
+#### 5.0.0
 
 - Migrate to ES6
   ([#496](https://github.com/chriso/validator.js/pull/496))
