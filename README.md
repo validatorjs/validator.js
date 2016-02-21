@@ -45,8 +45,8 @@ If you're not sure if your input is a string, coerce it using `input + ''`.
 - **contains(str, seed)** - check if the string contains the seed.
 - **equals(str, comparison)** - check if the string matches the comparison.
 - **isAfter(str [, date])** - check if the string is a date that's after the specified date (defaults to now).
-- **isAlpha(str [, locale])** - check if the string contains only letters (a-zA-Z). Locale is one of `['en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM', 'ru-RU']`) and defaults to `en-US`.
-- **isAlphanumeric(str [, locale])** - check if the string contains only letters and numbers. Locale is one of `['en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM', 'ru-RU']`) and defaults to `en-US`.
+- **isAlpha(str [, locale])** - check if the string contains only letters (a-zA-Z). Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QM', 'ar-QA', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM', 'ru-RU']`) and defaults to `en-US`.
+- **isAlphanumeric(str [, locale])** - check if the string contains only letters and numbers. Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QM', 'ar-QA', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM', 'ru-RU']`) and defaults to `en-US`.
 - **isAscii(str)** - check if the string contains ASCII chars only.
 - **isBase64(str)** - check if a string is base64 encoded.
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
@@ -74,7 +74,7 @@ If you're not sure if your input is a string, coerce it using `input + ''`.
 - **isLength(str, options)** - check if the string's length falls in a range. `options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
 - **isLowercase(str)** - check if the string is lowercase.
 - **isMACAddress(str)** - check if the string is a MAC address.
-- **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN', 'es-ES', 'de-DE', 'fi-FI']`).
+- **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['ar-SY', 'zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN', 'es-ES', 'de-DE', 'fi-FI']`).
 - **isMongoId(str)** - check if the string is a valid hex-encoded representation of a [MongoDB ObjectId][mongoid].
 - **isMultibyte(str)** - check if the string contains one or more multibyte chars.
 - **isNull(str)** - check if the string is null.
@@ -107,16 +107,6 @@ If you're not sure if your input is a string, coerce it using `input + ''`.
 XSS sanitization was removed from the library in [2d5d6999](https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
 
 For an alternative, look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters).
-
-### Extensions
-
-You can add your own validators using `validator.extend(name, fn)`
-
-```javascript
-validator.extend('isWhitespace', function (str) {
-    return /^\s+$/.test(str);
-});
-```
 
 Note that the first argument will be automatically coerced to a string.
 
