@@ -202,7 +202,6 @@ describe('Validators', function () {
         'http://www.foobar.com:99999/',
         'http://www.-foobar.com/',
         'http://www.foobar-.com/',
-        'http://www.foo---bar.com/',
         'http://foobar/# lol',
         'http://foobar/? lol',
         'http://foobar/ lol/',
@@ -1596,6 +1595,12 @@ describe('Validators', function () {
     test({
       validator: 'isBase64',
       valid: [
+        'Zg==',
+        'Zm8=',
+        'Zm9v',
+        'Zm9vYg==',
+        'Zm9vYmE=',
+        'Zm9vYmFy',
         'TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4=',
         'Vml2YW11cyBmZXJtZW50dW0gc2VtcGVyIHBvcnRhLg==',
         'U3VzcGVuZGlzc2UgbGVjdHVzIGxlbw==',
@@ -1611,6 +1616,11 @@ describe('Validators', function () {
         '12345',
         '',
         'Vml2YW11cyBmZXJtZtesting123',
+        'Zg=',
+        'Z===',
+        'Zm=8',
+        '=m9vYg==',
+        'Zm9vYmFy====',
       ],
     });
     for (var i = 0, str = '', encoded; i < 1000; i++) {

@@ -163,9 +163,6 @@
           if (part[0] === '-' || part[part.length - 1] === '-') {
             return false;
           }
-          if (part.indexOf('---') >= 0 && part.slice(0, 4) !== 'xn--') {
-            return false;
-          }
         }
         return true;
       }
@@ -391,6 +388,7 @@
         'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
         'nl-NL': /^[A-ZÉËÏÓÖÜ]+$/i,
         'pt-PT': /^[A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]+$/i,
+        'ru-RU': /^[А-ЯЁа-яё]+$/i,
         ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/
       };
 
@@ -401,6 +399,7 @@
         'fr-FR': /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
         'nl-NL': /^[0-9A-ZÉËÏÓÖÜ]+$/i,
         'pt-PT': /^[0-9A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]+$/i,
+        'ru-RU': /^[0-9А-ЯЁа-яё]+$/i,
         ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/
       };
 
@@ -944,11 +943,16 @@
         return currencyRegex(options).test(str);
       }
 
-      var base64 = /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
+      var notBase64 = /[^A-Z0-9+\/=]/i;
 
       function isBase64(str) {
         assertString(str);
-        return base64.test(str);
+        var len = str.length;
+        if (!len || len % 4 !== 0 || notBase64.test(str)) {
+          return false;
+        }
+        var firstPaddingChar = str.indexOf('=');
+        return firstPaddingChar === -1 || firstPaddingChar === len - 1 || firstPaddingChar === len - 2 && str[len - 1] === '=';
       }
 
       function ltrim(str, chars) {
@@ -1031,7 +1035,7 @@
         return parts.join('@');
       }
 
-      var version = '4.8.0';
+      var version = '4.9.0';
 
       var validator = {
         version: version,
