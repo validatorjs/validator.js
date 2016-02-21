@@ -14,6 +14,18 @@ var validator = require('validator');
 validator.isEmail('foo@bar.com'); //=> true
 ```
 
+#### ES6
+
+```javascript
+import validator from 'validator';
+```
+
+Or, import only a subset of the library:
+
+```javascript
+import isEmail from 'validator/lib/isEmail';
+```
+
 ### Client-side usage
 
 The library can be loaded either as a standalone script, or through an [AMD][amd]-compatible loader
@@ -33,12 +45,10 @@ $ bower install validator-js
 
 ### Strings only
 
-This library validates and sanitizes strings only.
+**This library validates and sanitizes strings only.**
 
-**Repeat: this library validates and sanitizes strings only**.
-
-Passing input that isn't a string will be an error in an upcoming release.
 If you're not sure if your input is a string, coerce it using `input + ''`.
+Passing anything other than a string is an error.
 
 ### Validators
 

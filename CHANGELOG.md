@@ -1,5 +1,15 @@
 #### HEAD
 
+- Migrate to ES6
+  ([#496](https://github.com/chriso/validator.js/pull/496))
+- Break the library up so that individual functions can be imported
+  ([#496](https://github.com/chriso/validator.js/pull/496))
+- Remove auto-coercion of input to a string
+  ([#496](https://github.com/chriso/validator.js/pull/496))
+- Remove the `extend()` function
+  ([#496](https://github.com/chriso/validator.js/pull/496))
+- Added Arabic locales to `isAlpha()` and `isAlphanumeric()`
+  ([#496](https://github.com/chriso/validator.js/pull/496#issuecomment-184781730))
 - Fix validation of very large base64 strings
   ([#503](https://github.com/chriso/validator.js/pull/503))
 
