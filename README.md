@@ -120,13 +120,9 @@ For an alternative, look at Yahoo's [xss-filters library](https://github.com/yah
 
 ### Tests
 
-Tests require node v4.0+.
-
-- `make test` - run the test suite.
-- `make test V=1` - run the test suite with added verbosity.
-- `make test TEST=pattern` - run tests that match a pattern.
-- `make coverage` - run a coverage analysis tool.
-- `make lint` - run a lint tool.
+```sh
+$ npm test
+```
 
 ### License (MIT)
 
