@@ -62,9 +62,7 @@ export default function isDate(str) {
   }
 
   const day = String(normalizedDate.getDate());
-  let dayOrYear;
-  let dayOrYearMatches;
-  let year;
+  let dayOrYear, dayOrYearMatches, year;
   // check for valid double digits that could be late days
   // check for all matches since a string like '12/23' is a valid date
   // ignore everything with nearby colons

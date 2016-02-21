@@ -107,6 +107,7 @@
         return obj;
       }
 
+      /* eslint-disable prefer-rest-params */
       function isByteLength(str, options) {
         assertString(str);
         var min = undefined;
@@ -556,6 +557,7 @@
         return str.length === 0;
       }
 
+      /* eslint-disable prefer-rest-params */
       function isLength(str, options) {
         assertString(str);
         var min = undefined;
@@ -665,9 +667,9 @@
         }
 
         var day = String(normalizedDate.getDate());
-        var dayOrYear = undefined;
-        var dayOrYearMatches = undefined;
-        var year = undefined;
+        var dayOrYear = undefined,
+            dayOrYearMatches = undefined,
+            year = undefined;
         // check for valid double digits that could be late days
         // check for all matches since a string like '12/23' is a valid date
         // ignore everything with nearby colons
