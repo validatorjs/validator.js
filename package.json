@@ -55,7 +55,7 @@
     "build": "npm run build:browser && npm run build:node",
     "pretest": "npm run lint && npm run build",
     "test": "node ./node_modules/.bin/_mocha --reporter spec",
-    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
+    "coveralls": "istanbul cover _mocha --report lcovonly -x validator.js -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "engines": {
     "node": ">= 0.10"
