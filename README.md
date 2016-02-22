@@ -87,7 +87,7 @@ Passing anything other than a string is an error.
 - **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['ar-SY', 'zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN', 'es-ES', 'de-DE', 'fi-FI']`).
 - **isMongoId(str)** - check if the string is a valid hex-encoded representation of a [MongoDB ObjectId][mongoid].
 - **isMultibyte(str)** - check if the string contains one or more multibyte chars.
-- **isNull(str)** - check if the string is null.
+- **isNull(str)** - check if the string is null (has a length of zero).
 - **isNumeric(str)** - check if the string contains only numbers.
 - **isSurrogatePair(str)** - check if the string contains any surrogate pairs chars.
 - **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false }`.
