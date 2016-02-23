@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added Polish locales to `isAlpha()` and `isAlphanumeric()`
+  ([#506](https://github.com/chriso/validator.js/pull/506))
+
 #### 5.0.0
 
 - Migrate to ES6
