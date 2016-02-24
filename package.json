@@ -1,13 +1,28 @@
-{ "name": "validator",
+{
+  "name": "validator",
   "description": "String validation and sanitization",
-  "version": "4.7.0",
+  "version": "5.0.0",
   "homepage": "http://github.com/chriso/validator.js",
+  "files": [
+    "index.js",
+    "lib",
+    "README.md",
+    "LICENCE",
+    "validator.js",
+    "validator.min.js"
+  ],
   "keywords": [
-    "validator", "validation", "validate", "sanitization",
-    "sanitize", "sanitisation", "sanitise", "assert"
+    "validator",
+    "validation",
+    "validate",
+    "sanitization",
+    "sanitize",
+    "sanitisation",
+    "sanitise",
+    "assert"
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
-  "main": "validator.js",
+  "main": "index.js",
   "bugs": {
     "url": "http://github.com/chriso/validator.js/issues"
   },
@@ -16,16 +31,34 @@
     "url": "http://github.com/chriso/validator.js.git"
   },
   "devDependencies": {
-    "mocha": "latest",
+    "babel-cli": "^6.5.1",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-es2015-rollup": "^1.1.1",
+    "coveralls": "latest",
+    "eslint": "^2.2.0",
+    "eslint-config-airbnb": "^6.0.0",
     "istanbul": "latest",
-    "jshint": "latest",
-    "uglify-js": "latest",
-    "coveralls": "latest"
+    "mocha": "latest",
+    "rollup": "^0.25.4",
+    "rollup-plugin-babel": "^2.3.9",
+    "uglify-js": "latest"
   },
   "scripts": {
+    "lint": "eslint src test",
+    "clean:node": "rm -rf index.js lib",
+    "clean:browser": "rm -rf validator*.js",
+    "clean": "npm run clean:node && npm run clean:browser",
+    "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments '/Copyright/'",
+    "build:browser": "babel-node build-browser && npm run minify",
+    "build:node": "babel src -d . --presets es2015 --plugins add-module-exports",
+    "build": "npm run build:browser && npm run build:node",
+    "pretest": "npm run lint && npm run build",
     "test": "node ./node_modules/.bin/_mocha --reporter spec",
-    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
+    "coveralls": "istanbul cover _mocha --report lcovonly -x validator.js -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
-  "engines": { "node" : ">= 0.10" },
+  "engines": {
+    "node": ">= 0.10"
+  },
   "license": "MIT"
 }

@@ -1,3 +1,46 @@
+#### HEAD
+
+- Added Polish locales to `isAlpha()` and `isAlphanumeric()`
+  ([#506](https://github.com/chriso/validator.js/pull/506))
+
+#### 5.0.0
+
+- Migrate to ES6
+  ([#496](https://github.com/chriso/validator.js/pull/496))
+- Break the library up so that individual functions can be imported
+  ([#496](https://github.com/chriso/validator.js/pull/496))
+- Remove auto-coercion of input to a string
+  ([#496](https://github.com/chriso/validator.js/pull/496))
+- Remove the `extend()` function
+  ([#496](https://github.com/chriso/validator.js/pull/496))
+- Added Arabic locales to `isAlpha()` and `isAlphanumeric()`
+  ([#496](https://github.com/chriso/validator.js/pull/496#issuecomment-184781730))
+- Fix validation of very large base64 strings
+  ([#503](https://github.com/chriso/validator.js/pull/503))
+
+#### 4.9.0
+
+- Added a Russian locale to `isAlpha()` and `isAlphanumeric()`
+  ([#499](https://github.com/chriso/validator.js/pull/499))
+- Remove the restriction on adjacent hyphens in hostnames
+  ([#500](https://github.com/chriso/validator.js/issues/500))
+
+#### 4.8.0
+
+- Added Spanish, French, Portuguese and Dutch support for `isAlpha()` and `isAlphanumeric()`
+  ([#492](https://github.com/chriso/validator.js/pull/492))
+- Added a Brazilian locale to `isMobilePhone()`
+  ([#489](https://github.com/chriso/validator.js/pull/489))
+- Reject IPv4 addresses with invalid zero padding
+  ([#490](https://github.com/chriso/validator.js/pull/490))
+- Fix the client-side version when used with RequireJS
+  ([#494](https://github.com/chriso/validator.js/issues/494))
+
+#### 4.7.1
+
+- Use [node-depd](https://github.com/dougwilson/nodejs-depd) to print deprecation notices
+  ([#487](https://github.com/chriso/validator.js/issues/487))
+
 #### 4.7.0
 
 - Print a deprecation warning if validator input is not a string

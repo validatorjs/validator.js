@@ -14,6 +14,18 @@ var validator = require('validator');
 validator.isEmail('foo@bar.com'); //=> true
 ```
 
+#### ES6
+
+```javascript
+import validator from 'validator';
+```
+
+Or, import only a subset of the library:
+
+```javascript
+import isEmail from 'validator/lib/isEmail';
+```
+
 ### Client-side usage
 
 The library can be loaded either as a standalone script, or through an [AMD][amd]-compatible loader
@@ -33,21 +45,18 @@ $ bower install validator-js
 
 ### Strings only
 
-**This library validates and sanitizes strings only**.
+**This library validates and sanitizes strings only.**
 
-All input is coerced to a string using the following rules:
-
-- Call the `toString` property if available.
-- Replace `null`, `undefined`, `NaN` or items with `.length === 0` with an empty string.
-- Everything else is coerced with `'' + input`.
+If you're not sure if your input is a string, coerce it using `input + ''`.
+Passing anything other than a string is an error.
 
 ### Validators
 
 - **contains(str, seed)** - check if the string contains the seed.
 - **equals(str, comparison)** - check if the string matches the comparison.
 - **isAfter(str [, date])** - check if the string is a date that's after the specified date (defaults to now).
-- **isAlpha(str [, locale])** - check if the string contains only letters (a-zA-Z). Locale is one of `['en-US', 'de-DE']`) and defaults to `en-US`.
-- **isAlphanumeric(str [, locale])** - check if the string contains only letters and numbers. Locale is one of `['en-US', 'de-DE']`) and defaults to `en-US`.
+- **isAlpha(str [, locale])** - check if the string contains only letters (a-zA-Z). Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QM', 'ar-QA', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pl-PL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM', 'ru-RU']`) and defaults to `en-US`.
+- **isAlphanumeric(str [, locale])** - check if the string contains only letters and numbers. Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QM', 'ar-QA', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'en-US', 'de-DE', 'es-ES', 'fr-FR', 'nl-NL', 'pl-PL', 'pt-PT', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM', 'ru-RU']`) and defaults to `en-US`.
 - **isAscii(str)** - check if the string contains ASCII chars only.
 - **isBase64(str)** - check if a string is base64 encoded.
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
@@ -75,10 +84,10 @@ All input is coerced to a string using the following rules:
 - **isLength(str, options)** - check if the string's length falls in a range. `options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
 - **isLowercase(str)** - check if the string is lowercase.
 - **isMACAddress(str)** - check if the string is a MAC address.
-- **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN', 'es-ES', 'de-DE', 'fi-FI']`).
+- **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['ar-SY', 'zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK', 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN', 'es-ES', 'de-DE', 'fi-FI']`).
 - **isMongoId(str)** - check if the string is a valid hex-encoded representation of a [MongoDB ObjectId][mongoid].
 - **isMultibyte(str)** - check if the string contains one or more multibyte chars.
-- **isNull(str)** - check if the string is null.
+- **isNull(str)** - check if the string is null (has a length of zero).
 - **isNumeric(str)** - check if the string contains only numbers.
 - **isSurrogatePair(str)** - check if the string contains any surrogate pairs chars.
 - **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false }`.
@@ -96,11 +105,10 @@ All input is coerced to a string using the following rules:
 - **normalizeEmail(email [, options])** - canonicalize an email address. `options` is an object which defaults to `{ lowercase: true, remove_dots: true, remove_extension: true }`. With `lowercase` set to `true`, the local part of the email address is lowercased for all domains; the hostname is always lowercased and the local part of the email address is always lowercased for hosts that are known to be case-insensitive (currently only GMail). Normalization follows special rules for known providers: currently, GMail addresses have dots removed in the local part and are stripped of extensions (e.g. `some.one+extension@gmail.com` becomes `someone@gmail.com`) and all `@googlemail.com` addresses are normalized to `@gmail.com`.
 - **rtrim(input [, chars])** - trim characters from the right-side of the input.
 - **stripLow(input [, keep_new_lines])** - remove characters with a numerical value < 32 and 127, mostly control characters. If `keep_new_lines` is `true`, newline characters are preserved (`\n` and `\r`, hex `0xA` and `0xD`). Unicode-safe in JavaScript.
-- **toBoolean(input [, strict])** - convert the input to a boolean. Everything except for `'0'`, `'false'` and `''` returns `true`. In strict mode only `'1'` and `'true'` return `true`.
-- **toDate(input)** - convert the input to a date, or `null` if the input is not a date.
-- **toFloat(input)** - convert the input to a float, or `NaN` if the input is not a float.
-- **toInt(input [, radix])** - convert the input to an integer, or `NaN` if the input is not an integer.
-- **toString(input)** - convert the input to a string.
+- **toBoolean(input [, strict])** - convert the input string to a boolean. Everything except for `'0'`, `'false'` and `''` returns `true`. In strict mode only `'1'` and `'true'` return `true`.
+- **toDate(input)** - convert the input string to a date, or `null` if the input is not a date.
+- **toFloat(input)** - convert the input string to a float, or `NaN` if the input is not a float.
+- **toInt(input [, radix])** - convert the input string to an integer, or `NaN` if the input is not an integer.
 - **trim(input [, chars])** - trim characters (whitespace by default) from both sides of the input.
 - **whitelist(input, chars)** - remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
 
@@ -110,35 +118,11 @@ XSS sanitization was removed from the library in [2d5d6999](https://github.com/c
 
 For an alternative, look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters).
 
-### Extensions
-
-You can add your own validators using `validator.extend(name, fn)`
-
-```javascript
-validator.extend('isWhitespace', function (str) {
-    return /^\s+$/.test(str);
-});
-```
-
-Note that the first argument will be automatically coerced to a string.
-
-```javascript
-validator.isWhitespace('    \t\r\n');
-// => true
-
-validator.isWhitespace('foo bar');
-// => false
-```
-
 ### Tests
 
-Tests require node v4.0+.
-
-- `make test` - run the test suite.
-- `make test V=1` - run the test suite with added verbosity.
-- `make test TEST=pattern` - run tests that match a pattern.
-- `make coverage` - run a coverage analysis tool.
-- `make lint` - run a lint tool.
+```sh
+$ npm test
+```
 
 ### License (MIT)
 
