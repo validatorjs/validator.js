@@ -1,0 +1,40 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/local/bin/npm', 'run', 'pretest' ]
+2 info using npm@3.3.4
+3 info using node@v5.7.0
+4 verbose run-script [ 'pretest' ]
+5 info lifecycle validator@5.0.0~pretest: validator@5.0.0
+6 verbose lifecycle validator@5.0.0~pretest: unsafe-perm in lifecycle true
+7 verbose lifecycle validator@5.0.0~pretest: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/paragasu/workspace/validator.js/node_modules/.bin:/home/paragasu/bin/android-studio/bin:/opt/android-sdk-linux/tools/tools:/opt/android-sdk-linux/platform-tools:/home/paragasu/bin:/opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+8 verbose lifecycle validator@5.0.0~pretest: CWD: /home/paragasu/workspace/validator.js
+9 silly lifecycle validator@5.0.0~pretest: Args: [ '-c', 'npm run lint && npm run build' ]
+10 silly lifecycle validator@5.0.0~pretest: Returned: code: 1  signal: null
+11 info lifecycle validator@5.0.0~pretest: Failed to exec pretest script
+12 verbose stack Error: validator@5.0.0 pretest: `npm run lint && npm run build`
+12 verbose stack Exit status 1
+12 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:233:16)
+12 verbose stack     at emitTwo (events.js:100:13)
+12 verbose stack     at EventEmitter.emit (events.js:185:7)
+12 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+12 verbose stack     at emitTwo (events.js:100:13)
+12 verbose stack     at ChildProcess.emit (events.js:185:7)
+12 verbose stack     at maybeClose (internal/child_process.js:827:16)
+12 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+13 verbose pkgid validator@5.0.0
+14 verbose cwd /home/paragasu/workspace/validator.js
+15 error Linux 3.16.0-4-amd64
+16 error argv "/usr/bin/nodejs" "/usr/local/bin/npm" "run" "pretest"
+17 error node v5.7.0
+18 error npm  v3.3.4
+19 error code ELIFECYCLE
+20 error validator@5.0.0 pretest: `npm run lint && npm run build`
+20 error Exit status 1
+21 error Failed at the validator@5.0.0 pretest script 'npm run lint && npm run build'.
+21 error This is most likely a problem with the validator package,
+21 error not with npm itself.
+21 error Tell the author that this fails on your system:
+21 error     npm run lint && npm run build
+21 error You can get their info via:
+21 error     npm owner ls validator
+21 error There is likely additional logging output above.
+22 verbose exit [ 1, true ]
