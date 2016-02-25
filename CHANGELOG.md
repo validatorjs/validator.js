@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added a Malaysian locale to `isMobilePhone()`
+  ([#507](https://github.com/chriso/validator.js/pull/507))
 - Added Polish locales to `isAlpha()` and `isAlphanumeric()`
   ([#506](https://github.com/chriso/validator.js/pull/506))
 
