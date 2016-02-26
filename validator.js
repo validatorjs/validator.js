@@ -981,6 +981,11 @@
             return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\//g, '&#x2F;').replace(/\`/g, '&#96;');
       }
 
+      function unescape(str) {
+            assertString(str);
+            return str.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#x2F;/g, '\/').replace(/&#96;/g, '\`');
+      }
+
       function blacklist(str, chars) {
         assertString(str);
         return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
@@ -1066,7 +1071,7 @@
         isISO8601: isISO8601,
         isBase64: isBase64,
         ltrim: ltrim, rtrim: rtrim, trim: trim,
-        escape: escape, stripLow: stripLow,
+        escape: escape, unescape: unescape, stripLow: stripLow,
         whitelist: whitelist, blacklist: blacklist,
         isWhitelisted: isWhitelisted,
         normalizeEmail: normalizeEmail,

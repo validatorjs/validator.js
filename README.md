@@ -101,6 +101,7 @@ Passing anything other than a string is an error.
 
 - **blacklist(input, chars)** - remove characters that appear in the blacklist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `blacklist(input, '\\[\\]')`.
 - **escape(input)** - replace `<`, `>`, `&`, `'`, `"` and `/` with HTML entities.
+- **unescape(input)** - replaces HTML encoded entities with `<`, `>`, `&`, `'`, `"` and `/`.
 - **ltrim(input [, chars])** - trim characters from the left-side of the input.
 - **normalizeEmail(email [, options])** - canonicalize an email address. `options` is an object which defaults to `{ lowercase: true, remove_dots: true, remove_extension: true }`. With `lowercase` set to `true`, the local part of the email address is lowercased for all domains; the hostname is always lowercased and the local part of the email address is always lowercased for hosts that are known to be case-insensitive (currently only GMail). Normalization follows special rules for known providers: currently, GMail addresses have dots removed in the local part and are stripped of extensions (e.g. `some.one+extension@gmail.com` becomes `someone@gmail.com`) and all `@googlemail.com` addresses are normalized to `@gmail.com`.
 - **rtrim(input [, chars])** - trim characters from the right-side of the input.

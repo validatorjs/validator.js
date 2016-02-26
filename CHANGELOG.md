@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added a `unescape()` HTML function
+  ([#509](https://github.com/chriso/validator.js/pull/509))
 - Added a Malaysian locale to `isMobilePhone()`
   ([#507](https://github.com/chriso/validator.js/pull/507))
 - Added Polish locales to `isAlpha()` and `isAlphanumeric()`
