@@ -622,6 +622,25 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate turkish alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['tr-TR'],
+      valid: [
+        'AİıÖöÇçŞşĞğÜüZ',
+      ],
+      invalid: [
+        '0AİıÖöÇçŞşĞğÜüZ1',
+        '  AİıÖöÇçŞşĞğÜüZ  ',
+        'abc1',
+        '  foo  ',
+        '',
+        'ÄBC',
+        'Heiß',
+      ],
+    });
+  });
+
   it('should validate alphanumeric strings', function () {
     test({
       validator: 'isAlphanumeric',
@@ -718,6 +737,21 @@ describe('Validators', function () {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+  });
+
+  it('should validate turkish alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['tr-TR'],
+      valid: [
+        'AİıÖöÇçŞşĞğÜüZ123',
+      ],
+      invalid: [
+        'AİıÖöÇçŞşĞğÜüZ ',
+        'foo!!',
+        'ÄBC',
       ],
     });
   });
