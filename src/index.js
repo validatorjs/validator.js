@@ -69,6 +69,7 @@ import ltrim from './lib/ltrim';
 import rtrim from './lib/rtrim';
 import trim from './lib/trim';
 import escape from './lib/escape';
+import unescape from './lib/unescape';
 import stripLow from './lib/stripLow';
 import whitelist from './lib/whitelist';
 import blacklist from './lib/blacklist';
@@ -104,7 +105,7 @@ const validator = {
   isISO8601,
   isBase64,
   ltrim, rtrim, trim,
-  escape, stripLow,
+  escape, unescape, stripLow,
   whitelist, blacklist,
   isWhitelisted,
   normalizeEmail,
