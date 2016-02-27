@@ -4,6 +4,8 @@
   ([#507](https://github.com/chriso/validator.js/pull/507))
 - Added Polish locales to `isAlpha()` and `isAlphanumeric()`
   ([#506](https://github.com/chriso/validator.js/pull/506))
+- Added Turkish locales to `isAlpha()`, `isAlphanumeric()` and `isMobilePhone()`
+  ([#512](https://github.com/chriso/validator.js/pull/512))
 
 #### 5.0.0
 
