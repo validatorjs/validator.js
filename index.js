@@ -208,6 +208,10 @@ var _escape = require('./lib/escape');
 
 var _escape2 = _interopRequireDefault(_escape);
 
+var _unescape = require('./lib/unescape');
+
+var _unescape2 = _interopRequireDefault(_unescape);
+
 var _stripLow = require('./lib/stripLow');
 
 var _stripLow2 = _interopRequireDefault(_stripLow);
@@ -262,7 +266,7 @@ var validator = {
   isISO8601: _isISO2.default,
   isBase64: _isBase2.default,
   ltrim: _ltrim2.default, rtrim: _rtrim2.default, trim: _trim2.default,
-  escape: _escape2.default, stripLow: _stripLow2.default,
+  escape: _escape2.default, unescape: _unescape2.default, stripLow: _stripLow2.default,
   whitelist: _whitelist2.default, blacklist: _blacklist2.default,
   isWhitelisted: _isWhitelisted2.default,
   normalizeEmail: _normalizeEmail2.default,

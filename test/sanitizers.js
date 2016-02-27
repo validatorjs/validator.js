@@ -134,6 +134,22 @@ describe('Sanitizers', function () {
     });
   });
 
+  it('should unescape HTML', function () {
+    test({
+      sanitizer: 'unescape',
+      expect: {
+        '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;':
+             '<script> alert("xss&fun"); </script>',
+
+        '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;':
+            "<script> alert('xss&fun'); </script>",
+
+        'Backtick: &#96;':
+            'Backtick: `',
+      },
+    });
+  });
+
   it('should remove control characters (<32 and 127)', function () {
     // Check basic functionality
     test({
