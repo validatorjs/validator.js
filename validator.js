@@ -148,9 +148,6 @@
         for (var part, i = 0; i < parts.length; i++) {
           part = parts[i];
           if (options.allow_underscores) {
-            if (part.indexOf('__') >= 0) {
-              return false;
-            }
             part = part.replace(/_/g, '');
           }
           if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {

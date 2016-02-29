@@ -266,10 +266,9 @@ describe('Validators', function () {
       valid: [
         'http://foo_bar.com',
         'http://pr.example_com.294.example.com/',
-      ],
-      invalid: [
         'http://foo__bar.com',
       ],
+      invalid: [],
     });
   });
 
