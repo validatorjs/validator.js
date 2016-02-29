@@ -1,4 +1,4 @@
-#### HEAD
+#### 5.1.0
 
 - Added a `unescape()` HTML function
   ([#509](https://github.com/chriso/validator.js/pull/509))
