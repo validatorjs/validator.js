@@ -8,6 +8,8 @@
   ([#506](https://github.com/chriso/validator.js/pull/506))
 - Added Turkish locales to `isAlpha()`, `isAlphanumeric()` and `isMobilePhone()`
   ([#512](https://github.com/chriso/validator.js/pull/512))
+- Allow >1 underscore in hostnames when using `allow_underscores`
+  ([#510](https://github.com/chriso/validator.js/issues/510))
 
 #### 5.0.0
 
