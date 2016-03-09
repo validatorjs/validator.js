@@ -110,8 +110,8 @@
       /* eslint-disable prefer-rest-params */
       function isByteLength(str, options) {
         assertString(str);
-        var min = undefined;
-        var max = undefined;
+        var min = void 0;
+        var max = void 0;
         if ((typeof options === 'undefined' ? 'undefined' : babelHelpers.typeof(options)) === 'object') {
           min = options.min || 0;
           max = options.max;
@@ -310,13 +310,13 @@
           return false;
         }
         options = merge(options, default_url_options);
-        var protocol = undefined,
-            auth = undefined,
-            host = undefined,
-            hostname = undefined,
-            port = undefined,
-            port_str = undefined,
-            split = undefined;
+        var protocol = void 0,
+            auth = void 0,
+            host = void 0,
+            hostname = void 0,
+            port = void 0,
+            port_str = void 0,
+            split = void 0;
         split = url.split('://');
         if (split.length > 1) {
           protocol = split.shift();
@@ -415,10 +415,10 @@
       // Source: http://www.localeplanet.com/java/
       var arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
 
-      for (var locale, i = 0; i < arabicLocales.length; i++) {
-        locale = 'ar-' + arabicLocales[i];
-        alpha[locale] = alpha.ar;
-        alphanumeric[locale] = alphanumeric.ar;
+      for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
+        _locale = 'ar-' + arabicLocales[_i];
+        alpha[_locale] = alpha.ar;
+        alphanumeric[_locale] = alphanumeric.ar;
       }
 
       function isAlpha(str) {
@@ -560,8 +560,8 @@
       /* eslint-disable prefer-rest-params */
       function isLength(str, options) {
         assertString(str);
-        var min = undefined;
-        var max = undefined;
+        var min = void 0;
+        var max = void 0;
         if ((typeof options === 'undefined' ? 'undefined' : babelHelpers.typeof(options)) === 'object') {
           min = options.min || 0;
           max = options.max;
@@ -607,10 +607,10 @@
 
       function getTimezoneOffset(str) {
         var iso8601Parts = str.match(iso8601);
-        var timezone = undefined,
-            sign = undefined,
-            hours = undefined,
-            minutes = undefined;
+        var timezone = void 0,
+            sign = void 0,
+            hours = void 0,
+            minutes = void 0;
         if (!iso8601Parts) {
           str = str.toLowerCase();
           timezone = str.match(/(?:\s|gmt\s*)(-|\+)(\d{1,4})(\s|$)/);
@@ -667,9 +667,9 @@
         }
 
         var day = String(normalizedDate.getDate());
-        var dayOrYear = undefined,
-            dayOrYearMatches = undefined,
-            year = undefined;
+        var dayOrYear = void 0,
+            dayOrYearMatches = void 0,
+            year = void 0;
         // check for valid double digits that could be late days
         // check for all matches since a string like '12/23' is a valid date
         // ignore everything with nearby colons
@@ -710,7 +710,7 @@
 
       function isIn(str, options) {
         assertString(str);
-        var i = undefined;
+        var i = void 0;
         if (Object.prototype.toString.call(options) === '[object Array]') {
           var array = [];
           for (i in options) {
@@ -738,9 +738,9 @@
           return false;
         }
         var sum = 0;
-        var digit = undefined;
-        var tmpNum = undefined;
-        var shouldDouble = undefined;
+        var digit = void 0;
+        var tmpNum = void 0;
+        var shouldDouble = void 0;
         for (var i = sanitized.length - 1; i >= 0; i--) {
           digit = sanitized.substring(i, i + 1);
           tmpNum = parseInt(digit, 10);
@@ -772,8 +772,8 @@
         });
 
         var sum = 0;
-        var digit = undefined;
-        var tmpNum = undefined;
+        var digit = void 0;
+        var tmpNum = void 0;
         var shouldDouble = true;
         for (var i = checksumStr.length - 2; i >= 0; i--) {
           digit = checksumStr.substring(i, i + 1);
@@ -808,7 +808,7 @@
         }
         var sanitized = str.replace(/[\s-]+/g, '');
         var checksum = 0;
-        var i = undefined;
+        var i = void 0;
         if (version === '10') {
           if (!isbn10Maybe.test(sanitized)) {
             return false;
