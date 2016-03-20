@@ -125,6 +125,10 @@ For an alternative, look at Yahoo's [xss-filters library](https://github.com/yah
 $ npm test
 ```
 
+### Reading
+
+Remember, validating can be troublesome sometimes. See [A list of articles about programming assumptions commonly made that aren't true](https://github.com/jameslk/awesome-falsehoods).
+
 ### License (MIT)
 
 ```
