@@ -192,6 +192,10 @@ var _isBase = require('./lib/isBase64');
 
 var _isBase2 = _interopRequireDefault(_isBase);
 
+var _isDataURI = require('./lib/isDataURI');
+
+var _isDataURI2 = _interopRequireDefault(_isDataURI);
+
 var _ltrim = require('./lib/ltrim');
 
 var _ltrim2 = _interopRequireDefault(_ltrim);
@@ -264,7 +268,7 @@ var validator = {
   isMobilePhone: _isMobilePhone2.default,
   isCurrency: _isCurrency2.default,
   isISO8601: _isISO2.default,
-  isBase64: _isBase2.default,
+  isBase64: _isBase2.default, isDataURI: _isDataURI2.default,
   ltrim: _ltrim2.default, rtrim: _rtrim2.default, trim: _trim2.default,
   escape: _escape2.default, unescape: _unescape2.default, stripLow: _stripLow2.default,
   whitelist: _whitelist2.default, blacklist: _blacklist2.default,

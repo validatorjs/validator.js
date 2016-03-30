@@ -960,6 +960,13 @@
         return firstPaddingChar === -1 || firstPaddingChar === len - 1 || firstPaddingChar === len - 2 && str[len - 1] === '=';
       }
 
+      var dataURI = /^\s*data:([a-z]+\/[a-z0-9\-\+]+(;[a-z\-]+\=[a-z0-9\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i; // eslint-disable-line max-len
+
+      function isDataURI(str) {
+        assertString(str);
+        return dataURI.test(str);
+      }
+
       function ltrim(str, chars) {
         assertString(str);
         var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
@@ -1071,7 +1078,7 @@
         isMobilePhone: isMobilePhone,
         isCurrency: isCurrency,
         isISO8601: isISO8601,
-        isBase64: isBase64,
+        isBase64: isBase64, isDataURI: isDataURI,
         ltrim: ltrim, rtrim: rtrim, trim: trim,
         escape: escape, unescape: unescape, stripLow: stripLow,
         whitelist: whitelist, blacklist: blacklist,
