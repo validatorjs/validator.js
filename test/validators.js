@@ -184,6 +184,7 @@ describe('Validators', function () {
         'http://xn--j1aac5a4g.xn--j1amh',
         'http://xn------eddceddeftq7bvv7c4ke4c.xn--p1ai',
         'http://кулік.укр',
+        'test.com?ref=http://test2.com',
       ],
       invalid: [
         'xyz://foobar.com',

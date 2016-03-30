@@ -317,6 +317,13 @@
             port = void 0,
             port_str = void 0,
             split = void 0;
+
+        split = url.split('#');
+        url = split.shift();
+
+        split = url.split('?');
+        url = split.shift();
+
         split = url.split('://');
         if (split.length > 1) {
           protocol = split.shift();
@@ -329,11 +336,6 @@
           split[0] = url.substr(2);
         }
         url = split.join('://');
-        split = url.split('#');
-        url = split.shift();
-
-        split = url.split('?');
-        url = split.shift();
 
         split = url.split('/');
         url = split.shift();

@@ -1,3 +1,8 @@
+#### HEAD
+
+- Fixed a bug with `isURL()` when protocol was missing and :// appeared in the query
+  ([#518](https://github.com/chriso/validator.js/issues/518))
+
 #### 5.1.0
 
 - Added a `unescape()` HTML function

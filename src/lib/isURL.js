@@ -24,6 +24,13 @@ export default function isURL(url, options) {
   }
   options = merge(options, default_url_options);
   let protocol, auth, host, hostname, port, port_str, split;
+
+  split = url.split('#');
+  url = split.shift();
+
+  split = url.split('?');
+  url = split.shift();
+
   split = url.split('://');
   if (split.length > 1) {
     protocol = split.shift();
@@ -36,11 +43,6 @@ export default function isURL(url, options) {
     split[0] = url.substr(2);
   }
   url = split.join('://');
-  split = url.split('#');
-  url = split.shift();
-
-  split = url.split('?');
-  url = split.shift();
 
   split = url.split('/');
   url = split.shift();
