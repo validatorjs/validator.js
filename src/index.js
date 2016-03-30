@@ -64,6 +64,7 @@ import isCurrency from './lib/isCurrency';
 import isISO8601 from './lib/isISO8601';
 
 import isBase64 from './lib/isBase64';
+import isDataURI from './lib/isDataURI';
 
 import ltrim from './lib/ltrim';
 import rtrim from './lib/rtrim';
@@ -103,7 +104,7 @@ const validator = {
   isMobilePhone,
   isCurrency,
   isISO8601,
-  isBase64,
+  isBase64, isDataURI,
   ltrim, rtrim, trim,
   escape, unescape, stripLow,
   whitelist, blacklist,
