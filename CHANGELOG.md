@@ -1,4 +1,4 @@
-#### HEAD
+#### 5.2.0
 
 - Added a `isDataURI()` validator
   ([#521](https://github.com/chriso/validator.js/pull/521))
