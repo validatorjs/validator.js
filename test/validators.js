@@ -568,7 +568,7 @@ describe('Validators', function () {
         'KŮŇ',
         'Pěl',
         'Ďábelské',
-        'ódy'
+        'ódy',
       ],
       invalid: [
         'ábc1',
