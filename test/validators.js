@@ -559,6 +559,25 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate czech alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['cs-CZ'],
+      valid: [
+        'žluťoučký',
+        'KŮŇ',
+        'Pěl',
+        'Ďábelské',
+        'ódy',
+      ],
+      invalid: [
+        'ábc1',
+        '  fůj  ',
+        '',
+      ],
+    });
+  });
+
   it('should validate german alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -576,7 +595,6 @@ describe('Validators', function () {
       ],
     });
   });
-
 
   it('should validate arabic alpha strings', function () {
     test({
@@ -672,6 +690,21 @@ describe('Validators', function () {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+  });
+
+  it('should validate czech alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['cs-CZ'],
+      valid: [
+        'řiť123',
+        'KŮŇ11',
+      ],
+      invalid: [
+        'řiď ',
+        'blé!!',
       ],
     });
   });
@@ -1721,6 +1754,22 @@ describe('Validators', function () {
         '0114152198',
       ],
       args: ['ar-SY'],
+    });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '+420 123 456 789',
+        '+420 123456789',
+        '+420123456789',
+        '123 456 789',
+        '123456789',
+      ],
+      invalid: [
+        '',
+        '+42012345678',
+      ],
+      args: ['cs-CZ'],
     });
 
     test({
