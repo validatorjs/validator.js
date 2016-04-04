@@ -1,8 +1,10 @@
 #### HEAD
 
-- Added a `isDataURI` validator
+- Added a `isDataURI()` validator
   ([#521](https://github.com/chriso/validator.js/pull/521))
-- Fixed a bug with `isURL()` when protocol was missing and :// appeared in the query
+- Added Czech locales
+  ([#522](https://github.com/chriso/validator.js/pull/522))
+- Fixed a bug with `isURL()` when protocol was missing and "://" appeared in the query
   ([#518](https://github.com/chriso/validator.js/issues/518))
 
 #### 5.1.0
