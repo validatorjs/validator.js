@@ -1,3 +1,8 @@
+#### HEAD
+
+- Adjust Chinese mobile phone validation
+  ([#523](https://github.com/chriso/validator.js/pull/523))
+
 #### 5.2.0
 
 - Added a `isDataURI()` validator
