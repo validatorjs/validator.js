@@ -890,11 +890,11 @@ describe('Validators', function () {
         '123',
         '-0',
         '+1',
-      ],
-      invalid: [
         '01',
         '-01',
         '000',
+      ],
+      invalid: [
         '100e10',
         '123.123',
         '   ',

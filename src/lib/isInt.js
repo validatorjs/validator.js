@@ -1,6 +1,6 @@
 import assertString from './util/assertString';
 
-const int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
+const int = /^[-+]?[0-9]+$/;
 
 export default function isInt(str, options) {
   assertString(str);
