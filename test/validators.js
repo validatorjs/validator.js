@@ -890,9 +890,32 @@ describe('Validators', function () {
         '123',
         '-0',
         '+1',
+      ],
+      invalid: [
         '01',
         '-01',
         '000',
+        '100e10',
+        '123.123',
+        '   ',
+        '',
+      ],
+    });
+    test({
+      validator: 'isInt',
+      args: [{ allow_leading_zeroes: true }],
+      valid: [
+        '13',
+        '123',
+        '0',
+        '123',
+        '-0',
+        '+1',
+        '01',
+        '-01',
+        '000',
+        '-000',
+        '+000',
       ],
       invalid: [
         '100e10',
