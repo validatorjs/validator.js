@@ -888,6 +888,9 @@
       };
       /* eslint-enable max-len */
 
+      // aliases
+      phones['en-CA'] = phones['en-US'];
+
       function isMobilePhone(str, locale) {
         assertString(str);
         if (locale in phones) {

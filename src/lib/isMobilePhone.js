@@ -30,6 +30,9 @@ const phones = {
 };
 /* eslint-enable max-len */
 
+// aliases
+phones['en-CA'] = phones['en-US'];
+
 export default function isMobilePhone(str, locale) {
   assertString(str);
   if (locale in phones) {

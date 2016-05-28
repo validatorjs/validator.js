@@ -4,6 +4,8 @@
   ([#532](https://github.com/chriso/validator.js/pull/532))
 - Adjust Chinese mobile phone validation
   ([#523](https://github.com/chriso/validator.js/pull/523))
+- Added a Canadian locale to `isMobilePhone()`
+  ([#524](https://github.com/chriso/validator.js/issues/524))
 
 #### 5.2.0
 

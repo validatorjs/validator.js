@@ -2024,6 +2024,25 @@ describe('Validators', function () {
       ],
       args: ['en-US'],
     });
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '19876543210',
+        '8005552222',
+        '+15673628910',
+      ],
+      invalid: [
+        '564785',
+        '0123456789',
+        '1437439210',
+        '8009112340',
+        '+10345672645',
+        '11435213543',
+        '2436119753',
+        '16532116190',
+      ],
+      args: ['en-CA'],
+    });
 
     test({
       validator: 'isMobilePhone',
