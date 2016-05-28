@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added an `allow_leading_zeroes` option to `isInt()`
+  ([#532](https://github.com/chriso/validator.js/pull/532))
 - Adjust Chinese mobile phone validation
   ([#523](https://github.com/chriso/validator.js/pull/523))
 

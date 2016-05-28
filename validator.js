@@ -171,12 +171,14 @@
       };
 
       /* eslint-disable max-len */
+      /* eslint-disable no-control-regex */
       var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
       var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
       var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
       var emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
       var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
       /* eslint-enable max-len */
+      /* eslint-enable no-control-regex */
 
       function isEmail(str, options) {
         assertString(str);
@@ -462,7 +464,9 @@
         return str === str.toUpperCase();
       }
 
+      /* eslint-disable no-control-regex */
       var ascii = /^[\x00-\x7F]+$/;
+      /* eslint-enable no-control-regex */
 
       function isAscii(str) {
         assertString(str);
@@ -488,7 +492,9 @@
         return fullWidth.test(str) && halfWidth.test(str);
       }
 
+      /* eslint-disable no-control-regex */
       var multibyte = /[^\x00-\x7F]/;
+      /* eslint-enable no-control-regex */
 
       function isMultibyte(str) {
         assertString(str);
@@ -503,11 +509,21 @@
       }
 
       var int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
+      var intLeadingZeroes = /^[-+]?[0-9]+$/;
 
       function isInt(str, options) {
         assertString(str);
         options = options || {};
-        return int.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max);
+
+        // Get the regex to use for testing, based on whether
+        // leading zeroes are allowed or not.
+        var regex = options.hasOwnProperty('allow_leading_zeroes') && options.allow_leading_zeroes ? intLeadingZeroes : int;
+
+        // Check min/max
+        var minCheckPassed = !options.hasOwnProperty('min') || str >= options.min;
+        var maxCheckPassed = !options.hasOwnProperty('max') || str <= options.max;
+
+        return regex.test(str) && minCheckPassed && maxCheckPassed;
       }
 
       var float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/;
