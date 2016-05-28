@@ -1074,7 +1074,7 @@
         return parts.join('@');
       }
 
-      var version = '5.2.0';
+      var version = '5.3.0';
 
       var validator = {
         version: version,

@@ -1,4 +1,4 @@
-#### HEAD
+#### 5.3.0
 
 - Added an `allow_leading_zeroes` option to `isInt()`
   ([#532](https://github.com/chriso/validator.js/pull/532))
