@@ -80,7 +80,7 @@ Passing anything other than a string is an error.
 - **isISIN(str)** - check if the string is an [ISIN][ISIN] (stock/security identifier).
 - **isISO8601(str)** - check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date.
 - **isIn(str, values)** - check if the string is in a array of allowed values.
-- **isInt(str [, options])** - check if the string is an integer. `options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`).
+- **isInt(str [, options])** - check if the string is an integer. `options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to true will accept integer values with leading zeroes (e.g. `{ allow_leading_zeroes: true }`).
 - **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
 - **isLength(str, options)** - check if the string's length falls in a range. `options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
 - **isLowercase(str)** - check if the string is lowercase.
