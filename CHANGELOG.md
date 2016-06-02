@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added Hungarian locales to `isAlpha()`, `isAlphanumeric()` and `isMobilePhone()`
+  ([#537](https://github.com/chriso/validator.js/pull/537))
+
 #### 5.3.0
 
 - Added an `allow_leading_zeroes` option to `isInt()`
