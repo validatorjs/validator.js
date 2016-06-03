@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added Danish locale to `isMobilePhone()`
+  ([#538](https://github.com/chriso/validator.js/pull/538))
 - Added Hungarian locales to `isAlpha()`, `isAlphanumeric()` and `isMobilePhone()`
   ([#537](https://github.com/chriso/validator.js/pull/537))
 
