@@ -1,5 +1,7 @@
 #### HEAD
 
+- Accept Union Pay credit cards in `isCreditCard()`
+  ([#539](https://github.com/chriso/validator.js/pull/539))
 - Added Danish locale to `isMobilePhone()`
   ([#538](https://github.com/chriso/validator.js/pull/538))
 - Added Hungarian locales to `isAlpha()`, `isAlphanumeric()` and `isMobilePhone()`
