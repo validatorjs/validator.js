@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added an Algerian locale to `isMobilePhone()`
+  ([#540](https://github.com/chriso/validator.js/pull/540))
+
 #### 5.4.0
 
 - Accept Union Pay credit cards in `isCreditCard()`
