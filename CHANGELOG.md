@@ -1,4 +1,4 @@
-#### HEAD
+#### 5.4.0
 
 - Accept Union Pay credit cards in `isCreditCard()`
   ([#539](https://github.com/chriso/validator.js/pull/539))
