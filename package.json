@@ -40,8 +40,8 @@
     "eslint-config-airbnb": "^6.0.0",
     "istanbul": "latest",
     "mocha": "latest",
-    "rollup": "^0.25.4",
-    "rollup-plugin-babel": "2.4.0",
+    "rollup": "^0.29.1",
+    "rollup-plugin-babel": "^2.5.0",
     "uglify-js": "latest"
   },
   "scripts": {
