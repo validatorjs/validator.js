@@ -26,14 +26,6 @@
       (global.validator = factory());
 }(this, function () { 'use strict';
 
-      var babelHelpers = {};
-      babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-        return typeof obj;
-      } : function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-      };
-      babelHelpers;
-
       function assertString(input) {
         if (typeof input !== 'string') {
           throw new TypeError('This library (validator.js) validates strings only');
@@ -69,8 +61,14 @@
         return str === comparison;
       }
 
+      var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+        return typeof obj;
+      } : function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+      };
+
       function toString(input) {
-        if ((typeof input === 'undefined' ? 'undefined' : babelHelpers.typeof(input)) === 'object' && input !== null) {
+        if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' && input !== null) {
           if (typeof input.toString === 'function') {
             input = input.toString();
           } else {
@@ -112,7 +110,7 @@
         assertString(str);
         var min = void 0;
         var max = void 0;
-        if ((typeof options === 'undefined' ? 'undefined' : babelHelpers.typeof(options)) === 'object') {
+        if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
           min = options.min || 0;
           max = options.max;
         } else {
@@ -569,7 +567,7 @@
         assertString(str);
         try {
           var obj = JSON.parse(str);
-          return !!obj && (typeof obj === 'undefined' ? 'undefined' : babelHelpers.typeof(obj)) === 'object';
+          return !!obj && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object';
         } catch (e) {/* ignore */}
         return false;
       }
@@ -584,7 +582,7 @@
         assertString(str);
         var min = void 0;
         var max = void 0;
-        if ((typeof options === 'undefined' ? 'undefined' : babelHelpers.typeof(options)) === 'object') {
+        if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
           min = options.min || 0;
           max = options.max;
         } else {
@@ -619,7 +617,7 @@
 
       /* eslint-disable max-len */
       // from http://goo.gl/0ejHHW
-      var iso8601 = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
+      var iso8601 = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
       /* eslint-enable max-len */
 
       function isISO8601 (str) {
@@ -741,7 +739,7 @@
             }
           }
           return array.indexOf(str) >= 0;
-        } else if ((typeof options === 'undefined' ? 'undefined' : babelHelpers.typeof(options)) === 'object') {
+        } else if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
           return options.hasOwnProperty(str);
         } else if (options && typeof options.indexOf === 'function') {
           return options.indexOf(str) >= 0;
@@ -986,7 +984,7 @@
         return firstPaddingChar === -1 || firstPaddingChar === len - 1 || firstPaddingChar === len - 2 && str[len - 1] === '=';
       }
 
-      var dataURI = /^\s*data:([a-z]+\/[a-z0-9\-\+]+(;[a-z\-]+\=[a-z0-9\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i; // eslint-disable-line max-len
+      var dataURI = /^\s*data:([a-z]+\/[a-z0-9\-\+]+(;[a-z\-]+=[a-z0-9\-]+)?)?(;base64)?,[a-z0-9!\$&',\(\)\*\+,;=\-\._~:@\/\?%\s]*\s*$/i; // eslint-disable-line max-len
 
       function isDataURI(str) {
         assertString(str);
@@ -1013,12 +1011,12 @@
 
       function escape(str) {
             assertString(str);
-            return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\//g, '&#x2F;').replace(/\`/g, '&#96;');
+            return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\//g, '&#x2F;').replace(/`/g, '&#96;');
       }
 
       function unescape(str) {
             assertString(str);
-            return str.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#x2F;/g, '\/').replace(/&#96;/g, '\`');
+            return str.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#x2F;/g, '/').replace(/&#96;/g, '`');
       }
 
       function blacklist(str, chars) {

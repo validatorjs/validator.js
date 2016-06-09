@@ -18,6 +18,7 @@
     "func-names": 0,
     "no-console": 0,
     "newline-per-chained-call": 0,
-    "prefer-const": 0
+    "prefer-const": 0,
+    "no-restricted-syntax": [2, "DebuggerStatement", "LabeledStatement", "WithStatement"]
   }
 }

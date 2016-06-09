@@ -8,5 +8,5 @@ export default function escape(str) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/\//g, '&#x2F;')
-        .replace(/\`/g, '&#96;'));
+        .replace(/`/g, '&#96;'));
 }
