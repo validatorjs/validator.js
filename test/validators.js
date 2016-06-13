@@ -596,6 +596,23 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate hungarian alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['hu-HU'],
+      valid: [
+        'árvíztűrőtükörfúrógép',
+        'ÁRVÍZTŰRŐTÜKÖRFÚRÓGÉP',
+      ],
+      invalid: [
+        'äbc1',
+        '  fäö  ',
+        'Heiß',
+        '',
+      ],
+    });
+  });
+
   it('should validate arabic alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -720,6 +737,24 @@ describe('Validators', function () {
       invalid: [
         'äca ',
         'föö!!',
+      ],
+    });
+  });
+
+  it('should validate hungarian alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['hu-HU'],
+      valid: [
+        '0árvíztűrőtükörfúrógép123',
+        '0ÁRVÍZTŰRŐTÜKÖRFÚRÓGÉP123',
+      ],
+      invalid: [
+        '1időúr!',
+        'äbc1',
+        '  fäö  ',
+        'Heiß!',
+        '',
       ],
     });
   });
