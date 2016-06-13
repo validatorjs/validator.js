@@ -80,6 +80,8 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import toString from './lib/util/toString';
 
+import isCPF from './lib/isCPF';
+
 const validator = {
   version,
   toDate,
@@ -111,6 +113,7 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
+  isCPF,
 };
 
 export default validator;
