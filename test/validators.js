@@ -3109,4 +3109,26 @@ describe('Validators', function () {
     });
     /* eslint-enable max-len */
   });
+  it('should validate CPF', function () {
+    test({
+      validator: 'isCPF',
+      valid: [
+        '78155312534',
+        '48576621673',
+        '11146843682',
+        '52469988004',
+      ],
+      invalid: [
+        'abcdefghijk',
+        '123defgh567',
+        '12345678910',
+        '11111111111',
+        '76554623418',
+        '43578011234',
+        '09665428610',
+        '65433298074',
+        '',
+      ],
+    });
+  });
 });
