@@ -2,6 +2,8 @@
 
 - Added an Algerian locale to `isMobilePhone()`
   ([#540](https://github.com/chriso/validator.js/pull/540))
+- Fixed the Hungarian locale in `isAlpha()` and `isAlphanumeric()`
+  ([#541](https://github.com/chriso/validator.js/pull/541))
 
 #### 5.4.0
 
