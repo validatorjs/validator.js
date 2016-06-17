@@ -4,6 +4,8 @@
   ([#540](https://github.com/chriso/validator.js/pull/540))
 - Fixed the Hungarian locale in `isAlpha()` and `isAlphanumeric()`
   ([#541](https://github.com/chriso/validator.js/pull/541))
+- Added a Polish locale to `isMobilePhone()`
+  ([#545](https://github.com/chriso/validator.js/pull/545))
 
 #### 5.4.0
 
