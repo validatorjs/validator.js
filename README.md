@@ -70,7 +70,8 @@ Passing anything other than a string is an error.
 - **isDivisibleBy(str, number)** - check if the string is a number that's divisible by another.
 - **isEmail(str [, options])** - check if the string is an email. `options` is an object which defaults to `{ allow_display_name: false, allow_utf8_local_part: true, require_tld: true }`. If `allow_display_name` is set to true, the validator will also match `Display Name <email-address>`. If `allow_utf8_local_part` is set to false, the validator will not allow any non-English UTF8 character in email address' local part. If `require_tld` is set to false, e-mail addresses without having TLD in their domain will also be matched.
 - **isFQDN(str [, options])** - check if the string is a fully qualified domain name (e.g. domain.com). `options` is an object which defaults to `{ require_tld: true, allow_underscores: false, allow_trailing_dot: false }`.
-- **isFloat(str [, options])** - check if the string is a float. `options` is an object which can contain the keys `min` and/or `max` to validate the float is within boundaries (e.g. `{ min: 7.22, max: 9.55 }`).
+- **isFloat(str [, options, locale])** - check if the string is a float. `options` is an object which can contain the keys `min` and/or `max` to validate the float is within boundaries (e.g. `{ min: 7.22, max: 9.55 }`) and/or locale, that is one of `['en-AU', 'en-CA', 'en-IN', 'en-GB', 'zh-HK', 'zh-TW',
+'cs-Cz', 'fr-CA', 'fr-FR', 'pt-PT', 'pl-PL', 'ru-RU']`) and defaults to `en-US`.
 - **isFullWidth(str)** - check if the string contains any full-width chars.
 - **isHalfWidth(str)** - check if the string contains any half-width chars.
 - **isHexColor(str)** - check if the string is a hexadecimal color.
