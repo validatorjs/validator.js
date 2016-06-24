@@ -1001,6 +1001,9 @@ describe('Validators', function () {
   it('should validate floats', function () {
     test({
       validator: 'isFloat',
+      args: [{
+        locale: 'en-US',
+      }],
       valid: [
         '123',
         '123.',
@@ -1021,6 +1024,9 @@ describe('Validators', function () {
         'foo',
       ],
     });
+  });
+
+  it('should validate floats', function () {
     test({
       validator: 'isFloat',
       args: [{
@@ -1042,6 +1048,34 @@ describe('Validators', function () {
         'a',
       ],
     });
+  });
+
+  it('should validate floats', function () {
+    test({
+      validator: 'isFloat',
+      args: [{
+        min: 3.7,
+        locale: 'pt-BR',
+      }],
+      valid: [
+        '3,888',
+        '3,92',
+        '4,5',
+        '50',
+        '3,7',
+        '3,71',
+      ],
+      invalid: [
+        '3,6',
+        '3,69',
+        '3',
+        '1,5',
+        'a',
+      ],
+    });
+  });
+
+  it('should validate floats', function () {
     test({
       validator: 'isFloat',
       args: [{
@@ -1063,6 +1097,139 @@ describe('Validators', function () {
         '1.3',
         '0.05',
         '5',
+      ],
+    });
+  });
+
+  it('should validate floats', function () {
+    test({
+      validator: 'isFloat',
+      args: [{
+        min: 0.1,
+        max: 1.0,
+        locale: 'pt-BR',
+      }],
+      valid: [
+        '0,1',
+        '1,0',
+        '0,15',
+        '0,33',
+        '0,57',
+        '0,7',
+      ],
+      invalid: [
+        '0',
+        '0,0',
+        'a',
+        '1,3',
+        '0,05',
+        '5',
+      ],
+    });
+  });
+
+  it('should validate floats', function () {
+    test({
+      validator: 'isFloat',
+      args: [{
+        max: 1.0,
+        locale: 'pt-BR',
+      }],
+      valid: [
+        '0,1',
+        '1,0',
+        '0,15',
+        '0,33',
+        '0,57',
+        '0,7',
+      ],
+      invalid: [
+        'a',
+        '1,3',
+        '2,6',
+        '5',
+      ],
+    });
+  });
+
+  it('should validate floats', function () {
+    test({
+      validator: 'isFloat',
+      args: [{
+        min: 0.1,
+        max: 1.0,
+      }],
+      valid: [
+        '0.1',
+        '1.0',
+        '0.15',
+        '0.33',
+        '0.57',
+        '0.7',
+      ],
+      invalid: [
+        '0',
+        '0.0',
+        'a',
+        '1.3',
+        '0.05',
+        '5',
+      ],
+    });
+  });
+
+  it('should validate US floats', function () {
+    test({
+      validator: 'isFloat',
+      args: [{
+        locale: 'en-US',
+      }],
+      valid: [
+        '123',
+        '123.',
+        '123.123',
+        '-123.123',
+        '-0.123',
+        '+0.123',
+        '0.123',
+        '.0',
+        '01.123',
+        '-0.22250738585072011e-307'],
+      invalid: [
+        '12,10',
+        '-.123',
+        '  ',
+        '',
+        '.',
+        'foo',
+        '7,00',
+      ],
+    });
+  });
+
+  it('should validate Brazilian floats', function () {
+    test({
+      validator: 'isFloat',
+      args: [{
+        locale: 'pt-BR',
+      }],
+      valid: [
+        '123',
+        '123,123',
+        '-123,123',
+        '-0,123',
+        '+0,123',
+        '0,123',
+        ',0',
+        '01,123',
+        '-0,22250738585072011e-307'],
+      invalid: [
+        '-,123',
+        '  ',
+        '',
+        '.',
+        ',',
+        'foo',
       ],
     });
   });
