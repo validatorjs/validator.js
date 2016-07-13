@@ -232,6 +232,14 @@ var _isWhitelisted = require('./lib/isWhitelisted');
 
 var _isWhitelisted2 = _interopRequireDefault(_isWhitelisted);
 
+var _isIdentifier = require('./lib/isIdentifier');
+
+var _isIdentifier2 = _interopRequireDefault(_isIdentifier);
+
+var _isUnquotedPropertyName = require('./lib/isUnquotedPropertyName');
+
+var _isUnquotedPropertyName2 = _interopRequireDefault(_isUnquotedPropertyName);
+
 var _normalizeEmail = require('./lib/normalizeEmail');
 
 var _normalizeEmail2 = _interopRequireDefault(_normalizeEmail);
@@ -273,6 +281,7 @@ var validator = {
   escape: _escape2.default, unescape: _unescape2.default, stripLow: _stripLow2.default,
   whitelist: _whitelist2.default, blacklist: _blacklist2.default,
   isWhitelisted: _isWhitelisted2.default,
+  isIdentifier: _isIdentifier2.default, isUnquotedPropertyName: _isUnquotedPropertyName2.default,
   normalizeEmail: _normalizeEmail2.default,
   toString: _toString2.default
 };

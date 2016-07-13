@@ -75,6 +75,7 @@ Passing anything other than a string is an error.
 - **isHalfWidth(str)** - check if the string contains any half-width chars.
 - **isHexColor(str)** - check if the string is a hexadecimal color.
 - **isHexadecimal(str)** - check if the string is a hexadecimal number.
+- **isIdentifier(str, [options])** - check if the string is a valid javascript identifier that can be used as a variable name (based on [this article](https://mathiasbynens.be/notes/javascript-identifiers-es6) and adapted from [this online validator](https://github.com/mathiasbynens/mothereff.in/tree/master/js-variables) by  @mathiasbynens). `options` is an object which defaults to `{ allow_es3_reserved: false, allow_es5_invalid: false, allow_es5_reserved: false, allow_es6_reserved: false, allow_zero_width: false, allow_new_unicode: false, allow_immutable_global: false, test_initilization: false, skip_extra_validation: false, object_mode: false }`.
 - **isIP(str [, version])** - check if the string is an IP (version 4 or 6).
 - **isISBN(str [, version])** - check if the string is an ISBN (version 10 or 13).
 - **isISIN(str)** - check if the string is an [ISIN][ISIN] (stock/security identifier).
@@ -91,6 +92,7 @@ Passing anything other than a string is an error.
 - **isNull(str)** - check if the string is null (has a length of zero).
 - **isNumeric(str)** - check if the string contains only numbers.
 - **isSurrogatePair(str)** - check if the string contains any surrogate pairs chars.
+- **isUnquotedPropertyName(str, [options])** - check if the string is a valid javascript object property name, i.e. if it needs to be wrapped in quote marks (based on [this article](https://mathiasbynens.be/notes/javascript-properties) and adapted from [this online validator](https://github.com/mathiasbynens/mothereff.in/tree/master/js-properties) by  @mathiasbynens). `options` is an object which defaults to `{ forbid_numeric_literals: false, forbid_numeric_decimal: false, allow_octal_literals: false, test_property_initilization: false, test_dot_access: false, use_brackets_for_numerics: false, object_mode: false }`. 
 - **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false }`.
 - **isUUID(str [, version])** - check if the string is a UUID (version 3, 4 or 5).
 - **isUppercase(str)** - check if the string is uppercase.

@@ -1,5 +1,6 @@
 var validator = require('../index'),
   format = require('util').format,
+  inspect = require('util').inspect,
   assert = require('assert'),
   path = require('path'),
   fs = require('fs'),
@@ -15,7 +16,7 @@ function test(options) {
       args[0] = valid;
       if (validator[options.validator].apply(validator, args) !== true) {
         var warning = format('validator.%s(%s) failed but should have passed',
-                    options.validator, args.join(', '));
+                    options.validator, args.map(inspect).join(', '));
         throw new Error(warning);
       }
     });
@@ -25,7 +26,7 @@ function test(options) {
       args[0] = invalid;
       if (validator[options.validator].apply(validator, args) !== false) {
         var warning = format('validator.%s(%s) passed but should have failed',
-                    options.validator, args.join(', '));
+                    options.validator, args.map(inspect).join(', '));
         throw new Error(warning);
       }
     });
@@ -3135,4 +3136,235 @@ describe('Validators', function () {
     });
     /* eslint-enable max-len */
   });
+
+  it('should validate identifiers', function () {
+    test({
+      validator: 'isIdentifier',
+      valid: [
+        'foo',
+        'F234f',
+        'ಠ_ಠ',
+        '_҇',
+        '_\\u0487',
+        'ȡ',
+        '\\u0221',
+        'Ƞ',
+        '\\u0220',
+        'a',
+        '\\u0061',
+        's\\u3552\\u1235',
+      ],
+      invalid: [
+        '𐊧',
+        '\\u{102A7}',
+        '\\uD800\\uDEA7',
+        'ⸯ',
+        '\\u2E2F',
+        '\\u{61}',
+        'await',
+        'var',
+        'instanceof',
+        'undefined',
+        'synchronized',
+        '12e34',
+        'NaN',
+        'v\\u0061r',
+        'a\\u200D\\u200C‍‍',
+      ],
+    });
+  });
+
+  it('should allow unicode code points (allow_es5_invalid)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{
+        allow_es5_invalid: true,
+      }],
+      valid: [
+        '\\u0061',
+        '\\u{102A7}',
+        '𐊧',
+        '\\u{61}',
+      ],
+      invalid: [
+        '\\uD800\\uDEA7',
+        'v\\u{61}r',
+      ],
+    });
+  });
+
+  it('should allow es3 reserved words (allow_es3_reserved)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ allow_es3_reserved: true }],
+      valid: ['synchronized'],
+      invalid: ['var', 'eval', 'await'],
+    });
+  });
+
+  it('should allow es5 reserved words (allow_es5_reserved)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ allow_es5_reserved: true }],
+      valid: ['var', 'eval'],
+      invalid: ['synchronized', 'await'],
+    });
+  });
+
+  it('should allow es6 reserved words (allow_es6_reserved)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ allow_es6_reserved: true }],
+      valid: ['await'],
+      invalid: ['var', 'eval', 'synchronized'],
+    });
+  });
+
+  it('should allow zero-width characters (allow_zero_width)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ allow_zero_width: true }],
+      valid: ['a\\u200D\\u200C‍‍'],
+      invalid: ['\\u200D\\u200C‍‍a'],
+    });
+  });
+
+  it('should allow new Unicode (<=8.0.0) escapes (allow_new_unicode)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ allow_new_unicode: true }],
+      valid: ['\\u13FA\\uABBA'],
+      invalid: ['🤖\\u{1F916}😂', '\\u{14612}𫸹'],
+    });
+  });
+  /* eslint-disable max-len */
+  it('should allow new Unicode (<=8.0.0) codepoints (allow_new_unicode & allow_es5_invalid)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ allow_new_unicode: true, allow_es5_invalid: true }],
+      valid: ['\\u13FA111\\uABBA', '\\u{14612}333𫸹'],
+      invalid: ['🤖\\u{1F916}😂', '\\uD811\\uDE12𫸹'],
+    });
+  });
+  /* eslint-enable max-len */
+
+  it('should allow immutable global names (allow_immutable_global)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ allow_immutable_global: true }],
+      valid: ['Infinity', 'NaN'],
+    });
+  });
+
+  it('initialization test should work (test_initilization)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ allow_es6_reserved: true, test_initilization: true }],
+      valid: ['foo', 'ȡ'],
+      invalid: ['var', 'eval'],
+    });
+  });
+
+  it('should skip extra validation (skip_extra_validation)', function () {
+    test({
+      validator: 'isIdentifier',
+      args: [{ skip_extra_validation: true, allow_zero_width: false }],
+      valid: ['a\\u200D\\u200C‍‍'],
+    });
+  });
+
+  it('should validate unquoted property names', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      valid: [
+        'foo',
+        'F234f',
+        'ಠ_ಠ',
+        '_҇',
+        '_\\u0487',
+        'ȡ',
+        '\\u0221',
+        'Ƞ',
+        '\\u0220',
+        'a',
+        '\\u0061',
+        '12',
+        '5e23',
+        '13.4',
+        '12e34',
+        's\\u3552\\u1235',
+      ],
+      invalid: [
+        '𐊧',
+        '\\u{102A7}',
+        '\\uD811\\uDE12',
+        '\\u{61}',
+        'ⸯ',
+        '\\u2E2F',
+        'var',
+        'synchronized',
+        'await',
+        'instanceof',
+        'undefined',
+        'NaN',
+        'v\\u0061r',
+        'a\\u200D\\u200C‍‍',
+        '012',
+      ],
+    });
+  });
+
+  it('should forbid numeric literals (forbid_numeric_literals)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ forbid_numeric_literals: true }],
+      valid: ['foo', 'ಠ_ಠ', 'e134', '\\u12e3'],
+      invalid: ['12', '5e23', '13.4', '12e34', '012'],
+    });
+  });
+
+  it('should forbid numeric with decimals (forbid_numeric_decimal)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ forbid_numeric_decimal: true }],
+      valid: ['foo', 'ಠ_ಠ', 'e134', '12', '5e23', '12e34', '\\u12e3'],
+      invalid: ['13.4', '012'],
+    });
+  });
+
+  it('should forbid numeric with decimals (allow_octal_literals)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ allow_octal_literals: true }],
+      valid: ['foo', 'ಠ_ಠ', '012', '13.4', '12', '5e23', '12e34', '\\u12e3'],
+    });
+  });
+
+  it('property initialization test should work (test_property_initilization)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ test_property_initilization: true }],
+      valid: ['foo', 'ಠ_ಠ', '12', '13.4', '5e23', '12e34', '\\u12e3'],
+      invalid: ['a-1', '012'],
+    });
+  });
+
+  it('dot access test should work for identifiers (test_dot_access)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ test_dot_access: true, use_brackets_for_numerics: false }],
+      valid: ['foo', 'ಠ_ಠ', '\\u12e3'],
+      invalid: ['a-1', '012', '12', '13.4', '5e23', '12e34'],
+    });
+  });
+
+  it('dot access test should use brackets with numbers (use_brackets_for_numerics)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ test_dot_access: true, use_brackets_for_numerics: true }],
+      valid: ['foo', 'ಠ_ಠ', '12', '13.4', '5e23', '12e34', '\\u12e3'],
+      invalid: ['a-1', '012'],
+    });
+  });
 });
+
