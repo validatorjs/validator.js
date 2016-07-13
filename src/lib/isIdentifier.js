@@ -29,7 +29,6 @@ const default_identifier_options = {
   allow_new_unicode: false,
   allow_immutable_global: false,
   test_initilization: false,
-  use_let_not_var: false,
   // Skip extra validation checks that ensure backwards compatibility with es3, es5, unicode 5.1.0
   skip_extra_validation: false,
   // Return an object of the various validation step results instead of just a boolean
@@ -92,7 +91,7 @@ export default function isIdentifier(value, options) {
   let initializationFailure = options.test_initilization && (function () {
     try {
       /* eslint-disable no-new-func */
-      Function(`${options.use_let_not_var ? 'let' : 'var'} ${valueAsUnescapedString}`);
+      Function(`var ${valueAsUnescapedString}`);
       /* eslint-enable no-new-func */
       return false;
     } catch (exception) {

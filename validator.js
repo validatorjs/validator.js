@@ -1075,7 +1075,6 @@
         allow_new_unicode: false,
         allow_immutable_global: false,
         test_initilization: false,
-        use_let_not_var: false,
         // Skip extra validation checks that ensure backwards compatibility with es3, es5, unicode 5.1.0
         skip_extra_validation: false,
         // Return an object of the various validation step results instead of just a boolean
@@ -1135,7 +1134,7 @@
         var initializationFailure = options.test_initilization && function () {
           try {
             /* eslint-disable no-new-func */
-            Function((options.use_let_not_var ? 'let' : 'var') + ' ' + valueAsUnescapedString);
+            Function('var ' + valueAsUnescapedString);
             /* eslint-enable no-new-func */
             return false;
           } catch (exception) {
@@ -1184,8 +1183,9 @@
         forbid_numeric_literals: false,
         forbid_numeric_decimal: false,
         allow_octal_literals: false,
-        test_propety_initilization: false,
+        test_property_initilization: false,
         test_dot_access: false,
+        use_brackets_for_numerics: false,
         object_mode: false
       };
 
@@ -1200,43 +1200,48 @@
         var valueAsUnescapedString = identVal.valueAsUnescapedString;
         var valueAsNumber = Number(value); // Number('010') returns 10, not 8 :'(
 
-        var isNumeric = !identVal.isIdentifierES6 && isNumericLiteral(value, valueAsNumber);
+        var isNumeric = !identVal.isValid && isNumericLiteral(value, valueAsNumber);
         var numericInvalid = isNumeric && options.forbid_numeric_literals;
         var isOctal = isNumeric && regexOctalLiteral.test(value);
         var octalInvalid = isOctal && !options.allow_octal_literals;
         var hasDecimal = isNumeric && regexDecimal.test(value);
         var decimalInvalid = hasDecimal && options.forbid_numeric_decimal;
 
-        var needsQuotes = true;
-        if (identVal.isIdentifierES6) {
-          needsQuotes = !identVal.isValid;
-        } else if (isNumeric) {
-          needsQuotes = numericInvalid || octalInvalid || decimalInvalid;
+        var propertyInitializationFailure = void 0;
+        if (options.test_property_initilization) {
+          try {
+            /* eslint-disable no-new-func */
+            Function('({ ' + valueAsUnescapedString + ' : true })')();
+            /* eslint-enable no-new-func */
+            propertyInitializationFailure = false;
+          } catch (exception) {
+            propertyInitializationFailure = true;
+          }
         }
-        var needsBrackets = !identVal.isIdentifierES6 || needsQuotes;
-        var isValid = !needsQuotes;
 
-        var propertyInitializationFailure = options.test_propety_initilization && function () {
+        var dotAccessFailure = void 0;
+        if (options.test_dot_access) {
           try {
-            /* eslint-disable no-new-func */
-            Function('{ ' + valueAsUnescapedString + ' : true };');
-            /* eslint-enable no-new-func */
-            return false;
+            /* eslint-disable no-new-func, max-len */
+            Function('({ \'' + valueAsUnescapedString + '\' : true })' + (isNumeric && options.use_brackets_for_numerics ? '[' + valueAsUnescapedString + ']' : '.' + valueAsUnescapedString))();
+            /* eslint-enable no-new-func, max-len */
+            dotAccessFailure = false;
           } catch (exception) {
-            return true;
+            dotAccessFailure = true;
           }
-        }();
+        }
 
-        var dotAccessFailure = options.test_dot_access && function () {
-          try {
-            /* eslint-disable no-new-func */
-            Function('({ \'' + valueAsUnescapedString + '\' : true }).' + valueAsUnescapedString + ';');
-            /* eslint-enable no-new-func */
-            return false;
-          } catch (exception) {
-            return true;
-          }
-        }();
+        var needsQuotes = void 0; // = propertyInitializationFailure !== undefined && propertyInitializationFailure;
+        var needsBrackets = void 0; // = dotAccessFailure !== undefined && dotAccessFailure;
+        if (isNumeric) {
+          needsQuotes = numericInvalid || octalInvalid || decimalInvalid;
+          needsBrackets = true;
+        } else if (!identVal.isValid) {
+          needsQuotes = true;
+          needsBrackets = true;
+        }
+
+        var isValid = !needsQuotes && !propertyInitializationFailure && !dotAccessFailure;
 
         return !options.object_mode ? isValid : {
           value: value,

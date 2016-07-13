@@ -18,8 +18,9 @@ const default_property_options = {
   forbid_numeric_literals: false,
   forbid_numeric_decimal: false,
   allow_octal_literals: false,
-  test_propety_initilization: false,
+  test_property_initilization: false,
   test_dot_access: false,
+  use_brackets_for_numerics: false,
   object_mode: false,
 };
 
@@ -34,43 +35,48 @@ export default function isUnquotedPropertyName(value, options) {
   let valueAsUnescapedString = identVal.valueAsUnescapedString;
   let valueAsNumber = Number(value); // Number('010') returns 10, not 8 :'(
 
-  let isNumeric = !identVal.isIdentifierES6 && isNumericLiteral(value, valueAsNumber);
+  let isNumeric = !identVal.isValid && isNumericLiteral(value, valueAsNumber);
   let numericInvalid = isNumeric && options.forbid_numeric_literals;
   let isOctal = isNumeric && regexOctalLiteral.test(value);
   let octalInvalid = isOctal && !options.allow_octal_literals;
   let hasDecimal = isNumeric && regexDecimal.test(value);
   let decimalInvalid = hasDecimal && options.forbid_numeric_decimal;
 
-  let needsQuotes = true;
-  if (identVal.isIdentifierES6) {
-    needsQuotes = !identVal.isValid;
-  } else if (isNumeric) {
-    needsQuotes = numericInvalid || octalInvalid || decimalInvalid;
+  let propertyInitializationFailure;
+  if (options.test_property_initilization) {
+    try {
+      /* eslint-disable no-new-func */
+      Function(`({ ${valueAsUnescapedString} : true })`)();
+      /* eslint-enable no-new-func */
+      propertyInitializationFailure = false;
+    } catch (exception) {
+      propertyInitializationFailure = true;
+    }
   }
-  let needsBrackets = !identVal.isIdentifierES6 || needsQuotes;
-  let isValid = !needsQuotes;
 
-  let propertyInitializationFailure = options.test_propety_initilization && (function () {
+  let dotAccessFailure;
+  if (options.test_dot_access) {
     try {
-      /* eslint-disable no-new-func */
-      Function(`{ ${valueAsUnescapedString} : true };`);
-      /* eslint-enable no-new-func */
-      return false;
+      /* eslint-disable no-new-func, max-len */
+      Function(`({ '${valueAsUnescapedString}' : true })${isNumeric && options.use_brackets_for_numerics ? `[${valueAsUnescapedString}]` : `.${valueAsUnescapedString}`}`)();
+      /* eslint-enable no-new-func, max-len */
+      dotAccessFailure = false;
     } catch (exception) {
-      return true;
+      dotAccessFailure = true;
     }
-  }());
+  }
 
-  let dotAccessFailure = options.test_dot_access && (function () {
-    try {
-      /* eslint-disable no-new-func */
-      Function(`({ '${valueAsUnescapedString}' : true }).${valueAsUnescapedString};`);
-      /* eslint-enable no-new-func */
-      return false;
-    } catch (exception) {
-      return true;
-    }
-  }());
+  let needsQuotes;// = propertyInitializationFailure !== undefined && propertyInitializationFailure;
+  let needsBrackets;// = dotAccessFailure !== undefined && dotAccessFailure;
+  if (isNumeric) {
+    needsQuotes = numericInvalid || octalInvalid || decimalInvalid;
+    needsBrackets = true;
+  } else if (!identVal.isValid) {
+    needsQuotes = true;
+    needsBrackets = true;
+  }
+
+  let isValid = !needsQuotes && !propertyInitializationFailure && !dotAccessFailure;
 
   return !options.object_mode ? isValid : {
     value,

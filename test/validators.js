@@ -3339,4 +3339,32 @@ describe('Validators', function () {
       valid: ['foo', 'ಠ_ಠ', '012', '13.4', '12', '5e23', '12e34', '\\u12e3'],
     });
   });
+
+  it('property initialization test should work (test_property_initilization)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ test_property_initilization: true }],
+      valid: ['foo', 'ಠ_ಠ', '12', '13.4', '5e23', '12e34', '\\u12e3'],
+      invalid: ['a-1', '012'],
+    });
+  });
+
+  it('dot access test should work for identifiers (test_dot_access)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ test_dot_access: true, use_brackets_for_numerics: false }],
+      valid: ['foo', 'ಠ_ಠ', '\\u12e3'],
+      invalid: ['a-1', '012', '12', '13.4', '5e23', '12e34'],
+    });
+  });
+
+  it('dot access test should use brackets with numbers (use_brackets_for_numerics)', function () {
+    test({
+      validator: 'isUnquotedPropertyName',
+      args: [{ test_dot_access: true, use_brackets_for_numerics: true }],
+      valid: ['foo', 'ಠ_ಠ', '12', '13.4', '5e23', '12e34', '\\u12e3'],
+      invalid: ['a-1', '012'],
+    });
+  });
 });
+
