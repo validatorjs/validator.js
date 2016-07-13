@@ -21,7 +21,7 @@ const regexZeroWidth = /\u200C|\u200D/;
 /* eslint-enable max-len */
 
 const default_identifier_options = {
-  allow_es3_reserved: true,
+  allow_es3_reserved: false,
   allow_es5_invalid: false,
   allow_es5_reserved: false,
   allow_es6_reserved: false,
@@ -29,9 +29,9 @@ const default_identifier_options = {
   allow_new_unicode: false,
   allow_immutable_global: false,
   test_initilization: false,
-  use_var_not_let: false,
-  // Run extra validation checks to ensure backwards compatibility with es3, es5, unicode 5.1.0
-  extra_validation: true,
+  use_let_not_var: false,
+  // Skip extra validation checks that ensure backwards compatibility with es3, es5, unicode 5.1.0
+  skip_extra_validation: false,
   // Return an object of the various validation step results instead of just a boolean
   object_mode: false,
 };
@@ -57,22 +57,22 @@ export default function isIdentifier(value, options) {
     });
 
   let isEs5Reserved = regexES5ReservedWord.test(valueAsUnescapedString);
-  let isEs6Reserved = isEs5Reserved || regexES6ReservedWordExclusive.test(valueAsUnescapedString);
+  let es5ReservedInvalid = isEs5Reserved && !options.allow_es5_reserved;
+  let isEs6ReservedExc = regexES6ReservedWordExclusive.test(valueAsUnescapedString);
 
-  let es6ReservedInvalid = isEs6Reserved && !options.allow_es6_reserved;
+  let es6ReservedInvalid = es5ReservedInvalid || isEs6ReservedExc && !options.allow_es6_reserved;
   let isIdentifierES6 = regexIdentifier.test(valueAsUnescapedString);
   let es6Invalid = es6ReservedInvalid || !isIdentifierES6;
 
   let isGlobalImmutable = regexImmutableProps.test(valueAsUnescapedString);
   let immutableInvalid = isGlobalImmutable && !options.allow_immutable_global;
 
-  if (!options.extra_validation || es6Invalid && !options.object_mode) {
+  if (options.skip_extra_validation) {
     // we can return early here
     return !(es6Invalid || immutableInvalid);
   }
 
 
-  let es5ReservedInvalid = isEs5Reserved && !options.allow_es5_reserved;
   let isIdentifierES5 = regexIdentifierES5.test(
     // Only Unicode escapes are allowed in ES5 identifiers.
     value.replace(/\\u([a-fA-F0-9]{4})/g, ($0, $1) => String.fromCodePoint(parseInt($1, 16)))
@@ -81,18 +81,18 @@ export default function isIdentifier(value, options) {
   let es5Invalid = es5ReservedInvalid || es5UnicodeInvalid;
 
 
-  let isEs3Reserved = isEs5Reserved || regexES3ReservedWordExclusive.test(valueAsUnescapedString);
-  let es3ReservedInvalid = isEs3Reserved && !options.allow_es3_reserved;
+  let isEs3ReservedExc = regexES3ReservedWordExclusive.test(valueAsUnescapedString);
+  let es3ReservedInvalid = es5ReservedInvalid || isEs3ReservedExc && !options.allow_es3_reserved;
   let hasNewUnicode = !es6Invalid && !regexIdentifierUnicode5.test(valueAsUnescapedString);
   let unicodeInvalid = hasNewUnicode && !options.allow_new_unicode;
   let hasZeroWidth = regexZeroWidth.test(valueAsUnescapedString);
   let zeroWidthInvalid = hasZeroWidth && !options.allow_zero_width;
 
 
-  let initializationFailure = !options.test_initilization && (function () {
+  let initializationFailure = options.test_initilization && (function () {
     try {
       /* eslint-disable no-new-func */
-      Function(`${options.use_var_not_let ? 'var' : 'let'} ${valueAsUnescapedString}`);
+      Function(`${options.use_let_not_var ? 'let' : 'var'} ${valueAsUnescapedString}`);
       /* eslint-enable no-new-func */
       return false;
     } catch (exception) {
@@ -109,9 +109,9 @@ export default function isIdentifier(value, options) {
     isValid,
     isIdentifierES5,
     isIdentifierES6,
-    isEs3Reserved,
+    isEs3Reserved: isEs5Reserved || isEs3ReservedExc,
     isEs5Reserved,
-    isEs6Reserved,
+    isEs6Reserved: isEs5Reserved || isEs6ReservedExc,
     es3ReservedInvalid,
     es5Invalid,
     es6Invalid,

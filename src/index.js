@@ -76,6 +76,9 @@ import whitelist from './lib/whitelist';
 import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 
+import isIdentifier from './lib/isIdentifier';
+import isUnquotedPropertyName from './lib/isUnquotedPropertyName';
+
 import normalizeEmail from './lib/normalizeEmail';
 
 import toString from './lib/util/toString';
@@ -109,6 +112,7 @@ const validator = {
   escape, unescape, stripLow,
   whitelist, blacklist,
   isWhitelisted,
+  isIdentifier, isUnquotedPropertyName,
   normalizeEmail,
   toString,
 };

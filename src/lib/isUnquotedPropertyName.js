@@ -15,15 +15,11 @@ function isNumericLiteral(string, number) {
 /* eslint-enable max-len */
 
 const default_property_options = {
-  allow_es3_reserved: true,
-  allow_es5_invalid: false,
-  allow_es5_reserved: false,
-  allow_es6_reserved: false,
-  allow_zero_width: false,
-  allow_new_unicode: false,
-  allow_numeric_literals: true,
+  forbid_numeric_literals: false,
+  forbid_numeric_decimal: false,
   allow_octal_literals: false,
-  allow_numeric_decimal: true,
+  test_propety_initilization: false,
+  test_dot_access: false,
   object_mode: false,
 };
 
@@ -31,7 +27,7 @@ export default function isUnquotedPropertyName(value, options) {
   assertString(value);
   options = merge(options, default_property_options);
 
-  let isIdentifierOptions = merge({ allow_immutable_global: true, object_mode: true }, options);
+  let isIdentifierOptions = merge({ object_mode: true }, options);
 
   let identVal = isIdentifier(value, isIdentifierOptions);
 
@@ -39,18 +35,42 @@ export default function isUnquotedPropertyName(value, options) {
   let valueAsNumber = Number(value); // Number('010') returns 10, not 8 :'(
 
   let isNumeric = !identVal.isIdentifierES6 && isNumericLiteral(value, valueAsNumber);
-  let numericInvalid = isNumeric && !options.allow_numeric_literals;
+  let numericInvalid = isNumeric && options.forbid_numeric_literals;
   let isOctal = isNumeric && regexOctalLiteral.test(value);
   let octalInvalid = isOctal && !options.allow_octal_literals;
   let hasDecimal = isNumeric && regexDecimal.test(value);
-  let decimalInvalid = hasDecimal && !options.allow_numeric_decimal;
+  let decimalInvalid = hasDecimal && options.forbid_numeric_decimal;
 
-  let needsQuotes = identVal.isIdentifierES6
-    ? identVal.es6Invalid || identVal.es5Invalid || identVal.es3ReservedInvalid
-    || identVal.unicodeInvalid || identVal.hasZeroWidth : numericInvalid || octalInvalid
-    || decimalInvalid;
+  let needsQuotes = true;
+  if (identVal.isIdentifierES6) {
+    needsQuotes = !identVal.isValid;
+  } else if (isNumeric) {
+    needsQuotes = numericInvalid || octalInvalid || decimalInvalid;
+  }
   let needsBrackets = !identVal.isIdentifierES6 || needsQuotes;
   let isValid = !needsQuotes;
+
+  let propertyInitializationFailure = options.test_propety_initilization && (function () {
+    try {
+      /* eslint-disable no-new-func */
+      Function(`{ ${valueAsUnescapedString} : true };`);
+      /* eslint-enable no-new-func */
+      return false;
+    } catch (exception) {
+      return true;
+    }
+  }());
+
+  let dotAccessFailure = options.test_dot_access && (function () {
+    try {
+      /* eslint-disable no-new-func */
+      Function(`({ '${valueAsUnescapedString}' : true }).${valueAsUnescapedString};`);
+      /* eslint-enable no-new-func */
+      return false;
+    } catch (exception) {
+      return true;
+    }
+  }());
 
   return !options.object_mode ? isValid : {
     value,
@@ -69,6 +89,7 @@ export default function isUnquotedPropertyName(value, options) {
     hasZeroWidth: identVal.hasZeroWidth,
     unicodeInvalid: identVal.unicodeInvalid,
     zeroWidthInvalid: identVal.zeroWidthInvalid,
+    initializationFailure: identVal.initializationFailure,
     isNumeric,
     isOctal,
     hasDecimal,
@@ -77,6 +98,8 @@ export default function isUnquotedPropertyName(value, options) {
     decimalInvalid,
     needsQuotes,
     needsBrackets,
+    propertyInitializationFailure,
+    dotAccessFailure,
     options,
   };
 }
