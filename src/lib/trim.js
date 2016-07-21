@@ -1,7 +1,6 @@
-import assertString from './util/assertString';
+import rtrim from './rtrim';
+import ltrim from './ltrim';
 
 export default function trim(str, chars) {
-  assertString(str);
-  const pattern = chars ? new RegExp(`^[${chars}]+|[${chars}]+$`, 'g') : /^\s+|\s+$/g;
-  return str.replace(pattern, '');
+  return rtrim(ltrim(str, chars), chars);
 }
