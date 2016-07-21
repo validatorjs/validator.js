@@ -1082,7 +1082,7 @@
         return parts.join('@');
       }
 
-      var version = '5.4.0';
+      var version = '5.5.0';
 
       var validator = {
         version: version,

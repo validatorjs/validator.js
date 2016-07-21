@@ -1,4 +1,4 @@
-const version = '5.4.0';
+const version = '5.5.0';
 
 import toDate from './lib/toDate';
 import toFloat from './lib/toFloat';

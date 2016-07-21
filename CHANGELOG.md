@@ -1,5 +1,7 @@
-#### HEAD
+#### 5.5.0
 
+- Fixed a regex denial of service in `trim()` and `rtrim()`
+  ([#556](https://github.com/chriso/validator.js/pull/556))
 - Added an Algerian locale to `isMobilePhone()`
   ([#540](https://github.com/chriso/validator.js/pull/540))
 - Fixed the Hungarian locale in `isAlpha()` and `isAlphanumeric()`
