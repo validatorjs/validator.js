@@ -53,17 +53,26 @@ describe('Sanitizers', function () {
   it('should trim whitespace', function () {
     test({
       sanitizer: 'trim',
-      expect: { '  \r\n\tfoo  \r\n\t   ': 'foo' },
+      expect: {
+        '  \r\n\tfoo  \r\n\t   ': 'foo',
+        '      \r': '',
+      },
     });
 
     test({
       sanitizer: 'ltrim',
-      expect: { '  \r\n\tfoo  \r\n\t   ': 'foo  \r\n\t   ' },
+      expect: {
+        '  \r\n\tfoo  \r\n\t   ': 'foo  \r\n\t   ',
+        '   \t  \n': '',
+      },
     });
 
     test({
       sanitizer: 'rtrim',
-      expect: { '  \r\n\tfoo  \r\n\t   ': '  \r\n\tfoo' },
+      expect: {
+        '  \r\n\tfoo  \r\n\t   ': '  \r\n\tfoo',
+        ' \r\n  \t': '',
+      },
     });
   });
 

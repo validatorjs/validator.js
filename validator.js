@@ -1001,14 +1001,18 @@
 
       function rtrim(str, chars) {
         assertString(str);
-        var pattern = chars ? new RegExp('[' + chars + ']+$', 'g') : /\s+$/g;
-        return str.replace(pattern, '');
+        var pattern = chars ? new RegExp('[' + chars + ']') : /\s/;
+
+        var idx = str.length - 1;
+        while (idx >= 0 && pattern.test(str[idx])) {
+          idx--;
+        }
+
+        return idx < str.length ? str.substr(0, idx + 1) : str;
       }
 
       function trim(str, chars) {
-        assertString(str);
-        var pattern = chars ? new RegExp('^[' + chars + ']+|[' + chars + ']+$', 'g') : /^\s+|\s+$/g;
-        return str.replace(pattern, '');
+        return rtrim(ltrim(str, chars), chars);
       }
 
       function escape(str) {
