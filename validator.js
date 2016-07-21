@@ -280,8 +280,8 @@
               // it has been checked before that the last
               // block is a valid IPv4 address
             } else if (!ipv6Block.test(blocks[i])) {
-                return false;
-              }
+              return false;
+            }
           }
           if (foundOmissionBlock) {
             return blocks.length >= 1;
