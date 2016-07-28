@@ -563,6 +563,15 @@
         return hexcolor.test(str);
       }
 
+      /* eslint-disable no-control-regex */
+      var md5 = /^[a-f0-9]{32}$/;
+      /* eslint-enable no-control-regex */
+
+      function isMD5(str) {
+        assertString(str);
+        return md5.test(str);
+      }
+
       function isJSON(str) {
         assertString(str);
         try {
@@ -1097,6 +1106,7 @@
         isMultibyte: isMultibyte, isSurrogatePair: isSurrogatePair,
         isInt: isInt, isFloat: isFloat, isDecimal: isDecimal, isHexadecimal: isHexadecimal, isDivisibleBy: isDivisibleBy,
         isHexColor: isHexColor,
+        isMD5: isMD5,
         isJSON: isJSON,
         isNull: isNull,
         isLength: isLength, isByteLength: isByteLength,
