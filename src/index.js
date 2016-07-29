@@ -37,6 +37,8 @@ import isDivisibleBy from './lib/isDivisibleBy';
 
 import isHexColor from './lib/isHexColor';
 
+import isMD5 from './lib/isMD5';
+
 import isJSON from './lib/isJSON';
 import isNull from './lib/isNull';
 
@@ -93,6 +95,7 @@ const validator = {
   isMultibyte, isSurrogatePair,
   isInt, isFloat, isDecimal, isHexadecimal, isDivisibleBy,
   isHexColor,
+  isMD5,
   isJSON,
   isNull,
   isLength, isByteLength,
