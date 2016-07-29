@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added an `isMD5()` validator
+  ([#557](https://github.com/chriso/validator.js/pull/557))
+
 #### 5.5.0
 
 - Fixed a regex denial of service in `trim()` and `rtrim()`

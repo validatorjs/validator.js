@@ -563,9 +563,7 @@
         return hexcolor.test(str);
       }
 
-      /* eslint-disable no-control-regex */
       var md5 = /^[a-f0-9]{32}$/;
-      /* eslint-enable no-control-regex */
 
       function isMD5(str) {
         assertString(str);
