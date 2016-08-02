@@ -2,6 +2,8 @@
 
 - Added an `isMD5()` validator
   ([#557](https://github.com/chriso/validator.js/pull/557))
+- Added a Saudi Arabian locale to `isMobilePhone()`
+  ([#559](https://github.com/chriso/validator.js/pull/559))
 
 #### 5.5.0
 
