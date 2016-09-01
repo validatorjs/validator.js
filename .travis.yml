@@ -1,8 +1,6 @@
 sudo: false
 language: node_js
 node_js:
-  - 4.0
-  - 5.0
   - stable
 after_script:
   - npm run coveralls
