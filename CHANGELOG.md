@@ -1,4 +1,4 @@
-#### HEAD
+#### 5.6.0
 
 - Added an `isMD5()` validator
   ([#557](https://github.com/chriso/validator.js/pull/557))
