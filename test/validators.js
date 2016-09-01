@@ -635,6 +635,39 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate serbian cyrillic alpha strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['sr-RS'],
+      valid: [
+        'ШћжЂљЕ',
+        'ЧПСТЋЏ',
+      ],
+      invalid: [
+        'řiď ',
+        'blé33!!',
+        'föö!!',
+      ],
+    });
+  });
+
+  it('should validate serbian latin alpha strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['sr-RS@latin'],
+      valid: [
+        'ŠAabčšđćž',
+        'ŠATROĆčđš',
+      ],
+      invalid: [
+        '12řiď ',
+        'blé!!',
+        'föö!2!',
+      ],
+    });
+  });
+
+
   it('should validate defined arabic locales alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -805,6 +838,38 @@ describe('Validators', function () {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+  });
+
+  it('should validate serbian cyrillic alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['sr-RS'],
+      valid: [
+        'ШћжЂљЕ123',
+        'ЧПСТ132ЋЏ',
+      ],
+      invalid: [
+        'řiď ',
+        'blé!!',
+        'föö!!',
+      ],
+    });
+  });
+
+  it('should validate serbian latin alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['sr-RS@latin'],
+      valid: [
+        'ŠAabčšđćž123',
+        'ŠATRO11Ćčđš',
+      ],
+      invalid: [
+        'řiď ',
+        'blé!!',
+        'föö!!',
       ],
     });
   });
@@ -2162,6 +2227,29 @@ describe('Validators', function () {
         '+99676338855',
       ],
       args: ['ru-RU'],
+    });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '0640133338',
+        '063333133',
+        '0668888878',
+        '+381645678912',
+        '+381611314000',
+        '0655885010'
+      ],
+      invalid: [
+        '12345',
+        '',
+        'Vml2YW11cyBmZXJtZtesting123',
+        '010-38238383',
+        '+9676338855',
+        '19676338855',
+        '6676338855',
+        '+99676338855',
+      ],
+      args: ['sr-RS'],
     });
 
     test({
