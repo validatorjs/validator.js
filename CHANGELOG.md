@@ -3,10 +3,10 @@
 - Added an `isMD5()` validator
   ([#557](https://github.com/chriso/validator.js/pull/557))
 - New locales
-  ([#559](https://github.com/chriso/validator.js/pull/559)),
-  ([#568](https://github.com/chriso/validator.js/pull/568)),
-  ([#571](https://github.com/chriso/validator.js/pull/571)),
-  ([#573](https://github.com/chriso/validator.js/pull/573))
+  ([#559](https://github.com/chriso/validator.js/pull/559),
+  [#568](https://github.com/chriso/validator.js/pull/568),
+  [#571](https://github.com/chriso/validator.js/pull/571),
+  [#573](https://github.com/chriso/validator.js/pull/573))
 
 #### 5.5.0
 
