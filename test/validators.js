@@ -2380,6 +2380,22 @@ describe('Validators', function () {
     });
   });
 
+  test({
+    validator: 'isMobilePhone',
+    valid: [
+      '370 3175423',
+      '333202925',
+      '+39 310 7688449',
+      '+39 3339847632',
+    ],
+    invalid: [
+      '011 7387545',
+      '12345',
+      '+45 345 6782395',
+    ],
+    args: ['it-IT'],
+  });
+
   it('should validate currency', function () {
     test({
       validator: 'isCurrency',
