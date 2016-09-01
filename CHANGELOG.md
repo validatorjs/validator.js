@@ -2,6 +2,8 @@
 
 - Added an `isMD5()` validator
   ([#557](https://github.com/chriso/validator.js/pull/557))
+- Fixed an exceptional case in `isDate()`
+  ([#566](https://github.com/chriso/validator.js/pull/566))
 - New locales
   ([#559](https://github.com/chriso/validator.js/pull/559),
   [#568](https://github.com/chriso/validator.js/pull/568),
