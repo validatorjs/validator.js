@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added support for MasterCard 2-Series BIN
+  ([#576](https://github.com/chriso/validator.js/pull/576))
 - New locales
   ([#575](https://github.com/chriso/validator.js/pull/575))
 
