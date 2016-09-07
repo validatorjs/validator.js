@@ -23,7 +23,7 @@ import validator from 'validator';
 Or, import only a subset of the library:
 
 ```javascript
-import isEmail from 'validator/lib/isEmail';
+import { isEmail } from 'validator/lib/isEmail';
 ```
 
 ### Client-side usage
