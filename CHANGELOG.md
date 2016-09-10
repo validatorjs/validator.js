@@ -3,7 +3,8 @@
 - Added support for MasterCard 2-Series BIN
   ([#576](https://github.com/chriso/validator.js/pull/576))
 - New locales
-  ([#575](https://github.com/chriso/validator.js/pull/575))
+  ([#575](https://github.com/chriso/validator.js/pull/575),
+   [#552](https://github.com/chriso/validator.js/issues/552))
 
 #### 5.6.0
 

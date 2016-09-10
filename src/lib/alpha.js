@@ -40,6 +40,8 @@ for (let locale, i = 0; i < englishLocales.length; i++) {
   alphanumeric[locale] = alphanumeric['en-US'];
 }
 
+alpha['pt-BR'] = alpha['pt-PT'];
+alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 
 // Source: http://www.localeplanet.com/java/
 export const arabicLocales = [

@@ -422,6 +422,9 @@
         alphanumeric[locale] = alphanumeric['en-US'];
       }
 
+      alpha['pt-BR'] = alpha['pt-PT'];
+      alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
+
       // Source: http://www.localeplanet.com/java/
       var arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
 
