@@ -17,6 +17,20 @@ const default_url_options = {
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
 
+function isRegExp(obj) {
+  return Object.prototype.toString.call(obj) === '[object RegExp]';
+}
+
+function checkHost(host, matches) {
+  for (let i = 0; i < matches.length; i++) {
+    let match = matches[i];
+    if (host === match || (isRegExp(match) && match.test(host))) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export default function isURL(url, options) {
   assertString(url);
   if (!url || url.length >= 2083 || /\s/.test(url)) {
@@ -88,11 +102,15 @@ export default function isURL(url, options) {
           host !== 'localhost') {
     return false;
   }
-  if (options.host_whitelist && options.host_whitelist.indexOf(host) === -1) {
+
+  host = host || ipv6;
+
+  if (options.host_whitelist && !checkHost(host, options.host_whitelist)) {
     return false;
   }
-  if (options.host_blacklist && options.host_blacklist.indexOf(host) !== -1) {
+  if (options.host_blacklist && checkHost(host, options.host_blacklist)) {
     return false;
   }
+
   return true;
 }

@@ -4,6 +4,8 @@
   ([#564](https://github.com/chriso/validator.js/issues/564))
 - Added support for urls without a host (e.g. `file:///foo.txt`) in `isURL()`
   ([#563](https://github.com/chriso/validator.js/issues/563))
+- Added support for regular expressions in the `isURL()` host whitelist and blacklist
+  ([#562](https://github.com/chriso/validator.js/issues/562))
 - Added support for MasterCard 2-Series BIN
   ([#576](https://github.com/chriso/validator.js/pull/576))
 - New locales

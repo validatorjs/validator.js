@@ -402,6 +402,27 @@ describe('Validators', function () {
     });
   });
 
+  it('should allow regular expressions in the host whitelist', function () {
+    test({
+      validator: 'isURL',
+      args: [{
+        host_whitelist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'http://bar.com/',
+        'http://foo.com/',
+        'http://images.foo.com/',
+        'http://cdn.foo.com/',
+        'http://a.b.c.foo.com/',
+      ],
+      invalid: [
+        'http://foobar.com',
+        'http://foo.bar.com/',
+        'http://qux.com',
+      ],
+    });
+  });
+
   it('should let users specify a host blacklist', function () {
     test({
       validator: 'isURL',
@@ -416,6 +437,27 @@ describe('Validators', function () {
       invalid: [
         'http://bar.com/',
         'http://foo.com/',
+      ],
+    });
+  });
+
+  it('should allow regular expressions in the host blacklist', function () {
+    test({
+      validator: 'isURL',
+      args: [{
+        host_blacklist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'http://foobar.com',
+        'http://foo.bar.com/',
+        'http://qux.com',
+      ],
+      invalid: [
+        'http://bar.com/',
+        'http://foo.com/',
+        'http://images.foo.com/',
+        'http://cdn.foo.com/',
+        'http://a.b.c.foo.com/',
       ],
     });
   });
