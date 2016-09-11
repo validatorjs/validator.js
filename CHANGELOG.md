@@ -1,4 +1,4 @@
-#### HEAD
+#### 5.7.0
 
 - Added support for IPv6 in `isURL()`
   ([#564](https://github.com/chriso/validator.js/issues/564))
