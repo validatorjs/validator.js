@@ -92,7 +92,7 @@ Passing anything other than a string is an error.
 - **isNull(str)** - check if the string is null (has a length of zero).
 - **isNumeric(str)** - check if the string contains only numbers.
 - **isSurrogatePair(str)** - check if the string contains any surrogate pairs chars.
-- **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false }`.
+- **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_host: true, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false }`.
 - **isUUID(str [, version])** - check if the string is a UUID (version 3, 4 or 5).
 - **isUppercase(str)** - check if the string is uppercase.
 - **isVariableWidth(str)** - check if the string contains a mixture of full and half-width chars.

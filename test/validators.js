@@ -248,6 +248,24 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate file URLs without a host', function () {
+    test({
+      validator: 'isURL',
+      args: [{
+        protocols: ['file'],
+        require_host: false,
+      }],
+      valid: [
+        'file://localhost/foo.txt',
+        'file:///foo.txt',
+        'file:///',
+      ],
+      invalid: [
+        'http://foobar.com',
+      ],
+    });
+  });
+
   it('should validate URLs with any protocol', function () {
     test({
       validator: 'isURL',
