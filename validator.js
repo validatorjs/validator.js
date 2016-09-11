@@ -301,6 +301,8 @@
         allow_protocol_relative_urls: false
       };
 
+      var wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
+
       function isURL(url, options) {
         assertString(url);
         if (!url || url.length >= 2083 || /\s/.test(url)) {
@@ -316,7 +318,8 @@
             hostname = void 0,
             port = void 0,
             port_str = void 0,
-            split = void 0;
+            split = void 0,
+            ipv6 = void 0;
 
         split = url.split('#');
         url = split.shift();
@@ -347,16 +350,29 @@
           }
         }
         hostname = split.join('@');
-        split = hostname.split(':');
-        host = split.shift();
-        if (split.length) {
-          port_str = split.join(':');
+
+        port_str = ipv6 = null;
+        var ipv6_match = hostname.match(wrapped_ipv6);
+        if (ipv6_match) {
+          host = '';
+          ipv6 = ipv6_match[1];
+          port_str = ipv6_match[2] || null;
+        } else {
+          split = hostname.split(':');
+          host = split.shift();
+          if (split.length) {
+            port_str = split.join(':');
+          }
+        }
+
+        if (port_str !== null) {
           port = parseInt(port_str, 10);
           if (!/^[0-9]+$/.test(port_str) || port <= 0 || port > 65535) {
             return false;
           }
         }
-        if (!isIP(host) && !isFDQN(host, options) && host !== 'localhost') {
+
+        if (!isIP(host) && !isFDQN(host, options) && (!ipv6 || !isIP(ipv6, 6)) && host !== 'localhost') {
           return false;
         }
         if (options.host_whitelist && options.host_whitelist.indexOf(host) === -1) {

@@ -185,6 +185,13 @@ describe('Validators', function () {
         'http://xn------eddceddeftq7bvv7c4ke4c.xn--p1ai',
         'http://кулік.укр',
         'test.com?ref=http://test2.com',
+        'http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html',
+        'http://[1080:0:0:0:8:800:200C:417A]/index.html',
+        'http://[3ffe:2a00:100:7031::1]',
+        'http://[1080::8:800:200C:417A]/foo',
+        'http://[::192.9.5.5]/ipng',
+        'http://[::FFFF:129.144.52.38]:80/index.html',
+        'http://[2010:836B:4179::836B:4179]',
       ],
       invalid: [
         'xyz://foobar.com',
