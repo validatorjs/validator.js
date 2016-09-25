@@ -241,36 +241,165 @@ describe('Sanitizers', function () {
       },
     });
 
+    // Testing all_lowercase switch, should apply to domains not known to be case-insensitive
     test({
       sanitizer: 'normalizeEmail',
-      args: [{ lowercase: false }],
+      args: [{ all_lowercase: false }],
       expect: {
-        'test@me.com': 'test@me.com',
+        'test@foo.com': 'test@foo.com',
         'hans@m端ller.com': 'hans@m端ller.com',
-        'test@ME.COM': 'test@me.com', // Hostname is always lowercased,
-        'TEST@me.com': 'TEST@me.com',
-        'TEST@ME.COM': 'TEST@me.com',
+        'test@FOO.COM': 'test@foo.com', // Hostname is always lowercased
         'blAH@x.com': 'blAH@x.com',
-          // Domains that are known for being case-insensitive are always lowercased,
+        // In case of domains that are known to be case-insensitive, there's a separate switch
+        'TEST@me.com': 'test@me.com',
+        'TEST@ME.COM': 'test@me.com',
         'SOME.name@GMAIL.com': 'somename@gmail.com',
         'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com',
         'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com',
+        'SOME.name@gmail.com': 'somename@gmail.com',
+        'SOME.name@yahoo.ca': 'some.name@yahoo.ca',
+        'SOME.name@outlook.ie': 'some.name@outlook.ie',
+        'SOME.name@me.com': 'some.name@me.com',
       },
     });
 
+    // Testing *_lowercase
     test({
       sanitizer: 'normalizeEmail',
-      args: [{ remove_dots: false }],
+      args: [{
+        all_lowercase: false,
+        gmail_lowercase: false,
+        icloud_lowercase: false,
+        outlookdotcom_lowercase: false,
+        yahoo_lowercase: false,
+      }],
+      expect: {
+        'TEST@FOO.COM': 'TEST@foo.com', // all_lowercase
+        'ME@gMAil.com': 'ME@gmail.com', // gmail_lowercase
+        'ME@me.COM': 'ME@me.com', // icloud_lowercase
+        'ME@icloud.COM': 'ME@icloud.com', // icloud_lowercase
+        'ME@outlook.COM': 'ME@outlook.com', // outlookdotcom_lowercase
+        'JOHN@live.CA': 'JOHN@live.ca', // outlookdotcom_lowercase
+        'ME@ymail.COM': 'ME@ymail.com', // yahoo_lowercase
+      },
+    });
+
+    // Testing all_lowercase
+    // Should overwrite all the *_lowercase options
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        all_lowercase: true,
+        gmail_lowercase: false, // Overruled
+        icloud_lowercase: false, // Overruled
+        outlookdotcom_lowercase: false, // Overruled
+        yahoo_lowercase: false, // Overruled
+      }],
+      expect: {
+        'TEST@FOO.COM': 'test@foo.com', // all_lowercase
+        'ME@gMAil.com': 'me@gmail.com', // gmail_lowercase
+        'ME@me.COM': 'me@me.com', // icloud_lowercase
+        'ME@icloud.COM': 'me@icloud.com', // icloud_lowercase
+        'ME@outlook.COM': 'me@outlook.com', // outlookdotcom_lowercase
+        'JOHN@live.CA': 'john@live.ca', // outlookdotcom_lowercase
+        'ME@ymail.COM': 'me@ymail.com', // yahoo_lowercase
+      },
+    });
+
+    // Testing *_remove_dots
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        gmail_remove_dots: false,
+      }],
       expect: {
         'SOME.name@GMAIL.com': 'some.name@gmail.com',
+        'SOME.name+me@GMAIL.com': 'some.name@gmail.com',
+        'my.self@foo.com': 'my.self@foo.com',
       },
     });
 
     test({
       sanitizer: 'normalizeEmail',
-      args: [{ remove_extension: false }],
+      args: [{
+        gmail_remove_dots: true,
+      }],
       expect: {
-        'foo+bar@gmail.com': 'foo+bar@gmail.com',
+        'SOME.name@GMAIL.com': 'somename@gmail.com',
+        'SOME.name+me@GMAIL.com': 'somename@gmail.com',
+        'my.self@foo.com': 'my.self@foo.com',
+      },
+    });
+
+    // Testing *_remove_subaddress
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        gmail_remove_subaddress: false,
+        icloud_remove_subaddress: false,
+        outlookdotcom_remove_subaddress: false,
+        yahoo_remove_subaddress: false, // Note Yahoo uses "-"
+      }],
+      expect: {
+        'foo+bar@unknown.com': 'foo+bar@unknown.com',
+        'foo+bar@gmail.com': 'foo+bar@gmail.com', // gmail_remove_subaddress
+        'foo+bar@me.com': 'foo+bar@me.com', // icloud_remove_subaddress
+        'foo+bar@icloud.com': 'foo+bar@icloud.com', // icloud_remove_subaddress
+        'foo+bar@live.fr': 'foo+bar@live.fr', // outlookdotcom_remove_subaddress
+        'foo+bar@hotmail.co.uk': 'foo+bar@hotmail.co.uk', // outlookdotcom_remove_subaddress
+        'foo-bar@yahoo.com': 'foo-bar@yahoo.com', // yahoo_remove_subaddress
+        'foo+bar@yahoo.com': 'foo+bar@yahoo.com', // yahoo_remove_subaddress
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        gmail_remove_subaddress: true,
+        icloud_remove_subaddress: true,
+        outlookdotcom_remove_subaddress: true,
+        yahoo_remove_subaddress: true, // Note Yahoo uses "-"
+      }],
+      expect: {
+        'foo+bar@unknown.com': 'foo+bar@unknown.com',
+        'foo+bar@gmail.com': 'foo@gmail.com', // gmail_remove_subaddress
+        'foo+bar@me.com': 'foo@me.com', // icloud_remove_subaddress
+        'foo+bar@icloud.com': 'foo@icloud.com', // icloud_remove_subaddress
+        'foo+bar@live.fr': 'foo@live.fr', // outlookdotcom_remove_subaddress
+        'foo+bar@hotmail.co.uk': 'foo@hotmail.co.uk', // outlookdotcom_remove_subaddress
+        'foo-bar@yahoo.com': 'foo@yahoo.com', // yahoo_remove_subaddress
+        'foo+bar@yahoo.com': 'foo+bar@yahoo.com', // yahoo_remove_subaddress
+      },
+    });
+
+    // Testing gmail_convert_googlemaildotcom
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        gmail_convert_googlemaildotcom: false,
+      }],
+      expect: {
+        'SOME.name@GMAIL.com': 'somename@gmail.com',
+        'SOME.name+me@GMAIL.com': 'somename@gmail.com',
+        'SOME.name+me@googlemail.com': 'somename@googlemail.com',
+        'SOME.name+me@googlemail.COM': 'somename@googlemail.com',
+        'SOME.name+me@googlEmail.com': 'somename@googlemail.com',
+        'my.self@foo.com': 'my.self@foo.com',
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        gmail_convert_googlemaildotcom: true,
+      }],
+      expect: {
+        'SOME.name@GMAIL.com': 'somename@gmail.com',
+        'SOME.name+me@GMAIL.com': 'somename@gmail.com',
+        'SOME.name+me@googlemail.com': 'somename@gmail.com',
+        'SOME.name+me@googlemail.COM': 'somename@gmail.com',
+        'SOME.name+me@googlEmail.com': 'somename@gmail.com',
+        'my.self@foo.com': 'my.self@foo.com',
       },
     });
   });
