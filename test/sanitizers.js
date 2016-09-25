@@ -237,6 +237,9 @@ describe('Sanitizers', function () {
         '+extension@gmail.com': false,
         '...@gmail.com': false,
         '.+extension@googlemail.com': false,
+        '+a@icloud.com': false,
+        '+a@outlook.com': false,
+        '-a@yahoo.com': false,
         'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemiddlename@gmail.com',
       },
     });
