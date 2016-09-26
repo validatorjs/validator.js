@@ -1251,7 +1251,7 @@ describe('Validators', function () {
 
   it('should validate null strings', function () {
     test({
-      validator: 'isNull',
+      validator: 'isEmpty',
       valid: [
         '',
       ],
@@ -3395,7 +3395,7 @@ describe('Validators', function () {
   it('should error on non-string input', function () {
     var empty = [undefined, null, [], NaN];
     empty.forEach(function (item) {
-      assert.throws(validator.isNull.bind(null, item));
+      assert.throws(validator.isEmpty.bind(null, item));
     });
   });
 

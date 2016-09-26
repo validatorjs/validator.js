@@ -40,7 +40,7 @@ import isHexColor from './lib/isHexColor';
 import isMD5 from './lib/isMD5';
 
 import isJSON from './lib/isJSON';
-import isNull from './lib/isNull';
+import isEmpty from './lib/isEmpty';
 
 import isLength from './lib/isLength';
 import isByteLength from './lib/isByteLength';
@@ -97,7 +97,7 @@ const validator = {
   isHexColor,
   isMD5,
   isJSON,
-  isNull,
+  isEmpty,
   isLength, isByteLength,
   isUUID, isMongoId,
   isDate, isAfter, isBefore,

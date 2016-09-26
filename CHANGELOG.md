@@ -1,5 +1,7 @@
 #### HEAD
 
+- Renamed `isNull()` to `isEmpty()`
+  ([#574](https://github.com/chriso/validator.js/issues/574))
 - Improved `normalizeEmail()`
   ([#583](https://github.com/chriso/validator.js/pull/583))
 

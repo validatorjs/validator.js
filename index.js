@@ -132,9 +132,9 @@ var _isJSON = require('./lib/isJSON');
 
 var _isJSON2 = _interopRequireDefault(_isJSON);
 
-var _isNull = require('./lib/isNull');
+var _isEmpty = require('./lib/isEmpty');
 
-var _isNull2 = _interopRequireDefault(_isNull);
+var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
 var _isLength = require('./lib/isLength');
 
@@ -263,7 +263,7 @@ var validator = {
   isHexColor: _isHexColor2.default,
   isMD5: _isMD2.default,
   isJSON: _isJSON2.default,
-  isNull: _isNull2.default,
+  isEmpty: _isEmpty2.default,
   isLength: _isLength2.default, isByteLength: _isByteLength2.default,
   isUUID: _isUUID2.default, isMongoId: _isMongoId2.default,
   isDate: _isDate2.default, isAfter: _isAfter2.default, isBefore: _isBefore2.default,
