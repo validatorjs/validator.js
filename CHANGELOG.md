@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locales
+  ([#585](https://github.com/chriso/validator.js/pull/585))
+
 #### 6.0.0
 
 - Renamed `isNull()` to `isEmpty()`
