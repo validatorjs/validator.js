@@ -1,3 +1,8 @@
+#### HEAD
+
+- Improved `normalizeEmail()`
+  ([#583](https://github.com/chriso/validator.js/pull/583))
+
 #### 5.7.0
 
 - Added support for IPv6 in `isURL()`
