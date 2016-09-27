@@ -1229,7 +1229,7 @@
         return parts.join('@');
       }
 
-      var version = '5.7.0';
+      var version = '6.0.0';
 
       var validator = {
         version: version,

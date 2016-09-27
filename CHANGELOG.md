@@ -1,4 +1,4 @@
-#### HEAD
+#### 6.0.0
 
 - Renamed `isNull()` to `isEmpty()`
   ([#574](https://github.com/chriso/validator.js/issues/574))
