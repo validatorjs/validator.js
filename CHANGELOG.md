@@ -6,6 +6,8 @@
   ([#516](https://github.com/chriso/validator.js/issues/516))
 - Improved `normalizeEmail()`
   ([#583](https://github.com/chriso/validator.js/pull/583))
+- Allow leading zeroes by default in `isInt()`
+  ([#532](https://github.com/chriso/validator.js/pull/532))
 
 #### 5.7.0
 
