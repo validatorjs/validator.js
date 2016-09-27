@@ -139,6 +139,9 @@ describe('Sanitizers', function () {
 
         'Backtick: `':
             'Backtick: &#96;',
+
+        'Backslash: \\':
+            'Backslash: &#x5C;',
       },
     });
   });

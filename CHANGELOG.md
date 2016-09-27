@@ -2,6 +2,8 @@
 
 - Renamed `isNull()` to `isEmpty()`
   ([#574](https://github.com/chriso/validator.js/issues/574))
+- Backslash is now escaped in `escape()`
+  ([#516](https://github.com/chriso/validator.js/issues/516))
 - Improved `normalizeEmail()`
   ([#583](https://github.com/chriso/validator.js/pull/583))
 
