@@ -10,5 +10,7 @@ export default function isFloat(str, options) {
   }
   return float.test(str) &&
     (!options.hasOwnProperty('min') || str >= options.min) &&
-    (!options.hasOwnProperty('max') || str <= options.max);
+    (!options.hasOwnProperty('max') || str <= options.max) &&
+    (!options.hasOwnProperty('lt') || str < options.lt) &&
+    (!options.hasOwnProperty('gt') || str > options.gt);
 }
