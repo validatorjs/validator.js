@@ -64,8 +64,121 @@
       var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
         return typeof obj;
       } : function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
       };
+
+      var asyncGenerator = function () {
+        function AwaitValue(value) {
+          this.value = value;
+        }
+
+        function AsyncGenerator(gen) {
+          var front, back;
+
+          function send(key, arg) {
+            return new Promise(function (resolve, reject) {
+              var request = {
+                key: key,
+                arg: arg,
+                resolve: resolve,
+                reject: reject,
+                next: null
+              };
+
+              if (back) {
+                back = back.next = request;
+              } else {
+                front = back = request;
+                resume(key, arg);
+              }
+            });
+          }
+
+          function resume(key, arg) {
+            try {
+              var result = gen[key](arg);
+              var value = result.value;
+
+              if (value instanceof AwaitValue) {
+                Promise.resolve(value.value).then(function (arg) {
+                  resume("next", arg);
+                }, function (arg) {
+                  resume("throw", arg);
+                });
+              } else {
+                settle(result.done ? "return" : "normal", result.value);
+              }
+            } catch (err) {
+              settle("throw", err);
+            }
+          }
+
+          function settle(type, value) {
+            switch (type) {
+              case "return":
+                front.resolve({
+                  value: value,
+                  done: true
+                });
+                break;
+
+              case "throw":
+                front.reject(value);
+                break;
+
+              default:
+                front.resolve({
+                  value: value,
+                  done: false
+                });
+                break;
+            }
+
+            front = front.next;
+
+            if (front) {
+              resume(front.key, front.arg);
+            } else {
+              back = null;
+            }
+          }
+
+          this._invoke = send;
+
+          if (typeof gen.return !== "function") {
+            this.return = undefined;
+          }
+        }
+
+        if (typeof Symbol === "function" && Symbol.asyncIterator) {
+          AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+            return this;
+          };
+        }
+
+        AsyncGenerator.prototype.next = function (arg) {
+          return this._invoke("next", arg);
+        };
+
+        AsyncGenerator.prototype.throw = function (arg) {
+          return this._invoke("throw", arg);
+        };
+
+        AsyncGenerator.prototype.return = function (arg) {
+          return this._invoke("return", arg);
+        };
+
+        return {
+          wrap: function (fn) {
+            return function () {
+              return new AsyncGenerator(fn.apply(this, arguments));
+            };
+          },
+          await: function (value) {
+            return new AwaitValue(value);
+          }
+        };
+      }();
 
       function toString(input) {
         if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' && input !== null) {
@@ -94,7 +207,7 @@
       }
 
       function merge() {
-        var obj = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+        var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var defaults = arguments[1];
 
         for (var key in defaults) {
@@ -227,7 +340,7 @@
       var ipv6Block = /^[0-9A-F]{1,4}$/i;
 
       function isIP(str) {
-        var version = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+        var version = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
         assertString(str);
         version = String(version);
@@ -477,7 +590,7 @@
       }
 
       function isAlpha(str) {
-        var locale = arguments.length <= 1 || arguments[1] === undefined ? 'en-US' : arguments[1];
+        var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
 
         assertString(str);
         if (locale in alpha) {
@@ -487,7 +600,7 @@
       }
 
       function isAlphanumeric(str) {
-        var locale = arguments.length <= 1 || arguments[1] === undefined ? 'en-US' : arguments[1];
+        var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
 
         assertString(str);
         if (locale in alphanumeric) {
@@ -659,7 +772,7 @@
       };
 
       function isUUID(str) {
-        var version = arguments.length <= 1 || arguments[1] === undefined ? 'all' : arguments[1];
+        var version = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'all';
 
         assertString(str);
         var pattern = uuid[version];
@@ -767,7 +880,7 @@
       }
 
       function isAfter(str) {
-        var date = arguments.length <= 1 || arguments[1] === undefined ? String(new Date()) : arguments[1];
+        var date = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : String(new Date());
 
         assertString(str);
         var comparison = toDate(date);
@@ -776,7 +889,7 @@
       }
 
       function isBefore(str) {
-        var date = arguments.length <= 1 || arguments[1] === undefined ? String(new Date()) : arguments[1];
+        var date = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : String(new Date());
 
         assertString(str);
         var comparison = toDate(date);
@@ -875,7 +988,7 @@
       var factor = [1, 3];
 
       function isISBN(str) {
-        var version = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+        var version = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
         assertString(str);
         version = String(version);
