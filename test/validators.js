@@ -1252,6 +1252,46 @@ describe('Validators', function () {
         '5',
       ],
     });
+    test({
+      validator: 'isFloat',
+      args: [{
+        gt: -5.5,
+        lt: 10,
+      }],
+      valid: [
+        '9.9',
+        '1.0',
+        '0',
+        '-1',
+        '7',
+        '-5.4',
+      ],
+      invalid: [
+        '10',
+        '-5.5',
+        'a',
+        '-20.3',
+        '20e3',
+        '10.00001',
+      ],
+    });
+    test({
+      validator: 'isFloat',
+      args: [{
+        min: -5.5,
+        max: 10,
+        gt: -5.5,
+        lt: 10,
+      }],
+      valid: [
+        '9.99999',
+        '-5.499999',
+      ],
+      invalid: [
+        '10',
+        '-5.5',
+      ],
+    });
   });
 
   it('should validate hexadecimal strings', function () {
