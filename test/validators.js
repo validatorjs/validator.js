@@ -1183,6 +1183,26 @@ describe('Validators', function () {
         'a',
       ],
     });
+    test({
+      validator: 'isInt',
+      args: [{
+        gt: 10,
+        lt: 15,
+      }],
+      valid: [
+        '14',
+        '11',
+        '13',
+      ],
+      invalid: [
+        '10',
+        '15',
+        '17',
+        '3.2',
+        '33',
+        'a',
+      ],
+    });
   });
 
   it('should validate floats', function () {
