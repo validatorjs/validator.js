@@ -5,7 +5,7 @@
 - Added support for greater or less than in `isFloat()`
   ([#544](https://github.com/chriso/validator.js/issues/544))
 - Added support for ISSN validation via `isISSN()`
-  ([#589](https://github.com/chriso/validator.js/pull/589))
+  ([#593](https://github.com/chriso/validator.js/pull/593))
 
 #### 6.0.0
 
