@@ -1027,6 +1027,49 @@
         return false;
       }
 
+      var issn = /^\d{4}-\d{3}[\dX]$/;
+
+      function isISSN(str) {
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+        assertString(str);
+        var testIssn = options.case_sensitive ? issn : new RegExp(issn, 'i');
+        if (!testIssn.test(str)) {
+          return false;
+        }
+        var issnDigits = str.replace('-', '');
+        var position = 8;
+        var checksum = 0;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = issnDigits[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var digit = _step.value;
+
+            var digitValue = digit.toUpperCase() === 'X' ? 10 : +digit;
+            checksum += digitValue * position;
+            --position;
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        return checksum % 11 === 0;
+      }
+
       /* eslint-disable max-len */
       var phones = {
         'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
@@ -1367,7 +1410,7 @@
         isDate: isDate, isAfter: isAfter, isBefore: isBefore,
         isIn: isIn,
         isCreditCard: isCreditCard,
-        isISIN: isISIN, isISBN: isISBN,
+        isISIN: isISIN, isISBN: isISBN, isISSN: isISSN,
         isMobilePhone: isMobilePhone,
         isCurrency: isCurrency,
         isISO8601: isISO8601,
