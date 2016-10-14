@@ -58,6 +58,7 @@ import isCreditCard from './lib/isCreditCard';
 
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
+import isISSN from './lib/isISSN';
 
 import isMobilePhone from './lib/isMobilePhone';
 
@@ -103,7 +104,7 @@ const validator = {
   isDate, isAfter, isBefore,
   isIn,
   isCreditCard,
-  isISIN, isISBN,
+  isISIN, isISBN, isISSN,
   isMobilePhone,
   isCurrency,
   isISO8601,
