@@ -1861,7 +1861,6 @@ describe('Validators', function () {
         '2434-561x',
         '01896016',
         '20905076',
-
       ],
       invalid: [
         '0378-5954',
