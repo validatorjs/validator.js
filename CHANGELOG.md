@@ -1,4 +1,4 @@
-#### HEAD
+#### 6.1.0
 
 - Added support for greater or less than in `isFloat()`
   ([#544](https://github.com/chriso/validator.js/issues/544))
