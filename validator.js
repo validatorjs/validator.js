@@ -1027,13 +1027,15 @@
         return false;
       }
 
-      var issn = /^\d{4}-\d{3}[\dX]$/;
+      var issn = '^\\d{4}-?\\d{3}[\\dX]$';
 
       function isISSN(str) {
         var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
         assertString(str);
-        var testIssn = options.case_sensitive ? issn : new RegExp(issn, 'i');
+        var testIssn = issn;
+        testIssn = options.require_hyphen ? testIssn.replace('?', '') : testIssn;
+        testIssn = options.case_sensitive ? new RegExp(testIssn) : new RegExp(testIssn, 'i');
         if (!testIssn.test(str)) {
           return false;
         }
