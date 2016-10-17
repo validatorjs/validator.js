@@ -152,7 +152,11 @@ export default function normalizeEmail(email, options) {
   if (!isEmail(email)) {
     return false;
   }
-  const parts = email.split('@', 2);
+
+  const raw_parts = email.split('@');
+  const domain = raw_parts.pop();
+  const user = raw_parts.join('@');
+  const parts = [user, domain];
 
   // The domain is always lowercased, as it's case-insensitive per RFC 1035
   parts[1] = parts[1].toLowerCase();

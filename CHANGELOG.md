@@ -1,11 +1,19 @@
 #### HEAD
-
-- New locales
-  ([#585](https://github.com/chriso/validator.js/pull/585))
 - Added support for greater or less than in `isFloat()`
   ([#544](https://github.com/chriso/validator.js/issues/544))
 - Added support for `lt` and `gt` into `isInt()`
   ([#588](https://github.com/chriso/validator.js/pull/588))
+
+#### 6.1.0
+
+- Added support for greater or less than in `isFloat()`
+  ([#544](https://github.com/chriso/validator.js/issues/544))
+- Added support for ISSN validation via `isISSN()`
+  ([#593](https://github.com/chriso/validator.js/pull/593))
+- Fixed a bug in `normalizeEmail()`
+  ([#594](https://github.com/chriso/validator.js/issues/594))
+- New locales
+  ([#585](https://github.com/chriso/validator.js/pull/585))
 
 #### 6.0.0
 

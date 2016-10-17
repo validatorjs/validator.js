@@ -180,6 +180,10 @@ var _isISBN = require('./lib/isISBN');
 
 var _isISBN2 = _interopRequireDefault(_isISBN);
 
+var _isISSN = require('./lib/isISSN');
+
+var _isISSN2 = _interopRequireDefault(_isISSN);
+
 var _isMobilePhone = require('./lib/isMobilePhone');
 
 var _isMobilePhone2 = _interopRequireDefault(_isMobilePhone);
@@ -246,7 +250,7 @@ var _toString2 = _interopRequireDefault(_toString);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '6.0.0';
+var version = '6.1.0';
 
 var validator = {
   version: version,
@@ -269,7 +273,7 @@ var validator = {
   isDate: _isDate2.default, isAfter: _isAfter2.default, isBefore: _isBefore2.default,
   isIn: _isIn2.default,
   isCreditCard: _isCreditCard2.default,
-  isISIN: _isISIN2.default, isISBN: _isISBN2.default,
+  isISIN: _isISIN2.default, isISBN: _isISBN2.default, isISSN: _isISSN2.default,
   isMobilePhone: _isMobilePhone2.default,
   isCurrency: _isCurrency2.default,
   isISO8601: _isISO2.default,

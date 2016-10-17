@@ -1029,6 +1029,51 @@
         return false;
       }
 
+      var issn = '^\\d{4}-?\\d{3}[\\dX]$';
+
+      function isISSN(str) {
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+        assertString(str);
+        var testIssn = issn;
+        testIssn = options.require_hyphen ? testIssn.replace('?', '') : testIssn;
+        testIssn = options.case_sensitive ? new RegExp(testIssn) : new RegExp(testIssn, 'i');
+        if (!testIssn.test(str)) {
+          return false;
+        }
+        var issnDigits = str.replace('-', '');
+        var position = 8;
+        var checksum = 0;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = issnDigits[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var digit = _step.value;
+
+            var digitValue = digit.toUpperCase() === 'X' ? 10 : +digit;
+            checksum += digitValue * position;
+            --position;
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        return checksum % 11 === 0;
+      }
+
       /* eslint-disable max-len */
       var phones = {
         'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
@@ -1283,7 +1328,11 @@
         if (!isEmail(email)) {
           return false;
         }
-        var parts = email.split('@', 2);
+
+        var raw_parts = email.split('@');
+        var domain = raw_parts.pop();
+        var user = raw_parts.join('@');
+        var parts = [user, domain];
 
         // The domain is always lowercased, as it's case-insensitive per RFC 1035
         parts[1] = parts[1].toLowerCase();
@@ -1346,7 +1395,7 @@
         return parts.join('@');
       }
 
-      var version = '6.0.0';
+      var version = '6.1.0';
 
       var validator = {
         version: version,
@@ -1369,7 +1418,7 @@
         isDate: isDate, isAfter: isAfter, isBefore: isBefore,
         isIn: isIn,
         isCreditCard: isCreditCard,
-        isISIN: isISIN, isISBN: isISBN,
+        isISIN: isISIN, isISBN: isISBN, isISSN: isISSN,
         isMobilePhone: isMobilePhone,
         isCurrency: isCurrency,
         isISO8601: isISO8601,

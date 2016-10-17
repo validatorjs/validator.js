@@ -78,10 +78,11 @@ Passing anything other than a string is an error.
 - **isHexadecimal(str)** - check if the string is a hexadecimal number.
 - **isIP(str [, version])** - check if the string is an IP (version 4 or 6).
 - **isISBN(str [, version])** - check if the string is an ISBN (version 10 or 13).
+- **isISSN(str [, options])** - check if the string is an [ISSN](https://en.wikipedia.org/wiki/International_Standard_Serial_Number). `options` is an object which defaults to `{ case_sensitive: false, require_hyphen: false }`. If `case_sensitive` is true, ISSNs with a lowercase `'x'` as the check digit are rejected.
 - **isISIN(str)** - check if the string is an [ISIN][ISIN] (stock/security identifier).
 - **isISO8601(str)** - check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date.
 - **isIn(str, values)** - check if the string is in a array of allowed values.
-- **isInt(str [, options])** - check if the string is an integer. `options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to false will disallow integer values with leading zeroes (e.g. `{ allow_leading_zeroes: false }`).
+- **isInt(str [, options])** - check if the string is an integer. `options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to false will disallow integer values with leading zeroes (e.g. `{ allow_leading_zeroes: false }`). Finally, `options` can contain the keys `gt` and/or `lt` which will enforce integers being greater than or less than, respectively, the value provided (e.g. `{gt: 1, lt: 4}` for a number between 1 and 4).
 - **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
 - **isLength(str, options)** - check if the string's length falls in a range. `options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
 - **isLowercase(str)** - check if the string is lowercase.
