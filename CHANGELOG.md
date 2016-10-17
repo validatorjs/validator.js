@@ -1,5 +1,5 @@
 #### HEAD
-- Added support for `lt` and `gt` into `isInt()`
+- Added support for `lt` and `gt` to `isInt()`
   ([#588](https://github.com/chriso/validator.js/pull/588))
 
 #### 6.1.0
