@@ -1,3 +1,7 @@
+#### HEAD
+- Added support for `lt` and `gt` into `isInt()`
+  ([#588](https://github.com/chriso/validator.js/pull/588))
+
 #### 6.1.0
 
 - Added support for greater or less than in `isFloat()`
