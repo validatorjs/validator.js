@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function rtrim(str, chars) {
+export const rtrim = (str, chars) => {
   assertString(str);
   const pattern = chars ? new RegExp(`[${chars}]`) : /\s/;
 

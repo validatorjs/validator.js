@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
 import isFQDN from './isFQDN';
 import isIP from './isIP';
@@ -31,7 +31,7 @@ function checkHost(host, matches) {
   return false;
 }
 
-export default function isURL(url, options) {
+export const isURL = (url, options) => {
   assertString(url);
   if (!url || url.length >= 2083 || /\s/.test(url)) {
     return false;

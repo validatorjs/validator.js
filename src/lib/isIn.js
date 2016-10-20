@@ -1,7 +1,7 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 import toString from './util/toString';
 
-export default function isIn(str, options) {
+export const isIn = (str, options) => {
   assertString(str);
   let i;
   if (Object.prototype.toString.call(options) === '[object Array]') {

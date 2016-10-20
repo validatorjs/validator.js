@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function isWhitelisted(str, chars) {
+export const isWhitelisted = (str, chars) => {
   assertString(str);
   for (let i = str.length - 1; i >= 0; i--) {
     if (chars.indexOf(str[i]) === -1) {

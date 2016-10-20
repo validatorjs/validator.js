@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function toBoolean(str, strict) {
+export const toBoolean = (str, strict) => {
   assertString(str);
   if (strict) {
     return str === '1' || str === 'true';

@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function isJSON(str) {
+export const isJSON = (str) => {
   assertString(str);
   try {
     const obj = JSON.parse(str);

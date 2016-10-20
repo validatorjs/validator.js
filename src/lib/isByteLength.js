@@ -1,7 +1,7 @@
-import assertString from './util/assertString';
+import { assertString}  from './util/assertString';
 
 /* eslint-disable prefer-rest-params */
-export default function isByteLength(str, options) {
+export const isByteLength(str, options) => {
   assertString(str);
   let min;
   let max;

@@ -1,6 +1,7 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function blacklist(str, chars) {
+export const blacklist = (str, chars) => {
   assertString(str);
+
   return str.replace(new RegExp(`[${chars}]+`, 'g'), '');
 }

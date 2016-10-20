@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function toFloat(str) {
+export const toFloat = (str) => {
   assertString(str);
   return parseFloat(str);
 }

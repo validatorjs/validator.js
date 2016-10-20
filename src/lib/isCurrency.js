@@ -1,5 +1,5 @@
-import merge from './util/merge';
-import assertString from './util/assertString';
+import { merge } from './util/merge';
+import { assertString } from './util/assertString';
 
 function currencyRegex(options) {
   const symbol =
@@ -73,7 +73,7 @@ const default_currency_options = {
   allow_space_after_digits: false,
 };
 
-export default function isCurrency(str, options) {
+export const isCurrency = (str, options) => {
   assertString(str);
   options = merge(options, default_currency_options);
   return currencyRegex(options).test(str);

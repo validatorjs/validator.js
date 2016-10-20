@@ -1,8 +1,8 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-import merge from './util/merge';
-import isByteLength from './isByteLength';
-import isFQDN from './isFQDN';
+import { merge } from './util/merge';
+import { isByteLength } from './isByteLength';
+import { isFQDN } from './isFQDN';
 
 const default_email_options = {
   allow_display_name: false,
@@ -20,7 +20,7 @@ const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5
 /* eslint-enable max-len */
 /* eslint-enable no-control-regex */
 
-export default function isEmail(str, options) {
+export const isEmail = (str, options) => {
   assertString(str);
   options = merge(options, default_email_options);
 
