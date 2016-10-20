@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function isLowercase(str) {
+export const isLowercase = (str) => {
   assertString(str);
   return str === str.toLowerCase();
 }

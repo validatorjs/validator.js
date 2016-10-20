@@ -1,9 +1,9 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
 const isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
 
 
-export default function isISIN(str) {
+export const isISIN = (str) => {
   assertString(str);
   if (!isin.test(str)) {
     return false;

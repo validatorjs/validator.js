@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
 const uuid = {
   3: /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i,
@@ -7,7 +7,7 @@ const uuid = {
   all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i,
 };
 
-export default function isUUID(str, version = 'all') {
+export const isUUID = (str, version = 'all') => {
   assertString(str);
   const pattern = uuid[version];
   return pattern && pattern.test(str);

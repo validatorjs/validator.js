@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function escape(str) {
+export const escape = (str) => {
   assertString(str);
   return (str.replace(/&/g, '&amp;')
         .replace(/"/g, '&quot;')

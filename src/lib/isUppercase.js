@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
-export default function isUppercase(str) {
+export const isUppercase = (str) => {
   assertString(str);
   return str === str.toUpperCase();
 }

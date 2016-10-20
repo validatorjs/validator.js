@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import merge from './util/merge';
+import { assertString } from './util/assertString';
+import { merge } from './util/merge';
 
 const default_fqdn_options = {
   require_tld: true,
@@ -7,7 +7,7 @@ const default_fqdn_options = {
   allow_trailing_dot: false,
 };
 
-export default function isFDQN(str, options) {
+export const isFDQN = (str, options) => {
   assertString(str);
   options = merge(options, default_fqdn_options);
 

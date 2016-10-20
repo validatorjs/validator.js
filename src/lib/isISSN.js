@@ -1,8 +1,8 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
 const issn = '^\\d{4}-?\\d{3}[\\dX]$';
 
-export default function isISSN(str, options = {}) {
+export const isISSN = (str, options = {}) => {
   assertString(str);
   let testIssn = issn;
   testIssn = options.require_hyphen ? testIssn.replace('?', '') : testIssn;

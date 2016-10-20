@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 import { iso8601 } from './isISO8601';
 
 function getTimezoneOffset(str) {
@@ -43,7 +43,7 @@ function getTimezoneOffset(str) {
   return (hours * 60 + minutes) * (sign === '-' ? 1 : -1);
 }
 
-export default function isDate(str) {
+export const isDate = (str) => {
   assertString(str);
   let normalizedDate = new Date(Date.parse(str));
   if (isNaN(normalizedDate)) {

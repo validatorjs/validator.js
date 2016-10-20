@@ -1,8 +1,8 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
 const float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/;
 
-export default function isFloat(str, options) {
+export const isFloat = (str, options) => {
   assertString(str);
   options = options || {};
   if (str === '' || str === '.') {

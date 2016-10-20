@@ -1,10 +1,10 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
 const isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/;
 const isbn13Maybe = /^(?:[0-9]{13})$/;
 const factor = [1, 3];
 
-export default function isISBN(str, version = '') {
+export const isISBN = (str, version = '') => {
   assertString(str);
   version = String(version);
   if (!version) {

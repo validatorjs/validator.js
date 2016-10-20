@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import { assertString } from './util/assertString';
 
 /* eslint-disable max-len */
 const phones = {
@@ -43,7 +43,7 @@ const phones = {
 phones['en-CA'] = phones['en-US'];
 phones['fr-BE'] = phones['nl-BE'];
 
-export default function isMobilePhone(str, locale) {
+export const isMobilePhone = (str, locale) => {
   assertString(str);
   if (locale in phones) {
     return phones[locale].test(str);
