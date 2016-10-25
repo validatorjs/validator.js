@@ -8,7 +8,7 @@ function test(options) {
 
   Object.keys(options.expect).forEach(function (input) {
     args[0] = input;
-    var result = validator[options.sanitizer].apply(validator, args);
+    var result = validator[options.sanitizer](...args);
     var expected = options.expect[input];
     if (isNaN(result) && !result.length && isNaN(expected)) {
       return;
