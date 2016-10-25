@@ -13,7 +13,7 @@ function test(options) {
   if (options.valid) {
     options.valid.forEach(function (valid) {
       args[0] = valid;
-      if (validator[options.validator].apply(validator, args) !== true) {
+      if (validator[options.validator](...args) !== true) {
         var warning = format('validator.%s(%s) failed but should have passed',
                     options.validator, args.join(', '));
         throw new Error(warning);
@@ -23,7 +23,7 @@ function test(options) {
   if (options.invalid) {
     options.invalid.forEach(function (invalid) {
       args[0] = invalid;
-      if (validator[options.validator].apply(validator, args) !== false) {
+      if (validator[options.validator](...args) !== false) {
         var warning = format('validator.%s(%s) passed but should have failed',
                     options.validator, args.join(', '));
         throw new Error(warning);
@@ -1383,17 +1383,33 @@ describe('Validators', function () {
   });
 
   it('should validate strings contain another string', function () {
-    test({ validator: 'contains', args: ['foo'], valid: ['foo', 'foobar', 'bazfoo'],
-            invalid: ['bar', 'fobar'] });
+    test({
+      validator: 'contains',
+      args: ['foo'],
+      valid: ['foo', 'foobar', 'bazfoo'],
+      invalid: ['bar', 'fobar'],
+    });
   });
 
   it('should validate strings against a pattern', function () {
-    test({ validator: 'matches', args: [/abc/], valid: ['abc', 'abcdef', '123abc'],
-            invalid: ['acb', 'Abc'] });
-    test({ validator: 'matches', args: ['abc'], valid: ['abc', 'abcdef', '123abc'],
-            invalid: ['acb', 'Abc'] });
-    test({ validator: 'matches', args: ['abc', 'i'], valid: ['abc', 'abcdef', '123abc', 'AbC'],
-            invalid: ['acb'] });
+    test({
+      validator: 'matches',
+      args: [/abc/],
+      valid: ['abc', 'abcdef', '123abc'],
+      invalid: ['acb', 'Abc'],
+    });
+    test({
+      validator: 'matches',
+      args: ['abc'],
+      valid: ['abc', 'abcdef', '123abc'],
+      invalid: ['acb', 'Abc'],
+    });
+    test({
+      validator: 'matches',
+      args: ['abc', 'i'],
+      valid: ['abc', 'abcdef', '123abc', 'AbC'],
+      invalid: ['acb'],
+    });
   });
 
   it('should validate strings by length (deprecated api)', function () {
@@ -1576,12 +1592,24 @@ describe('Validators', function () {
   });
 
   it('should validate a string that is in another string or array', function () {
-    test({ validator: 'isIn', args: ['foobar'], valid: ['foo', 'bar', 'foobar', ''],
-            invalid: ['foobarbaz', 'barfoo'] });
-    test({ validator: 'isIn', args: [['foo', 'bar']], valid: ['foo', 'bar'],
-            invalid: ['foobar', 'barfoo', ''] });
-    test({ validator: 'isIn', args: [['1', '2', '3']], valid: ['1', '2', '3'],
-            invalid: ['4', ''] });
+    test({
+      validator: 'isIn',
+      args: ['foobar'],
+      valid: ['foo', 'bar', 'foobar', ''],
+      invalid: ['foobarbaz', 'barfoo'],
+    });
+    test({
+      validator: 'isIn',
+      args: [['foo', 'bar']],
+      valid: ['foo', 'bar'],
+      invalid: ['foobar', 'barfoo', ''],
+    });
+    test({
+      validator: 'isIn',
+      args: [['1', '2', '3']],
+      valid: ['1', '2', '3'],
+      invalid: ['4', ''],
+    });
     test({ validator: 'isIn', invalid: ['foo', ''] });
   });
 
@@ -1715,26 +1743,43 @@ describe('Validators', function () {
   });
 
   it('should validate dates against a start date', function () {
-    test({ validator: 'isAfter', args: ['2011-08-03'],
-            valid: ['2011-08-04', new Date(2011, 8, 10).toString()],
-            invalid: ['2010-07-02', '2011-08-03', new Date(0).toString(), 'foo'] });
-    test({ validator: 'isAfter',
-            valid: ['2100-08-04', new Date(Date.now() + 86400000).toString()],
-            invalid: ['2010-07-02', new Date(0).toString()] });
-    test({ validator: 'isAfter', args: ['2011-08-03'],
-            valid: ['2015-09-17'],
-            invalid: ['invalid date'] });
-    test({ validator: 'isAfter', args: ['invalid date'],
-            invalid: ['invalid date', '2015-09-17'] });
+    test({
+      validator: 'isAfter',
+      args: ['2011-08-03'],
+      valid: ['2011-08-04', new Date(2011, 8, 10).toString()],
+      invalid: ['2010-07-02', '2011-08-03', new Date(0).toString(), 'foo'],
+    });
+    test({
+      validator: 'isAfter',
+      valid: ['2100-08-04', new Date(Date.now() + 86400000).toString()],
+      invalid: ['2010-07-02', new Date(0).toString()],
+    });
+    test({
+      validator: 'isAfter',
+      args: ['2011-08-03'],
+      valid: ['2015-09-17'],
+      invalid: ['invalid date'],
+    });
+    test({
+      validator: 'isAfter',
+      args: ['invalid date'],
+      invalid: ['invalid date', '2015-09-17'],
+    });
   });
 
   it('should validate dates against an end date', function () {
-    test({ validator: 'isBefore', args: ['08/04/2011'],
-            valid: ['2010-07-02', '2010-08-04', new Date(0).toString()],
-            invalid: ['08/04/2011', new Date(2011, 9, 10).toString()] });
-    test({ validator: 'isBefore', args: [new Date(2011, 7, 4).toString()],
-            valid: ['2010-07-02', '2010-08-04', new Date(0).toString()],
-            invalid: ['08/04/2011', new Date(2011, 9, 10).toString()] });
+    test({
+      validator: 'isBefore',
+      args: ['08/04/2011'],
+      valid: ['2010-07-02', '2010-08-04', new Date(0).toString()],
+      invalid: ['08/04/2011', new Date(2011, 9, 10).toString()],
+    });
+    test({
+      validator: 'isBefore',
+      args: [new Date(2011, 7, 4).toString()],
+      valid: ['2010-07-02', '2010-08-04', new Date(0).toString()],
+      invalid: ['08/04/2011', new Date(2011, 9, 10).toString()],
+    });
     test({
       validator: 'isBefore',
       valid: [
@@ -1744,11 +1789,17 @@ describe('Validators', function () {
       ],
       invalid: ['2100-07-02', new Date(2017, 10, 10).toString()],
     });
-    test({ validator: 'isBefore', args: ['2011-08-03'],
-            valid: ['1999-12-31'],
-            invalid: ['invalid date'] });
-    test({ validator: 'isBefore', args: ['invalid date'],
-            invalid: ['invalid date', '1999-12-31'] });
+    test({
+      validator: 'isBefore',
+      args: ['2011-08-03'],
+      valid: ['1999-12-31'],
+      invalid: ['invalid date'],
+    });
+    test({
+      validator: 'isBefore',
+      args: ['invalid date'],
+      invalid: ['invalid date', '1999-12-31'],
+    });
   });
 
   it('should validate that integer strings are divisible by a number', function () {

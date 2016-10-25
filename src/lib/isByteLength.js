@@ -5,7 +5,7 @@ export default function isByteLength(str, options) {
   assertString(str);
   let min;
   let max;
-  if (typeof(options) === 'object') {
+  if (typeof (options) === 'object') {
     min = options.min || 0;
     max = options.max;
   } else { // backwards compatibility: isByteLength(str, min [, max])

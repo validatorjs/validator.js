@@ -40,7 +40,7 @@ function getTimezoneOffset(str) {
       minutes = parseInt(iso8601Parts[23], 10);
     }
   }
-  return (hours * 60 + minutes) * (sign === '-' ? 1 : -1);
+  return ((hours * 60) + minutes) * (sign === '-' ? 1 : -1);
 }
 
 export default function isDate(str) {
@@ -55,10 +55,8 @@ export default function isDate(str) {
   // the input
   const timezoneOffset = getTimezoneOffset(str);
   if (timezoneOffset !== null) {
-    const timezoneDifference = normalizedDate.getTimezoneOffset() -
-            timezoneOffset;
-    normalizedDate = new Date(normalizedDate.getTime() +
-            60000 * timezoneDifference);
+    const timezoneDifference = normalizedDate.getTimezoneOffset() - timezoneOffset;
+    normalizedDate = new Date(normalizedDate.getTime() + (60000 * timezoneDifference));
   }
 
   const day = String(normalizedDate.getDate());
