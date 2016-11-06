@@ -1,10 +1,10 @@
 {
-  "extends": "airbnb/base",
+  "extends": "airbnb-base",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "env": {  
+  "env": {
     "es6": true,
     "browser": true,
     "node": true,

@@ -37,7 +37,7 @@
     "babel-preset-es2015-rollup": "^1.2.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.8.1",
-    "eslint-config-airbnb": "^12.0.0",
+    "eslint-config-airbnb-base": "^9.0.0",
     "eslint-plugin-import": "^2.0.1",
     "istanbul": "^0.4.3",
     "mocha": "^3.1.2",
