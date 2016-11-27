@@ -277,6 +277,7 @@
 
       var default_email_options = {
         allow_display_name: false,
+        require_display_name: false,
         allow_utf8_local_part: true,
         require_tld: true
       };
@@ -295,10 +296,16 @@
         assertString(str);
         options = merge(options, default_email_options);
 
+        if (options.require_display_name) {
+          options.allow_display_name = true;
+        }
+
         if (options.allow_display_name) {
           var display_email = str.match(displayName);
           if (display_email) {
             str = display_email[1];
+          } else if (options.require_display_name) {
+            return false;
           }
         }
 
@@ -536,6 +543,7 @@
       var alpha = {
         'en-US': /^[A-Z]+$/i,
         'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
+        'da-DK': /^[A-ZÆØÅ]+$/i,
         'de-DE': /^[A-ZÄÖÜß]+$/i,
         'es-ES': /^[A-ZÁÉÍÑÓÚÜ]+$/i,
         'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
@@ -554,6 +562,7 @@
       var alphanumeric = {
         'en-US': /^[0-9A-Z]+$/i,
         'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
+        'da-DK': /^[0-9A-ZÆØÅ]$/i,
         'de-DE': /^[0-9A-ZÄÖÜß]+$/i,
         'es-ES': /^[0-9A-ZÁÉÍÑÓÚÜ]+$/i,
         'fr-FR': /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,

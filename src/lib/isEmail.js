@@ -6,6 +6,7 @@ import isFQDN from './isFQDN';
 
 const default_email_options = {
   allow_display_name: false,
+  require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
 };
@@ -24,10 +25,16 @@ export default function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
 
+  if (options.require_display_name) {
+    options.allow_display_name = true;
+  }
+
   if (options.allow_display_name) {
     const display_email = str.match(displayName);
     if (display_email) {
       str = display_email[1];
+    } else if (options.require_display_name) {
+      return false;
     }
   }
 

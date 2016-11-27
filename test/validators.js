@@ -151,6 +151,53 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate email addresses with required display names', function () {
+    test({
+      validator: 'isEmail',
+      args: [{ require_display_name: true }],
+      valid: [
+        'Some Name <foo@bar.com>',
+        'Some Name <x@x.au>',
+        'Some Name <foo@bar.com.au>',
+        'Some Name <foo+bar@bar.com>',
+        'Some Name <hans.m端ller@test.com>',
+        'Some Name <hans@m端ller.com>',
+        'Some Name <test|123@m端ller.com>',
+        'Some Name <test+ext@gmail.com>',
+        'Some Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
+        'Some Middle Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
+        'Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
+        'Name<some.name.midd.leNa.me.+extension@GoogleMail.com>',
+      ],
+      invalid: [
+        'some.name.midd.leNa.me.+extension@GoogleMail.com',
+        'foo@bar.com',
+        'x@x.au',
+        'foo@bar.com.au',
+        'foo+bar@bar.com',
+        'hans.m端ller@test.com',
+        'hans@m端ller.com',
+        'test|123@m端ller.com',
+        'test+ext@gmail.com',
+        'invalidemail@',
+        'invalid.com',
+        '@invalid.com',
+        'foo@bar.com.',
+        'foo@bar.co.uk.',
+        'Some Name <invalidemail@>',
+        'Some Name <invalid.com>',
+        'Some Name <@invalid.com>',
+        'Some Name <foo@bar.com.>',
+        'Some Name <foo@bar.co.uk.>',
+        'Some Name foo@bar.co.uk.>',
+        'Some Name <foo@bar.co.uk.',
+        'Some Name < foo@bar.co.uk >',
+        'Name foo@bar.co.uk',
+      ],
+    });
+  });
+
+
   it('should validate URLs', function () {
     test({
       validator: 'isURL',
