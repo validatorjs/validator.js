@@ -296,11 +296,7 @@
         assertString(str);
         options = merge(options, default_email_options);
 
-        if (options.require_display_name) {
-          options.allow_display_name = true;
-        }
-
-        if (options.allow_display_name) {
+        if (options.require_display_name || options.allow_display_name) {
           var display_email = str.match(displayName);
           if (display_email) {
             str = display_email[1];
