@@ -1398,7 +1398,7 @@
         return parts.join('@');
       }
 
-      var version = '6.1.0';
+      var version = '6.2.0';
 
       var validator = {
         version: version,

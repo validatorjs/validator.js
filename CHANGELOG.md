@@ -1,4 +1,4 @@
-#### HEAD
+#### 6.2.0
 - Added an option to require an email display name
   ([#607](https://github.com/chriso/validator.js/pull/607))
 - Added support for `lt` and `gt` to `isInt()`
