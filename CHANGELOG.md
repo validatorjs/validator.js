@@ -1,5 +1,7 @@
 #### HEAD
 
+- Disallow `<` and `>` in URLs
+  ([#613](https://github.com/chriso/validator.js/issues/613))
 - New locales
   ([#610](https://github.com/chriso/validator.js/pull/610))
 
