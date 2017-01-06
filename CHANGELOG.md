@@ -1,4 +1,4 @@
-#### HEAD
+#### 6.2.1
 
 - Disallow `<` and `>` in URLs
   ([#613](https://github.com/chriso/validator.js/issues/613))
