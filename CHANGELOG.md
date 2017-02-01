@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locales
+  ([#616](https://github.com/chriso/validator.js/pull/616))
+
 #### 6.2.1
 
 - Disallow `<` and `>` in URLs
