@@ -1787,6 +1787,7 @@ describe('Validators', function () {
         // hackage RFC2822 variants with invalid end-of-month
         'Thu,          29\n     Feb\n  1969\n        13:32\n     -0330',
         'Fri, 31 Nov 1997 09:55:06 -0600',
+        '02/31/1993',
       ],
     });
   });
