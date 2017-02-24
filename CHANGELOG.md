@@ -3,7 +3,10 @@
 - Allow values like `-.01` in `isFloat()`
   ([#618](https://github.com/chriso/validator.js/issues/618))
 - New locales
-  ([#616](https://github.com/chriso/validator.js/pull/616))
+  ([#616](https://github.com/chriso/validator.js/pull/616),
+   [#622](https://github.com/chriso/validator.js/pull/622),
+   [#627](https://github.com/chriso/validator.js/pull/627),
+   [#630](https://github.com/chriso/validator.js/pull/630))
 
 #### 6.2.1
 

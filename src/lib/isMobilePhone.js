@@ -46,6 +46,7 @@ const phones = {
 // aliases
 phones['en-CA'] = phones['en-US'];
 phones['fr-BE'] = phones['nl-BE'];
+phones['zh-HK'] = phones['en-HK'];
 
 export default function isMobilePhone(str, locale) {
   assertString(str);

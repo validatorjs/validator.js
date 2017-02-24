@@ -1112,6 +1112,7 @@
         'pt-BR': /^(\+?55|0)\-?[1-9]{2}\-?[2-9]{1}\d{3,4}\-?\d{4}$/,
         'pt-PT': /^(\+?351)?9[1236]\d{7}$/,
         'ro-RO': /^(\+?4?0)\s?7\d{2}(\/|\s|\.|\-)?\d{3}(\s|\.|\-)?\d{3}$/,
+        'en-PK': /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/,
         'ru-RU': /^(\+?7|8)?9\d{9}$/,
         'sr-RS': /^(\+3816|06)[- \d]{5,9}$/,
         'tr-TR': /^(\+?90|0)?5\d{9}$/,
@@ -1124,6 +1125,7 @@
       // aliases
       phones['en-CA'] = phones['en-US'];
       phones['fr-BE'] = phones['nl-BE'];
+      phones['zh-HK'] = phones['en-HK'];
 
       function isMobilePhone(str, locale) {
         assertString(str);
