@@ -75,8 +75,6 @@ export default function isDate(str) {
   year = String(normalizedDate.getFullYear()).slice(-2);
   if (dayOrYear === day || dayOrYear === year) {
     return true;
-  } else if ((dayOrYear === (`${day / year}`)) || (dayOrYear === (`${year / day}`))) {
-    return true;
   }
   return false;
 }
