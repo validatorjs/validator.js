@@ -1,4 +1,4 @@
-#### HEAD
+#### 6.3.0
 
 - Allow values like `-.01` in `isFloat()`
   ([#618](https://github.com/chriso/validator.js/issues/618))

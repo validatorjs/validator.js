@@ -1403,7 +1403,7 @@
         return parts.join('@');
       }
 
-      var version = '6.2.1';
+      var version = '6.3.0';
 
       var validator = {
         version: version,
