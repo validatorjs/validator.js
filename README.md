@@ -61,7 +61,7 @@ Passing anything other than a string is an error.
 - **isBase64(str)** - check if a string is base64 encoded.
 - **isBefore(str [, date])** - check if the string is a date that's before the specified date.
 - **isBoolean(str)** - check if a string is a boolean.
-- **isByteLength(str, options)** - check if the string's length (in bytes) falls in a range.`options` is an object which defaults to `{min:0, max: undefined}`.
+- **isByteLength(str, options)** - check if the string's length (in UTF-8 bytes) falls in a range. `options` is an object which defaults to `{min:0, max: undefined}`.
 - **isCreditCard(str)** - check if the string is a credit card.
 - **isCurrency(str, options)** - check if the string is a valid currency amount. `options` is an object which defaults to `{symbol: '$', require_symbol: false, allow_space_after_symbol: false, symbol_after_digits: false, allow_negatives: true, parens_for_negatives: false, negative_sign_before_digits: false, negative_sign_after_digits: false, allow_negative_sign_placeholder: false, thousands_separator: ',', decimal_separator: '.', allow_space_after_digits: false }`.
 - **isDataURI(str)** - check if the string is a [data uri format](https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs).
