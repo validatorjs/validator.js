@@ -1,3 +1,7 @@
+#### HEAD
+
+- Remove `isDate()`
+
 #### 6.3.0
 
 - Allow values like `-.01` in `isFloat()`

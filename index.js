@@ -152,10 +152,6 @@ var _isMongoId = require('./lib/isMongoId');
 
 var _isMongoId2 = _interopRequireDefault(_isMongoId);
 
-var _isDate = require('./lib/isDate');
-
-var _isDate2 = _interopRequireDefault(_isDate);
-
 var _isAfter = require('./lib/isAfter');
 
 var _isAfter2 = _interopRequireDefault(_isAfter);
@@ -291,7 +287,6 @@ var validator = {
   isByteLength: _isByteLength2.default,
   isUUID: _isUUID2.default,
   isMongoId: _isMongoId2.default,
-  isDate: _isDate2.default,
   isAfter: _isAfter2.default,
   isBefore: _isBefore2.default,
   isIn: _isIn2.default,

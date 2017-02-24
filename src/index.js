@@ -46,7 +46,6 @@ import isByteLength from './lib/isByteLength';
 import isUUID from './lib/isUUID';
 import isMongoId from './lib/isMongoId';
 
-import isDate from './lib/isDate';
 import isAfter from './lib/isAfter';
 import isBefore from './lib/isBefore';
 
@@ -122,7 +121,6 @@ const validator = {
   isByteLength,
   isUUID,
   isMongoId,
-  isDate,
   isAfter,
   isBefore,
   isIn,
