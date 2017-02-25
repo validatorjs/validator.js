@@ -1,4 +1,4 @@
-#### HEAD
+#### 7.0.0
 
 - Remove `isDate()`
 
