@@ -824,12 +824,12 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ukranian alpha strings', function () {
+  it('should validate urkrainian alpha strings', function () {
     test({
       validator: 'isAlpha',
       args: ['uk-UA'],
       valid: [
-        'ЯЄIЇҐ',
+        'АБВГҐДЕЄЖЗИIЇЙКЛМНОПРСТУФХЦШЩЬЮЯ',
       ],
       invalid: [
         '0AİıÖöÇçŞşĞğÜüZ1',
@@ -839,6 +839,7 @@ describe('Validators', function () {
         '',
         'ÄBC',
         'Heiß',
+        'ЫыЪъЭэ',
       ],
     });
   });
@@ -1028,12 +1029,13 @@ describe('Validators', function () {
       validator: 'isAlphanumeric',
       args: ['uk-UA'],
       valid: [
-        'ЯЄIЇҐ123',
+        'АБВГҐДЕЄЖЗИIЇЙКЛМНОПРСТУФХЦШЩЬЮЯ123',
       ],
       invalid: [
         'éeoc ',
         'foo!!',
         'ÄBC',
+        'ЫыЪъЭэ',
       ],
     });
   });
