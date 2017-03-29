@@ -145,7 +145,7 @@ Remember, validating can be troublesome sometimes. See [A list of articles about
 ### License (MIT)
 
 ```
-Copyright (c) 2016 Chris O'Hara <cohara87@gmail.com>
+Copyright (c) 2017 Chris O'Hara <cohara87@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
