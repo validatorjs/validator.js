@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locales
+  ([#647](https://github.com/chriso/validator.js/pull/647))
+
 #### 7.0.0
 
 - Remove `isDate()`
