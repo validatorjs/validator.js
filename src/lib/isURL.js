@@ -33,7 +33,7 @@ function checkHost(host, matches) {
 
 export default function isURL(url, options) {
   assertString(url);
-  if (!url || url.length >= 2083 || /[\s<>]/.test(url)) {
+  if (!url || url.length > 2083 || /[\s<>]/.test(url)) {
     return false;
   }
   if (url.indexOf('mailto:') === 0) {
