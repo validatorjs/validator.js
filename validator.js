@@ -732,6 +732,14 @@
         return hexcolor.test(str);
       }
 
+      // see http://isrc.ifpi.org/en/isrc-standard/code-syntax
+      var isrc = /^[A-Z]{2}[0-9A-Z]{3}\d{2}\d{5}$/;
+
+      function isISRC(str) {
+        assertString(str);
+        return isrc.test(str);
+      }
+
       var md5 = /^[a-f0-9]{32}$/;
 
       function isMD5(str) {
@@ -1353,6 +1361,7 @@
         isHexadecimal: isHexadecimal,
         isDivisibleBy: isDivisibleBy,
         isHexColor: isHexColor,
+        isISRC: isISRC,
         isMD5: isMD5,
         isJSON: isJSON,
         isEmpty: isEmpty,
