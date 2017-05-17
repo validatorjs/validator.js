@@ -54,7 +54,7 @@ export default function isMobilePhone(str, locale) {
   if (locale in phones) {
     return phones[locale].test(str);
   } else if (locale === 'any') {
-    return !!Object.values(phones).find( phone => phone.test(str) );
+    return !!Object.values(phones).find(phone => phone.test(str));
   }
   return false;
 }
