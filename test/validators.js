@@ -40,6 +40,10 @@ function repeat(str, count) {
   return result;
 }
 
+function random4digit() {
+  return Math.floor(1000 + (Math.random() * 9000));
+}
+
 describe('Validators', function () {
   it('should validate email addresses', function () {
     test({
@@ -2316,12 +2320,34 @@ describe('Validators', function () {
         '+852-91234567',
         '+852-9123-4567',
         '852-91234567',
+        `8384-${random4digit()}`, // Spare - starting from 1.7.2017
+        `8580-${random4digit()}`, // Spare - starting from 1.7.2017
+        `7109-${random4digit()}`, // Spare - starting from 1.7.2017
+        `7114-${random4digit()}`, // Spare - starting from 1.7.2017
+        `6920-${random4digit()}`, // Spare - starting from 1.7.2017
+        `6280-${random4digit()}`, // Spare - starting from 1.7.2017
+        `5908-${random4digit()}`, // Spare - starting from 1.7.2017
+        `5152-${random4digit()}`, // Spare - starting from 1.7.2017
+        `4923-${random4digit()}`, // Spare - starting from 1.7.2017
       ],
       invalid: [
         '999',
         '+852-912345678',
         '123456789',
         '+852-1234-56789',
+        `9998${random4digit()}`,  // Emergency Service (999)
+        `9111-${random4digit()}`, // Others (911)
+        `8521-${random4digit()}`, // Others (Conflict with country code)
+        `8009-${random4digit()}`, // 800 Fixed Services
+        `7211-${random4digit()}`, // Paging Service
+        `7119-${random4digit()}`, // Paging Service
+        `5850-${random4digit()}`, // Fixed Services
+        `5003${random4digit()}`,  // Others (Special Services)
+        `4300-${random4digit()}`, // Others (Network Number)
+        `3830-${random4digit()}`, // Fixed Services
+        `2230-${random4digit()}`, // Fixed Services
+        `1833-${random4digit()}`, // Short Code (High traffic volume services)
+        `0060-${random4digit()}`, // Access Code (ETS, Prime IDD for Voice)
       ],
       args: ['en-HK'],
     });
