@@ -2837,6 +2837,24 @@ describe('Validators', function () {
       ],
       args: ['id-ID'],
     });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '+37051234567',
+        '851234567',
+      ],
+      invalid: [
+        '+65740 123 456',
+        '',
+        'ASDFGJKLmZXJtZtesting123',
+        '123456',
+        '740123456',
+        '+65640123456',
+        '+64210123456',
+      ],
+      args: ['lt-LT'],
+    });
   });
 
   it('should validate currency', function () {
