@@ -1,7 +1,12 @@
 #### HEAD
 
+- Added an `isISRC()` validator for [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code)
+  ([#660](https://github.com/chriso/validator.js/pull/660))
 - New locales
-  ([#647](https://github.com/chriso/validator.js/pull/647))
+  ([#647](https://github.com/chriso/validator.js/pull/647),
+   [#667](https://github.com/chriso/validator.js/pull/667),
+   [#667](https://github.com/chriso/validator.js/pull/667),
+   [#671](https://github.com/chriso/validator.js/pull/671))
 
 #### 7.0.0
 

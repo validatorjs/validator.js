@@ -27,7 +27,9 @@
 }(this, function () { 'use strict';
 
       function assertString(input) {
-        if (typeof input !== 'string') {
+        var isString = typeof input === 'string' || input instanceof String;
+
+        if (!isString) {
           throw new TypeError('This library (validator.js) validates strings only');
         }
       }
@@ -732,6 +734,14 @@
         return hexcolor.test(str);
       }
 
+      // see http://isrc.ifpi.org/en/isrc-standard/code-syntax
+      var isrc = /^[A-Z]{2}[0-9A-Z]{3}\d{2}\d{5}$/;
+
+      function isISRC(str) {
+        assertString(str);
+        return isrc.test(str);
+      }
+
       var md5 = /^[a-f0-9]{32}$/;
 
       function isMD5(str) {
@@ -1003,12 +1013,15 @@
         'en-ZA': /^(\+?27|0)\d{9}$/,
         'en-ZM': /^(\+?26)?09[567]\d{7}$/,
         'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
+        'fa-IR': /^(\+?98[\-\s]?|0)9[0-39]\d[\-\s]?\d{3}[\-\s]?\d{4}$/,
         'fi-FI': /^(\+?358|0)\s?(4(0|1|2|4|5)?|50)\s?(\d\s?){4,8}\d$/,
         'fr-FR': /^(\+?33|0)[67]\d{8}$/,
         'he-IL': /^(\+972|0)([23489]|5[0248]|77)[1-9]\d{6}/,
         'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
+        'lt-LT': /^(\+370|8)\d{8}$/,
         'id-ID': /^(\+?62|0[1-9])[\s|\d]+$/,
         'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
+        'ko-KR': /^((\+?82)[ \-]?)?0?1([0|1|6|7|8|9]{1})[ \-]?\d{3,4}[ \-]?\d{4}$/,
         'ja-JP': /^(\+?81|0)\d{1,4}[ \-]?\d{1,4}[ \-]?\d{4}$/,
         'ms-MY': /^(\+?6?01){1}(([145]{1}(\-|\s)?\d{7,8})|([236789]{1}(\s|\-)?\d{7}))$/,
         'nb-NO': /^(\+?47)?[49]\d{7}$/,
@@ -1353,6 +1366,7 @@
         isHexadecimal: isHexadecimal,
         isDivisibleBy: isDivisibleBy,
         isHexColor: isHexColor,
+        isISRC: isISRC,
         isMD5: isMD5,
         isJSON: isJSON,
         isEmpty: isEmpty,

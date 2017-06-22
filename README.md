@@ -80,6 +80,7 @@ Passing anything other than a string is an error.
 - **isISSN(str [, options])** - check if the string is an [ISSN](https://en.wikipedia.org/wiki/International_Standard_Serial_Number). `options` is an object which defaults to `{ case_sensitive: false, require_hyphen: false }`. If `case_sensitive` is true, ISSNs with a lowercase `'x'` as the check digit are rejected.
 - **isISIN(str)** - check if the string is an [ISIN][ISIN] (stock/security identifier).
 - **isISO8601(str)** - check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date.
+- **isISRC(str)** - check if the string is a [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code).
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isInt(str [, options])** - check if the string is an integer. `options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to false will disallow integer values with leading zeroes (e.g. `{ allow_leading_zeroes: false }`). Finally, `options` can contain the keys `gt` and/or `lt` which will enforce integers being greater than or less than, respectively, the value provided (e.g. `{gt: 1, lt: 4}` for a number between 1 and 4).
 - **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
@@ -87,7 +88,7 @@ Passing anything other than a string is an error.
 - **isLowercase(str)** - check if the string is lowercase.
 - **isMACAddress(str)** - check if the string is a MAC address.
 - **isMD5(str)** - check if the string is a MD5 hash.
-- **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['ar-DZ', 'ar-SA', 'ar-SY', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN',  'en-NG', 'en-NZ', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'en-PK', 'fi-FI', 'fr-FR', 'he-IL', 'hu-HU', 'it-IT', 'ja-JP', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ro-RO', 'ru-RU', 'sr-RS', 'tr-TR', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']`).
+- **isMobilePhone(str, locale)** - check if the string is a mobile phone number, (locale is one of `['ar-DZ', 'ar-SA', 'ar-SY', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN',  'en-NG', 'en-NZ', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'en-PK', 'fa-IR', 'fi-FI', 'fr-FR', 'he-IL', 'hu-HU', 'it-IT', 'ja-JP', 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ro-RO', 'ru-RU', 'sr-RS', 'tr-TR', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']`).
 - **isMongoId(str)** - check if the string is a valid hex-encoded representation of a [MongoDB ObjectId][mongoid].
 - **isMultibyte(str)** - check if the string contains one or more multibyte chars.
 - **isNumeric(str)** - check if the string contains only numbers.
