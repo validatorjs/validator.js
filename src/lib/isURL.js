@@ -33,7 +33,7 @@ function checkHost(host, matches) {
 
 export default function isURL(url, options) {
   assertString(url);
-  if (!url || url.length > 2083 || /[\s<>]/.test(url)) {
+  if (!url || url.length >= 2083 || /[\s<>]/.test(url)) {
     return false;
   }
   if (url.indexOf('mailto:') === 0) {
@@ -77,7 +77,8 @@ export default function isURL(url, options) {
   }
   hostname = split.join('@');
 
-  port_str = ipv6 = null;
+  port_str = null;
+  ipv6 = null;
   const ipv6_match = hostname.match(wrapped_ipv6);
   if (ipv6_match) {
     host = '';

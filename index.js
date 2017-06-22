@@ -124,6 +124,10 @@ var _isHexColor = require('./lib/isHexColor');
 
 var _isHexColor2 = _interopRequireDefault(_isHexColor);
 
+var _isISRC = require('./lib/isISRC');
+
+var _isISRC2 = _interopRequireDefault(_isISRC);
+
 var _isMD = require('./lib/isMD5');
 
 var _isMD2 = _interopRequireDefault(_isMD);
@@ -246,7 +250,7 @@ var _toString2 = _interopRequireDefault(_toString);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '7.0.0';
+var version = '7.1.0';
 
 var validator = {
   version: version,
@@ -280,6 +284,7 @@ var validator = {
   isHexadecimal: _isHexadecimal2.default,
   isDivisibleBy: _isDivisibleBy2.default,
   isHexColor: _isHexColor2.default,
+  isISRC: _isISRC2.default,
   isMD5: _isMD2.default,
   isJSON: _isJSON2.default,
   isEmpty: _isEmpty2.default,

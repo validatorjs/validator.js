@@ -1,7 +1,17 @@
-#### HEAD
+#### 7.1.0
 
+- Added an `isISRC()` validator for [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code)
+  ([#660](https://github.com/chriso/validator.js/pull/660))
+- Fixed a bug in credit card validation
+  ([#670](https://github.com/chriso/validator.js/pull/670))
+- Reduced the maximum allowed address in `isEmail()` based on
+  [RFC3696 errata](http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690)
+  ([#655](https://github.com/chriso/validator.js/issues/655))
 - New locales
-  ([#647](https://github.com/chriso/validator.js/pull/647))
+  ([#647](https://github.com/chriso/validator.js/pull/647),
+   [#667](https://github.com/chriso/validator.js/pull/667),
+   [#667](https://github.com/chriso/validator.js/pull/667),
+   [#671](https://github.com/chriso/validator.js/pull/671))
 
 #### 7.0.0
 

@@ -15,7 +15,7 @@ function test(options) {
       args[0] = valid;
       if (validator[options.validator](...args) !== true) {
         var warning = format('validator.%s(%s) failed but should have passed',
-                    options.validator, args.join(', '));
+          options.validator, args.join(', '));
         throw new Error(warning);
       }
     });
@@ -25,7 +25,7 @@ function test(options) {
       args[0] = invalid;
       if (validator[options.validator](...args) !== false) {
         var warning = format('validator.%s(%s) passed but should have failed',
-                    options.validator, args.join(', '));
+          options.validator, args.join(', '));
         throw new Error(warning);
       }
     });
@@ -58,7 +58,7 @@ describe('Validators', function () {
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
-        `${repeat('a', 64)}@${repeat('a', 252)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 250)}.com`,
       ],
       invalid: [
         'invalidemail@',
@@ -69,8 +69,8 @@ describe('Validators', function () {
         'foo@bar.co.uk.',
         'z@co.c',
         'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com',
-        `${repeat('a', 64)}@${repeat('a', 253)}.com`,
-        `${repeat('a', 65)}@${repeat('a', 252)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 251)}.com`,
+        `${repeat('a', 65)}@${repeat('a', 250)}.com`,
       ],
     });
   });
@@ -646,7 +646,7 @@ describe('Validators', function () {
     test({
       validator: 'isFQDN',
       args: [
-          { allow_trailing_dot: true },
+        { allow_trailing_dot: true },
       ],
       valid: [
         'example.com.',
@@ -1397,6 +1397,24 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate ISRC code strings', function () {
+    test({
+      validator: 'isISRC',
+      valid: [
+        'USAT29900609',
+        'GBAYE6800011',
+        'USRC15705223',
+        'USCA29500702',
+      ],
+      invalid: [
+        'USAT2990060',
+        'SRC15705223',
+        'US-CA29500702',
+        'USARC15705223',
+      ],
+    });
+  });
+
   it('should validate md5 strings', function () {
     test({
       validator: 'isMD5',
@@ -1782,6 +1800,8 @@ describe('Validators', function () {
         '2718760626256571',
         '2721465526338453',
         '2220175103860763',
+        '375556917985515999999993',
+        '899999996234917882863855',
       ],
     });
   });
@@ -2629,6 +2649,33 @@ describe('Validators', function () {
     test({
       validator: 'isMobilePhone',
       valid: [
+        '+989123456789',
+        '989223456789',
+        '09323456789',
+        '09021456789',
+        '+98-990-345-6789',
+        '+98 938 345 6789',
+        '0938 345 6789',
+      ],
+      invalid: [
+        '',
+        '+989623456789',
+        '+981123456789',
+        '01234567890',
+        '09423456789',
+        '09823456789',
+        '9123456789',
+        '091234567890',
+        '0912345678',
+        '+98 912 3456 6789',
+        '0912 345 678',
+      ],
+      args: ['fa-IR'],
+    });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [
         '+358505557171',
         '0455571',
         '0505557171',
@@ -2680,6 +2727,37 @@ describe('Validators', function () {
         '088-320000',
       ],
       args: ['ms-MY'],
+    });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '+82-010-1234-5678',
+        '+82-10-1234-5678',
+        '82-010-1234-5678',
+        '82-10-1234-5678',
+        '+82 10 1234 5678',
+        '010-123-5678',
+        '10-1234-5678',
+        '+82 10 1234 5678',
+        '011 1234 5678',
+        '+820112345678',
+        '01012345678',
+        '+82 016 1234 5678',
+        '82 19 1234 5678',
+        '+82 010 12345678',
+      ],
+      invalid: [
+        'abcdefghi',
+        '+82 10 1234 567',
+        '+82 10o 1234 1234',
+        '+82 101 1234 5678',
+        '+82 10 12 5678',
+        '+011 7766 1234',
+        '011_7766_1234',
+        '+820 11 7766 1234',
+      ],
+      args: ['ko-KR'],
     });
 
     test({
@@ -2836,6 +2914,24 @@ describe('Validators', function () {
         '+64210123456',
       ],
       args: ['id-ID'],
+    });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '+37051234567',
+        '851234567',
+      ],
+      invalid: [
+        '+65740 123 456',
+        '',
+        'ASDFGJKLmZXJtZtesting123',
+        '123456',
+        '740123456',
+        '+65640123456',
+        '+64210123456',
+      ],
+      args: ['lt-LT'],
     });
   });
 
@@ -3542,7 +3638,7 @@ describe('Validators', function () {
   });
 
   it('should validate ISO 8601 dates', function () {
-        // from http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
+    // from http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     test({
       validator: 'isISO8601',
       valid: [

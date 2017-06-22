@@ -45,16 +45,9 @@ function currencyRegex(options) {
     }
   }
 
-  /* eslint-disable prefer-template */
-  return new RegExp(
-        '^' +
-        // ensure there's a dollar and/or decimal amount, and that
-        // it doesn't start with a space or a negative sign followed by a space
-        '(?!-? )(?=.*\\d)' +
-        pattern +
-        '$'
-    );
-  /* eslint-enable prefer-template */
+  // ensure there's a dollar and/or decimal amount, and that
+  // it doesn't start with a space or a negative sign followed by a space
+  return new RegExp(`^(?!-? )(?=.*\\d)${pattern}$`);
 }
 
 
