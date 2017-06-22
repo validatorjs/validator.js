@@ -2149,8 +2149,7 @@ describe('Validators', function () {
   });
 
   it('should validate mobile phone number', function () {
-    test({
-      validator: 'isMobilePhone',
+    var ar_SY = {
       valid: [
         '0944549710',
         '+963944549710',
@@ -2165,11 +2164,15 @@ describe('Validators', function () {
         '+963332210972',
         '0114152198',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: ar_SY.valid,
+      invalid: ar_SY.invalid,
       args: ['ar-SY'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var ar_SA = {
       valid: [
         '0556578654',
         '+966556578654',
@@ -2184,11 +2187,15 @@ describe('Validators', function () {
         '+96633221097',
         '0114152198',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: ar_SA.valid,
+      invalid: ar_SA.invalid,
       args: ['ar-SA'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var cs_CZ = {
       valid: [
         '+420 123 456 789',
         '+420 123456789',
@@ -2200,11 +2207,15 @@ describe('Validators', function () {
         '',
         '+42012345678',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: cs_CZ.valid,
+      invalid: cs_CZ.invalid,
       args: ['cs-CZ'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var de_DE = {
       valid: [
         '+49 (0) 123 456 789',
         '+49 (0) 123 456789',
@@ -2216,11 +2227,15 @@ describe('Validators', function () {
         '',
         'Vml2YW11cyBmZXJtZtesting123',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: de_DE.valid,
+      invalid: de_DE.invalid,
       args: ['de-DE'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var pt_BR = {
       valid: [
         '55-17-3332-2155',
         '55-15-25661234',
@@ -2235,11 +2250,15 @@ describe('Validators', function () {
         '+55012962308',
         '+55-015-1234-3214',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: pt_BR.valid,
+      invalid: pt_BR.invalid,
       args: ['pt-BR'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var zh_CN = {
       valid: [
         '15323456787',
         '13523333233',
@@ -2255,11 +2274,15 @@ describe('Validators', function () {
         'Vml2YW11cyBmZXJtZtesting123',
         '010-38238383',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: zh_CN.valid,
+      invalid: zh_CN.invalid,
       args: ['zh-CN'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var zh_TW = {
       valid: [
         '0987123456',
         '+886987123456',
@@ -2273,6 +2296,11 @@ describe('Validators', function () {
         'Vml2YW11cyBmZXJtZtesting123',
         '0-987123456',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: zh_TW.valid,
+      invalid: zh_TW.invalid,
       args: ['zh-TW'],
     });
 
@@ -2290,8 +2318,7 @@ describe('Validators', function () {
       args: ['en'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var en_ZA = {
       valid: [
         '0821231234',
         '+27821231234',
@@ -2304,11 +2331,15 @@ describe('Validators', function () {
         '+21821231234',
         '+0821231234',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_ZA.valid,
+      invalid: en_ZA.invalid,
       args: ['en-ZA'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var en_AU = {
       valid: [
         '61404111222',
         '+61411222333',
@@ -2322,11 +2353,15 @@ describe('Validators', function () {
         '+0821231234',
         '04123456789',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_AU.valid,
+      invalid: en_AU.invalid,
       args: ['en-AU'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var en_HK = {
       valid: [
         '91234567',
         '9123-4567',
@@ -2343,11 +2378,15 @@ describe('Validators', function () {
         '123456789',
         '+852-1234-56789',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_HK.valid,
+      invalid: en_HK.invalid,
       args: ['en-HK'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var fr_FR = {
       valid: [
         '0612457898',
         '+33612457898',
@@ -2370,11 +2409,15 @@ describe('Validators', function () {
         '+336124578980',
         '+3361245789',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: fr_FR.valid,
+      invalid: fr_FR.invalid,
       args: ['fr-FR'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var el_GR = {
       valid: [
         '+306944848966',
         '6944848966',
@@ -2389,11 +2432,15 @@ describe('Validators', function () {
         '6589394827',
         '298RI89572',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: el_GR.valid,
+      invalid: el_GR.invalid,
       args: ['el-GR'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var en_GB = {
       valid: [
         '447789345856',
         '+447861235675',
@@ -2410,11 +2457,15 @@ describe('Validators', function () {
         '05073456754',
         '08001123123',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_GB.valid,
+      invalid: en_GB.invalid,
       args: ['en-GB'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var en_US = {
       valid: [
         '19876543210',
         '8005552222',
@@ -2430,10 +2481,15 @@ describe('Validators', function () {
         '2436119753',
         '16532116190',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_US.valid,
+      invalid: en_US.invalid,
       args: ['en-US'],
     });
-    test({
-      validator: 'isMobilePhone',
+
+    var en_CA = {
       valid: [
         '19876543210',
         '8005552222',
@@ -2449,11 +2505,15 @@ describe('Validators', function () {
         '2436119753',
         '16532116190',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_CA.valid,
+      invalid: en_CA.invalid,
       args: ['en-CA'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var en_ZM = {
       valid: [
         '0956684590',
         '0966684590',
@@ -2470,11 +2530,15 @@ describe('Validators', function () {
         '010-38238383',
         '966684590',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_ZM.valid,
+      invalid: en_ZM.invalid,
       args: ['en-ZM'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var ru_RU = {
       valid: [
         '+79676338855',
         '79676338855',
@@ -2491,11 +2555,15 @@ describe('Validators', function () {
         '6676338855',
         '+99676338855',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: ru_RU.valid,
+      invalid: ru_RU.invalid,
       args: ['ru-RU'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var sr_RS = {
       valid: [
         '0640133338',
         '063333133',
@@ -2514,11 +2582,15 @@ describe('Validators', function () {
         '6676338855',
         '+99676338855',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: sr_RS.valid,
+      invalid: sr_RS.invalid,
       args: ['sr-RS'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var en_NZ = {
       valid: [
         '+6427987035',
         '642240512347',
@@ -2536,10 +2608,15 @@ describe('Validators', function () {
         '6676338855',
         '+99676338855',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_NZ.valid,
+      invalid: en_NZ.invalid,
       args: ['en-NZ'],
     });
 
-    var norwegian = {
+    var nx_NO = {
       valid: [
         '+4796338855',
         '+4746338855',
@@ -2561,19 +2638,18 @@ describe('Validators', function () {
     };
     test({
       validator: 'isMobilePhone',
-      valid: norwegian.valid,
-      invalid: norwegian.invalid,
+      valid: nx_NO.valid,
+      invalid: nx_NO.invalid,
       args: ['nb-NO'],
     });
     test({
       validator: 'isMobilePhone',
-      valid: norwegian.valid,
-      invalid: norwegian.invalid,
+      valid: nx_NO.valid,
+      invalid: nx_NO.invalid,
       args: ['nn-NO'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var vi_VN = {
       valid: [
         '01636012403',
         '+841636012403',
@@ -2591,11 +2667,15 @@ describe('Validators', function () {
         '010-38238383',
         '260976684590',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: vi_VN.valid,
+      invalid: vi_VN.invalid,
       args: ['vi-VN'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var es_ES = {
       valid: [
         '+34654789321',
         '654789321',
@@ -2617,11 +2697,15 @@ describe('Validators', function () {
         '+34754789321',
         '754789321',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: es_ES.valid,
+      invalid: es_ES.invalid,
       args: ['es-ES'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var pl_PL = {
       valid: [
         '+48512689767',
         '+48 56 376 87 47',
@@ -2643,11 +2727,15 @@ describe('Validators', function () {
         '+6019-5830837',
         '357562855',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: pl_PL.valid,
+      invalid: pl_PL.invalid,
       args: ['pl-PL'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var fa_IR = {
       valid: [
         '+989123456789',
         '989223456789',
@@ -2670,11 +2758,15 @@ describe('Validators', function () {
         '+98 912 3456 6789',
         '0912 345 678',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: fa_IR.valid,
+      invalid: fa_IR.invalid,
       args: ['fa-IR'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var fi_FI = {
       valid: [
         '+358505557171',
         '0455571',
@@ -2700,11 +2792,15 @@ describe('Validators', function () {
         '044123',
         '019123456789012345678901',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: fi_FI.valid,
+      invalid: fi_FI.invalid,
       args: ['fi-FI'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var ms_MY = {
       valid: [
         '+60128228789',
         '+60195830837',
@@ -2726,11 +2822,15 @@ describe('Validators', function () {
         '1800-88-8687',
         '088-320000',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: ms_MY.valid,
+      invalid: ms_MY.invalid,
       args: ['ms-MY'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var ko_KR = {
       valid: [
         '+82-010-1234-5678',
         '+82-10-1234-5678',
@@ -2757,11 +2857,15 @@ describe('Validators', function () {
         '011_7766_1234',
         '+820 11 7766 1234',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: ko_KR.valid,
+      invalid: ko_KR.invalid,
       args: ['ko-KR'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var ja_JP = {
       valid: [
         '0312345678',
         '0721234567',
@@ -2787,11 +2891,15 @@ describe('Validators', function () {
         '16 1234 5689',
         '03_1234_5689',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: ja_JP.valid,
+      invalid: ja_JP.invalid,
       args: ['ja-JP'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var it_IT = {
       valid: [
         '370 3175423',
         '333202925',
@@ -2803,11 +2911,15 @@ describe('Validators', function () {
         '12345',
         '+45 345 6782395',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: it_IT.valid,
+      invalid: it_IT.invalid,
       args: ['it-IT'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var fr_BE = {
       valid: [
         '0470123456',
         '+32470123456',
@@ -2827,11 +2939,15 @@ describe('Validators', function () {
         '+320212345678',
         '320212345678',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: fr_BE.valid,
+      invalid: fr_BE.invalid,
       args: ['fr-BE'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var nl_BE = {
       valid: [
         '0470123456',
         '+32470123456',
@@ -2851,11 +2967,15 @@ describe('Validators', function () {
         '+320212345678',
         '320212345678',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: nl_BE.valid,
+      invalid: nl_BE.invalid,
       args: ['nl-BE'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var ro_RO = {
       valid: [
         '+40740123456',
         '+40 740123456',
@@ -2881,11 +3001,15 @@ describe('Validators', function () {
         '+40640123456',
         '+40210123456',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: ro_RO.valid,
+      invalid: ro_RO.invalid,
       args: ['ro-RO'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var id_ID = {
       valid: [
         '0217123456',
         '0811 778 998',
@@ -2913,11 +3037,15 @@ describe('Validators', function () {
         '+65640123456',
         '+64210123456',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: id_ID.valid,
+      invalid: id_ID.invalid,
       args: ['id-ID'],
     });
 
-    test({
-      validator: 'isMobilePhone',
+    var lt_LT = {
       valid: [
         '+37051234567',
         '851234567',
@@ -2931,7 +3059,28 @@ describe('Validators', function () {
         '+65640123456',
         '+64210123456',
       ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: lt_LT.valid,
+      invalid: lt_LT.invalid,
       args: ['lt-LT'],
+    });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [].concat(ar_SY.valid, ar_SA.valid, cs_CZ.valid, en_ZA.valid, en_AU.valid,
+        fr_FR.valid, el_GR.valid, en_GB.valid, en_US.valid, en_CA.valid,
+        en_NZ.valid, nx_NO.valid, es_ES.valid, it_IT.valid, fr_BE.valid,
+        nl_BE.valid, id_ID.valid, lt_LT.valid),
+      invalid: [
+        '',
+        'asdf',
+        '1',
+        'ASDFGJKLmZXJtZtesting123',
+        'Vml2YW11cyBmZXJtZtesting123',
+      ],
+      args: ['any'],
     });
   });
 
