@@ -4,6 +4,9 @@
   ([#660](https://github.com/chriso/validator.js/pull/660))
 - Fixed a bug in credit card validation
   ([#670](https://github.com/chriso/validator.js/pull/670))
+- Reduced the maximum allowed address in `isEmail()` based on
+  [RFC3696 errata](http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690)
+  ([#655](https://github.com/chriso/validator.js/issues/655))
 - New locales
   ([#647](https://github.com/chriso/validator.js/pull/647),
    [#667](https://github.com/chriso/validator.js/pull/667),

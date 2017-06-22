@@ -44,7 +44,7 @@ export default function isEmail(str, options) {
   }
 
   if (!isByteLength(user, { max: 64 }) ||
-            !isByteLength(domain, { max: 256 })) {
+            !isByteLength(domain, { max: 254 })) {
     return false;
   }
 

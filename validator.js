@@ -316,7 +316,7 @@
           user = user.replace(/\./g, '').toLowerCase();
         }
 
-        if (!isByteLength(user, { max: 64 }) || !isByteLength(domain, { max: 256 })) {
+        if (!isByteLength(user, { max: 64 }) || !isByteLength(domain, { max: 254 })) {
           return false;
         }
 
