@@ -824,12 +824,12 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ukranian alpha strings', function () {
+  it('should validate urkrainian alpha strings', function () {
     test({
       validator: 'isAlpha',
       args: ['uk-UA'],
       valid: [
-        'ЯЄIЇҐ',
+        'АБВГҐДЕЄЖЗИIЇЙКЛМНОПРСТУФХЦШЩЬЮЯ',
       ],
       invalid: [
         '0AİıÖöÇçŞşĞğÜüZ1',
@@ -839,6 +839,7 @@ describe('Validators', function () {
         '',
         'ÄBC',
         'Heiß',
+        'ЫыЪъЭэ',
       ],
     });
   });
@@ -1028,12 +1029,13 @@ describe('Validators', function () {
       validator: 'isAlphanumeric',
       args: ['uk-UA'],
       valid: [
-        'ЯЄIЇҐ123',
+        'АБВГҐДЕЄЖЗИIЇЙКЛМНОПРСТУФХЦШЩЬЮЯ123',
       ],
       invalid: [
         'éeoc ',
         'foo!!',
         'ÄBC',
+        'ЫыЪъЭэ',
       ],
     });
   });
@@ -1391,6 +1393,24 @@ describe('Validators', function () {
         '#ff',
         'fff0',
         '#ff12FG',
+      ],
+    });
+  });
+
+  it('should validate ISRC code strings', function () {
+    test({
+      validator: 'isISRC',
+      valid: [
+        'USAT29900609',
+        'GBAYE6800011',
+        'USRC15705223',
+        'USCA29500702',
+      ],
+      invalid: [
+        'USAT2990060',
+        'SRC15705223',
+        'US-CA29500702',
+        'USARC15705223',
       ],
     });
   });
@@ -2833,6 +2853,56 @@ describe('Validators', function () {
         '+40210123456',
       ],
       args: ['ro-RO'],
+    });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '0217123456',
+        '0811 778 998',
+        '089931236181900',
+        '622178878890',
+        '62811 778 998',
+        '62811778998',
+        '6289931236181900',
+        '6221 740123456',
+        '62899 740123456',
+        '62899 7401 2346',
+        '0341 8123456',
+        '0778 89800910',
+        '0741 123456',
+        '+6221740123456',
+        '+62811 778 998',
+        '+62811778998',
+      ],
+      invalid: [
+        '+65740 123 456',
+        '',
+        'ASDFGJKLmZXJtZtesting123',
+        '123456',
+        '740123456',
+        '+65640123456',
+        '+64210123456',
+      ],
+      args: ['id-ID'],
+    });
+
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '+37051234567',
+        '851234567',
+      ],
+      invalid: [
+        '+65740 123 456',
+        '',
+        'ASDFGJKLmZXJtZtesting123',
+        '123456',
+        '740123456',
+        '+65640123456',
+        '+64210123456',
+      ],
+      args: ['lt-LT'],
     });
   });
 

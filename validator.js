@@ -27,7 +27,9 @@
 }(this, function () { 'use strict';
 
       function assertString(input) {
-        if (typeof input !== 'string') {
+        var isString = typeof input === 'string' || input instanceof String;
+
+        if (!isString) {
           throw new TypeError('This library (validator.js) validates strings only');
         }
       }
@@ -551,7 +553,7 @@
         'sr-RS@latin': /^[A-ZČĆŽŠĐ]+$/i,
         'sr-RS': /^[А-ЯЂЈЉЊЋЏ]+$/i,
         'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
-        'uk-UA': /^[А-ЯЄIЇҐ]+$/i,
+        'uk-UA': /^[А-ЩЬЮЯЄIЇҐ]+$/i,
         ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/
       };
 
@@ -570,7 +572,7 @@
         'sr-RS@latin': /^[0-9A-ZČĆŽŠĐ]+$/i,
         'sr-RS': /^[0-9А-ЯЂЈЉЊЋЏ]+$/i,
         'tr-TR': /^[0-9A-ZÇĞİıÖŞÜ]+$/i,
-        'uk-UA': /^[0-9А-ЯЄIЇҐ]+$/i,
+        'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐ]+$/i,
         ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/
       };
 
@@ -730,6 +732,14 @@
       function isHexColor(str) {
         assertString(str);
         return hexcolor.test(str);
+      }
+
+      // see http://isrc.ifpi.org/en/isrc-standard/code-syntax
+      var isrc = /^[A-Z]{2}[0-9A-Z]{3}\d{2}\d{5}$/;
+
+      function isISRC(str) {
+        assertString(str);
+        return isrc.test(str);
       }
 
       var md5 = /^[a-f0-9]{32}$/;
@@ -1007,6 +1017,8 @@
         'fr-FR': /^(\+?33|0)[67]\d{8}$/,
         'he-IL': /^(\+972|0)([23489]|5[0248]|77)[1-9]\d{6}/,
         'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
+        'lt-LT': /^(\+370|8)\d{8}$/,
+        'id-ID': /^(\+?62|0[1-9])[\s|\d]+$/,
         'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
         'ja-JP': /^(\+?81|0)\d{1,4}[ \-]?\d{1,4}[ \-]?\d{4}$/,
         'ms-MY': /^(\+?6?01){1}(([145]{1}(\-|\s)?\d{7,8})|([236789]{1}(\s|\-)?\d{7}))$/,
@@ -1352,6 +1364,7 @@
         isHexadecimal: isHexadecimal,
         isDivisibleBy: isDivisibleBy,
         isHexColor: isHexColor,
+        isISRC: isISRC,
         isMD5: isMD5,
         isJSON: isJSON,
         isEmpty: isEmpty,
