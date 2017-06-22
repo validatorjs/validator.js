@@ -27,7 +27,9 @@
 }(this, function () { 'use strict';
 
       function assertString(input) {
-        if (typeof input !== 'string') {
+        var isString = typeof input === 'string' || input instanceof String;
+
+        if (!isString) {
           throw new TypeError('This library (validator.js) validates strings only');
         }
       }
