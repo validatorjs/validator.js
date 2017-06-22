@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added an option to validate any phone locale
+  ([#663](https://github.com/chriso/validator.js/pull/663))
+
 #### 7.1.0
 
 - Added an `isISRC()` validator for [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code)
