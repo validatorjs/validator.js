@@ -2,6 +2,8 @@
 
 - Added an `isISRC()` validator for [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code)
   ([#660](https://github.com/chriso/validator.js/pull/660))
+- Fixed a bug in credit card validation
+  ([#670](https://github.com/chriso/validator.js/pull/670))
 - New locales
   ([#647](https://github.com/chriso/validator.js/pull/647),
    [#667](https://github.com/chriso/validator.js/pull/667),
