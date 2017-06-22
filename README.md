@@ -1,6 +1,6 @@
 # validator.js
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Downloads][downloads-image]][npm-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Downloads][downloads-image]][npm-url]
 
 A library of string validators and sanitizers.
 
@@ -175,9 +175,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [travis-url]: https://travis-ci.org/chriso/validator.js
 [travis-image]: http://img.shields.io/travis/chriso/validator.js.svg
-
-[coveralls-url]: https://coveralls.io/r/chriso/validator.js
-[coveralls-image]: http://img.shields.io/coveralls/chriso/validator.js/master.svg
 
 [amd]: http://requirejs.org/docs/whyamd.html
 [bower]: http://bower.io/

@@ -35,11 +35,9 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-es2015-rollup": "^3.0.0",
-    "coveralls": "^2.11.9",
     "eslint": "^4.0.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
-    "istanbul": "^0.4.3",
     "mocha": "^3.1.2",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "^2.7.1",
@@ -55,8 +53,7 @@
     "build:node": "babel src -d . --presets es2015 --plugins add-module-exports",
     "build": "npm run build:browser && npm run build:node",
     "pretest": "npm run lint && npm run build",
-    "test": "mocha --reporter spec",
-    "coveralls": "istanbul cover _mocha --report lcovonly -x validator.js -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
+    "test": "mocha --reporter spec"
   },
   "engines": {
     "node": ">= 0.10"
