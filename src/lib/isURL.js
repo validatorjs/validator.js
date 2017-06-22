@@ -77,7 +77,8 @@ export default function isURL(url, options) {
   }
   hostname = split.join('@');
 
-  port_str = ipv6 = null;
+  port_str = null;
+  ipv6 = null;
   const ipv6_match = hostname.match(wrapped_ipv6);
   if (ipv6_match) {
     host = '';

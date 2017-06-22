@@ -15,7 +15,7 @@ function test(options) {
       args[0] = valid;
       if (validator[options.validator](...args) !== true) {
         var warning = format('validator.%s(%s) failed but should have passed',
-                    options.validator, args.join(', '));
+          options.validator, args.join(', '));
         throw new Error(warning);
       }
     });
@@ -25,7 +25,7 @@ function test(options) {
       args[0] = invalid;
       if (validator[options.validator](...args) !== false) {
         var warning = format('validator.%s(%s) passed but should have failed',
-                    options.validator, args.join(', '));
+          options.validator, args.join(', '));
         throw new Error(warning);
       }
     });
@@ -646,7 +646,7 @@ describe('Validators', function () {
     test({
       validator: 'isFQDN',
       args: [
-          { allow_trailing_dot: true },
+        { allow_trailing_dot: true },
       ],
       valid: [
         'example.com.',
@@ -3638,7 +3638,7 @@ describe('Validators', function () {
   });
 
   it('should validate ISO 8601 dates', function () {
-        // from http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
+    // from http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     test({
       validator: 'isISO8601',
       valid: [

@@ -11,7 +11,7 @@ export default function isFDQN(str, options) {
   assertString(str);
   options = merge(options, default_fqdn_options);
 
-    /* Remove the optional trailing dot before checking validity */
+  /* Remove the optional trailing dot before checking validity */
   if (options.allow_trailing_dot && str[str.length - 1] === '.') {
     str = str.substring(0, str.length - 1);
   }
@@ -30,8 +30,8 @@ export default function isFDQN(str, options) {
     if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {
       return false;
     }
+    // disallow full-width chars
     if (/[\uff01-\uff5e]/.test(part)) {
-          // disallow full-width chars
       return false;
     }
     if (part[0] === '-' || part[part.length - 1] === '-') {
