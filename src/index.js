@@ -82,7 +82,7 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import toString from './lib/util/toString';
 
-const version = '7.0.0';
+const version = '7.1.0';
 
 const validator = {
   version,
