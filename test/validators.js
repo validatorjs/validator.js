@@ -2386,6 +2386,28 @@ describe('Validators', function () {
       args: ['en-HK'],
     });
 
+    var en_KE = {
+      valid: [
+        '+254728590432',
+        '+254733875610',
+        '254728590234',
+        '0733346543',
+        '0700459022',
+      ],
+      invalid: [
+        '999',
+        '+25489032',
+        '123456789',
+        '+254800723845',
+      ],
+    };
+    test({
+      validator: 'isMobilePhone',
+      valid: en_KE.valid,
+      invalid: en_KE.invalid,
+      args: ['en-KE'],
+    });
+
     var fr_FR = {
       valid: [
         '0612457898',
