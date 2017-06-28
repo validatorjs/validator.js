@@ -145,7 +145,7 @@ function isFDQN(str, options) {
       return false;
     }
     // disallow spaces
-    if (/[\u2002-\u205F\u3000\uFEFF\uDB40\uDC20\s]/.test(tld)) {
+    if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20]/.test(tld)) {
       return false;
     }
   }
