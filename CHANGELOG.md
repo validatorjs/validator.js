@@ -3,7 +3,8 @@
 - Added an option to validate any phone locale
   ([#663](https://github.com/chriso/validator.js/pull/663))
 - New locales
-  ([#673](https://github.com/chriso/validator.js/pull/673))
+  ([#673](https://github.com/chriso/validator.js/pull/673),
+   [#676](https://github.com/chriso/validator.js/pull/676))
 
 #### 7.1.0
 
