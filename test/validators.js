@@ -71,6 +71,19 @@ describe('Validators', function () {
         'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com',
         `${repeat('a', 64)}@${repeat('a', 251)}.com`,
         `${repeat('a', 65)}@${repeat('a', 250)}.com`,
+        'test1@invalid.co m',
+        'test2@invalid.co m',
+        'test3@invalid.co m',
+        'test4@invalid.co m',
+        'test5@invalid.co m',
+        'test6@invalid.co m',
+        'test7@invalid.co m',
+        'test8@invalid.co m',
+        'test9@invalid.co m',
+        'test10@invalid.co m',
+        'test11@invalid.co m',
+        'test12@invalid.co　m',
+        'test13@invalid.co　m',
       ],
     });
   });
@@ -101,6 +114,7 @@ describe('Validators', function () {
         'somename@ｇｍａｉｌ.com',
         'hans.m端ller@test.com',
         'z@co.c',
+        'tüst@invalid.com',
       ],
     });
   });
