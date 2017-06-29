@@ -2,6 +2,10 @@
 
 - Added an option to validate any phone locale
   ([#663](https://github.com/chriso/validator.js/pull/663))
+- Fixed a bug in credit card validation
+  ([#672](https://github.com/chriso/validator.js/pull/672))
+- Disallow whitespace, including unicode whitespace, in TLDs
+  ([#677](https://github.com/chriso/validator.js/pull/677))
 - New locales
   ([#673](https://github.com/chriso/validator.js/pull/673),
    [#676](https://github.com/chriso/validator.js/pull/676))
