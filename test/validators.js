@@ -234,7 +234,6 @@ describe('Validators', function () {
         'http://189.123.14.13/',
         'http://duckduckgo.com/?q=%2F',
         'http://foobar.com/t$-_.+!*\'(),',
-        'http://localhost:3000/',
         'http://foobar.com/?foo=bar#baz=qux',
         'http://foobar.com?foo=bar',
         'http://foobar.com#baz=qux',
@@ -255,6 +254,7 @@ describe('Validators', function () {
         'http://[2010:836B:4179::836B:4179]',
       ],
       invalid: [
+        'http://localhost:3000/',
         'xyz://foobar.com',
         'invalid/',
         'invalid.x',
@@ -316,6 +316,7 @@ describe('Validators', function () {
       args: [{
         protocols: ['file'],
         require_host: false,
+        require_tld: false,
       }],
       valid: [
         'file://localhost/foo.txt',
@@ -369,6 +370,7 @@ describe('Validators', function () {
       valid: [
         'http://foobar.com/',
         'http://foobar/',
+        'http://localhost/',
         'foobar/',
         'foobar',
       ],
@@ -437,9 +439,9 @@ describe('Validators', function () {
       }],
       valid: [
         'http://foobar.com/',
-        'http://localhost/',
       ],
       invalid: [
+        'http://localhost/',
         'foobar.com',
         'foobar',
       ],

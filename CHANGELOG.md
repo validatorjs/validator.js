@@ -1,3 +1,8 @@
+#### HEAD
+
+- `isURL()` now requires the `require_tld: false` option to validate `localhost`
+  ([#675](https://github.com/chriso/validator.js/issues/675))
+
 #### 7.2.0
 
 - Added an option to validate any phone locale

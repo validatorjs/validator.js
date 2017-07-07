@@ -99,8 +99,7 @@ export default function isURL(url, options) {
     }
   }
 
-  if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6)) &&
-          host !== 'localhost') {
+  if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
     return false;
   }
 
