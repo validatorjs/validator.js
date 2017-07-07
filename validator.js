@@ -955,7 +955,7 @@ function isMobilePhone(str, locale) {
       return phone.test(str);
     });
   }
-  return false;
+  throw new Error('Invalid locale \'' + locale + '\'');
 }
 
 function currencyRegex(options) {

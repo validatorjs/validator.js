@@ -63,5 +63,5 @@ export default function isMobilePhone(str, locale) {
   } else if (locale === 'any') {
     return !!Object.values(phones).find(phone => phone.test(str));
   }
-  return false;
+  throw new Error(`Invalid locale '${locale}'`);
 }

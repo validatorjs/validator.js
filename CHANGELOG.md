@@ -4,6 +4,8 @@
   ([#675](https://github.com/chriso/validator.js/issues/675))
 - `isURL()` now rejects URLs that are protocol only
   ([#642](https://github.com/chriso/validator.js/issues/642))
+- Fixed a bug where `isMobilePhone()` would silently return false if the locale was invalid or unsupported
+  ([#657](https://github.com/chriso/validator.js/issues/657))
 
 #### 7.2.0
 
