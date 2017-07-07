@@ -325,6 +325,7 @@ describe('Validators', function () {
       ],
       invalid: [
         'http://foobar.com',
+        'file://',
       ],
     });
   });
