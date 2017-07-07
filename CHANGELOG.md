@@ -1,4 +1,4 @@
-#### HEAD
+#### 8.0.0
 
 - `isURL()` now requires the `require_tld: false` option to validate `localhost`
   ([#675](https://github.com/chriso/validator.js/issues/675))
