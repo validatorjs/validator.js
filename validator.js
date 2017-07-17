@@ -1055,6 +1055,16 @@ function isDataURI(str) {
   return dataURI.test(str);
 }
 
+var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
+var long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
+
+var isLatLong = function (str) {
+  assertString(str);
+  if (!str.includes(',')) return false;
+  var pair = str.split(',');
+  return lat.test(pair[0]) && long.test(pair[1]);
+};
+
 function ltrim(str, chars) {
   assertString(str);
   var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
@@ -1287,6 +1297,7 @@ var validator = {
   isISO8601: isISO8601,
   isBase64: isBase64,
   isDataURI: isDataURI,
+  isLatLong: isLatLong,
   ltrim: ltrim,
   rtrim: rtrim,
   trim: trim,
