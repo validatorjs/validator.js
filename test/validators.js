@@ -3841,7 +3841,7 @@ describe('Validators', function () {
         '+119.821728, -196.821728',
         '(-110, -223)',
         '-110.369532, 223.369532',
-        '(-120.969949, +203.969949)',,
+        '(-120.969949, +203.969949)',
         '-116, -126',
         '-116.894222, -126.894222',
         '-112, -160',
@@ -3853,6 +3853,184 @@ describe('Validators', function () {
         ',',
         ' ',
       ],
+    });
+  });
+
+  it('should validate postal code', function () {
+    const fixtures = [
+      {
+        locale: 'CA',
+        valid: [
+          'L4T 0A5',
+          'G1A-0A2',
+          'A1A 1A1',
+          'X0A-0H0',
+          'V5K 0A1',
+        ],
+      },
+      {
+        locale: 'JP',
+        valid: [
+          '135-0000',
+          '874-8577',
+          '669-1161',
+          '470-0156',
+          '672-8031',
+        ],
+      },
+      {
+        locale: 'GR',
+        valid: [
+          '022 93',
+          '29934',
+          '90293',
+          '299 42',
+          '94944',
+        ],
+      },
+      {
+        locale: 'GB',
+        valid: [
+          'TW8 9GS',
+          'BS98 1TL',
+          'DE99 3GG',
+          'DE55 4SW',
+          'DH98 1BT',
+          'DH99 1NS',
+          'GIR0aa',
+          'SA99',
+          'W1N 4DJ',
+          'AA9A 9AA',
+          'AA99 9AA',
+          'BS98 1TL',
+          'DE993GG',
+        ],
+      },
+      {
+        locale: 'FR',
+        valid: [
+          '75008',
+          '44 522',
+          '98025',
+          '38 499',
+          '39940',
+        ],
+      },
+      {
+        locale: 'CZ',
+        valid: [
+          '20134',
+          '392 90',
+          '39919',
+          '938 29',
+          '39949',
+        ],
+      },
+      {
+        locale: 'NL',
+        valid: [
+          '1012 SZ',
+          '3432FE',
+          '1118 BH',
+          '3950IO',
+          '3997 GH',
+        ],
+      },
+      {
+        locale: 'PL',
+        valid: [
+          '47-260',
+          '12-930',
+          '78-399',
+          '39-490',
+          '38-483',
+        ],
+      },
+      {
+        locale: 'TW',
+        valid: [
+          '360',
+          '90312',
+          '399',
+          '935',
+          '38842',
+        ],
+      },
+      {
+        locale: 'LI',
+        valid: [
+          '9485',
+          '9497',
+          '9491',
+          '9489',
+          '9496',
+        ],
+      },
+      {
+        locale: 'PT',
+        valid: [
+          '4827',
+          '4829-489',
+          '0294-348',
+          '1928',
+          '8156-392',
+        ],
+      },
+      {
+        locale: 'SE',
+        valid: [
+          '12994',
+          '284 39',
+          '39556',
+          '489 39',
+          '499 49',
+        ],
+      },
+    ];
+
+    let allValid = [];
+
+    // Test fixtures
+    fixtures.forEach(function (fixture) {
+      if (fixture.valid) allValid = allValid.concat(fixture.valid);
+      test({
+        validator: 'isPostalCode',
+        valid: fixture.valid,
+        invalid: fixture.invalid,
+        args: [fixture.locale],
+      });
+    });
+
+    // Test generics
+    test({
+      validator: 'isPostalCode',
+      valid: [
+        ...allValid,
+        '1234',
+        '6900',
+        '1292',
+        '9400',
+        '27616',
+        '90210',
+        '10001',
+        '21201',
+        '33142',
+        '060623',
+        '123456',
+        '293940',
+        '002920',
+      ],
+      invalid: [
+        'asdf',
+        '1',
+        'ASDFGJKLmZXJtZtesting123',
+        'Vml2YW11cyBmZXJtZtesting123',
+        '48380480343',
+        '29923-329393-2324',
+        '4294924224',
+        '13',
+      ],
+      args: ['any'],
     });
   });
 });

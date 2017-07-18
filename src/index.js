@@ -69,6 +69,7 @@ import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 
 import isLatLong from './lib/isLatLong';
+import isPostalCode from './lib/isPostalCode';
 
 import ltrim from './lib/ltrim';
 import rtrim from './lib/rtrim';
@@ -134,6 +135,7 @@ const validator = {
   isISBN,
   isISSN,
   isMobilePhone,
+  isPostalCode,
   isCurrency,
   isISO8601,
   isBase64,
