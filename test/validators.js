@@ -1114,6 +1114,26 @@ describe('Validators', function () {
         '\n',
       ],
     });
+    test({
+      validator: 'isDecimal',
+      args: [{
+        digitsAfterDecPoint: 3,
+      }],
+      valid: [
+        '388',
+        '3.9',
+        '50.122',
+        '.127',
+        '-.000',
+      ],
+      invalid: [
+        '3.6123',
+        '26.3333333',
+        '3.6900',
+        '.0000',
+        'a',
+      ],
+    });
   });
 
   it('should validate lowercase strings', function () {

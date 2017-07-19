@@ -606,9 +606,10 @@ function isFloat(str, options) {
 
 var decimal = /^[-+]?([0-9]+|\.[0-9]+|[0-9]+\.[0-9]+)$/;
 
-function isDecimal(str) {
+function isDecimal(str, options) {
   assertString(str);
-  return str !== '' && decimal.test(str);
+  options = options || {};
+  return str !== '' && decimal.test(str) && (!options.hasOwnProperty('digitsAfterDecPoint') || str.indexOf('.') === -1 || str.length - str.indexOf('.') - 1 <= options.digitsAfterDecPoint);
 }
 
 var hexadecimal = /^[0-9A-F]+$/i;
