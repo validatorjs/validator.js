@@ -2090,6 +2090,25 @@ describe('Validators', function () {
     });
   });
 
+  it('should verify SQL Injections', function () {
+    test({
+      validator: 'isSqlInjection',
+      valid: [
+        ' select * from users where 1',
+        ' Or 1=1',
+        ' DROP DATABASE',
+        " oR field lIkE '%%' ",
+        ' JOIN credentials on cretendials.user_id = user.id OR 1=1 ',
+      ],
+      invalid: [
+        'my name is bond',
+        '1234 anderson',
+        'anderson ANDerson andERSON',
+        'ORacle orACLE ORACLE 1=1',
+      ],
+    });
+  });
+
   it('should validate base64 strings', function () {
     test({
       validator: 'isBase64',

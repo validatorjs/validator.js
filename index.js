@@ -100,6 +100,10 @@ var _isSurrogatePair = require('./lib/isSurrogatePair');
 
 var _isSurrogatePair2 = _interopRequireDefault(_isSurrogatePair);
 
+var _isSqlInjection = require('./lib/isSqlInjection');
+
+var _isSqlInjection2 = _interopRequireDefault(_isSqlInjection);
+
 var _isInt = require('./lib/isInt');
 
 var _isInt2 = _interopRequireDefault(_isInt);
@@ -278,6 +282,7 @@ var validator = {
   isVariableWidth: _isVariableWidth2.default,
   isMultibyte: _isMultibyte2.default,
   isSurrogatePair: _isSurrogatePair2.default,
+  isSqlInjection: _isSqlInjection2.default,
   isInt: _isInt2.default,
   isFloat: _isFloat2.default,
   isDecimal: _isDecimal2.default,
