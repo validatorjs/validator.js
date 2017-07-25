@@ -26,6 +26,7 @@ import isHalfWidth from './lib/isHalfWidth';
 import isVariableWidth from './lib/isVariableWidth';
 import isMultibyte from './lib/isMultibyte';
 import isSurrogatePair from './lib/isSurrogatePair';
+import isSqlInjection from './lib/isSqlInjection';
 
 import isInt from './lib/isInt';
 import isFloat from './lib/isFloat';
@@ -110,6 +111,7 @@ const validator = {
   isVariableWidth,
   isMultibyte,
   isSurrogatePair,
+  isSqlInjection,
   isInt,
   isFloat,
   isDecimal,
