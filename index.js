@@ -188,6 +188,10 @@ var _isMobilePhone = require('./lib/isMobilePhone');
 
 var _isMobilePhone2 = _interopRequireDefault(_isMobilePhone);
 
+var _isPhone = require('./lib/isPhone');
+
+var _isPhone2 = _interopRequireDefault(_isPhone);
+
 var _isCurrency = require('./lib/isCurrency');
 
 var _isCurrency2 = _interopRequireDefault(_isCurrency);
@@ -300,6 +304,7 @@ var validator = {
   isISBN: _isISBN2.default,
   isISSN: _isISSN2.default,
   isMobilePhone: _isMobilePhone2.default,
+  isPhone: _isPhone2.default,
   isCurrency: _isCurrency2.default,
   isISO8601: _isISO2.default,
   isBase64: _isBase2.default,
