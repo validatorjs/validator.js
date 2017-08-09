@@ -141,6 +141,7 @@ describe('Validators', function () {
         'Some Name <hans@m端ller.com>',
         'Some Name <test|123@m端ller.com>',
         'Some Name <test+ext@gmail.com>',
+        '\'Foo Bar, Esq\'<foo@bar.com>',
         'Some Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
         'Some Middle Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
         'Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
