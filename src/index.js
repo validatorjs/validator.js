@@ -82,6 +82,11 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import toString from './lib/util/toString';
 
+import isFacebookPostURL from './lib/isFacebookPostURL';
+import isInstagramPostURL from './lib/isFacebookPostURL';
+import isYoutubeVideoURL from './lib/isFacebookPostURL';
+import isTweetURL from './lib/isFacebookPostURL';
+
 const version = '8.0.0';
 
 const validator = {
@@ -136,6 +141,10 @@ const validator = {
   isISO8601,
   isBase64,
   isDataURI,
+  isFacebookPostURL,
+  isInstagramPostURL,
+  isYoutubeVideoURL,
+  isTweetUrl,
   ltrim,
   rtrim,
   trim,
