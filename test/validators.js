@@ -767,6 +767,24 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate norwegian alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['nb-NO'],
+      valid: [
+        'aøå',
+        'Ære',
+        'Øre',
+        'Åre',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        '',
+      ],
+    });
+  });
+
   it('should validate serbian cyrillic alpha strings', function () {
     test({
       validator: 'isAlphanumeric',
@@ -990,6 +1008,24 @@ describe('Validators', function () {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+  });
+
+  it('should validate norwegian alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['nb-NO'],
+      valid: [
+        'ÆØÅ123',
+        'Ære321',
+        '321Øre',
+        '123Åre',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        '',
       ],
     });
   });
