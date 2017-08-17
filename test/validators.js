@@ -710,6 +710,24 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate danish alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['da-DK'],
+      valid: [
+        'aøå',
+        'Ære',
+        'Øre',
+        'Åre',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        '',
+      ],
+    });
+  });
+
   it('should validate german alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -925,6 +943,24 @@ describe('Validators', function () {
       invalid: [
         'řiď ',
         'blé!!',
+      ],
+    });
+  });
+
+  it('should validate danish alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['da-DK'],
+      valid: [
+        'ÆØÅ123',
+        'Ære321',
+        '321Øre',
+        '123Åre',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        '',
       ],
     });
   });
