@@ -41,6 +41,7 @@ import isMD5 from './lib/isMD5';
 
 import isJSON from './lib/isJSON';
 import isEmpty from './lib/isEmpty';
+import isNotEmpty from './lib/isNotEmpty';
 
 import isLength from './lib/isLength';
 import isByteLength from './lib/isByteLength';
@@ -120,6 +121,7 @@ const validator = {
   isMD5,
   isJSON,
   isEmpty,
+  isNotEmpty,
   isLength,
   isByteLength,
   isUUID,
