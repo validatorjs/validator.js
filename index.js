@@ -140,6 +140,10 @@ var _isEmpty = require('./lib/isEmpty');
 
 var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
+var _isNotEmpty = require('./lib/isNotEmpty');
+
+var _isNotEmpty2 = _interopRequireDefault(_isNotEmpty);
+
 var _isLength = require('./lib/isLength');
 
 var _isLength2 = _interopRequireDefault(_isLength);
@@ -288,6 +292,7 @@ var validator = {
   isMD5: _isMD2.default,
   isJSON: _isJSON2.default,
   isEmpty: _isEmpty2.default,
+  isNotEmpty: _isNotEmpty2.default,
   isLength: _isLength2.default,
   isByteLength: _isByteLength2.default,
   isUUID: _isUUID2.default,
