@@ -1464,6 +1464,20 @@ describe('Validators', function () {
     });
   });
 
+  it('should not validate null strings', function () {
+    test({
+      validator: 'isNotEmpty',
+      valid: [
+        ' ',
+        'foo',
+        '3',
+      ],
+      invalid: [
+        '',
+      ],
+    });
+  });
+
   it('should validate strings against an expected value', function () {
     test({ validator: 'equals', args: ['abc'], valid: ['abc'], invalid: ['Abc', '123'] });
   });
