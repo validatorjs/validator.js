@@ -11,7 +11,7 @@
 - Fix `isMobilePhone()` with Node <= 6.x
   ([#681](https://github.com/chriso/validator.js/issues/681))
 - New locales
-  ([#692](https://github.com/chriso/validator.js/pull/692))
+  ([#695](https://github.com/chriso/validator.js/pull/695))
 
 #### 8.0.0
 
