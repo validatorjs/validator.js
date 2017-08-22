@@ -141,6 +141,7 @@ describe('Validators', function () {
         'Some Name <hans@m端ller.com>',
         'Some Name <test|123@m端ller.com>',
         'Some Name <test+ext@gmail.com>',
+        '\'Foo Bar, Esq\'<foo@bar.com>',
         'Some Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
         'Some Middle Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
         'Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
@@ -710,6 +711,24 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate danish alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['da-DK'],
+      valid: [
+        'aøå',
+        'Ære',
+        'Øre',
+        'Åre',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        '',
+      ],
+    });
+  });
+
   it('should validate german alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -763,6 +782,24 @@ describe('Validators', function () {
         'FÜübar',
         'Jön',
         'Heiß',
+      ],
+    });
+  });
+
+  it('should validate norwegian alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['nb-NO'],
+      valid: [
+        'aøå',
+        'Ære',
+        'Øre',
+        'Åre',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        '',
       ],
     });
   });
@@ -911,6 +948,24 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate danish alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['da-DK'],
+      valid: [
+        'ÆØÅ123',
+        'Ære321',
+        '321Øre',
+        '123Åre',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        '',
+      ],
+    });
+  });
+
   it('should validate german alphanumeric strings', function () {
     test({
       validator: 'isAlphanumeric',
@@ -990,6 +1045,24 @@ describe('Validators', function () {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+  });
+
+  it('should validate norwegian alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['nb-NO'],
+      valid: [
+        'ÆØÅ123',
+        'Ære321',
+        '321Øre',
+        '123Åre',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        '',
       ],
     });
   });

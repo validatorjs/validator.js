@@ -1,3 +1,10 @@
+#### HEAD
+
+- Allow comma in email display names
+  ([#692](https://github.com/chriso/validator.js/pull/692))
+- New locales
+  ([#692](https://github.com/chriso/validator.js/pull/692))
+
 #### 8.0.0
 
 - `isURL()` now requires the `require_tld: false` option to validate `localhost`
