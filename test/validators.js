@@ -764,6 +764,29 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate italian alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['it-IT'],
+      valid: [
+        'àéèìîóòù',
+        'correnti',
+        'DEFINIZIONE',
+        'compilazione',
+        'metró',
+        'pèsca',
+        'PÉSCA',
+        'genî',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        'æøå',
+        '',
+      ],
+    });
+  });
+
   it('should validate arabic alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -994,6 +1017,29 @@ describe('Validators', function () {
         'äbc1',
         '  fäö  ',
         'Heiß!',
+        '',
+      ],
+    });
+  });
+
+  it('should validate italian alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['it-IT'],
+      valid: [
+        '123àéèìîóòù',
+        '123correnti',
+        'DEFINIZIONE321',
+        'compil123azione',
+        'met23ró',
+        'pès56ca',
+        'PÉS45CA',
+        'gen45î',
+      ],
+      invalid: [
+        'äbc123',
+        'ÄBC11',
+        'æøå',
         '',
       ],
     });
