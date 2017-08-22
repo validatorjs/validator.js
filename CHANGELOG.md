@@ -1,4 +1,4 @@
-#### HEAD
+#### 8.1.0
 
 - Fix `require('validator/lib/isIS8601')` calls
   ([#688](https://github.com/chriso/validator.js/issues/688))
