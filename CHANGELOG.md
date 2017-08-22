@@ -1,5 +1,7 @@
 #### HEAD
 
+- Allow comma in email display names
+  ([#692](https://github.com/chriso/validator.js/pull/692))
 - New locales
   ([#692](https://github.com/chriso/validator.js/pull/692))
 
