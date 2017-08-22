@@ -1,5 +1,7 @@
 #### HEAD
 
+- Fix `require('validator/lib/isIS8601')` calls
+  ([#688](https://github.com/chriso/validator.js/issues/688))
 - Allow comma in email display names
   ([#692](https://github.com/chriso/validator.js/pull/692))
 - Add missing string to unescape
