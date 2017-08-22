@@ -2,6 +2,8 @@
 
 - Allow comma in email display names
   ([#692](https://github.com/chriso/validator.js/pull/692))
+- Add missing string to unescape
+  ([#690](https://github.com/chriso/validator.js/pull/690))
 - New locales
   ([#692](https://github.com/chriso/validator.js/pull/692))
 
