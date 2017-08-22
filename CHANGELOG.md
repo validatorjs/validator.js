@@ -4,8 +4,10 @@
   ([#688](https://github.com/chriso/validator.js/issues/688))
 - Allow comma in email display names
   ([#692](https://github.com/chriso/validator.js/pull/692))
-- Add missing string to unescape
+- Add missing string to `unescape()`
   ([#690](https://github.com/chriso/validator.js/pull/690))
+- Fix `isMobilePhone()` with Node <= 6.x
+  ([#681](https://github.com/chriso/validator.js/issues/681))
 - New locales
   ([#692](https://github.com/chriso/validator.js/pull/692))
 
