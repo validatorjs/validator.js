@@ -895,6 +895,11 @@ function isISSN(str) {
 }
 
 /* eslint-disable max-len */
+
+var fixPhone = {
+  'fr-FR': /^(\+?33|0)[12345]\d{8}$/
+}
+
 var phones = {
   'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
@@ -956,6 +961,18 @@ function isMobilePhone(str, locale) {
     return phones[locale].test(str);
   } else if (locale === 'any') {
     return !!Object.values(phones).find(function (phone) {
+      return phone.test(str);
+    });
+  }
+  throw new Error('Invalid locale \'' + locale + '\'');
+}
+
+function isPhone(str, locale) {
+  assertString(str);
+  if (locale in fixPhone) {
+    return fixPhone[locale].test(str);
+  } else if (locale === 'any') {
+    return !!Object.values(fixPhone).find(function (phone) {
       return phone.test(str);
     });
   }
@@ -1287,6 +1304,7 @@ var validator = {
   isISBN: isISBN,
   isISSN: isISSN,
   isMobilePhone: isMobilePhone,
+  isPhone: isPhone,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
   isBase64: isBase64,
