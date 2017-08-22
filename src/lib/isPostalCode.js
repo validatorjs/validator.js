@@ -48,8 +48,15 @@ export default function (str, locale) {
   if (locale in patterns) {
     return patterns[locale].test(str);
   } else if (locale === 'any') {
-    // Test each unique pattern
-    return !![...new Set(Object.values(patterns))].find(pattern => pattern.test(str));
+    for (const key in patterns) {
+      if (patterns.hasOwnProperty(key)) {
+        const pattern = patterns[key];
+        if (pattern.test(str)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
   throw new Error(`Invalid locale '${locale}'`);
 }

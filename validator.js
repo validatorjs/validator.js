@@ -69,16 +69,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var toConsumableArray = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  } else {
-    return Array.from(arr);
-  }
-};
-
 function toString(input) {
   if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' && input !== null) {
     if (typeof input.toString === 'function') {
@@ -1123,10 +1113,15 @@ var isPostalCode = function (str, locale) {
   if (locale in patterns) {
     return patterns[locale].test(str);
   } else if (locale === 'any') {
-    // Test each unique pattern
-    return !![].concat(toConsumableArray(new Set(Object.values(patterns)))).find(function (pattern) {
-      return pattern.test(str);
-    });
+    for (var key in patterns) {
+      if (patterns.hasOwnProperty(key)) {
+        var pattern = patterns[key];
+        if (pattern.test(str)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
   throw new Error('Invalid locale \'' + locale + '\'');
 };
