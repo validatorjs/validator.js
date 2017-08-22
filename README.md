@@ -84,6 +84,7 @@ Passing anything other than a string is an error.
 - **isIn(str, values)** - check if the string is in a array of allowed values.
 - **isInt(str [, options])** - check if the string is an integer. `options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to false will disallow integer values with leading zeroes (e.g. `{ allow_leading_zeroes: false }`). Finally, `options` can contain the keys `gt` and/or `lt` which will enforce integers being greater than or less than, respectively, the value provided (e.g. `{gt: 1, lt: 4}` for a number between 1 and 4).
 - **isJSON(str)** - check if the string is valid JSON (note: uses JSON.parse).
+- **isLatLong(str)** - check if the string is a valid latitude-longitude coordinate.
 - **isLength(str, options)** - check if the string's length falls in a range. `options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
 - **isLowercase(str)** - check if the string is lowercase.
 - **isMACAddress(str)** - check if the string is a MAC address.
@@ -92,6 +93,7 @@ Passing anything other than a string is an error.
 - **isMongoId(str)** - check if the string is a valid hex-encoded representation of a [MongoDB ObjectId][mongoid].
 - **isMultibyte(str)** - check if the string contains one or more multibyte chars.
 - **isNumeric(str)** - check if the string contains only numbers.
+- **isPostalCode(str, locale)** - check if the string is a postal code, (locale is one of `[ 'AT','AU','BE','CA','CH','CZ','DE','DK','DZ','ES','FI','FR','GB','GR','IL','IN','IS','IT','JP','KE','LI','MX','NL','NO','PL','PT','RO','RU','SA','SE','TW','US','ZA','ZM' ]` OR 'any'. If 'any' is used, function will check if any of the locals match).
 - **isSurrogatePair(str)** - check if the string contains any surrogate pairs chars.
 - **isURL(str [, options])** - check if the string is an URL. `options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_host: true, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false }`.
 - **isUUID(str [, version])** - check if the string is a UUID (version 3, 4 or 5).
