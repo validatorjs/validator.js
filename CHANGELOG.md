@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locales
+  ([#700](https://github.com/chriso/validator.js/pull/700))
+
 #### 8.1.0
 
 - Fix `require('validator/lib/isIS8601')` calls
