@@ -15,10 +15,11 @@ export default function isRgb(val, options) {
   }
 
   let removedSpace = val.replace(/ /g, '');
-  let regex = /\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)/i;
+  let regex = /rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)/i;
 
   if (removedSpace.match(regex)) {
-    let removeBrackets = removedSpace.replace(/\(/g, '').replace(/\)/g, '');
+    let removeRgbCall = removedSpace.replace(/rgb/g, '');
+    let removeBrackets = removeRgbCall.replace(/\(/g, '').replace(/\)/g, '');
     let valueSliced = removeBrackets.split(',');
     let isValid = true;
 
