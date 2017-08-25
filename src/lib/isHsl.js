@@ -15,10 +15,11 @@ export default function isHsl(val, options) {
   }
 
   let removedSpace = val.replace(/ /g, '');
-  let regex = /\([0-9]{1,3},[0-9]{1,3}%,[0-9]{1,3}%\)/i;
+  let regex = /hsl\(-?[0-9]{1,3},[0-9]{1,3}%,[0-9]{1,3}%\)/i;
 
   if (removedSpace.match(regex)) {
-    let removeBrackets = removedSpace.replace(/\(/g, '').replace(/\)/g, '');
+    let removeHslCall = removedSpace.replace(/hsl/g, '');
+    let removeBrackets = removeHslCall.replace(/\(/g, '').replace(/\)/g, '');
     let valueSliced = removeBrackets.split(',');
     let isValid = true;
 
@@ -26,12 +27,7 @@ export default function isHsl(val, options) {
       let parsedInt = parseInt(i, 10);
 
       if (Number.isInteger(parsedInt)) {
-        if (index === 0) {
-          const isInRange = parsedInt >= 0 && parsedInt <= 360;
-          if (!isInRange) {
-            isValid = false;
-          }
-        } else {
+        if (index !== 0) {
           const isInRange = parsedInt >= 0 && parsedInt <= 100;
           if (!isInRange) {
             isValid = false;
