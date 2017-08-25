@@ -4174,4 +4174,38 @@ describe('Validators', function () {
       args: ['any'],
     });
   });
+
+  it('should validate HEX color - allow transparent', function () {
+    test({
+      validator: 'isHex',
+      args: [{ allow_transparent: true }],
+      valid: [
+        '#0000FF',
+        '#00F',
+        'transparent',
+      ],
+      invalid: [
+        '123',
+        '112233',
+        '#4567',
+      ],
+    });
+  });
+
+  it('should validate HEX color - disallow transparent', function () {
+    test({
+      validator: 'isHex',
+      args: [{ allow_transparent: false }],
+      valid: [
+        '#0000FF',
+        '#00F',
+      ],
+      invalid: [
+        '123',
+        '112233',
+        '#4567',
+        'transparent',
+      ],
+    });
+  });
 });
