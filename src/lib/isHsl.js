@@ -3,62 +3,46 @@ import assertString from './util/assertString';
 import merge from './util/merge';
 
 const default_ishsl_options = {
-  allow_transaprent: true,
+  allow_transparent: true,
 };
-
-var filterFloat = function(value) {
-    if (/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/
-      .test(value))
-      return Number(value);
-  return NaN;
-}
-
-var isBetween0and1 = function(value){
-  return value > 0 && value < 1;
-}
-
-/* eslint-disable max-len */
-/* eslint-disable no-control-regex */
-/* eslint-enable max-len */
-/* eslint-enable no-control-regex */
 
 export default function isHsl(val, options) {
   assertString(val);
-	options = merge(options, default_ishsl_options);
+  options = merge(options, default_ishsl_options);
 
-      if(default_ishsl_options.allow_transaprent === 'true' && val === 'transparent'){
-        return true;
-      };
+  if (options.allow_transparent === 'true' && val === 'transparent') {
+    return true;
+  }
 
-      var removedSpace = val.replace(/ /g, '');
-      var regex = /\([0-9]{1,3},[0-9]{1,3}%,[0-9]{1,3}%\)/i;
+  let removedSpace = val.replace(/ /g, '');
+  let regex = /\([0-9]{1,3},[0-9]{1,3}%,[0-9]{1,3}%\)/i;
 
-      if(removedSpace.match(regex)){
-          var removeBrackets = removedSpace.replace(/\(/g, '').replace(/\)/g, '');
-          var valueSliced = removeBrackets.split(',');
-          var isValid = true;
+  if (removedSpace.match(regex)) {
+    let removeBrackets = removedSpace.replace(/\(/g, '').replace(/\)/g, '');
+    let valueSliced = removeBrackets.split(',');
+    let isValid = true;
 
-          valueSliced.forEach(function(i,index){
-            var parsedInt = parseInt(i);
+    valueSliced.forEach((i, index) => {
+      let parsedInt = parseInt(i, 10);
 
-            if(Number.isInteger(parsedInt)){
-                if(index === 0){
-                  var isInRange = 0 <= parsedInt && parsedInt <= 360;
-                  if(!isInRange){
-                    isValid = false;
-                  }
-                } else {
-                  var isInRange = 0 <= parsedInt && parsedInt <= 100;
-                  if(!isInRange){
-                    isValid = false;
-                  }
-                }
-            } else {
-              isValid = false;
-            }
-        });
-        return isValid;
+      if (Number.isInteger(parsedInt)) {
+        if (index === 0) {
+          const isInRange = parsedInt >= 0 && parsedInt <= 360;
+          if (!isInRange) {
+            isValid = false;
+          }
+        } else {
+          const isInRange = parsedInt >= 0 && parsedInt <= 100;
+          if (!isInRange) {
+            isValid = false;
+          }
+        }
+      } else {
+        isValid = false;
       }
+    });
+    return isValid;
+  }
 
-      return false;
+  return false;
 }
