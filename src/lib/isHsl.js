@@ -10,7 +10,7 @@ export default function isHsl(val, options) {
   assertString(val);
   options = merge(options, default_ishsl_options);
 
-  if (options.allow_transparent === 'true' && val === 'transparent') {
+  if (options.allow_transparent && val === 'transparent') {
     return true;
   }
 

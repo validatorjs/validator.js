@@ -4209,10 +4209,117 @@ describe('Validators', function () {
     });
   });
 
-
-  it('should validate RGB color', function () {
+  it('should validate RGB color - allow transparent', function () {
     test({
       validator: 'isRgb',
+      args: [{ allow_transparent: true }],
+      valid: [
+        'rgb(255,255,255)',
+        'rgb( 255 , 255 , 255 )',
+        'rgb( 255, 255, 255 )',
+        'rgb(255,255,255)',
+        'transparent',
+      ],
+      invalid: [
+        'rgb(-10,255,255)',
+        '255255255',
+        'rgb(255,255,256)',
+      ],
+    });
+  });
+
+  it('should validate RGBA color - allow transparent', function () {
+    test({
+      validator: 'isRgba',
+      args: [{ allow_transparent: true }],
+      valid: [
+        'rgba(255,255,255,1)',
+        'rgba( 255 , 255 , 255 , 1 )',
+        'rgba( 255 , 255 , 255 , 1 )',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,.5)',
+        'rgba(255,255,255,.524141)',
+        'transparent',
+      ],
+      invalid: [
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,-1)',
+        'rgba(255,255,255,1.000000000001)',
+        'rgba(255,255,255,-0.5)',
+        'rgba(255,255,255,2.3)',
+        'rgba(-10,255,255,1)',
+        '2552552551',
+        'rgba(255,255,256),1',
+      ],
+    });
+  });
+
+  it('should validate HSL color - allow transparent', function () {
+    test({
+      validator: 'isHsl',
+      args: [{ allow_transparent: true }],
+      valid: [
+        'hsl(120,50%,50%)',
+        'hsl( 120 , 50% , 50% )',
+        'hsl( 120, 50%, 50% )',
+        'hsl(-120,50%,50%)',
+        'hsl(480,50%,50%)',
+        'transparent',
+      ],
+      invalid: [
+        'hsl(10,-50%,50%)',
+        'hsl(10,50%,-50%)',
+        '120,50%,50%',
+        'hsl(120,100%,101%)',
+        'hsl(50%, 50%, 100%)',
+        'hsl(120, 50, 100%)',
+        'hsl(120, 50%, 100)',
+      ],
+    });
+  });
+
+  it('should validate HSLA color - allow transparent', function () {
+    test({
+      validator: 'isHsla',
+      args: [{ allow_transparent: true }],
+      valid: [
+        'hsla(120,50%,50%,1)',
+        'hsla( 120 , 50% , 50%, 1 )',
+        'hsla( 120, 50%, 50% , 1 )',
+        'hsla(-120,50%,50%,1)',
+        'hsla(480,50%,50%,1)',
+        'hsla(120,50%,100%,0)',
+        'hsla(120,50%,100%,1)',
+        'hsla(120,50%,100%,0.5)',
+        'hsla(120,50%,100%,.5)',
+        'hsla(120,50%,100%,.524141)',
+        'transparent',
+      ],
+      invalid: [
+        'hsla(120,50%,100%,50%)',
+        'hsla(120,50%,100%,2)',
+        'hsla(120,50%,100%,-1)',
+        'hsla(120,50%,100%,1.000000000001)',
+        'hsla(120,50%,100%,-0.5)',
+        'hsla(120,50%,100%,2.3)',
+        'hsla(10,-50%,50%,1)',
+        'hsla(10,50%,-50%,1)',
+        '120,50%,50%,1',
+        'hsla(120,100%,101%,1)',
+        'hsla(50%, 50%, 100%,1)',
+        'hsla(120, 50, 100%,1)',
+        'hsla(120, 50%, 100,1)',
+      ],
+    });
+  });
+
+  it('should validate RGB color - disallow transparent', function () {
+    test({
+      validator: 'isRgb',
+      args: [{ allow_transparent: false }],
       valid: [
         'rgb(255,255,255)',
         'rgb( 255 , 255 , 255 )',
@@ -4223,13 +4330,15 @@ describe('Validators', function () {
         'rgb(-10,255,255)',
         '255255255',
         'rgb(255,255,256)',
+        'transparent',
       ],
     });
   });
 
-  it('should validate RGBA color', function () {
+  it('should validate RGBA color - disallow transparent', function () {
     test({
       validator: 'isRgba',
+      args: [{ allow_transparent: false }],
       valid: [
         'rgba(255,255,255,1)',
         'rgba( 255 , 255 , 255 , 1 )',
@@ -4250,13 +4359,15 @@ describe('Validators', function () {
         'rgba(-10,255,255,1)',
         '2552552551',
         'rgba(255,255,256),1',
+        'transparent',
       ],
     });
   });
 
-  it('should validate HSL color', function () {
+  it('should validate HSL color - disallow transparent', function () {
     test({
       validator: 'isHsl',
+      args: [{ allow_transparent: false }],
       valid: [
         'hsl(120,50%,50%)',
         'hsl( 120 , 50% , 50% )',
@@ -4272,13 +4383,15 @@ describe('Validators', function () {
         'hsl(50%, 50%, 100%)',
         'hsl(120, 50, 100%)',
         'hsl(120, 50%, 100)',
+        'transparent',
       ],
     });
   });
 
-  it('should validate HSLA color', function () {
+  it('should validate HSLA color - disallow transparent', function () {
     test({
       validator: 'isHsla',
+      args: [{ allow_transparent: false }],
       valid: [
         'hsla(120,50%,50%,1)',
         'hsla( 120 , 50% , 50%, 1 )',
@@ -4305,6 +4418,7 @@ describe('Validators', function () {
         'hsla(50%, 50%, 100%,1)',
         'hsla(120, 50, 100%,1)',
         'hsla(120, 50%, 100,1)',
+        'transparent',
       ],
     });
   });

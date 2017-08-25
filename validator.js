@@ -1240,7 +1240,7 @@ function isRgb(val, options) {
   assertString(val);
   options = merge(options, default_isrgb_options);
 
-  if (options.allow_transparent === 'true' && val === 'transparent') {
+  if (options.allow_transparent && val === 'transparent') {
     return true;
   }
 
@@ -1285,7 +1285,7 @@ function isRgba(val, options) {
   assertString(val);
   options = merge(options, default_isrgba_options);
 
-  if (options.allow_transparent === 'true' && val === 'transparent') {
+  if (options.allow_transparent && val === 'transparent') {
     return true;
   }
 
@@ -1327,7 +1327,7 @@ function isHsl(val, options) {
   assertString(val);
   options = merge(options, default_ishsl_options);
 
-  if (options.allow_transparent === 'true' && val === 'transparent') {
+  if (options.allow_transparent && val === 'transparent') {
     return true;
   }
 
@@ -1375,7 +1375,7 @@ function isHsla(val, options) {
   assertString(val);
   options = merge(options, default_ishsla_options);
 
-  if (options.allow_transparent === 'true' && val === 'transparent') {
+  if (options.allow_transparent && val === 'transparent') {
     return true;
   }
 

@@ -17,7 +17,7 @@ export default function isHsla(val, options) {
   assertString(val);
   options = merge(options, default_ishsla_options);
 
-  if (options.allow_transparent === 'true' && val === 'transparent') {
+  if (options.allow_transparent && val === 'transparent') {
     return true;
   }
 
