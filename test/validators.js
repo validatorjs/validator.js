@@ -4208,4 +4208,63 @@ describe('Validators', function () {
       ],
     });
   });
+
+
+  it('should validate RGB color', function () {
+    test({
+      validator: 'isRgb',
+      valid: [
+
+      ],
+      invalid: [
+
+      ],
+    });
+  });
+
+  it('should validate RGBA color', function () {
+    test({
+      validator: 'isRgba',
+      valid: [
+
+      ],
+      invalid: [
+
+      ],
+    });
+  });
+
+  it('should validate HSL color', function () {
+    test({
+      validator: 'isHsl',
+      valid: [
+        'hsl(120,50%,50%)',
+        'hsl( 120 , 50% , 50% )',
+        'hsl( 120, 50%, 50% )',
+        'hsl(-120,50%,50%)',
+        'hsl(480,50%,50%)',
+      ],
+      invalid: [
+        'hsl(10,-50%,50%)',
+        'hsl(10,50%,-50%)',
+        '120,50%,50%',
+        'hsl(120,100%,101%)',
+        'hsl(50%, 50%, 100%)',
+        'hsl(120, 50, 100%)',
+        'hsl(120, 50%, 100)',
+      ],
+    });
+  });
+
+  it('should validate HSLA color', function () {
+    test({
+      validator: 'isHsla',
+      valid: [
+
+      ],
+      invalid: [
+
+      ],
+    });
+  });
 });
