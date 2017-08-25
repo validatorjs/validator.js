@@ -248,6 +248,26 @@ var _isWhitelisted = require('./lib/isWhitelisted');
 
 var _isWhitelisted2 = _interopRequireDefault(_isWhitelisted);
 
+var _isHex = require('./lib/isHex');
+
+var _isHex2 = _interopRequireDefault(_isHex);
+
+var _isRgb = require('./lib/isRgb');
+
+var _isRgb2 = _interopRequireDefault(_isRgb);
+
+var _isRgba = require('./lib/isRgba');
+
+var _isRgba2 = _interopRequireDefault(_isRgba);
+
+var _isHsl = require('./lib/isHsl');
+
+var _isHsl2 = _interopRequireDefault(_isHsl);
+
+var _isHsla = require('./lib/isHsla');
+
+var _isHsla2 = _interopRequireDefault(_isHsla);
+
 var _normalizeEmail = require('./lib/normalizeEmail');
 
 var _normalizeEmail2 = _interopRequireDefault(_normalizeEmail);
@@ -324,7 +344,12 @@ var validator = {
   blacklist: _blacklist2.default,
   isWhitelisted: _isWhitelisted2.default,
   normalizeEmail: _normalizeEmail2.default,
-  toString: _toString2.default
+  toString: _toString2.default,
+  isHex: _isHex2.default,
+  isRgb: _isRgb2.default,
+  isRgba: _isRgba2.default,
+  isHsl: _isHsl2.default,
+  isHsla: _isHsla2.default
 };
 
 exports.default = validator;
