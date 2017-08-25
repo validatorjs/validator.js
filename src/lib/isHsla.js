@@ -7,8 +7,7 @@ const default_ishsla_options = {
 };
 
 let filterFloat = function (value) {
-  if (/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/
-    .test(value)) {
+  if (/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value)) {
     return Number(value);
   }
   return NaN;
@@ -23,42 +22,44 @@ export default function isHsla(val, options) {
   }
 
   let removedSpace = val.replace(/ /g, '');
-  let regex = /\([0-9]{1,3},[0-9]{1,3}%,[0-9]{1,3}%,[0,1]{1}.?[0-9]*\)/i;
+  let regex = /hsla\(-?[0-9]{1,3},[0-9]{1,3}%,[0-9]{1,3}%,[0,1]?.?[0-9]*\)/i;
 
   if (removedSpace.match(regex)) {
-    let removeBrackets = removedSpace.replace(/\(/g, '').replace(/\)/g, '');
+    let removeHslaCall = removedSpace.replace(/hsla/g, '');
+    let removeBrackets = removeHslaCall.replace(/\(/g, '').replace(/\)/g, '');
     let valueSliced = removeBrackets.split(',');
     let isValid = true;
 
     valueSliced.forEach((i, index) => {
       let value = filterFloat(i);
+      const parsedInt = parseInt(i, 10);
 
       if (Number.isInteger(value)) {
-        if (index === 0) {
-          const isInRange = value >= 0 && value <= 360;
-          if (!isInRange) {
-            isValid = false;
-          }
-        } else {
+        if (index !== 0 && index !== 3) {
           const isInRange = value >= 0 && value <= 100;
           if (!isInRange) {
             isValid = false;
           }
         }
-      } else if (isNaN(value)) {
-        // percent value
-        value = parseInt(i, 10);
-        const isInRange = value >= 0 && value <= 100;
+
+        if (isValid && index === 3) {
+          isValid = value >= 0 && value < 2;
+        }
+      } else if (isNaN(value) && Number.isInteger(parsedInt)) {
+        const isInRange = parsedInt >= 0 && parsedInt <= 100;
         if (!isInRange) {
           isValid = false;
         }
       } else {
+        value = filterFloat(Number(i).toFixed(20));
+
         const isInRange = value >= 0 && value <= 1;
         if (!isInRange) {
           isValid = false;
         }
       }
     });
+
     return isValid;
   }
 
