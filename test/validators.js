@@ -4214,10 +4214,15 @@ describe('Validators', function () {
     test({
       validator: 'isRgb',
       valid: [
-
+        'rgb(255,255,255)',
+        'rgb( 255 , 255 , 255 )',
+        'rgb( 255, 255, 255 )',
+        'rgb(255,255,255)',
       ],
       invalid: [
-
+        'rgb(-10,255,255)',
+        '255255255',
+        'rgb(255,255,256)',
       ],
     });
   });
