@@ -12,7 +12,8 @@ const filterFloat = function (value) {
 };
 
 const isBetween0and1 = function (value) {
-  return value > 0 && value < 1;
+  value = filterFloat(Number(value).toFixed(20));
+  return value >= 0 && value <= 1;
 };
 
 export default function isRgba(val, options) {
@@ -25,21 +26,26 @@ export default function isRgba(val, options) {
 
 
   let removedSpace = val.replace(/ /g, '');
-  let regex = /\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0,1]{1}.?[0-9]*\)/i;
+  let regex = /rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0,1]?.?[0-9]*\)/i;
 
   if (removedSpace.match(regex)) {
-    let removeBrackets = removedSpace.replace(/\(/g, '').replace(/\)/g, '');
+    let removeRgbaCall = removedSpace.replace(/rgba/g, '');
+    let removeBrackets = removeRgbaCall.replace(/\(/g, '').replace(/\)/g, '');
     let valueSliced = removeBrackets.split(',');
     let isValid = true;
 
-    valueSliced.forEach((i) => {
+    valueSliced.forEach((i, index) => {
       let value = filterFloat(i);
       if (Number.isInteger(value)) {
         let isInRange = value >= 0 && value <= 255;
         if (!isInRange) {
           isValid = false;
         }
-      } else if (!isBetween0and1(value)) {
+
+        if (isValid && index === 3) {
+          isValid = value >= 0 && value < 2;
+        }
+      } else if (!isBetween0and1(i)) {
         isValid = false;
       }
     });
