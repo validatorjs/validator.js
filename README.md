@@ -148,8 +148,8 @@ In general, we follow the "fork-and-pull" Git workflow.
     3. Run tests and make sure they pass
     4. Add changes to README.md if needed
 4. Commit changes to your own branch
-5. Push your work back up to your fork
-6. **Make sure** you merge the latest from "upstream"
+5. **Make sure** you merge the latest from "upstream" and resolve conflects if there is any
+6. Push your work back up to your fork
 7. Submit a Pull request so that we can review your changes
 
 ### Tests
