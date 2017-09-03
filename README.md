@@ -11,14 +11,13 @@ A library of string validators and sanitizers.
 If you're not sure if your input is a string, coerce it using `input + ''`.
 Passing anything other than a string is an error.
 
-
 ## Installation and Usage
 
 ### Server-side usage
 
 Install the library with `npm install validator`
 
-#### ES5
+#### No ES6
 
 ```javascript
 var validator = require('validator');
@@ -137,7 +136,25 @@ XSS sanitization was removed from the library in [2d5d6999](https://github.com/c
 
 For an alternative, have a look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters) or at [DOMPurify](https://github.com/cure53/DOMPurify).
 
+## Contributing
+
+In general, we follow the "fork-and-pull" Git workflow.
+
+1. Fork the repo on GitHub
+2. Clone the project to your own machine
+3. Work on your fork
+    1. Make your changes and additions
+    2. Change or add tests if needed
+    3. Run tests and make sure they pass
+    4. Add changes to README.md if needed
+4. Commit changes to your own branch
+5. Push your work back up to your fork
+6. **Make sure** you merge the latest from "upstream"
+7. Submit a Pull request so that we can review your changes
+
 ### Tests
+
+Tests are using mocha, to run the tests use:
 
 ```sh
 $ npm test
