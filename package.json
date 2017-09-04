@@ -45,6 +45,7 @@
   },
   "scripts": {
     "lint": "eslint src test",
+    "lint:fix": "eslint --fix src test",
     "clean:node": "rm -rf index.js lib",
     "clean:browser": "rm -rf validator*.js",
     "clean": "npm run clean:node && npm run clean:browser",
