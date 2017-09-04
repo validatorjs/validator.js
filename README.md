@@ -152,7 +152,7 @@ In general, we follow the "fork-and-pull" Git workflow.
 6. Push your work back up to your fork
 7. Submit a Pull request so that we can review your changes
 
-### Tests
+## Tests
 
 Tests are using mocha, to run the tests use:
 
@@ -160,11 +160,11 @@ Tests are using mocha, to run the tests use:
 $ npm test
 ```
 
-### Reading
+## Reading
 
 Remember, validating can be troublesome sometimes. See [A list of articles about programming assumptions commonly made that aren't true](https://github.com/jameslk/awesome-falsehoods).
 
-### License (MIT)
+## License (MIT)
 
 ```
 Copyright (c) 2017 Chris O'Hara <cohara87@gmail.com>
