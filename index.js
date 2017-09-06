@@ -132,6 +132,10 @@ var _isMD = require('./lib/isMD5');
 
 var _isMD2 = _interopRequireDefault(_isMD);
 
+var _isHash = require('./lib/isHash');
+
+var _isHash2 = _interopRequireDefault(_isHash);
+
 var _isJSON = require('./lib/isJSON');
 
 var _isJSON2 = _interopRequireDefault(_isJSON);
@@ -294,6 +298,7 @@ var validator = {
   isHexColor: _isHexColor2.default,
   isISRC: _isISRC2.default,
   isMD5: _isMD2.default,
+  isHash: _isHash2.default,
   isJSON: _isJSON2.default,
   isEmpty: _isEmpty2.default,
   isLength: _isLength2.default,
