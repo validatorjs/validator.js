@@ -918,6 +918,24 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate swedish alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['sv-SE'],
+      valid: [
+        'religiös',
+        'stjäla',
+        'västgöte',
+        'Åre',
+      ],
+      invalid: [
+        'AİıÖöÇçŞşĞğÜüZ',
+        'religiös23',
+        '',
+      ],
+    });
+  });
+
   it('should validate defined arabic locales alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -1239,6 +1257,24 @@ describe('Validators', function () {
         'řiď ',
         'blé!!',
         'föö!!',
+      ],
+    });
+  });
+
+  it('should validate swedish alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['sv-SE'],
+      valid: [
+        'religiös13',
+        'st23jäla',
+        'västgöte123',
+        '123Åre',
+      ],
+      invalid: [
+        'AİıÖöÇçŞşĞğÜüZ',
+        'foo!!',
+        '',
       ],
     });
   });
