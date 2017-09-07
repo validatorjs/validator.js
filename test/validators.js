@@ -729,6 +729,25 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate dutch alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['nl-NL'],
+      valid: [
+        'Kán',
+        'één',
+        'vóór',
+        'nú',
+        'héél',
+      ],
+      invalid: [
+        'äca ',
+        'abcß',
+        'Øre',
+      ],
+    });
+  });
+
   it('should validate german alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -985,6 +1004,25 @@ describe('Validators', function () {
         'äbc123',
         'ÄBC11',
         '',
+      ],
+    });
+  });
+
+  it('should validate dutch alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['nl-NL'],
+      valid: [
+        'Kán123',
+        'één354',
+        'v4óór',
+        'nú234',
+        'hé54él',
+      ],
+      invalid: [
+        '1äca ',
+        'ab3cß',
+        'Øre',
       ],
     });
   });
