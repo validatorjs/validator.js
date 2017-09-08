@@ -1,5 +1,6 @@
 var assert = require('assert');
 var validator = require('../index');
+var isPostalCodeLocales = require('../lib/isPostalCode').locales;
 
 describe('Exports', function () {
   it('should export validators', function () {
@@ -17,5 +18,9 @@ describe('Exports', function () {
     assert.equal(validator.version, require('../package.json').version,
       'Version number mismatch in "package.json" vs. "validator.js"');
     /* eslint-enable global-require */
+  });
+
+  it('should export isPostalCode\'s supported locales', function () {
+    assert.ok(isPostalCodeLocales instanceof Array);
   });
 });
