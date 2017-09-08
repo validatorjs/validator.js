@@ -58,7 +58,7 @@ $ bower install validator-js
 
 Here is a list of the validators currently available.
 
-validator                               | description
+Validator                               | Description
 --------------------------------------- | --------------------------------------
 ***contains(str, seed)***               | check if the string contains the seed.
 **equals(str, comparison)**             | check if the string matches the comparison.
@@ -114,7 +114,7 @@ validator                               | description
 
 Here is a list of the sanitizers currently available.
 
-Sanitizer                              | description
+Sanitizer                              | Description
 -------------------------------------- | -------------------------------
 **blacklist(input, chars)**            | remove characters that appear in the blacklist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `blacklist(input, '\\[\\]')`.
 **escape(input)**                      | replace `<`, `>`, `&`, `'`, `"` and `/` with HTML entities.
