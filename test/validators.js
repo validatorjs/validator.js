@@ -729,6 +729,25 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate dutch alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['nl-NL'],
+      valid: [
+        'Kán',
+        'één',
+        'vóór',
+        'nú',
+        'héél',
+      ],
+      invalid: [
+        'äca ',
+        'abcß',
+        'Øre',
+      ],
+    });
+  });
+
   it('should validate german alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -827,9 +846,30 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate polish alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['pl-PL'],
+      valid: [
+        'kreską',
+        'zamknięte',
+        'zwykłe',
+        'kropką',
+        'przyjęły',
+        'święty',
+        'Pozwól',
+      ],
+      invalid: [
+        '12řiď ',
+        'blé!!',
+        'föö!2!',
+      ],
+    });
+  });
+
   it('should validate serbian cyrillic alpha strings', function () {
     test({
-      validator: 'isAlphanumeric',
+      validator: 'isAlpha',
       args: ['sr-RS'],
       valid: [
         'ШћжЂљЕ',
@@ -845,7 +885,7 @@ describe('Validators', function () {
 
   it('should validate serbian latin alpha strings', function () {
     test({
-      validator: 'isAlphanumeric',
+      validator: 'isAlpha',
       args: ['sr-RS@latin'],
       valid: [
         'ŠAabčšđćž',
@@ -859,6 +899,42 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate spanish alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['es-ES'],
+      valid: [
+        'ábcó',
+        'ÁBCÓ',
+        'dormís',
+        'volvés',
+        'español',
+      ],
+      invalid: [
+        'äca ',
+        'abcß',
+        'föö!!',
+      ],
+    });
+  });
+
+  it('should validate swedish alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['sv-SE'],
+      valid: [
+        'religiös',
+        'stjäla',
+        'västgöte',
+        'Åre',
+      ],
+      invalid: [
+        'AİıÖöÇçŞşĞğÜüZ',
+        'religiös23',
+        '',
+      ],
+    });
+  });
 
   it('should validate defined arabic locales alpha strings', function () {
     test({
@@ -989,6 +1065,25 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate dutch alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['nl-NL'],
+      valid: [
+        'Kán123',
+        'één354',
+        'v4óór',
+        'nú234',
+        'hé54él',
+      ],
+      invalid: [
+        '1äca ',
+        'ab3cß',
+        'Øre',
+      ],
+    });
+  });
+
   it('should validate german alphanumeric strings', function () {
     test({
       validator: 'isAlphanumeric',
@@ -1113,6 +1208,27 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate polish alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['pl-PL'],
+      valid: [
+        'kre123ską',
+        'zam21knięte',
+        'zw23ykłe',
+        '123',
+        'prz23yjęły',
+        'świ23ęty',
+        'Poz1322wól',
+      ],
+      invalid: [
+        '12řiď ',
+        'blé!!',
+        'föö!2!',
+      ],
+    });
+  });
+
   it('should validate serbian cyrillic alphanumeric strings', function () {
     test({
       validator: 'isAlphanumeric',
@@ -1141,6 +1257,24 @@ describe('Validators', function () {
         'řiď ',
         'blé!!',
         'föö!!',
+      ],
+    });
+  });
+
+  it('should validate swedish alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['sv-SE'],
+      valid: [
+        'religiös13',
+        'st23jäla',
+        'västgöte123',
+        '123Åre',
+      ],
+      invalid: [
+        'AİıÖöÇçŞşĞğÜüZ',
+        'foo!!',
+        '',
       ],
     });
   });
