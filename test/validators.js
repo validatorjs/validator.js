@@ -4174,4 +4174,252 @@ describe('Validators', function () {
       args: ['any'],
     });
   });
+
+  it('should validate HEX color - allow transparent', function () {
+    test({
+      validator: 'isHex',
+      args: [{ allow_transparent: true }],
+      valid: [
+        '#0000FF',
+        '#00F',
+        'transparent',
+      ],
+      invalid: [
+        '123',
+        '112233',
+        '#4567',
+      ],
+    });
+  });
+
+  it('should validate HEX color - disallow transparent', function () {
+    test({
+      validator: 'isHex',
+      args: [{ allow_transparent: false }],
+      valid: [
+        '#0000FF',
+        '#00F',
+      ],
+      invalid: [
+        '123',
+        '112233',
+        '#4567',
+        'transparent',
+      ],
+    });
+  });
+
+  it('should validate RGB color - allow transparent', function () {
+    test({
+      validator: 'isRgb',
+      args: [{ allow_transparent: true }],
+      valid: [
+        'rgb(255,255,255)',
+        'rgb( 255 , 255 , 255 )',
+        'rgb( 255, 255, 255 )',
+        'rgb(255,255,255)',
+        'transparent',
+      ],
+      invalid: [
+        'rgb(-10,255,255)',
+        '255255255',
+        'rgb(255,255,256)',
+      ],
+    });
+  });
+
+  it('should validate RGBA color - allow transparent', function () {
+    test({
+      validator: 'isRgba',
+      args: [{ allow_transparent: true }],
+      valid: [
+        'rgba(255,255,255,1)',
+        'rgba( 255 , 255 , 255 , 1 )',
+        'rgba( 255 , 255 , 255 , 1 )',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,.5)',
+        'rgba(255,255,255,.524141)',
+        'transparent',
+      ],
+      invalid: [
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,-1)',
+        'rgba(255,255,255,1.000000000001)',
+        'rgba(255,255,255,-0.5)',
+        'rgba(255,255,255,2.3)',
+        'rgba(-10,255,255,1)',
+        '2552552551',
+        'rgba(255,255,256),1',
+      ],
+    });
+  });
+
+  it('should validate HSL color - allow transparent', function () {
+    test({
+      validator: 'isHsl',
+      args: [{ allow_transparent: true }],
+      valid: [
+        'hsl(120,50%,50%)',
+        'hsl( 120 , 50% , 50% )',
+        'hsl( 120, 50%, 50% )',
+        'hsl(-120,50%,50%)',
+        'hsl(480,50%,50%)',
+        'transparent',
+      ],
+      invalid: [
+        'hsl(10,-50%,50%)',
+        'hsl(10,50%,-50%)',
+        '120,50%,50%',
+        'hsl(120,100%,101%)',
+        'hsl(50%, 50%, 100%)',
+        'hsl(120, 50, 100%)',
+        'hsl(120, 50%, 100)',
+      ],
+    });
+  });
+
+  it('should validate HSLA color - allow transparent', function () {
+    test({
+      validator: 'isHsla',
+      args: [{ allow_transparent: true }],
+      valid: [
+        'hsla(120,50%,50%,1)',
+        'hsla( 120 , 50% , 50%, 1 )',
+        'hsla( 120, 50%, 50% , 1 )',
+        'hsla(-120,50%,50%,1)',
+        'hsla(480,50%,50%,1)',
+        'hsla(120,50%,100%,0)',
+        'hsla(120,50%,100%,1)',
+        'hsla(120,50%,100%,0.5)',
+        'hsla(120,50%,100%,.5)',
+        'hsla(120,50%,100%,.524141)',
+        'transparent',
+      ],
+      invalid: [
+        'hsla(120,50%,100%,50%)',
+        'hsla(120,50%,100%,2)',
+        'hsla(120,50%,100%,-1)',
+        'hsla(120,50%,100%,1.000000000001)',
+        'hsla(120,50%,100%,-0.5)',
+        'hsla(120,50%,100%,2.3)',
+        'hsla(10,-50%,50%,1)',
+        'hsla(10,50%,-50%,1)',
+        '120,50%,50%,1',
+        'hsla(120,100%,101%,1)',
+        'hsla(50%, 50%, 100%,1)',
+        'hsla(120, 50, 100%,1)',
+        'hsla(120, 50%, 100,1)',
+      ],
+    });
+  });
+
+  it('should validate RGB color - disallow transparent', function () {
+    test({
+      validator: 'isRgb',
+      args: [{ allow_transparent: false }],
+      valid: [
+        'rgb(255,255,255)',
+        'rgb( 255 , 255 , 255 )',
+        'rgb( 255, 255, 255 )',
+        'rgb(255,255,255)',
+      ],
+      invalid: [
+        'rgb(-10,255,255)',
+        '255255255',
+        'rgb(255,255,256)',
+        'transparent',
+      ],
+    });
+  });
+
+  it('should validate RGBA color - disallow transparent', function () {
+    test({
+      validator: 'isRgba',
+      args: [{ allow_transparent: false }],
+      valid: [
+        'rgba(255,255,255,1)',
+        'rgba( 255 , 255 , 255 , 1 )',
+        'rgba( 255 , 255 , 255 , 1 )',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,.5)',
+        'rgba(255,255,255,.524141)',
+      ],
+      invalid: [
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,-1)',
+        'rgba(255,255,255,1.000000000001)',
+        'rgba(255,255,255,-0.5)',
+        'rgba(255,255,255,2.3)',
+        'rgba(-10,255,255,1)',
+        '2552552551',
+        'rgba(255,255,256),1',
+        'transparent',
+      ],
+    });
+  });
+
+  it('should validate HSL color - disallow transparent', function () {
+    test({
+      validator: 'isHsl',
+      args: [{ allow_transparent: false }],
+      valid: [
+        'hsl(120,50%,50%)',
+        'hsl( 120 , 50% , 50% )',
+        'hsl( 120, 50%, 50% )',
+        'hsl(-120,50%,50%)',
+        'hsl(480,50%,50%)',
+      ],
+      invalid: [
+        'hsl(10,-50%,50%)',
+        'hsl(10,50%,-50%)',
+        '120,50%,50%',
+        'hsl(120,100%,101%)',
+        'hsl(50%, 50%, 100%)',
+        'hsl(120, 50, 100%)',
+        'hsl(120, 50%, 100)',
+        'transparent',
+      ],
+    });
+  });
+
+  it('should validate HSLA color - disallow transparent', function () {
+    test({
+      validator: 'isHsla',
+      args: [{ allow_transparent: false }],
+      valid: [
+        'hsla(120,50%,50%,1)',
+        'hsla( 120 , 50% , 50%, 1 )',
+        'hsla( 120, 50%, 50% , 1 )',
+        'hsla(-120,50%,50%,1)',
+        'hsla(480,50%,50%,1)',
+        'hsla(120,50%,100%,0)',
+        'hsla(120,50%,100%,1)',
+        'hsla(120,50%,100%,0.5)',
+        'hsla(120,50%,100%,.5)',
+        'hsla(120,50%,100%,.524141)',
+      ],
+      invalid: [
+        'hsla(120,50%,100%,50%)',
+        'hsla(120,50%,100%,2)',
+        'hsla(120,50%,100%,-1)',
+        'hsla(120,50%,100%,1.000000000001)',
+        'hsla(120,50%,100%,-0.5)',
+        'hsla(120,50%,100%,2.3)',
+        'hsla(10,-50%,50%,1)',
+        'hsla(10,50%,-50%,1)',
+        '120,50%,50%,1',
+        'hsla(120,100%,101%,1)',
+        'hsla(50%, 50%, 100%,1)',
+        'hsla(120, 50, 100%,1)',
+        'hsla(120, 50%, 100,1)',
+        'transparent',
+      ],
+    });
+  });
 });

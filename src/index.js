@@ -81,6 +81,12 @@ import whitelist from './lib/whitelist';
 import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 
+import isHex from './lib/isHex';
+import isRgb from './lib/isRgb';
+import isRgba from './lib/isRgba';
+import isHsl from './lib/isHsl';
+import isHsla from './lib/isHsla';
+
 import normalizeEmail from './lib/normalizeEmail';
 
 import toString from './lib/util/toString';
@@ -152,6 +158,11 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
+  isHex,
+  isRgb,
+  isRgba,
+  isHsl,
+  isHsla,
 };
 
 export default validator;
