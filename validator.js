@@ -480,16 +480,19 @@ var alphanumeric = {
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/
 };
 
+var decimal = {
+  'en-US': '.',
+  ar: '٫'
+};
+
 var englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
 for (var locale, i = 0; i < englishLocales.length; i++) {
   locale = 'en-' + englishLocales[i];
   alpha[locale] = alpha['en-US'];
   alphanumeric[locale] = alphanumeric['en-US'];
+  decimal[locale] = decimal['en-US'];
 }
-
-alpha['pt-BR'] = alpha['pt-PT'];
-alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 
 // Source: http://www.localeplanet.com/java/
 var arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
@@ -498,7 +501,24 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
   _locale = 'ar-' + arabicLocales[_i];
   alpha[_locale] = alpha.ar;
   alphanumeric[_locale] = alphanumeric.ar;
+  decimal[_locale] = decimal.ar;
 }
+
+// Source: https://en.wikipedia.org/wiki/Decimal_mark
+var dotDecimal = [];
+var commaDecimal = ['cs-CZ', 'da-DK', 'de-DE', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+
+for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
+  decimal[dotDecimal[_i2]] = decimal['en-US'];
+}
+
+for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
+  decimal[commaDecimal[_i3]] = ',';
+}
+
+alpha['pt-BR'] = alpha['pt-PT'];
+alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
+decimal['pt-BR'] = decimal['pt-PT'];
 
 function isAlpha(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
@@ -612,11 +632,15 @@ function isFloat(str, options) {
   return float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max) && (!options.hasOwnProperty('lt') || str < options.lt) && (!options.hasOwnProperty('gt') || str > options.gt);
 }
 
-var decimal = /^[-+]?([0-9]+|\.[0-9]+|[0-9]+\.[0-9]+)$/;
-
 function isDecimal(str) {
+  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
+
   assertString(str);
-  return str !== '' && decimal.test(str);
+  if (locale in decimal) {
+    var decimalRegExp = new RegExp('^[-+]?([0-9]+|\\' + decimal[locale] + '[0-9]+|[0-9]+\\' + decimal[locale] + '[0-9]+)$');
+    return str !== '' && decimalRegExp.test(str);
+  }
+  throw new Error('Invalid locale \'' + locale + '\'');
 }
 
 var hexadecimal = /^[0-9A-F]+$/i;

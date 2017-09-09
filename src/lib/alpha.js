@@ -44,16 +44,20 @@ export const alphanumeric = {
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
 };
 
+export const decimal = {
+  'en-US': '.',
+  ar: '٫',
+};
+
+
 export const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
 for (let locale, i = 0; i < englishLocales.length; i++) {
   locale = `en-${englishLocales[i]}`;
   alpha[locale] = alpha['en-US'];
   alphanumeric[locale] = alphanumeric['en-US'];
+  decimal[locale] = decimal['en-US'];
 }
-
-alpha['pt-BR'] = alpha['pt-PT'];
-alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 
 // Source: http://www.localeplanet.com/java/
 export const arabicLocales = [
@@ -65,4 +69,25 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
   locale = `ar-${arabicLocales[i]}`;
   alpha[locale] = alpha.ar;
   alphanumeric[locale] = alphanumeric.ar;
+  decimal[locale] = decimal.ar;
 }
+
+// Source: https://en.wikipedia.org/wiki/Decimal_mark
+export const dotDecimal = [];
+export const commaDecimal = [
+  'cs-CZ', 'da-DK', 'de-DE', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO',
+  'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin',
+  'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA',
+];
+
+for (let i = 0; i < dotDecimal.length; i++) {
+  decimal[dotDecimal[i]] = decimal['en-US'];
+}
+
+for (let i = 0; i < commaDecimal.length; i++) {
+  decimal[commaDecimal[i]] = ',';
+}
+
+alpha['pt-BR'] = alpha['pt-PT'];
+alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
+decimal['pt-BR'] = decimal['pt-PT'];

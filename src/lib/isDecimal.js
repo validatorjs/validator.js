@@ -1,8 +1,11 @@
 import assertString from './util/assertString';
+import { decimal } from './alpha';
 
-const decimal = /^[-+]?([0-9]+|\.[0-9]+|[0-9]+\.[0-9]+)$/;
-
-export default function isDecimal(str) {
+export default function isDecimal(str, locale = 'en-US') {
   assertString(str);
-  return str !== '' && decimal.test(str);
+  if (locale in decimal) {
+    const decimalRegExp = new RegExp(`^[-+]?([0-9]+|\\${decimal[locale]}[0-9]+|[0-9]+\\${decimal[locale]}[0-9]+)$`);
+    return str !== '' && decimalRegExp.test(str);
+  }
+  throw new Error(`Invalid locale '${locale}'`);
 }
