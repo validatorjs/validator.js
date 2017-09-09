@@ -38,6 +38,7 @@ import isHexColor from './lib/isHexColor';
 import isISRC from './lib/isISRC';
 
 import isMD5 from './lib/isMD5';
+import isHash from './lib/isHash';
 
 import isJSON from './lib/isJSON';
 import isEmpty from './lib/isEmpty';
@@ -121,6 +122,7 @@ const validator = {
   isHexColor,
   isISRC,
   isMD5,
+  isHash,
   isJSON,
   isEmpty,
   isLength,

@@ -81,6 +81,7 @@ Validator                               | Description
 **isFloat(str [, options])**            | check if the string is a float.<br/><br/>`options` is an object which can contain the keys `min`, `max`, `gt`, and/or `lt` to validate the float is within boundaries (e.g. `{ min: 7.22, max: 9.55 }`). `min` and `max` are equivalent to 'greater or equal' and 'less or equal', respectively while `gt` and `lt` are their strict counterparts.
 **isFullWidth(str)**                    | check if the string contains any full-width chars.
 **isHalfWidth(str)**                    | check if the string contains any half-width chars.
+**isHash(str, algorithm)**              | check if the string is a hash of type algorithm.<br/><br/>Algorithm is one of `['md4', 'md5', 'sha1', 'sha256', 'sha384', 'sha512', 'ripemd128', 'ripemd160', 'tiger128', 'tiger160', 'tiger192', 'crc32', 'crc32b']`
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
 **isIP(str [, version])**               | check if the string is an IP (version 4 or 6).
