@@ -922,8 +922,10 @@ function isISSN(str) {
 
 /* eslint-disable max-len */
 var phones = {
+  'ar-AE': /^((\+?971)|0)?5[024568]\d{7}$/,
   'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
-  'ar-JO': /^(0|00962|\+962)7[789]\d{7}$/,
+  'ar-EG': /^((\+?20)|0)?1[012]\d{8}$/,
+  'ar-JO': /^(\+?962|0)?7[789]\d{7}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
@@ -997,14 +999,18 @@ function isMobilePhone(str, locale) {
 }
 
 function currencyRegex(options) {
+  var decimal_digits = '\\d{' + options.digits_after_decimal[0] + '}';
+  options.digits_after_decimal.forEach(function (digit, index) {
+    if (index !== 0) decimal_digits = decimal_digits + '|\\d{' + digit + '}';
+  });
   var symbol = '(\\' + options.symbol.replace(/\./g, '\\.') + ')' + (options.require_symbol ? '' : '?'),
       negative = '-?',
       whole_dollar_amount_without_sep = '[1-9]\\d*',
       whole_dollar_amount_with_sep = '[1-9]\\d{0,2}(\\' + options.thousands_separator + '\\d{3})*',
       valid_whole_dollar_amounts = ['0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
       whole_dollar_amount = '(' + valid_whole_dollar_amounts.join('|') + ')?',
-      decimal_amount = '(\\' + options.decimal_separator + '\\d{2})?';
-  var pattern = whole_dollar_amount + decimal_amount;
+      decimal_amount = '(\\' + options.decimal_separator + '(' + decimal_digits + '))' + (options.require_decimal ? '' : '?');
+  var pattern = whole_dollar_amount + (options.allow_decimal || options.require_decimal ? decimal_amount : '');
 
   // default is negative sign before symbol, but there are two other options (besides parens)
   if (options.allow_negatives && !options.parens_for_negatives) {
@@ -1055,6 +1061,9 @@ var default_currency_options = {
   allow_negative_sign_placeholder: false,
   thousands_separator: ',',
   decimal_separator: '.',
+  allow_decimal: true,
+  require_decimal: false,
+  digits_after_decimal: [2],
   allow_space_after_digits: false
 };
 
