@@ -1380,7 +1380,7 @@ describe('Validators', function () {
 
     test({
       validator: 'isDecimal',
-      args: ['en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-ZA', 'en-ZM'],
+      args: [{ locale: 'en-AU' }],
       valid: [
         '123',
         '00123',
@@ -1420,11 +1420,7 @@ describe('Validators', function () {
 
     test({
       validator: 'isDecimal',
-      args: [
-        'cs-CZ', 'da-DK', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO',
-        'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'pt-BR', 'ru-RU', 'sr-RS@latin',
-        'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA',
-      ],
+      args: [{ locale: ['cs-CZ'] }],
       valid: [
         '123',
         '00123',
@@ -1464,10 +1460,7 @@ describe('Validators', function () {
 
     test({
       validator: 'isDecimal',
-      args: [
-        'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY',
-        'ar-MA', 'ar-QM', 'ar-QA', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE',
-      ],
+      args: [{ locale: ['ar-JO'] }],
       valid: [
         '123',
         '00123',
@@ -1493,6 +1486,80 @@ describe('Validators', function () {
         '.1',
         '1.0',
         '-.25',
+        '....',
+        ' ',
+        '',
+        '-',
+        '+',
+        '.',
+        '0.1a',
+        'a',
+        '\n',
+      ],
+    });
+
+    test({
+      validator: 'isDecimal',
+      args: [{ force_decimal: true }],
+      valid: [
+        '0.01',
+        '.1',
+        '1.0',
+        '-.25',
+        '0.0000000000001',
+      ],
+      invalid: [
+        '-0',
+        '123',
+        '00123',
+        '-00123',
+        '0',
+        '-0',
+        '+123',
+        '0,0000000000001',
+        '0,01',
+        ',1',
+        '1,0',
+        '-,25',
+        '....',
+        ' ',
+        '',
+        '-',
+        '+',
+        '.',
+        '0.1a',
+        'a',
+        '\n',
+      ],
+    });
+
+    test({
+      validator: 'isDecimal',
+      args: [{ decimal_digits: '2,3' }],
+      valid: [
+        '123',
+        '00123',
+        '-00123',
+        '0',
+        '-0',
+        '+123',
+        '0.01',
+        '1.043',
+        '.15',
+        '-.255',
+        '-0',
+      ],
+      invalid: [
+        '0.0000000000001',
+        '0.0',
+        '.1',
+        '1.0',
+        '-.2564',
+        '0.0',
+        '٫1',
+        '1٫0',
+        '-٫25',
+        '0٫0000000000001',
         '....',
         ' ',
         '',

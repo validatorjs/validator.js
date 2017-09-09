@@ -632,15 +632,27 @@ function isFloat(str, options) {
   return float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max) && (!options.hasOwnProperty('lt') || str < options.lt) && (!options.hasOwnProperty('gt') || str > options.gt);
 }
 
-function isDecimal(str) {
-  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
+function decimalRegExp(options) {
+  var regExp = new RegExp('^[-+]?([0-9]+)?(\\' + decimal[options.locale] + '[0-9]{' + options.decimal_digits + '})' + (options.force_decimal ? '' : '?') + '$');
+  console.log(regExp);
+  return regExp;
+}
 
+var default_decimal_options = {
+  force_decimal: false,
+  decimal_digits: '1,',
+  locale: 'en-US'
+};
+
+var blacklist = ['', '-', '+'];
+
+function isDecimal(str, options) {
   assertString(str);
-  if (locale in decimal) {
-    var decimalRegExp = new RegExp('^[-+]?([0-9]+|\\' + decimal[locale] + '[0-9]+|[0-9]+\\' + decimal[locale] + '[0-9]+)$');
-    return str !== '' && decimalRegExp.test(str);
+  options = merge(options, default_decimal_options);
+  if (options.locale in decimal) {
+    return !blacklist.includes(str.replace(/ /g, '')) && decimalRegExp(options).test(str);
   }
-  throw new Error('Invalid locale \'' + locale + '\'');
+  throw new Error('Invalid locale \'' + options.locale + '\'');
 }
 
 var hexadecimal = /^[0-9A-F]+$/i;
@@ -1231,7 +1243,7 @@ function unescape(str) {
   return str.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#x2F;/g, '/').replace(/&#x5C;/g, '\\').replace(/&#96;/g, '`');
 }
 
-function blacklist(str, chars) {
+function blacklist$1(str, chars) {
   assertString(str);
   return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
 }
@@ -1239,7 +1251,7 @@ function blacklist(str, chars) {
 function stripLow(str, keep_new_lines) {
   assertString(str);
   var chars = keep_new_lines ? '\\x00-\\x09\\x0B\\x0C\\x0E-\\x1F\\x7F' : '\\x00-\\x1F\\x7F';
-  return blacklist(str, chars);
+  return blacklist$1(str, chars);
 }
 
 function whitelist(str, chars) {
@@ -1441,7 +1453,7 @@ var validator = {
   unescape: unescape,
   stripLow: stripLow,
   whitelist: whitelist,
-  blacklist: blacklist,
+  blacklist: blacklist$1,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
   toString: toString
