@@ -43,6 +43,8 @@ const patterns = {
   ZM: fiveDigit,
 };
 
+export const locales = Object.keys(patterns);
+
 export default function (str, locale) {
   assertString(str);
   if (locale in patterns) {
