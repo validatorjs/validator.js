@@ -1,5 +1,7 @@
 #### HEAD
 
+- Control decimal places in `isCurrency()`
+  ([#713](https://github.com/chriso/validator.js/pull/713))
 - New locales
   ([#700](https://github.com/chriso/validator.js/pull/700),
    [#701](https://github.com/chriso/validator.js/pull/701),
