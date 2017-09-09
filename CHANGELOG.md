@@ -1,4 +1,4 @@
-#### HEAD
+#### 8.2.0
 
 - Added an `isHash()` validator
   ([#711](https://github.com/chriso/validator.js/pull/711))
