@@ -2,11 +2,12 @@
 
 - Control decimal places in `isCurrency()`
   ([#713](https://github.com/chriso/validator.js/pull/713))
-- New locales
+- New and improved locales
   ([#700](https://github.com/chriso/validator.js/pull/700),
    [#701](https://github.com/chriso/validator.js/pull/701),
    [#714](https://github.com/chriso/validator.js/pull/714),
-   [#715](https://github.com/chriso/validator.js/pull/715))
+   [#715](https://github.com/chriso/validator.js/pull/715),
+   [#718](https://github.com/chriso/validator.js/pull/718))
 
 #### 8.1.0
 
