@@ -621,11 +621,10 @@ function isInt(str, options) {
   return regex.test(str) && minCheckPassed && maxCheckPassed && ltCheckPassed && gtCheckPassed;
 }
 
-var float = /^(?:[-+])?(?:[0-9]+)?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/;
-
 function isFloat(str, options) {
   assertString(str);
   options = options || {};
+  var float = new RegExp('^(?:[-+])?(?:[0-9]+)?(?:\\' + (options.locale ? decimal[options.locale] : '.') + '[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$');
   if (str === '' || str === '.') {
     return false;
   }
@@ -634,7 +633,6 @@ function isFloat(str, options) {
 
 function decimalRegExp(options) {
   var regExp = new RegExp('^[-+]?([0-9]+)?(\\' + decimal[options.locale] + '[0-9]{' + options.decimal_digits + '})' + (options.force_decimal ? '' : '?') + '$');
-  console.log(regExp);
   return regExp;
 }
 
