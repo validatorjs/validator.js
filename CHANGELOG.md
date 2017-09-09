@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added an `isHash()` validator
+  ([#711](https://github.com/chriso/validator.js/pull/711))
 - Control decimal places in `isCurrency()`
   ([#713](https://github.com/chriso/validator.js/pull/713))
 - New and improved locales

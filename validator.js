@@ -1155,6 +1155,8 @@ var patterns = {
   ZM: fiveDigit
 };
 
+
+
 var isPostalCode = function (str, locale) {
   assertString(str);
   if (locale in patterns) {
