@@ -1285,10 +1285,6 @@ var yahoo_domains = ['rocketmail.com', 'yahoo.ca', 'yahoo.co.uk', 'yahoo.com', '
 function normalizeEmail(email, options) {
   options = merge(options, default_normalize_email_options);
 
-  if (!isEmail(email)) {
-    return false;
-  }
-
   var raw_parts = email.split('@');
   var domain = raw_parts.pop();
   var user = raw_parts.join('@');
