@@ -196,6 +196,10 @@ var _isCurrency = require('./lib/isCurrency');
 
 var _isCurrency2 = _interopRequireDefault(_isCurrency);
 
+var _isTaxRef = require('./lib/isTaxRef');
+
+var _isTaxRef2 = _interopRequireDefault(_isTaxRef);
+
 var _isISO = require('./lib/isISO8601');
 
 var _isISO2 = _interopRequireDefault(_isISO);
@@ -315,6 +319,7 @@ var validator = {
   isMobilePhone: _isMobilePhone2.default,
   isPostalCode: _isPostalCode2.default,
   isCurrency: _isCurrency2.default,
+  isTaxRef: _isTaxRef2.default,
   isISO8601: _isISO2.default,
   isBase64: _isBase2.default,
   isDataURI: _isDataURI2.default,

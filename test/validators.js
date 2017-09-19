@@ -4317,6 +4317,78 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate tax reference codes', function () {
+    var fixtures = [
+      {
+        locale: 'UK',
+        valid: [
+          'JH123456A',
+          'KT619947A',
+          'SG400495B',
+          'JG973832A',
+          'XW583634D',
+          'PT410343B',
+        ],
+        invalid: [
+          '527559',
+          '677816A',
+          '275496B',
+          '829533C',
+          '943766D',
+          '',
+          'BG861593Z',
+          'NK693304D',
+          'GB992910D',
+          'KN704632A',
+          'TN499279B',
+          'NT380083C',
+          'ZZ140354D',
+          'TN863D',
+        ],
+      },
+    ];
+
+    var allValid = [];
+
+    fixtures.forEach(function (fixture) {
+      // to be used later on for validating 'any' locale
+      if (fixture.valid) allValid = allValid.concat(fixture.valid);
+
+      if (Array.isArray(fixture.locale)) {
+        // for fixtures that are shared across multiple locales
+        // e.g. 'nb-NO' and 'nn-NO'
+        fixture.locale.forEach(function (locale) {
+          test({
+            validator: 'isTaxRef',
+            valid: fixture.valid,
+            invalid: fixture.invalid,
+            args: [locale],
+          });
+        });
+      } else {
+        test({
+          validator: 'isTaxRef',
+          valid: fixture.valid,
+          invalid: fixture.invalid,
+          args: [fixture.locale],
+        });
+      }
+    });
+
+    test({
+      validator: 'isTaxRef',
+      valid: allValid,
+      invalid: [
+        '',
+        'asdf',
+        '1',
+        'ASDFGJKLmZXJtZtesting123',
+        'Vml2YW11cyBmZXJtZtesting123',
+      ],
+      args: ['any'],
+    });
+  });
+
   it('should validate ISO 8601 dates', function () {
     // from http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     test({
