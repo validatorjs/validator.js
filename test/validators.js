@@ -40,10 +40,6 @@ function repeat(str, count) {
   return result;
 }
 
-function random4digit() {
-  return Math.floor(1000 + (Math.random() * 9000));
-}
-
 describe('Validators', function () {
   it('should validate email addresses', function () {
     test({
@@ -2320,25 +2316,12 @@ describe('Validators', function () {
         '+852-91234567',
         '+852-9123-4567',
         '852-91234567',
-        `8384-${random4digit()}`, // Spare - starting from 1.7.2017
-        `8580-${random4digit()}`, // Spare - starting from 1.7.2017
-        `7109-${random4digit()}`, // Spare - starting from 1.7.2017
-        `7114-${random4digit()}`, // Spare - starting from 1.7.2017
-        `6920-${random4digit()}`, // Spare - starting from 1.7.2017
-        `6280-${random4digit()}`, // Spare - starting from 1.7.2017
-        `5908-${random4digit()}`, // Spare - starting from 1.7.2017
-        `5152-${random4digit()}`, // Spare - starting from 1.7.2017
-        `4923-${random4digit()}`, // Spare - starting from 1.7.2017
       ],
       invalid: [
         '999',
         '+852-912345678',
         '123456789',
         '+852-1234-56789',
-        `3830-${random4digit()}`, // Fixed Services
-        `2230-${random4digit()}`, // Fixed Services
-        `1833-${random4digit()}`, // Short Code (High traffic volume services)
-        `0060-${random4digit()}`, // Access Code (ETS, Prime IDD for Voice)
       ],
       args: ['en-HK'],
     });
