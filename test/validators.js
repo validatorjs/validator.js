@@ -2335,15 +2335,6 @@ describe('Validators', function () {
         '+852-912345678',
         '123456789',
         '+852-1234-56789',
-        `9998${random4digit()}`,  // Emergency Service (999)
-        `9111-${random4digit()}`, // Others (911)
-        `8521-${random4digit()}`, // Others (Conflict with country code)
-        `8009-${random4digit()}`, // 800 Fixed Services
-        `7211-${random4digit()}`, // Paging Service
-        `7119-${random4digit()}`, // Paging Service
-        `5850-${random4digit()}`, // Fixed Services
-        `5003${random4digit()}`,  // Others (Special Services)
-        `4300-${random4digit()}`, // Others (Network Number)
         `3830-${random4digit()}`, // Fixed Services
         `2230-${random4digit()}`, // Fixed Services
         `1833-${random4digit()}`, // Short Code (High traffic volume services)
