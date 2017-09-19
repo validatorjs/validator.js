@@ -1074,6 +1074,30 @@ function isCurrency(str, options) {
 }
 
 /* eslint-disable max-len */
+var references = {
+  UK: /^(?!BG|GB|NK|KN|TN|NT|ZZ)[A-CEGHJ-PR-TW-Z]{1}[A-CEGHJ-NPR-TW-Z]{1}[0-9]{6}[A-D]{1}$/
+};
+/* eslint-enable max-len */
+
+function isTaxRef(str, locale) {
+  assertString(str);
+  if (locale in references) {
+    return references[locale].test(str);
+  } else if (locale === 'any') {
+    for (var key in references) {
+      if (references.hasOwnProperty(key)) {
+        var reference = references[key];
+        if (reference.test(str)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  throw new Error('Invalid locale \'' + locale + '\'');
+}
+
+/* eslint-disable max-len */
 // from http://goo.gl/0ejHHW
 var iso8601 = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
 /* eslint-enable max-len */
@@ -1406,6 +1430,7 @@ var validator = {
   isMobilePhone: isMobilePhone,
   isPostalCode: isPostalCode,
   isCurrency: isCurrency,
+  isTaxRef: isTaxRef,
   isISO8601: isISO8601,
   isBase64: isBase64,
   isDataURI: isDataURI,
