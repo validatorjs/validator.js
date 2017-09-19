@@ -436,7 +436,7 @@
 
       function isURL(url, options) {
         assertString(url);
-        if (!url || url.length > 2083 || /[\s<>]/.test(url)) {
+        if (!url || url.length >= 2083 || /[\s<>]/.test(url)) {
           return false;
         }
         if (url.indexOf('mailto:') === 0) {
@@ -996,7 +996,7 @@
         'el-GR': /^(\+?30)?(69\d{8})$/,
         'en-AU': /^(\+?61|0)4\d{8}$/,
         'en-GB': /^(\+?44|0)7\d{9}$/,
-        'en-HK': /^(\+?852\-?)?[456789]\d{3}\-?\d{4}$/,
+        'en-HK': /^(\+?852\-?)?[569]\d{3}\-?\d{4}$/,
         'en-IN': /^(\+?91|0)?[789]\d{9}$/,
         'en-NG': /^(\+?234|0)?[789]\d{9}$/,
         'en-NZ': /^(\+?64|0)2\d{7,9}$/,
