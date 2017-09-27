@@ -28,13 +28,13 @@ validator.isEmail('foo@bar.com'); //=> true
 #### ES6
 
 ```javascript
-import validator from 'validator';
+import * as validator from 'validator';
 ```
 
 Or, import only a subset of the library:
 
 ```javascript
-import isEmail from 'validator/lib/isEmail';
+import { isEmail } from 'validator/lib/isEmail';
 ```
 
 ### Client-side usage
