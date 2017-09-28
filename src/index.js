@@ -17,6 +17,7 @@ import isBoolean from './lib/isBoolean';
 import isAlpha from './lib/isAlpha';
 import isAlphanumeric from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
+import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
 
@@ -106,6 +107,7 @@ const validator = {
   isAlpha,
   isAlphanumeric,
   isNumeric,
+  isPort,
   isLowercase,
   isUppercase,
   isAscii,
