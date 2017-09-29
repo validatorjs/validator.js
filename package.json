@@ -49,7 +49,7 @@
     "clean:node": "rm -rf index.js lib",
     "clean:browser": "rm -rf validator*.js",
     "clean": "npm run clean:node && npm run clean:browser",
-    "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments '/Copyright/'",
+    "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
     "build:browser": "babel-node build-browser && npm run minify",
     "build:node": "babel src -d . --presets es2015 --plugins add-module-exports",
     "build": "npm run build:browser && npm run build:node",
