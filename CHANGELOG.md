@@ -2,6 +2,8 @@
 
 - `normalizeEmail()` no longer validates the email address
   ([#725](https://github.com/chriso/validator.js/pull/725))
+- Added locale-aware validation to `isFloat()` and `isDecimal()`
+  ([#721](https://github.com/chriso/validator.js/pull/721))
 - Added an `isPort()` validator
   ([#733](https://github.com/chriso/validator.js/pull/733))
 - New locales

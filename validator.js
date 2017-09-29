@@ -480,16 +480,19 @@ var alphanumeric = {
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/
 };
 
+var decimal = {
+  'en-US': '.',
+  ar: '٫'
+};
+
 var englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
 for (var locale, i = 0; i < englishLocales.length; i++) {
   locale = 'en-' + englishLocales[i];
   alpha[locale] = alpha['en-US'];
   alphanumeric[locale] = alphanumeric['en-US'];
+  decimal[locale] = decimal['en-US'];
 }
-
-alpha['pt-BR'] = alpha['pt-PT'];
-alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 
 // Source: http://www.localeplanet.com/java/
 var arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
@@ -498,7 +501,24 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
   _locale = 'ar-' + arabicLocales[_i];
   alpha[_locale] = alpha.ar;
   alphanumeric[_locale] = alphanumeric.ar;
+  decimal[_locale] = decimal.ar;
 }
+
+// Source: https://en.wikipedia.org/wiki/Decimal_mark
+var dotDecimal = [];
+var commaDecimal = ['cs-CZ', 'da-DK', 'de-DE', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+
+for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
+  decimal[dotDecimal[_i2]] = decimal['en-US'];
+}
+
+for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
+  decimal[commaDecimal[_i3]] = ',';
+}
+
+alpha['pt-BR'] = alpha['pt-PT'];
+alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
+decimal['pt-BR'] = decimal['pt-PT'];
 
 function isAlpha(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
@@ -605,22 +625,36 @@ function isSurrogatePair(str) {
   return surrogatePair.test(str);
 }
 
-var float = /^(?:[-+])?(?:[0-9]+)?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/;
-
 function isFloat(str, options) {
   assertString(str);
   options = options || {};
+  var float = new RegExp('^(?:[-+])?(?:[0-9]+)?(?:\\' + (options.locale ? decimal[options.locale] : '.') + '[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$');
   if (str === '' || str === '.') {
     return false;
   }
   return float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max) && (!options.hasOwnProperty('lt') || str < options.lt) && (!options.hasOwnProperty('gt') || str > options.gt);
 }
 
-var decimal = /^[-+]?([0-9]+|\.[0-9]+|[0-9]+\.[0-9]+)$/;
+function decimalRegExp(options) {
+  var regExp = new RegExp('^[-+]?([0-9]+)?(\\' + decimal[options.locale] + '[0-9]{' + options.decimal_digits + '})' + (options.force_decimal ? '' : '?') + '$');
+  return regExp;
+}
 
-function isDecimal(str) {
+var default_decimal_options = {
+  force_decimal: false,
+  decimal_digits: '1,',
+  locale: 'en-US'
+};
+
+var blacklist = ['', '-', '+'];
+
+function isDecimal(str, options) {
   assertString(str);
-  return str !== '' && decimal.test(str);
+  options = merge(options, default_decimal_options);
+  if (options.locale in decimal) {
+    return !blacklist.includes(str.replace(/ /g, '')) && decimalRegExp(options).test(str);
+  }
+  throw new Error('Invalid locale \'' + options.locale + '\'');
 }
 
 var hexadecimal = /^[0-9A-F]+$/i;
@@ -1212,7 +1246,7 @@ function unescape(str) {
   return str.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#x2F;/g, '/').replace(/&#x5C;/g, '\\').replace(/&#96;/g, '`');
 }
 
-function blacklist(str, chars) {
+function blacklist$1(str, chars) {
   assertString(str);
   return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
 }
@@ -1220,7 +1254,7 @@ function blacklist(str, chars) {
 function stripLow(str, keep_new_lines) {
   assertString(str);
   var chars = keep_new_lines ? '\\x00-\\x09\\x0B\\x0C\\x0E-\\x1F\\x7F' : '\\x00-\\x1F\\x7F';
-  return blacklist(str, chars);
+  return blacklist$1(str, chars);
 }
 
 function whitelist(str, chars) {
@@ -1419,7 +1453,7 @@ var validator = {
   unescape: unescape,
   stripLow: stripLow,
   whitelist: whitelist,
-  blacklist: blacklist,
+  blacklist: blacklist$1,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
   toString: toString
