@@ -1,5 +1,7 @@
 #### HEAD
 
+- `normalizeEmail()` no longer validates the email address
+  ([#725](https://github.com/chriso/validator.js/pull/725))
 - Added an `isPort()` validator
   ([#733](https://github.com/chriso/validator.js/pull/733))
 - New locales
