@@ -1,4 +1,4 @@
-#### HEAD
+#### 9.0.0
 
 - `normalizeEmail()` no longer validates the email address
   ([#725](https://github.com/chriso/validator.js/pull/725))
