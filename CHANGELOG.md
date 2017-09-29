@@ -1,3 +1,10 @@
+#### HEAD
+
+- Added an `isPort()` validator
+  ([#733](https://github.com/chriso/validator.js/pull/733))
+- New locales
+  ([#731](https://github.com/chriso/validator.js/pull/731))
+
 #### 8.2.0
 
 - Added an `isHash()` validator

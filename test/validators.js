@@ -1338,6 +1338,26 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate ports', function () {
+    test({
+      validator: 'isPort',
+      valid: [
+        '0',
+        '22',
+        '80',
+        '443',
+        '3000',
+        '8080',
+        '65535',
+      ],
+      invalid: [
+        '',
+        '-1',
+        '65536',
+      ],
+    });
+  });
+
   it('should validate decimal numbers', function () {
     test({
       validator: 'isDecimal',
@@ -3400,6 +3420,25 @@ describe('Validators', function () {
           '740123456',
           '+65640123456',
           '+64210123456',
+        ],
+      },
+      {
+        locale: 'uk-UA',
+        valid: [
+          '+380982345679',
+          '380982345679',
+          '80982345679',
+          '0982345679',
+        ],
+        invalid: [
+          '+30982345679',
+          '982345679',
+          '+380 98 234 5679',
+          '+380-98-234-5679',
+          '',
+          'ASDFGJKLmZXJtZtesting123',
+          '123456',
+          '740123456',
         ],
       },
     ];
