@@ -1338,6 +1338,26 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate ports', function () {
+    test({
+      validator: 'isPort',
+      valid: [
+        '0',
+        '22',
+        '80',
+        '443',
+        '3000',
+        '8080',
+        '65535',
+      ],
+      invalid: [
+        '',
+        '-1',
+        '65536',
+      ],
+    });
+  });
+
   it('should validate decimal numbers', function () {
     test({
       validator: 'isDecimal',

@@ -68,6 +68,10 @@ var _isNumeric = require('./lib/isNumeric');
 
 var _isNumeric2 = _interopRequireDefault(_isNumeric);
 
+var _isPort = require('./lib/isPort');
+
+var _isPort2 = _interopRequireDefault(_isPort);
+
 var _isLowercase = require('./lib/isLowercase');
 
 var _isLowercase2 = _interopRequireDefault(_isLowercase);
@@ -282,6 +286,7 @@ var validator = {
   isAlpha: _isAlpha2.default,
   isAlphanumeric: _isAlphanumeric2.default,
   isNumeric: _isNumeric2.default,
+  isPort: _isPort2.default,
   isLowercase: _isLowercase2.default,
   isUppercase: _isUppercase2.default,
   isAscii: _isAscii2.default,
