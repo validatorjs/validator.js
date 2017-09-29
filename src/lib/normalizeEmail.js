@@ -1,4 +1,3 @@
-import isEmail from './isEmail';
 import merge from './util/merge';
 
 const default_normalize_email_options = {
@@ -148,10 +147,6 @@ const yahoo_domains = [
 
 export default function normalizeEmail(email, options) {
   options = merge(options, default_normalize_email_options);
-
-  if (!isEmail(email)) {
-    return false;
-  }
 
   const raw_parts = email.split('@');
   const domain = raw_parts.pop();
