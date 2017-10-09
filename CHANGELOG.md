@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locales
+  ([#735](https://github.com/chriso/validator.js/pull/735))
+
 #### 9.0.0
 
 - `normalizeEmail()` no longer validates the email address
