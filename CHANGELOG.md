@@ -1,4 +1,4 @@
-#### HEAD
+#### 9.1.0
 
 - Added an `isISO31661Alpha2()` validator
   ([#734](https://github.com/chriso/validator.js/pull/734))
