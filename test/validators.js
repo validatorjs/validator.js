@@ -4933,6 +4933,16 @@ describe('Validators', function () {
   it('should validate postal code', function () {
     const fixtures = [
       {
+        locale: 'AU',
+        valid: [
+          '4000',
+          '2620',
+          '3000',
+          '2017',
+          '0800',
+        ],
+      },
+      {
         locale: 'CA',
         valid: [
           'L4T 0A5',
