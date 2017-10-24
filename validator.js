@@ -1170,7 +1170,7 @@ var sixDigit = /^\d{6}$/;
 
 var patterns = {
   AT: fourDigit,
-  AU: sixDigit,
+  AU: fourDigit,
   BE: fourDigit,
   CA: /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][\s\-]?\d[ABCEGHJ-NPRSTV-Z]\d$/i,
   CH: fourDigit,

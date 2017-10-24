@@ -1,3 +1,8 @@
+#### HEAD
+
+- Locale fixes
+  ([#739](https://github.com/chriso/validator.js/pull/739))
+
 #### 9.1.0
 
 - Added an `isISO31661Alpha2()` validator
