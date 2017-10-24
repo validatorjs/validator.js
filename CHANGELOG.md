@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added an `isISO31661Alpha2()` validator
+  ([#734](https://github.com/chriso/validator.js/pull/734))
 - New locales
   ([#735](https://github.com/chriso/validator.js/pull/735),
    [#737](https://github.com/chriso/validator.js/pull/737))
