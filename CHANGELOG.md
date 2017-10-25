@@ -1,4 +1,4 @@
-#### HEAD
+#### 9.1.1
 
 - Locale fixes
   ([#738](https://github.com/chriso/validator.js/pull/738),
