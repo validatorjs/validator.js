@@ -1,4 +1,4 @@
-﻿var validator = require('../index'),
+var validator = require('../index'),
   format = require('util').format,
   assert = require('assert'),
   path = require('path'),
