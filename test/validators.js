@@ -3805,6 +3805,15 @@ describe('Validators', function () {
           '12 34 56 78',
         ],
       },
+      {
+        locale: 'en-IN',
+        valid: [
+          '9711664517',
+        ],
+        invalid: [
+          '',
+        ],
+      },
     ];
 
     var allValid = [];

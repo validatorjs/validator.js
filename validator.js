@@ -1024,13 +1024,22 @@ phones['zh-HK'] = phones['en-HK'];
 
 function isMobilePhone(str, locale) {
   assertString(str);
-  if (locale in phones) {
-    return phones[locale].test(str);
-  } else if (locale === 'any') {
-    for (var key in phones) {
+  if (Array.isArray(locale)) {
+    for (var key in locale) {
       if (phones.hasOwnProperty(key)) {
         var phone = phones[key];
         if (phone.test(str)) {
+          return true;
+        }
+      }
+    }
+  } else if (locale in phones) {
+    return phones[locale].test(str);
+  } else if (locale === 'any') {
+    for (var _key in phones) {
+      if (phones.hasOwnProperty(_key)) {
+        var _phone = phones[_key];
+        if (_phone.test(str)) {
           return true;
         }
       }

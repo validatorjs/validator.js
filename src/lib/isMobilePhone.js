@@ -66,7 +66,17 @@ phones['zh-HK'] = phones['en-HK'];
 
 export default function isMobilePhone(str, locale) {
   assertString(str);
-  if (locale in phones) {
+  if (Array.isArray(locale)) {
+    for (const key in locale) {
+      if (phones.hasOwnProperty(key)) {
+        const phone = phones[key];
+        if (phone.test(str)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  } else if (locale in phones) {
     return phones[locale].test(str);
   } else if (locale === 'any') {
     for (const key in phones) {
