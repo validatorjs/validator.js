@@ -7,7 +7,7 @@ const default_fqdn_options = {
   allow_trailing_dot: false,
 };
 
-export default function isFDQN(str, options) {
+export default function isFQDN(str, options) {
   assertString(str);
   options = merge(options, default_fqdn_options);
 

@@ -130,7 +130,7 @@ var default_fqdn_options = {
   allow_trailing_dot: false
 };
 
-function isFDQN(str, options) {
+function isFQDN(str, options) {
   assertString(str);
   options = merge(options, default_fqdn_options);
 
@@ -211,7 +211,7 @@ function isEmail(str, options) {
     return false;
   }
 
-  if (!isFDQN(domain, { require_tld: options.require_tld })) {
+  if (!isFQDN(domain, { require_tld: options.require_tld })) {
     return false;
   }
 
@@ -406,7 +406,7 @@ function isURL(url, options) {
     }
   }
 
-  if (!isIP(host) && !isFDQN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
+  if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
     return false;
   }
 
@@ -1414,7 +1414,7 @@ var validator = {
   isURL: isURL,
   isMACAddress: isMACAddress,
   isIP: isIP,
-  isFQDN: isFDQN,
+  isFQDN: isFQDN,
   isBoolean: isBoolean,
   isAlpha: isAlpha,
   isAlphanumeric: isAlphanumeric,
