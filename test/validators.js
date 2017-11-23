@@ -1767,6 +1767,8 @@ describe('Validators', function () {
         '-0.22250738585072011e-307',
       ],
       invalid: [
+        '+',
+        '-',
         '  ',
         '',
         '.',
