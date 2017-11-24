@@ -1399,7 +1399,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '9.1.1';
+var version = '9.1.2';
 
 var validator = {
   version: version,

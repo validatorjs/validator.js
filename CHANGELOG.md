@@ -1,4 +1,4 @@
-#### HEAD
+#### 9.1.2
 
 - Fixed a bug with the `isFloat` validator
   ([#752](https://github.com/chriso/validator.js/pull/752))
