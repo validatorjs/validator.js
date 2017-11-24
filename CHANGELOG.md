@@ -1,3 +1,8 @@
+#### HEAD
+
+- Fixed a bug with the `isFloat` validator
+  ([#752](https://github.com/chriso/validator.js/pull/752))
+
 #### 9.1.1
 
 - Locale fixes
