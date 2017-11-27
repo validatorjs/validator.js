@@ -5056,10 +5056,8 @@ describe('Validators', function () {
       {
         locale: 'PT',
         valid: [
-          '4827',
           '4829-489',
           '0294-348',
-          '1928',
           '8156-392',
         ],
       },
