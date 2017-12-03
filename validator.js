@@ -1471,6 +1471,7 @@ var validator = {
   isMobilePhone: isMobilePhone,
   isPostalCode: isPostalCode,
   isCurrency: isCurrency,
+  isSpanishDNI: isSpanishDNI,
   isISO8601: isISO8601,
   isISO31661Alpha2: isISO31661Alpha2,
   isBase64: isBase64,

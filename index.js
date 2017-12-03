@@ -200,6 +200,10 @@ var _isCurrency = require('./lib/isCurrency');
 
 var _isCurrency2 = _interopRequireDefault(_isCurrency);
 
+var _isSpanishDNI = require('./lib/isSpanishDNI');
+
+var _isSpanishDNI2 = _interopRequireDefault(_isSpanishDNI);
+
 var _isISO = require('./lib/isISO8601');
 
 var _isISO2 = _interopRequireDefault(_isISO);
@@ -324,6 +328,7 @@ var validator = {
   isMobilePhone: _isMobilePhone2.default,
   isPostalCode: _isPostalCode2.default,
   isCurrency: _isCurrency2.default,
+  isSpanishDNI: _isSpanishDNI2.default,
   isISO8601: _isISO2.default,
   isISO31661Alpha2: _isISO31661Alpha2.default,
   isBase64: _isBase2.default,
