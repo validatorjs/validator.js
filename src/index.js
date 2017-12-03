@@ -70,6 +70,7 @@ import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
+import isMimeType from './lib/isMimeType';
 
 import isLatLong from './lib/isLatLong';
 import isPostalCode from './lib/isPostalCode';
@@ -146,6 +147,7 @@ const validator = {
   isISO31661Alpha2,
   isBase64,
   isDataURI,
+  isMimeType,
   isLatLong,
   ltrim,
   rtrim,

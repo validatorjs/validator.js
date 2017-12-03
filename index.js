@@ -216,6 +216,10 @@ var _isDataURI = require('./lib/isDataURI');
 
 var _isDataURI2 = _interopRequireDefault(_isDataURI);
 
+var _isMimeType = require('./lib/isMimeType');
+
+var _isMimeType2 = _interopRequireDefault(_isMimeType);
+
 var _isLatLong = require('./lib/isLatLong');
 
 var _isLatLong2 = _interopRequireDefault(_isLatLong);
@@ -328,6 +332,7 @@ var validator = {
   isISO31661Alpha2: _isISO31661Alpha2.default,
   isBase64: _isBase2.default,
   isDataURI: _isDataURI2.default,
+  isMimeType: _isMimeType2.default,
   isLatLong: _isLatLong2.default,
   ltrim: _ltrim2.default,
   rtrim: _rtrim2.default,
