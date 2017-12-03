@@ -1129,8 +1129,6 @@ function isSpanishDNI(str) {
     return acc + Number(digit);
   });
 
-  console.log(sum);
-
   return letter.toUpperCase() === encoder[sum % 23];
 }
 
