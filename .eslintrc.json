@@ -19,6 +19,7 @@
     "no-console": 0,
     "newline-per-chained-call": 0,
     "prefer-const": 0,
+    "linebreak-style": 0, // due to thousands of "Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style" errors on windows
     "no-restricted-syntax": [2, "DebuggerStatement", "LabeledStatement", "WithStatement"]
   }
 }
