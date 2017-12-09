@@ -1,4 +1,4 @@
-#### HEAD
+#### 9.2.0
 
 - Added an `isMimeType()` validator
   ([#760](https://github.com/chriso/validator.js/pull/760))
