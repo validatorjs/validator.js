@@ -711,6 +711,31 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate slovak alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['sk-SK'],
+      valid: [
+        'môj',
+        'ľúbím',
+        'mäkčeň',
+        'stĹp',
+        'vŕba',
+        'ňorimberk',
+        'ťava',
+        'žanéta',
+        'Ďábelské',
+        'ódy',
+      ],
+      invalid: [
+        '1moj',
+        '你好世界',
+        '  Привет мир  ',
+        'مرحبا العا ',
+      ],
+    });
+  });
+
   it('should validate danish alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -1063,6 +1088,30 @@ describe('Validators', function () {
       invalid: [
         'řiď ',
         'blé!!',
+      ],
+    });
+  });
+
+  it('should validate slovak alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['sk-SK'],
+      valid: [
+        '1môj',
+        '2ľúbím',
+        '3mäkčeň',
+        '4stĹp',
+        '5vŕba',
+        '6ňorimberk',
+        '7ťava',
+        '8žanéta',
+        '9Ďábelské',
+        '10ódy',
+      ],
+      invalid: [
+        '1moj!',
+        '你好世界',
+        '  Привет мир  ',
       ],
     });
   });
