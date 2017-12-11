@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locales
+  ([#763](https://github.com/chriso/validator.js/pull/763))
+
 #### 9.2.0
 
 - Added an `isMimeType()` validator
