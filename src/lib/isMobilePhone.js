@@ -69,8 +69,11 @@ phones['en-CA'] = phones['en-US'];
 phones['fr-BE'] = phones['nl-BE'];
 phones['zh-HK'] = phones['en-HK'];
 
-export default function isMobilePhone(str, locale) {
+export default function isMobilePhone(str, locale, options) {
   assertString(str);
+  if (options && options.strictMode && !str.startsWith('+')) {
+    return false;
+  }
   if (locale in phones) {
     return phones[locale].test(str);
   } else if (locale === 'any') {

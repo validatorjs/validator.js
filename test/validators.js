@@ -4112,6 +4112,21 @@ describe('Validators', function () {
       ],
       args: ['any'],
     });
+
+    // strict mode
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        '+254728530234',
+        '+299 12 34 56',
+      ],
+      invalid: [
+        '254728530234',
+        '0728530234',
+        '+728530234',
+      ],
+      args: ['any', { strictMode: true }],
+    });
   });
 
   it('should validate currency', function () {
