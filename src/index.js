@@ -65,6 +65,8 @@ import isMobilePhone from './lib/isMobilePhone';
 
 import isCurrency from './lib/isCurrency';
 
+import isSpanishID from './lib/isSpanishID';
+
 import isISO8601 from './lib/isISO8601';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 
@@ -143,6 +145,7 @@ const validator = {
   isMobilePhone,
   isPostalCode,
   isCurrency,
+  isSpanishID,
   isISO8601,
   isISO31661Alpha2,
   isBase64,

@@ -4833,6 +4833,50 @@ describe('Validators', function () {
     });
   });
 
+  it.only('should validate a spanish document id', function () {
+    test({
+      validator: 'isSpanishID',
+      args: ['spanishID'],
+      valid: [
+        '00000001R',
+        '69176032J',
+        '34344329Q',
+        '07390889t',
+        '47972292 L',
+        '85361985-S',
+        '63538339B',
+        '51365917V',
+        '54327498-A',
+        '69770429 k',
+        '77632113Y',
+        '44263110 r',
+        '12474983J',
+        '49181147V',
+      ],
+      invalid: [
+        'a',
+        '69176332J',
+        '34344129  Q',
+        '07390189t',
+        '52424192-d',
+        '47972292 ñ',
+        '85361985Sa',
+        '63538339_B3',
+        '51365917aV',
+        '543274938A',
+        '697704429K',
+        '6K',
+        '77632113  Y',
+        '69770429 3k',
+        '77632 113Y',
+        '4426 3110 r',
+        '4 4263110 r',
+        '51365917+V',
+        '34344329/Q',
+      ],
+    });
+  });
+
   it('should validate ISO 8601 dates', function () {
     // from http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     test({
