@@ -1,5 +1,6 @@
 export const alpha = {
   'en-US': /^[A-Z]+$/i,
+  'bg-BG': /^[А-Я]+$/i,
   'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[A-ZÆØÅ]+$/i,
   'de-DE': /^[A-ZÄÖÜß]+$/i,
@@ -25,6 +26,7 @@ export const alpha = {
 
 export const alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
+  'bg-BG': /^[0-9А-Я]+$/i,
   'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[0-9A-ZÆØÅ]+$/i,
   'de-DE': /^[0-9A-ZÄÖÜß]+$/i,
@@ -79,7 +81,7 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
 export const dotDecimal = [];
 export const commaDecimal = [
-  'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO',
+  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO',
   'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin',
   'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA',
 ];

@@ -692,6 +692,27 @@ describe('Validators', function () {
     });
   });
 
+  it('should validate bulgarian alpha strings', function () {
+    test({
+      validator: 'isAlpha',
+      args: ['bg-BG'],
+      valid: [
+        'абв',
+        'АБВ',
+        'жаба',
+        'яГоДа',
+      ],
+      invalid: [
+        'abc1',
+        '  foo  ',
+        '',
+        'ЁЧПС',
+        '_аз_обичам_обувки_',
+        'ехо!',
+      ],
+    });
+  });
+
   it('should validate czech alpha strings', function () {
     test({
       validator: 'isAlpha',
@@ -1073,6 +1094,26 @@ describe('Validators', function () {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+  });
+
+  it('should validate bulgarian alphanumeric strings', function () {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['bg-BG'],
+      valid: [
+        'абв1',
+        '4АБ5В6',
+        'жаба',
+        'яГоДа2',
+        'йЮя',
+        '123',
+      ],
+      invalid: [
+        ' ',
+        '789  ',
+        'hello000',
       ],
     });
   });
@@ -1511,6 +1552,46 @@ describe('Validators', function () {
         '1,0',
         '-,25',
         '0,0000000000001',
+        '0٫01',
+        '٫1',
+        '1٫0',
+        '-٫25',
+        '0٫0000000000001',
+        '....',
+        ' ',
+        '',
+        '-',
+        '+',
+        '.',
+        '0.1a',
+        'a',
+        '\n',
+      ],
+    });
+
+    test({
+      validator: 'isDecimal',
+      args: [{ locale: ['bg-BG'] }],
+      valid: [
+        '123',
+        '00123',
+        '-00123',
+        '0',
+        '-0',
+        '+123',
+        '0,01',
+        ',1',
+        '1,0',
+        '-,25',
+        '-0',
+        '0,0000000000001',
+      ],
+      invalid: [
+        '0.0000000000001',
+        '0.01',
+        '.1',
+        '1.0',
+        '-.25',
         '0٫01',
         '٫1',
         '1٫0',
@@ -3051,6 +3132,21 @@ describe('Validators', function () {
           '+9665626626262',
           '+96633221097',
           '0114152198',
+        ],
+      },
+      {
+        locale: 'bg-BG',
+        valid: [
+          '+359897123456',
+          '+359898888888',
+          '0897123123',
+        ],
+        invalid: [
+          '',
+          '0898123',
+          '+359212555666',
+          '18001234567',
+          '12125559999',
         ],
       },
       {
@@ -5112,6 +5208,12 @@ describe('Validators', function () {
           '98025',
           '38 499',
           '39940',
+        ],
+      },
+      {
+        locale: 'BG',
+        valid: [
+          '1000',
         ],
       },
       {
