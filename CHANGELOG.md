@@ -1,4 +1,4 @@
-#### HEAD
+#### 9.3.0
 
 - New and improved locales
   ([#763](https://github.com/chriso/validator.js/pull/763),
