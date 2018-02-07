@@ -1,3 +1,8 @@
+#### HEAD
+
+- New and improved locales
+  ([#788](https://github.com/chriso/validator.js/pull/788))
+
 #### 9.4.0
 
 - Added an option to `isMobilePhone` to require a country code
