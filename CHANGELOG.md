@@ -1,5 +1,6 @@
 #### HEAD
 
+- Patched a [REDOS](https://en.wikipedia.org/wiki/ReDoS) vulnerability in `isDataURI`
 - New and improved locales
   ([#788](https://github.com/chriso/validator.js/pull/788))
 
