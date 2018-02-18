@@ -1,4 +1,4 @@
-#### HEAD
+#### 9.4.1
 
 - Patched a [REDOS](https://en.wikipedia.org/wiki/ReDoS) vulnerability in `isDataURI`
 - New and improved locales

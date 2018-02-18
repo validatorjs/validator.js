@@ -1482,7 +1482,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '9.4.0';
+var version = '9.4.1';
 
 var validator = {
   version: version,
