@@ -54,7 +54,6 @@ describe('Validators', function () {
         'test|123@m端ller.com',
         'test+ext@gmail.com',
         'some.name.midd.leNa.me.+extension@GoogleMail.com',
-        'gmail...ignores...dots...@gmail.com',
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
@@ -84,6 +83,8 @@ describe('Validators', function () {
         'test11@invalid.co m',
         'test12@invalid.co　m',
         'test13@invalid.co　m',
+        'gmail...ignores...dots...@gmail.com',
+        'multiple..dots@gmail.com',
       ],
     });
   });
@@ -162,6 +163,7 @@ describe('Validators', function () {
         'Some Name <foo@bar.co.uk.',
         'Some Name < foo@bar.co.uk >',
         'Name foo@bar.co.uk',
+        'Some Name <some..name@gmail.com>',
       ],
     });
   });
