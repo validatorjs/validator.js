@@ -906,7 +906,6 @@ var IDS = {
     var bd_txt = birth[2] + '/' + parseInt(birth[3], 10) + '/' + parseInt(birth[4], 10);
     var bd = new Date(bd_txt);
     var new_bd_txt = bd.getFullYear() + '/' + (bd.getMonth() + 1) + '/' + bd.getDate();
-    console.log(bd_txt, new_bd_txt);
     var bd_check = bd_txt === new_bd_txt;
     if (!bd_check) {
       return false;
