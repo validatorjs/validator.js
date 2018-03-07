@@ -180,6 +180,10 @@ var _isCreditCard = require('./lib/isCreditCard');
 
 var _isCreditCard2 = _interopRequireDefault(_isCreditCard);
 
+var _isID = require('./lib/isID');
+
+var _isID2 = _interopRequireDefault(_isID);
+
 var _isISIN = require('./lib/isISIN');
 
 var _isISIN2 = _interopRequireDefault(_isISIN);
@@ -322,6 +326,7 @@ var validator = {
   isBefore: _isBefore2.default,
   isIn: _isIn2.default,
   isCreditCard: _isCreditCard2.default,
+  isID: _isID2.default,
   isISIN: _isISIN2.default,
   isISBN: _isISBN2.default,
   isISSN: _isISSN2.default,
