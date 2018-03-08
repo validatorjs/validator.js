@@ -5450,4 +5450,67 @@ describe('Validators', function () {
       ],
     });
   });
+
+  it('should validate Kana', function () {
+    const fixtures = [
+      {
+        kanaType: 'hiragana',
+        valid: [
+          'あのいぃはとぅゔぉのすきとぁったかぜ',
+          'なつでもそこにつめたさをもつあおいそら',
+          'うつくしいもりでかざられたもりぃおし',
+          'こうがいのぎらぎらひかるくさのなみ',
+          'ゑ',
+          'ゐ',
+          'ゎ',
+        ],
+        invalid: [
+          '',
+          'ワ',
+          'あのイーハトーヴォの透き通った風',
+          'あのいぃはとぅゔぉのすきとゎったヵぜ',
+        ],
+      },
+      {
+        kanaType: 'katakana',
+        valid: [
+          'アノイーハトーヴォスキトオッタカゼ',
+          'ナツデモソコニツメタサヲモツアオイソラ',
+          'ウツクシィモリデカザラレタモリーオシ',
+          'コウガイノギラギラヒカルクサノナミ',
+          'ヶ',
+          'ヵ',
+        ],
+        invalid: [
+          '',
+          'ゎ',
+          'あのイーハトーヴォの透き通った風',
+          'アノイぃハトーヴォスキトオッタカゼ',
+          '々',
+        ],
+      },
+      {
+        kanaType: 'half-katakana',
+        valid: [
+          'ｱﾉｲｰﾊﾄｰｳﾞｫｽｷﾄｵｯﾀｶｾﾞ',
+          'ﾅﾂﾃﾞﾓｿｺﾆﾂﾒﾀｻｦﾓﾂｱｵｲｿﾗ',
+          'ｳﾂｸｼｨﾓﾘﾃﾞｶｻﾞﾗﾚﾀﾓﾘｰｵｼ',
+          'ｺｳｶﾞｲﾉｷﾞﾗｷﾞﾗﾋｶﾙｸｻﾉﾅﾐ',
+        ],
+        invalid: [
+          'あのイーハトーヴォの透き通った風',
+          'ｱﾉｲーﾊﾄｰｳﾞｫｽｷﾄｵｯﾀｶｾﾞ',
+        ],
+      },
+    ];
+
+    fixtures.forEach(function (fixture) {
+      test({
+        validator: 'isKana',
+        valid: fixture.valid,
+        invalid: fixture.invalid,
+        args: [fixture.kanaType],
+      });
+    });
+  });
 });

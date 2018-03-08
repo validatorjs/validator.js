@@ -228,6 +228,10 @@ var _isPostalCode = require('./lib/isPostalCode');
 
 var _isPostalCode2 = _interopRequireDefault(_isPostalCode);
 
+var _isKana = require('./lib/isKana');
+
+var _isKana2 = _interopRequireDefault(_isKana);
+
 var _ltrim = require('./lib/ltrim');
 
 var _ltrim2 = _interopRequireDefault(_ltrim);
@@ -334,6 +338,7 @@ var validator = {
   isDataURI: _isDataURI2.default,
   isMimeType: _isMimeType2.default,
   isLatLong: _isLatLong2.default,
+  isKana: _isKana2.default,
   ltrim: _ltrim2.default,
   rtrim: _rtrim2.default,
   trim: _trim2.default,

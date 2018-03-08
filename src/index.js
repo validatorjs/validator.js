@@ -75,6 +75,8 @@ import isMimeType from './lib/isMimeType';
 import isLatLong from './lib/isLatLong';
 import isPostalCode from './lib/isPostalCode';
 
+import isKana from './lib/isKana';
+
 import ltrim from './lib/ltrim';
 import rtrim from './lib/rtrim';
 import trim from './lib/trim';
@@ -149,6 +151,7 @@ const validator = {
   isDataURI,
   isMimeType,
   isLatLong,
+  isKana,
   ltrim,
   rtrim,
   trim,
