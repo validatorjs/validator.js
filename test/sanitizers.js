@@ -237,6 +237,12 @@ describe('Sanitizers', function () {
         'hans@m端ller.com': 'hans@m端ller.com',
         'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemiddlename@gmail.com',
         '"foo@bar"@baz.com': '"foo@bar"@baz.com',
+        'test@ya.ru': 'test@yandex.ru',
+        'test@yandex.kz': 'test@yandex.ru',
+        'test@yandex.ru': 'test@yandex.ru',
+        'test@yandex.ua': 'test@yandex.ru',
+        'test@yandex.com': 'test@yandex.ru',
+        'test@yandex.by': 'test@yandex.ru',
       },
     });
 
