@@ -546,7 +546,7 @@ function isAlphanumeric(str) {
   throw new Error('Invalid locale \'' + locale + '\'');
 }
 
-var numeric = /^[-+]?[0-9]+$/;
+var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
 
 function isNumeric(str) {
   assertString(str);
