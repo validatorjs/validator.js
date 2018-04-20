@@ -236,7 +236,7 @@ describe('Sanitizers', function () {
         'some.name+extension@unknown.com': 'some.name+extension@unknown.com',
         'hans@m端ller.com': 'hans@m端ller.com',
         'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemidd..lena...me...@gmail.com',
-        '"foo@bar"@baz.com': '"foo@bar"@baz.com'
+        '"foo@bar"@baz.com': '"foo@bar"@baz.com',
       },
     });
 

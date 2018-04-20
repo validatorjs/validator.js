@@ -84,7 +84,7 @@ describe('Validators', function () {
         'test12@invalid.co　m',
         'test13@invalid.co　m',
         'gmail...ignores...dots...@gmail.com',
-        'multiple..dots@gmail.com'
+        'multiple..dots@gmail.com',
       ],
     });
   });
@@ -163,7 +163,7 @@ describe('Validators', function () {
         'Some Name <foo@bar.co.uk.',
         'Some Name < foo@bar.co.uk >',
         'Name foo@bar.co.uk',
-        'Some Name <some..name@gmail.com>'
+        'Some Name <some..name@gmail.com>',
       ],
     });
   });
