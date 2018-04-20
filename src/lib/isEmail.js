@@ -40,6 +40,9 @@ export default function isEmail(str, options) {
 
   const lower_domain = domain.toLowerCase();
   if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
+    if (user.match(/\.{2,}/)) {
+      return false;
+    }
     user = user.replace(/\./g, '').toLowerCase();
   }
 

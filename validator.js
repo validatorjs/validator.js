@@ -204,6 +204,9 @@ function isEmail(str, options) {
 
   var lower_domain = domain.toLowerCase();
   if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
+    if (user.match(/\.{2,}/)) {
+      return false;
+    }
     user = user.replace(/\./g, '').toLowerCase();
   }
 
@@ -1415,6 +1418,14 @@ var outlookdotcom_domains = ['hotmail.at', 'hotmail.be', 'hotmail.ca', 'hotmail.
 // This list is likely incomplete
 var yahoo_domains = ['rocketmail.com', 'yahoo.ca', 'yahoo.co.uk', 'yahoo.com', 'yahoo.de', 'yahoo.fr', 'yahoo.in', 'yahoo.it', 'ymail.com'];
 
+// replace single dots, but not multiple consecutive dots
+function dotsReplacer(match) {
+  if (match.length > 1) {
+    return match;
+  }
+  return '';
+}
+
 function normalizeEmail(email, options) {
   options = merge(options, default_normalize_email_options);
 
@@ -1432,7 +1443,8 @@ function normalizeEmail(email, options) {
       parts[0] = parts[0].split('+')[0];
     }
     if (options.gmail_remove_dots) {
-      parts[0] = parts[0].replace(/\./g, '');
+      // this does not replace consecutive dots like example..email@gmail.com
+      parts[0] = parts[0].replace(/\.+/g, dotsReplacer);
     }
     if (!parts[0].length) {
       return false;
