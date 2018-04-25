@@ -9,6 +9,7 @@ const default_email_options = {
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
+  skip_gmail_validation: false,
 };
 
 /* eslint-disable max-len */
@@ -39,11 +40,17 @@ export default function isEmail(str, options) {
   let user = parts.join('@');
 
   const lower_domain = domain.toLowerCase();
-  if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
-    if (user.match(/\.{2,}/)) {
-      return false;
+  // By adding gmail specific logic we're not properly checking gmail addresses
+  // against the email address specification
+  // this can cause `isEmail` to return true when that is technically not the case.
+  // this gives us a way to do a 'proper' email syntax check without domain specific fixes
+  if (!options.skip_gmail_validation) {
+    if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
+      if (user.match(/\.{2,}/)) {
+        return false;
+      }
+      user = user.replace(/\./g, '').toLowerCase();
     }
-    user = user.replace(/\./g, '').toLowerCase();
   }
 
   if (!isByteLength(user, { max: 64 }) ||
