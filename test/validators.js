@@ -85,6 +85,7 @@ describe('Validators', function () {
         'test13@invalid.co　m',
         'gmail...ignores...dots...@gmail.com',
         'multiple..dots@gmail.com',
+        'multiple..dots@stillinvalid.com',
       ],
     });
   });
