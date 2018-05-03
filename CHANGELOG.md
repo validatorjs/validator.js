@@ -6,6 +6,8 @@
   ([#820](https://github.com/chriso/validator.js/pull/820))
 - Added an `isRFC3339()` validator
   ([#816](https://github.com/chriso/validator.js/pull/816))
+- Reject domain parts longer than 63 octets (`isFQDN()`, `isEmail()`, etc.)
+  ([bb3e542](https://github.com/chriso/validator.js/commit/bb3e542)).
 - New locales
   ([#803](https://github.com/chriso/validator.js/pull/803))
 
