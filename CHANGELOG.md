@@ -8,6 +8,8 @@
   ([#816](https://github.com/chriso/validator.js/pull/816))
 - Reject domain parts longer than 63 octets in `isFQDN()`, `isURL()` and `isEmail()`
   ([bb3e542](https://github.com/chriso/validator.js/commit/bb3e542))
+- Added a new Amex prefix to `isCreditCard()`
+  ([#805](https://github.com/chriso/validator.js/pull/805))
 - New locales
   ([#803](https://github.com/chriso/validator.js/pull/803))
 
