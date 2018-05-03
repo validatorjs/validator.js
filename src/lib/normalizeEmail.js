@@ -145,6 +145,14 @@ const yahoo_domains = [
   'ymail.com',
 ];
 
+// replace single dots, but not multiple consecutive dots
+function dotsReplacer(match) {
+  if (match.length > 1) {
+    return match;
+  }
+  return '';
+}
+
 export default function normalizeEmail(email, options) {
   options = merge(options, default_normalize_email_options);
 
@@ -162,7 +170,8 @@ export default function normalizeEmail(email, options) {
       parts[0] = parts[0].split('+')[0];
     }
     if (options.gmail_remove_dots) {
-      parts[0] = parts[0].replace(/\./g, '');
+      // this does not replace consecutive dots like example..email@gmail.com
+      parts[0] = parts[0].replace(/\.+/g, dotsReplacer);
     }
     if (!parts[0].length) {
       return false;
