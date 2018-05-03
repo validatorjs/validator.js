@@ -1,7 +1,11 @@
 #### HEAD
 
+- Added an `isRFC3339()` validator
+  ([#816](https://github.com/chriso/validator.js/pull/816))
 - Disallow GMail addresses with multiple consecutive dots
   ([#820](https://github.com/chriso/validator.js/pull/820))
+- New locales
+  ([#803](https://github.com/chriso/validator.js/pull/803))
 
 #### 9.4.1
 
