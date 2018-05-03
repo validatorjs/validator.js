@@ -54,7 +54,6 @@ describe('Validators', function () {
         'test|123@m端ller.com',
         'test+ext@gmail.com',
         'some.name.midd.leNa.me.+extension@GoogleMail.com',
-        'gmail...ignores...dots...@gmail.com',
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
@@ -84,6 +83,9 @@ describe('Validators', function () {
         'test11@invalid.co m',
         'test12@invalid.co　m',
         'test13@invalid.co　m',
+        'gmail...ignores...dots...@gmail.com',
+        'multiple..dots@gmail.com',
+        'multiple..dots@stillinvalid.com',
       ],
     });
   });
@@ -162,6 +164,7 @@ describe('Validators', function () {
         'Some Name <foo@bar.co.uk.',
         'Some Name < foo@bar.co.uk >',
         'Name foo@bar.co.uk',
+        'Some Name <some..name@gmail.com>',
       ],
     });
   });
@@ -5071,6 +5074,41 @@ describe('Validators', function () {
         '2009-05-19 14.5.44',
         '2010-02-18T16:23.33.600',
         '2010-02-18T16,25:23:48,444',
+      ],
+    });
+  });
+
+  it('should validate RFC 3339 dates', function () {
+    test({
+      validator: 'isRFC3339',
+      valid: [
+        '2009-05-19 14:39:22-06:00',
+        '2009-05-19 14:39:22+06:00',
+        '2009-05-19 14:39:22Z',
+        '2009-05-19T14:39:22-06:00',
+        '2009-05-19T14:39:22Z',
+        '2010-02-18T16:23:48.3-06:00',
+        '2010-02-18t16:23:33+06:00',
+        '2010-02-18t16:23:33+06:00',
+        '2010-02-18t16:12:23.23334444z',
+        '2010-02-18T16:23:55.2283Z',
+        '2009-05-19 14:39:22.500Z',
+        '2009-05-19 14:39:55Z',
+        '2009-05-31 14:39:55Z',
+        '2009-05-31 14:53:60Z',
+        '2010-02-18t00:23:23.33+06:00',
+        '2010-02-18t00:23:32.33+00:00',
+        '2010-02-18t00:23:32.33+23:00',
+      ],
+      invalid: [
+        '2010-02-18t00:23:32.33+24:00',
+        '2009-05-31 14:60:55Z',
+        '2010-02-18t24:23.33+0600',
+        '2009-05-00 1439,55Z',
+        '2009-13-19 14:39:22-06:00',
+        '2009-05-00 14:39:22+0600',
+        '2009-00-1 14:39:22Z',
+        '2009-05-19T14:39:22',
       ],
     });
   });

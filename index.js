@@ -204,6 +204,10 @@ var _isISO = require('./lib/isISO8601');
 
 var _isISO2 = _interopRequireDefault(_isISO);
 
+var _isRFC = require('./lib/isRFC3339');
+
+var _isRFC2 = _interopRequireDefault(_isRFC);
+
 var _isISO31661Alpha = require('./lib/isISO31661Alpha2');
 
 var _isISO31661Alpha2 = _interopRequireDefault(_isISO31661Alpha);
@@ -329,6 +333,7 @@ var validator = {
   isPostalCode: _isPostalCode2.default,
   isCurrency: _isCurrency2.default,
   isISO8601: _isISO2.default,
+  isRFC3339: _isRFC2.default,
   isISO31661Alpha2: _isISO31661Alpha2.default,
   isBase64: _isBase2.default,
   isDataURI: _isDataURI2.default,
