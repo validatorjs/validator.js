@@ -12,6 +12,8 @@
   ([#805](https://github.com/chriso/validator.js/pull/805))
 - Fixed `isFloat()` min/max/gt/lt filters when a locale with a comma decimal is used
   ([2b70821](https://github.com/chriso/validator.js/commit/2b70821))
+- Normalize Yandex emails
+  ([#807](https://github.com/chriso/validator.js/pull/807))
 - New locales
   ([#803](https://github.com/chriso/validator.js/pull/803))
 
