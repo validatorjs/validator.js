@@ -145,6 +145,16 @@ const yahoo_domains = [
   'ymail.com',
 ];
 
+// List of domains used by yandex.ru
+const yandex_domains = [
+  'yandex.ru',
+  'yandex.ua',
+  'yandex.kz',
+  'yandex.com',
+  'yandex.by',
+  'ya.ru',
+];
+
 // replace single dots, but not multiple consecutive dots
 function dotsReplacer(match) {
   if (match.length > 1) {
@@ -214,6 +224,11 @@ export default function normalizeEmail(email, options) {
     if (options.all_lowercase || options.yahoo_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
+  } else if (~yandex_domains.indexOf(parts[1])) {
+    if (options.all_lowercase || options.yahoo_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+    parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preffered
   } else if (options.all_lowercase) {
     // Any other address
     parts[0] = parts[0].toLowerCase();
