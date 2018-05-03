@@ -1,4 +1,4 @@
-#### HEAD
+#### 10.0.0
 
 - Allow floating points in `isNumeric()`
   ([#810](https://github.com/chriso/validator.js/pull/810))

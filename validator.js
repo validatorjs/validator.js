@@ -1540,7 +1540,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '9.4.1';
+var version = '10.0.0';
 
 var validator = {
   version: version,
