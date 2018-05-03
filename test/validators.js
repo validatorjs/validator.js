@@ -54,11 +54,12 @@ describe('Validators', function () {
         'test|123@m端ller.com',
         'test+ext@gmail.com',
         'some.name.midd.leNa.me.+extension@GoogleMail.com',
-        'gmail...ignores...dots...@gmail.com',
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
-        `${repeat('a', 64)}@${repeat('a', 250)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 63)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 58)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 63)}.com`,
       ],
       invalid: [
         'invalidemail@',
@@ -71,6 +72,7 @@ describe('Validators', function () {
         'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com',
         `${repeat('a', 64)}@${repeat('a', 251)}.com`,
         `${repeat('a', 65)}@${repeat('a', 250)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 64)}.com`,
         'test1@invalid.co m',
         'test2@invalid.co m',
         'test3@invalid.co m',
@@ -84,6 +86,9 @@ describe('Validators', function () {
         'test11@invalid.co m',
         'test12@invalid.co　m',
         'test13@invalid.co　m',
+        'gmail...ignores...dots...@gmail.com',
+        'multiple..dots@gmail.com',
+        'multiple..dots@stillinvalid.com',
       ],
     });
   });
@@ -162,6 +167,7 @@ describe('Validators', function () {
         'Some Name <foo@bar.co.uk.',
         'Some Name < foo@bar.co.uk >',
         'Name foo@bar.co.uk',
+        'Some Name <some..name@gmail.com>',
       ],
     });
   });
@@ -1460,9 +1466,9 @@ describe('Validators', function () {
         '0',
         '-0',
         '+123',
+        '123.123',
       ],
       invalid: [
-        '123.123',
         ' ',
         '.',
       ],
@@ -2112,6 +2118,38 @@ describe('Validators', function () {
         '-5.5',
       ],
     });
+    test({
+      validator: 'isFloat',
+      args: [{
+        locale: 'de-DE',
+        min: 3.1,
+      }],
+      valid: [
+        '123',
+        '123,',
+        '123,123',
+        '3,1',
+        '3,100001',
+      ],
+      invalid: [
+        '3,09',
+        '-,123',
+        '+,123',
+        '01,123',
+        '-0,22250738585072011e-307',
+        '-123,123',
+        '-0,123',
+        '+0,123',
+        '0,123',
+        ',0',
+        '123.123',
+        '123٫123',
+        '  ',
+        '',
+        '.',
+        'foo',
+      ],
+    });
   });
 
   it('should validate hexadecimal strings', function () {
@@ -2662,6 +2700,7 @@ describe('Validators', function () {
         '2225855203075256',
         '2720428011723762',
         '2718760626256570',
+        '6765780016990268',
       ],
       invalid: [
         'foo',
@@ -2957,12 +2996,12 @@ describe('Validators', function () {
         'Vml2YW11cyBmZXJtZW50dW0gc2VtcGVyIHBvcnRhLg==',
         'U3VzcGVuZGlzc2UgbGVjdHVzIGxlbw==',
         'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuMPNS1Ufof9EW/M98FNw' +
-          'UAKrwflsqVxaxQjBQnHQmiI7Vac40t8x7pIb8gLGV6wL7sBTJiPovJ0V7y7oc0Ye' +
-          'rhKh0Rm4skP2z/jHwwZICgGzBvA0rH8xlhUiTvcwDCJ0kc+fh35hNt8srZQM4619' +
-          'FTgB66Xmp4EtVyhpQV+t02g6NzK72oZI0vnAvqhpkxLeLiMCyrI416wHm5Tkukhx' +
-          'QmcL2a6hNOyu0ixX/x2kSFXApEnVrJ+/IxGyfyw8kf4N2IZpW5nEP847lpfj0SZZ' +
-          'Fwrd1mnfnDbYohX2zRptLy2ZUn06Qo9pkG5ntvFEPo9bfZeULtjYzIl6K8gJ2uGZ' +
-          'HQIDAQAB',
+        'UAKrwflsqVxaxQjBQnHQmiI7Vac40t8x7pIb8gLGV6wL7sBTJiPovJ0V7y7oc0Ye' +
+        'rhKh0Rm4skP2z/jHwwZICgGzBvA0rH8xlhUiTvcwDCJ0kc+fh35hNt8srZQM4619' +
+        'FTgB66Xmp4EtVyhpQV+t02g6NzK72oZI0vnAvqhpkxLeLiMCyrI416wHm5Tkukhx' +
+        'QmcL2a6hNOyu0ixX/x2kSFXApEnVrJ+/IxGyfyw8kf4N2IZpW5nEP847lpfj0SZZ' +
+        'Fwrd1mnfnDbYohX2zRptLy2ZUn06Qo9pkG5ntvFEPo9bfZeULtjYzIl6K8gJ2uGZ' +
+        'HQIDAQAB',
       ],
       invalid: [
         '12345',
@@ -4133,7 +4172,7 @@ describe('Validators', function () {
     test({
       validator: 'isCurrency',
       args: [
-        { },
+        {},
         '-$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)',
       ],
       valid: [
@@ -5071,6 +5110,41 @@ describe('Validators', function () {
         '2009-05-19 14.5.44',
         '2010-02-18T16:23.33.600',
         '2010-02-18T16,25:23:48,444',
+      ],
+    });
+  });
+
+  it('should validate RFC 3339 dates', function () {
+    test({
+      validator: 'isRFC3339',
+      valid: [
+        '2009-05-19 14:39:22-06:00',
+        '2009-05-19 14:39:22+06:00',
+        '2009-05-19 14:39:22Z',
+        '2009-05-19T14:39:22-06:00',
+        '2009-05-19T14:39:22Z',
+        '2010-02-18T16:23:48.3-06:00',
+        '2010-02-18t16:23:33+06:00',
+        '2010-02-18t16:23:33+06:00',
+        '2010-02-18t16:12:23.23334444z',
+        '2010-02-18T16:23:55.2283Z',
+        '2009-05-19 14:39:22.500Z',
+        '2009-05-19 14:39:55Z',
+        '2009-05-31 14:39:55Z',
+        '2009-05-31 14:53:60Z',
+        '2010-02-18t00:23:23.33+06:00',
+        '2010-02-18t00:23:32.33+00:00',
+        '2010-02-18t00:23:32.33+23:00',
+      ],
+      invalid: [
+        '2010-02-18t00:23:32.33+24:00',
+        '2009-05-31 14:60:55Z',
+        '2010-02-18t24:23.33+0600',
+        '2009-05-00 1439,55Z',
+        '2009-13-19 14:39:22-06:00',
+        '2009-05-00 14:39:22+0600',
+        '2009-00-1 14:39:22Z',
+        '2009-05-19T14:39:22',
       ],
     });
   });

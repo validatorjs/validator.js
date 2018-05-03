@@ -139,6 +139,11 @@ function isFQDN(str, options) {
     str = str.substring(0, str.length - 1);
   }
   var parts = str.split('.');
+  for (var i = 0; i < parts.length; i++) {
+    if (parts[i].length > 63) {
+      return false;
+    }
+  }
   if (options.require_tld) {
     var tld = parts.pop();
     if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
@@ -149,8 +154,8 @@ function isFQDN(str, options) {
       return false;
     }
   }
-  for (var part, i = 0; i < parts.length; i++) {
-    part = parts[i];
+  for (var part, _i = 0; _i < parts.length; _i++) {
+    part = parts[_i];
     if (options.allow_underscores) {
       part = part.replace(/_/g, '');
     }
@@ -203,8 +208,16 @@ function isEmail(str, options) {
   var user = parts.join('@');
 
   var lower_domain = domain.toLowerCase();
+
   if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
-    user = user.replace(/\./g, '').toLowerCase();
+    /*
+      Previously we removed dots for gmail addresses before validating.
+      This was removed because it allows `multiple..dots@gmail.com`
+      to be reported as valid, but it is not.
+      Gmail only normalizes single dots, removing them from here is pointless,
+      should be done in normalizeEmail
+    */
+    user = user.toLowerCase();
   }
 
   if (!isByteLength(user, { max: 64 }) || !isByteLength(domain, { max: 254 })) {
@@ -546,7 +559,7 @@ function isAlphanumeric(str) {
   throw new Error('Invalid locale \'' + locale + '\'');
 }
 
-var numeric = /^[-+]?[0-9]+$/;
+var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
 
 function isNumeric(str) {
   assertString(str);
@@ -638,7 +651,8 @@ function isFloat(str, options) {
   if (str === '' || str === '.' || str === '-' || str === '+') {
     return false;
   }
-  return float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max) && (!options.hasOwnProperty('lt') || str < options.lt) && (!options.hasOwnProperty('gt') || str > options.gt);
+  var value = parseFloat(str.replace(',', '.'));
+  return float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
 function decimalRegExp(options) {
@@ -809,7 +823,7 @@ function isIn(str, options) {
 }
 
 /* eslint-disable max-len */
-var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|62[0-9]{14})$/;
+var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|6[27][0-9]{14})$/;
 /* eslint-enable max-len */
 
 function isCreditCard(str) {
@@ -1139,6 +1153,32 @@ function isISO8601(str) {
   return iso8601.test(str);
 }
 
+/* Based on https://tools.ietf.org/html/rfc3339#section-5.6 */
+
+var dateFullYear = /[0-9]{4}/;
+var dateMonth = /(0[1-9]|1[0-2])/;
+var dateMDay = /([12]\d|0[1-9]|3[01])/;
+
+var timeHour = /([01][0-9]|2[0-3])/;
+var timeMinute = /[0-5][0-9]/;
+var timeSecond = /([0-5][0-9]|60)/;
+
+var timeSecFrac = /(\.[0-9]+)?/;
+var timeNumOffset = new RegExp('[-+]' + timeHour.source + ':' + timeMinute.source);
+var timeOffset = new RegExp('([zZ]|' + timeNumOffset.source + ')');
+
+var partialTime = new RegExp(timeHour.source + ':' + timeMinute.source + ':' + timeSecond.source + timeSecFrac.source);
+
+var fullDate = new RegExp(dateFullYear.source + '-' + dateMonth.source + '-' + dateMDay.source);
+var fullTime = new RegExp('' + partialTime.source + timeOffset.source);
+
+var rfc3339 = new RegExp(fullDate.source + '[ tT]' + fullTime.source);
+
+function isRFC3339(str) {
+  assertString(str);
+  return rfc3339.test(str);
+}
+
 // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 var validISO31661Alpha2CountriesCodes = ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'SS', 'ST', 'SV', 'SX', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW'];
 
@@ -1282,6 +1322,7 @@ var patterns = {
   RU: sixDigit,
   SA: fiveDigit,
   SE: /^\d{3}\s?\d{2}$/,
+  SK: /^\d{3}\s?\d{2}$/,
   TW: /^\d{3}(\d{2})?$/,
   US: /^\d{5}(-\d{4})?$/,
   ZA: fourDigit,
@@ -1418,6 +1459,14 @@ var yahoo_domains = ['rocketmail.com', 'yahoo.ca', 'yahoo.co.uk', 'yahoo.com', '
 // List of domains used by yandex.ru
 var yandex_domains = ['yandex.ru', 'yandex.ua', 'yandex.kz', 'yandex.com', 'yandex.by', 'ya.ru'];
 
+// replace single dots, but not multiple consecutive dots
+function dotsReplacer(match) {
+  if (match.length > 1) {
+    return match;
+  }
+  return '';
+}
+
 function normalizeEmail(email, options) {
   options = merge(options, default_normalize_email_options);
 
@@ -1435,7 +1484,8 @@ function normalizeEmail(email, options) {
       parts[0] = parts[0].split('+')[0];
     }
     if (options.gmail_remove_dots) {
-      parts[0] = parts[0].replace(/\./g, '');
+      // this does not replace consecutive dots like example..email@gmail.com
+      parts[0] = parts[0].replace(/\.+/g, dotsReplacer);
     }
     if (!parts[0].length) {
       return false;
@@ -1545,6 +1595,7 @@ var validator = {
   isPostalCode: isPostalCode,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
+  isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
   isBase64: isBase64,
   isDataURI: isDataURI,
