@@ -1,3 +1,8 @@
+#### HEAD
+
+- Disallow GMail addresses with multiple consecutive dots
+  ([#820](https://github.com/chriso/validator.js/pull/820))
+
 #### 9.4.1
 
 - Patched a [REDOS](https://en.wikipedia.org/wiki/ReDoS) vulnerability in `isDataURI`
