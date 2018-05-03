@@ -235,7 +235,8 @@ describe('Sanitizers', function () {
         'some.name.midd.leNa.me.+extension@GoogleMail.com': 'somenamemiddlename@gmail.com',
         'some.name+extension@unknown.com': 'some.name+extension@unknown.com',
         'hans@m端ller.com': 'hans@m端ller.com',
-        'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemiddlename@gmail.com',
+        'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemidd..lena...me...@gmail.com',
+        'matthew..example@gmail.com': 'matthew..example@gmail.com',
         '"foo@bar"@baz.com': '"foo@bar"@baz.com',
       },
     });
@@ -326,6 +327,7 @@ describe('Sanitizers', function () {
       expect: {
         'SOME.name@GMAIL.com': 'somename@gmail.com',
         'SOME.name+me@GMAIL.com': 'somename@gmail.com',
+        'some.name..multiple@gmail.com': 'somename..multiple@gmail.com',
         'my.self@foo.com': 'my.self@foo.com',
       },
     });

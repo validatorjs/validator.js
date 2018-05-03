@@ -1,3 +1,16 @@
+#### HEAD
+
+- Allow floating points in `isNumeric()`
+  ([#810](https://github.com/chriso/validator.js/pull/810))
+- Disallow GMail addresses with multiple consecutive dots
+  ([#820](https://github.com/chriso/validator.js/pull/820))
+- Added an `isRFC3339()` validator
+  ([#816](https://github.com/chriso/validator.js/pull/816))
+- Reject domain parts longer than 63 octets (`isFQDN()`, `isEmail()`, etc.)
+  ([bb3e542](https://github.com/chriso/validator.js/commit/bb3e542)).
+- New locales
+  ([#803](https://github.com/chriso/validator.js/pull/803))
+
 #### 9.4.1
 
 - Patched a [REDOS](https://en.wikipedia.org/wiki/ReDoS) vulnerability in `isDataURI`
