@@ -1444,6 +1444,10 @@ var default_normalize_email_options = {
   // Removes the subaddress (e.g. "-foo") from the email address
   yahoo_remove_subaddress: true,
 
+  // The following conversions are specific to Yandex
+  // Lowercases the local part of the Yandex address (known to be case-insensitive)
+  yandex_lowercase: true,
+
   // The following conversions are specific to iCloud
   // Lowercases the local part of the iCloud address (known to be case-insensitive)
   icloud_lowercase: true,
@@ -1537,7 +1541,7 @@ function normalizeEmail(email, options) {
       parts[0] = parts[0].toLowerCase();
     }
   } else if (~yandex_domains.indexOf(parts[1])) {
-    if (options.all_lowercase || options.yahoo_lowercase) {
+    if (options.all_lowercase || options.yandex_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
     parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preffered
