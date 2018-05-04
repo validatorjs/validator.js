@@ -1,3 +1,8 @@
+#### HEAD
+
+- Added an `isISO31661Alpha3()` validator
+  ([#809](https://github.com/chriso/validator.js/pull/809))
+
 #### 10.0.0
 
 - Allow floating points in `isNumeric()`
