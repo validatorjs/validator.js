@@ -22,5 +22,6 @@ describe('Exports', function () {
 
   it('should export isPostalCode\'s supported locales', function () {
     assert.ok(isPostalCodeLocales instanceof Array);
+    assert.ok(validator.isPostalCodeLocales instanceof Array);
   });
 });
