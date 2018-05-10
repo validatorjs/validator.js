@@ -1337,7 +1337,7 @@ var patterns = {
   ZM: fiveDigit
 };
 
-
+var locales = Object.keys(patterns);
 
 var isPostalCode = function (str, locale) {
   assertString(str);
@@ -1605,6 +1605,7 @@ var validator = {
   isISSN: isISSN,
   isMobilePhone: isMobilePhone,
   isPostalCode: isPostalCode,
+  isPostalCodeLocales: locales,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,

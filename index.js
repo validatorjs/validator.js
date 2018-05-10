@@ -335,6 +335,7 @@ var validator = {
   isISSN: _isISSN2.default,
   isMobilePhone: _isMobilePhone2.default,
   isPostalCode: _isPostalCode2.default,
+  isPostalCodeLocales: _isPostalCode.locales,
   isCurrency: _isCurrency2.default,
   isISO8601: _isISO2.default,
   isRFC3339: _isRFC2.default,
