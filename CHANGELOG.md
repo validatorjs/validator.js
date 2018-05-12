@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locales
+  ([#831](https://github.com/chriso/validator.js/pull/831))
+
 #### 10.2.0
 
 - Export the list of supported locales in `isPostalCode()`
