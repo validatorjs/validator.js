@@ -3020,7 +3020,7 @@ describe('Validators', function () {
     });
     for (var i = 0, str = '', encoded; i < 1000; i++) {
       str += String.fromCharCode(Math.random() * 26 | 97);
-      encoded = new Buffer(str).toString('base64');
+      encoded = Buffer.from(str).toString('base64');
       if (!validator.isBase64(encoded)) {
         var msg = format('validator.isBase64() failed with "%s"', encoded);
         throw new Error(msg);
