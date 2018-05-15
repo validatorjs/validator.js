@@ -15,6 +15,7 @@ const default_email_options = {
 /* eslint-disable no-control-regex */
 const displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
 const emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
+const gmailUserPart = /^[a-z\d](\.?[a-z\d])+$/;
 const quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
 const emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
 const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
@@ -49,6 +50,17 @@ export default function isEmail(str, options) {
       should be done in normalizeEmail
     */
     user = user.toLowerCase();
+
+    // Removing sub-address from username before gmail validation
+    const username = user.split('+')[0];
+
+    if (!isByteLength(username, { min: 6, max: 30 })) {
+      return false;
+    }
+
+    if (!gmailUserPart.test(username)) {
+      return false;
+    }
   }
 
   if (!isByteLength(user, { max: 64 }) ||
