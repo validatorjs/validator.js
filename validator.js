@@ -234,7 +234,6 @@ function isEmail(str, options) {
         return false;
       }
     }
-    return true;
   }
 
   if (!isByteLength(user, { max: 64 }) || !isByteLength(domain, { max: 254 })) {

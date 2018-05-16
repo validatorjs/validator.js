@@ -93,6 +93,7 @@ describe('Validators', function () {
         'ends.with.dot.@gmail.com',
         'multiple..dots@gmail.com',
         'multiple..dots@stillinvalid.com',
+        'test123+invalid! sub_address@gmail.com',
       ],
     });
   });
