@@ -15,8 +15,10 @@ function test(options) {
     }
 
     if (result !== expected) {
-      var warning = format('validator.%s(%s) returned "%s" but should have returned "%s"',
-        options.sanitizer, args.join(', '), result, expected);
+      var warning = format(
+        'validator.%s(%s) returned "%s" but should have returned "%s"',
+        options.sanitizer, args.join(', '), result, expected
+      );
 
       throw new Error(warning);
     }

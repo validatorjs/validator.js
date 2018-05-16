@@ -15,8 +15,10 @@ describe('Exports', function () {
 
   it('should export the version number', function () {
     /* eslint-disable global-require */
-    assert.equal(validator.version, require('../package.json').version,
-      'Version number mismatch in "package.json" vs. "validator.js"');
+    assert.equal(
+      validator.version, require('../package.json').version,
+      'Version number mismatch in "package.json" vs. "validator.js"'
+    );
     /* eslint-enable global-require */
   });
 

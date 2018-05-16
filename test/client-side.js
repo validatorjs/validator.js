@@ -6,8 +6,10 @@ describe('Minified version', function () {
   it('should export the same things as the server-side version', function () {
     for (var key in validator) {
       if ({}.hasOwnProperty.call(validator, key)) {
-        assert.equal(typeof validator[key],
-          typeof min[key], `Minified version did not export ${key}`);
+        assert.equal(
+          typeof validator[key],
+          typeof min[key], `Minified version did not export ${key}`
+        );
       }
     }
   });

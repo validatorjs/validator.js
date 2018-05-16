@@ -14,8 +14,10 @@ function test(options) {
     options.valid.forEach(function (valid) {
       args[0] = valid;
       if (validator[options.validator](...args) !== true) {
-        var warning = format('validator.%s(%s) failed but should have passed',
-          options.validator, args.join(', '));
+        var warning = format(
+          'validator.%s(%s) failed but should have passed',
+          options.validator, args.join(', ')
+        );
         throw new Error(warning);
       }
     });
@@ -24,8 +26,10 @@ function test(options) {
     options.invalid.forEach(function (invalid) {
       args[0] = invalid;
       if (validator[options.validator](...args) !== false) {
-        var warning = format('validator.%s(%s) passed but should have failed',
-          options.validator, args.join(', '));
+        var warning = format(
+          'validator.%s(%s) passed but should have failed',
+          options.validator, args.join(', ')
+        );
         throw new Error(warning);
       }
     });
@@ -2362,7 +2366,9 @@ describe('Validators', function () {
   });
 
   it('should validate strings against an expected value', function () {
-    test({ validator: 'equals', args: ['abc'], valid: ['abc'], invalid: ['Abc', '123'] });
+    test({
+      validator: 'equals', args: ['abc'], valid: ['abc'], invalid: ['Abc', '123'],
+    });
   });
 
   it('should validate strings contain another string', function () {
