@@ -52,8 +52,8 @@ describe('Validators', function () {
         'hans.m端ller@test.com',
         'hans@m端ller.com',
         'test|123@m端ller.com',
-        'test+ext@gmail.com',
-        'some.name.midd.leNa.me.+extension@GoogleMail.com',
+        'test123+ext@gmail.com',
+        'some.name.midd.leNa.me+extension@GoogleMail.com',
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
@@ -73,6 +73,7 @@ describe('Validators', function () {
         `${repeat('a', 64)}@${repeat('a', 251)}.com`,
         `${repeat('a', 65)}@${repeat('a', 250)}.com`,
         `${repeat('a', 64)}@${repeat('a', 64)}.com`,
+        `${repeat('a', 31)}@gmail.com`,
         'test1@invalid.co m',
         'test2@invalid.co m',
         'test3@invalid.co m',
@@ -87,8 +88,12 @@ describe('Validators', function () {
         'test12@invalid.co　m',
         'test13@invalid.co　m',
         'gmail...ignores...dots...@gmail.com',
+        'test@gmail.com',
+        'test.1@gmail.com',
+        'ends.with.dot.@gmail.com',
         'multiple..dots@gmail.com',
         'multiple..dots@stillinvalid.com',
+        'test123+invalid! sub_address@gmail.com',
       ],
     });
   });
@@ -104,8 +109,8 @@ describe('Validators', function () {
         'foo+bar@bar.com',
         'hans@m端ller.com',
         'test|123@m端ller.com',
-        'test+ext@gmail.com',
-        'some.name.midd.leNa.me.+extension@GoogleMail.com',
+        'test123+ext@gmail.com',
+        'some.name.midd.leNa.me+extension@GoogleMail.com',
         '"foobar"@example.com',
         '"foo\\@bar"@example.com',
         '"  foo  bar  "@example.com',
@@ -136,8 +141,8 @@ describe('Validators', function () {
         'hans.m端ller@test.com',
         'hans@m端ller.com',
         'test|123@m端ller.com',
-        'test+ext@gmail.com',
-        'some.name.midd.leNa.me.+extension@GoogleMail.com',
+        'test123+ext@gmail.com',
+        'some.name.midd.leNa.me+extension@GoogleMail.com',
         'Some Name <foo@bar.com>',
         'Some Name <x@x.au>',
         'Some Name <foo@bar.com.au>',
@@ -145,12 +150,12 @@ describe('Validators', function () {
         'Some Name <hans.m端ller@test.com>',
         'Some Name <hans@m端ller.com>',
         'Some Name <test|123@m端ller.com>',
-        'Some Name <test+ext@gmail.com>',
+        'Some Name <test123+ext@gmail.com>',
         '\'Foo Bar, Esq\'<foo@bar.com>',
-        'Some Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
-        'Some Middle Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
-        'Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
-        'Name<some.name.midd.leNa.me.+extension@GoogleMail.com>',
+        'Some Name <some.name.midd.leNa.me+extension@GoogleMail.com>',
+        'Some Middle Name <some.name.midd.leNa.me+extension@GoogleMail.com>',
+        'Name <some.name.midd.leNa.me+extension@GoogleMail.com>',
+        'Name<some.name.midd.leNa.me+extension@GoogleMail.com>',
       ],
       invalid: [
         'invalidemail@',
@@ -168,6 +173,7 @@ describe('Validators', function () {
         'Some Name < foo@bar.co.uk >',
         'Name foo@bar.co.uk',
         'Some Name <some..name@gmail.com>',
+        'Some Name <foo@gmail.com>',
       ],
     });
   });
@@ -184,14 +190,14 @@ describe('Validators', function () {
         'Some Name <hans.m端ller@test.com>',
         'Some Name <hans@m端ller.com>',
         'Some Name <test|123@m端ller.com>',
-        'Some Name <test+ext@gmail.com>',
-        'Some Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
-        'Some Middle Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
-        'Name <some.name.midd.leNa.me.+extension@GoogleMail.com>',
-        'Name<some.name.midd.leNa.me.+extension@GoogleMail.com>',
+        'Some Name <test123+ext@gmail.com>',
+        'Some Name <some.name.midd.leNa.me+extension@GoogleMail.com>',
+        'Some Middle Name <some.name.midd.leNa.me+extension@GoogleMail.com>',
+        'Name <some.name.midd.leNa.me+extension@GoogleMail.com>',
+        'Name<some.name.midd.leNa.me+extension@GoogleMail.com>',
       ],
       invalid: [
-        'some.name.midd.leNa.me.+extension@GoogleMail.com',
+        'some.name.midd.leNa.me+extension@GoogleMail.com',
         'foo@bar.com',
         'x@x.au',
         'foo@bar.com.au',
@@ -199,7 +205,7 @@ describe('Validators', function () {
         'hans.m端ller@test.com',
         'hans@m端ller.com',
         'test|123@m端ller.com',
-        'test+ext@gmail.com',
+        'test123+ext@gmail.com',
         'invalidemail@',
         'invalid.com',
         '@invalid.com',
@@ -3016,7 +3022,7 @@ describe('Validators', function () {
     });
     for (var i = 0, str = '', encoded; i < 1000; i++) {
       str += String.fromCharCode(Math.random() * 26 | 97);
-      encoded = new Buffer(str).toString('base64');
+      encoded = Buffer.from(str).toString('base64');
       if (!validator.isBase64(encoded)) {
         var msg = format('validator.isBase64() failed with "%s"', encoded);
         throw new Error(msg);
