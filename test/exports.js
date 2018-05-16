@@ -1,19 +1,19 @@
-var assert = require('assert');
-var validator = require('../index');
-var isPostalCodeLocales = require('../lib/isPostalCode').locales;
+let assert = require('assert');
+let validator = require('../index');
+let isPostalCodeLocales = require('../lib/isPostalCode').locales;
 
-describe('Exports', function () {
-  it('should export validators', function () {
+describe('Exports', () => {
+  it('should export validators', () => {
     assert.equal(typeof validator.isEmail, 'function');
     assert.equal(typeof validator.isAlpha, 'function');
   });
 
-  it('should export sanitizers', function () {
+  it('should export sanitizers', () => {
     assert.equal(typeof validator.toBoolean, 'function');
     assert.equal(typeof validator.toFloat, 'function');
   });
 
-  it('should export the version number', function () {
+  it('should export the version number', () => {
     /* eslint-disable global-require */
     assert.equal(
       validator.version, require('../package.json').version,
@@ -22,7 +22,7 @@ describe('Exports', function () {
     /* eslint-enable global-require */
   });
 
-  it('should export isPostalCode\'s supported locales', function () {
+  it('should export isPostalCode\'s supported locales', () => {
     assert.ok(isPostalCodeLocales instanceof Array);
     assert.ok(validator.isPostalCodeLocales instanceof Array);
   });

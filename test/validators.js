@@ -1,20 +1,20 @@
-var validator = require('../index'),
+let validator = require('../index'),
   format = require('util').format,
   assert = require('assert'),
   path = require('path'),
   fs = require('fs'),
   vm = require('vm');
 
-var validator_js = fs.readFileSync(path.join(__dirname, '../validator.js')).toString();
+let validator_js = fs.readFileSync(path.join(__dirname, '../validator.js')).toString();
 
 function test(options) {
-  var args = options.args || [];
+  let args = options.args || [];
   args.unshift(null);
   if (options.valid) {
-    options.valid.forEach(function (valid) {
+    options.valid.forEach((valid) => {
       args[0] = valid;
       if (validator[options.validator](...args) !== true) {
-        var warning = format(
+        let warning = format(
           'validator.%s(%s) failed but should have passed',
           options.validator, args.join(', ')
         );
@@ -23,10 +23,10 @@ function test(options) {
     });
   }
   if (options.invalid) {
-    options.invalid.forEach(function (invalid) {
+    options.invalid.forEach((invalid) => {
       args[0] = invalid;
       if (validator[options.validator](...args) !== false) {
-        var warning = format(
+        let warning = format(
           'validator.%s(%s) passed but should have failed',
           options.validator, args.join(', ')
         );
@@ -37,15 +37,15 @@ function test(options) {
 }
 
 function repeat(str, count) {
-  var result = '';
-  while (count--) {
+  let result = '';
+  for (; count; count--) {
     result += str;
   }
   return result;
 }
 
-describe('Validators', function () {
-  it('should validate email addresses', function () {
+describe('Validators', () => {
+  it('should validate email addresses', () => {
     test({
       validator: 'isEmail',
       valid: [
@@ -102,7 +102,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate email addresses without UTF8 characters in local part', function () {
+  it('should validate email addresses without UTF8 characters in local part', () => {
     test({
       validator: 'isEmail',
       args: [{ allow_utf8_local_part: false }],
@@ -133,7 +133,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate email addresses with display names', function () {
+  it('should validate email addresses with display names', () => {
     test({
       validator: 'isEmail',
       args: [{ allow_display_name: true }],
@@ -182,7 +182,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate email addresses with required display names', function () {
+  it('should validate email addresses with required display names', () => {
     test({
       validator: 'isEmail',
       args: [{ require_display_name: true }],
@@ -229,7 +229,7 @@ describe('Validators', function () {
   });
 
 
-  it('should validate URLs', function () {
+  it('should validate URLs', () => {
     test({
       validator: 'isURL',
       valid: [
@@ -312,7 +312,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate URLs with custom protocols', function () {
+  it('should validate URLs with custom protocols', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -327,7 +327,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate file URLs without a host', function () {
+  it('should validate file URLs without a host', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -347,7 +347,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate URLs with any protocol', function () {
+  it('should validate URLs with any protocol', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -364,7 +364,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate URLs with underscores', function () {
+  it('should validate URLs with underscores', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -379,7 +379,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate URLs that do not have a TLD', function () {
+  it('should validate URLs that do not have a TLD', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -396,7 +396,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate URLs with a trailing dot option', function () {
+  it('should validate URLs with a trailing dot option', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -410,7 +410,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate protocol relative URLs', function () {
+  it('should validate protocol relative URLs', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -430,7 +430,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should not validate protocol relative URLs when require protocol is true', function () {
+  it('should not validate protocol relative URLs when require protocol is true', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -449,7 +449,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should let users specify whether URLs require a protocol', function () {
+  it('should let users specify whether URLs require a protocol', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -466,7 +466,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should let users specify a host whitelist', function () {
+  it('should let users specify a host whitelist', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -484,7 +484,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should allow regular expressions in the host whitelist', function () {
+  it('should allow regular expressions in the host whitelist', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -505,7 +505,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should let users specify a host blacklist', function () {
+  it('should let users specify a host blacklist', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -523,7 +523,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should allow regular expressions in the host blacklist', function () {
+  it('should allow regular expressions in the host blacklist', () => {
     test({
       validator: 'isURL',
       args: [{
@@ -544,7 +544,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate MAC addresses', function () {
+  it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',
       valid: [
@@ -563,7 +563,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate IP addresses', function () {
+  it('should validate IP addresses', () => {
     test({
       validator: 'isIP',
       valid: [
@@ -654,7 +654,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate FQDN', function () {
+  it('should validate FQDN', () => {
     test({
       validator: 'isFQDN',
       valid: [
@@ -676,7 +676,7 @@ describe('Validators', function () {
       ],
     });
   });
-  it('should validate FQDN with trailing dot option', function () {
+  it('should validate FQDN with trailing dot option', () => {
     test({
       validator: 'isFQDN',
       args: [
@@ -688,7 +688,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate alpha strings', function () {
+  it('should validate alpha strings', () => {
     test({
       validator: 'isAlpha',
       valid: [
@@ -708,7 +708,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate bulgarian alpha strings', function () {
+  it('should validate bulgarian alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['bg-BG'],
@@ -729,7 +729,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate czech alpha strings', function () {
+  it('should validate czech alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['cs-CZ'],
@@ -748,7 +748,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate slovak alpha strings', function () {
+  it('should validate slovak alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['sk-SK'],
@@ -773,7 +773,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate danish alpha strings', function () {
+  it('should validate danish alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['da-DK'],
@@ -791,7 +791,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate dutch alpha strings', function () {
+  it('should validate dutch alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['nl-NL'],
@@ -810,7 +810,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate german alpha strings', function () {
+  it('should validate german alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['de-DE'],
@@ -828,7 +828,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate hungarian alpha strings', function () {
+  it('should validate hungarian alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['hu-HU'],
@@ -845,7 +845,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate italian alpha strings', function () {
+  it('should validate italian alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['it-IT'],
@@ -868,7 +868,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate arabic alpha strings', function () {
+  it('should validate arabic alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['ar'],
@@ -890,7 +890,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate norwegian alpha strings', function () {
+  it('should validate norwegian alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['nb-NO'],
@@ -908,7 +908,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate polish alpha strings', function () {
+  it('should validate polish alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['pl-PL'],
@@ -929,7 +929,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate serbian cyrillic alpha strings', function () {
+  it('should validate serbian cyrillic alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['sr-RS'],
@@ -945,7 +945,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate serbian latin alpha strings', function () {
+  it('should validate serbian latin alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['sr-RS@latin'],
@@ -961,7 +961,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate spanish alpha strings', function () {
+  it('should validate spanish alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['es-ES'],
@@ -980,7 +980,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate swedish alpha strings', function () {
+  it('should validate swedish alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['sv-SE'],
@@ -998,7 +998,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate defined arabic locales alpha strings', function () {
+  it('should validate defined arabic locales alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['ar-SY'],
@@ -1020,7 +1020,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate turkish alpha strings', function () {
+  it('should validate turkish alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['tr-TR'],
@@ -1039,7 +1039,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate urkrainian alpha strings', function () {
+  it('should validate urkrainian alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['uk-UA'],
@@ -1059,7 +1059,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate greek alpha strings', function () {
+  it('should validate greek alpha strings', () => {
     test({
       validator: 'isAlpha',
       args: ['el-GR'],
@@ -1079,7 +1079,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate alphanumeric strings', function () {
+  it('should validate alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       valid: [
@@ -1096,7 +1096,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate defined english aliases', function () {
+  it('should validate defined english aliases', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['en-GB'],
@@ -1114,7 +1114,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate bulgarian alphanumeric strings', function () {
+  it('should validate bulgarian alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['bg-BG'],
@@ -1134,7 +1134,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate czech alphanumeric strings', function () {
+  it('should validate czech alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['cs-CZ'],
@@ -1149,7 +1149,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate slovak alphanumeric strings', function () {
+  it('should validate slovak alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['sk-SK'],
@@ -1173,7 +1173,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate danish alphanumeric strings', function () {
+  it('should validate danish alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['da-DK'],
@@ -1191,7 +1191,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate dutch alphanumeric strings', function () {
+  it('should validate dutch alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['nl-NL'],
@@ -1210,7 +1210,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate german alphanumeric strings', function () {
+  it('should validate german alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['de-DE'],
@@ -1225,7 +1225,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate hungarian alphanumeric strings', function () {
+  it('should validate hungarian alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['hu-HU'],
@@ -1243,7 +1243,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate italian alphanumeric strings', function () {
+  it('should validate italian alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['it-IT'],
@@ -1266,7 +1266,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate spanish alphanumeric strings', function () {
+  it('should validate spanish alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['es-ES'],
@@ -1282,7 +1282,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate arabic alphanumeric strings', function () {
+  it('should validate arabic alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['ar'],
@@ -1298,7 +1298,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate defined arabic aliases', function () {
+  it('should validate defined arabic aliases', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['ar-SY'],
@@ -1316,7 +1316,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate norwegian alphanumeric strings', function () {
+  it('should validate norwegian alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['nb-NO'],
@@ -1334,7 +1334,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate polish alphanumeric strings', function () {
+  it('should validate polish alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['pl-PL'],
@@ -1355,7 +1355,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate serbian cyrillic alphanumeric strings', function () {
+  it('should validate serbian cyrillic alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['sr-RS'],
@@ -1371,7 +1371,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate serbian latin alphanumeric strings', function () {
+  it('should validate serbian latin alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['sr-RS@latin'],
@@ -1387,7 +1387,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate swedish alphanumeric strings', function () {
+  it('should validate swedish alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['sv-SE'],
@@ -1405,7 +1405,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate turkish alphanumeric strings', function () {
+  it('should validate turkish alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['tr-TR'],
@@ -1420,7 +1420,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate urkrainian alphanumeric strings', function () {
+  it('should validate urkrainian alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['uk-UA'],
@@ -1436,7 +1436,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate greek alphanumeric strings', function () {
+  it('should validate greek alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['el-GR'],
@@ -1457,7 +1457,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should error on invalid locale', function () {
+  it('should error on invalid locale', () => {
     try {
       validator.isAlphanumeric('abc123', 'in-INVALID');
       assert(false);
@@ -1466,7 +1466,7 @@ describe('Validators', function () {
     }
   });
 
-  it('should validate numeric strings', function () {
+  it('should validate numeric strings', () => {
     test({
       validator: 'isNumeric',
       valid: [
@@ -1485,7 +1485,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ports', function () {
+  it('should validate ports', () => {
     test({
       validator: 'isPort',
       valid: [
@@ -1505,7 +1505,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate decimal numbers', function () {
+  it('should validate decimal numbers', () => {
     test({
       validator: 'isDecimal',
       valid: [
@@ -1780,7 +1780,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate lowercase strings', function () {
+  it('should validate lowercase strings', () => {
     test({
       validator: 'isLowercase',
       valid: [
@@ -1796,7 +1796,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate uppercase strings', function () {
+  it('should validate uppercase strings', () => {
     test({
       validator: 'isUppercase',
       valid: [
@@ -1812,7 +1812,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate integers', function () {
+  it('should validate integers', () => {
     test({
       validator: 'isInt',
       valid: [
@@ -1936,7 +1936,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate floats', function () {
+  it('should validate floats', () => {
     test({
       validator: 'isFloat',
       valid: [
@@ -2162,7 +2162,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate hexadecimal strings', function () {
+  it('should validate hexadecimal strings', () => {
     test({
       validator: 'isHexadecimal',
       valid: [
@@ -2177,7 +2177,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate hexadecimal color strings', function () {
+  it('should validate hexadecimal color strings', () => {
     test({
       validator: 'isHexColor',
       valid: [
@@ -2194,7 +2194,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ISRC code strings', function () {
+  it('should validate ISRC code strings', () => {
     test({
       validator: 'isISRC',
       valid: [
@@ -2212,7 +2212,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate md5 strings', function () {
+  it('should validate md5 strings', () => {
     test({
       validator: 'isMD5',
       valid: [
@@ -2230,7 +2230,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate hash strings', function () {
+  it('should validate hash strings', () => {
     test({
       validator: 'isHash',
       args: ['md5', 'md4', 'ripemd128', 'tiger128'],
@@ -2351,7 +2351,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate null strings', function () {
+  it('should validate null strings', () => {
     test({
       validator: 'isEmpty',
       valid: [
@@ -2365,13 +2365,13 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate strings against an expected value', function () {
+  it('should validate strings against an expected value', () => {
     test({
       validator: 'equals', args: ['abc'], valid: ['abc'], invalid: ['Abc', '123'],
     });
   });
 
-  it('should validate strings contain another string', function () {
+  it('should validate strings contain another string', () => {
     test({
       validator: 'contains',
       args: ['foo'],
@@ -2380,7 +2380,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate strings against a pattern', function () {
+  it('should validate strings against a pattern', () => {
     test({
       validator: 'matches',
       args: [/abc/],
@@ -2401,7 +2401,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate strings by length (deprecated api)', function () {
+  it('should validate strings by length (deprecated api)', () => {
     test({
       validator: 'isLength',
       args: [2],
@@ -2428,7 +2428,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate strings by byte length (deprecated api)', function () {
+  it('should validate strings by byte length (deprecated api)', () => {
     test({
       validator: 'isByteLength',
       args: [2],
@@ -2449,7 +2449,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate strings by length', function () {
+  it('should validate strings by length', () => {
     test({
       validator: 'isLength',
       args: [{ min: 2 }],
@@ -2482,7 +2482,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate strings by byte length', function () {
+  it('should validate strings by byte length', () => {
     test({
       validator: 'isByteLength',
       args: [{ min: 2 }],
@@ -2509,7 +2509,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate UUIDs', function () {
+  it('should validate UUIDs', () => {
     test({
       validator: 'isUUID',
       valid: [
@@ -2580,7 +2580,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate a string that is in another string or array', function () {
+  it('should validate a string that is in another string or array', () => {
     test({
       validator: 'isIn',
       args: ['foobar'],
@@ -2602,10 +2602,10 @@ describe('Validators', function () {
     test({ validator: 'isIn', invalid: ['foo', ''] });
   });
 
-  it('should validate a string that is in another object', function () {
+  it('should validate a string that is in another object', () => {
     test({
       validator: 'isIn',
-      args: [{ 'foo': 1, 'bar': 2, 'foobar': 3 }],
+      args: [{ foo: 1, bar: 2, foobar: 3 }],
       valid: ['foo', 'bar', 'foobar'],
       invalid: ['foobarbaz', 'barfoo', ''],
     });
@@ -2617,7 +2617,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate dates against a start date', function () {
+  it('should validate dates against a start date', () => {
     test({
       validator: 'isAfter',
       args: ['2011-08-03'],
@@ -2642,7 +2642,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate dates against an end date', function () {
+  it('should validate dates against an end date', () => {
     test({
       validator: 'isBefore',
       args: ['08/04/2011'],
@@ -2677,7 +2677,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate that integer strings are divisible by a number', function () {
+  it('should validate that integer strings are divisible by a number', () => {
     test({
       validator: 'isDivisibleBy',
       args: [2],
@@ -2692,7 +2692,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate credit cards', function () {
+  it('should validate credit cards', () => {
     test({
       validator: 'isCreditCard',
       valid: [
@@ -2730,7 +2730,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ISINs', function () {
+  it('should validate ISINs', () => {
     test({
       validator: 'isISIN',
       valid: [
@@ -2751,7 +2751,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ISBNs', function () {
+  it('should validate ISBNs', () => {
     test({
       validator: 'isISBN',
       args: [10],
@@ -2803,7 +2803,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ISSNs', function () {
+  it('should validate ISSNs', () => {
     test({
       validator: 'isISSN',
       valid: [
@@ -2870,7 +2870,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate JSON', function () {
+  it('should validate JSON', () => {
     test({
       validator: 'isJSON',
       valid: [
@@ -2888,7 +2888,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate multibyte strings', function () {
+  it('should validate multibyte strings', () => {
     test({
       validator: 'isMultibyte',
       valid: [
@@ -2907,7 +2907,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ascii strings', function () {
+  it('should validate ascii strings', () => {
     test({
       validator: 'isAscii',
       valid: [
@@ -2925,7 +2925,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate full-width strings', function () {
+  it('should validate full-width strings', () => {
     test({
       validator: 'isFullWidth',
       valid: [
@@ -2942,7 +2942,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate half-width strings', function () {
+  it('should validate half-width strings', () => {
     test({
       validator: 'isHalfWidth',
       valid: [
@@ -2958,7 +2958,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate variable-width strings', function () {
+  it('should validate variable-width strings', () => {
     test({
       validator: 'isVariableWidth',
       valid: [
@@ -2978,7 +2978,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate surrogate pair strings', function () {
+  it('should validate surrogate pair strings', () => {
     test({
       validator: 'isSurrogatePair',
       valid: [
@@ -2994,7 +2994,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate base64 strings', function () {
+  it('should validate base64 strings', () => {
     test({
       validator: 'isBase64',
       valid: [
@@ -3026,17 +3026,17 @@ describe('Validators', function () {
         'Zm9vYmFy====',
       ],
     });
-    for (var i = 0, str = '', encoded; i < 1000; i++) {
-      str += String.fromCharCode(Math.random() * 26 | 97);
+    for (let i = 0, str = '', encoded; i < 1000; i++) {
+      str += String.fromCharCode(Math.random() * 26 | 97); // eslint-disable-line no-bitwise
       encoded = Buffer.from(str).toString('base64');
       if (!validator.isBase64(encoded)) {
-        var msg = format('validator.isBase64() failed with "%s"', encoded);
+        let msg = format('validator.isBase64() failed with "%s"', encoded);
         throw new Error(msg);
       }
     }
   });
 
-  it('should validate hex-encoded MongoDB ObjectId', function () {
+  it('should validate hex-encoded MongoDB ObjectId', () => {
     test({
       validator: 'isMongoId',
       valid: [
@@ -3051,29 +3051,29 @@ describe('Validators', function () {
     });
   });
 
-  it('should define the module using an AMD-compatible loader', function () {
-    var window = {
+  it('should define the module using an AMD-compatible loader', () => {
+    let window = {
       validator: null,
-      define: function (module) {
+      define(module) {
         window.validator = module();
       },
     };
     window.define.amd = true;
 
-    var sandbox = vm.createContext(window);
+    let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
     assert.equal(window.validator.trim('  foobar '), 'foobar');
   });
 
-  it('should bind validator to the window if no module loaders are available', function () {
-    var window = {};
-    var sandbox = vm.createContext(window);
+  it('should bind validator to the window if no module loaders are available', () => {
+    let window = {};
+    let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
     assert.equal(window.validator.trim('  foobar '), 'foobar');
   });
 
-  it('should validate mobile phone number', function () {
-    var fixtures = [
+  it('should validate mobile phone number', () => {
+    let fixtures = [
       {
         locale: 'ar-AE',
         valid: [
@@ -4139,16 +4139,16 @@ describe('Validators', function () {
       },
     ];
 
-    var allValid = [];
+    let allValid = [];
 
-    fixtures.forEach(function (fixture) {
+    fixtures.forEach((fixture) => {
       // to be used later on for validating 'any' locale
       if (fixture.valid) allValid = allValid.concat(fixture.valid);
 
       if (Array.isArray(fixture.locale)) {
         // for fixtures that are shared across multiple locales
         // e.g. 'nb-NO' and 'nn-NO'
-        fixture.locale.forEach(function (locale) {
+        fixture.locale.forEach((locale) => {
           test({
             validator: 'isMobilePhone',
             valid: fixture.valid,
@@ -4195,7 +4195,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate currency', function () {
+  it('should validate currency', () => {
     test({
       validator: 'isCurrency',
       args: [
@@ -5067,7 +5067,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ISO 8601 dates', function () {
+  it('should validate ISO 8601 dates', () => {
     // from http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     test({
       validator: 'isISO8601',
@@ -5141,7 +5141,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate RFC 3339 dates', function () {
+  it('should validate RFC 3339 dates', () => {
     test({
       validator: 'isRFC3339',
       valid: [
@@ -5176,7 +5176,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ISO 3166-1 alpha 2 country codes', function () {
+  it('should validate ISO 3166-1 alpha 2 country codes', () => {
     // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     test({
       validator: 'isISO31661Alpha2',
@@ -5207,7 +5207,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate ISO 3166-1 alpha 3 country codes', function () {
+  it('should validate ISO 3166-1 alpha 3 country codes', () => {
     // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
     test({
       validator: 'isISO31661Alpha3',
@@ -5231,7 +5231,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate whitelisted characters', function () {
+  it('should validate whitelisted characters', () => {
     test({
       validator: 'isWhitelisted',
       args: ['abcdefghijklmnopqrstuvwxyz-'],
@@ -5240,14 +5240,14 @@ describe('Validators', function () {
     });
   });
 
-  it('should error on non-string input', function () {
-    var empty = [undefined, null, [], NaN];
-    empty.forEach(function (item) {
+  it('should error on non-string input', () => {
+    let empty = [undefined, null, [], NaN];
+    empty.forEach((item) => {
       assert.throws(validator.isEmpty.bind(null, item));
     });
   });
 
-  it('should validate dataURI', function () {
+  it('should validate dataURI', () => {
     /* eslint-disable max-len */
     test({
       validator: 'isDataURI',
@@ -5278,7 +5278,7 @@ describe('Validators', function () {
     /* eslint-enable max-len */
   });
 
-  it('should validate LatLong', function () {
+  it('should validate LatLong', () => {
     test({
       validator: 'isLatLong',
       valid: [
@@ -5337,7 +5337,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate postal code', function () {
+  it('should validate postal code', () => {
     const fixtures = [
       {
         locale: 'AU',
@@ -5486,7 +5486,7 @@ describe('Validators', function () {
     let allValid = [];
 
     // Test fixtures
-    fixtures.forEach(function (fixture) {
+    fixtures.forEach((fixture) => {
       if (fixture.valid) allValid = allValid.concat(fixture.valid);
       test({
         validator: 'isPostalCode',
@@ -5529,7 +5529,7 @@ describe('Validators', function () {
     });
   });
 
-  it('should validate MIME types', function () {
+  it('should validate MIME types', () => {
     test({
       validator: 'isMimeType',
       valid: [

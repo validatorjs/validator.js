@@ -29,6 +29,9 @@
       "imports": "always-multiline",
       "exports": "always-multiline",
       "functions": "never"
+    }],
+    "no-plusplus": [2, {
+      "allowForLoopAfterthoughts": true
     }]
   }
 }
