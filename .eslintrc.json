@@ -32,6 +32,8 @@
     }],
     "no-plusplus": [2, {
       "allowForLoopAfterthoughts": true
-    }]
+    }],
+    "no-prototype-builtins": 0,
+    "no-useless-escape": 0
   }
 }
