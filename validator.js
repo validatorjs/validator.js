@@ -223,7 +223,8 @@ function isEmail(str, options) {
     // Removing sub-address from username before gmail validation
     var username = user.split('+')[0];
 
-    if (!isByteLength(username, { min: 6, max: 30 })) {
+    // Dots are not included in gmail length restriction
+    if (!isByteLength(username.replace('.', ''), { min: 6, max: 30 })) {
       return false;
     }
 
@@ -233,6 +234,7 @@ function isEmail(str, options) {
         return false;
       }
     }
+    return true;
   }
 
   if (!isByteLength(user, { max: 64 }) || !isByteLength(domain, { max: 254 })) {

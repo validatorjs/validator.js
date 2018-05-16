@@ -89,6 +89,7 @@ describe('Validators', function () {
         'test13@invalid.co　m',
         'gmail...ignores...dots...@gmail.com',
         'test@gmail.com',
+        'test.1@gmail.com',
         'ends.with.dot.@gmail.com',
         'multiple..dots@gmail.com',
         'multiple..dots@stillinvalid.com',
