@@ -1,5 +1,7 @@
 #### HEAD
 
+- Strict Gmail validation in `isEmail()`
+  ([#832](https://github.com/chriso/validator.js/pull/832))
 - New locales
   ([#831](https://github.com/chriso/validator.js/pull/831))
 
