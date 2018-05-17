@@ -204,9 +204,17 @@ var _isISO = require('./lib/isISO8601');
 
 var _isISO2 = _interopRequireDefault(_isISO);
 
+var _isRFC = require('./lib/isRFC3339');
+
+var _isRFC2 = _interopRequireDefault(_isRFC);
+
 var _isISO31661Alpha = require('./lib/isISO31661Alpha2');
 
 var _isISO31661Alpha2 = _interopRequireDefault(_isISO31661Alpha);
+
+var _isISO31661Alpha3 = require('./lib/isISO31661Alpha3');
+
+var _isISO31661Alpha4 = _interopRequireDefault(_isISO31661Alpha3);
 
 var _isBase = require('./lib/isBase64');
 
@@ -215,6 +223,10 @@ var _isBase2 = _interopRequireDefault(_isBase);
 var _isDataURI = require('./lib/isDataURI');
 
 var _isDataURI2 = _interopRequireDefault(_isDataURI);
+
+var _isMimeType = require('./lib/isMimeType');
+
+var _isMimeType2 = _interopRequireDefault(_isMimeType);
 
 var _isLatLong = require('./lib/isLatLong');
 
@@ -270,7 +282,7 @@ var _toString2 = _interopRequireDefault(_toString);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '9.1.1';
+var version = '10.2.0';
 
 var validator = {
   version: version,
@@ -323,11 +335,15 @@ var validator = {
   isISSN: _isISSN2.default,
   isMobilePhone: _isMobilePhone2.default,
   isPostalCode: _isPostalCode2.default,
+  isPostalCodeLocales: _isPostalCode.locales,
   isCurrency: _isCurrency2.default,
   isISO8601: _isISO2.default,
+  isRFC3339: _isRFC2.default,
   isISO31661Alpha2: _isISO31661Alpha2.default,
+  isISO31661Alpha3: _isISO31661Alpha4.default,
   isBase64: _isBase2.default,
   isDataURI: _isDataURI2.default,
+  isMimeType: _isMimeType2.default,
   isLatLong: _isLatLong2.default,
   ltrim: _ltrim2.default,
   rtrim: _rtrim2.default,

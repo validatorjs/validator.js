@@ -66,13 +66,16 @@ import isMobilePhone from './lib/isMobilePhone';
 import isCurrency from './lib/isCurrency';
 
 import isISO8601 from './lib/isISO8601';
+import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
+import isISO31661Alpha3 from './lib/isISO31661Alpha3';
 
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
+import isMimeType from './lib/isMimeType';
 
 import isLatLong from './lib/isLatLong';
-import isPostalCode from './lib/isPostalCode';
+import isPostalCode, { locales as isPostalCodeLocales } from './lib/isPostalCode';
 
 import ltrim from './lib/ltrim';
 import rtrim from './lib/rtrim';
@@ -88,7 +91,7 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import toString from './lib/util/toString';
 
-const version = '9.1.1';
+const version = '10.2.0';
 
 const validator = {
   version,
@@ -141,11 +144,15 @@ const validator = {
   isISSN,
   isMobilePhone,
   isPostalCode,
+  isPostalCodeLocales,
   isCurrency,
   isISO8601,
+  isRFC3339,
   isISO31661Alpha2,
+  isISO31661Alpha3,
   isBase64,
   isDataURI,
+  isMimeType,
   isLatLong,
   ltrim,
   rtrim,

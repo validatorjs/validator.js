@@ -1,3 +1,75 @@
+#### HEAD
+
+- Strict Gmail validation in `isEmail()`
+  ([#832](https://github.com/chriso/validator.js/pull/832))
+- New locales
+  ([#831](https://github.com/chriso/validator.js/pull/831))
+
+#### 10.2.0
+
+- Export the list of supported locales in `isPostalCode()`
+  ([#830](https://github.com/chriso/validator.js/pull/830))
+
+#### 10.1.0
+
+- Added an `isISO31661Alpha3()` validator
+  ([#809](https://github.com/chriso/validator.js/pull/809))
+
+#### 10.0.0
+
+- Allow floating points in `isNumeric()`
+  ([#810](https://github.com/chriso/validator.js/pull/810))
+- Disallow GMail addresses with multiple consecutive dots, or leading/trailing dots
+  ([#820](https://github.com/chriso/validator.js/pull/820))
+- Added an `isRFC3339()` validator
+  ([#816](https://github.com/chriso/validator.js/pull/816))
+- Reject domain parts longer than 63 octets in `isFQDN()`, `isURL()` and `isEmail()`
+  ([bb3e542](https://github.com/chriso/validator.js/commit/bb3e542))
+- Added a new Amex prefix to `isCreditCard()`
+  ([#805](https://github.com/chriso/validator.js/pull/805))
+- Fixed `isFloat()` min/max/gt/lt filters when a locale with a comma decimal is used
+  ([2b70821](https://github.com/chriso/validator.js/commit/2b70821))
+- Normalize Yandex emails
+  ([#807](https://github.com/chriso/validator.js/pull/807))
+- New locales
+  ([#803](https://github.com/chriso/validator.js/pull/803))
+
+#### 9.4.1
+
+- Patched a [REDOS](https://en.wikipedia.org/wiki/ReDoS) vulnerability in `isDataURI`
+- New and improved locales
+  ([#788](https://github.com/chriso/validator.js/pull/788))
+
+#### 9.4.0
+
+- Added an option to `isMobilePhone` to require a country code
+  ([#769](https://github.com/chriso/validator.js/pull/769))
+- New and improved locales
+  ([#785](https://github.com/chriso/validator.js/pull/785))
+
+#### 9.3.0
+
+- New and improved locales
+  ([#763](https://github.com/chriso/validator.js/pull/763),
+   [#768](https://github.com/chriso/validator.js/pull/768),
+   [#774](https://github.com/chriso/validator.js/pull/774),
+   [#777](https://github.com/chriso/validator.js/pull/777),
+   [#779](https://github.com/chriso/validator.js/pull/779))
+
+#### 9.2.0
+
+- Added an `isMimeType()` validator
+  ([#760](https://github.com/chriso/validator.js/pull/760))
+- New and improved locales
+  ([#753](https://github.com/chriso/validator.js/pull/753),
+   [#755](https://github.com/chriso/validator.js/pull/755),
+   [#764](https://github.com/chriso/validator.js/pull/764))
+
+#### 9.1.2
+
+- Fixed a bug with the `isFloat` validator
+  ([#752](https://github.com/chriso/validator.js/pull/752))
+
 #### 9.1.1
 
 - Locale fixes

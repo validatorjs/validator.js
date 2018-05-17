@@ -7,7 +7,7 @@ const default_fqdn_options = {
   allow_trailing_dot: false,
 };
 
-export default function isFDQN(str, options) {
+export default function isFQDN(str, options) {
   assertString(str);
   options = merge(options, default_fqdn_options);
 
@@ -16,6 +16,11 @@ export default function isFDQN(str, options) {
     str = str.substring(0, str.length - 1);
   }
   const parts = str.split('.');
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i].length > 63) {
+      return false;
+    }
+  }
   if (options.require_tld) {
     const tld = parts.pop();
     if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {

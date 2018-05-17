@@ -1,6 +1,6 @@
 /*!
  * Copyright (c) 2016 Chris O'Hara <cohara87@gmail.com>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -8,10 +8,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -130,7 +130,7 @@ var default_fqdn_options = {
   allow_trailing_dot: false
 };
 
-function isFDQN(str, options) {
+function isFQDN(str, options) {
   assertString(str);
   options = merge(options, default_fqdn_options);
 
@@ -139,6 +139,11 @@ function isFDQN(str, options) {
     str = str.substring(0, str.length - 1);
   }
   var parts = str.split('.');
+  for (var i = 0; i < parts.length; i++) {
+    if (parts[i].length > 63) {
+      return false;
+    }
+  }
   if (options.require_tld) {
     var tld = parts.pop();
     if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
@@ -149,8 +154,8 @@ function isFDQN(str, options) {
       return false;
     }
   }
-  for (var part, i = 0; i < parts.length; i++) {
-    part = parts[i];
+  for (var part, _i = 0; _i < parts.length; _i++) {
+    part = parts[_i];
     if (options.allow_underscores) {
       part = part.replace(/_/g, '');
     }
@@ -179,6 +184,7 @@ var default_email_options = {
 /* eslint-disable no-control-regex */
 var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
 var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
+var gmailUserPart = /^[a-z\d]+$/;
 var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
 var emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
 var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
@@ -203,15 +209,38 @@ function isEmail(str, options) {
   var user = parts.join('@');
 
   var lower_domain = domain.toLowerCase();
+
   if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
-    user = user.replace(/\./g, '').toLowerCase();
+    /*
+      Previously we removed dots for gmail addresses before validating.
+      This was removed because it allows `multiple..dots@gmail.com`
+      to be reported as valid, but it is not.
+      Gmail only normalizes single dots, removing them from here is pointless,
+      should be done in normalizeEmail
+    */
+    user = user.toLowerCase();
+
+    // Removing sub-address from username before gmail validation
+    var username = user.split('+')[0];
+
+    // Dots are not included in gmail length restriction
+    if (!isByteLength(username.replace('.', ''), { min: 6, max: 30 })) {
+      return false;
+    }
+
+    var _user_parts = username.split('.');
+    for (var i = 0; i < _user_parts.length; i++) {
+      if (!gmailUserPart.test(_user_parts[i])) {
+        return false;
+      }
+    }
   }
 
   if (!isByteLength(user, { max: 64 }) || !isByteLength(domain, { max: 254 })) {
     return false;
   }
 
-  if (!isFDQN(domain, { require_tld: options.require_tld })) {
+  if (!isFQDN(domain, { require_tld: options.require_tld })) {
     return false;
   }
 
@@ -223,8 +252,8 @@ function isEmail(str, options) {
   var pattern = options.allow_utf8_local_part ? emailUserUtf8Part : emailUserPart;
 
   var user_parts = user.split('.');
-  for (var i = 0; i < user_parts.length; i++) {
-    if (!pattern.test(user_parts[i])) {
+  for (var _i = 0; _i < user_parts.length; _i++) {
+    if (!pattern.test(user_parts[_i])) {
       return false;
     }
   }
@@ -406,7 +435,7 @@ function isURL(url, options) {
     }
   }
 
-  if (!isIP(host) && !isFDQN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
+  if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
     return false;
   }
 
@@ -436,9 +465,11 @@ function isBoolean(str) {
 
 var alpha = {
   'en-US': /^[A-Z]+$/i,
+  'bg-BG': /^[А-Я]+$/i,
   'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[A-ZÆØÅ]+$/i,
   'de-DE': /^[A-ZÄÖÜß]+$/i,
+  'el-GR': /^[Α-ω]+$/i,
   'es-ES': /^[A-ZÁÉÍÑÓÚÜ]+$/i,
   'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
   'it-IT': /^[A-ZÀÉÈÌÎÓÒÙ]+$/i,
@@ -449,6 +480,7 @@ var alpha = {
   'pl-PL': /^[A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
   'pt-PT': /^[A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]+$/i,
   'ru-RU': /^[А-ЯЁ]+$/i,
+  'sk-SK': /^[A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
   'sr-RS@latin': /^[A-ZČĆŽŠĐ]+$/i,
   'sr-RS': /^[А-ЯЂЈЉЊЋЏ]+$/i,
   'sv-SE': /^[A-ZÅÄÖ]+$/i,
@@ -459,9 +491,11 @@ var alpha = {
 
 var alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
+  'bg-BG': /^[0-9А-Я]+$/i,
   'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[0-9A-ZÆØÅ]+$/i,
   'de-DE': /^[0-9A-ZÄÖÜß]+$/i,
+  'el-GR': /^[0-9Α-ω]+$/i,
   'es-ES': /^[0-9A-ZÁÉÍÑÓÚÜ]+$/i,
   'fr-FR': /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
   'it-IT': /^[0-9A-ZÀÉÈÌÎÓÒÙ]+$/i,
@@ -472,6 +506,7 @@ var alphanumeric = {
   'pl-PL': /^[0-9A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
   'pt-PT': /^[0-9A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]+$/i,
   'ru-RU': /^[0-9А-ЯЁ]+$/i,
+  'sk-SK': /^[0-9A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
   'sr-RS@latin': /^[0-9A-ZČĆŽŠĐ]+$/i,
   'sr-RS': /^[0-9А-ЯЂЈЉЊЋЏ]+$/i,
   'sv-SE': /^[0-9A-ZÅÄÖ]+$/i,
@@ -506,7 +541,7 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
 var dotDecimal = [];
-var commaDecimal = ['cs-CZ', 'da-DK', 'de-DE', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
 
 for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
   decimal[dotDecimal[_i2]] = decimal['en-US'];
@@ -540,7 +575,7 @@ function isAlphanumeric(str) {
   throw new Error('Invalid locale \'' + locale + '\'');
 }
 
-var numeric = /^[-+]?[0-9]+$/;
+var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
 
 function isNumeric(str) {
   assertString(str);
@@ -629,10 +664,11 @@ function isFloat(str, options) {
   assertString(str);
   options = options || {};
   var float = new RegExp('^(?:[-+])?(?:[0-9]+)?(?:\\' + (options.locale ? decimal[options.locale] : '.') + '[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$');
-  if (str === '' || str === '.') {
+  if (str === '' || str === '.' || str === '-' || str === '+') {
     return false;
   }
-  return float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max) && (!options.hasOwnProperty('lt') || str < options.lt) && (!options.hasOwnProperty('gt') || str > options.gt);
+  var value = parseFloat(str.replace(',', '.'));
+  return float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
 function decimalRegExp(options) {
@@ -803,7 +839,7 @@ function isIn(str, options) {
 }
 
 /* eslint-disable max-len */
-var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|62[0-9]{14})$/;
+var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|6[27][0-9]{14})$/;
 /* eslint-enable max-len */
 
 function isCreditCard(str) {
@@ -925,36 +961,12 @@ function isISSN(str) {
   if (!testIssn.test(str)) {
     return false;
   }
-  var issnDigits = str.replace('-', '');
-  var position = 8;
+  var digits = str.replace('-', '').toUpperCase();
   var checksum = 0;
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = issnDigits[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var digit = _step.value;
-
-      var digitValue = digit.toUpperCase() === 'X' ? 10 : +digit;
-      checksum += digitValue * position;
-      --position;
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
+  for (var i = 0; i < digits.length; i++) {
+    var digit = digits[i];
+    checksum += (digit === 'X' ? 10 : +digit) * (8 - i);
   }
-
   return checksum % 11 === 0;
 }
 
@@ -966,19 +978,23 @@ var phones = {
   'ar-JO': /^(\+?962|0)?7[789]\d{7}$/,
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
+  'ar-TN': /^(\+?216)?[2459]\d{7}$/,
+  'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
+  'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+?49[ \.\-])?([\(]{1}[0-9]{1,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
-  'el-GR': /^(\+?30)?(69\d{8})$/,
+  'el-GR': /^(\+?30|0)?(69\d{8})$/,
   'en-AU': /^(\+?61|0)4\d{8}$/,
   'en-GB': /^(\+?44|0)7\d{9}$/,
   'en-HK': /^(\+?852\-?)?[456789]\d{3}\-?\d{4}$/,
-  'en-IN': /^(\+?91|0)?[789]\d{9}$/,
+  'en-IN': /^(\+?91|0)?[6789]\d{9}$/,
   'en-KE': /^(\+?254|0)?[7]\d{8}$/,
   'en-NG': /^(\+?234|0)?[789]\d{9}$/,
   'en-NZ': /^(\+?64|0)2\d{7,9}$/,
   'en-PK': /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/,
   'en-RW': /^(\+?250|0)?[7]\d{8}$/,
+  'en-SG': /^(\+65)?[89]\d{7}$/,
   'en-TZ': /^(\+?255|0)?[67]\d{8}$/,
   'en-UG': /^(\+?256|0)?[7]\d{8}$/,
   'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
@@ -990,11 +1006,12 @@ var phones = {
   'fi-FI': /^(\+?358|0)\s?(4(0|1|2|4|5|6)?|50)\s?(\d\s?){4,8}\d$/,
   'fo-FO': /^(\+?298)?\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'fr-FR': /^(\+?33|0)[67]\d{8}$/,
-  'he-IL': /^(\+972|0)([23489]|5[0248]|77)[1-9]\d{6}/,
+  'he-IL': /^(\+972|0)([23489]|5[012345689]|77)[1-9]\d{6}/,
   'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
   'id-ID': /^(\+?62|0[1-9])[\s|\d]+$/,
   'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
   'ja-JP': /^(\+?81|0)[789]0[ \-]?[1-9]\d{2}[ \-]?\d{5}$/,
+  'kk-KZ': /^(\+?7|8)?7\d{9}$/,
   'kl-GL': /^(\+?299)?\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'ko-KR': /^((\+?82)[ \-]?)?0?1([0|1|6|7|8|9]{1})[ \-]?\d{3,4}[ \-]?\d{4}$/,
   'lt-LT': /^(\+370|8)\d{8}$/,
@@ -1009,10 +1026,11 @@ var phones = {
   'ru-RU': /^(\+?7|8)?9\d{9}$/,
   'sk-SK': /^(\+?421)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'sr-RS': /^(\+3816|06)[- \d]{5,9}$/,
+  'th-TH': /^(\+66|66|0)\d{9}$/,
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'vi-VN': /^(\+?84|0)?((1(2([0-9])|6([2-9])|88|99))|(9((?!5)[0-9])))([0-9]{7})$/,
-  'zh-CN': /^(\+?0?86\-?)?1[345789]\d{9}$/,
+  'zh-CN': /^(\+?0?86\-?)?1[3456789]\d{9}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -1022,10 +1040,15 @@ phones['en-CA'] = phones['en-US'];
 phones['fr-BE'] = phones['nl-BE'];
 phones['zh-HK'] = phones['en-HK'];
 
-function isMobilePhone(str, locale) {
+function isMobilePhone(str, locale, options) {
   assertString(str);
-  if (Array.isArray(locale)) {
-    for (var key in locale) {
+  if (options && options.strictMode && !str.startsWith('+')) {
+    return false;
+  }
+  if (locale in phones) {
+    return phones[locale].test(str);
+  } else if (locale === 'any') {
+    for (var key in phones) {
       if (phones.hasOwnProperty(key)) {
         var phone = phones[key];
         if (phone.test(str)) {
@@ -1134,12 +1157,46 @@ function isISO8601(str) {
   return iso8601.test(str);
 }
 
+/* Based on https://tools.ietf.org/html/rfc3339#section-5.6 */
+
+var dateFullYear = /[0-9]{4}/;
+var dateMonth = /(0[1-9]|1[0-2])/;
+var dateMDay = /([12]\d|0[1-9]|3[01])/;
+
+var timeHour = /([01][0-9]|2[0-3])/;
+var timeMinute = /[0-5][0-9]/;
+var timeSecond = /([0-5][0-9]|60)/;
+
+var timeSecFrac = /(\.[0-9]+)?/;
+var timeNumOffset = new RegExp('[-+]' + timeHour.source + ':' + timeMinute.source);
+var timeOffset = new RegExp('([zZ]|' + timeNumOffset.source + ')');
+
+var partialTime = new RegExp(timeHour.source + ':' + timeMinute.source + ':' + timeSecond.source + timeSecFrac.source);
+
+var fullDate = new RegExp(dateFullYear.source + '-' + dateMonth.source + '-' + dateMDay.source);
+var fullTime = new RegExp('' + partialTime.source + timeOffset.source);
+
+var rfc3339 = new RegExp(fullDate.source + '[ tT]' + fullTime.source);
+
+function isRFC3339(str) {
+  assertString(str);
+  return rfc3339.test(str);
+}
+
 // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 var validISO31661Alpha2CountriesCodes = ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'SS', 'ST', 'SV', 'SX', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW'];
 
 function isISO31661Alpha2(str) {
   assertString(str);
   return validISO31661Alpha2CountriesCodes.includes(str.toUpperCase());
+}
+
+// from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+var validISO31661Alpha3CountriesCodes = ['AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND', 'AGO', 'AIA', 'ATA', 'ATG', 'ARG', 'ARM', 'ABW', 'AUS', 'AUT', 'AZE', 'BHS', 'BHR', 'BGD', 'BRB', 'BLR', 'BEL', 'BLZ', 'BEN', 'BMU', 'BTN', 'BOL', 'BES', 'BIH', 'BWA', 'BVT', 'BRA', 'IOT', 'BRN', 'BGR', 'BFA', 'BDI', 'KHM', 'CMR', 'CAN', 'CPV', 'CYM', 'CAF', 'TCD', 'CHL', 'CHN', 'CXR', 'CCK', 'COL', 'COM', 'COG', 'COD', 'COK', 'CRI', 'CIV', 'HRV', 'CUB', 'CUW', 'CYP', 'CZE', 'DNK', 'DJI', 'DMA', 'DOM', 'ECU', 'EGY', 'SLV', 'GNQ', 'ERI', 'EST', 'ETH', 'FLK', 'FRO', 'FJI', 'FIN', 'FRA', 'GUF', 'PYF', 'ATF', 'GAB', 'GMB', 'GEO', 'DEU', 'GHA', 'GIB', 'GRC', 'GRL', 'GRD', 'GLP', 'GUM', 'GTM', 'GGY', 'GIN', 'GNB', 'GUY', 'HTI', 'HMD', 'VAT', 'HND', 'HKG', 'HUN', 'ISL', 'IND', 'IDN', 'IRN', 'IRQ', 'IRL', 'IMN', 'ISR', 'ITA', 'JAM', 'JPN', 'JEY', 'JOR', 'KAZ', 'KEN', 'KIR', 'PRK', 'KOR', 'KWT', 'KGZ', 'LAO', 'LVA', 'LBN', 'LSO', 'LBR', 'LBY', 'LIE', 'LTU', 'LUX', 'MAC', 'MKD', 'MDG', 'MWI', 'MYS', 'MDV', 'MLI', 'MLT', 'MHL', 'MTQ', 'MRT', 'MUS', 'MYT', 'MEX', 'FSM', 'MDA', 'MCO', 'MNG', 'MNE', 'MSR', 'MAR', 'MOZ', 'MMR', 'NAM', 'NRU', 'NPL', 'NLD', 'NCL', 'NZL', 'NIC', 'NER', 'NGA', 'NIU', 'NFK', 'MNP', 'NOR', 'OMN', 'PAK', 'PLW', 'PSE', 'PAN', 'PNG', 'PRY', 'PER', 'PHL', 'PCN', 'POL', 'PRT', 'PRI', 'QAT', 'REU', 'ROU', 'RUS', 'RWA', 'BLM', 'SHN', 'KNA', 'LCA', 'MAF', 'SPM', 'VCT', 'WSM', 'SMR', 'STP', 'SAU', 'SEN', 'SRB', 'SYC', 'SLE', 'SGP', 'SXM', 'SVK', 'SVN', 'SLB', 'SOM', 'ZAF', 'SGS', 'SSD', 'ESP', 'LKA', 'SDN', 'SUR', 'SJM', 'SWZ', 'SWE', 'CHE', 'SYR', 'TWN', 'TJK', 'TZA', 'THA', 'TLS', 'TGO', 'TKL', 'TON', 'TTO', 'TUN', 'TUR', 'TKM', 'TCA', 'TUV', 'UGA', 'UKR', 'ARE', 'GBR', 'USA', 'UMI', 'URY', 'UZB', 'VUT', 'VEN', 'VNM', 'VGB', 'VIR', 'WLF', 'ESH', 'YEM', 'ZMB', 'ZWE'];
+
+function isISO31661Alpha3(str) {
+  assertString(str);
+  return validISO31661Alpha3CountriesCodes.includes(str.toUpperCase());
 }
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
@@ -1154,11 +1211,79 @@ function isBase64(str) {
   return firstPaddingChar === -1 || firstPaddingChar === len - 1 || firstPaddingChar === len - 2 && str[len - 1] === '=';
 }
 
-var dataURI = /^\s*data:([a-z]+\/[a-z0-9\-\+]+(;[a-z\-]+=[a-z0-9\-]+)?)?(;base64)?,[a-z0-9!\$&',\(\)\*\+,;=\-\._~:@\/\?%\s]*\s*$/i; // eslint-disable-line max-len
+var validMediaType = /^[a-z]+\/[a-z0-9\-\+]+$/i;
+
+var validAttribute = /^[a-z\-]+=[a-z0-9\-]+$/i;
+
+var validData = /^[a-z0-9!\$&'\(\)\*\+,;=\-\._~:@\/\?%\s]*$/i;
 
 function isDataURI(str) {
   assertString(str);
-  return dataURI.test(str);
+  var data = str.split(',');
+  if (data.length < 2) {
+    return false;
+  }
+  var attributes = data.shift().trim().split(';');
+  var schemeAndMediaType = attributes.shift();
+  if (schemeAndMediaType.substr(0, 5) !== 'data:') {
+    return false;
+  }
+  var mediaType = schemeAndMediaType.substr(5);
+  if (mediaType !== '' && !validMediaType.test(mediaType)) {
+    return false;
+  }
+  for (var i = 0; i < attributes.length; i++) {
+    if (i === attributes.length - 1 && attributes[i].toLowerCase() === 'base64') {
+      // ok
+    } else if (!validAttribute.test(attributes[i])) {
+      return false;
+    }
+  }
+  for (var _i = 0; _i < data.length; _i++) {
+    if (!validData.test(data[_i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/*
+  Checks if the provided string matches to a correct Media type format (MIME type)
+
+  This function only checks is the string format follows the
+  etablished rules by the according RFC specifications.
+  This function supports 'charset' in textual media types
+  (https://tools.ietf.org/html/rfc6657).
+
+  This function does not check against all the media types listed
+  by the IANA (https://www.iana.org/assignments/media-types/media-types.xhtml)
+  because of lightness purposes : it would require to include
+  all these MIME types in this librairy, which would weigh it
+  significantly. This kind of effort maybe is not worth for the use that
+  this function has in this entire librairy.
+
+  More informations in the RFC specifications :
+  - https://tools.ietf.org/html/rfc2045
+  - https://tools.ietf.org/html/rfc2046
+  - https://tools.ietf.org/html/rfc7231#section-3.1.1.1
+  - https://tools.ietf.org/html/rfc7231#section-3.1.1.5
+*/
+
+// Match simple MIME types
+// NB :
+//   Subtype length must not exceed 100 characters.
+//   This rule does not comply to the RFC specs (what is the max length ?).
+var mimeTypeSimple = /^(application|audio|font|image|message|model|multipart|text|video)\/[a-zA-Z0-9\.\-\+]{1,100}$/i; // eslint-disable-line max-len
+
+// Handle "charset" in "text/*"
+var mimeTypeText = /^text\/[a-zA-Z0-9\.\-\+]{1,100};\s?charset=("[a-zA-Z0-9\.\-\+\s]{0,70}"|[a-zA-Z0-9\.\-\+]{0,70})(\s?\([a-zA-Z0-9\.\-\+\s]{1,20}\))?$/i; // eslint-disable-line max-len
+
+// Handle "boundary" in "multipart/*"
+var mimeTypeMultipart = /^multipart\/[a-zA-Z0-9\.\-\+]{1,100}(;\s?(boundary|charset)=("[a-zA-Z0-9\.\-\+\s]{0,70}"|[a-zA-Z0-9\.\-\+]{0,70})(\s?\([a-zA-Z0-9\.\-\+\s]{1,20}\))?){0,2}$/i; // eslint-disable-line max-len
+
+function isMimeType(str) {
+  assertString(str);
+  return mimeTypeSimple.test(str) || mimeTypeText.test(str) || mimeTypeMultipart.test(str);
 }
 
 var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
@@ -1181,6 +1306,7 @@ var patterns = {
   AT: fourDigit,
   AU: fourDigit,
   BE: fourDigit,
+  BG: fourDigit,
   CA: /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][\s\-]?\d[ABCEGHJ-NPRSTV-Z]\d$/i,
   CH: fourDigit,
   CZ: /^\d{3}\s?\d{2}$/,
@@ -1203,18 +1329,20 @@ var patterns = {
   NL: /^\d{4}\s?[a-z]{2}$/i,
   NO: fourDigit,
   PL: /^\d{2}\-\d{3}$/,
-  PT: /^\d{4}(\-\d{3})?$/,
+  PT: /^\d{4}\-\d{3}?$/,
   RO: sixDigit,
   RU: sixDigit,
   SA: fiveDigit,
   SE: /^\d{3}\s?\d{2}$/,
+  SK: /^\d{3}\s?\d{2}$/,
+  TN: fourDigit,
   TW: /^\d{3}(\d{2})?$/,
   US: /^\d{5}(-\d{4})?$/,
   ZA: fourDigit,
   ZM: fiveDigit
 };
 
-
+var locales = Object.keys(patterns);
 
 var isPostalCode = function (str, locale) {
   assertString(str);
@@ -1245,9 +1373,7 @@ function rtrim(str, chars) {
   var pattern = chars ? new RegExp('[' + chars + ']') : /\s/;
 
   var idx = str.length - 1;
-  while (idx >= 0 && pattern.test(str[idx])) {
-    idx--;
-  }
+  for (; idx >= 0 && pattern.test(str[idx]); idx--) {}
 
   return idx < str.length ? str.substr(0, idx + 1) : str;
 }
@@ -1321,6 +1447,10 @@ var default_normalize_email_options = {
   // Removes the subaddress (e.g. "-foo") from the email address
   yahoo_remove_subaddress: true,
 
+  // The following conversions are specific to Yandex
+  // Lowercases the local part of the Yandex address (known to be case-insensitive)
+  yandex_lowercase: true,
+
   // The following conversions are specific to iCloud
   // Lowercases the local part of the iCloud address (known to be case-insensitive)
   icloud_lowercase: true,
@@ -1341,6 +1471,17 @@ var outlookdotcom_domains = ['hotmail.at', 'hotmail.be', 'hotmail.ca', 'hotmail.
 // This list is likely incomplete
 var yahoo_domains = ['rocketmail.com', 'yahoo.ca', 'yahoo.co.uk', 'yahoo.com', 'yahoo.de', 'yahoo.fr', 'yahoo.in', 'yahoo.it', 'ymail.com'];
 
+// List of domains used by yandex.ru
+var yandex_domains = ['yandex.ru', 'yandex.ua', 'yandex.kz', 'yandex.com', 'yandex.by', 'ya.ru'];
+
+// replace single dots, but not multiple consecutive dots
+function dotsReplacer(match) {
+  if (match.length > 1) {
+    return match;
+  }
+  return '';
+}
+
 function normalizeEmail(email, options) {
   options = merge(options, default_normalize_email_options);
 
@@ -1358,7 +1499,8 @@ function normalizeEmail(email, options) {
       parts[0] = parts[0].split('+')[0];
     }
     if (options.gmail_remove_dots) {
-      parts[0] = parts[0].replace(/\./g, '');
+      // this does not replace consecutive dots like example..email@gmail.com
+      parts[0] = parts[0].replace(/\.+/g, dotsReplacer);
     }
     if (!parts[0].length) {
       return false;
@@ -1367,7 +1509,7 @@ function normalizeEmail(email, options) {
       parts[0] = parts[0].toLowerCase();
     }
     parts[1] = options.gmail_convert_googlemaildotcom ? 'gmail.com' : parts[1];
-  } else if (~icloud_domains.indexOf(parts[1])) {
+  } else if (icloud_domains.indexOf(parts[1]) >= 0) {
     // Address is iCloud
     if (options.icloud_remove_subaddress) {
       parts[0] = parts[0].split('+')[0];
@@ -1378,7 +1520,7 @@ function normalizeEmail(email, options) {
     if (options.all_lowercase || options.icloud_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
-  } else if (~outlookdotcom_domains.indexOf(parts[1])) {
+  } else if (outlookdotcom_domains.indexOf(parts[1]) >= 0) {
     // Address is Outlook.com
     if (options.outlookdotcom_remove_subaddress) {
       parts[0] = parts[0].split('+')[0];
@@ -1389,7 +1531,7 @@ function normalizeEmail(email, options) {
     if (options.all_lowercase || options.outlookdotcom_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
-  } else if (~yahoo_domains.indexOf(parts[1])) {
+  } else if (yahoo_domains.indexOf(parts[1]) >= 0) {
     // Address is Yahoo
     if (options.yahoo_remove_subaddress) {
       var components = parts[0].split('-');
@@ -1401,6 +1543,11 @@ function normalizeEmail(email, options) {
     if (options.all_lowercase || options.yahoo_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
+  } else if (yandex_domains.indexOf(parts[1]) >= 0) {
+    if (options.all_lowercase || options.yandex_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+    parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preffered
   } else if (options.all_lowercase) {
     // Any other address
     parts[0] = parts[0].toLowerCase();
@@ -1408,7 +1555,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '9.1.1';
+var version = '10.2.0';
 
 var validator = {
   version: version,
@@ -1423,7 +1570,7 @@ var validator = {
   isURL: isURL,
   isMACAddress: isMACAddress,
   isIP: isIP,
-  isFQDN: isFDQN,
+  isFQDN: isFQDN,
   isBoolean: isBoolean,
   isAlpha: isAlpha,
   isAlphanumeric: isAlphanumeric,
@@ -1461,11 +1608,15 @@ var validator = {
   isISSN: isISSN,
   isMobilePhone: isMobilePhone,
   isPostalCode: isPostalCode,
+  isPostalCodeLocales: locales,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
+  isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
+  isISO31661Alpha3: isISO31661Alpha3,
   isBase64: isBase64,
   isDataURI: isDataURI,
+  isMimeType: isMimeType,
   isLatLong: isLatLong,
   ltrim: ltrim,
   rtrim: rtrim,
