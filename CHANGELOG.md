@@ -4,7 +4,8 @@
   ([#832](https://github.com/chriso/validator.js/pull/832))
 - New locales
   ([#831](https://github.com/chriso/validator.js/pull/831),
-   [#835](https://github.com/chriso/validator.js/pull/835))
+   [#835](https://github.com/chriso/validator.js/pull/835),
+   [#836](https://github.com/chriso/validator.js/pull/836))
 
 #### 10.2.0
 
