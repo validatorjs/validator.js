@@ -1,4 +1,4 @@
-#### HEAD
+#### 10.3.0
 
 - Strict Gmail validation in `isEmail()`
   ([#832](https://github.com/chriso/validator.js/pull/832))
