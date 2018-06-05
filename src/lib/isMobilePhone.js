@@ -76,7 +76,17 @@ export default function isMobilePhone(str, locale, options) {
   if (options && options.strictMode && !str.startsWith('+')) {
     return false;
   }
-  if (locale in phones) {
+  if (Array.isArray(locale)) {
+    return locale.some((key) => {
+      if (phones.hasOwnProperty(key)) {
+        const phone = phones[key];
+        if (phone.test(str)) {
+          return true;
+        }
+      }
+      return false;
+    });
+  } else if (locale in phones) {
     return phones[locale].test(str);
   } else if (locale === 'any') {
     for (const key in phones) {
