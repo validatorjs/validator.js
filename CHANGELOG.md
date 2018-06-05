@@ -1,3 +1,8 @@
+#### HEAD
+
+- Accept an array of locales in `isMobilePhone()`
+  ([#742](https://github.com/chriso/validator.js/pull/742))
+
 #### 10.3.0
 
 - Strict Gmail validation in `isEmail()`
