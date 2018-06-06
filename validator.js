@@ -262,7 +262,6 @@ function isEmail(str, options) {
 }
 
 var ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
-var ipv4RangeMaybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\/(\d{1,2})$/;
 var ipv6Block = /^[0-9A-F]{1,4}$/i;
 
 function isIP(str) {
@@ -273,17 +272,13 @@ function isIP(str) {
   if (!version) {
     return isIP(str, 4) || isIP(str, 6);
   } else if (version === '4') {
-    if (!ipv4Maybe.test(str) && !ipv4RangeMaybe.test(str)) {
+    if (!ipv4Maybe.test(str)) {
       return false;
     }
     var parts = str.split('.').sort(function (a, b) {
       return a - b;
     });
-    var lastPart = parts[3].split('/');
-    if (lastPart.length === 1) {
-      return lastPart[0] <= 255;
-    }
-    return lastPart[0] <= 255 && lastPart[1] <= 32;
+    return parts[3] <= 255;
   } else if (version === '6') {
     var blocks = str.split(':');
     var foundOmissionBlock = false; // marker to indicate ::
@@ -461,6 +456,31 @@ var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 function isMACAddress(str) {
   assertString(str);
   return macAddress.test(str);
+}
+
+var ipv4RangeMaybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\/(\d{1,2})$/;
+
+function isIPRange(str) {
+  var version = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+  assertString(str);
+  version = String(version);
+  if (!version) {
+    return isIPRange(str, 4) || isIPRange(str, 6);
+  } else if (version === '4') {
+    if (!ipv4RangeMaybe.test(str)) {
+      return false;
+    }
+    var parts = str.split('.').sort(function (a, b) {
+      return a - b;
+    });
+    var lastPart = parts[3].split('/');
+    return parts[2] <= 255 && lastPart[0] <= 255 && lastPart[1] <= 32;
+  } else if (version === '6') {
+    // This part needs a solution
+    return false;
+  }
+  return false;
 }
 
 function isBoolean(str) {
@@ -1582,6 +1602,7 @@ var validator = {
   isURL: isURL,
   isMACAddress: isMACAddress,
   isIP: isIP,
+  isIPRange: isIPRange,
   isFQDN: isFQDN,
   isBoolean: isBoolean,
   isAlpha: isAlpha,
