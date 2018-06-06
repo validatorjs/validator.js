@@ -1,6 +1,7 @@
 import assertString from './util/assertString';
 
 const ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+const ipv4RangeMaybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\/(\d{1,2})$/;
 const ipv6Block = /^[0-9A-F]{1,4}$/i;
 
 export default function isIP(str, version = '') {
@@ -9,11 +10,15 @@ export default function isIP(str, version = '') {
   if (!version) {
     return isIP(str, 4) || isIP(str, 6);
   } else if (version === '4') {
-    if (!ipv4Maybe.test(str)) {
+    if (!ipv4Maybe.test(str) && !ipv4RangeMaybe.test(str)) {
       return false;
     }
     const parts = str.split('.').sort((a, b) => a - b);
-    return parts[3] <= 255;
+    const lastPart = parts[3].split('/');
+    if (lastPart.length === 1) {
+      return lastPart[0] <= 255;
+    }
+    return lastPart[0] <= 255 && lastPart[1] <= 32;
   } else if (version === '6') {
     const blocks = str.split(':');
     let foundOmissionBlock = false; // marker to indicate ::
