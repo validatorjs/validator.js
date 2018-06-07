@@ -7,6 +7,10 @@ export default function isIPRange(str) {
   assertString(str);
   const [ip, subnet, err] = str.split('/');
 
+  if (typeof subnet === 'undefined') {
+    return false;
+  }
+
   if (typeof err !== 'undefined') {
     return false;
   }
