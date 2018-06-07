@@ -69,6 +69,84 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var slicedToArray = function () {
+  function sliceIterator(arr, i) {
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"]) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  return function (arr, i) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else if (Symbol.iterator in Object(arr)) {
+      return sliceIterator(arr, i);
+    } else {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+  };
+}();
+
 function toString(input) {
   if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' && input !== null) {
     if (typeof input.toString === 'function') {
@@ -456,6 +534,33 @@ var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 function isMACAddress(str) {
   assertString(str);
   return macAddress.test(str);
+}
+
+var subnetMaybe = /^\d{1,2}$/;
+
+function isIPRange(str) {
+  assertString(str);
+
+  var rangeParts = str.split('/');
+
+  if (rangeParts.length !== 2) {
+    return false;
+  }
+
+  var _rangeParts = slicedToArray(rangeParts, 2),
+      ip = _rangeParts[0],
+      subnet = _rangeParts[1];
+
+  if (!subnetMaybe.test(subnet)) {
+    return false;
+  }
+
+  // Disallow preceding 0 i.e. 01, 02, ...
+  if (subnet.length > 1 && subnet.startsWith('0')) {
+    return false;
+  }
+
+  return isIP(ip) && subnet <= 32 && subnet >= 0;
 }
 
 function isBoolean(str) {
@@ -1577,6 +1682,7 @@ var validator = {
   isURL: isURL,
   isMACAddress: isMACAddress,
   isIP: isIP,
+  isIPRange: isIPRange,
   isFQDN: isFQDN,
   isBoolean: isBoolean,
   isAlpha: isAlpha,
