@@ -654,6 +654,29 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate isIPRange', () => {
+    test({
+      validator: 'isIPRange',
+      valid: [
+        '127.0.0.1/24',
+        '0.0.0.0/0',
+        '255.255.255.0/32',
+      ],
+      invalid: [
+        '127.200.230.1/35',
+        '127.200.230.1/-1',
+        '1.1.1.1/011',
+        '::1/64',
+        '1.1.1/24.1',
+        '1.1.1.1/01',
+        '1.1.1.1/1.1',
+        '1.1.1.1/1.',
+        '1.1.1.1/1/1',
+        '1.1.1.1',
+      ],
+    });
+  });
+
   it('should validate FQDN', () => {
     test({
       validator: 'isFQDN',
@@ -4158,6 +4181,35 @@ describe('Validators', () => {
           '081234567891',
         ],
       },
+      {
+        locale: ['en-ZA', 'be-BY'],
+        valid: [
+          '0821231234',
+          '+27821231234',
+          '27821231234',
+          '+375241234567',
+          '+375251234567',
+          '+375291234567',
+          '+375331234567',
+          '+375441234567',
+          '375331234567',
+        ],
+        invalid: [
+          '082123',
+          '08212312345',
+          '21821231234',
+          '+21821231234',
+          '+0821231234',
+          '12345',
+          '',
+          'ASDFGJKLmZXJtZtesting123',
+          '010-38238383',
+          '+9676338855',
+          '19676338855',
+          '6676338855',
+          '+99676338855',
+        ],
+      },
     ];
 
     let allValid = [];
@@ -4167,15 +4219,11 @@ describe('Validators', () => {
       if (fixture.valid) allValid = allValid.concat(fixture.valid);
 
       if (Array.isArray(fixture.locale)) {
-        // for fixtures that are shared across multiple locales
-        // e.g. 'nb-NO' and 'nn-NO'
-        fixture.locale.forEach((locale) => {
-          test({
-            validator: 'isMobilePhone',
-            valid: fixture.valid,
-            invalid: fixture.invalid,
-            args: [locale],
-          });
+        test({
+          validator: 'isMobilePhone',
+          valid: fixture.valid,
+          invalid: fixture.invalid,
+          args: [fixture.locale],
         });
       } else {
         test({

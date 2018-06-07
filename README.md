@@ -85,6 +85,7 @@ Validator                               | Description
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
 **isIP(str [, version])**               | check if the string is an IP (version 4 or 6).
+**isIPRange(str)**                      | check if the string is an IP Range(version 4 only).
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
 **isISSN(str [, options])**             | check if the string is an [ISSN](https://en.wikipedia.org/wiki/International_Standard_Serial_Number).<br/><br/>`options` is an object which defaults to `{ case_sensitive: false, require_hyphen: false }`. If `case_sensitive` is true, ISSNs with a lowercase `'x'` as the check digit are rejected.
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
@@ -102,7 +103,7 @@ Validator                               | Description
 **isMACAddress(str)**                   | check if the string is a MAC address.
 **isMD5(str)**                          | check if the string is a MD5 hash.
 **isMimeType(str)**                     | check if the string matches to a valid [MIME type](https://en.wikipedia.org/wiki/Media_type) format
-**isMobilePhone(str, locale [, options])**          | check if the string is a mobile phone number,<br/><br/>(locale is one of `['ar-AE', 'ar-DZ', 'ar-EG', 'ar-JO', 'ar-SA', 'ar-SY', 'ar-TN', 'be-BY', 'bg-BG', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-CA', 'en-GB', 'en-HK', 'en-IN',  'en-KE', 'en-NG', 'en-NZ', 'en-RW', 'en-SG', 'en-UG', 'en-US', 'en-TZ', 'en-ZA', 'en-ZM', 'en-PK', 'es-ES', 'et-EE', 'fa-IR', 'fi-FI', 'fr-FR', 'he-IL', 'hu-HU', 'it-IT', 'ja-JP', 'kk-KZ', 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'pt-BR', 'ro-RO', 'ru-RU', 'sk-SK', 'sr-RS', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']` OR 'any'. If 'any' is used, function will check if any of the locales match).<br/><br/>`options` is an optional object that can be supplied with the following keys: `strictMode`, if this is set to `true`, the mobile phone number must be supplied with the country code and therefore must start with `+`.
+**isMobilePhone(str, locale [, options])**          | check if the string is a mobile phone number,<br/><br/>(locale is either an array of locales (e.g `['sk-SK', 'sr-RS']`) OR one of `['ar-AE', 'ar-DZ', 'ar-EG', 'ar-JO', 'ar-SA', 'ar-SY', 'ar-TN', 'be-BY', 'bg-BG', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-CA', 'en-GB', 'en-HK', 'en-IN',  'en-KE', 'en-NG', 'en-NZ', 'en-RW', 'en-SG', 'en-UG', 'en-US', 'en-TZ', 'en-ZA', 'en-ZM', 'en-PK', 'es-ES', 'et-EE', 'fa-IR', 'fi-FI', 'fr-FR', 'he-IL', 'hu-HU', 'it-IT', 'ja-JP', 'kk-KZ', 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'pt-BR', 'ro-RO', 'ru-RU', 'sk-SK', 'sr-RS', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']` OR 'any'. If 'any' is used, function will check if any of the locales match).<br/><br/>`options` is an optional object that can be supplied with the following keys: `strictMode`, if this is set to `true`, the mobile phone number must be supplied with the country code and therefore must start with `+`.
 **isMongoId(str)**                      | check if the string is a valid hex-encoded representation of a [MongoDB ObjectId][mongoid].
 **isMultibyte(str)**                    | check if the string contains one or more multibyte chars.
 **isNumeric(str)**                      | check if the string contains only numbers.
@@ -174,7 +175,7 @@ Remember, validating can be troublesome sometimes. See [A list of articles about
 ## License (MIT)
 
 ```
-Copyright (c) 2017 Chris O'Hara <cohara87@gmail.com>
+Copyright (c) 2018 Chris O'Hara <cohara87@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
