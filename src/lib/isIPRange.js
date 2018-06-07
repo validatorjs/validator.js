@@ -1,7 +1,7 @@
 import assertString from './util/assertString';
 import isIP from './isIP';
 
-const subnetMaybe = /^\d\d?$/;
+const subnetMaybe = /^\d{1,2}$/;
 
 export default function isIPRange(str) {
   assertString(str);

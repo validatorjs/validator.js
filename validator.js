@@ -536,7 +536,7 @@ function isMACAddress(str) {
   return macAddress.test(str);
 }
 
-var subnetMaybe = /^\d\d?$/;
+var subnetMaybe = /^\d{1,2}$/;
 
 function isIPRange(str) {
   assertString(str);
