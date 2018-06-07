@@ -1,22 +1,24 @@
 import assertString from './util/assertString';
+import isIP from './isIP';
 
-const ipv4RangeMaybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\/(\d{1,2})$/;
+const subnetMaybe = /^\d\d?$/;
 
-export default function isIPRange(str, version = '') {
+export default function isIPRange(str) {
   assertString(str);
-  version = String(version);
-  if (!version) {
-    return isIPRange(str, 4) || isIPRange(str, 6);
-  } else if (version === '4') {
-    if (!ipv4RangeMaybe.test(str)) {
-      return false;
-    }
-    const parts = str.split('.').sort((a, b) => a - b);
-    const lastPart = parts[3].split('/');
-    return parts[2] <= 255 && lastPart[0] <= 255 && lastPart[1] <= 32;
-  } else if (version === '6') {
-    // This part needs a solution
+  const [ip, subnet, err] = str.split('/');
+
+  if (typeof err !== 'undefined') {
     return false;
   }
-  return false;
+
+  if (!subnetMaybe.test(subnet)) {
+    return false;
+  }
+
+  // Disallow preceding 0 i.e. 01, 02, ...
+  if (subnet.length > 1 && subnet.startsWith('0')) {
+    return false;
+  }
+
+  return isIP(ip) && subnet <= 32 && subnet >= 0;
 }
