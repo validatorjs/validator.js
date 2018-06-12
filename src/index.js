@@ -10,6 +10,7 @@ import isEmail from './lib/isEmail';
 import isURL from './lib/isURL';
 import isMACAddress from './lib/isMACAddress';
 import isIP from './lib/isIP';
+import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
 
 import isBoolean from './lib/isBoolean';
@@ -106,6 +107,7 @@ const validator = {
   isURL,
   isMACAddress,
   isIP,
+  isIPRange,
   isFQDN,
   isBoolean,
   isAlpha,
