@@ -3,6 +3,7 @@ import assertString from './util/assertString';
 import merge from './util/merge';
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
+import isIP from './isIP';
 
 const default_email_options = {
   allow_display_name: false,
@@ -73,7 +74,17 @@ export default function isEmail(str, options) {
   }
 
   if (!isFQDN(domain, { require_tld: options.require_tld })) {
-    return false;
+    if (!isIP(domain)) {
+      if (!domain.startsWith('[') || !domain.endsWith(']')) {
+        return false;
+      }
+
+      let noBracketdomain = domain.substr(1, domain.length - 2);
+
+      if (noBracketdomain.length === 0 || !isIP(noBracketdomain)) {
+        return false;
+      }
+    }
   }
 
   if (user[0] === '"') {

@@ -64,6 +64,8 @@ describe('Validators', () => {
         `${repeat('a', 64)}@${repeat('a', 63)}.com`,
         `${repeat('a', 64)}@${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 58)}.com`,
         `${repeat('a', 64)}@${repeat('a', 63)}.com`,
+        'email@[123.123.123.123]',
+        'email@255.255.255.255',
       ],
       invalid: [
         'invalidemail@',
@@ -98,6 +100,8 @@ describe('Validators', () => {
         'multiple..dots@gmail.com',
         'multiple..dots@stillinvalid.com',
         'test123+invalid! sub_address@gmail.com',
+        'email@0.0.0.256',
+        'email@26.0.0.256',
       ],
     });
   });
