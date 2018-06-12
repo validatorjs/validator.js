@@ -2,6 +2,8 @@
 
 - Accept an array of locales in `isMobilePhone()`
   ([#742](https://github.com/chriso/validator.js/pull/742))
+- New locales
+  ([#843](https://github.com/chriso/validator.js/pull/843))
 
 #### 10.3.0
 
