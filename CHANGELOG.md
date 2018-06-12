@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added an `isIPRange()` validator
+  ([#842](https://github.com/chriso/validator.js/pull/842))
 - Accept an array of locales in `isMobilePhone()`
   ([#742](https://github.com/chriso/validator.js/pull/742))
 - New locales
