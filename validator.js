@@ -69,84 +69,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var slicedToArray = function () {
-  function sliceIterator(arr, i) {
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _e = undefined;
-
-    try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"]) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
-  return function (arr, i) {
-    if (Array.isArray(arr)) {
-      return arr;
-    } else if (Symbol.iterator in Object(arr)) {
-      return sliceIterator(arr, i);
-    } else {
-      throw new TypeError("Invalid attempt to destructure non-iterable instance");
-    }
-  };
-}();
-
 function toString(input) {
   if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' && input !== null) {
     if (typeof input.toString === 'function') {
@@ -540,27 +462,23 @@ var subnetMaybe = /^\d{1,2}$/;
 
 function isIPRange(str) {
   assertString(str);
+  var parts = str.split('/');
 
-  var _str$split = str.split('/'),
-      _str$split2 = slicedToArray(_str$split, 3),
-      ip = _str$split2[0],
-      subnet = _str$split2[1],
-      err = _str$split2[2];
-
-  if (typeof err !== 'undefined') {
+  // parts[0] -> ip, parts[1] -> subnet
+  if (parts.length !== 2) {
     return false;
   }
 
-  if (!subnetMaybe.test(subnet)) {
+  if (!subnetMaybe.test(parts[1])) {
     return false;
   }
 
   // Disallow preceding 0 i.e. 01, 02, ...
-  if (subnet.length > 1 && subnet.startsWith('0')) {
+  if (parts[1].length > 1 && parts[1].startsWith('0')) {
     return false;
   }
 
-  return isIP(ip) && subnet <= 32 && subnet >= 0;
+  return isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0;
 }
 
 function isBoolean(str) {

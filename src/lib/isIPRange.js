@@ -5,20 +5,21 @@ const subnetMaybe = /^\d{1,2}$/;
 
 export default function isIPRange(str) {
   assertString(str);
-  const [ip, subnet, err] = str.split('/');
+  const parts = str.split('/');
 
-  if (typeof err !== 'undefined') {
+  // parts[0] -> ip, parts[1] -> subnet
+  if (parts.length !== 2) {
     return false;
   }
 
-  if (!subnetMaybe.test(subnet)) {
+  if (!subnetMaybe.test(parts[1])) {
     return false;
   }
 
   // Disallow preceding 0 i.e. 01, 02, ...
-  if (subnet.length > 1 && subnet.startsWith('0')) {
+  if (parts[1].length > 1 && parts[1].startsWith('0')) {
     return false;
   }
 
-  return isIP(ip, 4) && subnet <= 32 && subnet >= 0;
+  return isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0;
 }
