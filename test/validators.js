@@ -2133,7 +2133,7 @@ describe('Validators', function () {
         new Date(0).toString(),
         new Date(Date.now() - 86400000).toString(),
       ],
-      invalid: ['2100-07-02', new Date(2017, 10, 10).toString()],
+      invalid: ['2100-07-02', new Date(Date.now() + 86400000).toString()],
     });
     test({
       validator: 'isBefore',
