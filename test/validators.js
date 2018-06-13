@@ -1538,6 +1538,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings without symbols', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        noSymbols: true,
+      }],
+      valid: [
+        '123',
+        '00123',
+        '0',
+      ],
+      invalid: [
+        '-0',
+        '+123',
+        '123.123',
+        '-00123',
+        ' ',
+        '.',
+      ],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
