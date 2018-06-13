@@ -452,9 +452,13 @@ function isURL(url, options) {
 }
 
 var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
+var macAddressNoColons = /^([0-9a-fA-F]){12}$/;
 
-function isMACAddress(str) {
+function isMACAddress(str, options) {
   assertString(str);
+  if (options && options.noColons) {
+    return macAddressNoColons.test(str);
+  }
   return macAddress.test(str);
 }
 
@@ -599,9 +603,13 @@ function isAlphanumeric(str) {
 }
 
 var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
+var numericNoSymbols = /^[0-9]*$/;
 
-function isNumeric(str) {
+function isNumeric(str, options) {
   assertString(str);
+  if (options && options.noSymbols) {
+    return numericNoSymbols.test(str);
+  }
   return numeric.test(str);
 }
 
