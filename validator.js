@@ -309,6 +309,10 @@ function isEmail(str, options) {
   }
 
   if (!isFQDN(domain, { require_tld: options.require_tld })) {
+    if (!options.allow_ip_domain) {
+      return false;
+    }
+
     if (!isIP(domain)) {
       if (!domain.startsWith('[') || !domain.endsWith(']')) {
         return false;
