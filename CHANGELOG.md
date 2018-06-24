@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locale
+  ([#856](https://github.com/chriso/validator.js/pull/856))
+
 #### 10.4.0
 
 - Added an `isIPRange()` validator
