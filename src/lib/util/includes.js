@@ -1,5 +1,3 @@
-export default (array, ele) => {
-  return array.some(element => {
-    element === ele
-  })
-}
+const includes = (arr, val) => arr.some(arrVal => val === arrVal);
+
+export default includes;
