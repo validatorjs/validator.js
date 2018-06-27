@@ -694,6 +694,12 @@ function isFloat(str, options) {
   return float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
+var includes = function includes(arr, val) {
+  return arr.some(function (arrVal) {
+    return val === arrVal;
+  });
+};
+
 function decimalRegExp(options) {
   var regExp = new RegExp('^[-+]?([0-9]+)?(\\' + decimal[options.locale] + '[0-9]{' + options.decimal_digits + '})' + (options.force_decimal ? '' : '?') + '$');
   return regExp;
@@ -711,7 +717,7 @@ function isDecimal(str, options) {
   assertString(str);
   options = merge(options, default_decimal_options);
   if (options.locale in decimal) {
-    return !blacklist.includes(str.replace(/ /g, '')) && decimalRegExp(options).test(str);
+    return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
   }
   throw new Error('Invalid locale \'' + options.locale + '\'');
 }
@@ -1213,7 +1219,7 @@ var validISO31661Alpha2CountriesCodes = ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM
 
 function isISO31661Alpha2(str) {
   assertString(str);
-  return validISO31661Alpha2CountriesCodes.includes(str.toUpperCase());
+  return includes(validISO31661Alpha2CountriesCodes, str.toUpperCase());
 }
 
 // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
@@ -1221,7 +1227,7 @@ var validISO31661Alpha3CountriesCodes = ['AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND
 
 function isISO31661Alpha3(str) {
   assertString(str);
-  return validISO31661Alpha3CountriesCodes.includes(str.toUpperCase());
+  return includes(validISO31661Alpha3CountriesCodes, str.toUpperCase());
 }
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
