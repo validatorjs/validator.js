@@ -32,5 +32,5 @@ const validISO31661Alpha2CountriesCodes = [
 
 export default function isISO31661Alpha2(str) {
   assertString(str);
-  return includes(validISO31661Alpha2CountriesCodes, str.toUpperCase())
+  return includes(validISO31661Alpha2CountriesCodes, str.toUpperCase());
 }
