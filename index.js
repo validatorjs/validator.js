@@ -48,6 +48,10 @@ var _isIP = require('./lib/isIP');
 
 var _isIP2 = _interopRequireDefault(_isIP);
 
+var _isIPRange = require('./lib/isIPRange');
+
+var _isIPRange2 = _interopRequireDefault(_isIPRange);
+
 var _isFQDN = require('./lib/isFQDN');
 
 var _isFQDN2 = _interopRequireDefault(_isFQDN);
@@ -282,7 +286,7 @@ var _toString2 = _interopRequireDefault(_toString);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '10.2.0';
+var version = '10.4.0';
 
 var validator = {
   version: version,
@@ -297,6 +301,7 @@ var validator = {
   isURL: _isURL2.default,
   isMACAddress: _isMACAddress2.default,
   isIP: _isIP2.default,
+  isIPRange: _isIPRange2.default,
   isFQDN: _isFQDN2.default,
   isBoolean: _isBoolean2.default,
   isAlpha: _isAlpha2.default,

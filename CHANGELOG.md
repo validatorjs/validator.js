@@ -1,5 +1,19 @@
 #### HEAD
 
+- New locale
+  ([#856](https://github.com/chriso/validator.js/pull/856))
+
+#### 10.4.0
+
+- Added an `isIPRange()` validator
+  ([#842](https://github.com/chriso/validator.js/pull/842))
+- Accept an array of locales in `isMobilePhone()`
+  ([#742](https://github.com/chriso/validator.js/pull/742))
+- New locale
+  ([#843](https://github.com/chriso/validator.js/pull/843))
+
+#### 10.3.0
+
 - Strict Gmail validation in `isEmail()`
   ([#832](https://github.com/chriso/validator.js/pull/832))
 - New locales
