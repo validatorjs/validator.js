@@ -5571,6 +5571,18 @@ describe('Validators', () => {
           '499 49',
         ],
       },
+      {
+        locale: 'AD',
+        valid: [
+          'AD100',
+          'AD200',
+          'AD300',
+          'AD400',
+          'AD500',
+          'AD600',
+          'AD700',
+        ],
+      },
     ];
 
     let allValid = [];

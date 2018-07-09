@@ -1334,6 +1334,7 @@ var fiveDigit = /^\d{5}$/;
 var sixDigit = /^\d{6}$/;
 
 var patterns = {
+  AD: /^AD\d{3}$/,
   AT: fourDigit,
   AU: fourDigit,
   BE: fourDigit,

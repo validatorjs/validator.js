@@ -7,6 +7,7 @@ const fiveDigit = /^\d{5}$/;
 const sixDigit = /^\d{6}$/;
 
 const patterns = {
+  AD: /^AD\d{3}$/,
   AT: fourDigit,
   AU: fourDigit,
   BE: fourDigit,
