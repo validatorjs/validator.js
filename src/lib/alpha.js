@@ -82,7 +82,7 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
 export const dotDecimal = [];
 export const commaDecimal = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'hu-HU', 'nb-NO',
-  'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin',
+  'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS@latin',
   'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA',
 ];
 
