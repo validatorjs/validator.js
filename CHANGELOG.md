@@ -1,3 +1,8 @@
+#### HEAD
+
+- Updated `isMobilePhone()` to match any locale's pattern by default
+  ([#874](https://github.com/chriso/validator.js/pull/874))
+
 #### 10.5.0
 
 - Disabled domain-specific email validation
