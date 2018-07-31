@@ -98,6 +98,8 @@ describe('Validators', () => {
         'multiple..dots@gmail.com',
         'multiple..dots@stillinvalid.com',
         'test123+invalid! sub_address@gmail.com',
+        'email@0.0.0.256',
+        'email@26.0.0.256',
       ],
     });
   });
@@ -228,6 +230,52 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate email addresses with allowed IPs', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ allow_ip_domain: true }],
+      valid: [
+        'email@[123.123.123.123]',
+        'email@255.255.255.255',
+      ],
+      invalid: [
+        'invalidemail@',
+        'invalid.com',
+        '@invalid.com',
+        'foo@bar.com.',
+        'somename@ｇｍａｉｌ.com',
+        'foo@bar.co.uk.',
+        'z@co.c',
+        'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com',
+        `${repeat('a', 64)}@${repeat('a', 251)}.com`,
+        `${repeat('a', 65)}@${repeat('a', 250)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 64)}.com`,
+        `${repeat('a', 31)}@gmail.com`,
+        'test1@invalid.co m',
+        'test2@invalid.co m',
+        'test3@invalid.co m',
+        'test4@invalid.co m',
+        'test5@invalid.co m',
+        'test6@invalid.co m',
+        'test7@invalid.co m',
+        'test8@invalid.co m',
+        'test9@invalid.co m',
+        'test10@invalid.co m',
+        'test11@invalid.co m',
+        'test12@invalid.co　m',
+        'test13@invalid.co　m',
+        'gmail...ignores...dots...@gmail.com',
+        'test@gmail.com',
+        'test.1@gmail.com',
+        'ends.with.dot.@gmail.com',
+        'multiple..dots@gmail.com',
+        'multiple..dots@stillinvalid.com',
+        'test123+invalid! sub_address@gmail.com',
+        'email@0.0.0.256',
+        'email@26.0.0.256',
+      ],
+    });
+  });
 
   it('should validate URLs', () => {
     test({
@@ -1530,8 +1578,34 @@ describe('Validators', () => {
         '-0',
         '+123',
         '123.123',
+        '+000000',
       ],
       invalid: [
+        ' ',
+        '',
+        '.',
+      ],
+    });
+  });
+
+  it('should validate numeric strings without symbols', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        no_symbols: true,
+      }],
+      valid: [
+        '123',
+        '00123',
+        '0',
+      ],
+      invalid: [
+        '-0',
+        '+000000',
+        '',
+        '+123',
+        '123.123',
+        '-00123',
         ' ',
         '.',
       ],
@@ -3290,6 +3364,22 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'bn-BD',
+        valid: [
+          '+8801794626846',
+          '01199098893',
+          '8801671163269',
+          '01717112029',
+        ],
+        invalid: [
+          '',
+          '0174626346',
+          '017943563469',
+          '18001234567',
+          '01494676946',
+        ],
+      },
+      {
         locale: 'cs-CZ',
         valid: [
           '+420 123 456 789',
@@ -3597,34 +3687,33 @@ describe('Validators', () => {
           '19876543210',
           '8005552222',
           '+15673628910',
+          '+1(567)3628910',
+          '+1(567)362-8910',
+          '+1(567) 362-8910',
+          '1(567)362-8910',
+          '1(567)362 8910',
+          '223-456-7890',
         ],
         invalid: [
           '564785',
           '0123456789',
           '1437439210',
-          '8009112340',
           '+10345672645',
           '11435213543',
-          '2436119753',
-          '16532116190',
+          '1(067)362-8910',
+          '1(167)362-8910',
+          '+2(267)362-8910',
         ],
       },
       {
         locale: 'en-CA',
-        valid: [
-          '19876543210',
-          '8005552222',
-          '+15673628910',
-        ],
+        valid: ['19876543210', '8005552222', '+15673628910'],
         invalid: [
           '564785',
           '0123456789',
           '1437439210',
-          '8009112340',
           '+10345672645',
           '11435213543',
-          '2436119753',
-          '16532116190',
         ],
       },
       {
