@@ -8,6 +8,8 @@
   ([#848](https://github.com/chriso/validator.js/pull/848))
 - Added a `no_colons` option to `isMACAddress()`
   ([#849](https://github.com/chriso/validator.js/pull/849))
+- Updated `isURL()` to reject protocol relative URLs unless a flag is set
+  ([#860](https://github.com/chriso/validator.js/issues/860))
 - New and improved locales
   ([#801](https://github.com/chriso/validator.js/pull/801),
    [#856](https://github.com/chriso/validator.js/pull/856),

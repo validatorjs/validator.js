@@ -302,6 +302,7 @@ describe('Validators', () => {
       ],
       invalid: [
         'http://localhost:3000/',
+        '//foobar.com',
         'xyz://foobar.com',
         'invalid/',
         'invalid.x',
