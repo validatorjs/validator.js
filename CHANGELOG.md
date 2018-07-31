@@ -1,5 +1,7 @@
 #### HEAD
 
+- Disabled domain-specific email validation
+  ([#873](https://github.com/chriso/validator.js/pull/873))
 - Added support for IP hostnames in `isEmail()`
   ([#845](https://github.com/chriso/validator.js/pull/845))
 - Added a `no_symbols` option to `isNumeric()`
