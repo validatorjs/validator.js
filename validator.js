@@ -470,7 +470,7 @@ var macAddressNoColons = /^([0-9a-fA-F]){12}$/;
 
 function isMACAddress(str, options) {
   assertString(str);
-  if (options && options.noColons) {
+  if (options && options.no_colons) {
     return macAddressNoColons.test(str);
   }
   return macAddress.test(str);

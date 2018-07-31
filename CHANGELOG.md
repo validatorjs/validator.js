@@ -4,6 +4,8 @@
   ([#845](https://github.com/chriso/validator.js/pull/845))
 - Added a `no_symbols` option to `isNumeric()`
   ([#848](https://github.com/chriso/validator.js/pull/848))
+- Added a `no_colons` option to `isMACAddress()`
+  ([#849](https://github.com/chriso/validator.js/pull/849))
 - New and improved locales
   ([#856](https://github.com/chriso/validator.js/pull/856),
    [#870](https://github.com/chriso/validator.js/pull/870),
