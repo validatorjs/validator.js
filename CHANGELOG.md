@@ -7,7 +7,8 @@
 - Added a `no_colons` option to `isMACAddress()`
   ([#849](https://github.com/chriso/validator.js/pull/849))
 - New and improved locales
-  ([#856](https://github.com/chriso/validator.js/pull/856),
+  ([#801](https://github.com/chriso/validator.js/pull/801),
+   [#856](https://github.com/chriso/validator.js/pull/856),
    [#870](https://github.com/chriso/validator.js/pull/870),
    [#872](https://github.com/chriso/validator.js/pull/872))
 
