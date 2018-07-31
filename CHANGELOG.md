@@ -11,6 +11,7 @@
 - New and improved locales
   ([#801](https://github.com/chriso/validator.js/pull/801),
    [#856](https://github.com/chriso/validator.js/pull/856),
+   [#859](https://github.com/chriso/validator.js/issues/859),
    [#861](https://github.com/chriso/validator.js/pull/861),
    [#862](https://github.com/chriso/validator.js/pull/862),
    [#863](https://github.com/chriso/validator.js/pull/863),
