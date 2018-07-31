@@ -9,6 +9,7 @@
 - New and improved locales
   ([#801](https://github.com/chriso/validator.js/pull/801),
    [#856](https://github.com/chriso/validator.js/pull/856),
+   [#861](https://github.com/chriso/validator.js/pull/861),
    [#870](https://github.com/chriso/validator.js/pull/870),
    [#872](https://github.com/chriso/validator.js/pull/872))
 
