@@ -42,7 +42,7 @@ export default function isEmail(str, options) {
 
   const lower_domain = domain.toLowerCase();
 
-  if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
+  if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
       Previously we removed dots for gmail addresses before validating.
       This was removed because it allows `multiple..dots@gmail.com`
