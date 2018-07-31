@@ -84,7 +84,7 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
 export const dotDecimal = [];
 export const commaDecimal = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO',
-  'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin',
+  'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS@latin',
   'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA',
 ];
 
@@ -99,3 +99,8 @@ for (let i = 0; i < commaDecimal.length; i++) {
 alpha['pt-BR'] = alpha['pt-PT'];
 alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 decimal['pt-BR'] = decimal['pt-PT'];
+
+// see #862
+alpha['pl-Pl'] = alpha['pl-PL'];
+alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
+decimal['pl-Pl'] = decimal['pl-PL'];

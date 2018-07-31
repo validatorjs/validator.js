@@ -584,7 +584,7 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
 var dotDecimal = [];
-var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-Pl', 'pt-PT', 'ru-RU', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
 
 for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
   decimal[dotDecimal[_i2]] = decimal['en-US'];
@@ -597,7 +597,12 @@ for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
 alpha['pt-BR'] = alpha['pt-PT'];
 alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 decimal['pt-BR'] = decimal['pt-PT'];
-
+                     
+// see #862
+alpha['pl-Pl'] = alpha['pl-PL'];
+alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
+decimal['pl-Pl'] = decimal['pl-PL'];
+                      
 function isAlpha(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
 
