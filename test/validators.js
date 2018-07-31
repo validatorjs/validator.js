@@ -991,6 +991,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate kurdish alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['ku-IQ'],
+      valid: [
+        'ئؤڤگێ',
+        'کوردستان',
+      ],
+      invalid: [
+        'ئؤڤگێ١٢٣',
+        '١٢٣',
+        'abc1',
+        '  foo  ',
+        '',
+        'ÄBC',
+        'FÜübar',
+        'Jön',
+        'Heiß',
+      ],
+    });
+  });
+
   it('should validate norwegian alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1390,6 +1412,21 @@ describe('Validators', () => {
       valid: [
         'أبت123',
         'أبتَُِ١٢٣',
+      ],
+      invalid: [
+        'äca ',
+        'abcß',
+        'föö!!',
+      ],
+    });
+  });
+
+  it('should validate kurdish alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ku-IQ'],
+      valid: [
+        'ئؤڤگێ١٢٣',
       ],
       invalid: [
         'äca ',
