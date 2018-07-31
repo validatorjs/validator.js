@@ -597,12 +597,12 @@ for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
 alpha['pt-BR'] = alpha['pt-PT'];
 alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 decimal['pt-BR'] = decimal['pt-PT'];
-                     
+
 // see #862
 alpha['pl-Pl'] = alpha['pl-PL'];
 alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
 decimal['pl-Pl'] = decimal['pl-PL'];
-                      
+
 function isAlpha(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
 
