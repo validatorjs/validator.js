@@ -613,9 +613,13 @@ function isAlphanumeric(str) {
 }
 
 var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
+var numericNoSymbols = /^[0-9]+$/;
 
-function isNumeric(str) {
+function isNumeric(str, options) {
   assertString(str);
+  if (options && options.noSymbols) {
+    return numericNoSymbols.test(str);
+  }
   return numeric.test(str);
 }
 
