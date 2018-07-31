@@ -4435,6 +4435,20 @@ describe('Validators', () => {
       ],
       args: ['any', { strictMode: true }],
     });
+
+    // falsey locale defaults to 'any'
+    test({
+      validator: 'isMobilePhone',
+      valid: allValid,
+      invalid: [
+        '',
+        'asdf',
+        '1',
+        'ASDFGJKLmZXJtZtesting123',
+        'Vml2YW11cyBmZXJtZtesting123',
+      ],
+      args: [],
+    });
   });
 
   it('should validate currency', () => {

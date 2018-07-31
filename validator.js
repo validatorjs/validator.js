@@ -1122,7 +1122,8 @@ function isMobilePhone(str, locale, options) {
     });
   } else if (locale in phones) {
     return phones[locale].test(str);
-  } else if (locale === 'any') {
+    // alias falsey locale as 'any'
+  } else if (!locale || locale === 'any') {
     for (var key in phones) {
       if (phones.hasOwnProperty(key)) {
         var phone = phones[key];
