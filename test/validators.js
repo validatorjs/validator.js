@@ -611,6 +611,36 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate MAC addresses without colons', () => {
+    test({
+      validator: 'isMACAddress',
+      args: [{
+        noColons: true,
+      }],
+      valid: [
+        'abababababab',
+        'FFFFFFFFFFFF',
+        '0102030405ab',
+        '01AB03040506',
+      ],
+      invalid: [
+        'abc',
+        '01:02:03:04:05',
+        '01:02:03:04::ab',
+        '1:2:3:4:5:6',
+        'AB:CD:EF:GH:01:02',
+        'ab:ab:ab:ab:ab:ab',
+        'FF:FF:FF:FF:FF:FF',
+        '01:02:03:04:05:ab',
+        '01:AB:03:04:05:06',
+        '0102030405',
+        '01020304ab',
+        '123456',
+        'ABCDEFGH0102',
+      ],
+    });
+  });
+
   it('should validate IP addresses', () => {
     test({
       validator: 'isIP',
