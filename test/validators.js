@@ -1562,7 +1562,7 @@ describe('Validators', () => {
     test({
       validator: 'isNumeric',
       args: [{
-        noSymbols: true,
+        no_symbols: true,
       }],
       valid: [
         '123',

@@ -1,7 +1,9 @@
 #### HEAD
 
-- Support for IP hostnames in `isEmail()`
+- Added support for IP hostnames in `isEmail()`
   ([#845](https://github.com/chriso/validator.js/pull/845))
+- Added a `no_symbols` option to `isNumeric()`
+  ([#848](https://github.com/chriso/validator.js/pull/848))
 - New and improved locales
   ([#856](https://github.com/chriso/validator.js/pull/856),
    [#870](https://github.com/chriso/validator.js/pull/870),

@@ -617,7 +617,7 @@ var numericNoSymbols = /^[0-9]+$/;
 
 function isNumeric(str, options) {
   assertString(str);
-  if (options && options.noSymbols) {
+  if (options && options.no_symbols) {
     return numericNoSymbols.test(str);
   }
   return numeric.test(str);
