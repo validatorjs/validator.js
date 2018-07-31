@@ -708,6 +708,12 @@ function isFloat(str, options) {
   return float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
+var includes = function includes(arr, val) {
+  return arr.some(function (arrVal) {
+    return val === arrVal;
+  });
+};
+
 function decimalRegExp(options) {
   var regExp = new RegExp('^[-+]?([0-9]+)?(\\' + decimal[options.locale] + '[0-9]{' + options.decimal_digits + '})' + (options.force_decimal ? '' : '?') + '$');
   return regExp;
@@ -725,7 +731,7 @@ function isDecimal(str, options) {
   assertString(str);
   options = merge(options, default_decimal_options);
   if (options.locale in decimal) {
-    return !blacklist.includes(str.replace(/ /g, '')) && decimalRegExp(options).test(str);
+    return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
   }
   throw new Error('Invalid locale \'' + options.locale + '\'');
 }
@@ -1012,6 +1018,7 @@ var phones = {
   'ar-AE': /^((\+?971)|0)?5[024568]\d{7}$/,
   'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
   'ar-EG': /^((\+?20)|0)?1[012]\d{8}$/,
+  'ar-IQ': /^(\+?964|0)?7[0-9]\d{8}$/,
   'ar-JO': /^(\+?962|0)?7[789]\d{7}$/,
   'ar-KW': /^(\+?965)[569]\d{7}$/,
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
@@ -1019,6 +1026,7 @@ var phones = {
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
+  'bn-BD': /\+?(88)?0?1[156789][0-9]{8}\b/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+?49[ \.\-]?)?([\(]{1}[0-9]{1,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
@@ -1035,7 +1043,7 @@ var phones = {
   'en-SG': /^(\+65)?[89]\d{7}$/,
   'en-TZ': /^(\+?255|0)?[67]\d{8}$/,
   'en-UG': /^(\+?256|0)?[7]\d{8}$/,
-  'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
+  'en-US': /^(\+?1?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/,
   'en-ZA': /^(\+?27|0)\d{9}$/,
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
@@ -1226,7 +1234,7 @@ var validISO31661Alpha2CountriesCodes = ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM
 
 function isISO31661Alpha2(str) {
   assertString(str);
-  return validISO31661Alpha2CountriesCodes.includes(str.toUpperCase());
+  return includes(validISO31661Alpha2CountriesCodes, str.toUpperCase());
 }
 
 // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
@@ -1234,7 +1242,7 @@ var validISO31661Alpha3CountriesCodes = ['AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND
 
 function isISO31661Alpha3(str) {
   assertString(str);
-  return validISO31661Alpha3CountriesCodes.includes(str.toUpperCase());
+  return includes(validISO31661Alpha3CountriesCodes, str.toUpperCase());
 }
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
@@ -1600,7 +1608,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '10.3.0';
+var version = '10.4.0';
 
 var validator = {
   version: version,
