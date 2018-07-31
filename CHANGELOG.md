@@ -1,7 +1,8 @@
 #### HEAD
 
-- New locale
-  ([#856](https://github.com/chriso/validator.js/pull/856))
+- New and improved locales
+  ([#856](https://github.com/chriso/validator.js/pull/856),
+   [#872](https://github.com/chriso/validator.js/pull/872))
 
 #### 10.4.0
 
