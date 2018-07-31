@@ -98,6 +98,8 @@ describe('Validators', () => {
         'multiple..dots@gmail.com',
         'multiple..dots@stillinvalid.com',
         'test123+invalid! sub_address@gmail.com',
+        'email@0.0.0.256',
+        'email@26.0.0.256',
       ],
     });
   });
@@ -228,6 +230,52 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate email addresses with allowed IPs', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ allow_ip_domain: true }],
+      valid: [
+        'email@[123.123.123.123]',
+        'email@255.255.255.255',
+      ],
+      invalid: [
+        'invalidemail@',
+        'invalid.com',
+        '@invalid.com',
+        'foo@bar.com.',
+        'somename@ｇｍａｉｌ.com',
+        'foo@bar.co.uk.',
+        'z@co.c',
+        'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com',
+        `${repeat('a', 64)}@${repeat('a', 251)}.com`,
+        `${repeat('a', 65)}@${repeat('a', 250)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 64)}.com`,
+        `${repeat('a', 31)}@gmail.com`,
+        'test1@invalid.co m',
+        'test2@invalid.co m',
+        'test3@invalid.co m',
+        'test4@invalid.co m',
+        'test5@invalid.co m',
+        'test6@invalid.co m',
+        'test7@invalid.co m',
+        'test8@invalid.co m',
+        'test9@invalid.co m',
+        'test10@invalid.co m',
+        'test11@invalid.co m',
+        'test12@invalid.co　m',
+        'test13@invalid.co　m',
+        'gmail...ignores...dots...@gmail.com',
+        'test@gmail.com',
+        'test.1@gmail.com',
+        'ends.with.dot.@gmail.com',
+        'multiple..dots@gmail.com',
+        'multiple..dots@stillinvalid.com',
+        'test123+invalid! sub_address@gmail.com',
+        'email@0.0.0.256',
+        'email@26.0.0.256',
+      ],
+    });
+  });
 
   it('should validate URLs', () => {
     test({
@@ -559,6 +607,36 @@ describe('Validators', () => {
         '01:02:03:04::ab',
         '1:2:3:4:5:6',
         'AB:CD:EF:GH:01:02',
+      ],
+    });
+  });
+
+  it('should validate MAC addresses without colons', () => {
+    test({
+      validator: 'isMACAddress',
+      args: [{
+        no_colons: true,
+      }],
+      valid: [
+        'abababababab',
+        'FFFFFFFFFFFF',
+        '0102030405ab',
+        '01AB03040506',
+      ],
+      invalid: [
+        'abc',
+        '01:02:03:04:05',
+        '01:02:03:04::ab',
+        '1:2:3:4:5:6',
+        'AB:CD:EF:GH:01:02',
+        'ab:ab:ab:ab:ab:ab',
+        'FF:FF:FF:FF:FF:FF',
+        '01:02:03:04:05:ab',
+        '01:AB:03:04:05:06',
+        '0102030405',
+        '01020304ab',
+        '123456',
+        'ABCDEFGH0102',
       ],
     });
   });
@@ -1537,8 +1615,34 @@ describe('Validators', () => {
         '-0',
         '+123',
         '123.123',
+        '+000000',
       ],
       invalid: [
+        ' ',
+        '',
+        '.',
+      ],
+    });
+  });
+
+  it('should validate numeric strings without symbols', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        no_symbols: true,
+      }],
+      valid: [
+        '123',
+        '00123',
+        '0',
+      ],
+      invalid: [
+        '-0',
+        '+000000',
+        '',
+        '+123',
+        '123.123',
+        '-00123',
         ' ',
         '.',
       ],
@@ -3297,6 +3401,22 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'bn-BD',
+        valid: [
+          '+8801794626846',
+          '01199098893',
+          '8801671163269',
+          '01717112029',
+        ],
+        invalid: [
+          '',
+          '0174626346',
+          '017943563469',
+          '18001234567',
+          '01494676946',
+        ],
+      },
+      {
         locale: 'cs-CZ',
         valid: [
           '+420 123 456 789',
@@ -3368,17 +3488,26 @@ describe('Validators', () => {
           '15323456787',
           '13523333233',
           '13898728332',
-          '+086-13238234822',
-          '08613487234567',
-          '8617823492338',
-          '86-17823492338',
+          '+8613238234822',
+          '+8613487234567',
+          '+8617823492338',
+          '+8617823492338',
           '16637108167',
-          '86-16637108167',
-          '+086-16637108167',
+          '+8616637108167',
+          '+8616637108167',
+          '008618812341234',
+          '008618812341234',
+          '+8619912341234',
+          '+8619812341234',
         ],
         invalid: [
           '12345',
           '',
+          '+08613811211114',
+          '+008613811211114',
+          '08613811211114',
+          '0086-13811211114',
+          '0086-138-1121-1114',
           'Vml2YW11cyBmZXJtZtesting123',
           '010-38238383',
         ],
@@ -3604,34 +3733,33 @@ describe('Validators', () => {
           '19876543210',
           '8005552222',
           '+15673628910',
+          '+1(567)3628910',
+          '+1(567)362-8910',
+          '+1(567) 362-8910',
+          '1(567)362-8910',
+          '1(567)362 8910',
+          '223-456-7890',
         ],
         invalid: [
           '564785',
           '0123456789',
           '1437439210',
-          '8009112340',
           '+10345672645',
           '11435213543',
-          '2436119753',
-          '16532116190',
+          '1(067)362-8910',
+          '1(167)362-8910',
+          '+2(267)362-8910',
         ],
       },
       {
         locale: 'en-CA',
-        valid: [
-          '19876543210',
-          '8005552222',
-          '+15673628910',
-        ],
+        valid: ['19876543210', '8005552222', '+15673628910'],
         invalid: [
           '564785',
           '0123456789',
           '1437439210',
-          '8009112340',
           '+10345672645',
           '11435213543',
-          '2436119753',
-          '16532116190',
         ],
       },
       {
@@ -4064,6 +4192,10 @@ describe('Validators', () => {
           '+6221740123456',
           '+62811 778 998',
           '+62811778998',
+          '+62812 9650 3508',
+          '08197231819',
+          '085361008008',
+          '+62811787391',
         ],
         invalid: [
           '+65740 123 456',
@@ -5606,6 +5738,18 @@ describe('Validators', () => {
           '39556',
           '489 39',
           '499 49',
+        ],
+      },
+      {
+        locale: 'AD',
+        valid: [
+          'AD100',
+          'AD200',
+          'AD300',
+          'AD400',
+          'AD500',
+          'AD600',
+          'AD700',
         ],
       },
     ];
