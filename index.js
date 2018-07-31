@@ -286,7 +286,7 @@ var _toString2 = _interopRequireDefault(_toString);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '10.4.0';
+var version = '10.5.0';
 
 var validator = {
   version: version,

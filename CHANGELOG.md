@@ -1,4 +1,4 @@
-#### HEAD
+#### 10.5.0
 
 - Disabled domain-specific email validation
   ([#873](https://github.com/chriso/validator.js/pull/873))
