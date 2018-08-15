@@ -3,7 +3,8 @@
 - Updated `isMobilePhone()` to match any locale's pattern by default
   ([#874](https://github.com/chriso/validator.js/pull/874))
 - New and improved locales
-  ([#878](https://github.com/chriso/validator.js/pull/878))
+  ([#878](https://github.com/chriso/validator.js/pull/878),
+   [#879](https://github.com/chriso/validator.js/pull/879))
 
 #### 10.5.0
 
