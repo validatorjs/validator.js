@@ -2510,6 +2510,30 @@ describe('Validators', () => {
         '3',
       ],
     });
+    test({
+      validator: 'isEmpty',
+      args: [{ whitespace_only_as_empty: false }],
+      valid: [
+        '',
+      ],
+      invalid: [
+        ' ',
+        'foo',
+        '3',
+      ],
+    });
+    test({
+      validator: 'isEmpty',
+      args: [{ whitespace_only_as_empty: true }],
+      valid: [
+        '',
+        ' ',
+      ],
+      invalid: [
+        'foo',
+        '3',
+      ],
+    });
   });
 
   it('should validate strings against an expected value', () => {
