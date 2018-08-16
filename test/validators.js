@@ -2512,7 +2512,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isEmpty',
-      args: [{ whitespace_only_as_empty: false }],
+      args: [{ ignore_whitespace: false }],
       valid: [
         '',
       ],
@@ -2524,7 +2524,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isEmpty',
-      args: [{ whitespace_only_as_empty: true }],
+      args: [{ ignore_whitespace: true }],
       valid: [
         '',
         ' ',
