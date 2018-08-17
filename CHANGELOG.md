@@ -1,4 +1,4 @@
-#### HEAD
+#### 10.6.0
 
 - Updated `isMobilePhone()` to match any locale's pattern by default
   ([#874](https://github.com/chriso/validator.js/pull/874))
