@@ -819,9 +819,15 @@ function isJSON(str) {
   return false;
 }
 
-function isEmpty(str) {
+var default_is_empty_options = {
+  ignore_whitespace: false
+};
+
+function isEmpty(str, options) {
   assertString(str);
-  return str.length === 0;
+  options = merge(options, default_is_empty_options);
+
+  return (options.ignore_whitespace ? str.trim().length : str.length) === 0;
 }
 
 /* eslint-disable prefer-rest-params */
