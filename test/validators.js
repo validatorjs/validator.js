@@ -2510,6 +2510,30 @@ describe('Validators', () => {
         '3',
       ],
     });
+    test({
+      validator: 'isEmpty',
+      args: [{ ignore_whitespace: false }],
+      valid: [
+        '',
+      ],
+      invalid: [
+        ' ',
+        'foo',
+        '3',
+      ],
+    });
+    test({
+      validator: 'isEmpty',
+      args: [{ ignore_whitespace: true }],
+      valid: [
+        '',
+        ' ',
+      ],
+      invalid: [
+        'foo',
+        '3',
+      ],
+    });
   });
 
   it('should validate strings against an expected value', () => {
@@ -3898,6 +3922,34 @@ describe('Validators', () => {
           '704789321',
           '+34754789321',
           '754789321',
+        ],
+      },
+      {
+        locale: 'es-MX',
+        valid: [
+          '+52019654789321',
+          '+52199654789321',
+          '+5201965478932',
+          '+5219654789321',
+          '52019654789321',
+          '52199654789321',
+          '5201965478932',
+          '5219654789321',
+          '87654789321',
+          '8654789321',
+          '0187654789321',
+          '18654789321',
+        ],
+        invalid: [
+          '12345',
+          '',
+          'Vml2YW11cyBmZXJtZtesting123',
+          '+3465478932',
+          '65478932',
+          '+346547893210',
+          '+34704789321',
+          '704789321',
+          '+34754789321',
         ],
       },
       {
