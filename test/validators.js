@@ -5629,7 +5629,6 @@ describe('Validators', () => {
     /* eslint-enable max-len */
   });
 
-  
 
   it('should validate LatLong', () => {
     test({
