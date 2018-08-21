@@ -73,6 +73,8 @@ import isISO31661Alpha3 from './lib/isISO31661Alpha3';
 
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
+import isMagnetURI from './lib/isMagnetURI';
+
 import isMimeType from './lib/isMimeType';
 
 import isLatLong from './lib/isLatLong';
@@ -154,6 +156,7 @@ const validator = {
   isISO31661Alpha3,
   isBase64,
   isDataURI,
+  isMagnetURI,
   isMimeType,
   isLatLong,
   ltrim,

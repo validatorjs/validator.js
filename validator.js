@@ -1319,6 +1319,13 @@ function isDataURI(str) {
   return true;
 }
 
+var magnetURI = /^magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32,40}&dn=.+&tr=.+$/i;
+
+function isMagnetURI(url) {
+    assertString(url);
+    return magnetURI.test(url.trim());
+}
+
 /*
   Checks if the provided string matches to a correct Media type format (MIME type)
 
@@ -1697,6 +1704,7 @@ var validator = {
   isISO31661Alpha3: isISO31661Alpha3,
   isBase64: isBase64,
   isDataURI: isDataURI,
+  isMagnetURI: isMagnetURI,
   isMimeType: isMimeType,
   isLatLong: isLatLong,
   ltrim: ltrim,
