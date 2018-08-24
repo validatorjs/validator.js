@@ -1,4 +1,4 @@
-#### HEAD
+#### 10.7.0
 
 - Added `isMagnetURI()` to validate [magnet URIs](https://en.wikipedia.org/wiki/Magnet_URI_scheme)
   ([#884](https://github.com/chriso/validator.js/pull/884))

@@ -95,7 +95,7 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import toString from './lib/util/toString';
 
-const version = '10.6.0';
+const version = '10.7.0';
 
 const validator = {
   version,
