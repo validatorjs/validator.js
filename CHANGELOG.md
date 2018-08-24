@@ -1,7 +1,9 @@
 #### HEAD
 
-- Added `isMagnetURI()`
+- Added `isMagnetURI()` to validate [magnet URIs](https://en.wikipedia.org/wiki/Magnet_URI_scheme)
   ([#884](https://github.com/chriso/validator.js/pull/884))
+- Added `isJWT()` to validate [JSON web tokens](https://en.wikipedia.org/wiki/JSON_Web_Token)
+  ([#885](https://github.com/chriso/validator.js/pull/885))
 
 #### 10.6.0
 
