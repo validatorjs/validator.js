@@ -810,6 +810,13 @@ function isHash(str, algorithm) {
   return hash.test(str);
 }
 
+var jwt = /^[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+$/;
+
+function isJWT(str) {
+  assertString(str);
+  return jwt.test(str);
+}
+
 function isJSON(str) {
   assertString(str);
   try {
@@ -1681,6 +1688,7 @@ var validator = {
   isISRC: isISRC,
   isMD5: isMD5,
   isHash: isHash,
+  isJWT: isJWT,
   isJSON: isJSON,
   isEmpty: isEmpty,
   isLength: isLength,
