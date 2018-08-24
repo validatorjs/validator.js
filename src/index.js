@@ -41,6 +41,7 @@ import isISRC from './lib/isISRC';
 
 import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
+import isJWT from './lib/isJWT';
 
 import isJSON from './lib/isJSON';
 import isEmpty from './lib/isEmpty';
@@ -133,6 +134,7 @@ const validator = {
   isISRC,
   isMD5,
   isHash,
+  isJWT,
   isJSON,
   isEmpty,
   isLength,
