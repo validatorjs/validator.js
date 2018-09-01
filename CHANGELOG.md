@@ -1,3 +1,8 @@
+#### HEAD
+
+- Ignore case when checking URL protocol
+  ([#887](https://github.com/chriso/validator.js/issues/887))
+
 #### 10.7.0
 
 - Added `isMagnetURI()` to validate [magnet URIs](https://en.wikipedia.org/wiki/Magnet_URI_scheme)
