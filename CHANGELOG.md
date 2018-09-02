@@ -1,7 +1,8 @@
 #### HEAD
 
 - Export locales
-  ([#890](https://github.com/chriso/validator.js/pull/890))
+  ([#890](https://github.com/chriso/validator.js/pull/890),
+   [#892](https://github.com/chriso/validator.js/pull/892))
 
 #### 10.7.1
 
