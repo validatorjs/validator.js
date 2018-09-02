@@ -1649,7 +1649,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '10.7.0';
+var version = '10.7.1';
 
 var validator = {
   version: version,

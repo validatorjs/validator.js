@@ -1,4 +1,4 @@
-#### HEAD
+#### 10.7.1
 
 - Ignore case when checking URL protocol
   ([#887](https://github.com/chriso/validator.js/issues/887))
