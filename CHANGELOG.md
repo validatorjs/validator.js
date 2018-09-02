@@ -1,3 +1,8 @@
+#### HEAD
+
+- Export locales
+  ([#890](https://github.com/chriso/validator.js/pull/890))
+
 #### 10.7.1
 
 - Ignore case when checking URL protocol
