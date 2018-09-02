@@ -2,6 +2,8 @@
 
 - Ignore case when checking URL protocol
   ([#887](https://github.com/chriso/validator.js/issues/887))
+- Locale fix
+  ([#889](https://github.com/chriso/validator.js/pull/889))
 
 #### 10.7.0
 
