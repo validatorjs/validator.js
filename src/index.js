@@ -15,8 +15,8 @@ import isFQDN from './lib/isFQDN';
 
 import isBoolean from './lib/isBoolean';
 
-import isAlpha from './lib/isAlpha';
-import isAlphanumeric from './lib/isAlphanumeric';
+import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
+import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
@@ -63,7 +63,7 @@ import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
 
-import isMobilePhone from './lib/isMobilePhone';
+import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 
 import isCurrency from './lib/isCurrency';
 
@@ -114,7 +114,9 @@ const validator = {
   isFQDN,
   isBoolean,
   isAlpha,
+  isAlphaLocales,
   isAlphanumeric,
+  isAlphanumericLocales,
   isNumeric,
   isPort,
   isLowercase,
@@ -149,6 +151,7 @@ const validator = {
   isISBN,
   isISSN,
   isMobilePhone,
+  isMobilePhoneLocales,
   isPostalCode,
   isPostalCodeLocales,
   isCurrency,

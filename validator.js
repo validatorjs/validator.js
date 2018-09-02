@@ -616,6 +616,8 @@ function isAlpha(str) {
   throw new Error('Invalid locale \'' + locale + '\'');
 }
 
+var locales = Object.keys(alpha);
+
 function isAlphanumeric(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
 
@@ -625,6 +627,8 @@ function isAlphanumeric(str) {
   }
   throw new Error('Invalid locale \'' + locale + '\'');
 }
+
+var locales$1 = Object.keys(alphanumeric);
 
 var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
 var numericNoSymbols = /^[0-9]+$/;
@@ -1151,6 +1155,8 @@ function isMobilePhone(str, locale, options) {
   throw new Error('Invalid locale \'' + locale + '\'');
 }
 
+var locales$2 = Object.keys(phones);
+
 function currencyRegex(options) {
   var decimal_digits = '\\d{' + options.digits_after_decimal[0] + '}';
   options.digits_after_decimal.forEach(function (digit, index) {
@@ -1436,7 +1442,7 @@ var patterns = {
   ZM: fiveDigit
 };
 
-var locales = Object.keys(patterns);
+var locales$3 = Object.keys(patterns);
 
 var isPostalCode = function (str, locale) {
   assertString(str);
@@ -1668,7 +1674,9 @@ var validator = {
   isFQDN: isFQDN,
   isBoolean: isBoolean,
   isAlpha: isAlpha,
+  isAlphaLocales: locales,
   isAlphanumeric: isAlphanumeric,
+  isAlphanumericLocales: locales$1,
   isNumeric: isNumeric,
   isPort: isPort,
   isLowercase: isLowercase,
@@ -1703,8 +1711,9 @@ var validator = {
   isISBN: isISBN,
   isISSN: isISSN,
   isMobilePhone: isMobilePhone,
+  isMobilePhoneLocales: locales$2,
   isPostalCode: isPostalCode,
-  isPostalCodeLocales: locales,
+  isPostalCodeLocales: locales$3,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,

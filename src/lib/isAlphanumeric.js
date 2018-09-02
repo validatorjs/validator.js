@@ -8,3 +8,5 @@ export default function isAlphanumeric(str, locale = 'en-US') {
   }
   throw new Error(`Invalid locale '${locale}'`);
 }
+
+export const locales = Object.keys(alphanumeric);
