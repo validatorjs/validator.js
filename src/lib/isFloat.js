@@ -15,3 +15,5 @@ export default function isFloat(str, options) {
     (!options.hasOwnProperty('lt') || value < options.lt) &&
     (!options.hasOwnProperty('gt') || value > options.gt);
 }
+
+export const locales = Object.keys(decimal);

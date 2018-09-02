@@ -328,6 +328,7 @@ var validator = {
   isSurrogatePair: _isSurrogatePair2.default,
   isInt: _isInt2.default,
   isFloat: _isFloat2.default,
+  isFloatLocales: _isFloat.locales,
   isDecimal: _isDecimal2.default,
   isHexadecimal: _isHexadecimal2.default,
   isDivisibleBy: _isDivisibleBy2.default,
