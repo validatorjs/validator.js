@@ -730,6 +730,8 @@ function isFloat(str, options) {
   return float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
+var locales$2 = Object.keys(decimal);
+
 var includes = function includes(arr, val) {
   return arr.some(function (arrVal) {
     return val === arrVal;
@@ -1155,7 +1157,7 @@ function isMobilePhone(str, locale, options) {
   throw new Error('Invalid locale \'' + locale + '\'');
 }
 
-var locales$2 = Object.keys(phones);
+var locales$3 = Object.keys(phones);
 
 function currencyRegex(options) {
   var decimal_digits = '\\d{' + options.digits_after_decimal[0] + '}';
@@ -1442,7 +1444,7 @@ var patterns = {
   ZM: fiveDigit
 };
 
-var locales$3 = Object.keys(patterns);
+var locales$4 = Object.keys(patterns);
 
 var isPostalCode = function (str, locale) {
   assertString(str);
@@ -1689,6 +1691,7 @@ var validator = {
   isSurrogatePair: isSurrogatePair,
   isInt: isInt,
   isFloat: isFloat,
+  isFloatLocales: locales$2,
   isDecimal: isDecimal,
   isHexadecimal: isHexadecimal,
   isDivisibleBy: isDivisibleBy,
@@ -1711,9 +1714,9 @@ var validator = {
   isISBN: isISBN,
   isISSN: isISSN,
   isMobilePhone: isMobilePhone,
-  isMobilePhoneLocales: locales$2,
+  isMobilePhoneLocales: locales$3,
   isPostalCode: isPostalCode,
-  isPostalCodeLocales: locales$3,
+  isPostalCodeLocales: locales$4,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,

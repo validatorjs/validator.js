@@ -4,6 +4,7 @@ let isPostalCodeLocales = require('../lib/isPostalCode').locales;
 const isAlphaLocales = require('../lib/isAlpha').locales;
 const isAlphanumericLocales = require('../lib/isAlphanumeric').locales;
 const isMobilePhoneLocales = require('../lib/isMobilePhone').locales;
+const isFloatLocales = require('../lib/isFloat').locales;
 
 describe('Exports', () => {
   it('should export validators', () => {
@@ -43,5 +44,10 @@ describe('Exports', () => {
   it('should export isMobilePhone\'s supported locales', () => {
     assert.ok(isMobilePhoneLocales instanceof Array);
     assert.ok(validator.isMobilePhoneLocales instanceof Array);
+  });
+
+  it('should export isFloat\'s supported locales', () => {
+    assert.ok(isFloatLocales instanceof Array);
+    assert.ok(validator.isFloatLocales instanceof Array);
   });
 });
