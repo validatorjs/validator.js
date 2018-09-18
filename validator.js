@@ -41,12 +41,14 @@ function assertString(input) {
       invalidType = 'null';
     } else {
       invalidType = typeof input === 'undefined' ? 'undefined' : _typeof(input);
-      if (invalidType === 'object' && input.constructor) {
+      if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
         invalidType = input.constructor.name;
+      } else {
+        invalidType = 'a ' + invalidType;
       }
     }
-    var message = 'This library (validator.js) validates strings only. ';
-    message += 'Instead it received ' + invalidType + '.';
+    var message = 'This library (validator.js) validates strings only, ';
+    message += 'instead it received ' + invalidType + '.';
     throw new TypeError(message);
   }
 }
