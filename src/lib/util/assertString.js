@@ -14,7 +14,7 @@ export default function assertString(input) {
       }
     }
     let message = 'This library (validator.js) validates strings only, ';
-    message += `Instead it received ${invalidType}.`;
+    message += `instead it received ${invalidType}.`;
     throw new TypeError(message);
   }
 }
