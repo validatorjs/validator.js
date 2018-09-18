@@ -7,7 +7,7 @@ export default function assertString(input) {
       invalidType = 'null';
     } else {
       invalidType = typeof input;
-      if (invalidType === 'object' && input.constructor) {
+      if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
         invalidType = input.constructor.name;
       } else {
         invalidType = `a ${invalidType}`;
