@@ -2,9 +2,11 @@
 
 - Added `isIdentityCard()`
   ([#846](https://github.com/chriso/validator.js/pull/846))
-- Export locales
+- Locales are now exported
   ([#890](https://github.com/chriso/validator.js/pull/890),
    [#892](https://github.com/chriso/validator.js/pull/892))
+- New locale
+  ([#896](https://github.com/chriso/validator.js/pull/896))
 
 #### 10.7.1
 
