@@ -47,8 +47,7 @@ function assertString(input) {
         invalidType = 'a ' + invalidType;
       }
     }
-    var message = 'Expected string but received ' + invalidType + '.';
-    throw new TypeError(message);
+    throw new TypeError('Expected string but received ' + invalidType + '.');
   }
 }
 

@@ -13,7 +13,6 @@ export default function assertString(input) {
         invalidType = `a ${invalidType}`;
       }
     }
-    let message = `Expected string but received ${invalidType}.`;
-    throw new TypeError(message);
+    throw new TypeError(`Expected string but received ${invalidType}.`);
   }
 }
