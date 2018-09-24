@@ -1,5 +1,7 @@
 #### HEAD
 
+- Added `isIdentityCard()`
+  ([#846](https://github.com/chriso/validator.js/pull/846))
 - Export locales
   ([#890](https://github.com/chriso/validator.js/pull/890),
    [#892](https://github.com/chriso/validator.js/pull/892))
