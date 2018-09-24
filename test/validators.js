@@ -2921,6 +2921,67 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate identity cards', () => {
+    const fixtures = [
+      {
+        locale: 'ES',
+        valid: [
+          '99999999R',
+          '12345678Z',
+          '01234567L',
+          '01234567l',
+          'X1234567l',
+          'x1234567l',
+          'X1234567L',
+          'Y1234567X',
+          'Z1234567R',
+        ],
+        invalid: [
+          '123456789',
+          '12345678A',
+          '12345 678Z',
+          '12345678-Z',
+          '1234*6789',
+          '1234*678Z',
+          '12345678!',
+          '1234567L',
+          'A1234567L',
+          'X1234567A',
+          'Y1234567B',
+          'Z1234567C',
+        ],
+      },
+    ];
+
+    let allValid = [];
+    let allInvalid = [];
+
+    // Test fixtures
+    fixtures.forEach((fixture) => {
+      if (fixture.valid) allValid = allValid.concat(fixture.valid);
+      if (fixture.invalid) allInvalid = allInvalid.concat(fixture.invalid);
+      test({
+        validator: 'isIdentityCard',
+        valid: fixture.valid,
+        invalid: fixture.invalid,
+        args: [fixture.locale],
+      });
+    });
+
+    // Test generics
+    test({
+      validator: 'isIdentityCard',
+      valid: [
+        ...allValid,
+      ],
+      invalid: [
+        'foo',
+        ...allInvalid,
+      ],
+      args: ['any'],
+    });
+  });
+
   it('should validate ISINs', () => {
     test({
       validator: 'isISIN',
