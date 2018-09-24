@@ -26,11 +26,28 @@
 	(global.validator = factory());
 }(this, (function () { 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
   if (!isString) {
-    throw new TypeError('This library (validator.js) validates strings only');
+    var invalidType = void 0;
+    if (input === null) {
+      invalidType = 'null';
+    } else {
+      invalidType = typeof input === 'undefined' ? 'undefined' : _typeof(input);
+      if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
+        invalidType = input.constructor.name;
+      } else {
+        invalidType = 'a ' + invalidType;
+      }
+    }
+    throw new TypeError('Expected string but received ' + invalidType + '.');
   }
 }
 
@@ -62,12 +79,6 @@ function equals(str, comparison) {
   assertString(str);
   return str === comparison;
 }
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
 
 function toString(input) {
   if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' && input !== null) {
