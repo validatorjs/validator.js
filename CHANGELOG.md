@@ -1,4 +1,4 @@
-#### HEAD
+#### 10.8.0
 
 - Added `isIdentityCard()`
   ([#846](https://github.com/chriso/validator.js/pull/846))
