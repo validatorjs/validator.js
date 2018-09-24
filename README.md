@@ -170,6 +170,11 @@ Tests are using mocha, to run the tests use:
 $ npm test
 ```
 
+## Maintainers
+
+- [chriso](https://github.com/chriso) - **Chris O'Hara** (author)
+- [profnandaa](https://github.com/profnandaa) - **Anthony Nandaa**
+
 ## Reading
 
 Remember, validating can be troublesome sometimes. See [A list of articles about programming assumptions commonly made that aren't true](https://github.com/jameslk/awesome-falsehoods).
