@@ -47,8 +47,7 @@ function assertString(input) {
         invalidType = 'a ' + invalidType;
       }
     }
-    var message = 'This library (validator.js) validates strings only, ';
-    message += 'instead it received ' + invalidType + '.';
+    var message = 'Expected string but received ' + invalidType + '.';
     throw new TypeError(message);
   }
 }
