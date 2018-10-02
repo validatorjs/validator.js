@@ -578,6 +578,20 @@ describe('Validators', () => {
     });
   });
 
+  it('should allow rejecting urls containing authentication information', () => {
+    test({
+      validator: 'isURL',
+      args: [{ exclude_auth_url: true }],
+      valid: [
+        'doe.com',
+      ],
+      invalid: [
+        'john@doe.com',
+        'john:john@doe.com',
+      ],
+    });
+  });
+
   it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',
