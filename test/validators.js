@@ -581,7 +581,7 @@ describe('Validators', () => {
   it('should allow rejecting urls containing authentication information', () => {
     test({
       validator: 'isURL',
-      args: [{ exclude_auth_url: true }],
+      args: [{ disallow_auth: true }],
       valid: [
         'doe.com',
       ],

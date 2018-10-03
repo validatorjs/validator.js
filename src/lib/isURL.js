@@ -77,7 +77,7 @@ export default function isURL(url, options) {
 
   split = url.split('@');
   if (split.length > 1) {
-    if (options.exclude_auth_url) {
+    if (options.disallow_auth) {
       return false;
     }
     auth = split.shift();
