@@ -98,6 +98,8 @@ describe('Validators', () => {
         'gmail...ignores...dots...@gmail.com',
         'ends.with.dot.@gmail.com',
         'multiple..dots@gmail.com',
+        'wrong()[]",:;<>@@gmail.com',
+        '"wrong()[]",:;<>@@gmail.com',
       ],
     });
   });
