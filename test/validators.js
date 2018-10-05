@@ -261,6 +261,23 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate emails with blacklisted characters', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ characters_blacklist: '\'y-' }],
+      valid: [
+        'foo@foo.com',
+      ],
+      invalid: [
+        'as\'ian@jake.paul',
+        'fyi@bar.com',
+        'jaquen.h\'ghar@westeros.com',
+        'foo-bar@bar.com',
+      ],
+    });
+  });
+
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',

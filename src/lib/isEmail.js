@@ -23,9 +23,32 @@ const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5
 /* eslint-enable max-len */
 /* eslint-enable no-control-regex */
 
+function shouldCheckBlacklist(options) {
+  return !!options.characters_blacklist;
+}
+
+function containsBlacklistedCharacters(str, options) {
+  assertString(options.characters_blacklist);
+  let chars = options.characters_blacklist.split('');
+
+  for (let char of chars) {
+    if (str.indexOf(char) >= 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 export default function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
+
+  if (shouldCheckBlacklist(options)) {
+    if (containsBlacklistedCharacters(str, options)) {
+      return false;
+    }
+  }
 
   if (options.require_display_name || options.allow_display_name) {
     const display_email = str.match(displayName);
@@ -110,3 +133,4 @@ export default function isEmail(str, options) {
 
   return true;
 }
+
