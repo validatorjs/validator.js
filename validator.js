@@ -829,11 +829,22 @@ function isHash(str, algorithm) {
   return hash.test(str);
 }
 
-var jwt = /^[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+$/;
+var default_is_jwt_options = {
+  prefix: undefined
+};
 
-function isJWT(str) {
+function isJWT(str, options) {
   assertString(str);
-  return jwt.test(str);
+  options = merge(options, default_is_jwt_options);
+
+  if (options.prefix) {
+    var final_pattern = '^{{pattern}} [a-zA-Z0-9\\-_]+\\.[a-zA-Z0-9\\-_]+\\.[a-zA-Z0-9\\-_]+$';
+
+    return new RegExp(final_pattern.replace('{{pattern}}', options.prefix)).test(str);
+  }
+
+  return (/^[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+$/.test(str)
+  );
 }
 
 function isJSON(str) {
