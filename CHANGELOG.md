@@ -1,3 +1,13 @@
+#### HEAD
+
+- Added an option to `isURL()` to reject email-like URLs
+  ([#901](https://github.com/chriso/validator.js/pull/901))
+- Relaxed `isJWT()` signature requirements
+  ([#906](https://github.com/chriso/validator.js/pull/906))
+- New and improved locales
+  ([#899](https://github.com/chriso/validator.js/pull/899),
+   [#904](https://github.com/chriso/validator.js/pull/904))
+
 #### 10.8.0
 
 - Added `isIdentityCard()`
