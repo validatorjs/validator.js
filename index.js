@@ -144,6 +144,10 @@ var _isHash = require('./lib/isHash');
 
 var _isHash2 = _interopRequireDefault(_isHash);
 
+var _isJWT = require('./lib/isJWT');
+
+var _isJWT2 = _interopRequireDefault(_isJWT);
+
 var _isJSON = require('./lib/isJSON');
 
 var _isJSON2 = _interopRequireDefault(_isJSON);
@@ -183,6 +187,10 @@ var _isIn2 = _interopRequireDefault(_isIn);
 var _isCreditCard = require('./lib/isCreditCard');
 
 var _isCreditCard2 = _interopRequireDefault(_isCreditCard);
+
+var _isIdentityCard = require('./lib/isIdentityCard');
+
+var _isIdentityCard2 = _interopRequireDefault(_isIdentityCard);
 
 var _isISIN = require('./lib/isISIN');
 
@@ -227,6 +235,10 @@ var _isBase2 = _interopRequireDefault(_isBase);
 var _isDataURI = require('./lib/isDataURI');
 
 var _isDataURI2 = _interopRequireDefault(_isDataURI);
+
+var _isMagnetURI = require('./lib/isMagnetURI');
+
+var _isMagnetURI2 = _interopRequireDefault(_isMagnetURI);
 
 var _isMimeType = require('./lib/isMimeType');
 
@@ -286,7 +298,7 @@ var _toString2 = _interopRequireDefault(_toString);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '10.6.0';
+var version = '10.8.0';
 
 var validator = {
   version: version,
@@ -305,7 +317,9 @@ var validator = {
   isFQDN: _isFQDN2.default,
   isBoolean: _isBoolean2.default,
   isAlpha: _isAlpha2.default,
+  isAlphaLocales: _isAlpha.locales,
   isAlphanumeric: _isAlphanumeric2.default,
+  isAlphanumericLocales: _isAlphanumeric.locales,
   isNumeric: _isNumeric2.default,
   isPort: _isPort2.default,
   isLowercase: _isLowercase2.default,
@@ -318,6 +332,7 @@ var validator = {
   isSurrogatePair: _isSurrogatePair2.default,
   isInt: _isInt2.default,
   isFloat: _isFloat2.default,
+  isFloatLocales: _isFloat.locales,
   isDecimal: _isDecimal2.default,
   isHexadecimal: _isHexadecimal2.default,
   isDivisibleBy: _isDivisibleBy2.default,
@@ -325,6 +340,7 @@ var validator = {
   isISRC: _isISRC2.default,
   isMD5: _isMD2.default,
   isHash: _isHash2.default,
+  isJWT: _isJWT2.default,
   isJSON: _isJSON2.default,
   isEmpty: _isEmpty2.default,
   isLength: _isLength2.default,
@@ -335,10 +351,12 @@ var validator = {
   isBefore: _isBefore2.default,
   isIn: _isIn2.default,
   isCreditCard: _isCreditCard2.default,
+  isIdentityCard: _isIdentityCard2.default,
   isISIN: _isISIN2.default,
   isISBN: _isISBN2.default,
   isISSN: _isISSN2.default,
   isMobilePhone: _isMobilePhone2.default,
+  isMobilePhoneLocales: _isMobilePhone.locales,
   isPostalCode: _isPostalCode2.default,
   isPostalCodeLocales: _isPostalCode.locales,
   isCurrency: _isCurrency2.default,
@@ -348,6 +366,7 @@ var validator = {
   isISO31661Alpha3: _isISO31661Alpha4.default,
   isBase64: _isBase2.default,
   isDataURI: _isDataURI2.default,
+  isMagnetURI: _isMagnetURI2.default,
   isMimeType: _isMimeType2.default,
   isLatLong: _isLatLong2.default,
   ltrim: _ltrim2.default,

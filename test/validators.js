@@ -98,6 +98,8 @@ describe('Validators', () => {
         'gmail...ignores...dots...@gmail.com',
         'ends.with.dot.@gmail.com',
         'multiple..dots@gmail.com',
+        'wrong()[]",:;<>@@gmail.com',
+        '"wrong()[]",:;<>@@gmail.com',
       ],
     });
   });
@@ -268,6 +270,9 @@ describe('Validators', () => {
         'foobar.com/',
         'valid.au',
         'http://www.foobar.com/',
+        'HTTP://WWW.FOOBAR.COM/',
+        'https://www.foobar.com/',
+        'HTTPS://WWW.FOOBAR.COM/',
         'http://www.foobar.com:23/',
         'http://www.foobar.com:65535/',
         'http://www.foobar.com:5/',
@@ -2497,6 +2502,23 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate JWT tokens', () => {
+    test({
+      validator: 'isJWT',
+      valid: [
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb3JlbSI6Imlwc3VtIn0.ymiJSsMJXR6tMSr8G9usjQ15_8hKPDv_CArLhxw28MI',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2xvciI6InNpdCIsImFtZXQiOlsibG9yZW0iLCJpcHN1bSJdfQ.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqb2huIjp7ImFnZSI6MjUsImhlaWdodCI6MTg1fSwiamFrZSI6eyJhZ2UiOjMwLCJoZWlnaHQiOjI3MH19.YRLPARDmhGMC3BBk_OhtwwK21PIkVCqQe8ncIRPKo-E',
+      ],
+      invalid: [
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqb2huIjp7ImFnZSI6MjUsImhlaWdodCI6MTg1fSw',
+        '$Zs.ewu.su84',
+        'ks64$S/9.dy$§kz.3sd73b',
+      ],
+    });
+  });
 
   it('should validate null strings', () => {
     test({
@@ -2898,6 +2920,67 @@ describe('Validators', () => {
         '623491788middle2863855',
         '6234917882863855suffix',
       ],
+    });
+  });
+
+  it('should validate identity cards', () => {
+    const fixtures = [
+      {
+        locale: 'ES',
+        valid: [
+          '99999999R',
+          '12345678Z',
+          '01234567L',
+          '01234567l',
+          'X1234567l',
+          'x1234567l',
+          'X1234567L',
+          'Y1234567X',
+          'Z1234567R',
+        ],
+        invalid: [
+          '123456789',
+          '12345678A',
+          '12345 678Z',
+          '12345678-Z',
+          '1234*6789',
+          '1234*678Z',
+          '12345678!',
+          '1234567L',
+          'A1234567L',
+          'X1234567A',
+          'Y1234567B',
+          'Z1234567C',
+        ],
+      },
+    ];
+
+    let allValid = [];
+    let allInvalid = [];
+
+    // Test fixtures
+    fixtures.forEach((fixture) => {
+      if (fixture.valid) allValid = allValid.concat(fixture.valid);
+      if (fixture.invalid) allInvalid = allInvalid.concat(fixture.invalid);
+      test({
+        validator: 'isIdentityCard',
+        valid: fixture.valid,
+        invalid: fixture.invalid,
+        args: [fixture.locale],
+      });
+    });
+
+    // Test generics
+    test({
+      validator: 'isIdentityCard',
+      valid: [
+        ...allValid,
+      ],
+      invalid: [
+        'foo',
+        ...allInvalid,
+      ],
+      args: ['any'],
     });
   });
 
@@ -3950,6 +4033,23 @@ describe('Validators', () => {
           '+34704789321',
           '704789321',
           '+34754789321',
+        ],
+      },
+      {
+        locale: 'es-UY',
+        valid: [
+          '+59899123456',
+          '099123456',
+          '+59894654321',
+          '091111111',
+        ],
+        invalid: [
+          '54321',
+          'montevideo',
+          '',
+          '+598099123456',
+          '090883338',
+          '099 999 999',
         ],
       },
       {
@@ -5596,6 +5696,39 @@ describe('Validators', () => {
     });
     /* eslint-enable max-len */
   });
+
+
+  it('should validate magnetURI', () => {
+    /* eslint-disable max-len */
+    test({
+      validator: 'isMagnetURI',
+      valid: [
+        'magnet:?xt=urn:btih:06E2A9683BF4DA92C73A661AC56F0ECC9C63C5B4&dn=helloword2000&tr=udp://helloworld:1337/announce',
+        'magnet:?xt=urn:btih:3E30322D5BFC7444B7B1D8DD42404B75D0531DFB&dn=world&tr=udp://world.com:1337',
+        'magnet:?xt=urn:btih:4ODKSDJBVMSDSNJVBCBFYFBKNRU875DW8D97DWC6&dn=helloworld&tr=udp://helloworld.com:1337',
+        'magnet:?xt=urn:btih:1GSHJVBDVDVJFYEHKFHEFIO8573898434JBFEGHD&dn=foo&tr=udp://foo.com:1337',
+        'magnet:?xt=urn:btih:MCJDCYUFHEUD6E2752T7UJNEKHSUGEJFGTFHVBJS&dn=bar&tr=udp://bar.com:1337',
+        'magnet:?xt=urn:btih:LAKDHWDHEBFRFVUFJENBYYTEUY837562JH2GEFYH&dn=foobar&tr=udp://foobar.com:1337',
+        'magnet:?xt=urn:btih:MKCJBHCBJDCU725TGEB3Y6RE8EJ2U267UNJFGUID&dn=test&tr=udp://test.com:1337',
+        'magnet:?xt=urn:btih:UHWY2892JNEJ2GTEYOMDNU67E8ICGICYE92JDUGH&dn=baz&tr=udp://baz.com:1337',
+        'magnet:?xt=urn:btih:HS263FG8U3GFIDHWD7829BYFCIXB78XIHG7CWCUG&dn=foz&tr=udp://foz.com:1337',
+      ],
+      invalid: [
+        '',
+        ':?xt=urn:btih:06E2A9683BF4DA92C73A661AC56F0ECC9C63C5B4&dn=helloword2000&tr=udp://helloworld:1337/announce',
+        'magnett:?xt=urn:btih:3E30322D5BFC7444B7B1D8DD42404B75D0531DFB&dn=world&tr=udp://world.com:1337',
+        'xt=urn:btih:4ODKSDJBVMSDSNJVBCBFYFBKNRU875DW8D97DWC6&dn=helloworld&tr=udp://helloworld.com:1337',
+        'magneta:?xt=urn:btih:1GSHJVBDVDVJFYEHKFHEFIO8573898434JBFEGHD&dn=foo&tr=udp://foo.com:1337',
+        'magnet:?xt=uarn:btih:MCJDCYUFHEUD6E2752T7UJNEKHSUGEJFGTFHVBJS&dn=bar&tr=udp://bar.com:1337',
+        'magnet:?xt=urn:btihz&dn=foobar&tr=udp://foobar.com:1337',
+        'magnet:?xat=urn:btih:MKCJBHCBJDCU725TGEB3Y6RE8EJ2U267UNJFGUID&dn=test&tr=udp://test.com:1337',
+        'magnet::?xt=urn:btih:UHWY2892JNEJ2GTEYOMDNU67E8ICGICYE92JDUGH&dn=baz&tr=udp://baz.com:1337',
+        'magnet:?xt:btih:HS263FG8U3GFIDHWD7829BYFCIXB78XIHG7CWCUG&dn=foz&tr=udp://foz.com:1337',
+      ],
+    });
+    /* eslint-enable max-len */
+  });
+
 
   it('should validate LatLong', () => {
     test({

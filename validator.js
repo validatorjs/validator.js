@@ -26,11 +26,28 @@
 	(global.validator = factory());
 }(this, (function () { 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
   if (!isString) {
-    throw new TypeError('This library (validator.js) validates strings only');
+    var invalidType = void 0;
+    if (input === null) {
+      invalidType = 'null';
+    } else {
+      invalidType = typeof input === 'undefined' ? 'undefined' : _typeof(input);
+      if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
+        invalidType = input.constructor.name;
+      } else {
+        invalidType = 'a ' + invalidType;
+      }
+    }
+    throw new TypeError('Expected string but received ' + invalidType + '.');
   }
 }
 
@@ -62,12 +79,6 @@ function equals(str, comparison) {
   assertString(str);
   return str === comparison;
 }
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
 
 function toString(input) {
   if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' && input !== null) {
@@ -396,7 +407,7 @@ function isURL(url, options) {
 
   split = url.split('://');
   if (split.length > 1) {
-    protocol = split.shift();
+    protocol = split.shift().toLowerCase();
     if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
       return false;
     }
@@ -524,6 +535,7 @@ var alpha = {
   'pl-PL': /^[A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
   'pt-PT': /^[A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]+$/i,
   'ru-RU': /^[А-ЯЁ]+$/i,
+  'sl-SI': /^[A-ZČĆĐŠŽ]+$/i,
   'sk-SK': /^[A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
   'sr-RS@latin': /^[A-ZČĆŽŠĐ]+$/i,
   'sr-RS': /^[А-ЯЂЈЉЊЋЏ]+$/i,
@@ -551,6 +563,7 @@ var alphanumeric = {
   'pl-PL': /^[0-9A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
   'pt-PT': /^[0-9A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]+$/i,
   'ru-RU': /^[0-9А-ЯЁ]+$/i,
+  'sl-SI': /^[0-9A-ZČĆĐŠŽ]+$/i,
   'sk-SK': /^[0-9A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
   'sr-RS@latin': /^[0-9A-ZČĆŽŠĐ]+$/i,
   'sr-RS': /^[0-9А-ЯЂЈЉЊЋЏ]+$/i,
@@ -587,7 +600,7 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
 var dotDecimal = [];
-var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
 
 for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
   decimal[dotDecimal[_i2]] = decimal['en-US'];
@@ -616,6 +629,8 @@ function isAlpha(str) {
   throw new Error('Invalid locale \'' + locale + '\'');
 }
 
+var locales = Object.keys(alpha);
+
 function isAlphanumeric(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
 
@@ -625,6 +640,8 @@ function isAlphanumeric(str) {
   }
   throw new Error('Invalid locale \'' + locale + '\'');
 }
+
+var locales$1 = Object.keys(alphanumeric);
 
 var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
 var numericNoSymbols = /^[0-9]+$/;
@@ -726,6 +743,8 @@ function isFloat(str, options) {
   return float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
+var locales$2 = Object.keys(decimal);
+
 var includes = function includes(arr, val) {
   return arr.some(function (arrVal) {
     return val === arrVal;
@@ -808,6 +827,13 @@ function isHash(str, algorithm) {
   assertString(str);
   var hash = new RegExp('^[a-f0-9]{' + lengths[algorithm] + '}$');
   return hash.test(str);
+}
+
+var jwt = /^[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+$/;
+
+function isJWT(str) {
+  assertString(str);
+  return jwt.test(str);
 }
 
 function isJSON(str) {
@@ -935,6 +961,57 @@ function isCreditCard(str) {
     shouldDouble = !shouldDouble;
   }
   return !!(sum % 10 === 0 ? sanitized : false);
+}
+
+var validators = {
+  ES: function ES(str) {
+    assertString(str);
+
+    var DNI = /^[0-9X-Z][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/;
+
+    var charsValue = {
+      X: 0,
+      Y: 1,
+      Z: 2
+    };
+
+    var controlDigits = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+
+    // sanitize user input
+    var sanitized = str.trim().toUpperCase();
+
+    // validate the data structure
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+
+    // validate the control digit
+    var number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, function (char) {
+      return charsValue[char];
+    });
+
+    return sanitized.endsWith(controlDigits[number % 23]);
+  }
+};
+
+function isIdentityCard(str) {
+  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'any';
+
+  assertString(str);
+  if (locale in validators) {
+    return validators[locale](str);
+  } else if (locale === 'any') {
+    for (var key in validators) {
+      if (validators.hasOwnProperty(key)) {
+        var validator = validators[key];
+        if (validator(str)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  throw new Error('Invalid locale \'' + locale + '\'');
 }
 
 var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
@@ -1072,12 +1149,13 @@ var phones = {
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
+  'es-UY': /^(\+598|0)9[1-9][\d]{6}$/,
   'et-EE': /^(\+?372)?\s?(5|8[1-4])\s?([0-9]\s?){6,7}$/,
   'fa-IR': /^(\+?98[\-\s]?|0)9[0-39]\d[\-\s]?\d{3}[\-\s]?\d{4}$/,
   'fi-FI': /^(\+?358|0)\s?(4(0|1|2|4|5|6)?|50)\s?(\d\s?){4,8}\d$/,
   'fo-FO': /^(\+?298)?\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'fr-FR': /^(\+?33|0)[67]\d{8}$/,
-  'he-IL': /^(\+972|0)([23489]|5[012345689]|77)[1-9]\d{6}/,
+  'he-IL': /^(\+972|0)([23489]|5[012345689]|77)[1-9]\d{6}$/,
   'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
   'id-ID': /^(\+?62|0)(0?8?\d\d\s?\d?)([\s?|\d]{7,12})$/,
   'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
@@ -1095,6 +1173,7 @@ var phones = {
   'pt-PT': /^(\+?351)?9[1236]\d{7}$/,
   'ro-RO': /^(\+?4?0)\s?7\d{2}(\/|\s|\.|\-)?\d{3}(\s|\.|\-)?\d{3}$/,
   'ru-RU': /^(\+?7|8)?9\d{9}$/,
+  'sl-SI': /^(\+386\s?|0)(\d{1}\s?\d{3}\s?\d{2}\s?\d{2}|\d{2}\s?\d{3}\s?\d{3})$/,
   'sk-SK': /^(\+?421)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'sr-RS': /^(\+3816|06)[- \d]{5,9}$/,
   'sv-SE': /^(\+?46|0)[\s\-]?7[\s\-]?[02369]([\s\-]?\d){7}$/,
@@ -1143,6 +1222,8 @@ function isMobilePhone(str, locale, options) {
   }
   throw new Error('Invalid locale \'' + locale + '\'');
 }
+
+var locales$3 = Object.keys(phones);
 
 function currencyRegex(options) {
   var decimal_digits = '\\d{' + options.digits_after_decimal[0] + '}';
@@ -1319,6 +1400,13 @@ function isDataURI(str) {
   return true;
 }
 
+var magnetURI = /^magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32,40}&dn=.+&tr=.+$/i;
+
+function isMagnetURI(url) {
+  assertString(url);
+  return magnetURI.test(url.trim());
+}
+
 /*
   Checks if the provided string matches to a correct Media type format (MIME type)
 
@@ -1422,7 +1510,7 @@ var patterns = {
   ZM: fiveDigit
 };
 
-var locales = Object.keys(patterns);
+var locales$4 = Object.keys(patterns);
 
 var isPostalCode = function (str, locale) {
   assertString(str);
@@ -1635,7 +1723,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '10.6.0';
+var version = '10.8.0';
 
 var validator = {
   version: version,
@@ -1654,7 +1742,9 @@ var validator = {
   isFQDN: isFQDN,
   isBoolean: isBoolean,
   isAlpha: isAlpha,
+  isAlphaLocales: locales,
   isAlphanumeric: isAlphanumeric,
+  isAlphanumericLocales: locales$1,
   isNumeric: isNumeric,
   isPort: isPort,
   isLowercase: isLowercase,
@@ -1667,6 +1757,7 @@ var validator = {
   isSurrogatePair: isSurrogatePair,
   isInt: isInt,
   isFloat: isFloat,
+  isFloatLocales: locales$2,
   isDecimal: isDecimal,
   isHexadecimal: isHexadecimal,
   isDivisibleBy: isDivisibleBy,
@@ -1674,6 +1765,7 @@ var validator = {
   isISRC: isISRC,
   isMD5: isMD5,
   isHash: isHash,
+  isJWT: isJWT,
   isJSON: isJSON,
   isEmpty: isEmpty,
   isLength: isLength,
@@ -1684,12 +1776,14 @@ var validator = {
   isBefore: isBefore,
   isIn: isIn,
   isCreditCard: isCreditCard,
+  isIdentityCard: isIdentityCard,
   isISIN: isISIN,
   isISBN: isISBN,
   isISSN: isISSN,
   isMobilePhone: isMobilePhone,
+  isMobilePhoneLocales: locales$3,
   isPostalCode: isPostalCode,
-  isPostalCodeLocales: locales,
+  isPostalCodeLocales: locales$4,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,
@@ -1697,6 +1791,7 @@ var validator = {
   isISO31661Alpha3: isISO31661Alpha3,
   isBase64: isBase64,
   isDataURI: isDataURI,
+  isMagnetURI: isMagnetURI,
   isMimeType: isMimeType,
   isLatLong: isLatLong,
   ltrim: ltrim,

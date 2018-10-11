@@ -1,8 +1,8 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "10.6.0",
-  "homepage": "http://github.com/chriso/validator.js",
+  "version": "10.8.0",
+  "homepage": "https://github.com/chriso/validator.js",
   "files": [
     "index.js",
     "lib",
@@ -22,13 +22,19 @@
     "assert"
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
+  "contributors": [
+    {
+      "name": "Anthony Nandaa",
+      "url": "https://github.com/profnandaa"
+    }
+  ],
   "main": "index.js",
   "bugs": {
-    "url": "http://github.com/chriso/validator.js/issues"
+    "url": "https://github.com/chriso/validator.js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/chriso/validator.js.git"
+    "url": "https://github.com/chriso/validator.js.git"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",

@@ -1,3 +1,29 @@
+#### 10.8.0
+
+- Added `isIdentityCard()`
+  ([#846](https://github.com/chriso/validator.js/pull/846))
+- Better error when validators are passed an invalid type
+  ([#895](https://github.com/chriso/validator.js/pull/895))
+- Locales are now exported
+  ([#890](https://github.com/chriso/validator.js/pull/890),
+   [#892](https://github.com/chriso/validator.js/pull/892))
+- New locale
+  ([#896](https://github.com/chriso/validator.js/pull/896))
+
+#### 10.7.1
+
+- Ignore case when checking URL protocol
+  ([#887](https://github.com/chriso/validator.js/issues/887))
+- Locale fix
+  ([#889](https://github.com/chriso/validator.js/pull/889))
+
+#### 10.7.0
+
+- Added `isMagnetURI()` to validate [magnet URIs](https://en.wikipedia.org/wiki/Magnet_URI_scheme)
+  ([#884](https://github.com/chriso/validator.js/pull/884))
+- Added `isJWT()` to validate [JSON web tokens](https://en.wikipedia.org/wiki/JSON_Web_Token)
+  ([#885](https://github.com/chriso/validator.js/pull/885))
+
 #### 10.6.0
 
 - Updated `isMobilePhone()` to match any locale's pattern by default

@@ -8,3 +8,5 @@ export default function isAlpha(str, locale = 'en-US') {
   }
   throw new Error(`Invalid locale '${locale}'`);
 }
+
+export const locales = Object.keys(alpha);
