@@ -91,7 +91,7 @@ Validator                               | Description
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
 **isISSN(str [, options])**             | check if the string is an [ISSN](https://en.wikipedia.org/wiki/International_Standard_Serial_Number).<br/><br/>`options` is an object which defaults to `{ case_sensitive: false, require_hyphen: false }`. If `case_sensitive` is true, ISSNs with a lowercase `'x'` as the check digit are rejected.
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
-**isISO8601(str)**                      | check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date.
+**isISO8601(str)**                      | check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date; with additional checks for valid dates, e.g. invalidates dates like `2009-02-29`.
 **isRFC3339(str)**                      | check if the string is a valid [RFC 3339](https://tools.ietf.org/html/rfc3339) date.
 **isISO31661Alpha2(str)**               | check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
 **isISO31661Alpha3(str)**               | check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
