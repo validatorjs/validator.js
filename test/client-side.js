@@ -1,6 +1,6 @@
-let assert = require('assert');
-let validator = require('../validator');
-let min = require('../validator.min');
+import assert from 'assert';
+import validator from '../validator';
+import min from '../validator.min';
 
 describe('Minified version', () => {
   it('should export the same things as the server-side version', () => {

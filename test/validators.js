@@ -1,11 +1,10 @@
-let validator = require('../index'),
-  format = require('util').format,
-  assert = require('assert'),
-  path = require('path'),
-  fs = require('fs'),
-  vm = require('vm');
+import { format } from 'util';
+import assert from 'assert';
+import fs from 'fs';
+import vm from 'vm';
+import validator from '../index';
 
-let validator_js = fs.readFileSync(path.join(__dirname, '../validator.js')).toString();
+let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
 function test(options) {
   let args = options.args || [];

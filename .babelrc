@@ -1,0 +1,8 @@
+{
+  "presets": [
+    ["@babel/preset-env", {"targets": {"node": "0.10"}}]
+  ],
+  "plugins": [
+    "add-module-exports"
+  ]
+}
