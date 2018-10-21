@@ -1,386 +1,242 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _toDate = require('./lib/toDate');
+var _toDate = _interopRequireDefault(require("./lib/toDate"));
 
-var _toDate2 = _interopRequireDefault(_toDate);
+var _toFloat = _interopRequireDefault(require("./lib/toFloat"));
 
-var _toFloat = require('./lib/toFloat');
+var _toInt = _interopRequireDefault(require("./lib/toInt"));
 
-var _toFloat2 = _interopRequireDefault(_toFloat);
+var _toBoolean = _interopRequireDefault(require("./lib/toBoolean"));
 
-var _toInt = require('./lib/toInt');
+var _equals = _interopRequireDefault(require("./lib/equals"));
 
-var _toInt2 = _interopRequireDefault(_toInt);
+var _contains = _interopRequireDefault(require("./lib/contains"));
 
-var _toBoolean = require('./lib/toBoolean');
+var _matches = _interopRequireDefault(require("./lib/matches"));
 
-var _toBoolean2 = _interopRequireDefault(_toBoolean);
+var _isEmail = _interopRequireDefault(require("./lib/isEmail"));
 
-var _equals = require('./lib/equals');
+var _isURL = _interopRequireDefault(require("./lib/isURL"));
 
-var _equals2 = _interopRequireDefault(_equals);
+var _isMACAddress = _interopRequireDefault(require("./lib/isMACAddress"));
 
-var _contains = require('./lib/contains');
+var _isIP = _interopRequireDefault(require("./lib/isIP"));
 
-var _contains2 = _interopRequireDefault(_contains);
+var _isIPRange = _interopRequireDefault(require("./lib/isIPRange"));
 
-var _matches = require('./lib/matches');
+var _isFQDN = _interopRequireDefault(require("./lib/isFQDN"));
 
-var _matches2 = _interopRequireDefault(_matches);
+var _isBoolean = _interopRequireDefault(require("./lib/isBoolean"));
 
-var _isEmail = require('./lib/isEmail');
+var _isAlpha = _interopRequireWildcard(require("./lib/isAlpha"));
 
-var _isEmail2 = _interopRequireDefault(_isEmail);
+var _isAlphanumeric = _interopRequireWildcard(require("./lib/isAlphanumeric"));
 
-var _isURL = require('./lib/isURL');
+var _isNumeric = _interopRequireDefault(require("./lib/isNumeric"));
 
-var _isURL2 = _interopRequireDefault(_isURL);
+var _isPort = _interopRequireDefault(require("./lib/isPort"));
 
-var _isMACAddress = require('./lib/isMACAddress');
+var _isLowercase = _interopRequireDefault(require("./lib/isLowercase"));
 
-var _isMACAddress2 = _interopRequireDefault(_isMACAddress);
+var _isUppercase = _interopRequireDefault(require("./lib/isUppercase"));
 
-var _isIP = require('./lib/isIP');
+var _isAscii = _interopRequireDefault(require("./lib/isAscii"));
 
-var _isIP2 = _interopRequireDefault(_isIP);
+var _isFullWidth = _interopRequireDefault(require("./lib/isFullWidth"));
 
-var _isIPRange = require('./lib/isIPRange');
+var _isHalfWidth = _interopRequireDefault(require("./lib/isHalfWidth"));
 
-var _isIPRange2 = _interopRequireDefault(_isIPRange);
+var _isVariableWidth = _interopRequireDefault(require("./lib/isVariableWidth"));
 
-var _isFQDN = require('./lib/isFQDN');
+var _isMultibyte = _interopRequireDefault(require("./lib/isMultibyte"));
 
-var _isFQDN2 = _interopRequireDefault(_isFQDN);
+var _isSurrogatePair = _interopRequireDefault(require("./lib/isSurrogatePair"));
 
-var _isBoolean = require('./lib/isBoolean');
+var _isInt = _interopRequireDefault(require("./lib/isInt"));
 
-var _isBoolean2 = _interopRequireDefault(_isBoolean);
+var _isFloat = _interopRequireWildcard(require("./lib/isFloat"));
 
-var _isAlpha = require('./lib/isAlpha');
+var _isDecimal = _interopRequireDefault(require("./lib/isDecimal"));
 
-var _isAlpha2 = _interopRequireDefault(_isAlpha);
+var _isHexadecimal = _interopRequireDefault(require("./lib/isHexadecimal"));
 
-var _isAlphanumeric = require('./lib/isAlphanumeric');
+var _isDivisibleBy = _interopRequireDefault(require("./lib/isDivisibleBy"));
 
-var _isAlphanumeric2 = _interopRequireDefault(_isAlphanumeric);
+var _isHexColor = _interopRequireDefault(require("./lib/isHexColor"));
 
-var _isNumeric = require('./lib/isNumeric');
+var _isISRC = _interopRequireDefault(require("./lib/isISRC"));
 
-var _isNumeric2 = _interopRequireDefault(_isNumeric);
+var _isMD = _interopRequireDefault(require("./lib/isMD5"));
 
-var _isPort = require('./lib/isPort');
+var _isHash = _interopRequireDefault(require("./lib/isHash"));
 
-var _isPort2 = _interopRequireDefault(_isPort);
+var _isJWT = _interopRequireDefault(require("./lib/isJWT"));
 
-var _isLowercase = require('./lib/isLowercase');
+var _isJSON = _interopRequireDefault(require("./lib/isJSON"));
 
-var _isLowercase2 = _interopRequireDefault(_isLowercase);
+var _isEmpty = _interopRequireDefault(require("./lib/isEmpty"));
 
-var _isUppercase = require('./lib/isUppercase');
+var _isLength = _interopRequireDefault(require("./lib/isLength"));
 
-var _isUppercase2 = _interopRequireDefault(_isUppercase);
+var _isByteLength = _interopRequireDefault(require("./lib/isByteLength"));
 
-var _isAscii = require('./lib/isAscii');
+var _isUUID = _interopRequireDefault(require("./lib/isUUID"));
 
-var _isAscii2 = _interopRequireDefault(_isAscii);
+var _isMongoId = _interopRequireDefault(require("./lib/isMongoId"));
 
-var _isFullWidth = require('./lib/isFullWidth');
+var _isAfter = _interopRequireDefault(require("./lib/isAfter"));
 
-var _isFullWidth2 = _interopRequireDefault(_isFullWidth);
+var _isBefore = _interopRequireDefault(require("./lib/isBefore"));
 
-var _isHalfWidth = require('./lib/isHalfWidth');
+var _isIn = _interopRequireDefault(require("./lib/isIn"));
 
-var _isHalfWidth2 = _interopRequireDefault(_isHalfWidth);
+var _isCreditCard = _interopRequireDefault(require("./lib/isCreditCard"));
 
-var _isVariableWidth = require('./lib/isVariableWidth');
+var _isIdentityCard = _interopRequireDefault(require("./lib/isIdentityCard"));
 
-var _isVariableWidth2 = _interopRequireDefault(_isVariableWidth);
+var _isISIN = _interopRequireDefault(require("./lib/isISIN"));
 
-var _isMultibyte = require('./lib/isMultibyte');
+var _isISBN = _interopRequireDefault(require("./lib/isISBN"));
 
-var _isMultibyte2 = _interopRequireDefault(_isMultibyte);
+var _isISSN = _interopRequireDefault(require("./lib/isISSN"));
 
-var _isSurrogatePair = require('./lib/isSurrogatePair');
+var _isMobilePhone = _interopRequireWildcard(require("./lib/isMobilePhone"));
 
-var _isSurrogatePair2 = _interopRequireDefault(_isSurrogatePair);
+var _isCurrency = _interopRequireDefault(require("./lib/isCurrency"));
 
-var _isInt = require('./lib/isInt');
+var _isISO = _interopRequireDefault(require("./lib/isISO8601"));
 
-var _isInt2 = _interopRequireDefault(_isInt);
+var _isRFC = _interopRequireDefault(require("./lib/isRFC3339"));
 
-var _isFloat = require('./lib/isFloat');
+var _isISO31661Alpha = _interopRequireDefault(require("./lib/isISO31661Alpha2"));
 
-var _isFloat2 = _interopRequireDefault(_isFloat);
+var _isISO31661Alpha2 = _interopRequireDefault(require("./lib/isISO31661Alpha3"));
 
-var _isDecimal = require('./lib/isDecimal');
+var _isBase = _interopRequireDefault(require("./lib/isBase64"));
 
-var _isDecimal2 = _interopRequireDefault(_isDecimal);
+var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
-var _isHexadecimal = require('./lib/isHexadecimal');
+var _isMagnetURI = _interopRequireDefault(require("./lib/isMagnetURI"));
 
-var _isHexadecimal2 = _interopRequireDefault(_isHexadecimal);
+var _isMimeType = _interopRequireDefault(require("./lib/isMimeType"));
 
-var _isDivisibleBy = require('./lib/isDivisibleBy');
+var _isLatLong = _interopRequireDefault(require("./lib/isLatLong"));
 
-var _isDivisibleBy2 = _interopRequireDefault(_isDivisibleBy);
+var _isPostalCode = _interopRequireWildcard(require("./lib/isPostalCode"));
 
-var _isHexColor = require('./lib/isHexColor');
+var _ltrim = _interopRequireDefault(require("./lib/ltrim"));
 
-var _isHexColor2 = _interopRequireDefault(_isHexColor);
+var _rtrim = _interopRequireDefault(require("./lib/rtrim"));
 
-var _isISRC = require('./lib/isISRC');
+var _trim = _interopRequireDefault(require("./lib/trim"));
 
-var _isISRC2 = _interopRequireDefault(_isISRC);
+var _escape = _interopRequireDefault(require("./lib/escape"));
 
-var _isMD = require('./lib/isMD5');
+var _unescape = _interopRequireDefault(require("./lib/unescape"));
 
-var _isMD2 = _interopRequireDefault(_isMD);
+var _stripLow = _interopRequireDefault(require("./lib/stripLow"));
 
-var _isHash = require('./lib/isHash');
+var _whitelist = _interopRequireDefault(require("./lib/whitelist"));
 
-var _isHash2 = _interopRequireDefault(_isHash);
+var _blacklist = _interopRequireDefault(require("./lib/blacklist"));
 
-var _isJWT = require('./lib/isJWT');
+var _isWhitelisted = _interopRequireDefault(require("./lib/isWhitelisted"));
 
-var _isJWT2 = _interopRequireDefault(_isJWT);
+var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
-var _isJSON = require('./lib/isJSON');
+var _toString = _interopRequireDefault(require("./lib/util/toString"));
 
-var _isJSON2 = _interopRequireDefault(_isJSON);
-
-var _isEmpty = require('./lib/isEmpty');
-
-var _isEmpty2 = _interopRequireDefault(_isEmpty);
-
-var _isLength = require('./lib/isLength');
-
-var _isLength2 = _interopRequireDefault(_isLength);
-
-var _isByteLength = require('./lib/isByteLength');
-
-var _isByteLength2 = _interopRequireDefault(_isByteLength);
-
-var _isUUID = require('./lib/isUUID');
-
-var _isUUID2 = _interopRequireDefault(_isUUID);
-
-var _isMongoId = require('./lib/isMongoId');
-
-var _isMongoId2 = _interopRequireDefault(_isMongoId);
-
-var _isAfter = require('./lib/isAfter');
-
-var _isAfter2 = _interopRequireDefault(_isAfter);
-
-var _isBefore = require('./lib/isBefore');
-
-var _isBefore2 = _interopRequireDefault(_isBefore);
-
-var _isIn = require('./lib/isIn');
-
-var _isIn2 = _interopRequireDefault(_isIn);
-
-var _isCreditCard = require('./lib/isCreditCard');
-
-var _isCreditCard2 = _interopRequireDefault(_isCreditCard);
-
-var _isIdentityCard = require('./lib/isIdentityCard');
-
-var _isIdentityCard2 = _interopRequireDefault(_isIdentityCard);
-
-var _isISIN = require('./lib/isISIN');
-
-var _isISIN2 = _interopRequireDefault(_isISIN);
-
-var _isISBN = require('./lib/isISBN');
-
-var _isISBN2 = _interopRequireDefault(_isISBN);
-
-var _isISSN = require('./lib/isISSN');
-
-var _isISSN2 = _interopRequireDefault(_isISSN);
-
-var _isMobilePhone = require('./lib/isMobilePhone');
-
-var _isMobilePhone2 = _interopRequireDefault(_isMobilePhone);
-
-var _isCurrency = require('./lib/isCurrency');
-
-var _isCurrency2 = _interopRequireDefault(_isCurrency);
-
-var _isISO = require('./lib/isISO8601');
-
-var _isISO2 = _interopRequireDefault(_isISO);
-
-var _isRFC = require('./lib/isRFC3339');
-
-var _isRFC2 = _interopRequireDefault(_isRFC);
-
-var _isISO31661Alpha = require('./lib/isISO31661Alpha2');
-
-var _isISO31661Alpha2 = _interopRequireDefault(_isISO31661Alpha);
-
-var _isISO31661Alpha3 = require('./lib/isISO31661Alpha3');
-
-var _isISO31661Alpha4 = _interopRequireDefault(_isISO31661Alpha3);
-
-var _isBase = require('./lib/isBase64');
-
-var _isBase2 = _interopRequireDefault(_isBase);
-
-var _isDataURI = require('./lib/isDataURI');
-
-var _isDataURI2 = _interopRequireDefault(_isDataURI);
-
-var _isMagnetURI = require('./lib/isMagnetURI');
-
-var _isMagnetURI2 = _interopRequireDefault(_isMagnetURI);
-
-var _isMimeType = require('./lib/isMimeType');
-
-var _isMimeType2 = _interopRequireDefault(_isMimeType);
-
-var _isLatLong = require('./lib/isLatLong');
-
-var _isLatLong2 = _interopRequireDefault(_isLatLong);
-
-var _isPostalCode = require('./lib/isPostalCode');
-
-var _isPostalCode2 = _interopRequireDefault(_isPostalCode);
-
-var _ltrim = require('./lib/ltrim');
-
-var _ltrim2 = _interopRequireDefault(_ltrim);
-
-var _rtrim = require('./lib/rtrim');
-
-var _rtrim2 = _interopRequireDefault(_rtrim);
-
-var _trim = require('./lib/trim');
-
-var _trim2 = _interopRequireDefault(_trim);
-
-var _escape = require('./lib/escape');
-
-var _escape2 = _interopRequireDefault(_escape);
-
-var _unescape = require('./lib/unescape');
-
-var _unescape2 = _interopRequireDefault(_unescape);
-
-var _stripLow = require('./lib/stripLow');
-
-var _stripLow2 = _interopRequireDefault(_stripLow);
-
-var _whitelist = require('./lib/whitelist');
-
-var _whitelist2 = _interopRequireDefault(_whitelist);
-
-var _blacklist = require('./lib/blacklist');
-
-var _blacklist2 = _interopRequireDefault(_blacklist);
-
-var _isWhitelisted = require('./lib/isWhitelisted');
-
-var _isWhitelisted2 = _interopRequireDefault(_isWhitelisted);
-
-var _normalizeEmail = require('./lib/normalizeEmail');
-
-var _normalizeEmail2 = _interopRequireDefault(_normalizeEmail);
-
-var _toString = require('./lib/util/toString');
-
-var _toString2 = _interopRequireDefault(_toString);
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var version = '10.8.0';
-
 var validator = {
   version: version,
-  toDate: _toDate2.default,
-  toFloat: _toFloat2.default,
-  toInt: _toInt2.default,
-  toBoolean: _toBoolean2.default,
-  equals: _equals2.default,
-  contains: _contains2.default,
-  matches: _matches2.default,
-  isEmail: _isEmail2.default,
-  isURL: _isURL2.default,
-  isMACAddress: _isMACAddress2.default,
-  isIP: _isIP2.default,
-  isIPRange: _isIPRange2.default,
-  isFQDN: _isFQDN2.default,
-  isBoolean: _isBoolean2.default,
-  isAlpha: _isAlpha2.default,
+  toDate: _toDate.default,
+  toFloat: _toFloat.default,
+  toInt: _toInt.default,
+  toBoolean: _toBoolean.default,
+  equals: _equals.default,
+  contains: _contains.default,
+  matches: _matches.default,
+  isEmail: _isEmail.default,
+  isURL: _isURL.default,
+  isMACAddress: _isMACAddress.default,
+  isIP: _isIP.default,
+  isIPRange: _isIPRange.default,
+  isFQDN: _isFQDN.default,
+  isBoolean: _isBoolean.default,
+  isAlpha: _isAlpha.default,
   isAlphaLocales: _isAlpha.locales,
-  isAlphanumeric: _isAlphanumeric2.default,
+  isAlphanumeric: _isAlphanumeric.default,
   isAlphanumericLocales: _isAlphanumeric.locales,
-  isNumeric: _isNumeric2.default,
-  isPort: _isPort2.default,
-  isLowercase: _isLowercase2.default,
-  isUppercase: _isUppercase2.default,
-  isAscii: _isAscii2.default,
-  isFullWidth: _isFullWidth2.default,
-  isHalfWidth: _isHalfWidth2.default,
-  isVariableWidth: _isVariableWidth2.default,
-  isMultibyte: _isMultibyte2.default,
-  isSurrogatePair: _isSurrogatePair2.default,
-  isInt: _isInt2.default,
-  isFloat: _isFloat2.default,
+  isNumeric: _isNumeric.default,
+  isPort: _isPort.default,
+  isLowercase: _isLowercase.default,
+  isUppercase: _isUppercase.default,
+  isAscii: _isAscii.default,
+  isFullWidth: _isFullWidth.default,
+  isHalfWidth: _isHalfWidth.default,
+  isVariableWidth: _isVariableWidth.default,
+  isMultibyte: _isMultibyte.default,
+  isSurrogatePair: _isSurrogatePair.default,
+  isInt: _isInt.default,
+  isFloat: _isFloat.default,
   isFloatLocales: _isFloat.locales,
-  isDecimal: _isDecimal2.default,
-  isHexadecimal: _isHexadecimal2.default,
-  isDivisibleBy: _isDivisibleBy2.default,
-  isHexColor: _isHexColor2.default,
-  isISRC: _isISRC2.default,
-  isMD5: _isMD2.default,
-  isHash: _isHash2.default,
-  isJWT: _isJWT2.default,
-  isJSON: _isJSON2.default,
-  isEmpty: _isEmpty2.default,
-  isLength: _isLength2.default,
-  isByteLength: _isByteLength2.default,
-  isUUID: _isUUID2.default,
-  isMongoId: _isMongoId2.default,
-  isAfter: _isAfter2.default,
-  isBefore: _isBefore2.default,
-  isIn: _isIn2.default,
-  isCreditCard: _isCreditCard2.default,
-  isIdentityCard: _isIdentityCard2.default,
-  isISIN: _isISIN2.default,
-  isISBN: _isISBN2.default,
-  isISSN: _isISSN2.default,
-  isMobilePhone: _isMobilePhone2.default,
+  isDecimal: _isDecimal.default,
+  isHexadecimal: _isHexadecimal.default,
+  isDivisibleBy: _isDivisibleBy.default,
+  isHexColor: _isHexColor.default,
+  isISRC: _isISRC.default,
+  isMD5: _isMD.default,
+  isHash: _isHash.default,
+  isJWT: _isJWT.default,
+  isJSON: _isJSON.default,
+  isEmpty: _isEmpty.default,
+  isLength: _isLength.default,
+  isByteLength: _isByteLength.default,
+  isUUID: _isUUID.default,
+  isMongoId: _isMongoId.default,
+  isAfter: _isAfter.default,
+  isBefore: _isBefore.default,
+  isIn: _isIn.default,
+  isCreditCard: _isCreditCard.default,
+  isIdentityCard: _isIdentityCard.default,
+  isISIN: _isISIN.default,
+  isISBN: _isISBN.default,
+  isISSN: _isISSN.default,
+  isMobilePhone: _isMobilePhone.default,
   isMobilePhoneLocales: _isMobilePhone.locales,
-  isPostalCode: _isPostalCode2.default,
+  isPostalCode: _isPostalCode.default,
   isPostalCodeLocales: _isPostalCode.locales,
-  isCurrency: _isCurrency2.default,
-  isISO8601: _isISO2.default,
-  isRFC3339: _isRFC2.default,
-  isISO31661Alpha2: _isISO31661Alpha2.default,
-  isISO31661Alpha3: _isISO31661Alpha4.default,
-  isBase64: _isBase2.default,
-  isDataURI: _isDataURI2.default,
-  isMagnetURI: _isMagnetURI2.default,
-  isMimeType: _isMimeType2.default,
-  isLatLong: _isLatLong2.default,
-  ltrim: _ltrim2.default,
-  rtrim: _rtrim2.default,
-  trim: _trim2.default,
-  escape: _escape2.default,
-  unescape: _unescape2.default,
-  stripLow: _stripLow2.default,
-  whitelist: _whitelist2.default,
-  blacklist: _blacklist2.default,
-  isWhitelisted: _isWhitelisted2.default,
-  normalizeEmail: _normalizeEmail2.default,
-  toString: _toString2.default
+  isCurrency: _isCurrency.default,
+  isISO8601: _isISO.default,
+  isRFC3339: _isRFC.default,
+  isISO31661Alpha2: _isISO31661Alpha.default,
+  isISO31661Alpha3: _isISO31661Alpha2.default,
+  isBase64: _isBase.default,
+  isDataURI: _isDataURI.default,
+  isMagnetURI: _isMagnetURI.default,
+  isMimeType: _isMimeType.default,
+  isLatLong: _isLatLong.default,
+  ltrim: _ltrim.default,
+  rtrim: _rtrim.default,
+  trim: _trim.default,
+  escape: _escape.default,
+  unescape: _unescape.default,
+  stripLow: _stripLow.default,
+  whitelist: _whitelist.default,
+  blacklist: _blacklist.default,
+  isWhitelisted: _isWhitelisted.default,
+  normalizeEmail: _normalizeEmail.default,
+  toString: _toString.default
 };
-
-exports.default = validator;
-module.exports = exports['default'];
+var _default = validator;
+exports.default = _default;
+module.exports = exports.default;
