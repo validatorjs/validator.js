@@ -1,13 +1,15 @@
-const pkg = require('./package.json');
-const fs = require('fs');
-const rollup = require('rollup').rollup;
-const babel = require('rollup-plugin-babel');
+/* eslint import/no-extraneous-dependencies: 0 */
+import fs from 'fs';
+import { rollup } from 'rollup';
+import babel from 'rollup-plugin-babel';
+import babelPresetEnv from '@babel/preset-env';
+import pkg from './package.json';
 
 rollup({
   entry: 'src/index.js',
   plugins: [
     babel({
-      presets: ['es2015-rollup'],
+      presets: [[babelPresetEnv, { modules: false }]],
       babelrc: false,
     }),
   ],
@@ -17,12 +19,16 @@ rollup({
     format: 'umd',
     moduleName: pkg.name,
     banner: (
-      '/*!\n' +
-      String(fs.readFileSync('./LICENSE')).trim().split('\n').map(l => ` * ${l}`).join('\n') +
-      '\n */'
+      `/*!\n${
+        String(fs.readFileSync('./LICENSE'))
+          .trim()
+          .split('\n')
+          .map(l => ` * ${l}`)
+          .join('\n')
+      }\n */`
     ),
   })
-)).catch(e => {
-  process.stderr.write(e.message + '\n');
+)).catch((e) => {
+  process.stderr.write(`${e.message}\n`);
   process.exit(1);
 });
