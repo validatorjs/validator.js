@@ -2,11 +2,14 @@
 
 - Added an option to `isURL()` to reject email-like URLs
   ([#901](https://github.com/chriso/validator.js/pull/901))
+- Added a `strict` option to `isISO8601()`
+  ([#910](https://github.com/chriso/validator.js/pull/910))
 - Relaxed `isJWT()` signature requirements
   ([#906](https://github.com/chriso/validator.js/pull/906))
 - New and improved locales
   ([#899](https://github.com/chriso/validator.js/pull/899),
-   [#904](https://github.com/chriso/validator.js/pull/904))
+   [#904](https://github.com/chriso/validator.js/pull/904),
+   [#913](https://github.com/chriso/validator.js/pull/913))
 
 #### 10.8.0
 
