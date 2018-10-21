@@ -1,5 +1,5 @@
-let validator = require('../index');
-let format = require('util').format;
+import { format } from 'util';
+import validator from '../index';
 
 function test(options) {
   let args = options.args || [];

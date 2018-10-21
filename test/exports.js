@@ -1,10 +1,10 @@
-let assert = require('assert');
-let validator = require('../index');
-let isPostalCodeLocales = require('../lib/isPostalCode').locales;
-const isAlphaLocales = require('../lib/isAlpha').locales;
-const isAlphanumericLocales = require('../lib/isAlphanumeric').locales;
-const isMobilePhoneLocales = require('../lib/isMobilePhone').locales;
-const isFloatLocales = require('../lib/isFloat').locales;
+import assert from 'assert';
+import validator from '../index';
+import { locales as isPostalCodeLocales } from '../lib/isPostalCode';
+import { locales as isAlphaLocales } from '../lib/isAlpha';
+import { locales as isAlphanumericLocales } from '../lib/isAlphanumeric';
+import { locales as isMobilePhoneLocales } from '../lib/isMobilePhone';
+import { locales as isFloatLocales } from '../lib/isFloat';
 
 describe('Exports', () => {
   it('should export validators', () => {

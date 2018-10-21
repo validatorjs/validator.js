@@ -39,8 +39,8 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
-    "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-add-module-exports": "^1.0.0",
     "eslint": "^4.19.1",
@@ -58,11 +58,11 @@
     "clean:browser": "rm -rf validator*.js",
     "clean": "npm run clean:node && npm run clean:browser",
     "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
-    "build:browser": "babel-node build-browser && npm run minify",
+    "build:browser": "node --require @babel/register build-browser && npm run minify",
     "build:node": "babel src -d .",
     "build": "npm run build:browser && npm run build:node",
     "pretest": "npm run lint && npm run build",
-    "test": "mocha --reporter dot"
+    "test": "mocha --require @babel/register --reporter dot"
   },
   "engines": {
     "node": ">= 0.10"
