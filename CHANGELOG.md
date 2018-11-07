@@ -1,4 +1,4 @@
-#### HEAD
+#### 10.9.0
 
 - Added an option to `isURL()` to reject email-like URLs
   ([#901](https://github.com/chriso/validator.js/pull/901))
