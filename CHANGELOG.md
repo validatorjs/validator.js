@@ -10,7 +10,9 @@
   ([#899](https://github.com/chriso/validator.js/pull/899),
    [#904](https://github.com/chriso/validator.js/pull/904),
    [#913](https://github.com/chriso/validator.js/pull/913),
-   [#916](https://github.com/chriso/validator.js/pull/916))
+   [#916](https://github.com/chriso/validator.js/pull/916),
+   [#925](https://github.com/chriso/validator.js/pull/925),
+   [#928](https://github.com/chriso/validator.js/pull/928))
 
 #### 10.8.0
 
