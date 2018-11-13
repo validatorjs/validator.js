@@ -22,13 +22,16 @@ const isValidDate = (str) => {
   const year = match[1];
   const month = match[2];
   const day = match[3];
+  const monthString = month ? `0${month}`.slice(-2) : month;
+  const dayString = day ? `0${day}`.slice(-2) : day;
+
   // create a date object and compare
-  const d = new Date(`${year}-${month || 1}-${day || 1}`);
-  if (isNaN(d.getFullYear())) return false;
+  const d = new Date(`${year}-${monthString || '01'}-${dayString || '01'}`);
+  if (isNaN(d.getUTCFullYear())) return false;
   if (month && day) {
-    return d.getFullYear() === year
-      && (d.getMonth() + 1) === month
-      && d.getDate() === day;
+    return d.getUTCFullYear() === year
+      && (d.getUTCMonth() + 1) === month
+      && d.getUTCDate() === day;
   }
   return true;
 };
