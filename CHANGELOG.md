@@ -1,3 +1,10 @@
+#### HEAD
+
+- `isISO8601()` strict mode now works in the browser
+  ([#932](https://github.com/chriso/validator.js/pull/932))
+- Locale fix
+  ([#931](https://github.com/chriso/validator.js/pull/931))
+
 #### 10.9.0
 
 - Added an option to `isURL()` to reject email-like URLs
