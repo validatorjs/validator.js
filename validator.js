@@ -1903,9 +1903,10 @@ var default_normalize_email_options = {
   icloud_lowercase: true,
   // Removes the subaddress (e.g. "+foo") from the email address
   icloud_remove_subaddress: true
-}; // List of domains used by iCloud
-
-var icloud_domains = ['icloud.com', 'me.com']; // List of domains used by Outlook.com and its predecessors
+};
+// List of domains used by iCloud
+var icloud_domains = ['icloud.com', 'me.com'];
+// List of domains used by Outlook.com and its predecessors
 // This list is likely incomplete.
 // Partial reference:
 // https://blogs.office.com/2013/04/17/outlook-com-gets-two-step-verification-sign-in-by-alias-and-new-international-domains/
