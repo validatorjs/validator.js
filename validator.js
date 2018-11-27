@@ -1931,8 +1931,9 @@ function normalizeEmail(email, options) {
   var raw_parts = email.split('@');
   var domain = raw_parts.pop();
   var user = raw_parts.join('@');
-  var parts = [user, domain]; // The domain is always lowercased, as it's case-insensitive per RFC 1035
+  var parts = [user, domain];
 
+  // The domain is always lowercased, as it's case-insensitive per RFC 1035
   parts[1] = parts[1].toLowerCase();
 
   if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
