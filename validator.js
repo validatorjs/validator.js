@@ -1485,7 +1485,7 @@ function currencyRegex(options) {
   });
   var symbol = "(\\".concat(options.symbol.replace(/\./g, '\\.'), ")").concat(options.require_symbol ? '' : '?'),
       negative = '-?',
-      whole_dollar_amount_without_sep = '[1-9]\\d*',
+      whole_dollar_amount_without_sep = options.require_thousands_separator ? '' : '[1-9]\\d*',
       whole_dollar_amount_with_sep = "[1-9]\\d{0,2}(\\".concat(options.thousands_separator, "\\d{3})*"),
       valid_whole_dollar_amounts = ['0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
       whole_dollar_amount = "(".concat(valid_whole_dollar_amounts.join('|'), ")?"),
@@ -1543,7 +1543,8 @@ var default_currency_options = {
   allow_decimal: true,
   require_decimal: false,
   digits_after_decimal: [2],
-  allow_space_after_digits: false
+  allow_space_after_digits: false,
+  require_thousands_separator: false
 };
 function isCurrency(str, options) {
   assertString(str);
