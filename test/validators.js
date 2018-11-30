@@ -6090,6 +6090,14 @@ describe('Validators', () => {
           'AD700',
         ],
       },
+      {
+        locale: 'UA',
+        valid: [
+          '65000',
+          '65080',
+          '01000',
+        ],
+      },
     ];
 
     let allValid = [];
