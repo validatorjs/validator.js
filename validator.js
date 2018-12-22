@@ -1487,8 +1487,13 @@ function currencyRegex(options) {
       negative = '-?',
       whole_dollar_amount_without_sep = '[1-9]\\d*',
       whole_dollar_amount_with_sep = "[1-9]\\d{0,2}(\\".concat(options.thousands_separator, "\\d{3})*"),
-      valid_whole_dollar_amounts = ['0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
-      whole_dollar_amount = "(".concat(valid_whole_dollar_amounts.join('|'), ")?"),
+      valid_whole_dollar_amounts = ['0', whole_dollar_amount_with_sep];
+
+  if (!options.require_thousands_separator) {
+    valid_whole_dollar_amounts.push(whole_dollar_amount_without_sep);
+  }
+
+  var whole_dollar_amount = "(".concat(valid_whole_dollar_amounts.join('|'), ")?"),
       decimal_amount = "(\\".concat(options.decimal_separator, "(").concat(decimal_digits, "))").concat(options.require_decimal ? '' : '?');
   var pattern = whole_dollar_amount + (options.allow_decimal || options.require_decimal ? decimal_amount : ''); // default is negative sign before symbol, but there are two other options (besides parens)
 
@@ -1543,7 +1548,8 @@ var default_currency_options = {
   allow_decimal: true,
   require_decimal: false,
   digits_after_decimal: [2],
-  allow_space_after_digits: false
+  allow_space_after_digits: false,
+  require_thousands_separator: false
 };
 function isCurrency(str, options) {
   assertString(str);
