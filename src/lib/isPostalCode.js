@@ -49,6 +49,7 @@ const patterns = {
   SK: /^\d{3}\s?\d{2}$/,
   TN: fourDigit,
   TW: /^\d{3}(\d{2})?$/,
+  UA: fiveDigit,
   US: /^\d{5}(-\d{4})?$/,
   ZA: fourDigit,
   ZM: fiveDigit,
