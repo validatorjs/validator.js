@@ -1,9 +1,12 @@
-#### HEAD
+#### 10.10.0
 
 - `isISO8601()` strict mode now works in the browser
   ([#932](https://github.com/chriso/validator.js/pull/932))
-- Locale fix
-  ([#931](https://github.com/chriso/validator.js/pull/931))
+- New and improved locales
+  ([#931](https://github.com/chriso/validator.js/pull/931),
+   [#933](https://github.com/chriso/validator.js/pull/933),
+   [#947](https://github.com/chriso/validator.js/pull/947),
+   [#950](https://github.com/chriso/validator.js/pull/950))
 
 #### 10.9.0
 
