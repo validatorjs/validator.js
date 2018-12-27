@@ -3,9 +3,8 @@
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads][downloads-image]][npm-url]
-
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
-[![Sponsors on Open Collective](https://opencollective.com/validatorjsj/sponsors/badge.svg)](#sponsors)
+[![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
 
 A library of string validators and sanitizers.
 
@@ -65,7 +64,8 @@ $ bower install validator-js
 
 [Become a sponsor](https://opencollective.com/validatorjs#sponsor)
 
-Thank you to the people who have already contributed
+Thank you to the people who have already contributed:
+
 <a href="graphs/contributors"><img src="https://opencollective.com/validatorjs/contributors.svg?width=890" /></a>
 
 ## Validators
