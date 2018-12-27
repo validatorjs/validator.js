@@ -1,6 +1,11 @@
 # validator.js
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Downloads][downloads-image]][npm-url]
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Downloads][downloads-image]][npm-url]
+
+[![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/validatorjsj/sponsors/badge.svg)](#sponsors)
 
 A library of string validators and sanitizers.
 
@@ -53,6 +58,15 @@ The library can also be installed through [bower][bower]
 ```bash
 $ bower install validator-js
 ```
+
+## Contributors
+
+[Become a backer](https://opencollective.com/validatorjs#backer)
+
+[Become a sponsor](https://opencollective.com/validatorjs#sponsor)
+
+Thank you to the people who have already contributed
+<a href="graphs/contributors"><img src="https://opencollective.com/validatorjs/contributors.svg?width=890" /></a>
 
 ## Validators
 
