@@ -1,3 +1,8 @@
+#### HEAD
+
+- New locale
+  ([#958](https://github.com/chriso/validator.js/pull/958))
+
 #### 10.10.0
 
 - `isISO8601()` strict mode now works in the browser
