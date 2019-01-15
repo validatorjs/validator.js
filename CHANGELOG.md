@@ -1,5 +1,7 @@
-#### HEAD
+#### 10.11.0
 
+- Fix imports like `import .. from "validator/lib/.."`
+  ([#961](https://github.com/chriso/validator.js/pull/961))
 - New locale
   ([#958](https://github.com/chriso/validator.js/pull/958))
 
