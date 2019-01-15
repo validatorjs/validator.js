@@ -240,3 +240,4 @@ var validator = {
 var _default = validator;
 exports.default = _default;
 module.exports = exports.default;
+module.exports.default = exports.default;
