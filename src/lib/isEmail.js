@@ -41,6 +41,11 @@ export default function isEmail(str, options) {
   let user = parts.join('@');
 
   const lower_domain = domain.toLowerCase();
+  
+  // check for valid email user
+  if(user.match(emailUserPart) == null){
+	  return false
+  }
 
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
