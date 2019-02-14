@@ -40,189 +40,24 @@ function _typeof(obj) {
   return _typeof(obj);
 }
 
-function _toArray(arr) {
-  return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest();
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
 }
 
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
 }
 
 function _iterableToArray(iter) {
   if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
 }
 
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-function _toPrimitive(input, hint) {
-  if (typeof input !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (typeof res !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-
-  return (hint === "string" ? String : Number)(input);
-}
-
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-
-  return typeof key === "symbol" ? key : String(key);
-}
-
-function _addElementPlacement(element, placements, silent) {
-  var keys = placements[element.placement];
-
-  if (!silent && keys.indexOf(element.key) !== -1) {
-    throw new TypeError("Duplicated element (" + element.key + ")");
-  }
-
-  keys.push(element.key);
-}
-
-function _fromElementDescriptor(element) {
-  var obj = {
-    kind: element.kind,
-    key: element.key,
-    placement: element.placement,
-    descriptor: element.descriptor
-  };
-  var desc = {
-    value: "Descriptor",
-    configurable: true
-  };
-  Object.defineProperty(obj, Symbol.toStringTag, desc);
-  if (element.kind === "field") obj.initializer = element.initializer;
-  return obj;
-}
-
-function _toElementDescriptors(elementObjects) {
-  if (elementObjects === undefined) return;
-  return _toArray(elementObjects).map(function (elementObject) {
-    var element = _toElementDescriptor(elementObject);
-
-    _disallowProperty(elementObject, "finisher", "An element descriptor");
-
-    _disallowProperty(elementObject, "extras", "An element descriptor");
-
-    return element;
-  });
-}
-
-function _toElementDescriptor(elementObject) {
-  var kind = String(elementObject.kind);
-
-  if (kind !== "method" && kind !== "field") {
-    throw new TypeError('An element descriptor\'s .kind property must be either "method" or' + ' "field", but a decorator created an element descriptor with' + ' .kind "' + kind + '"');
-  }
-
-  var key = _toPropertyKey(elementObject.key);
-
-  var placement = String(elementObject.placement);
-
-  if (placement !== "static" && placement !== "prototype" && placement !== "own") {
-    throw new TypeError('An element descriptor\'s .placement property must be one of "static",' + ' "prototype" or "own", but a decorator created an element descriptor' + ' with .placement "' + placement + '"');
-  }
-
-  var descriptor = elementObject.descriptor;
-
-  _disallowProperty(elementObject, "elements", "An element descriptor");
-
-  var element = {
-    kind: kind,
-    key: key,
-    placement: placement,
-    descriptor: Object.assign({}, descriptor)
-  };
-
-  if (kind !== "field") {
-    _disallowProperty(elementObject, "initializer", "A method descriptor");
-  } else {
-    _disallowProperty(descriptor, "get", "The property descriptor of a field descriptor");
-
-    _disallowProperty(descriptor, "set", "The property descriptor of a field descriptor");
-
-    _disallowProperty(descriptor, "value", "The property descriptor of a field descriptor");
-
-    element.initializer = elementObject.initializer;
-  }
-
-  return element;
-}
-
-function _toElementFinisherExtras(elementObject) {
-  var element = _toElementDescriptor(elementObject);
-
-  var finisher = _optionalCallableProperty(elementObject, "finisher");
-
-  var extras = _toElementDescriptors(elementObject.extras);
-
-  return {
-    element: element,
-    finisher: finisher,
-    extras: extras
-  };
-}
-
-function _fromClassDescriptor(elements) {
-  var obj = {
-    kind: "class",
-    elements: elements.map(_fromElementDescriptor)
-  };
-  var desc = {
-    value: "Descriptor",
-    configurable: true
-  };
-  Object.defineProperty(obj, Symbol.toStringTag, desc);
-  return obj;
-}
-
-function _toClassDescriptor(obj) {
-  var kind = String(obj.kind);
-
-  if (kind !== "class") {
-    throw new TypeError('A class descriptor\'s .kind property must be "class", but a decorator' + ' created a class descriptor with .kind "' + kind + '"');
-  }
-
-  _disallowProperty(obj, "key", "A class descriptor");
-
-  _disallowProperty(obj, "placement", "A class descriptor");
-
-  _disallowProperty(obj, "descriptor", "A class descriptor");
-
-  _disallowProperty(obj, "initializer", "A class descriptor");
-
-  _disallowProperty(obj, "extras", "A class descriptor");
-
-  var finisher = _optionalCallableProperty(obj, "finisher");
-
-  var elements = _toElementDescriptors(obj.elements);
-
-  return {
-    elements: elements,
-    finisher: finisher
-  };
-}
-
-function _disallowProperty(obj, name, objectType) {
-  if (obj[name] !== undefined) {
-    throw new TypeError(objectType + " can't have a ." + name + " property.");
-  }
-}
-
-function _optionalCallableProperty(obj, name) {
-  var value = obj[name];
-
-  if (value !== undefined && typeof value !== "function") {
-    throw new TypeError("Expected '" + name + "' to be a function");
-  }
-
-  return value;
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
 function assertString(input) {
@@ -1872,6 +1707,73 @@ function isWhitelisted(str, chars) {
   return true;
 }
 
+var validStateCodes = {
+  US: ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'],
+  CA: ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']
+};
+var validStateNames = {
+  US: ['District of Columbia', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
+  CA: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Saskatchewan', 'Yukon']
+};
+
+var getArraysFromObjByKeys = function getArraysFromObjByKeys(keys, obj) {
+  var _ref;
+
+  return (_ref = []).concat.apply(_ref, _toConsumableArray(keys.map(function (key) {
+    return obj[key];
+  }))).filter(function (x) {
+    return x;
+  });
+};
+
+var combineSimilarArrays = function combineSimilarArrays(keys, objs) {
+  var _ref2;
+
+  return (_ref2 = []).concat.apply(_ref2, _toConsumableArray(objs.map(function (obj) {
+    return getArraysFromObjByKeys(keys, obj);
+  })));
+};
+
+function isState(str) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    locale: 'any',
+    codesOnly: false,
+    namesOnly: false
+  };
+  assertString(str);
+  var codesOnly = options.codesOnly,
+      namesOnly = options.namesOnly,
+      locale = options.locale;
+  var useLocale = [];
+  var objectToUse = {};
+
+  if (Array.isArray(locale)) {
+    useLocale = locale;
+  } else if (!locale || locale === 'any') {
+    useLocale = _toConsumableArray(new Set([].concat(Object.keys(validStateCodes), Object.keys(validStateNames))));
+  } else {
+    useLocale = [locale];
+  }
+
+  if (codesOnly) {
+    objectToUse = [validStateCodes];
+  }
+
+  if (namesOnly) {
+    objectToUse = [validStateNames];
+  }
+
+  if (!codesOnly && !namesOnly || codesOnly && namesOnly) {
+    objectToUse = [validStateCodes, validStateNames];
+  }
+
+  return combineSimilarArrays(useLocale, objectToUse).map(function (v) {
+    return v.toLowerCase();
+  }).includes(str.toLowerCase());
+}
+var isStateNameLocales = Object.keys(validStateNames);
+var isStateCodeLocales = Object.keys(validStateCodes);
+
 var default_normalize_email_options = {
   // The following options apply to all email addresses
   // Lowercases the local part of the email address.
@@ -2090,7 +1992,10 @@ var validator = {
   blacklist: blacklist$1,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
-  toString: toString
+  toString: toString,
+  isState: isState,
+  isStateCodeLocales: isStateCodeLocales,
+  isStateNameLocales: isStateNameLocales
 };
 
 return validator;

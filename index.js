@@ -147,6 +147,8 @@ var _blacklist = _interopRequireDefault(require("./lib/blacklist"));
 
 var _isWhitelisted = _interopRequireDefault(require("./lib/isWhitelisted"));
 
+var _isState = _interopRequireWildcard(require("./lib/isState"));
+
 var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
 var _toString = _interopRequireDefault(require("./lib/util/toString"));
@@ -235,7 +237,10 @@ var validator = {
   blacklist: _blacklist.default,
   isWhitelisted: _isWhitelisted.default,
   normalizeEmail: _normalizeEmail.default,
-  toString: _toString.default
+  toString: _toString.default,
+  isState: _isState.default,
+  isStateCodeLocales: _isState.isStateCodeLocales,
+  isStateNameLocales: _isState.isStateNameLocales
 };
 var _default = validator;
 exports.default = _default;

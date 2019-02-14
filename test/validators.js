@@ -6230,3 +6230,74 @@ describe('Validators', () => {
     });
   });
 });
+it('should validate isState', () => {
+  test({
+    validator: 'isState',
+    valid: [
+      'IA',
+      'iowa',
+    ],
+    invalid: [
+      '',
+      'not a state',
+    ],
+  });
+  test({
+    validator: 'isState',
+    args: [{ locale: 'US', namesOnly: true }],
+    valid: [
+      'Iowa',
+      'California',
+    ],
+    invalid: [
+      '',
+      'IA',
+      'CA',
+    ],
+  });
+  test({
+    validator: 'isState',
+    args: [{ locale: 'CA', codesOnly: true }],
+    valid: [
+      'BC',
+      'YT',
+    ],
+    invalid: [
+      '',
+      'IA',
+      'CA',
+    ],
+  });
+  test({
+    validator: 'isState',
+    args: [{ locale: 'CA', codesOnly: true, namesOnly: true }],
+    valid: [
+      'BC',
+      'YT',
+      'British columbia',
+    ],
+    invalid: [
+      '',
+      'IA',
+      'CA',
+    ],
+  });
+  test({
+    validator: 'isState',
+    args: [{ locale: 'any' }],
+    valid: [
+      'BC',
+      'YT',
+      'British columbia',
+      'New York',
+      'new mexico',
+      'floriDa',
+    ],
+    invalid: [
+      '',
+      'Not this code',
+      'Not this state',
+      '123',
+    ],
+  });
+});
