@@ -40,26 +40,6 @@ function _typeof(obj) {
   return _typeof(obj);
 }
 
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
-}
-
-function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
-}
-
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
@@ -1707,68 +1687,110 @@ function isWhitelisted(str, chars) {
   return true;
 }
 
-var validStateCodes = {
-  US: ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'],
-  CA: ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']
+var stateLookupMap = {
+  us: {
+    alabama: 'al',
+    alaska: 'ak',
+    arizona: 'az',
+    arkansas: 'ar',
+    california: 'ca',
+    colorado: 'co',
+    connecticut: 'ct',
+    delaware: 'de',
+    'district of columbia': 'dc',
+    florida: 'fl',
+    georgia: 'ga',
+    hawaii: 'hi',
+    idaho: 'id',
+    illinois: 'il',
+    indiana: 'in',
+    iowa: 'ia',
+    kansas: 'ks',
+    kentucky: 'ky',
+    louisiana: 'la',
+    maine: 'me',
+    maryland: 'md',
+    massachusetts: 'ma',
+    michigan: 'mi',
+    minnesota: 'mn',
+    mississippi: 'ms',
+    missouri: 'mo',
+    montana: 'mt',
+    nebraska: 'ne',
+    nevada: 'nv',
+    'new hampshire': 'nh',
+    'new jersey': 'nj',
+    'new mexico': 'nm',
+    'new york': 'ny',
+    'north carolina': 'nc',
+    'north dakota': 'nd',
+    ohio: 'oh',
+    oklahoma: 'ok',
+    oregon: 'or',
+    pennsylvania: 'pa',
+    'rhode island': 'ri',
+    'south carolina': 'sc',
+    'south dakota': 'sd',
+    tennessee: 'tn',
+    texas: 'tx',
+    utah: 'ut',
+    vermont: 'vt',
+    virginia: 'va',
+    washington: 'wa',
+    'washington state': 'wa',
+    'west virginia': 'wv',
+    wisconsin: 'wi',
+    wyoming: 'wy',
+    'puerto rico': 'pr'
+  },
+  ca: {
+    alberta: 'ab',
+    'british columbia': 'bc',
+    manitoba: 'mb',
+    'new brunswick': 'nb',
+    'newfoundland and labrador': 'nl',
+    'northwest territories': 'nt',
+    'nova scotia': 'ns',
+    nunavut: 'nu',
+    ontario: 'on',
+    'prince edward island': 'pe',
+    saskatchewan: 'sk',
+    yukon: 'yt',
+    quebec: 'qc'
+  }
 };
-var validStateNames = {
-  US: ['District of Columbia', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
-  CA: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Saskatchewan', 'Yukon']
+var locales$5 = Object.keys(stateLookupMap);
+
+var buildSearch = function buildSearch(aggFn) {
+  return function (str) {
+    var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'any';
+    assertString(str);
+    return locales$5.filter(function (validLoc) {
+      return new Array(locale === 'any' ? locales$5 : locale).flatMap(function (x) {
+        return x;
+      }).map(function (x) {
+        return x.toLowerCase();
+      }).includes(validLoc);
+    }).map(function (loc) {
+      return stateLookupMap[loc];
+    }).flatMap(aggFn).includes(str.toLowerCase());
+  };
 };
 
-var combineSimilarObjectArraysByKeys = function combineSimilarObjectArraysByKeys(keysToUse, objectsToUse) {
-  var _ref;
+var isStateCode = buildSearch(Object.values);
+var isStateName = buildSearch(Object.keys);
 
-  return (_ref = []).concat.apply(_ref, _toConsumableArray(objectsToUse.map(function (obj) {
-    var _ref2;
+var isStateCodeOrName = function isStateCodeOrName() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
 
-    return (_ref2 = []).concat.apply(_ref2, _toConsumableArray(keysToUse.map(function (key) {
-      return obj[key];
-    })));
-  }))).filter(function (x) {
+  return [isStateCode, isStateName].map(function (fn) {
+    return fn.apply(void 0, args);
+  }).some(function (x) {
     return x;
   });
 };
-
-function isState(str) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-    locale: 'any',
-    codesOnly: false,
-    namesOnly: false
-  };
-  assertString(str);
-  var codesOnly = options.codesOnly,
-      namesOnly = options.namesOnly,
-      locale = options.locale;
-  var useLocale = [];
-  var objectToUse = {};
-
-  if (Array.isArray(locale)) {
-    useLocale = locale;
-  } else if (!locale || locale === 'any') {
-    useLocale = _toConsumableArray(new Set([].concat(Object.keys(validStateCodes), Object.keys(validStateNames))));
-  } else {
-    useLocale = [locale];
-  }
-
-  if (codesOnly) {
-    objectToUse = [validStateCodes];
-  }
-
-  if (namesOnly) {
-    objectToUse = [validStateNames];
-  }
-
-  if (!codesOnly && !namesOnly || codesOnly && namesOnly) {
-    objectToUse = [validStateCodes, validStateNames];
-  }
-
-  return combineSimilarObjectArraysByKeys(useLocale, objectToUse).map(function (v) {
-    return v.toLowerCase();
-  }).includes(str.toLowerCase());
-}
-var isStateNameLocales = Object.keys(validStateNames);
-var isStateCodeLocales = Object.keys(validStateCodes);
 
 var default_normalize_email_options = {
   // The following options apply to all email addresses
@@ -1989,9 +2011,10 @@ var validator = {
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
   toString: toString,
-  isState: isState,
-  isStateCodeLocales: isStateCodeLocales,
-  isStateNameLocales: isStateNameLocales
+  isStateCode: isStateCode,
+  isStateName: isStateName,
+  isStateLocales: locales$5,
+  isStateCodeOrName: isStateCodeOrName
 };
 
 return validator;

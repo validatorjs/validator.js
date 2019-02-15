@@ -1,184 +1,103 @@
 import assertString from './util/assertString';
-// source: https://www.ups.com/worldshiphelp/WS14/ENU/AppHelp/Codes/State_Province_Codes.htm
-const validStateCodes = {
-  US: [
-    'AL',
-    'AK',
-    'AS',
-    'AZ',
-    'AR',
-    'CA',
-    'CO',
-    'CT',
-    'DE',
-    'DC',
-    'FL',
-    'GA',
-    'GU',
-    'HI',
-    'ID',
-    'IL',
-    'IN',
-    'IA',
-    'KS',
-    'KY',
-    'LA',
-    'ME',
-    'MH',
-    'MD',
-    'MA',
-    'MI',
-    'MN',
-    'MS',
-    'MO',
-    'MT',
-    'NE',
-    'NV',
-    'NH',
-    'NJ',
-    'NM',
-    'NY',
-    'NC',
-    'ND',
-    'MP',
-    'OH',
-    'OK',
-    'OR',
-    'PW',
-    'PA',
-    'PR',
-    'RI',
-    'SC',
-    'SD',
-    'TN',
-    'TX',
-    'UT',
-    'VT',
-    'VI',
-    'VA',
-    'WA',
-    'WV',
-    'WI',
-    'WY',
-  ],
-  CA: [
-    'AB',
-    'BC',
-    'MB',
-    'NB',
-    'NL',
-    'NT',
-    'NS',
-    'NU',
-    'ON',
-    'PE',
-    'QC',
-    'SK',
-    'YT',
-  ],
+
+const stateLookupMap = {
+  us: {
+    alabama: 'al',
+    alaska: 'ak',
+    arizona: 'az',
+    arkansas: 'ar',
+    california: 'ca',
+    colorado: 'co',
+    connecticut: 'ct',
+    delaware: 'de',
+    'district of columbia': 'dc',
+    florida: 'fl',
+    georgia: 'ga',
+    hawaii: 'hi',
+    idaho: 'id',
+    illinois: 'il',
+    indiana: 'in',
+    iowa: 'ia',
+    kansas: 'ks',
+    kentucky: 'ky',
+    louisiana: 'la',
+    maine: 'me',
+    maryland: 'md',
+    massachusetts: 'ma',
+    michigan: 'mi',
+    minnesota: 'mn',
+    mississippi: 'ms',
+    missouri: 'mo',
+    montana: 'mt',
+    nebraska: 'ne',
+    nevada: 'nv',
+    'new hampshire': 'nh',
+    'new jersey': 'nj',
+    'new mexico': 'nm',
+    'new york': 'ny',
+    'north carolina': 'nc',
+    'north dakota': 'nd',
+    ohio: 'oh',
+    oklahoma: 'ok',
+    oregon: 'or',
+    pennsylvania: 'pa',
+    'rhode island': 'ri',
+    'south carolina': 'sc',
+    'south dakota': 'sd',
+    tennessee: 'tn',
+    texas: 'tx',
+    utah: 'ut',
+    vermont: 'vt',
+    virginia: 'va',
+    washington: 'wa',
+    'washington state': 'wa',
+    'west virginia': 'wv',
+    wisconsin: 'wi',
+    wyoming: 'wy',
+    'puerto rico': 'pr',
+  },
+  ca: {
+    alberta: 'ab',
+    'british columbia': 'bc',
+    manitoba: 'mb',
+    'new brunswick': 'nb',
+    'newfoundland and labrador': 'nl',
+    'northwest territories': 'nt',
+    'nova scotia': 'ns',
+    nunavut: 'nu',
+    ontario: 'on',
+    'prince edward island': 'pe',
+    saskatchewan: 'sk',
+    yukon: 'yt',
+    quebec: 'qc',
+  },
 };
 
-const validStateNames = {
-  US: [
-    'District of Columbia',
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming',
-  ],
-  CA: [
-    'Alberta',
-    'British Columbia',
-    'Manitoba',
-    'New Brunswick',
-    'Newfoundland and Labrador',
-    'Northwest Territories',
-    'Nova Scotia',
-    'Nunavut',
-    'Ontario',
-    'Saskatchewan',
-    'Yukon',
-  ],
-};
-const combineSimilarObjectArraysByKeys = (keysToUse, objectsToUse) =>
-  [].concat(...objectsToUse
-    .map(obj => []
-      .concat(...keysToUse
-        .map(key => obj[key]))))
-    .filter(x => x);
-
-export default function isState(str, options = { locale: 'any', codesOnly: false, namesOnly: false }) {
+const locales = Object.keys(stateLookupMap);
+const buildSearch = aggFn => (str, locale = 'any') => {
   assertString(str);
-  const { codesOnly, namesOnly, locale } = options;
-  let useLocale = [];
-  let objectToUse = {};
+  return locales
+    .filter(validLoc =>
+      new Array(locale === 'any' ? locales : locale)
+        .flatMap(x => x)
+        .map(x => x.toLowerCase())
+        .includes(validLoc))
+    .map(loc => stateLookupMap[loc])
+    .flatMap(aggFn)
+    .includes(str.toLowerCase());
+};
 
-  if (Array.isArray(locale)) {
-    useLocale = locale;
-  } else if (!locale || locale === 'any') {
-    useLocale = [...new Set([].concat(Object.keys(validStateCodes), Object.keys(validStateNames)))];
-  } else {
-    useLocale = [locale];
-  }
-  if (codesOnly) {
-    objectToUse = [validStateCodes];
-  }
-  if (namesOnly) {
-    objectToUse = [validStateNames];
-  }
-  if ((!codesOnly && !namesOnly) || (codesOnly && namesOnly)) {
-    objectToUse = [validStateCodes, validStateNames];
-  }
+const isStateCode = buildSearch(Object.values);
+const isStateName = buildSearch(Object.keys);
 
-  return combineSimilarObjectArraysByKeys(useLocale, objectToUse).map(v =>
-    v.toLowerCase()).includes(str.toLowerCase());
-}
+const isStateCodeOrName = (...args) =>
+  [isStateCode, isStateName]
+    .map(fn => fn(...args))
+    .some(x => x);
 
-export const isStateNameLocales = Object.keys(validStateNames);
-export const isStateCodeLocales = Object.keys(validStateCodes);
+export {
+  locales,
+  isStateName,
+  isStateCode,
+  isStateCodeOrName,
+};

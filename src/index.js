@@ -91,7 +91,7 @@ import stripLow from './lib/stripLow';
 import whitelist from './lib/whitelist';
 import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
-import isState, { isStateCodeLocales, isStateNameLocales } from './lib/isState';
+import { isStateCode, isStateName, isStateCodeOrName, locales as isStateLocales } from './lib/isState';
 
 import normalizeEmail from './lib/normalizeEmail';
 
@@ -179,9 +179,10 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
-  isState,
-  isStateCodeLocales,
-  isStateNameLocales,
+  isStateCode,
+  isStateName,
+  isStateLocales,
+  isStateCodeOrName,
 };
 
 export default validator;
