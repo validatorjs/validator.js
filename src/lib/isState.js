@@ -79,11 +79,13 @@ const buildSearch = aggFn => (str, locale = 'any') => {
   return locales
     .filter(validLoc =>
       new Array(locale === 'any' ? locales : locale)
-        .flatMap(x => x)
+        .flat()
+        .map(x => x)
         .map(x => x.toLowerCase())
         .includes(validLoc))
     .map(loc => stateLookupMap[loc])
-    .flatMap(aggFn)
+    .map(aggFn)
+    .flat()
     .includes(str.toLowerCase());
 };
 
