@@ -146,11 +146,12 @@ const validStateNames = {
     'Yukon',
   ],
 };
-
-const getArraysFromObjByKeys = (keys, obj) =>
-  [].concat(...keys.map(key => obj[key])).filter(x => x);
-const combineSimilarArrays = (keys, objs) =>
-  [].concat(...objs.map(obj => getArraysFromObjByKeys(keys, obj)));
+const combineSimilarObjectArraysByKeys = (keysToUse, objectsToUse) =>
+  [].concat(...objectsToUse
+    .map(obj => []
+      .concat(...keysToUse
+        .map(key => obj[key]))))
+    .filter(x => x);
 
 export default function isState(str, options = { locale: 'any', codesOnly: false, namesOnly: false }) {
   assertString(str);
@@ -175,7 +176,7 @@ export default function isState(str, options = { locale: 'any', codesOnly: false
     objectToUse = [validStateCodes, validStateNames];
   }
 
-  return combineSimilarArrays(useLocale, objectToUse).map(v =>
+  return combineSimilarObjectArraysByKeys(useLocale, objectToUse).map(v =>
     v.toLowerCase()).includes(str.toLowerCase());
 }
 
