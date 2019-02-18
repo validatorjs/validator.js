@@ -17,6 +17,8 @@ Passing anything other than a string is an error.
 
 ## Installation and Usage
 
+#### [Play and install validators with Bit](https://bitsrc.io/chriso/validator-js)
+
 ### Server-side usage
 
 Install the library with `npm install validator`
