@@ -79,16 +79,15 @@ const buildSearch = aggFn => (str, locale = 'any') => {
   return locales
     .filter(validLoc =>
       new Array(locale === 'any' ? locales : locale)
-        .flat()
+        .reduce((a, b) => a.concat(b), [])
         .map(x => x)
         .map(x => x.toLowerCase())
         .includes(validLoc))
     .map(loc => stateLookupMap[loc])
     .map(aggFn)
-    .flat()
+    .reduce((a, b) => a.concat(b), [])
     .includes(str.toLowerCase());
 };
-
 const isStateCode = buildSearch(Object.values);
 const isStateName = buildSearch(Object.keys);
 

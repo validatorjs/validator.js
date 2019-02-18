@@ -1766,14 +1766,18 @@ var buildSearch = function buildSearch(aggFn) {
     var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'any';
     assertString(str);
     return locales$5.filter(function (validLoc) {
-      return new Array(locale === 'any' ? locales$5 : locale).flat().map(function (x) {
+      return new Array(locale === 'any' ? locales$5 : locale).reduce(function (a, b) {
+        return a.concat(b);
+      }, []).map(function (x) {
         return x;
       }).map(function (x) {
         return x.toLowerCase();
       }).includes(validLoc);
     }).map(function (loc) {
       return stateLookupMap[loc];
-    }).map(aggFn).flat().includes(str.toLowerCase());
+    }).map(aggFn).reduce(function (a, b) {
+      return a.concat(b);
+    }, []).includes(str.toLowerCase());
   };
 };
 
