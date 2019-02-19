@@ -1051,7 +1051,7 @@ var lengths = {
 };
 function isHash(str, algorithm) {
   assertString(str);
-  var hash = new RegExp("^[a-f0-9]{".concat(lengths[algorithm], "}$"));
+  var hash = new RegExp("^[a-fA-F0-9]{".concat(lengths[algorithm], "}$"));
   return hash.test(str);
 }
 
