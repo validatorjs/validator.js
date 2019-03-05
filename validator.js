@@ -23,7 +23,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(global.validator = factory());
+	(global['aftership-validator'] = factory());
 }(this, (function () { 'use strict';
 
 function _typeof(obj) {
@@ -1845,7 +1845,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '10.11.0';
+var version = '1.0.0';
 var validator = {
   version: version,
   toDate: toDate,

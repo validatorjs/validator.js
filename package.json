@@ -1,8 +1,8 @@
 {
-  "name": "validator",
+  "name": "aftership-validator",
   "description": "String validation and sanitization",
-  "version": "10.11.0",
-  "homepage": "https://github.com/chriso/validator.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/AfterShip/validator.js",
   "files": [
     "index.js",
     "lib",
@@ -21,7 +21,7 @@
     "sanitise",
     "assert"
   ],
-  "author": "Chris O'Hara <cohara87@gmail.com>",
+  "author": "AfterShip",
   "contributors": [
     {
       "name": "Anthony Nandaa",
@@ -30,11 +30,11 @@
   ],
   "main": "index.js",
   "bugs": {
-    "url": "https://github.com/chriso/validator.js/issues"
+    "url": "https://github.com/AfterShip/validator.js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chriso/validator.js.git"
+    "url": "https://github.com/AfterShip/validator.js.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
