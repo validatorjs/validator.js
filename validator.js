@@ -40,191 +40,6 @@ function _typeof(obj) {
   return _typeof(obj);
 }
 
-function _toArray(arr) {
-  return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-function _toPrimitive(input, hint) {
-  if (typeof input !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (typeof res !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-
-  return (hint === "string" ? String : Number)(input);
-}
-
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-
-  return typeof key === "symbol" ? key : String(key);
-}
-
-function _addElementPlacement(element, placements, silent) {
-  var keys = placements[element.placement];
-
-  if (!silent && keys.indexOf(element.key) !== -1) {
-    throw new TypeError("Duplicated element (" + element.key + ")");
-  }
-
-  keys.push(element.key);
-}
-
-function _fromElementDescriptor(element) {
-  var obj = {
-    kind: element.kind,
-    key: element.key,
-    placement: element.placement,
-    descriptor: element.descriptor
-  };
-  var desc = {
-    value: "Descriptor",
-    configurable: true
-  };
-  Object.defineProperty(obj, Symbol.toStringTag, desc);
-  if (element.kind === "field") obj.initializer = element.initializer;
-  return obj;
-}
-
-function _toElementDescriptors(elementObjects) {
-  if (elementObjects === undefined) return;
-  return _toArray(elementObjects).map(function (elementObject) {
-    var element = _toElementDescriptor(elementObject);
-
-    _disallowProperty(elementObject, "finisher", "An element descriptor");
-
-    _disallowProperty(elementObject, "extras", "An element descriptor");
-
-    return element;
-  });
-}
-
-function _toElementDescriptor(elementObject) {
-  var kind = String(elementObject.kind);
-
-  if (kind !== "method" && kind !== "field") {
-    throw new TypeError('An element descriptor\'s .kind property must be either "method" or' + ' "field", but a decorator created an element descriptor with' + ' .kind "' + kind + '"');
-  }
-
-  var key = _toPropertyKey(elementObject.key);
-
-  var placement = String(elementObject.placement);
-
-  if (placement !== "static" && placement !== "prototype" && placement !== "own") {
-    throw new TypeError('An element descriptor\'s .placement property must be one of "static",' + ' "prototype" or "own", but a decorator created an element descriptor' + ' with .placement "' + placement + '"');
-  }
-
-  var descriptor = elementObject.descriptor;
-
-  _disallowProperty(elementObject, "elements", "An element descriptor");
-
-  var element = {
-    kind: kind,
-    key: key,
-    placement: placement,
-    descriptor: Object.assign({}, descriptor)
-  };
-
-  if (kind !== "field") {
-    _disallowProperty(elementObject, "initializer", "A method descriptor");
-  } else {
-    _disallowProperty(descriptor, "get", "The property descriptor of a field descriptor");
-
-    _disallowProperty(descriptor, "set", "The property descriptor of a field descriptor");
-
-    _disallowProperty(descriptor, "value", "The property descriptor of a field descriptor");
-
-    element.initializer = elementObject.initializer;
-  }
-
-  return element;
-}
-
-function _toElementFinisherExtras(elementObject) {
-  var element = _toElementDescriptor(elementObject);
-
-  var finisher = _optionalCallableProperty(elementObject, "finisher");
-
-  var extras = _toElementDescriptors(elementObject.extras);
-
-  return {
-    element: element,
-    finisher: finisher,
-    extras: extras
-  };
-}
-
-function _fromClassDescriptor(elements) {
-  var obj = {
-    kind: "class",
-    elements: elements.map(_fromElementDescriptor)
-  };
-  var desc = {
-    value: "Descriptor",
-    configurable: true
-  };
-  Object.defineProperty(obj, Symbol.toStringTag, desc);
-  return obj;
-}
-
-function _toClassDescriptor(obj) {
-  var kind = String(obj.kind);
-
-  if (kind !== "class") {
-    throw new TypeError('A class descriptor\'s .kind property must be "class", but a decorator' + ' created a class descriptor with .kind "' + kind + '"');
-  }
-
-  _disallowProperty(obj, "key", "A class descriptor");
-
-  _disallowProperty(obj, "placement", "A class descriptor");
-
-  _disallowProperty(obj, "descriptor", "A class descriptor");
-
-  _disallowProperty(obj, "initializer", "A class descriptor");
-
-  _disallowProperty(obj, "extras", "A class descriptor");
-
-  var finisher = _optionalCallableProperty(obj, "finisher");
-
-  var elements = _toElementDescriptors(obj.elements);
-
-  return {
-    elements: elements,
-    finisher: finisher
-  };
-}
-
-function _disallowProperty(obj, name, objectType) {
-  if (obj[name] !== undefined) {
-    throw new TypeError(objectType + " can't have a ." + name + " property.");
-  }
-}
-
-function _optionalCallableProperty(obj, name) {
-  var value = obj[name];
-
-  if (value !== undefined && typeof value !== "function") {
-    throw new TypeError("Expected '" + name + "' to be a function");
-  }
-
-  return value;
-}
-
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
@@ -481,6 +296,8 @@ var default_email_options = {
 
 /* eslint-disable no-control-regex */
 
+var distinguishDisplayNameAndEmail = /^(.+)(<.+>)$/;
+var emoji = /(\ud83c[\udf00-\udfff])|(\ud83d[\udc00-\ude4f\ude80-\udeff])|[\u2600-\u2B55]/g;
 var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
 var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 var gmailUserPart = /^[a-z\d]+$/;
@@ -491,9 +308,27 @@ var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-
 
 /* eslint-enable no-control-regex */
 
+/**
+ * Replace the emojis in display name to a non-empty normal character
+ * @param {String} str input
+ */
+
+function ignoreEmojiInDisplayName(str) {
+  var matched = str.match(distinguishDisplayNameAndEmail); // have no display name in the str
+
+  if (!matched) {
+    return str;
+  }
+
+  var name = matched[1];
+  var email = matched[2];
+  return name.replace(emoji, 'e') + email;
+}
+
 function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
+  str = ignoreEmojiInDisplayName(str);
 
   if (options.require_display_name || options.allow_display_name) {
     var display_email = str.match(displayName);
