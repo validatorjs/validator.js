@@ -1,163 +1,163 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.default = void 0;
 
-let _toDate = _interopRequireDefault(require('./lib/toDate'));
+var _toDate = _interopRequireDefault(require("./lib/toDate"));
 
-let _toFloat = _interopRequireDefault(require('./lib/toFloat'));
+var _toFloat = _interopRequireDefault(require("./lib/toFloat"));
 
-let _toInt = _interopRequireDefault(require('./lib/toInt'));
+var _toInt = _interopRequireDefault(require("./lib/toInt"));
 
-let _toBoolean = _interopRequireDefault(require('./lib/toBoolean'));
+var _toBoolean = _interopRequireDefault(require("./lib/toBoolean"));
 
-let _equals = _interopRequireDefault(require('./lib/equals'));
+var _equals = _interopRequireDefault(require("./lib/equals"));
 
-let _contains = _interopRequireDefault(require('./lib/contains'));
+var _contains = _interopRequireDefault(require("./lib/contains"));
 
-let _matches = _interopRequireDefault(require('./lib/matches'));
+var _matches = _interopRequireDefault(require("./lib/matches"));
 
-let _isEmail = _interopRequireDefault(require('./lib/isEmail'));
+var _isEmail = _interopRequireDefault(require("./lib/isEmail"));
 
-let _isURL = _interopRequireDefault(require('./lib/isURL'));
+var _isURL = _interopRequireDefault(require("./lib/isURL"));
 
-let _isMACAddress = _interopRequireDefault(require('./lib/isMACAddress'));
+var _isMACAddress = _interopRequireDefault(require("./lib/isMACAddress"));
 
-let _isIP = _interopRequireDefault(require('./lib/isIP'));
+var _isIP = _interopRequireDefault(require("./lib/isIP"));
 
-let _isIPRange = _interopRequireDefault(require('./lib/isIPRange'));
+var _isIPRange = _interopRequireDefault(require("./lib/isIPRange"));
 
-let _isFQDN = _interopRequireDefault(require('./lib/isFQDN'));
+var _isFQDN = _interopRequireDefault(require("./lib/isFQDN"));
 
-let _isBoolean = _interopRequireDefault(require('./lib/isBoolean'));
+var _isBoolean = _interopRequireDefault(require("./lib/isBoolean"));
 
-let _isAlpha = _interopRequireWildcard(require('./lib/isAlpha'));
+var _isAlpha = _interopRequireWildcard(require("./lib/isAlpha"));
 
-let _isAlphanumeric = _interopRequireWildcard(require('./lib/isAlphanumeric'));
+var _isAlphanumeric = _interopRequireWildcard(require("./lib/isAlphanumeric"));
 
-let _isNumeric = _interopRequireDefault(require('./lib/isNumeric'));
+var _isNumeric = _interopRequireDefault(require("./lib/isNumeric"));
 
-let _isPort = _interopRequireDefault(require('./lib/isPort'));
+var _isPort = _interopRequireDefault(require("./lib/isPort"));
 
-let _isLowercase = _interopRequireDefault(require('./lib/isLowercase'));
+var _isLowercase = _interopRequireDefault(require("./lib/isLowercase"));
 
-let _isUppercase = _interopRequireDefault(require('./lib/isUppercase'));
+var _isUppercase = _interopRequireDefault(require("./lib/isUppercase"));
 
-let _isAscii = _interopRequireDefault(require('./lib/isAscii'));
+var _isAscii = _interopRequireDefault(require("./lib/isAscii"));
 
-let _isFullWidth = _interopRequireDefault(require('./lib/isFullWidth'));
+var _isFullWidth = _interopRequireDefault(require("./lib/isFullWidth"));
 
-let _isHalfWidth = _interopRequireDefault(require('./lib/isHalfWidth'));
+var _isHalfWidth = _interopRequireDefault(require("./lib/isHalfWidth"));
 
-let _isVariableWidth = _interopRequireDefault(require('./lib/isVariableWidth'));
+var _isVariableWidth = _interopRequireDefault(require("./lib/isVariableWidth"));
 
-let _isMultibyte = _interopRequireDefault(require('./lib/isMultibyte'));
+var _isMultibyte = _interopRequireDefault(require("./lib/isMultibyte"));
 
-let _isSurrogatePair = _interopRequireDefault(require('./lib/isSurrogatePair'));
+var _isSurrogatePair = _interopRequireDefault(require("./lib/isSurrogatePair"));
 
-let _isInt = _interopRequireDefault(require('./lib/isInt'));
+var _isInt = _interopRequireDefault(require("./lib/isInt"));
 
-let _isFloat = _interopRequireWildcard(require('./lib/isFloat'));
+var _isFloat = _interopRequireWildcard(require("./lib/isFloat"));
 
-let _isDecimal = _interopRequireDefault(require('./lib/isDecimal'));
+var _isDecimal = _interopRequireDefault(require("./lib/isDecimal"));
 
-let _isHexadecimal = _interopRequireDefault(require('./lib/isHexadecimal'));
+var _isHexadecimal = _interopRequireDefault(require("./lib/isHexadecimal"));
 
-let _isDivisibleBy = _interopRequireDefault(require('./lib/isDivisibleBy'));
+var _isDivisibleBy = _interopRequireDefault(require("./lib/isDivisibleBy"));
 
-let _isHexColor = _interopRequireDefault(require('./lib/isHexColor'));
+var _isHexColor = _interopRequireDefault(require("./lib/isHexColor"));
 
-let _isISRC = _interopRequireDefault(require('./lib/isISRC'));
+var _isISRC = _interopRequireDefault(require("./lib/isISRC"));
 
-let _isMD = _interopRequireDefault(require('./lib/isMD5'));
+var _isMD = _interopRequireDefault(require("./lib/isMD5"));
 
-let _isHash = _interopRequireDefault(require('./lib/isHash'));
+var _isHash = _interopRequireDefault(require("./lib/isHash"));
 
-let _isJWT = _interopRequireDefault(require('./lib/isJWT'));
+var _isJWT = _interopRequireDefault(require("./lib/isJWT"));
 
-let _isJSON = _interopRequireDefault(require('./lib/isJSON'));
+var _isJSON = _interopRequireDefault(require("./lib/isJSON"));
 
-let _isEmpty = _interopRequireDefault(require('./lib/isEmpty'));
+var _isEmpty = _interopRequireDefault(require("./lib/isEmpty"));
 
-let _isLength = _interopRequireDefault(require('./lib/isLength'));
+var _isLength = _interopRequireDefault(require("./lib/isLength"));
 
-let _isByteLength = _interopRequireDefault(require('./lib/isByteLength'));
+var _isByteLength = _interopRequireDefault(require("./lib/isByteLength"));
 
-let _isUUID = _interopRequireDefault(require('./lib/isUUID'));
+var _isUUID = _interopRequireDefault(require("./lib/isUUID"));
 
-let _isMongoId = _interopRequireDefault(require('./lib/isMongoId'));
+var _isMongoId = _interopRequireDefault(require("./lib/isMongoId"));
 
-let _isAfter = _interopRequireDefault(require('./lib/isAfter'));
+var _isAfter = _interopRequireDefault(require("./lib/isAfter"));
 
-let _isBefore = _interopRequireDefault(require('./lib/isBefore'));
+var _isBefore = _interopRequireDefault(require("./lib/isBefore"));
 
-let _isIn = _interopRequireDefault(require('./lib/isIn'));
+var _isIn = _interopRequireDefault(require("./lib/isIn"));
 
-let _isCreditCard = _interopRequireDefault(require('./lib/isCreditCard'));
+var _isCreditCard = _interopRequireDefault(require("./lib/isCreditCard"));
 
-let _isIdentityCard = _interopRequireDefault(require('./lib/isIdentityCard'));
+var _isIdentityCard = _interopRequireDefault(require("./lib/isIdentityCard"));
 
-let _isISIN = _interopRequireDefault(require('./lib/isISIN'));
+var _isISIN = _interopRequireDefault(require("./lib/isISIN"));
 
-let _isISBN = _interopRequireDefault(require('./lib/isISBN'));
+var _isISBN = _interopRequireDefault(require("./lib/isISBN"));
 
-let _isISSN = _interopRequireDefault(require('./lib/isISSN'));
+var _isISSN = _interopRequireDefault(require("./lib/isISSN"));
 
-let _isMobilePhone = _interopRequireWildcard(require('./lib/isMobilePhone'));
+var _isMobilePhone = _interopRequireWildcard(require("./lib/isMobilePhone"));
 
-let _isCurrency = _interopRequireDefault(require('./lib/isCurrency'));
+var _isCurrency = _interopRequireDefault(require("./lib/isCurrency"));
 
-let _isISO = _interopRequireDefault(require('./lib/isISO8601'));
+var _isISO = _interopRequireDefault(require("./lib/isISO8601"));
 
-let _isRFC = _interopRequireDefault(require('./lib/isRFC3339'));
+var _isRFC = _interopRequireDefault(require("./lib/isRFC3339"));
 
-let _isISO31661Alpha = _interopRequireDefault(require('./lib/isISO31661Alpha2'));
+var _isISO31661Alpha = _interopRequireDefault(require("./lib/isISO31661Alpha2"));
 
-let _isISO31661Alpha2 = _interopRequireDefault(require('./lib/isISO31661Alpha3'));
+var _isISO31661Alpha2 = _interopRequireDefault(require("./lib/isISO31661Alpha3"));
 
-let _isBase = _interopRequireDefault(require('./lib/isBase64'));
+var _isBase = _interopRequireDefault(require("./lib/isBase64"));
 
-let _isDataURI = _interopRequireDefault(require('./lib/isDataURI'));
+var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
-let _isMagnetURI = _interopRequireDefault(require('./lib/isMagnetURI'));
+var _isMagnetURI = _interopRequireDefault(require("./lib/isMagnetURI"));
 
-let _isMimeType = _interopRequireDefault(require('./lib/isMimeType'));
+var _isMimeType = _interopRequireDefault(require("./lib/isMimeType"));
 
-let _isLatLong = _interopRequireDefault(require('./lib/isLatLong'));
+var _isLatLong = _interopRequireDefault(require("./lib/isLatLong"));
 
-let _isPostalCode = _interopRequireWildcard(require('./lib/isPostalCode'));
+var _isPostalCode = _interopRequireWildcard(require("./lib/isPostalCode"));
 
-let _ltrim = _interopRequireDefault(require('./lib/ltrim'));
+var _ltrim = _interopRequireDefault(require("./lib/ltrim"));
 
-let _rtrim = _interopRequireDefault(require('./lib/rtrim'));
+var _rtrim = _interopRequireDefault(require("./lib/rtrim"));
 
-let _trim = _interopRequireDefault(require('./lib/trim'));
+var _trim = _interopRequireDefault(require("./lib/trim"));
 
-let _escape = _interopRequireDefault(require('./lib/escape'));
+var _escape = _interopRequireDefault(require("./lib/escape"));
 
-let _unescape = _interopRequireDefault(require('./lib/unescape'));
+var _unescape = _interopRequireDefault(require("./lib/unescape"));
 
-let _stripLow = _interopRequireDefault(require('./lib/stripLow'));
+var _stripLow = _interopRequireDefault(require("./lib/stripLow"));
 
-let _whitelist = _interopRequireDefault(require('./lib/whitelist'));
+var _whitelist = _interopRequireDefault(require("./lib/whitelist"));
 
-let _blacklist = _interopRequireDefault(require('./lib/blacklist'));
+var _blacklist = _interopRequireDefault(require("./lib/blacklist"));
 
-let _isWhitelisted = _interopRequireDefault(require('./lib/isWhitelisted'));
+var _isWhitelisted = _interopRequireDefault(require("./lib/isWhitelisted"));
 
-let _normalizeEmail = _interopRequireDefault(require('./lib/normalizeEmail'));
+var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
-let _toString = _interopRequireDefault(require('./lib/util/toString'));
+var _toString = _interopRequireDefault(require("./lib/util/toString"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; }  var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj;  }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-let version = '1.0.0';
-let validator = {
-  version,
+var version = '1.0.0';
+var validator = {
+  version: version,
   toDate: _toDate.default,
   toFloat: _toFloat.default,
   toInt: _toInt.default,
@@ -235,9 +235,9 @@ let validator = {
   blacklist: _blacklist.default,
   isWhitelisted: _isWhitelisted.default,
   normalizeEmail: _normalizeEmail.default,
-  toString: _toString.default,
+  toString: _toString.default
 };
-let _default = validator;
+var _default = validator;
 exports.default = _default;
 module.exports = exports.default;
 module.exports.default = exports.default;
