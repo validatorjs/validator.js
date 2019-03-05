@@ -201,6 +201,7 @@ describe('Validators', () => {
         ' Some Name<leading_space_in_name@aftership.com>',
         ' <name_is_space@aftership.com>',
         '<no_name@aftership.com>',
+        'Some Name<emoji_in_address🍈@aftership.com>',
       ],
     });
   });
