@@ -3,3 +3,9 @@ node_modules
 coverage
 package-lock.json
 yarn.lock
+
+# ------------------------------------------------------------------------------
+# for aftership-publish making use of https://github.com/inikulin/publish-please
+# ------------------------------------------------------------------------------
+.publishrc
+.npmignore

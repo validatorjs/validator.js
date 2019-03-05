@@ -1,5 +1,5 @@
 {
-  "name": "aftership-validator",
+  "name": "@aftership/validator",
   "description": "String validation and sanitization",
   "version": "1.0.0",
   "homepage": "https://github.com/AfterShip/validator.js",
