@@ -1,7 +1,7 @@
 {
   "name": "aftership-validator",
   "description": "String validation and sanitization",
-  "version": "10.11.1",
+  "version": "100.0.0",
   "homepage": "https://github.com/chriso/validator.js",
   "files": [
     "index.js",
