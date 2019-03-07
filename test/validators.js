@@ -178,6 +178,10 @@ describe('Validators', () => {
         'Name <some.name.midd.leNa.me+extension@GoogleMail.com>',
         'Name<some.name.midd.leNa.me+extension@GoogleMail.com>',
         'Some Name <foo@gmail.com>',
+        'Name🍓With🍑Emoji🚴‍♀️🏆<test@aftership.com>',
+        '🍇🍗🍑<only_emoji@aftership.com>',
+        '🍇🍗🇧🇯 <emoji_with_space@aftership.com>',
+        '<displayNameInBrackets><jh@gmail.com>',
       ],
       invalid: [
         'invalidemail@',
@@ -195,6 +199,8 @@ describe('Validators', () => {
         'Some Name < foo@bar.co.uk >',
         'Name foo@bar.co.uk',
         'Some Name <some..name@gmail.com>',
+        'Some Name<emoji_in_address🍈@aftership.com>',
+        'invisibleCharacter\u001F<jh@gmail.com>',
       ],
     });
   });
