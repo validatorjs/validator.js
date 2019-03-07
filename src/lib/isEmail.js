@@ -14,6 +14,8 @@ const default_email_options = {
 
 /* eslint-disable max-len */
 /* eslint-disable no-control-regex */
+const distinguishDisplayNameAndEmail = /^(.+)(<.+>)$/;
+const emoji = /(\ud83c[\udf00-\udfff])|(\ud83d[\udc00-\ude4f\ude80-\udeff])|[\u2600-\u2B55]/g;
 const displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
 const emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 const gmailUserPart = /^[a-z\d]+$/;
@@ -23,9 +25,26 @@ const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5
 /* eslint-enable max-len */
 /* eslint-enable no-control-regex */
 
+/**
+ * Replace the emojis in display name to a non-empty normal character
+ * @param {String} str input
+ */
+function ignoreEmojiInDisplayName(str) {
+  const matched = str.match(distinguishDisplayNameAndEmail);
+  // have no display name in the str
+  if (!matched) {
+    return str;
+  }
+
+  const name = matched[1];
+  const email = matched[2];
+  return name.replace(emoji, '_') + email;
+}
+
 export default function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
+  str = ignoreEmojiInDisplayName(str);
 
   if (options.require_display_name || options.allow_display_name) {
     const display_email = str.match(displayName);
@@ -69,7 +88,7 @@ export default function isEmail(str, options) {
   }
 
   if (!isByteLength(user, { max: 64 }) ||
-            !isByteLength(domain, { max: 254 })) {
+    !isByteLength(domain, { max: 254 })) {
     return false;
   }
 
