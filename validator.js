@@ -296,9 +296,8 @@ var default_email_options = {
 
 /* eslint-disable no-control-regex */
 
-var distinguishDisplayNameAndEmail = /^(.+)(<.+>)$/;
-var emoji = /(\ud83c[\udf00-\udfff])|(\ud83d[\udc00-\ude4f\ude80-\udeff])|[\u2600-\u2B55]/g;
-var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
+var displayName = /^[^\x00-\x1F\x7F-\x9F\cX]*<(.+)>$/i; // display name supports any character except invisible characters
+
 var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 var gmailUserPart = /^[a-z\d]+$/;
 var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
@@ -308,27 +307,9 @@ var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-
 
 /* eslint-enable no-control-regex */
 
-/**
- * Replace the emojis in display name to a non-empty normal character
- * @param {String} str input
- */
-
-function ignoreEmojiInDisplayName(str) {
-  var matched = str.match(distinguishDisplayNameAndEmail); // have no display name in the str
-
-  if (!matched) {
-    return str;
-  }
-
-  var name = matched[1];
-  var email = matched[2];
-  return name.replace(emoji, '_') + email;
-}
-
 function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
-  str = ignoreEmojiInDisplayName(str);
 
   if (options.require_display_name || options.allow_display_name) {
     var display_email = str.match(displayName);
@@ -1845,7 +1826,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '100.0.0';
+var version = '100.0.1';
 var validator = {
   version: version,
   toDate: toDate,
