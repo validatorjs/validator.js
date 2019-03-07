@@ -1845,7 +1845,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '10.11.1';
+var version = '10.11.2';
 var validator = {
   version: version,
   toDate: toDate,
