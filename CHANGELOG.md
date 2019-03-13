@@ -1,4 +1,21 @@
-#### HEAD
+#### 10.11.0
+
+- Fix imports like `import .. from "validator/lib/.."`
+  ([#961](https://github.com/chriso/validator.js/pull/961))
+- New locale
+  ([#958](https://github.com/chriso/validator.js/pull/958))
+
+#### 10.10.0
+
+- `isISO8601()` strict mode now works in the browser
+  ([#932](https://github.com/chriso/validator.js/pull/932))
+- New and improved locales
+  ([#931](https://github.com/chriso/validator.js/pull/931),
+   [#933](https://github.com/chriso/validator.js/pull/933),
+   [#947](https://github.com/chriso/validator.js/pull/947),
+   [#950](https://github.com/chriso/validator.js/pull/950))
+
+#### 10.9.0
 
 - Added an option to `isURL()` to reject email-like URLs
   ([#901](https://github.com/chriso/validator.js/pull/901))
@@ -9,7 +26,10 @@
 - New and improved locales
   ([#899](https://github.com/chriso/validator.js/pull/899),
    [#904](https://github.com/chriso/validator.js/pull/904),
-   [#913](https://github.com/chriso/validator.js/pull/913))
+   [#913](https://github.com/chriso/validator.js/pull/913),
+   [#916](https://github.com/chriso/validator.js/pull/916),
+   [#925](https://github.com/chriso/validator.js/pull/925),
+   [#928](https://github.com/chriso/validator.js/pull/928))
 
 #### 10.8.0
 

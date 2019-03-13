@@ -155,7 +155,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '10.8.0';
+var version = '10.11.0';
 var validator = {
   version: version,
   toDate: _toDate.default,
@@ -240,3 +240,4 @@ var validator = {
 var _default = validator;
 exports.default = _default;
 module.exports = exports.default;
+module.exports.default = exports.default;
