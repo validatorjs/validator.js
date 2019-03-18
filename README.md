@@ -5,8 +5,11 @@ This is a project forked from [validator.js](https://github.com/chriso/validator
 `npm install aftership-validator-js`
 
 ## New features
-1. **isEmail** supports display name with any characters other than invisible character
+1. For function **isEmail**, we use rules below to validate display name (refer to the [RFC2822](https://tools.ietf.org/html/rfc2822#appendix-A.1.2)):
+	1. The display name of an email address can be any characters(but we ruled out invisible characters in the code, so can't be invisible characters)
+	2. If there is any illegal character such as angled-brackets/quotes/semicolon, must enclose the display name in double-quotes
+	3. Quotes in display name should start with backslash \
 
-	`emoji name🍅<test@aftership.com>` can pass the validation.
+
    
   
