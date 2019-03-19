@@ -14,7 +14,7 @@ const default_email_options = {
 
 /* eslint-disable max-len */
 /* eslint-disable no-control-regex */
-const displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
+const splitNameAddress = /^([^\x00-\x1F\x7F-\x9F\cX]+)<(.+)>$/i;
 const emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 const gmailUserPart = /^[a-z\d]+$/;
 const quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
@@ -23,14 +23,53 @@ const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5
 /* eslint-enable max-len */
 /* eslint-enable no-control-regex */
 
+/**
+ * Validate display name according to the RFC2822: https://tools.ietf.org/html/rfc2822#appendix-A.1.2
+ * @param {String} display_name
+ */
+function validateDisplayName(display_name) {
+  const trim_quotes = display_name.match(/^"(.+)"$/i);
+  const display_name_without_quotes = trim_quotes ? trim_quotes[1] : display_name;
+
+  // display name with only spaces is not valid
+  if (!display_name_without_quotes.trim()) {
+    return false;
+  }
+
+  // check whether display name contains illegal character
+  const contains_illegal = /[\.";<>]/.test(display_name_without_quotes);
+  if (contains_illegal) {
+    // if contains illegal characters,
+    // must to be enclosed in double-quotes, otherwise it's not a valid display name
+    if (!trim_quotes) {
+      return false;
+    }
+
+    // the quotes in display name must start with character symbol \
+    const all_start_with_back_slash =
+      display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
+    if (!all_start_with_back_slash) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
 export default function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
 
   if (options.require_display_name || options.allow_display_name) {
-    const display_email = str.match(displayName);
+    const display_email = str.match(splitNameAddress);
     if (display_email) {
-      str = display_email[1];
+      let display_name;
+      [, display_name, str] = display_email;
+
+      if (!validateDisplayName(display_name)) {
+        return false;
+      }
     } else if (options.require_display_name) {
       return false;
     }
