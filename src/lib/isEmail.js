@@ -36,7 +36,7 @@ export default function isEmail(str, options) {
       return false;
     }
   }
-  if(!options.ignore_max_length && str.length > defaultMaxEmailLength){
+  if (!options.ignore_max_length && str.length > defaultMaxEmailLength) {
     return false;
   }
 
