@@ -2,6 +2,7 @@
   "name": "validator",
   "description": "String validation and sanitization",
   "version": "10.11.0",
+  "sideEffects" false,
   "homepage": "https://github.com/chriso/validator.js",
   "files": [
     "index.js",
