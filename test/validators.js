@@ -18,7 +18,7 @@ function test(options) {
         let warning = format(
           'validator.%s(%s) failed but should have passed',
           options.validator,
-          args.join(', '),
+          args.join(', ')
         );
         throw new Error(warning);
       }
@@ -31,7 +31,7 @@ function test(options) {
         let warning = format(
           'validator.%s(%s) passed but should have failed',
           options.validator,
-          args.join(', '),
+          args.join(', ')
         );
         throw new Error(warning);
       }
@@ -67,7 +67,7 @@ describe('Validators', () => {
         `${repeat('a', 64)}@${repeat('a', 63)}.com`,
         `${repeat('a', 64)}@${repeat('a', 63)}.${repeat('a', 63)}.${repeat(
           'a',
-          63,
+          63
         )}.${repeat('a', 58)}.com`,
         `${repeat('a', 64)}@${repeat('a', 63)}.com`,
         `${repeat('a', 31)}@gmail.com`,
