@@ -1,72 +1,70 @@
 {
-  "name": "validator",
-  "description": "String validation and sanitization",
-  "version": "10.12.0",
-  "sideEffects" false,
-  "homepage": "https://github.com/chriso/validator.js",
-  "files": [
-    "index.js",
-    "lib",
-    "README.md",
-    "LICENCE",
-    "validator.js",
-    "validator.min.js"
-  ],
-  "keywords": [
-    "validator",
-    "validation",
-    "validate",
-    "sanitization",
-    "sanitize",
-    "sanitisation",
-    "sanitise",
-    "assert"
-  ],
-  "author": "Chris O'Hara <cohara87@gmail.com>",
-  "contributors": [
-    {
-      "name": "Anthony Nandaa",
-      "url": "https://github.com/profnandaa"
-    }
-  ],
-  "main": "index.js",
-  "bugs": {
-    "url": "https://github.com/chriso/validator.js/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/chriso/validator.js.git"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/register": "^7.0.0",
-    "babel-eslint": "^10.0.1",
-    "babel-plugin-add-module-exports": "^1.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.11.0",
-    "mocha": "^5.1.1",
-    "rollup": "^0.43.0",
-    "rollup-plugin-babel": "^4.0.1",
-    "uglify-js": "^3.0.19"
-  },
-  "scripts": {
-    "lint": "eslint src test",
-    "lint:fix": "eslint --fix src test",
-    "clean:node": "rm -rf index.js lib",
-    "clean:browser": "rm -rf validator*.js",
-    "clean": "npm run clean:node && npm run clean:browser",
-    "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
-    "build:browser": "node --require @babel/register build-browser && npm run minify",
-    "build:node": "babel src -d .",
-    "build": "npm run build:browser && npm run build:node",
-    "pretest": "npm run lint && npm run build",
-    "test": "mocha --require @babel/register --reporter dot"
-  },
-  "engines": {
-    "node": ">= 0.10"
-  },
-  "license": "MIT"
+    "name": "validator",
+    "description": "String validation and sanitization",
+    "version": "10.13.0",
+    "sideEffects": false,
+    "homepage": "https://github.com/chriso/validator.js",
+    "files": [
+        "index.js",
+        "lib",
+        "README.md",
+        "LICENCE",
+        "validator.js",
+        "validator.min.js"
+    ],
+    "keywords": [
+        "validator",
+        "validation",
+        "validate",
+        "sanitization",
+        "sanitize",
+        "sanitisation",
+        "sanitise",
+        "assert"
+    ],
+    "author": "Chris O'Hara <cohara87@gmail.com>",
+    "contributors": [{
+        "name": "Anthony Nandaa",
+        "url": "https://github.com/profnandaa"
+    }],
+    "main": "index.js",
+    "bugs": {
+        "url": "https://github.com/chriso/validator.js/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/chriso/validator.js.git"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.0.0",
+        "@babel/core": "^7.0.0",
+        "@babel/preset-env": "^7.0.0",
+        "@babel/register": "^7.0.0",
+        "babel-eslint": "^10.0.1",
+        "babel-plugin-add-module-exports": "^1.0.0",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb-base": "^12.1.0",
+        "eslint-plugin-import": "^2.11.0",
+        "mocha": "^5.1.1",
+        "rollup": "^0.43.0",
+        "rollup-plugin-babel": "^4.0.1",
+        "uglify-js": "^3.0.19"
+    },
+    "scripts": {
+        "lint": "eslint src test",
+        "lint:fix": "eslint --fix src test",
+        "clean:node": "rm -rf index.js lib",
+        "clean:browser": "rm -rf validator*.js",
+        "clean": "npm run clean:node && npm run clean:browser",
+        "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
+        "build:browser": "node --require @babel/register build-browser && npm run minify",
+        "build:node": "babel src -d .",
+        "build": "npm run build:browser && npm run build:node",
+        "pretest": "npm run lint && npm run build",
+        "test": "mocha --require @babel/register --reporter dot"
+    },
+    "engines": {
+        "node": ">= 0.10"
+    },
+    "license": "MIT"
 }
