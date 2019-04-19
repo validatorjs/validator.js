@@ -26,6 +26,7 @@ const patterns = {
   GR: /^\d{3}\s?\d{2}$/,
   HR: /^([1-5]\d{4}$)/,
   HU: fourDigit,
+  ID: fiveDigit,
   IL: fiveDigit,
   IN: sixDigit,
   IS: threeDigit,
