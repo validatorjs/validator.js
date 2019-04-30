@@ -34,8 +34,13 @@ describe('Sanitizers', () => {
         '': false,
         1: true,
         true: true,
+        True: true,
+        TRUE: true,
         foobar: true,
         '   ': true,
+        false: false,
+        False: false,
+        FALSE: false,
       },
     });
     test({
@@ -46,8 +51,13 @@ describe('Sanitizers', () => {
         '': false,
         1: true,
         true: true,
+        True: true,
+        TRUE: true,
         foobar: false,
         '   ': false,
+        false: false,
+        False: false,
+        FALSE: false,
       },
     });
   });
