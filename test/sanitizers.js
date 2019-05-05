@@ -96,6 +96,12 @@ describe('Sanitizers', () => {
       args: ['01'],
       expect: { '010100201000': '0101002' },
     });
+
+    test({
+      sanitizer: 'rtrim',
+      args: ['\\S'],
+      expect: { '01010020100001\\S': '01010020100001' },
+  });
   });
 
   it('should convert strings to integers', () => {
