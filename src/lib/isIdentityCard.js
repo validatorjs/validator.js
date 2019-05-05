@@ -32,7 +32,7 @@ const validators = {
   },
 };
 
-export default function isIdentityCard(str, locale = 'any') {
+export default function isIdentityCard(str, locale) {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
