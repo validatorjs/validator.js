@@ -1872,6 +1872,28 @@ describe('Validators', () => {
 
     test({
       validator: 'isDecimal',
+      args: [{ locale: ['ar-EG'] }],
+      valid: [
+        '0.01',
+      ],
+      invalid: [
+        '0,01',
+      ],
+    });
+
+    test({
+      validator: 'isDecimal',
+      args: [{ locale: ['en-ZM'] }],
+      valid: [
+        '0,01',
+      ],
+      invalid: [
+        '0.01',
+      ],
+    });
+
+    test({
+      validator: 'isDecimal',
       args: [{ force_decimal: true }],
       valid: [
         '0.01',
