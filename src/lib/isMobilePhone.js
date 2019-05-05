@@ -88,6 +88,8 @@ export default function isMobilePhone(str, locale, options) {
   }
   if (Array.isArray(locale)) {
     return locale.some((key) => {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if (phones.hasOwnProperty(key)) {
         const phone = phones[key];
         if (phone.test(str)) {
@@ -101,6 +103,7 @@ export default function isMobilePhone(str, locale, options) {
     // alias falsey locale as 'any'
   } else if (!locale || locale === 'any') {
     for (const key in phones) {
+      // istanbul ignore else
       if (phones.hasOwnProperty(key)) {
         const phone = phones[key];
         if (phone.test(str)) {

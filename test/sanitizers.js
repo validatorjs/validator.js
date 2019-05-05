@@ -1,5 +1,5 @@
 import { format } from 'util';
-import validator from '../index';
+import validator from '../src/index';
 
 function test(options) {
   let args = options.args || [];
@@ -97,6 +97,7 @@ describe('Sanitizers', () => {
       expect: { '\\S01010020100001': '01010020100001' },
     });
 
+
     test({
       sanitizer: 'rtrim',
       args: ['01'],
@@ -107,7 +108,7 @@ describe('Sanitizers', () => {
       sanitizer: 'rtrim',
       args: ['\\S'],
       expect: { '01010020100001\\S': '01010020100001' },
-  });
+    });
   });
 
   it('should convert strings to integers', () => {
@@ -258,6 +259,10 @@ describe('Sanitizers', () => {
         'test@yandex.ua': 'test@yandex.ru',
         'test@yandex.com': 'test@yandex.ru',
         'test@yandex.by': 'test@yandex.ru',
+        '@gmail.com': false,
+        '@icloud.com': false,
+        '@outlook.com': false,
+        '@yahoo.com': false,
       },
     });
 
@@ -280,6 +285,7 @@ describe('Sanitizers', () => {
         'SOME.name@yahoo.ca': 'some.name@yahoo.ca',
         'SOME.name@outlook.ie': 'some.name@outlook.ie',
         'SOME.name@me.com': 'some.name@me.com',
+        'SOME.name@yandex.ru': 'some.name@yandex.ru',
       },
     });
 
@@ -292,6 +298,7 @@ describe('Sanitizers', () => {
         icloud_lowercase: false,
         outlookdotcom_lowercase: false,
         yahoo_lowercase: false,
+        yandex_lowercase: false,
       }],
       expect: {
         'TEST@FOO.COM': 'TEST@foo.com', // all_lowercase
@@ -301,6 +308,7 @@ describe('Sanitizers', () => {
         'ME@outlook.COM': 'ME@outlook.com', // outlookdotcom_lowercase
         'JOHN@live.CA': 'JOHN@live.ca', // outlookdotcom_lowercase
         'ME@ymail.COM': 'ME@ymail.com', // yahoo_lowercase
+        'ME@yandex.RU': 'ME@yandex.ru', // yandex_lowercase
       },
     });
 

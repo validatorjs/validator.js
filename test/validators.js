@@ -2,7 +2,7 @@ import { format } from 'util';
 import assert from 'assert';
 import fs from 'fs';
 import vm from 'vm';
-import validator from '../index';
+import validator from '../src/index';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
