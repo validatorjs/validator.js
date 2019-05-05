@@ -9,6 +9,20 @@ let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString(
 function test(options) {
   let args = options.args || [];
   args.unshift(null);
+  if (options.error) {
+    options.error.forEach((error) => {
+      args[0] = error;
+      try {
+        assert.throws(() => validator[options.validator](...args));
+      } catch (err) {
+        let warning = format(
+          'validator.%s(%s) passed but should error',
+          options.validator, args.join(', ')
+        );
+        throw new Error(warning);
+      }
+    });
+  }
   if (options.valid) {
     options.valid.forEach((valid) => {
       args[0] = valid;
@@ -1203,6 +1217,17 @@ describe('Validators', () => {
     });
   });
 
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['is-NOT'],
+      error: [
+        'abc',
+        'ABC',
+      ],
+  });
+  });
+
   it('should validate alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
@@ -1597,12 +1622,14 @@ describe('Validators', () => {
   });
 
   it('should error on invalid locale', () => {
-    try {
-      validator.isAlphanumeric('abc123', 'in-INVALID');
-      assert(false);
-    } catch (err) {
-      assert(true);
-    }
+    test({
+      validator: 'isAlphanumeric',
+      args: ['is-NOT'],
+      error: [
+        '1234568960',
+        'abc123',
+      ],
+  });
   });
 
   it('should validate numeric strings', () => {
@@ -1963,6 +1990,18 @@ describe('Validators', () => {
         '0.1a',
         'a',
         '\n',
+      ],
+    });
+  });
+
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isDecimal',
+      args: [{ locale: ['is-NOT'] }],
+      error: [
+        '123',
+        '0.01',
+        '0,01',
       ],
     });
   });
@@ -3016,6 +3055,17 @@ describe('Validators', () => {
         ...allInvalid,
       ],
       args: ['any'],
+    });
+  });
+
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isIdentityCard',
+      args: ['is-NOT'],
+      error: [
+        '99999999R',
+        '12345678Z',
+      ],
     });
   });
 
@@ -4821,6 +4871,17 @@ describe('Validators', () => {
     });
   });
 
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isMobilePhone',
+      args: [{ locale: ['is-NOT'] }],
+      error: [
+        '+123456789',
+        '012345',
+      ],
+    });
+  });
+
   it('should validate currency', () => {
     test({
       validator: 'isCurrency',
@@ -5908,9 +5969,9 @@ describe('Validators', () => {
   });
 
   it('should error on non-string input', () => {
-    let empty = [undefined, null, [], NaN];
-    empty.forEach((item) => {
-      assert.throws(validator.isEmpty.bind(null, item));
+    test({
+      validator: 'isEmpty',
+      error: [undefined, null, [], NaN],
     });
   });
 
@@ -6255,6 +6316,17 @@ describe('Validators', () => {
         '13',
       ],
       args: ['any'],
+    });
+  });
+
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isPostalCode',
+      args: ['is-NOT'],
+      error: [
+        '293940',
+        '1234',
+      ],
     });
   });
 
