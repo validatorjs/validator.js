@@ -66,6 +66,13 @@ export default function isEmail(str, options) {
     if (display_email) {
       let display_name;
       [, display_name, str] = display_email;
+      // sometimes need to trim the last space to get the display name
+      // because there may be a space between display name and email address
+      // eg. myname <address@gmail.com>
+      // the display name is `myname` instead of `myname `, so need to trim the last space
+      if (display_name.endsWith(' ')) {
+        display_name = display_name.substr(0, display_name.length - 1);
+      }
 
       if (!validateDisplayName(display_name)) {
         return false;

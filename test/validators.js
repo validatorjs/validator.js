@@ -183,6 +183,7 @@ describe('Validators', () => {
         '"<displayNameInBrackets>"<jh@gmail.com>',
         '"\\"quotes\\""<jh@gmail.com>',
         '"name;"<jh@gmail.com>',
+        '"name;" <jh@gmail.com>',
       ],
       invalid: [
         'invalidemail@',
