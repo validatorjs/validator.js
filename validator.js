@@ -40,191 +40,6 @@ function _typeof(obj) {
   return _typeof(obj);
 }
 
-function _toArray(arr) {
-  return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-function _toPrimitive(input, hint) {
-  if (typeof input !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (typeof res !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-
-  return (hint === "string" ? String : Number)(input);
-}
-
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-
-  return typeof key === "symbol" ? key : String(key);
-}
-
-function _addElementPlacement(element, placements, silent) {
-  var keys = placements[element.placement];
-
-  if (!silent && keys.indexOf(element.key) !== -1) {
-    throw new TypeError("Duplicated element (" + element.key + ")");
-  }
-
-  keys.push(element.key);
-}
-
-function _fromElementDescriptor(element) {
-  var obj = {
-    kind: element.kind,
-    key: element.key,
-    placement: element.placement,
-    descriptor: element.descriptor
-  };
-  var desc = {
-    value: "Descriptor",
-    configurable: true
-  };
-  Object.defineProperty(obj, Symbol.toStringTag, desc);
-  if (element.kind === "field") obj.initializer = element.initializer;
-  return obj;
-}
-
-function _toElementDescriptors(elementObjects) {
-  if (elementObjects === undefined) return;
-  return _toArray(elementObjects).map(function (elementObject) {
-    var element = _toElementDescriptor(elementObject);
-
-    _disallowProperty(elementObject, "finisher", "An element descriptor");
-
-    _disallowProperty(elementObject, "extras", "An element descriptor");
-
-    return element;
-  });
-}
-
-function _toElementDescriptor(elementObject) {
-  var kind = String(elementObject.kind);
-
-  if (kind !== "method" && kind !== "field") {
-    throw new TypeError('An element descriptor\'s .kind property must be either "method" or' + ' "field", but a decorator created an element descriptor with' + ' .kind "' + kind + '"');
-  }
-
-  var key = _toPropertyKey(elementObject.key);
-
-  var placement = String(elementObject.placement);
-
-  if (placement !== "static" && placement !== "prototype" && placement !== "own") {
-    throw new TypeError('An element descriptor\'s .placement property must be one of "static",' + ' "prototype" or "own", but a decorator created an element descriptor' + ' with .placement "' + placement + '"');
-  }
-
-  var descriptor = elementObject.descriptor;
-
-  _disallowProperty(elementObject, "elements", "An element descriptor");
-
-  var element = {
-    kind: kind,
-    key: key,
-    placement: placement,
-    descriptor: Object.assign({}, descriptor)
-  };
-
-  if (kind !== "field") {
-    _disallowProperty(elementObject, "initializer", "A method descriptor");
-  } else {
-    _disallowProperty(descriptor, "get", "The property descriptor of a field descriptor");
-
-    _disallowProperty(descriptor, "set", "The property descriptor of a field descriptor");
-
-    _disallowProperty(descriptor, "value", "The property descriptor of a field descriptor");
-
-    element.initializer = elementObject.initializer;
-  }
-
-  return element;
-}
-
-function _toElementFinisherExtras(elementObject) {
-  var element = _toElementDescriptor(elementObject);
-
-  var finisher = _optionalCallableProperty(elementObject, "finisher");
-
-  var extras = _toElementDescriptors(elementObject.extras);
-
-  return {
-    element: element,
-    finisher: finisher,
-    extras: extras
-  };
-}
-
-function _fromClassDescriptor(elements) {
-  var obj = {
-    kind: "class",
-    elements: elements.map(_fromElementDescriptor)
-  };
-  var desc = {
-    value: "Descriptor",
-    configurable: true
-  };
-  Object.defineProperty(obj, Symbol.toStringTag, desc);
-  return obj;
-}
-
-function _toClassDescriptor(obj) {
-  var kind = String(obj.kind);
-
-  if (kind !== "class") {
-    throw new TypeError('A class descriptor\'s .kind property must be "class", but a decorator' + ' created a class descriptor with .kind "' + kind + '"');
-  }
-
-  _disallowProperty(obj, "key", "A class descriptor");
-
-  _disallowProperty(obj, "placement", "A class descriptor");
-
-  _disallowProperty(obj, "descriptor", "A class descriptor");
-
-  _disallowProperty(obj, "initializer", "A class descriptor");
-
-  _disallowProperty(obj, "extras", "A class descriptor");
-
-  var finisher = _optionalCallableProperty(obj, "finisher");
-
-  var elements = _toElementDescriptors(obj.elements);
-
-  return {
-    elements: elements,
-    finisher: finisher
-  };
-}
-
-function _disallowProperty(obj, name, objectType) {
-  if (obj[name] !== undefined) {
-    throw new TypeError(objectType + " can't have a ." + name + " property.");
-  }
-}
-
-function _optionalCallableProperty(obj, name) {
-  var value = obj[name];
-
-  if (value !== undefined && typeof value !== "function") {
-    throw new TypeError("Expected '" + name + "' to be a function");
-  }
-
-  return value;
-}
-
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
@@ -887,14 +702,14 @@ function isNumeric(str, options) {
   return numeric.test(str);
 }
 
-var int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
+var _int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
 var intLeadingZeroes = /^[-+]?[0-9]+$/;
 function isInt(str, options) {
   assertString(str);
   options = options || {}; // Get the regex to use for testing, based on whether
   // leading zeroes are allowed or not.
 
-  var regex = options.hasOwnProperty('allow_leading_zeroes') && !options.allow_leading_zeroes ? int : intLeadingZeroes; // Check min/max/lt/gt
+  var regex = options.hasOwnProperty('allow_leading_zeroes') && !options.allow_leading_zeroes ? _int : intLeadingZeroes; // Check min/max/lt/gt
 
   var minCheckPassed = !options.hasOwnProperty('min') || str >= options.min;
   var maxCheckPassed = !options.hasOwnProperty('max') || str <= options.max;
@@ -966,14 +781,15 @@ function isSurrogatePair(str) {
 function isFloat(str, options) {
   assertString(str);
   options = options || {};
-  var float = new RegExp("^(?:[-+])?(?:[0-9]+)?(?:\\".concat(options.locale ? decimal[options.locale] : '.', "[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$"));
+
+  var _float = new RegExp("^(?:[-+])?(?:[0-9]+)?(?:\\".concat(options.locale ? decimal[options.locale] : '.', "[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$"));
 
   if (str === '' || str === '.' || str === '-' || str === '+') {
     return false;
   }
 
   var value = parseFloat(str.replace(',', '.'));
-  return float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
+  return _float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 var locales$2 = Object.keys(decimal);
 
@@ -1219,8 +1035,8 @@ var validators = {
     } // validate the control digit
 
 
-    var number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, function (char) {
-      return charsValue[char];
+    var number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, function (_char) {
+      return charsValue[_char];
     });
     return sanitized.endsWith(controlDigits[number % 23]);
   }
@@ -1365,7 +1181,7 @@ function isISSN(str) {
 var phones = {
   'ar-AE': /^((\+?971)|0)?5[024568]\d{7}$/,
   'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
-  'ar-EG': /^((\+?20)|0)?1[012]\d{8}$/,
+  'ar-EG': /^((\+?20)|0)?1[0125]\d{8}$/,
   'ar-IQ': /^(\+?964|0)?7[0-9]\d{8}$/,
   'ar-JO': /^(\+?962|0)?7[789]\d{7}$/,
   'ar-KW': /^(\+?965)[569]\d{7}$/,
@@ -1399,6 +1215,7 @@ var phones = {
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
+  'es-PY': /^(\+?595|0)9[9876]\d{7}$/,
   'es-UY': /^(\+598|0)9[1-9][\d]{6}$/,
   'et-EE': /^(\+?372)?\s?(5|8[1-4])\s?([0-9]\s?){6,7}$/,
   'fa-IR': /^(\+?98[\-\s]?|0)9[0-39]\d[\-\s]?\d{3}[\-\s]?\d{4}$/,
@@ -1729,12 +1546,12 @@ function isMimeType(str) {
 }
 
 var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
-var long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
+var _long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
 var isLatLong = function (str) {
   assertString(str);
   if (!str.includes(',')) return false;
   var pair = str.split(',');
-  return lat.test(pair[0]) && long.test(pair[1]);
+  return lat.test(pair[0]) && _long.test(pair[1]);
 };
 
 var threeDigit = /^\d{3}$/;
@@ -1761,6 +1578,7 @@ var patterns = {
   GR: /^\d{3}\s?\d{2}$/,
   HR: /^([1-5]\d{4}$)/,
   HU: fourDigit,
+  ID: fiveDigit,
   IL: fiveDigit,
   IN: sixDigit,
   IS: threeDigit,
@@ -2010,6 +1828,122 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
+/* eslint-disable max-len */
+
+var iban = {
+  AD: /^(AD[0-9]{2})\d{8}[0-9A-Z]{12}$/,
+  AL: /^(AL[0-9]{2})\d{8}[A-Z0-9]{16}$/,
+  AT: /^(AT[0-9]{2})\d{16}$/,
+  BH: /^(BH[0-9]{2})[A-Z]{4}[A-Z0-9]{14}$/,
+  BE: /^(BE[0-9]{2})\d{12}$/,
+  BA: /^(BA[0-9]{2})\d{16}$/,
+  BG: /^(BG[0-9]{2})[A-Z]{4}\d{4}[A-Z0-9]{10}$/,
+  BR: /^(BR[0-9]{2})\d{23}[A-Z][A-Z0-9]$/,
+  CH: /^(CH[0-9]{2})\d{17}$/,
+  CY: /^(CY[0-9]{2})\d{8}[A-Z0-9]{16}$/,
+  CZ: /^(CZ[0-9]{2})\d{20}$/,
+  DE: /^(DE[0-9]{2})\d{18}$/,
+  DK: /^(DK[0-9]{2})\d{14}$/,
+  EE: /^(EE[0-9]{2})\d{16}$/,
+  ES: /^(ES[0-9]{2})\d{20}$/,
+  FO: /^(FO[0-9]{2})\d{14}$/,
+  FI: /^(FI[0-9]{2})\d{14}$/,
+  FR: /^(FR[0-9]{2})\d{10}[A-Z0-9]{11}\d{2}$/,
+  GB: /^(GB[0-9]{2})[A-Z]{4}\d{14}$/,
+  GE: /^(GE[0-9]{2})[A-Z]{2}\d{16}$/,
+  GI: /^(GI[0-9]{2})[A-Z]{4}[A-Z0-9]{15}$/,
+  GL: /^(GL[0-9]{2})\d{14}$/,
+  GR: /^(GR[0-9]{2})\d{7}[A-Z0-9]{16}$/,
+  HU: /^(HU[0-9]{2})\d{24}$/,
+  HR: /^(HR[0-9]{2})\d{17}$/,
+  IE: /^(IE[0-9]{2})[A-Z]{4}\d{14}$/,
+  IS: /^(IS[0-9]{2})\d{22}$/,
+  IT: /^(IT[0-9]{2})[A-Z]\d{10}[A-Z0-9]{12}$/,
+  JO: /^(JO[0-9]{2})[A-Z]{4}\d{4}[A-Z0-9]{18}$/,
+  KW: /^(KW[0-9]{2})[A-Z]{4}[A-Z0-9]{22}$/,
+  KZ: /^(KZ[0-9]{2})\d{3}[A-Z0-9]{13}$/,
+  LB: /^(LB[0-9]{2})\d{4}[A-Z0-9]{20}$/,
+  LI: /^(LI[0-9]{2})\d{5}[A-Z0-9]{12}$/,
+  LT: /^(LT[0-9]{2})\d{16}$/,
+  LU: /^(LU[0-9]{2})\d{3}[A-Z0-9]{13}$/,
+  LV: /^(LV[0-9]{2})[A-Z]{4}[A-Z0-9]{13}$/,
+  MC: /^(MC[0-9]{2})\d{10}[A-Z0-9]{11}\d{2}$/,
+  MD: /^(MD[0-9]{2})[A-Z]{2}[A-Z0-9]{18}$/,
+  ME: /^(ME[0-9]{2})\d{18}$/,
+  MK: /^(MK[0-9]{2})\d{3}[A-Z0-9]{12}$/,
+  MT: /^(MT[0-9]{2})[A-Z]{4}\d{5}[A-Z0-9]{18}$/,
+  NL: /^(NL[0-9]{2})[A-Z]{4}\d{10}$/,
+  NO: /^(NO[0-9]{2})\d{11}$/,
+  PL: /^(PL[0-9]{2})\d{24}$/,
+  PS: /^(PS[0-9]{2})[A-Z]{4}[A-Z0-9]{21}$/,
+  PT: /^(PT[0-9]{2})\d{21}$/,
+  QA: /^(QA[0-9]{2})[A-Z]{4}[A-Z0-9]{21}$/,
+  RO: /^(RO[0-9]{2})[A-Z]{4}[A-Z0-9]{16}$/,
+  SA: /^(SA[0-9]{2})\d{2}[A-Z0-9]{18}$/,
+  SE: /^(SE[0-9]{2})\d{20}$/,
+  SI: /^(SI[0-9]{2})\d{15}$/,
+  SK: /^(SK[0-9]{2})\d{20}$/,
+  SM: /^(SM[0-9]{2})[A-Z]{1}\d{10}[A-Z0-9]{12}$/,
+  RS: /^(RS[0-9]{2})\d{18}$/,
+  TN: /^(TN[0-9]{2})\d{20}$/,
+  TR: /^(TR[0-9]{2})\d{5}[A-Z0-9]{17}$/,
+  UA: /^(UA[0-9]{2})\d{6}[A-Z0-9]{19}$/,
+  XK: /^(XK[0-9]{2})\d{16}$/
+};
+/* eslint-enable max-len */
+
+/**
+ * @function IbanCalcul - calculate if the IBAN corresponds to the reglementation: converting
+ * it into an integer and performing a basic mod-97 operation. If the IBAN is valid, the remainder
+ * equals 1.
+ *  1- Check that the total IBAN length is correct as per the country. If not, the IBAN is invalid
+ *  2- Move the four initial characters to the end of the string
+ *  3- Replace each letter in the string with two digits, thereby expanding the string,
+ *     where A = 10..., Z = 35
+ *  4- Interpret the string as a decimal integer and compute the remainder of that number on
+ *     division by 97
+ * @param {e} - recieves the IBAN tested
+ * @warns IBAN's length differs from country to another, the maximum length is 34 characters so
+ * calculating its modulus 97 is not possible for all machines.To solve this, the function calculate
+ * the modulus of the first 10 digit by 97 and add the result to the beginning of the remain IBAN
+ * number. The process is repeated untill the result's length is less than 10
+ */
+
+var IbanCalcul = function IbanCalcul(e) {
+  var countryCode = e.slice(0, 4);
+  var result = e.slice(4, e.length) + countryCode;
+
+  for (var counter = 1; counter <= Math.ceil(e.length / 10) + 1; counter++) {
+    var remainder = result.slice(0, 10).replace(/[A-Z]/g, function (element) {
+      return element.charCodeAt() - 55;
+    }) % 97;
+    result = remainder + result.slice(10);
+  }
+
+  if (result === '1') return true;
+  return false;
+};
+
+function isIBAN(str, locale) {
+  assertString(str);
+  str = str.toUpperCase();
+
+  if (locale in iban) {
+    return iban[locale].test(str) && IbanCalcul(str);
+  } else if (!locale || locale === 'any') {
+    locale = str.slice(0, 2);
+
+    if (locale in iban) {
+      return iban[locale].test(str) && IbanCalcul(str);
+    }
+
+    return false;
+  }
+
+  throw new Error("Invalid locale '".concat(locale, "'"));
+}
+var locales$5 = Object.keys(iban);
+
 var version = '10.11.0';
 var validator = {
   version: version,
@@ -2090,7 +2024,9 @@ var validator = {
   blacklist: blacklist$1,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
-  toString: toString
+  toString: toString,
+  isIBAN: isIBAN,
+  isIBANLocales: locales$5
 };
 
 return validator;

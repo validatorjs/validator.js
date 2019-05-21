@@ -96,6 +96,8 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import toString from './lib/util/toString';
 
+import isIBAN, { locales as isIBANLocales } from './lib/isIBAN';
+
 const version = '10.11.0';
 
 const validator = {
@@ -178,6 +180,8 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
+  isIBAN,
+  isIBANLocales,
 };
 
 export default validator;
