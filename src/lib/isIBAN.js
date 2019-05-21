@@ -76,7 +76,7 @@ const iban = {
  * @param {e} - recieves the IBAN tested
  * @warns IBAN's length differs from country to another, the maximum length is 34 characters so
  * calculating its modulus 97 is not possible for all machines.To solve this, the function calculate
- * the modulus of the first 10 digit by 97 and add the result to the beginning of the remain IBAN
+ * the modulus of the first 9 digit by 97 and add the result to the beginning of the remain IBAN
  * number. The process is repeated untill the result's length is less than 10
  */
 const IbanCalcul = (e) => {
