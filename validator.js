@@ -131,7 +131,7 @@ function equals(str, comparison) {
   return str === comparison;
 }
 
-function toString(input) {
+function toString$1(input) {
   if (_typeof(input) === 'object' && input !== null) {
     if (typeof input.toString === 'function') {
       input = input.toString();
@@ -147,7 +147,7 @@ function toString(input) {
 
 function contains(str, elem) {
   assertString(str);
-  return str.indexOf(toString(elem)) >= 0;
+  return str.indexOf(toString$1(elem)) >= 0;
 }
 
 function matches(str, pattern, modifiers) {
@@ -1057,7 +1057,7 @@ function isIn(str, options) {
 
     for (i in options) {
       if ({}.hasOwnProperty.call(options, i)) {
-        array[i] = toString(options[i]);
+        array[i] = toString$1(options[i]);
       }
     }
 
