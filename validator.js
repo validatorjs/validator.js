@@ -1247,7 +1247,7 @@ var phones = {
   'th-TH': /^(\+66|66|0)\d{9}$/,
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
-  'vi-VN': /^(\+?84|0)((3([2-9]))|(5([689]))|(7([0|6-9]))|(8([1-5]))|(9([0-9])))([0-9]{7})$/,
+  'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
   'zh-CN': /^((\+|00)86)?1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
@@ -1445,6 +1445,18 @@ var validISO31661Alpha3CountriesCodes = ['AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND
 function isISO31661Alpha3(str) {
   assertString(str);
   return includes(validISO31661Alpha3CountriesCodes, str.toUpperCase());
+}
+
+var base32 = /^[A-Z2-7]+=*$/;
+function isBase32(str) {
+  assertString(str);
+  var len = str.length;
+
+  if (len > 0 && len % 8 === 0 && base32.test(str)) {
+    return true;
+  }
+
+  return false;
 }
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
@@ -1893,6 +1905,7 @@ var validator = {
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
   isISO31661Alpha3: isISO31661Alpha3,
+  isBase32: isBase32,
   isBase64: isBase64,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
