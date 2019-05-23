@@ -40,6 +40,44 @@ function _typeof(obj) {
   return _typeof(obj);
 }
 
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
@@ -93,7 +131,7 @@ function equals(str, comparison) {
   return str === comparison;
 }
 
-function toString(input) {
+function toString$1(input) {
   if (_typeof(input) === 'object' && input !== null) {
     if (typeof input.toString === 'function') {
       input = input.toString();
@@ -109,7 +147,7 @@ function toString(input) {
 
 function contains(str, elem) {
   assertString(str);
-  return str.indexOf(toString(elem)) >= 0;
+  return str.indexOf(toString$1(elem)) >= 0;
 }
 
 function matches(str, pattern, modifiers) {
@@ -296,28 +334,84 @@ var default_email_options = {
 
 /* eslint-disable no-control-regex */
 
-var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
+var splitNameAddress = /^([^\x00-\x1F\x7F-\x9F\cX]+)<(.+)>$/i;
 var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 var gmailUserPart = /^[a-z\d]+$/;
 var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
 var emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
 var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
+var defaultMaxEmailLength = 254;
 /* eslint-enable max-len */
 
 /* eslint-enable no-control-regex */
+
+/**
+ * Validate display name according to the RFC2822: https://tools.ietf.org/html/rfc2822#appendix-A.1.2
+ * @param {String} display_name
+ */
+
+function validateDisplayName(display_name) {
+  var trim_quotes = display_name.match(/^"(.+)"$/i);
+  var display_name_without_quotes = trim_quotes ? trim_quotes[1] : display_name; // display name with only spaces is not valid
+
+  if (!display_name_without_quotes.trim()) {
+    return false;
+  } // check whether display name contains illegal character
+
+
+  var contains_illegal = /[\.";<>]/.test(display_name_without_quotes);
+
+  if (contains_illegal) {
+    // if contains illegal characters,
+    // must to be enclosed in double-quotes, otherwise it's not a valid display name
+    if (!trim_quotes) {
+      return false;
+    } // the quotes in display name must start with character symbol \
+
+
+    var all_start_with_back_slash = display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
+
+    if (!all_start_with_back_slash) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
 
   if (options.require_display_name || options.allow_display_name) {
-    var display_email = str.match(displayName);
+    var display_email = str.match(splitNameAddress);
 
     if (display_email) {
-      str = display_email[1];
+      var display_name;
+
+      var _display_email = _slicedToArray(display_email, 3);
+
+      display_name = _display_email[1];
+      str = _display_email[2];
+
+      // sometimes need to trim the last space to get the display name
+      // because there may be a space between display name and email address
+      // eg. myname <address@gmail.com>
+      // the display name is `myname` instead of `myname `, so need to trim the last space
+      if (display_name.endsWith(' ')) {
+        display_name = display_name.substr(0, display_name.length - 1);
+      }
+
+      if (!validateDisplayName(display_name)) {
+        return false;
+      }
     } else if (options.require_display_name) {
       return false;
     }
+  }
+
+  if (!options.ignore_max_length && str.length > defaultMaxEmailLength) {
+    return false;
   }
 
   var parts = str.split('@');
@@ -965,7 +1059,7 @@ function isIn(str, options) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
       if ({}.hasOwnProperty.call(options, i)) {
-        array[i] = toString(options[i]);
+        array[i] = toString$1(options[i]);
       }
     }
 
@@ -1193,7 +1287,7 @@ var phones = {
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
-  'bn-BD': /\+?(88)?0?1[356789][0-9]{8}\b/,
+  'bn-BD': /^(\+?880|0)1[1356789][0-9]{8}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
@@ -1250,8 +1344,8 @@ var phones = {
   'th-TH': /^(\+66|66|0)\d{9}$/,
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
-  'vi-VN': /^(\+?84|0)((3([2-9]))|(5([689]))|(7([0|6-9]))|(8([1-5]))|(9([0-9])))([0-9]{7})$/,
-  'zh-CN': /^((\+|00)86)?1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/,
+  'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
+  'zh-CN': /^((\+|00)86)?1([358][0-9]|4[579]|6[67]|7[0135678]|9[189])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -1450,6 +1544,18 @@ var validISO31661Alpha3CountriesCodes = ['AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND
 function isISO31661Alpha3(str) {
   assertString(str);
   return includes(validISO31661Alpha3CountriesCodes, str.toUpperCase());
+}
+
+var base32 = /^[A-Z2-7]+=*$/;
+function isBase32(str) {
+  assertString(str);
+  var len = str.length;
+
+  if (len > 0 && len % 8 === 0 && base32.test(str)) {
+    return true;
+  }
+
+  return false;
 }
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
@@ -1896,6 +2002,7 @@ var validator = {
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
   isISO31661Alpha3: isISO31661Alpha3,
+  isBase32: isBase32,
   isBase64: isBase64,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
