@@ -1447,6 +1447,18 @@ function isISO31661Alpha3(str) {
   return includes(validISO31661Alpha3CountriesCodes, str.toUpperCase());
 }
 
+var base32 = /^[A-Z2-7]+=*$/;
+function isBase32(str) {
+  assertString(str);
+  var len = str.length;
+
+  if (len > 0 && len % 8 === 0 && base32.test(str)) {
+    return true;
+  }
+
+  return false;
+}
+
 var notBase64 = /[^A-Z0-9+\/=]/i;
 function isBase64(str) {
   assertString(str);
@@ -1893,6 +1905,7 @@ var validator = {
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
   isISO31661Alpha3: isISO31661Alpha3,
+  isBase32: isBase32,
   isBase64: isBase64,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
