@@ -303,6 +303,7 @@ describe('Validators', () => {
         'http://[::192.9.5.5]/ipng',
         'http://[::FFFF:129.144.52.38]:80/index.html',
         'http://[2010:836B:4179::836B:4179]',
+        'http://example.com/example.json#/foo/bar',
       ],
       invalid: [
         'http://localhost:3000/',
