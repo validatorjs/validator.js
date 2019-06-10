@@ -73,6 +73,7 @@ import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
 
+import isBase32 from './lib/isBase32';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
@@ -95,9 +96,7 @@ import { isStateCode, isStateName, isStateCodeOrName, locales as isStateLocales 
 
 import normalizeEmail from './lib/normalizeEmail';
 
-import toString from './lib/util/toString';
-
-const version = '10.11.0';
+const version = '11.0.0';
 
 const validator = {
   version,
@@ -163,6 +162,7 @@ const validator = {
   isRFC3339,
   isISO31661Alpha2,
   isISO31661Alpha3,
+  isBase32,
   isBase64,
   isDataURI,
   isMagnetURI,

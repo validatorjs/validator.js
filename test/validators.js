@@ -61,7 +61,6 @@ describe('Validators', () => {
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
         `${repeat('a', 64)}@${repeat('a', 63)}.com`,
-        `${repeat('a', 64)}@${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 58)}.com`,
         `${repeat('a', 64)}@${repeat('a', 63)}.com`,
         `${repeat('a', 31)}@gmail.com`,
         'test@gmail.com',
@@ -79,6 +78,7 @@ describe('Validators', () => {
         `${repeat('a', 64)}@${repeat('a', 251)}.com`,
         `${repeat('a', 65)}@${repeat('a', 250)}.com`,
         `${repeat('a', 64)}@${repeat('a', 64)}.com`,
+        `${repeat('a', 64)}@${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 58)}.com`,
         'test1@invalid.co m',
         'test2@invalid.co m',
         'test3@invalid.co m',
@@ -178,6 +178,12 @@ describe('Validators', () => {
         'Name <some.name.midd.leNa.me+extension@GoogleMail.com>',
         'Name<some.name.midd.leNa.me+extension@GoogleMail.com>',
         'Some Name <foo@gmail.com>',
+        'Name🍓With🍑Emoji🚴‍♀️🏆<test@aftership.com>',
+        '🍇🍗🍑<only_emoji@aftership.com>',
+        '"<displayNameInBrackets>"<jh@gmail.com>',
+        '"\\"quotes\\""<jh@gmail.com>',
+        '"name;"<jh@gmail.com>',
+        '"name;" <jh@gmail.com>',
       ],
       invalid: [
         'invalidemail@',
@@ -195,6 +201,14 @@ describe('Validators', () => {
         'Some Name < foo@bar.co.uk >',
         'Name foo@bar.co.uk',
         'Some Name <some..name@gmail.com>',
+        'Some Name<emoji_in_address🍈@aftership.com>',
+        'invisibleCharacter\u001F<jh@gmail.com>',
+        '<displayNameInBrackets><jh@gmail.com>',
+        '\\"quotes\\"<jh@gmail.com>',
+        '""quotes""<jh@gmail.com>',
+        'name;<jh@gmail.com>',
+        '    <jh@gmail.com>',
+        '"    "<jh@gmail.com>',
       ],
     });
   });
@@ -303,6 +317,7 @@ describe('Validators', () => {
         'http://[::192.9.5.5]/ipng',
         'http://[::FFFF:129.144.52.38]:80/index.html',
         'http://[2010:836B:4179::836B:4179]',
+        'http://example.com/example.json#/foo/bar',
       ],
       invalid: [
         'http://localhost:3000/',
@@ -3261,6 +3276,32 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate base32 strings', () => {
+    test({
+      validator: 'isBase32',
+      valid: [
+        'ZG======',
+        'JBSQ====',
+        'JBSWY===',
+        'JBSWY3A=',
+        'JBSWY3DP',
+        'JBSWY3DPEA======',
+        'K5SWYY3PNVSSA5DPEBXG6ZA=',
+        'K5SWYY3PNVSSA5DPEBXG6===',
+      ],
+      invalid: [
+        '12345',
+        '',
+        'JBSWY3DPtesting123',
+        'ZG=====',
+        'Z======',
+        'Zm=8JBSWY3DP',
+        '=m9vYg==',
+        'Zm9vYm/y====',
+      ],
+    });
+  });
+
   it('should validate base64 strings', () => {
     test({
       validator: 'isBase64',
@@ -3380,8 +3421,12 @@ describe('Validators', () => {
           '+201274652177',
           '+201280134679',
           '+201090124576',
+          '+201583728900',
+          '201599495596',
           '201090124576',
           '01090124576',
+          '01538920744',
+          '1593075993',
           '1090124576',
         ],
         invalid: [
@@ -3510,6 +3555,8 @@ describe('Validators', () => {
           '01399098893',
           '8801671163269',
           '01717112029',
+          '8801898765432',
+          '+8801312345678',
         ],
         invalid: [
           '',
@@ -3517,6 +3564,7 @@ describe('Validators', () => {
           '017943563469',
           '18001234567',
           '01494676946',
+          '0131234567',
         ],
       },
       {
@@ -3621,10 +3669,12 @@ describe('Validators', () => {
           '16637108167',
           '+8616637108167',
           '+8616637108167',
+          '+8616712341234',
           '008618812341234',
           '008618812341234',
           '+8619912341234',
           '+8619812341234',
+          '+8619112341234',
         ],
         invalid: [
           '12345',
@@ -3764,6 +3814,9 @@ describe('Validators', () => {
           '254728590234',
           '0733346543',
           '0700459022',
+          '0110934567',
+          '+254110456794',
+          '254198452389',
         ],
         invalid: [
           '999',
@@ -4072,6 +4125,11 @@ describe('Validators', () => {
           '84981577798',
           '0708001240',
           '84813601243',
+          '0523803765',
+          '0863803732',
+          '0883805866',
+          '0892405867',
+          '+84888696413',
         ],
         invalid: [
           '12345',
@@ -4082,6 +4140,23 @@ describe('Validators', () => {
           '01678912345',
           '+841698765432',
           '841626543219',
+          '0533803765',
+        ],
+      },
+      {
+        locale: 'es-CL',
+        valid: [
+          '+56733875615',
+          '56928590234',
+          '0928590294',
+          '0208590294',
+        ],
+        invalid: [
+          '1234',
+          '+5633875615',
+          '563875615',
+          '56109834567',
+          '56069834567',
         ],
       },
       {
@@ -4134,6 +4209,41 @@ describe('Validators', () => {
           '+34704789321',
           '704789321',
           '+34754789321',
+        ],
+      },
+      {
+        locale: 'es-PY',
+        valid: [
+          '+595991372649',
+          '+595992847352',
+          '+595993847593',
+          '+595994857473',
+          '+595995348532',
+          '+595996435231',
+          '+595981847362',
+          '+595982435452',
+          '+595983948502',
+          '+595984342351',
+          '+595985403481',
+          '+595986384012',
+          '+595971435231',
+          '+595972103924',
+          '+595973438542',
+          '+595974425864',
+          '+595975425843',
+          '+595976342546',
+          '+595961435234',
+          '+595963425043',
+        ],
+        invalid: [
+          '12345',
+          '',
+          'Vml2YW11cyBmZXJtZtesting123',
+          '65478932',
+          '+59599384712',
+          '+5959938471234',
+          '+595547893218',
+          '+591993546843',
         ],
       },
       {
@@ -6039,6 +6149,15 @@ describe('Validators', () => {
           '98025',
           '38 499',
           '39940',
+        ],
+      },
+      {
+        locale: 'ID',
+        valid: [
+          '10210',
+          '40181',
+          '55161',
+          '60233',
         ],
       },
       {

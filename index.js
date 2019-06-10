@@ -117,7 +117,9 @@ var _isISO31661Alpha = _interopRequireDefault(require("./lib/isISO31661Alpha2"))
 
 var _isISO31661Alpha2 = _interopRequireDefault(require("./lib/isISO31661Alpha3"));
 
-var _isBase = _interopRequireDefault(require("./lib/isBase64"));
+var _isBase = _interopRequireDefault(require("./lib/isBase32"));
+
+var _isBase2 = _interopRequireDefault(require("./lib/isBase64"));
 
 var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
@@ -151,13 +153,11 @@ var _isState = require("./lib/isState");
 
 var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
-var _toString = _interopRequireDefault(require("./lib/util/toString"));
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '10.11.0';
+var version = '11.0.0';
 var validator = {
   version: version,
   toDate: _toDate.default,
@@ -222,7 +222,8 @@ var validator = {
   isRFC3339: _isRFC.default,
   isISO31661Alpha2: _isISO31661Alpha.default,
   isISO31661Alpha3: _isISO31661Alpha2.default,
-  isBase64: _isBase.default,
+  isBase32: _isBase.default,
+  isBase64: _isBase2.default,
   isDataURI: _isDataURI.default,
   isMagnetURI: _isMagnetURI.default,
   isMimeType: _isMimeType.default,
@@ -237,11 +238,11 @@ var validator = {
   blacklist: _blacklist.default,
   isWhitelisted: _isWhitelisted.default,
   normalizeEmail: _normalizeEmail.default,
-  toString: _toString.default,
   isStateCode: _isState.isStateCode,
   isStateName: _isState.isStateName,
   isStateLocales: _isState.locales,
   isStateCodeOrName: _isState.isStateCodeOrName
+  toString: toString
 };
 var _default = validator;
 exports.default = _default;
