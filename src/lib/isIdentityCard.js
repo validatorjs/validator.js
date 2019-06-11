@@ -59,9 +59,9 @@ const validators = {
       Y: 31,
       Z: 33,
     };
-    
+
     const sanitized = str.trim().toUpperCase();
-    
+
     if (!/^[A-Z][0-9]{9}$/.test(sanitized)) return false;
 
     return Array.from(sanitized).reduce((sum, number, index) => {
@@ -75,7 +75,7 @@ const validators = {
         return ((10 - (sum % 10)) - Number(number)) % 10 === 0;
       }
 
-      return sum + Number(number) * (9 - index);
+      return sum + (Number(number) * (9 - index));
     }, 0);
   },
 };
