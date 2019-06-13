@@ -1,7 +1,7 @@
-import assertString from "./util/assertString";
+import assertString from './util/assertString';
 
 const validators = {
-  ES: str => {
+  ES: (str) => {
     assertString(str);
 
     const DNI = /^[0-9X-Z][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/;
@@ -9,33 +9,12 @@ const validators = {
     const charsValue = {
       X: 0,
       Y: 1,
-      Z: 2
+      Z: 2,
     };
 
     const controlDigits = [
-      "T",
-      "R",
-      "W",
-      "A",
-      "G",
-      "M",
-      "Y",
-      "F",
-      "P",
-      "D",
-      "X",
-      "B",
-      "N",
-      "J",
-      "Z",
-      "S",
-      "Q",
-      "V",
-      "H",
-      "L",
-      "C",
-      "K",
-      "E"
+      'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B',
+      'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E',
     ];
 
     // sanitize user input
@@ -47,33 +26,17 @@ const validators = {
     }
 
     // validate the control digit
-    const number = sanitized
-      .slice(0, -1)
-      .replace(/[X,Y,Z]/g, char => charsValue[char]);
+    const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, char => charsValue[char]);
 
     return sanitized.endsWith(controlDigits[number % 23]);
   },
-  IL: function IL(str) {
-    id = str;
-    if (id.length != 9 || isNaN(id)) {
-      // Make sure ID is formatted properly
-      return false;
-    }
-    var sum = 0,
-      incNum;
-    for (var i in id) {
-      incNum = Number(id[i]) * ((i % 2) + 1); // Multiply number by 1 or 2
-      sum += incNum > 9 ? incNum - 9 : incNum; // Sum the digits up and add to total
-    }
-    return sum % 10 === 0;
-  }
 };
 
-export default function isIdentityCard(str, locale = "any") {
+export default function isIdentityCard(str, locale = 'any') {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
-  } else if (locale === "any") {
+  } else if (locale === 'any') {
     for (const key in validators) {
       if (validators.hasOwnProperty(key)) {
         const validator = validators[key];
