@@ -95,6 +95,9 @@ import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
 
+import isBetween from './lib/isBetween';
+
+
 const version = '11.0.0';
 
 const validator = {
@@ -178,6 +181,7 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
+  isBetween,
 };
 
 export default validator;

@@ -44,6 +44,33 @@ function repeat(str, count) {
 }
 
 describe('Validators', () => {
+  it('should validate if numeric value falls between range', () => {
+    test({
+      validator: 'isBetween',
+      args: [{ min: 10, max: 20 }],
+      valid: [10, 12, 14, 20],
+      invalid: [4, 8, 21, 40, 100],
+    });
+  });
+
+  it('should validate if string length falls between range', () => {
+    test({
+      validator: 'isBetween',
+      args: [{ min: 30, max: 60 }],
+      valid: [repeat('a', 30), repeat('a', 43), repeat('a', 55), repeat('a', 60)],
+      invalid: [repeat('a', 24), repeat('a', 10), repeat('a', 68), repeat('a', 100)],
+    });
+  });
+
+  it('should validate if array length falls between range', () => {
+    test({
+      validator: 'isBetween',
+      args: [{ min: 2, max: 10 }],
+      valid: [new Array(2).fill('-'), new Array(5).fill('-'), new Array(10).fill('-')],
+      invalid: [new Array(1).fill('-'), new Array(11).fill('-'), new Array(20).fill('-')],
+    });
+  });
+
   it('should validate email addresses', () => {
     test({
       validator: 'isEmail',
