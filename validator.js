@@ -1135,7 +1135,7 @@ var validators = {
     return sanitized.endsWith(controlDigits[number % 23]);
   },
   IL: function IL(str) {
-    var DNI = /^[0-9]*$/; // sanitize user input
+    var DNI = /^\d+$/; // sanitize user input
 
     var sanitized = str.trim(); // validate the data structure
 
@@ -1153,12 +1153,10 @@ var validators = {
     var sum = 0,
         incNum;
 
-    for (var i in id) {
-      if ({}.hasOwnProperty.call(foo, key)) {
-        incNum = Number(id[i]) * (i % 2 + 1); // Multiply number by 1 or 2
+    for (var i = 0; i < id.length; i++) {
+      incNum = Number(id[i]) * (i % 2 + 1); // Multiply number by 1 or 2
 
-        sum += incNum > 9 ? incNum - 9 : incNum; // Sum the digits up and add to total
-      }
+      sum += incNum > 9 ? incNum - 9 : incNum; // Sum the digits up and add to total
     }
 
     return sum % 10 === 0;
@@ -1171,9 +1169,9 @@ function isIdentityCard(str) {
   if (locale in validators) {
     return validators[locale](str);
   } else if (locale === 'any') {
-    for (var _key in validators) {
-      if (validators.hasOwnProperty(_key)) {
-        var validator = validators[_key];
+    for (var key in validators) {
+      if (validators.hasOwnProperty(key)) {
+        var validator = validators[key];
 
         if (validator(str)) {
           return true;
