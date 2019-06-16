@@ -43,6 +43,7 @@ import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
 import isJWT from './lib/isJWT';
 
+
 import isJSON from './lib/isJSON';
 import isEmpty from './lib/isEmpty';
 
@@ -58,6 +59,7 @@ import isBefore from './lib/isBefore';
 import isIn from './lib/isIn';
 
 import isCreditCard from './lib/isCreditCard';
+import isUPI from './lib/isUPI';
 import isIdentityCard from './lib/isIdentityCard';
 
 import isISIN from './lib/isISIN';
@@ -157,6 +159,7 @@ const validator = {
   isPostalCode,
   isPostalCodeLocales,
   isCurrency,
+  isUPI,
   isISO8601,
   isRFC3339,
   isISO31661Alpha2,
