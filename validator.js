@@ -1120,7 +1120,7 @@ var validators = {
       Y: 1,
       Z: 2
     };
-    var controlDigits = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]; // sanitize user input
+    var controlDigits = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E']; // sanitize user input
 
     var sanitized = str.trim().toUpperCase(); // validate the data structure
 
@@ -1143,9 +1143,9 @@ var validators = {
       return false;
     }
 
-    id = sanitized;
+    var id = sanitized;
 
-    if (id.length != 9 || isNaN(id)) {
+    if (id.length !== 9 || isNaN(id)) {
       // Make sure ID is formatted properly
       return false;
     }
@@ -1163,12 +1163,12 @@ var validators = {
   }
 };
 function isIdentityCard(str) {
-  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "any";
+  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'any';
   assertString(str);
 
   if (locale in validators) {
     return validators[locale](str);
-  } else if (locale === "any") {
+  } else if (locale === 'any') {
     for (var key in validators) {
       if (validators.hasOwnProperty(key)) {
         var validator = validators[key];
