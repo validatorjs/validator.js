@@ -2,13 +2,27 @@ import { format } from 'util';
 import assert from 'assert';
 import fs from 'fs';
 import vm from 'vm';
-import validator from '../index';
+import validator from '../src/index';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
 function test(options) {
   let args = options.args || [];
   args.unshift(null);
+  if (options.error) {
+    options.error.forEach((error) => {
+      args[0] = error;
+      try {
+        assert.throws(() => validator[options.validator](...args));
+      } catch (err) {
+        let warning = format(
+          'validator.%s(%s) passed but should error',
+          options.validator, args.join(', ')
+        );
+        throw new Error(warning);
+      }
+    });
+  }
   if (options.valid) {
     options.valid.forEach((valid) => {
       args[0] = valid;
@@ -108,12 +122,16 @@ describe('Validators', () => {
       validator: 'isEmail',
       args: [{ domain_specific_validation: true }],
       valid: [
-        'foo@bar.com',
+        'foobar@gmail.com',
+        'foo.bar@gmail.com',
+        'foo.bar@googlemail.com',
+        `${repeat('a', 30)}@gmail.com`,
       ],
       invalid: [
         `${repeat('a', 31)}@gmail.com`,
         'test@gmail.com',
         'test.1@gmail.com',
+        '.foobar@gmail.com',
       ],
     });
   });
@@ -270,6 +288,7 @@ describe('Validators', () => {
       invalid: [
         'email@0.0.0.256',
         'email@26.0.0.256',
+        'email@[266.266.266.266]',
       ],
     });
   });
@@ -1218,6 +1237,17 @@ describe('Validators', () => {
     });
   });
 
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['is-NOT'],
+      error: [
+        'abc',
+        'ABC',
+      ],
+    });
+  });
+
   it('should validate alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
@@ -1612,12 +1642,14 @@ describe('Validators', () => {
   });
 
   it('should error on invalid locale', () => {
-    try {
-      validator.isAlphanumeric('abc123', 'in-INVALID');
-      assert(false);
-    } catch (err) {
-      assert(true);
-    }
+    test({
+      validator: 'isAlphanumeric',
+      args: ['is-NOT'],
+      error: [
+        '1234568960',
+        'abc123',
+      ],
+    });
   });
 
   it('should validate numeric strings', () => {
@@ -1887,6 +1919,28 @@ describe('Validators', () => {
 
     test({
       validator: 'isDecimal',
+      args: [{ locale: ['ar-EG'] }],
+      valid: [
+        '0.01',
+      ],
+      invalid: [
+        '0,01',
+      ],
+    });
+
+    test({
+      validator: 'isDecimal',
+      args: [{ locale: ['en-ZM'] }],
+      valid: [
+        '0,01',
+      ],
+      invalid: [
+        '0.01',
+      ],
+    });
+
+    test({
+      validator: 'isDecimal',
       args: [{ force_decimal: true }],
       valid: [
         '0.01',
@@ -1956,6 +2010,18 @@ describe('Validators', () => {
         '0.1a',
         'a',
         '\n',
+      ],
+    });
+  });
+
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isDecimal',
+      args: [{ locale: ['is-NOT'] }],
+      error: [
+        '123',
+        '0.01',
+        '0,01',
       ],
     });
   });
@@ -2411,56 +2477,65 @@ describe('Validators', () => {
   });
 
   it('should validate hash strings', () => {
-    test({
-      validator: 'isHash',
-      args: ['md5', 'md4', 'ripemd128', 'tiger128'],
-      valid: [
-        'd94f3f016ae679c3008de268209132f2',
-        '751adbc511ccbe8edf23d486fa4581cd',
-        '88dae00e614d8f24cfd5a8b3f8002e93',
-        '0bf1c35032a71a14c2f719e5a14c1e96',
-      ],
-      invalid: [
-        'KYT0bf1c35032a71a14c2f719e5a14c1',
-        'q94375dj93458w34',
-        '39485729348',
-        '%&FHKJFvk',
-      ],
+    ['md5', 'md4', 'ripemd128', 'tiger128'].forEach((algorithm) => {
+      test({
+        validator: 'isHash',
+        args: [algorithm],
+        valid: [
+          'd94f3f016ae679c3008de268209132f2',
+          '751adbc511ccbe8edf23d486fa4581cd',
+          '88dae00e614d8f24cfd5a8b3f8002e93',
+          '0bf1c35032a71a14c2f719e5a14c1e96',
+        ],
+        invalid: [
+          'KYT0bf1c35032a71a14c2f719e5a14c1',
+          'q94375dj93458w34',
+          '39485729348',
+          '%&FHKJFvk',
+        ],
+      });
     });
-    test({
-      validator: 'isHash',
-      args: ['crc32', 'crc32b'],
-      valid: [
-        'd94f3f01',
-        '751adbc5',
-        '88dae00e',
-        '0bf1c350',
-      ],
-      invalid: [
-        'KYT0bf1c35032a71a14c2f719e5a14c1',
-        'q94375dj93458w34',
-        'q943',
-        '39485729348',
-        '%&FHKJFvk',
-      ],
+
+    ['crc32', 'crc32b'].forEach((algorithm) => {
+      test({
+        validator: 'isHash',
+        args: [algorithm],
+        valid: [
+          'd94f3f01',
+          '751adbc5',
+          '88dae00e',
+          '0bf1c350',
+        ],
+        invalid: [
+          'KYT0bf1c35032a71a14c2f719e5a14c1',
+          'q94375dj93458w34',
+          'q943',
+          '39485729348',
+          '%&FHKJFvk',
+        ],
+      });
     });
-    test({
-      validator: 'isHash',
-      args: ['sha1', 'tiger160', 'ripemd160'],
-      valid: [
-        '3ca25ae354e192b26879f651a51d92aa8a34d8d3',
-        'aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d',
-        'beb8c3f30da46be179b8df5f5ecb5e4b10508230',
-        'efd5d3b190e893ed317f38da2420d63b7ae0d5ed',
-      ],
-      invalid: [
-        'KYT0bf1c35032a71a14c2f719e5a14c1',
-        'KYT0bf1c35032a71a14c2f719e5a14c1dsjkjkjkjkkjk',
-        'q94375dj93458w34',
-        '39485729348',
-        '%&FHKJFvk',
-      ],
+
+    ['sha1', 'tiger160', 'ripemd160'].forEach((algorithm) => {
+      test({
+        validator: 'isHash',
+        args: [algorithm],
+        valid: [
+          '3ca25ae354e192b26879f651a51d92aa8a34d8d3',
+          'aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d',
+          'beb8c3f30da46be179b8df5f5ecb5e4b10508230',
+          'efd5d3b190e893ed317f38da2420d63b7ae0d5ed',
+        ],
+        invalid: [
+          'KYT0bf1c35032a71a14c2f719e5a14c1',
+          'KYT0bf1c35032a71a14c2f719e5a14c1dsjkjkjkjkkjk',
+          'q94375dj93458w34',
+          '39485729348',
+          '%&FHKJFvk',
+        ],
+      });
     });
+
     test({
       validator: 'isHash',
       args: ['sha256'],
@@ -2820,6 +2895,12 @@ describe('Validators', () => {
       valid: ['1', '2', '3'],
       invalid: ['4', ''],
     });
+    test({
+      validator: 'isIn',
+      args: [['1', '2', '3', { foo: 'bar' }, () => 5, { toString: 'test' }]],
+      valid: ['1', '2', '3', ''],
+      invalid: ['4'],
+    });
     test({ validator: 'isIn', invalid: ['foo', ''] });
   });
 
@@ -3076,6 +3157,17 @@ describe('Validators', () => {
         ...allInvalid,
       ],
       args: ['any'],
+    });
+  });
+
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isIdentityCard',
+      args: ['is-NOT'],
+      error: [
+        '99999999R',
+        '12345678Z',
+      ],
     });
   });
 
@@ -4937,13 +5029,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isMobilePhone',
+      args: [{ locale: ['is-NOT'] }],
+      error: [
+        '+123456789',
+        '012345',
+      ],
+    });
+  });
+
   it('should validate currency', () => {
+    // -$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)
     test({
       validator: 'isCurrency',
-      args: [
-        {},
-        '-$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)',
-      ],
       valid: [
         '-$10,123.45',
         '$10,123.45',
@@ -4990,13 +5090,13 @@ describe('Validators', () => {
       ],
     });
 
+    // -$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)
     test({
       validator: 'isCurrency',
       args: [
         {
           allow_decimal: false,
         },
-        '-$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)',
       ],
       valid: [
         '-$10,123',
@@ -5052,13 +5152,13 @@ describe('Validators', () => {
       ],
     });
 
+    // -$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)
     test({
       validator: 'isCurrency',
       args: [
         {
           require_decimal: true,
         },
-        '-$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)',
       ],
       valid: [
         '-$10,123.45',
@@ -5106,13 +5206,13 @@ describe('Validators', () => {
       ],
     });
 
+    // -$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)
     test({
       validator: 'isCurrency',
       args: [
         {
           digits_after_decimal: [1, 3],
         },
-        '-$##,###.## (en-US, en-CA, en-AU, en-NZ, en-HK)',
       ],
       valid: [
         '-$10,123.4',
@@ -5160,13 +5260,13 @@ describe('Validators', () => {
       ],
     });
 
+    // -$##,###.## with $ required (en-US, en-CA, en-AU, en-NZ, en-HK)
     test({
       validator: 'isCurrency',
       args: [
         {
           require_symbol: true,
         },
-        '-$##,###.## with $ required (en-US, en-CA, en-AU, en-NZ, en-HK)',
       ],
       valid: [
         '-$10,123.45',
@@ -5223,6 +5323,7 @@ describe('Validators', () => {
       ],
     });
 
+    // ¥-##,###.## (zh-CN)
     test({
       validator: 'isCurrency',
       args: [
@@ -5230,7 +5331,6 @@ describe('Validators', () => {
           symbol: '¥',
           negative_sign_before_digits: true,
         },
-        '¥-##,###.## (zh-CN)',
       ],
       valid: [
         '123,456.78',
@@ -5280,10 +5380,64 @@ describe('Validators', () => {
       validator: 'isCurrency',
       args: [
         {
+          negative_sign_after_digits: true,
+        },
+      ],
+      valid: [
+        '$10,123.45-',
+        '$10,123.45',
+        '$10123.45',
+        '10,123.45',
+        '10123.45',
+        '10,123',
+        '1,123,456',
+        '1123456',
+        '1.39',
+        '.03',
+        '0.10',
+        '$0.10',
+        '$0.01-',
+        '$.99-',
+        '$100,234,567.89',
+        '$10,123',
+        '10,123',
+        '10123-',
+      ],
+      invalid: [
+        '-123',
+        '1.234',
+        '$1.1',
+        '$ 32.50',
+        '500$',
+        '.0001',
+        '$.001',
+        '$0.001',
+        '12,34.56',
+        '123456,123,123456',
+        '123,4',
+        ',123',
+        '$-,123',
+        '$',
+        '.',
+        ',',
+        '00',
+        '$-',
+        '$-,.',
+        '-',
+        '-$',
+        '',
+        '- $',
+      ],
+    });
+
+    // ¥##,###.## with no negatives (zh-CN)
+    test({
+      validator: 'isCurrency',
+      args: [
+        {
           symbol: '¥',
           allow_negatives: false,
         },
-        '¥##,###.## with no negatives (zh-CN)',
       ],
       valid: [
         '123,456.78',
@@ -5331,6 +5485,7 @@ describe('Validators', () => {
       ],
     });
 
+    // R ## ###,## and R-10 123,25 (el-ZA)
     test({
       validator: 'isCurrency',
       args: [
@@ -5341,7 +5496,6 @@ describe('Validators', () => {
           decimal_separator: ',',
           allow_negative_sign_placeholder: true,
         },
-        'R ## ###,## and R-10 123,25 (el-ZA)',
       ],
       valid: [
         '123 456,78',
@@ -5389,6 +5543,7 @@ describe('Validators', () => {
       ],
     });
 
+    // -€ ##.###,## (it-IT)
     test({
       validator: 'isCurrency',
       args: [
@@ -5398,7 +5553,6 @@ describe('Validators', () => {
           decimal_separator: ',',
           allow_space_after_symbol: true,
         },
-        '-€ ##.###,## (it-IT)',
       ],
       valid: [
         '123.456,78',
@@ -5461,6 +5615,7 @@ describe('Validators', () => {
       ],
     });
 
+    // -##.###,## € (el-GR)
     test({
       validator: 'isCurrency',
       args: [
@@ -5471,7 +5626,6 @@ describe('Validators', () => {
           decimal_separator: ',',
           allow_space_after_digits: true,
         },
-        '-##.###,## € (el-GR)',
       ],
       valid: [
         '123.456,78',
@@ -5530,6 +5684,7 @@ describe('Validators', () => {
       ],
     });
 
+    // kr. -##.###,## (da-DK)
     test({
       validator: 'isCurrency',
       args: [
@@ -5540,7 +5695,6 @@ describe('Validators', () => {
           decimal_separator: ',',
           allow_space_after_symbol: true,
         },
-        'kr. -##.###,## (da-DK)',
       ],
       valid: [
         '123.456,78',
@@ -5594,6 +5748,7 @@ describe('Validators', () => {
       ],
     });
 
+    // kr. ##.###,## with no negatives (da-DK)
     test({
       validator: 'isCurrency',
       args: [
@@ -5605,7 +5760,6 @@ describe('Validators', () => {
           decimal_separator: ',',
           allow_space_after_symbol: true,
         },
-        'kr. ##.###,## with no negatives (da-DK)',
       ],
       valid: [
         '123.456,78',
@@ -5665,13 +5819,13 @@ describe('Validators', () => {
       ],
     });
 
+    // ($##,###.##) (en-US, en-HK)
     test({
       validator: 'isCurrency',
       args: [
         {
           parens_for_negatives: true,
         },
-        '($##,###.##) (en-US, en-HK)',
       ],
       valid: [
         '1,234',
@@ -5735,11 +5889,11 @@ describe('Validators', () => {
       ],
     });
 
+    // $##,###.## with no negatives (en-US, en-CA, en-AU, en-HK)
     test({
       validator: 'isCurrency',
       args: [
         { allow_negatives: false },
-        '$##,###.## with no negatives (en-US, en-CA, en-AU, en-HK)',
       ],
       valid: [
         '$10,123.45',
@@ -5789,7 +5943,9 @@ describe('Validators', () => {
         '-$10,123.45',
       ],
     });
+  });
 
+  it('should validate booleans', () => {
     test({
       validator: 'isBoolean',
       valid: [
@@ -5851,6 +6007,8 @@ describe('Validators', () => {
     '2009-05-19 143922.500',
     '2009-05-19 1439,55',
     '2009-10-10',
+    '2020-366',
+    '2000-366',
   ];
 
   const invalidISO8601 = [
@@ -5910,11 +6068,14 @@ describe('Validators', () => {
         '2000-02-29',
         '2009-123',
         '2009-222',
+        '2020-366',
+        '2400-366',
       ],
       invalid: [
         '2010-02-30',
         '2009-02-29',
         '2009-366',
+        '2019-02-31',
       ],
     });
   });
@@ -6019,9 +6180,9 @@ describe('Validators', () => {
   });
 
   it('should error on non-string input', () => {
-    let empty = [undefined, null, [], NaN];
-    empty.forEach((item) => {
-      assert.throws(validator.isEmpty.bind(null, item));
+    test({
+      validator: 'isEmpty',
+      error: [undefined, null, [], NaN],
     });
   });
 
@@ -6045,6 +6206,8 @@ describe('Validators', () => {
       invalid: [
         'dataxbase64',
         'data:HelloWorld',
+        'data:,A%20brief%20invalid%20[note',
+        'file:text/plain;base64,SGVsbG8sIFdvcmxkIQ%3D%3D',
         'data:text/html;charset=,%3Ch1%3EHello!%3C%2Fh1%3E',
         'data:text/html;charset,%3Ch1%3EHello!%3C%2Fh1%3E', 'data:base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
         '',
@@ -6366,6 +6529,17 @@ describe('Validators', () => {
         '13',
       ],
       args: ['any'],
+    });
+  });
+
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isPostalCode',
+      args: ['is-NOT'],
+      error: [
+        '293940',
+        '1234',
+      ],
     });
   });
 

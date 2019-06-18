@@ -741,8 +741,8 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
 } // Source: https://en.wikipedia.org/wiki/Decimal_mark
 
 
-var dotDecimal = [];
-var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+var dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
+var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
 
 for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
   decimal[dotDecimal[_i2]] = decimal['en-US'];
@@ -1056,6 +1056,8 @@ function isIn(str, options) {
     var array = [];
 
     for (i in options) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if ({}.hasOwnProperty.call(options, i)) {
         array[i] = toString$1(options[i]);
       }
@@ -1206,14 +1208,15 @@ var validators = {
     }, 0);
   }
 };
-function isIdentityCard(str) {
-  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'any';
+function isIdentityCard(str, locale) {
   assertString(str);
 
   if (locale in validators) {
     return validators[locale](str);
   } else if (locale === 'any') {
     for (var key in validators) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if (validators.hasOwnProperty(key)) {
         var validator = validators[key];
 
@@ -1432,6 +1435,8 @@ function isMobilePhone(str, locale, options) {
 
   if (Array.isArray(locale)) {
     return locale.some(function (key) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if (phones.hasOwnProperty(key)) {
         var phone = phones[key];
 
@@ -1446,6 +1451,7 @@ function isMobilePhone(str, locale, options) {
     return phones[locale].test(str); // alias falsey locale as 'any'
   } else if (!locale || locale === 'any') {
     for (var key in phones) {
+      // istanbul ignore else
       if (phones.hasOwnProperty(key)) {
         var phone = phones[key];
 
@@ -1552,7 +1558,7 @@ var isValidDate = function isValidDate(str) {
     var oYear = Number(ordinalMatch[1]);
     var oDay = Number(ordinalMatch[2]); // if is leap year
 
-    if (oYear % 4 === 0 && oYear % 100 !== 0) return oDay <= 366;
+    if (oYear % 4 === 0 && oYear % 100 !== 0 || oYear % 400 === 0) return oDay <= 366;
     return oDay <= 365;
   }
 
@@ -1564,7 +1570,6 @@ var isValidDate = function isValidDate(str) {
   var dayString = day ? "0".concat(day).slice(-2) : day; // create a date object and compare
 
   var d = new Date("".concat(year, "-").concat(monthString || '01', "-").concat(dayString || '01'));
-  if (isNaN(d.getUTCFullYear())) return false;
 
   if (month && day) {
     return d.getUTCFullYear() === year && d.getUTCMonth() + 1 === month && d.getUTCDate() === day;
@@ -1793,6 +1798,8 @@ var isPostalCode = function (str, locale) {
     return patterns[locale].test(str);
   } else if (locale === 'any') {
     for (var key in patterns) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if (patterns.hasOwnProperty(key)) {
         var pattern = patterns[key];
 
@@ -1809,21 +1816,17 @@ var isPostalCode = function (str, locale) {
 };
 
 function ltrim(str, chars) {
-  assertString(str);
-  var pattern = chars ? new RegExp("^[".concat(chars, "]+"), 'g') : /^\s+/g;
+  assertString(str); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
+
+  var pattern = chars ? new RegExp("^[".concat(chars.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "]+"), 'g') : /^\s+/g;
   return str.replace(pattern, '');
 }
 
 function rtrim(str, chars) {
-  assertString(str);
-  var pattern = chars ? new RegExp("[".concat(chars, "]")) : /\s/;
-  var idx = str.length - 1;
+  assertString(str); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
 
-  for (; idx >= 0 && pattern.test(str[idx]); idx--) {
-    
-  }
-
-  return idx < str.length ? str.substr(0, idx + 1) : str;
+  var pattern = chars ? new RegExp("[".concat(chars.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "]+$"), 'g') : /\s+$/g;
+  return str.replace(pattern, '');
 }
 
 function trim(str, chars) {

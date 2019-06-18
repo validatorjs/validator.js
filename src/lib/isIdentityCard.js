@@ -105,12 +105,14 @@ const validators = {
   },
 };
 
-export default function isIdentityCard(str, locale = 'any') {
+export default function isIdentityCard(str, locale) {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
   } else if (locale === 'any') {
     for (const key in validators) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if (validators.hasOwnProperty(key)) {
         const validator = validators[key];
         if (validator(str)) {
