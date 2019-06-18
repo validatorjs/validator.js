@@ -31,6 +31,7 @@ const validators = {
     return sanitized.endsWith(controlDigits[number % 23]);
   },
   'he-IL': (str) => {
+
     const DNI = /^\d{9}$/;
 
     // sanitize user input
