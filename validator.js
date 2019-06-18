@@ -1137,7 +1137,7 @@ var validators = {
     return sanitized.endsWith(controlDigits[number % 23]);
   },
   'he-IL': function heIL(str) {
-    var DNI = /^\d+$/; // sanitize user input
+    var DNI = /^\d{9}$/; // sanitize user input
 
     var sanitized = str.trim(); // validate the data structure
 
@@ -1147,7 +1147,7 @@ var validators = {
 
     var id = sanitized;
 
-    if (id.length !== 9 || isNaN(id)) {
+    if (isNaN(id)) {
       // Make sure ID is formatted properly
       return false;
     }
