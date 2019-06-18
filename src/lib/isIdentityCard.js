@@ -30,7 +30,7 @@ const validators = {
 
     return sanitized.endsWith(controlDigits[number % 23]);
   },
-  IL: (str) => {
+  'he-IL': (str) => {
     const DNI = /^\d+$/;
 
     // sanitize user input

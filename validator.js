@@ -1136,7 +1136,7 @@ var validators = {
     });
     return sanitized.endsWith(controlDigits[number % 23]);
   },
-  IL: function IL(str) {
+  'he-IL': function heIL(str) {
     var DNI = /^\d+$/; // sanitize user input
 
     var sanitized = str.trim(); // validate the data structure

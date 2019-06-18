@@ -3063,7 +3063,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale: 'IL',
+        locale: 'he-IL',
         valid: [
           '219472156',
           '219486610',
