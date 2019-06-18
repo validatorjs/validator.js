@@ -43,10 +43,6 @@ const validators = {
 
     const id = sanitized;
 
-    if (isNaN(id)) {
-      // Make sure ID is formatted properly
-      return false;
-    }
     let sum = 0,
       incNum;
     for (let i = 0; i < id.length; i++) {

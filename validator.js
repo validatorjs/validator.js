@@ -1146,12 +1146,6 @@ var validators = {
     }
 
     var id = sanitized;
-
-    if (isNaN(id)) {
-      // Make sure ID is formatted properly
-      return false;
-    }
-
     var sum = 0,
         incNum;
 
