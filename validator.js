@@ -1136,6 +1136,33 @@ var validators = {
     });
     return sanitized.endsWith(controlDigits[number % 23]);
   },
+  'he-IL': function heIL(str) {
+    var DNI = /^\d+$/; // sanitize user input
+
+    var sanitized = str.trim(); // validate the data structure
+
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+
+    var id = sanitized;
+
+    if (id.length !== 9 || isNaN(id)) {
+      // Make sure ID is formatted properly
+      return false;
+    }
+
+    var sum = 0,
+        incNum;
+
+    for (var i = 0; i < id.length; i++) {
+      incNum = Number(id[i]) * (i % 2 + 1); // Multiply number by 1 or 2
+
+      sum += incNum > 9 ? incNum - 9 : incNum; // Sum the digits up and add to total
+    }
+
+    return sum % 10 === 0;
+  },
   'zh-TW': function zhTW(str) {
     var ALPHABET_CODES = {
       A: 10,
