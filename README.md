@@ -100,7 +100,7 @@ Validator                               | Description
 **isHash(str, algorithm)**              | check if the string is a hash of type algorithm.<br/><br/>Algorithm is one of `['md4', 'md5', 'sha1', 'sha256', 'sha384', 'sha512', 'ripemd128', 'ripemd160', 'tiger128', 'tiger160', 'tiger192', 'crc32', 'crc32b']`
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
-**isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['ES','IL']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
+**isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['ES', 'zh-TW', 'IL']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
 **isIP(str [, version])**               | check if the string is an IP (version 4 or 6).
 **isIPRange(str)**                      | check if the string is an IP Range(version 4 only).
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
