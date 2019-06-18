@@ -47,6 +47,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "mocha": "^5.1.1",
+    "nyc": "^14.1.0",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "^4.0.1",
     "uglify-js": "^3.0.19"
@@ -62,7 +63,7 @@
     "build:node": "babel src -d .",
     "build": "npm run build:browser && npm run build:node",
     "pretest": "npm run lint && npm run build",
-    "test": "mocha --require @babel/register --reporter dot"
+    "test": "nyc mocha --require @babel/register --reporter dot"
   },
   "engines": {
     "node": ">= 0.10"

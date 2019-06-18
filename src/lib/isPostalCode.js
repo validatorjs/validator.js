@@ -64,6 +64,8 @@ export default function (str, locale) {
     return patterns[locale].test(str);
   } else if (locale === 'any') {
     for (const key in patterns) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if (patterns.hasOwnProperty(key)) {
         const pattern = patterns[key];
         if (pattern.test(str)) {
