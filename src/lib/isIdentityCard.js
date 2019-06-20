@@ -31,7 +31,7 @@ const validators = {
     return sanitized.endsWith(controlDigits[number % 23]);
   },
   'he-IL': (str) => {
-    const DNI = /^\d+$/;
+    const DNI = /^\d{9}$/;
 
     // sanitize user input
     const sanitized = str.trim();
@@ -43,10 +43,6 @@ const validators = {
 
     const id = sanitized;
 
-    if (id.length !== 9 || isNaN(id)) {
-      // Make sure ID is formatted properly
-      return false;
-    }
     let sum = 0,
       incNum;
     for (let i = 0; i < id.length; i++) {
