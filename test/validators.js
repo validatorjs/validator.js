@@ -3861,6 +3861,7 @@ describe('Validators', () => {
           '',
           'Vml2YW11cyBmZXJtZtesting123',
           '0-987123456',
+          '987123456',
         ],
       },
       {
