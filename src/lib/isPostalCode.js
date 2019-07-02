@@ -39,6 +39,7 @@ const patterns = {
   LU: fourDigit,
   LV: /^LV\-\d{4}$/,
   MX: fiveDigit,
+  MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
   NL: /^\d{4}\s?[a-z]{2}$/i,
   NO: fourDigit,
   NZ: fourDigit,
