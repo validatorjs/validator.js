@@ -6595,6 +6595,15 @@ describe('Validators', () => {
           'MSK8723',
         ],
       },
+      {
+        locale: 'PR',
+        valid: [
+          '00979',
+          '00631',
+          '00786',
+          '00987',
+        ],
+      },
     ];
 
     let allValid = [];

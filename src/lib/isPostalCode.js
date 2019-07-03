@@ -44,6 +44,7 @@ const patterns = {
   NO: fourDigit,
   NZ: fourDigit,
   PL: /^\d{2}\-\d{3}$/,
+  PR: /^00[679]\d{2}([ -]\d{4})?$/,
   PT: /^\d{4}\-\d{3}?$/,
   RO: sixDigit,
   RU: sixDigit,
