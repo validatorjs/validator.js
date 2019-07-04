@@ -2011,7 +2011,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '11.0.0';
+var version = '11.1.0';
 var validator = {
   version: version,
   toDate: toDate,

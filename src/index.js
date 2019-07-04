@@ -95,7 +95,7 @@ import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
 
-const version = '11.0.0';
+const version = '11.1.0';
 
 const validator = {
   version,
