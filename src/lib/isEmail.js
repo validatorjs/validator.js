@@ -92,6 +92,14 @@ export default function isEmail(str, options) {
 
   const lower_domain = domain.toLowerCase();
 
+  const pattern = options.allow_utf8_local_part ?
+    emailUserUtf8Part : emailUserPart;
+
+  // check for valid email user
+  if (user.match(pattern) == null) {
+    return false;
+  }
+
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
       Previously we removed dots for gmail addresses before validating.
@@ -147,9 +155,6 @@ export default function isEmail(str, options) {
       quotedEmailUserUtf8.test(user) :
       quotedEmailUser.test(user);
   }
-
-  const pattern = options.allow_utf8_local_part ?
-    emailUserUtf8Part : emailUserPart;
 
   const user_parts = user.split('.');
   for (let i = 0; i < user_parts.length; i++) {
