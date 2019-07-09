@@ -143,9 +143,9 @@ export default function isEmail(str, options) {
 
   if (user[0] === '"') {
     user = user.slice(1, user.length - 1);
-    return options.allow_utf8_local_part ?
+    return user.length > 0 && (options.allow_utf8_local_part ?
       quotedEmailUserUtf8.test(user) :
-      quotedEmailUser.test(user);
+      quotedEmailUser.test(user));
   }
 
   const pattern = options.allow_utf8_local_part ?
