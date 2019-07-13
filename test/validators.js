@@ -113,6 +113,7 @@ describe('Validators', () => {
         'multiple..dots@gmail.com',
         'wrong()[]",:;<>@@gmail.com',
         '"wrong()[]",:;<>@@gmail.com',
+        '""@invalid.com',
       ],
     });
   });
