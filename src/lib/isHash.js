@@ -18,6 +18,6 @@ const lengths = {
 
 export default function isHash(str, algorithm) {
   assertString(str);
-  const hash = new RegExp(`^[a-f0-9]{${lengths[algorithm]}}$`);
+  const hash = new RegExp(`^[a-fA-F0-9]{${lengths[algorithm]}}$`);
   return hash.test(str);
 }
