@@ -1789,7 +1789,7 @@ var patterns = {
   RO: sixDigit,
   RU: sixDigit,
   SA: fiveDigit,
-  SE: /^\d{3}\s?\d{2}$/,
+  SE: /^[1-9]\d{2}\s?\d{2}$/,
   SI: fourDigit,
   SK: /^\d{3}\s?\d{2}$/,
   TN: fourDigit,
