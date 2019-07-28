@@ -1007,7 +1007,7 @@ function isLength(str, options) {
     max = options.max;
   } else {
     // backwards compatibility: isLength(str, min [, max])
-    min = arguments[1];
+    min = arguments[1] || 0;
     max = arguments[2];
   }
 
