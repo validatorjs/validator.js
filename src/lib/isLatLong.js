@@ -7,5 +7,9 @@ export default function (str) {
   assertString(str);
   if (!str.includes(',')) return false;
   const pair = str.split(',');
+  if (
+    (pair[0].charAt(0) === '(' && pair[1].charAt(pair[1].length - 1) !== ')') ||
+    (pair[1].charAt(pair[1].length - 1) === ')' && pair[0].charAt(0) !== '(')
+  ) return false;
   return lat.test(pair[0]) && long.test(pair[1]);
 }
