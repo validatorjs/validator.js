@@ -2795,6 +2795,10 @@ describe('Validators', () => {
       valid: [''],
       invalid: ['a', 'ab'],
     });
+    test({
+      validator: 'isLength',
+      valid: ['a', '', 'asds'],
+    });
   });
 
   it('should validate strings by byte length', () => {
