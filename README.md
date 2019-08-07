@@ -66,7 +66,7 @@ $ bower install validator-js
 
 Thank you to the people who have already contributed:
 
-<a href="graphs/contributors"><img src="https://opencollective.com/validatorjs/contributors.svg?width=890" /></a>
+<a href="https://github.com/validatorjs/validator.js/graphs/contributors"><img src="https://opencollective.com/validatorjs/contributors.svg?width=890" /></a>
 
 ## Validators
 
