@@ -83,12 +83,8 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
-export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
-export const commaDecimal = [
-  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO',
-  'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin',
-  'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA',
-];
+export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY', 'en-AU', 'en-CA', 'zh-CN', 'hr', 'es-DO', 'ar-EG', 'es-SV', 'es-GT', 'es-HN', 'pa-IN', 'en-IE', 'en-JM', 'ja', 'ar-JO', 'ko-KP', 'ko-KR', 'ar-LY', 'ar-LB', 'de-LI', 'de-LU', 'es-MX', 'ne', 'en-NZ', 'es-NI', 'pa-PK', 'es-PA', 'en-PH', 'es-PR', 'si', 'en-ZA', 'it-CH', 'de-CH', 'fr-CH', 'zh-TW', 'en-GB', 'en-US', 'en-ZW'];
+export const commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'de', 'de-AU', 'de-LU', 'de-CH', 'fr-CH', 'sq', 'ar-DZ', 'fr-BE', 'bg', 'pt-BR', 'fr-CA', 'no', 'nb', 'nn', 'es-PE', 'pt', 'ru', 'ru-MO', 'sr', 'sv-SV', 'ar-TN', 'tr', 'tk', 'uk', 'es-UY', 'es-VE', 'vi', 'el'];
 
 for (let i = 0; i < dotDecimal.length; i++) {
   decimal[dotDecimal[i]] = decimal['en-US'];
