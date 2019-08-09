@@ -31,6 +31,7 @@ function test(options) {
           'validator.%s(%s) failed but should have passed',
           options.validator, args.join(', ')
         );
+        console.log('inside test');
         throw new Error(warning);
       }
     });
@@ -6803,6 +6804,36 @@ describe('Validators', () => {
       error: [
         '293940',
         '1234',
+      ],
+    });
+  });
+
+  it('should be a valid twitter handle', () => {
+    test({
+      validator: 'isTwitterHandle',
+      valid: [
+        'raviVeliyat',
+        'johndoe',
+        'r12345',
+        'ravi_veliyat',
+        'ravi_123_test',
+        '123456789q',
+        '1234567890rav43',
+        'X5Vel',
+        '_______ab',
+        '______12',
+        '________',
+        '120_____',
+        'zy____',
+      ],
+      invalid: [
+        '293940',
+        ',1234',
+        'test123_kasdld_asdfasdfiiie123',
+        'ravi',
+        '1234567890rav431',
+        '____',
+        'a',
       ],
     });
   });

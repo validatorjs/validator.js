@@ -95,6 +95,8 @@ import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
 
+import isTwitterHandle from './lib/isTwitterHandle';
+
 const version = '11.1.0';
 
 const validator = {
@@ -178,6 +180,7 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
+  isTwitterHandle,
 };
 
 export default validator;

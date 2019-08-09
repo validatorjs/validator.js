@@ -134,6 +134,7 @@ Validator                               | Description
 **isVariableWidth(str)**                | check if the string contains a mixture of full and half-width chars.
 **isWhitelisted(str, chars)**           | checks characters if they appear in the whitelist.
 **matches(str, pattern [, modifiers])** | check if string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
+**isTwitterHandle(str)**                | check if the given string is a valid twitter username pattern.
 
 ## Sanitizers
 
