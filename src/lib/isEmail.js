@@ -89,6 +89,18 @@ export default function isEmail(str, options) {
   const parts = str.split('@');
   const domain = parts.pop();
   let user = parts.join('@');
+  /**
+   * Check the first or last string it ends with special characters.
+   * Also, check if special characters apear consecutively.
+   */
+  const regEndsWithSpecialChar = /^.*[!#$%&',*+-\/=?^_`{|]$/i;
+  const regStartsWithSpecialChar = /^[!#$%&',*+-\/=?^_`{|]/i;
+  const regConsecutiveSpecialChar = /([!#$%&',*+-\/=?^_`{|])\1/i;
+  if (regEndsWithSpecialChar.test(user) ||
+    regStartsWithSpecialChar.test(user) ||
+    regConsecutiveSpecialChar.test(user)) {
+    return false;
+  }
 
   const lower_domain = domain.toLowerCase();
 
@@ -119,7 +131,7 @@ export default function isEmail(str, options) {
   }
 
   if (!isByteLength(user, { max: 64 }) ||
-            !isByteLength(domain, { max: 254 })) {
+    !isByteLength(domain, { max: 254 })) {
     return false;
   }
 

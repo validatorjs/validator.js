@@ -417,6 +417,19 @@ function isEmail(str, options) {
   var parts = str.split('@');
   var domain = parts.pop();
   var user = parts.join('@');
+  /**
+   * Check the first or last string it ends with special characters.
+   * Also, check if special characters apear consecutively.
+   */
+
+  var regEndsWithSpecialChar = /^.*[!#$%&',*+-\/=?^_`{|]$/i;
+  var regStartsWithSpecialChar = /^[!#$%&',*+-\/=?^_`{|]/i;
+  var regConsecutiveSpecialChar = /([!#$%&',*+-\/=?^_`{|])\1/i;
+
+  if (regEndsWithSpecialChar.test(user) || regStartsWithSpecialChar.test(user) || regConsecutiveSpecialChar.test(user)) {
+    return false;
+  }
+
   var lower_domain = domain.toLowerCase();
 
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
@@ -477,7 +490,7 @@ function isEmail(str, options) {
 
   if (user[0] === '"') {
     user = user.slice(1, user.length - 1);
-    return options.allow_utf8_local_part ? quotedEmailUserUtf8.test(user) : quotedEmailUser.test(user);
+    return user.length > 0 && (options.allow_utf8_local_part ? quotedEmailUserUtf8.test(user) : quotedEmailUser.test(user));
   }
 
   var pattern = options.allow_utf8_local_part ? emailUserUtf8Part : emailUserPart;
@@ -627,6 +640,8 @@ function isURL(url, options) {
 
 var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 var macAddressNoColons = /^([0-9a-fA-F]){12}$/;
+var macAddressWithHyphen = /^([0-9a-fA-F][0-9a-fA-F]-){5}([0-9a-fA-F][0-9a-fA-F])$/;
+var macAddressWithSpaces = /^([0-9a-fA-F][0-9a-fA-F]\s){5}([0-9a-fA-F][0-9a-fA-F])$/;
 function isMACAddress(str, options) {
   assertString(str);
 
@@ -634,7 +649,7 @@ function isMACAddress(str, options) {
     return macAddressNoColons.test(str);
   }
 
-  return macAddress.test(str);
+  return macAddress.test(str) || macAddressWithHyphen.test(str) || macAddressWithSpaces.test(str);
 }
 
 var subnetMaybe = /^\d{1,2}$/;
@@ -961,7 +976,7 @@ var lengths = {
 };
 function isHash(str, algorithm) {
   assertString(str);
-  var hash = new RegExp("^[a-f0-9]{".concat(lengths[algorithm], "}$"));
+  var hash = new RegExp("^[a-fA-F0-9]{".concat(lengths[algorithm], "}$"));
   return hash.test(str);
 }
 
@@ -1005,7 +1020,7 @@ function isLength(str, options) {
     max = options.max;
   } else {
     // backwards compatibility: isLength(str, min [, max])
-    min = arguments[1];
+    min = arguments[1] || 0;
     max = arguments[2];
   }
 
@@ -1397,7 +1412,7 @@ var phones = {
   'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
   'id-ID': /^(\+?62|0)8(1[123456789]|2[1238]|3[1238]|5[12356789]|7[78]|9[56789]|8[123456789])([\s?|\d]{5,11})$/,
   'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
-  'ja-JP': /^(\+?81|0)[789]0[ \-]?[1-9]\d{2}[ \-]?\d{5}$/,
+  'ja-JP': /^(\+?81|0)[6789]0[ \-]?\d{4}[ \-]?\d{4}$/,
   'kk-KZ': /^(\+?7|8)?7\d{9}$/,
   'kl-GL': /^(\+?299)?\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'ko-KR': /^((\+?82)[ \-]?)?0?1([0|1|6|7|8|9]{1})[ \-]?\d{3,4}[ \-]?\d{4}$/,
@@ -1737,6 +1752,7 @@ var isLatLong = function (str) {
   assertString(str);
   if (!str.includes(',')) return false;
   var pair = str.split(',');
+  if (pair[0].startsWith('(') && !pair[1].endsWith(')') || pair[1].endsWith(')') && !pair[0].startsWith('(')) return false;
   return lat.test(pair[0]) && _long.test(pair[1]);
 };
 
@@ -1787,7 +1803,7 @@ var patterns = {
   RO: sixDigit,
   RU: sixDigit,
   SA: fiveDigit,
-  SE: /^\d{3}\s?\d{2}$/,
+  SE: /^[1-9]\d{2}\s?\d{2}$/,
   SI: fourDigit,
   SK: /^\d{3}\s?\d{2}$/,
   TN: fourDigit,
