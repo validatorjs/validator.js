@@ -100,6 +100,7 @@ Validator                               | Description
 **isHash(str, algorithm)**              | check if the string is a hash of type algorithm.<br/><br/>Algorithm is one of `['md4', 'md5', 'sha1', 'sha256', 'sha384', 'sha512', 'ripemd128', 'ripemd160', 'tiger128', 'tiger160', 'tiger192', 'crc32', 'crc32b']`
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
+**isIBAN(str, locale)**                 | check if the string is a valid IBAN number,<br/><br/>(locale is one of `[ 'AD', 'AT', 'AU', 'BE', 'BG', 'CA', 'CH', 'CZ', 'DE', 'DK', 'DZ', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'ID', 'IL', 'IN', 'IS', 'IT', 'JP', 'KE', 'LI', 'LT', 'LU', 'LV', 'MX', 'NL', 'NO', 'PL', 'PT', 'RO', 'RU', 'SA', 'SE', 'SI', 'TN', 'TW', 'UA', 'US', 'ZA', 'ZM' ]` OR 'any'. If 'any' is used, function will check if any of the locals match with the first twi caracters of the IBAN number (wich corresponds to the ISO 3166-1 alpha-2 country code). Locale list is `validator.isIBANLocales`).
 **isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['ES', 'zh-TW', 'he-IL']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
 **isIP(str [, version])**               | check if the string is an IP (version 4 or 6).
 **isIPRange(str)**                      | check if the string is an IP Range(version 4 only).

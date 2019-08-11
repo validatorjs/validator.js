@@ -57,6 +57,8 @@ import isBefore from './lib/isBefore';
 
 import isIn from './lib/isIn';
 
+import isIBAN, { locales as isIBANLocales } from './lib/isIBAN';
+
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
 
@@ -147,6 +149,8 @@ const validator = {
   isAfter,
   isBefore,
   isIn,
+  isIBAN,
+  isIBANLocales,
   isCreditCard,
   isIdentityCard,
   isISIN,

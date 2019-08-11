@@ -95,6 +95,8 @@ var _isBefore = _interopRequireDefault(require("./lib/isBefore"));
 
 var _isIn = _interopRequireDefault(require("./lib/isIn"));
 
+var _isIBAN = _interopRequireWildcard(require("./lib/isIBAN"));
+
 var _isCreditCard = _interopRequireDefault(require("./lib/isCreditCard"));
 
 var _isIdentityCard = _interopRequireDefault(require("./lib/isIdentityCard"));
@@ -206,6 +208,8 @@ var validator = {
   isAfter: _isAfter.default,
   isBefore: _isBefore.default,
   isIn: _isIn.default,
+  isIBAN: _isIBAN.default,
+  isIBANLocales: _isIBAN.locales,
   isCreditCard: _isCreditCard.default,
   isIdentityCard: _isIdentityCard.default,
   isISIN: _isISIN.default,
