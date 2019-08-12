@@ -31,7 +31,6 @@ function test(options) {
           'validator.%s(%s) failed but should have passed',
           options.validator, args.join(', ')
         );
-        console.log('inside test');
         throw new Error(warning);
       }
     });
