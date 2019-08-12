@@ -1769,6 +1769,7 @@ var patterns = {
   HR: /^([1-5]\d{4}$)/,
   HU: fourDigit,
   ID: fiveDigit,
+  IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
   IL: fiveDigit,
   IN: sixDigit,
   IS: threeDigit,
@@ -2019,7 +2020,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var twitterHandle = /^(?=.*[a-zA-Z]|[0-9]*_+[0-9]*)[a-zA-Z0-9_]{5,15}$/;
+var twitterHandle = /^(?=.*[A-z]|[\d]*_+[\d]*)[\w_]{5,15}$/;
 function isTwitterHandle(username) {
   return twitterHandle.test(username);
 }
