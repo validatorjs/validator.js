@@ -1769,6 +1769,7 @@ var patterns = {
   HR: /^([1-5]\d{4}$)/,
   HU: fourDigit,
   ID: fiveDigit,
+  IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
   IL: fiveDigit,
   IN: sixDigit,
   IS: threeDigit,

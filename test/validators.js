@@ -6619,6 +6619,21 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'IE',
+        valid: [
+          'A65 TF12',
+          'A6W U9U9',
+        ],
+        invalid: [
+          '123',
+          '75690HG',
+          'AW5  TF12',
+          'AW5 TF12',
+          '756  90HG',
+          'A65T F12',
+        ],
+      },
+      {
         locale: 'BG',
         valid: [
           '1000',
