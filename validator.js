@@ -940,6 +940,12 @@ function isISRC(str) {
   return isrc.test(str);
 }
 
+var isBICReg = /^[A-z]{4}[A-z]{2}\w{2}(\w{3})?$/;
+function isBIC(str) {
+  assertString(str);
+  return isBICReg.test(str);
+}
+
 var md5 = /^[a-f0-9]{32}$/;
 function isMD5(str) {
   assertString(str);
@@ -2037,6 +2043,7 @@ var validator = {
   isIPRange: isIPRange,
   isFQDN: isFQDN,
   isBoolean: isBoolean,
+  isBIC: isBIC,
   isAlpha: isAlpha,
   isAlphaLocales: locales,
   isAlphanumeric: isAlphanumeric,
