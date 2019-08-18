@@ -3002,6 +3002,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate BIC codes', () => {
+    test({
+      validator: 'isBIC',
+      valid: [
+        'SBICKEN1345',
+        'SBICKEN1',
+        'SBICKENY',
+        'SBICKEN1YYP',
+      ],
+      invalid: [
+        'SBIC23NXXX',
+        'S23CKENXXXX',
+        'SBICKENXX',
+        'SBICKENXX9',
+        'SBICKEN13458',
+        'SBICKEN',
+      ],
+    });
+  });
+
   it('should validate that integer strings are divisible by a number', () => {
     test({
       validator: 'isDivisibleBy',
@@ -7109,6 +7129,21 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'IE',
+        valid: [
+          'A65 TF12',
+          'A6W U9U9',
+        ],
+        invalid: [
+          '123',
+          '75690HG',
+          'AW5  TF12',
+          'AW5 TF12',
+          '756  90HG',
+          'A65T F12',
+        ],
+      },
+      {
         locale: 'BG',
         valid: [
           '1000',
@@ -7208,6 +7243,14 @@ describe('Validators', () => {
           '39100-000',
           '22040-020',
           '39400-152',
+        ],
+        invalid: [
+          '79800A12',
+          '13165-00',
+          '38175-abc',
+          '81470-2763',
+          '78908',
+          '13010|111',
         ],
       },
       {

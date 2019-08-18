@@ -39,6 +39,8 @@ import isHexColor from './lib/isHexColor';
 
 import isISRC from './lib/isISRC';
 
+import isBIC from './lib/isBIC';
+
 import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
 import isJWT from './lib/isJWT';
@@ -115,6 +117,7 @@ const validator = {
   isIPRange,
   isFQDN,
   isBoolean,
+  isBIC,
   isAlpha,
   isAlphaLocales,
   isAlphanumeric,
