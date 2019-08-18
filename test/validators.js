@@ -99,6 +99,8 @@ describe('Validators', () => {
         'multiple..dots@gmail.com',
         'wrong()[]",:;<>@@gmail.com',
         '"wrong()[]",:;<>@@gmail.com',
+        'username@domain.com�',
+        'username@domain.com©',
       ],
     });
   });
@@ -790,6 +792,8 @@ describe('Validators', () => {
         's!ome.com',
         'domain.com/',
         '/more.com',
+        'domain.com�',
+        'domain.com©',
       ],
     });
   });

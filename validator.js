@@ -225,6 +225,11 @@ function isFQDN(str, options) {
 
     if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20]/.test(tld)) {
       return false;
+    } // disallow special characers
+
+
+    if (/[\u00A9\uFFFD]/.test(tld)) {
+      return false;
     }
   }
 
