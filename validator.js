@@ -1234,6 +1234,47 @@ function isIdentityCard(str, locale) {
   throw new Error("Invalid locale '".concat(locale, "'"));
 }
 
+var validators$1 = {
+  NO: function NO(str) {
+    var sanitized = str.trim();
+    if (isNaN(Number(sanitized))) return false;
+    if (sanitized.length !== 11) return false;
+    if (sanitized === '00000000000') return false; // https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
+
+    var f = sanitized.split('').map(Number);
+    var k1 = (11 - (3 * f[0] + 7 * f[1] + 6 * f[2] + 1 * f[3] + 8 * f[4] + 9 * f[5] + 4 * f[6] + 5 * f[7] + 2 * f[8]) % 11) % 11;
+    var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11;
+
+    if (k1 === 11) {
+      k1 = 0;
+    }
+
+    if (k1 !== f[9] || k2 !== f[10]) return false;
+    return true;
+  }
+};
+function isIdentityNumber(str, locale) {
+  assertString(str);
+
+  if (locale in validators$1) {
+    return validators$1[locale](str);
+  } else if (locale === 'any') {
+    for (var key in validators$1) {
+      if (validators$1.hasOwnProperty(key)) {
+        var validator = validators$1[key];
+
+        if (validator(str)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  throw new Error("Invalid locale '".concat(locale, "'"));
+}
+
 var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
 function isISIN(str) {
   assertString(str);
@@ -2081,6 +2122,7 @@ var validator = {
   isIn: isIn,
   isCreditCard: isCreditCard,
   isIdentityCard: isIdentityCard,
+  isIdentityNumber: isIdentityNumber,
   isISIN: isISIN,
   isISBN: isISBN,
   isISSN: isISSN,

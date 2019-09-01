@@ -101,6 +101,8 @@ var _isCreditCard = _interopRequireDefault(require("./lib/isCreditCard"));
 
 var _isIdentityCard = _interopRequireDefault(require("./lib/isIdentityCard"));
 
+var _isIdentityNumber = _interopRequireDefault(require("./lib/isIdentityNumber"));
+
 var _isISIN = _interopRequireDefault(require("./lib/isISIN"));
 
 var _isISBN = _interopRequireDefault(require("./lib/isISBN"));
@@ -211,6 +213,7 @@ var validator = {
   isIn: _isIn.default,
   isCreditCard: _isCreditCard.default,
   isIdentityCard: _isIdentityCard.default,
+  isIdentityNumber: _isIdentityNumber.default,
   isISIN: _isISIN.default,
   isISBN: _isISBN.default,
   isISSN: _isISSN.default,

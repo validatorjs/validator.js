@@ -3214,6 +3214,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Identity Number', () => {
+    test({
+      validator: 'isIdentityNumber',
+      args: ['NO'],
+      valid: [
+        '09053426694',
+        '26028338723',
+        '08031470790',
+        '12051539514',
+        '02077448074',
+        '14035638319',
+        '13031379673',
+        '29126214926',
+      ],
+      invalid: [
+        '09053426699',
+        '26028338724',
+        '92031470790',
+      ],
+    });
+  });
+
   it('should validate ISINs', () => {
     test({
       validator: 'isISIN',

@@ -102,6 +102,7 @@ Validator                               | Description
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
 **isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['ES', 'zh-TW', 'he-IL']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
+**isIdentityNumber(str [, locale])**      | check if the string is a valid [national identification number](https://en.wikipedia.org/wiki/National_identification_number).<br/><br/>`locale` is one of `['NO']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
 **isIP(str [, version])**               | check if the string is an IP (version 4 or 6).
 **isIPRange(str)**                      | check if the string is an IP Range(version 4 only).
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
