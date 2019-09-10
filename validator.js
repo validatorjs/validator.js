@@ -49,6 +49,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -1553,6 +1557,12 @@ function isCurrency(str, options) {
   return currencyRegex(options).test(str);
 }
 
+var isISO6392Reg = /^[a-z]{3}$/;
+function isISO6392(str) {
+  assertString(str);
+  return isISO6392Reg.test(str);
+}
+
 /* eslint-disable max-len */
 // from http://goo.gl/0ejHHW
 
@@ -2089,6 +2099,7 @@ var validator = {
   isPostalCode: isPostalCode,
   isPostalCodeLocales: locales$4,
   isCurrency: isCurrency,
+  isISO6392: isISO6392,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,

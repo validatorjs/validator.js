@@ -6340,6 +6340,23 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 6392', () => {
+    test({
+      validator: 'isISO6392',
+      valid: [
+        'aar',
+        'kam',
+      ],
+      invalid: [
+        'ar',
+        'KK',
+        'l',
+        '90',
+        '#4',
+      ],
+    });
+  });
+
   it('should validate RFC 3339 dates', () => {
     test({
       validator: 'isRFC3339',

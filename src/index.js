@@ -70,6 +70,7 @@ import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePh
 
 import isCurrency from './lib/isCurrency';
 
+import isISO6392 from './lib/isISO6392';
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
@@ -160,6 +161,7 @@ const validator = {
   isPostalCode,
   isPostalCodeLocales,
   isCurrency,
+  isISO6392,
   isISO8601,
   isRFC3339,
   isISO31661Alpha2,
