@@ -58,16 +58,21 @@
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
     "clean:node": "rm -rf index.js lib",
+    "clean:node.win": "RMDIR /S /Q lib && ERASE /F /Q index.js",
     "clean:es": "rm -rf es",
+    "clean:es.win": "RMDIR /S /Q es",
     "clean:browser": "rm -rf validator*.js",
+    "clean:browser.win": "ERASE /F /Q validator*.js",
     "clean": "npm run clean:node && npm run clean:browser && npm run clean:es",
+    "clean.win": "npm run clean:node.win && npm run clean:browser.win && npm run clean:es.win",
     "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
     "build:browser": "node --require @babel/register build-browser && npm run minify",
     "build:es": "babel src -d es --env-name=es",
     "build:node": "babel src -d .",
     "build": "npm run build:browser && npm run build:node && npm run build:es",
     "pretest": "npm run lint && npm run build",
-    "test": "nyc mocha --require @babel/register --reporter dot"
+    "test": "nyc mocha --require @babel/register --reporter dot",
+    "buildtest": "npm run build && npm run lint:fix && npm run test"
   },
   "engines": {
     "node": ">= 0.10"
