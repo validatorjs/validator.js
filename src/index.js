@@ -68,6 +68,8 @@ import isISSN from './lib/isISSN';
 
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 
+import isEthereumAddress from './lib/isEthereumAddress';
+
 import isCurrency from './lib/isCurrency';
 
 import isISO8601 from './lib/isISO8601';
@@ -159,6 +161,7 @@ const validator = {
   isMobilePhoneLocales,
   isPostalCode,
   isPostalCodeLocales,
+  isEthereumAddress,
   isCurrency,
   isISO8601,
   isRFC3339,

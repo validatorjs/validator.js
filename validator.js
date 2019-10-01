@@ -49,6 +49,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -1480,6 +1484,12 @@ function isMobilePhone(str, locale, options) {
 }
 var locales$3 = Object.keys(phones);
 
+var eth = /^(0x)[0-9a-f]{40}$/i;
+function isEthereumAddress(str) {
+  assertString(str);
+  return eth.test(str);
+}
+
 function currencyRegex(options) {
   var decimal_digits = "\\d{".concat(options.digits_after_decimal[0], "}");
   options.digits_after_decimal.forEach(function (digit, index) {
@@ -2088,6 +2098,7 @@ var validator = {
   isMobilePhoneLocales: locales$3,
   isPostalCode: isPostalCode,
   isPostalCodeLocales: locales$4,
+  isEthereumAddress: isEthereumAddress,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,
