@@ -1242,6 +1242,23 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Hebrew alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['he'],
+      valid: [
+        'בדיקה',
+        'שלום',
+      ],
+      invalid: [
+        'בדיקה123',
+        '  foo  ',
+        'abc1',
+        '',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlpha',
@@ -1642,6 +1659,23 @@ describe('Validators', () => {
         'Heiß',
         'ЫыЪъЭэ',
         'jαckγ',
+      ],
+    });
+  });
+
+  it('should validate Hebrew alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['he'],
+      valid: [
+        'אבג123',
+        'שלום11',
+      ],
+      invalid: [
+        'אבג ',
+        'לא!!',
+        'abc',
+        '  foo  ',
       ],
     });
   });
