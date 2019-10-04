@@ -34,7 +34,7 @@ function checkHost(host, matches) {
 export default function isURL(url, options) {
   assertString(url);
   
-  if (!url) {
+  if (!url || url.length >= 2083) {
     return false;
   }
 
@@ -46,11 +46,6 @@ export default function isURL(url, options) {
   let protocol, auth, host, hostname, port, port_str, split, ipv6;
   split = url.split('#');
   url = split.shift();
-  
-  if(url.length >= 2083){
-    return false;
-  }
-
   split = url.split('?');
   url = split.shift();
 
