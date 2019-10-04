@@ -33,21 +33,31 @@ function checkHost(host, matches) {
 
 export default function isURL(url, options) {
   assertString(url);
-  if (!url || url.length >= 2083 || /[\s<>]/.test(url)) {
+  
+  if (!url) {
     return false;
   }
+
   if (url.indexOf('mailto:') === 0) {
     return false;
   }
+  
   options = merge(options, default_url_options);
   let protocol, auth, host, hostname, port, port_str, split, ipv6;
-
   split = url.split('#');
   url = split.shift();
+  
+  if(url.length >= 2083){
+    return false;
+  }
 
   split = url.split('?');
   url = split.shift();
 
+  if(/[\s<>]/.test(url)){
+    return false;
+  }
+  
   split = url.split('://');
   if (split.length > 1) {
     protocol = split.shift().toLowerCase();
