@@ -6910,4 +6910,24 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate bitcoin addresses', () => {
+    test({
+      validator: 'isBitcoinAddress',
+      valid: [
+        '17hxeNzSThGXFpsNWQxgnkYSaxHMWiJXpL',
+        '3E25dAEyWZAHuAxB3PhBzFkgnLBiyuJQd4',
+        '15QL6wDEaScN2VFzLpJ7kfjEWvwbdjMUo7',
+        '3PdPRuxTeRq4TVaE5BPGxaGU1pcqdWQJFo',
+        '1NmqMMcn5NL8uoLqtVoNKGJTjugspdBBjD',
+        '1CP1cgJaZPavuPsvRg5ZFsKjsqdefdHzkk',
+        '19bUxKPJPDVfNnm4yd2P1m2miNTEyLDkhz',
+      ],
+      invalid: [
+        '',
+        '07hxeNzSThGXFpsNWQxgnkYSaxHMWiJXpL',
+        '1LgejHhRoWxRqNMusrn5J',
+      ],
+    });
+  });
 });

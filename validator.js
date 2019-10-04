@@ -49,6 +49,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -2027,6 +2031,16 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
+/* eslint-disable no-control-regex */
+
+var bitcoinregex = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+/* eslint-enable no-control-regex */
+
+function isBitcoinAddress(str) {
+  assertString(str);
+  return bitcoinregex.test(str);
+}
+
 var version = '11.1.0';
 var validator = {
   version: version,
@@ -2109,7 +2123,8 @@ var validator = {
   blacklist: blacklist$1,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
-  toString: toString
+  toString: toString,
+  isBitcoinAddress: isBitcoinAddress
 };
 
 return validator;
