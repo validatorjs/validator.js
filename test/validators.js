@@ -1031,6 +1031,30 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate farsi alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['fa-IR'],
+      valid: [
+        'پدر',
+        'مادر',
+        'برادر',
+        'خواهر',
+      ],
+      invalid: [
+        'فارسی۱۲۳',
+        '۱۶۴',
+        'abc1',
+        '  foo  ',
+        '',
+        'ÄBC',
+        'FÜübar',
+        'Jön',
+        'Heiß',
+      ],
+    });
+  });
+
   it('should validate kurdish alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1485,6 +1509,24 @@ describe('Validators', () => {
         'äca ',
         'abcß',
         'föö!!',
+      ],
+    });
+  });
+
+  it('should validate farsi alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['fa-IR'],
+      valid: [
+        'پارسی۱۲۳',
+        '۱۴۵۶',
+        'مژگان9',
+      ],
+      invalid: [
+        'äca ',
+        'abcßة',
+        'föö!!',
+        '٤٥٦',
       ],
     });
   });
