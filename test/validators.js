@@ -2139,6 +2139,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate camelcase strings', () => {
+    test({
+      validator: 'isCamelCase',
+      valid: [
+        'camelCase',
+        'thisIsCamelCase',
+      ],
+      invalid: [
+        'camelCase1',
+        'CamelCase',
+        'camelcase',
+        'Camelcase',
+        'CAMELCASE',
+        'Camel_Case',
+        'camelC',
+      ],
+    });
+  });
+
   it('should validate integers', () => {
     test({
       validator: 'isInt',
