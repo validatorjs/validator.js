@@ -6986,4 +6986,32 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate Facebook handles', () => {
+    test({
+      validator: 'isFacebookHandle',
+      valid: [
+        'TheRock',
+        'XXX.NoobMaster69.XXX',
+        'validator.js',
+        'h3lloW0rlD',
+        'helloworld',
+        'USERNAME',
+      ],
+      invalid: [
+        '',
+        ' ',
+        'Rock',
+        '    Rock    ',
+        '............',
+        '....Rock....',
+        'XXX_NoobMaster69_XXX',
+        'validator_js',
+        'validator-js',
+        'hello+world',
+        'h3llo&W0rlD',
+        '@USERNAME',
+      ],
+    });
+  });
 });

@@ -97,6 +97,8 @@ import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
 
+import isFacebookHandle from './lib/isFacebookHandle';
+
 const version = '11.1.0';
 
 const validator = {
@@ -181,6 +183,7 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
+  isFacebookHandle,
 };
 
 export default validator;
