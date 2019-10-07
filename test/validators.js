@@ -1798,6 +1798,31 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate binary numbers', () => {
+    test({
+      validator: 'isBinary',
+      valid: [
+        '0000',
+        '0',
+        '1',
+        '1010',
+        '1111',
+        '0101',
+      ],
+      invalid: [
+        '1234',
+        '-1234',
+        'abcd',
+        'AbcD5',
+        '....',
+        '$%^&*!',
+        '',
+        '-1000',
+        '000-',
+      ],
+    });
+  });
+
   it('should validate decimal numbers', () => {
     test({
       validator: 'isDecimal',

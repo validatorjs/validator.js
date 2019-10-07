@@ -32,6 +32,7 @@ import isSurrogatePair from './lib/isSurrogatePair';
 import isInt from './lib/isInt';
 import isFloat, { locales as isFloatLocales } from './lib/isFloat';
 import isDecimal from './lib/isDecimal';
+import isBinary from './lib/isBinary';
 import isHexadecimal from './lib/isHexadecimal';
 import isDivisibleBy from './lib/isDivisibleBy';
 
@@ -133,6 +134,7 @@ const validator = {
   isInt,
   isFloat,
   isFloatLocales,
+  isBinary,
   isDecimal,
   isHexadecimal,
   isDivisibleBy,
