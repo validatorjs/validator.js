@@ -21,6 +21,7 @@ import isNumeric from './lib/isNumeric';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
+import isPascalCase from './lib/isPascalCase';
 
 import isAscii from './lib/isAscii';
 import isFullWidth from './lib/isFullWidth';
@@ -124,6 +125,7 @@ const validator = {
   isPort,
   isLowercase,
   isUppercase,
+  isPascalCase,
   isAscii,
   isFullWidth,
   isHalfWidth,

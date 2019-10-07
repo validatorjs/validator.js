@@ -2139,6 +2139,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate pascal case strings', () => {
+    test({
+      validator: 'isPascalCase',
+      valid: [
+        'PascalCase',
+        'ThisIsPascalCase',
+        'AbcD',
+      ],
+      invalid: [
+        'abcd',
+        'ABCD',
+        'abcD',
+        'abcDef',
+        'abc123',
+        'abc_def',
+      ],
+    });
+  });
+
   it('should validate integers', () => {
     test({
       validator: 'isInt',
