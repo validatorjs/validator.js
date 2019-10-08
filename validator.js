@@ -925,7 +925,7 @@ function isDecimal(str, options) {
   throw new Error("Invalid locale '".concat(options.locale, "'"));
 }
 
-function isCamelCase(str) {
+function isBinary(str) {
   assertString(str);
   var pattern = /^[01]+$/;
   return pattern.test(str);
@@ -2076,7 +2076,7 @@ var validator = {
   isInt: isInt,
   isFloat: isFloat,
   isFloatLocales: locales$2,
-  isBinary: isCamelCase,
+  isBinary: isBinary,
   isDecimal: isDecimal,
   isHexadecimal: isHexadecimal,
   isDivisibleBy: isDivisibleBy,
