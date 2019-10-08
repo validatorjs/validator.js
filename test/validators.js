@@ -3078,6 +3078,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate that the string is a leap year', () => {
+    test({
+      validator: 'isLeapYear',
+      valid: [
+        '2020',
+        '2016',
+        '2012',
+      ],
+      invalid: [
+        '-2020',
+        '2016-',
+        '----',
+        'asdasd',
+        '',
+        '....',
+        '259',
+        '255',
+        '2015',
+      ],
+    });
+  });
+
   it('should validate BIC codes', () => {
     test({
       validator: 'isBIC',

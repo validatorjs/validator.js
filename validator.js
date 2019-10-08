@@ -49,6 +49,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -691,6 +695,7 @@ var alpha = {
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
+  he: /^[א-ת]+$/,
   'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
 };
 var alphanumeric = {
@@ -719,6 +724,7 @@ var alphanumeric = {
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
+  he: /^[0-9א-ת]+$/,
   'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
 };
 var decimal = {
@@ -1058,6 +1064,12 @@ function isBefore(str) {
   return !!(original && comparison && original < comparison);
 }
 
+function isLeapYear(str) {
+  assertString(str);
+  var isValidPositiveNumber = !isNaN(str) && parseInt(str, 10) > 0;
+  return isValidPositiveNumber ? str % 4 === 0 && str % 100 !== 0 || str % 400 === 0 : isValidPositiveNumber;
+}
+
 function isIn(str, options) {
   assertString(str);
   var i;
@@ -1363,7 +1375,7 @@ var phones = {
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
-  'bn-BD': /^(\+?880|0)1[1356789][0-9]{8}$/,
+  'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
@@ -2080,6 +2092,7 @@ var validator = {
   isMongoId: isMongoId,
   isAfter: isAfter,
   isBefore: isBefore,
+  isLeapYear: isLeapYear,
   isIn: isIn,
   isCreditCard: isCreditCard,
   isIdentityCard: isIdentityCard,

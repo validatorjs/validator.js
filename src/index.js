@@ -56,6 +56,7 @@ import isMongoId from './lib/isMongoId';
 
 import isAfter from './lib/isAfter';
 import isBefore from './lib/isBefore';
+import isLeapYear from './lib/isLeapYear';
 
 import isIn from './lib/isIn';
 
@@ -149,6 +150,7 @@ const validator = {
   isMongoId,
   isAfter,
   isBefore,
+  isLeapYear,
   isIn,
   isCreditCard,
   isIdentityCard,
