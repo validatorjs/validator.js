@@ -986,6 +986,22 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate brazilian strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['pt-BR'],
+      valid: [
+        'brasileiro',
+        'CONSTITUIÇÃO',
+        'corrida',
+        'concluído',
+        'carteira'],
+      invalid: [
+        'üni789',
+        '$à111'],
+    });
+  });
+
   it('should validate italian alpha strings', () => {
     test({
       validator: 'isAlpha',
