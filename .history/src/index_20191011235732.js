@@ -12,7 +12,7 @@ import isMACAddress from './lib/isMACAddress';
 import isIP from './lib/isIP';
 import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
-import isStrongPassword from './lib/isStrongPassword';
+import isStrongPassword from './lib/'
 
 import isBoolean from './lib/isBoolean';
 
