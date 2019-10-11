@@ -2495,11 +2495,15 @@ describe('Validators', () => {
       valid: [
         'deadBEEF',
         'ff0044',
+        '0xff0044',
+        '0XfF0044',
       ],
       invalid: [
         'abcdefg',
         '',
         '..',
+        '0xa2h',
+        '0xa20x',
       ],
     });
   });
