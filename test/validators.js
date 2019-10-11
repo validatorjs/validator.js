@@ -6986,4 +6986,28 @@ describe('Validators', () => {
       ],
     });
   });
+
+
+  it('should validate strong password', () => {
+    test({
+      validator: 'validatePassword',
+      valid: [
+        '123#$%qweQWE',
+        '12#Qw',
+        '@2wq',
+        'Qw2#',
+        'wwq23@',
+      ],
+      invalid: [
+        '',
+        ' ',
+        '/',
+        'f/b',
+        '23',
+        '2w',
+        '2wqQ',
+        'qWWe34',
+      ],
+    });
+  });
 });
