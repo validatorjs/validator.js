@@ -6744,6 +6744,18 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'IN',
+        valid: [
+          '364240',
+          '360005',
+        ],
+        invalid: [
+          '123',
+          '012345',
+          '011111',
+        ],
+      },
+      {
         locale: 'BG',
         valid: [
           '1000',
