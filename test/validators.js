@@ -1,4 +1,4 @@
-import { format } from 'util';
+﻿import { format } from 'util';
 import assert from 'assert';
 import fs from 'fs';
 import vm from 'vm';
@@ -84,10 +84,10 @@ describe('Validators', () => {
         'invalidemail@',
         'invalid.com',
         '@invalid.com',
-        'foo@bar.com.',
-        'somename@ｇｍａｉｌ.com',
-        'foo@bar.co.uk.',
-        'z@co.c',
+        'foo@b^ar.com.',
+        'some(name@ｇｍａｉｌ.com',
+        'foo*@bar.co.uk.',
+        'z@3co.c',
         'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com',
         `${repeat('a', 64)}@${repeat('a', 251)}.com`,
         `${repeat('a', 65)}@${repeat('a', 250)}.com`,
