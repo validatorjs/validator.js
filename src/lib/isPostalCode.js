@@ -30,7 +30,7 @@ const patterns = {
   ID: fiveDigit,
   IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
   IL: fiveDigit,
-  IN: /^[1-9][0-9]{5}$/,
+  IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
