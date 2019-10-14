@@ -155,7 +155,7 @@ Sanitizer                              | Description
 **toInt(input [, radix])**             | convert the input string to an integer, or `NaN` if the input is not an integer.
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
-
+**passwordValidate(input)**           | check if the string contain atleast one uppercase character, lowercase character, number and symbol
 ### XSS Sanitization
 
 XSS sanitization was removed from the library in [2d5d6999](https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
