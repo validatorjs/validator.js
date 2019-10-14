@@ -6994,9 +6994,9 @@ describe('Validators', () => {
       valid: [
         '123#$%qweQWE',
         '12#Qw',
-        '@2wq',
+        '@2wQ',
         'Qw2#',
-        'wwq23@',
+        'wwQ23@',
       ],
       invalid: [
         '',

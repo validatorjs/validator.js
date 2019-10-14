@@ -1,8 +1,7 @@
 import assertString from './util/assertString';
-import toString from './util/toString';
 
-export default function validate_password(str) {
+export default function validatePassword(str) {
+  const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
   assertString(str);
-  var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
   return (/[a-z]/.test(str)) && (/[A-Z]/.test(str)) && (/[\d]/.test(str)) && format.test(str);
 }
