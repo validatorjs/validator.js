@@ -41,6 +41,7 @@ import isDivisibleBy from './lib/isDivisibleBy';
 
 import isHexColor from './lib/isHexColor';
 import isRgbColor from './lib/isRgbColor';
+import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
@@ -155,6 +156,7 @@ const validator = {
   isDivisibleBy,
   isHexColor,
   isRgbColor,
+  isHSL,
   isISRC,
   isMD5,
   isHash,

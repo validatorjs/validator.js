@@ -3126,6 +3126,27 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate HSL color strings', () => {
+    test({
+      validator: 'isHSL',
+      valid: [
+        'hsl(360,0000000000100%,000000100%)',
+        'HSL(00000,0000000000100%,000000100%)',
+        'hsL(0, 0%, 0%)',
+        'hSl(  360  , 100%  , 100%   )',
+        'Hsl(  00150  , 000099%  , 01%   )',
+      ],
+      invalid: [
+        'hsl (360,0000000000100%,000000100%)',
+        'hsl(361, 100%, 100%)',
+        'hsl(0260, 101%, 100%)',
+        'hsl(0160, 100%, 101%)',
+        'hsl(0160, -100%, 101%)',
+        'hsl(-0160, 100%, 101%)',
+      ],
+    });
+  });
+
   it('should validate rgb color strings', () => {
     test({
       validator: 'isRgbColor',
