@@ -115,7 +115,7 @@ Validator                               | Description
 **isRFC3339(str)**                      | check if the string is a valid [RFC 3339](https://tools.ietf.org/html/rfc3339) date.
 **isJSON(str)**                         | check if the string is valid JSON (note: uses JSON.parse).
 **isJWT(str)**                         | check if the string is valid JWT token.
-**isLatLong(str)**                      | check if the string is a valid latitude-longitude coordinate in the format `lat,long` or `lat, long`.
+**isLatLong(str)**                      | check if the string is a valid latitude-longitude coordinate in the format `lat,long` or `lat, long`. Pass option {checkDMS : true} to validate DMS(degrees, minutes, and seconds) latiture-longitude format.
 **isLength(str [, options])**              | check if the string's length falls in a range.<br/><br/>`options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
 **isLowercase(str)**                    | check if the string is lowercase.
 **isMACAddress(str)**                   | check if the string is a MAC address.<br/><br/>`options` is an object which defaults to `{no_colons: false}`. If `no_colons` is true, the validator will allow MAC addresses without the colons. Also, it allows the use of hyphens or spaces e.g  '01 02 03 04 05 ab' or '01-02-03-04-05-ab'.
