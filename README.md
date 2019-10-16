@@ -156,6 +156,7 @@ Sanitizer                              | Description
 **toInt(input [, radix])**             | convert the input string to an integer, or `NaN` if the input is not an integer.
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
+**isSlug**                             | Check if the string is of type slug. `Options` allow a single hyphen between string. e.g. [`cn-cn`, `cn-c-c`]
 
 ### XSS Sanitization
 
