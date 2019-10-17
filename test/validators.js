@@ -1031,6 +1031,30 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate farsi alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['fa-IR'],
+      valid: [
+        'پدر',
+        'مادر',
+        'برادر',
+        'خواهر',
+      ],
+      invalid: [
+        'فارسی۱۲۳',
+        '۱۶۴',
+        'abc1',
+        '  foo  ',
+        '',
+        'ÄBC',
+        'FÜübar',
+        'Jön',
+        'Heiß',
+      ],
+    });
+  });
+
   it('should validate kurdish alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1238,6 +1262,23 @@ describe('Validators', () => {
         'ЫыЪъЭэ',
         '120',
         'jαckγ',
+      ],
+    });
+  });
+
+  it('should validate Hebrew alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['he'],
+      valid: [
+        'בדיקה',
+        'שלום',
+      ],
+      invalid: [
+        'בדיקה123',
+        '  foo  ',
+        'abc1',
+        '',
       ],
     });
   });
@@ -1472,6 +1513,24 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate farsi alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['fa-IR'],
+      valid: [
+        'پارسی۱۲۳',
+        '۱۴۵۶',
+        'مژگان9',
+      ],
+      invalid: [
+        'äca ',
+        'abcßة',
+        'föö!!',
+        '٤٥٦',
+      ],
+    });
+  });
+
   it('should validate kurdish alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
@@ -1642,6 +1701,23 @@ describe('Validators', () => {
         'Heiß',
         'ЫыЪъЭэ',
         'jαckγ',
+      ],
+    });
+  });
+
+  it('should validate Hebrew alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['he'],
+      valid: [
+        'אבג123',
+        'שלום11',
+      ],
+      invalid: [
+        'אבג ',
+        'לא!!',
+        'abc',
+        '  foo  ',
       ],
     });
   });
@@ -2419,9 +2495,39 @@ describe('Validators', () => {
       valid: [
         'deadBEEF',
         'ff0044',
+        '0xff0044',
+        '0XfF0044',
+        '0x0123456789abcDEF',
+        '0X0123456789abcDEF',
+        '0hfedCBA9876543210',
+        '0HfedCBA9876543210',
+        '0123456789abcDEF',
       ],
       invalid: [
         'abcdefg',
+        '',
+        '..',
+        '0xa2h',
+        '0xa20x',
+        '0x0123456789abcDEFq',
+        '0hfedCBA9876543210q',
+        '01234q56789abcDEF',
+      ],
+    });
+  });
+
+  it('should validate octal strings', () => {
+    test({
+      validator: 'isOctal',
+      valid: [
+        '076543210',
+        '0o01234567',
+      ],
+      invalid: [
+        'abcdefg',
+        '012345678',
+        '012345670c',
+        '00c12345670c',
         '',
         '..',
       ],
@@ -3786,13 +3892,13 @@ describe('Validators', () => {
           '01717112029',
           '8801898765432',
           '+8801312345678',
+          '01494676946',
         ],
         invalid: [
           '',
           '0174626346',
           '017943563469',
           '18001234567',
-          '01494676946',
           '0131234567',
         ],
       },
@@ -6684,6 +6790,29 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'IN',
+        valid: [
+          '364240',
+          '360005',
+        ],
+        invalid: [
+          '123',
+          '012345',
+          '011111',
+          '101123',
+          '291123',
+          '351123',
+          '541123',
+          '551123',
+          '651123',
+          '661123',
+          '861123',
+          '871123',
+          '881123',
+          '891123',
+        ],
+      },
+      {
         locale: 'BG',
         valid: [
           '1000',
@@ -6923,6 +7052,22 @@ describe('Validators', () => {
         'message/http; charset=utf-8',
         'model/vnd.gtw; charset=utf-8',
         'video/mp4; charset=utf-8',
+      ],
+    });
+  });
+
+  it('should validate slug', () => {
+    test({
+      validator: 'isSlug',
+      args: ['cs_67CZ'],
+      valid: ['cs-cz', 'cscz'],
+      invalid: [
+        'not-----------slug',
+        '@#_$@',
+        '-not-slug',
+        'not-slug-',
+        '_not-slug',
+        'not-slug_',
       ],
     });
   });
