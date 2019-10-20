@@ -30,6 +30,10 @@ export default function isFQDN(str, options) {
     if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20]/.test(tld)) {
       return false;
     }
+    const tldUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
+    if (!tldUtf8Part.test(tld)) {
+      return false;
+    }
   }
   for (let part, i = 0; i < parts.length; i++) {
     part = parts[i];
