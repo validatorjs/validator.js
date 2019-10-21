@@ -2035,6 +2035,11 @@ function isSlug(str) {
   return charsetRegex.test(str);
 }
 
+function isDate(str){
+  assertString(str);
+       return (new Date(str) !== "Invalid Date") && !isNaN(new Date(str));
+}
+
 var version = '11.1.0';
 var validator = {
   version: version,
@@ -2118,7 +2123,8 @@ var validator = {
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
   toString: toString,
-  isSlug: isSlug
+  isSlug: isSlug,
+  isDate: isDate
 };
 
 return validator;

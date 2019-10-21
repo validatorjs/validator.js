@@ -99,6 +99,7 @@ import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
+import isDate from './lib/isDate';
 
 const version = '11.1.0';
 
@@ -186,6 +187,7 @@ const validator = {
   normalizeEmail,
   toString,
   isSlug,
+  isDate,
 };
 
 export default validator;
