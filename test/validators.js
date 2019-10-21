@@ -7080,3 +7080,21 @@ describe('Validators', () => {
     });
   });
 });
+
+it('should validate 19 digit credit card strings', () => {
+  test({
+    validator: 'is19DigitCreditCard',
+    valid: [
+      '1234567890123456789',
+      '0234563890123476780',
+    ],
+    invalid: [
+      '123456789012345678',
+      'A123456789012345678',
+      'a123456789012345678',
+      'jasdhgjhasdf8732568',
+      '12345',
+    ],
+  });
+});
+

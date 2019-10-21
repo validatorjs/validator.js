@@ -66,6 +66,7 @@ import isIdentityCard from './lib/isIdentityCard';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
+import is19DigitCreditCard from './lib/is19DigitCreditCard';
 
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 
@@ -156,6 +157,7 @@ const validator = {
   isIn,
   isCreditCard,
   isIdentityCard,
+  is19DigitCreditCard,
   isISIN,
   isISBN,
   isISSN,
