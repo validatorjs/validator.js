@@ -7082,11 +7082,11 @@ describe('Validators', () => {
 
   it('should validate that the string is a date or not', () => {
     test({
-      validator: 'isDivisibleBy',
-      args: [2],
+      validator: 'isDate',
+      args: ['any'],
       valid: ['10-11-2009', '10/11/2009', '2009-11-10T07:00:00+0000'],
       invalid: [
-        '1',
+        'gdgfdg',
         '1000033',
         'ccxzcz',
         'foo',
