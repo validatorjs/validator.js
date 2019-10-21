@@ -2037,7 +2037,7 @@ function isSlug(str) {
 
 function isDate(str) {
   assertString(str);
-  return (new Date(str) !== "Invalid Date") && !isNaN(new Date(str));
+  return (new Date(str) !== 'Invalid Date') && !isNaN(new Date(str));
 }
 
 var version = '11.1.0';
