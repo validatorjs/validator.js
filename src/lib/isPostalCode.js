@@ -10,6 +10,7 @@ const patterns = {
   AD: /^AD\d{3}$/,
   AT: fourDigit,
   AU: fourDigit,
+  BA: /^(7|8)\d{4}$/,
   BE: fourDigit,
   BG: fourDigit,
   BR: /^\d{5}-\d{3}$/,
