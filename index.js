@@ -65,8 +65,6 @@ var _isDecimal = _interopRequireDefault(require("./lib/isDecimal"));
 
 var _isHexadecimal = _interopRequireDefault(require("./lib/isHexadecimal"));
 
-var _isOctal = _interopRequireDefault(require("./lib/isOctal"));
-
 var _isDivisibleBy = _interopRequireDefault(require("./lib/isDivisibleBy"));
 
 var _isHexColor = _interopRequireDefault(require("./lib/isHexColor"));
@@ -198,7 +196,6 @@ var validator = {
   isFloatLocales: _isFloat.locales,
   isDecimal: _isDecimal.default,
   isHexadecimal: _isHexadecimal.default,
-  isOctal: _isOctal.default,
   isDivisibleBy: _isDivisibleBy.default,
   isHexColor: _isHexColor.default,
   isISRC: _isISRC.default,
