@@ -1,0 +1,4 @@
+export default function isZipCode(str) {
+  assertString(str);
+  return (RegExp(‘^[0-9]{5}(?:-[0-9]{4})?$’).test(str));
+}
