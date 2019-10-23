@@ -21,9 +21,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.validator = factory());
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.validator = factory());
 }(this, (function () { 'use strict';
 
 function _typeof(obj) {
@@ -49,10 +49,6 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -695,7 +691,6 @@ var alpha = {
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
-  he: /^[א-ת]+$/,
   'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
 };
 var alphanumeric = {
@@ -724,7 +719,6 @@ var alphanumeric = {
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
-  he: /^[0-9א-ת]+$/,
   'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
 };
 var decimal = {
@@ -925,16 +919,10 @@ function isDecimal(str, options) {
   throw new Error("Invalid locale '".concat(options.locale, "'"));
 }
 
-var hexadecimal = /^(0x|0h)?[0-9A-F]+$/i;
+var hexadecimal = /^[0-9A-F]+$/i;
 function isHexadecimal(str) {
   assertString(str);
   return hexadecimal.test(str);
-}
-
-var octal = /^(0o)?[0-7]+$/i;
-function isOctal(str) {
-  assertString(str);
-  return octal.test(str);
 }
 
 function isDivisibleBy(str, num) {
@@ -1375,7 +1363,7 @@ var phones = {
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
-  'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
+  'bn-BD': /^(\+?880|0)1[1356789][0-9]{8}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
@@ -1717,19 +1705,16 @@ function isMagnetURI(url) {
 
 /*
   Checks if the provided string matches to a correct Media type format (MIME type)
-
   This function only checks is the string format follows the
   etablished rules by the according RFC specifications.
   This function supports 'charset' in textual media types
   (https://tools.ietf.org/html/rfc6657).
-
   This function does not check against all the media types listed
   by the IANA (https://www.iana.org/assignments/media-types/media-types.xhtml)
   because of lightness purposes : it would require to include
   all these MIME types in this librairy, which would weigh it
   significantly. This kind of effort maybe is not worth for the use that
   this function has in this entire librairy.
-
   More informations in the RFC specifications :
   - https://tools.ietf.org/html/rfc2045
   - https://tools.ietf.org/html/rfc2046
@@ -1756,20 +1741,13 @@ function isMimeType(str) {
 
 var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
 var _long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
-var dms_lat = /^(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/;
-var dms_long = /^\s*([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/;
-function isLatLong(str, options) {
+var isLatLong = function (str) {
   assertString(str);
   if (!str.includes(',')) return false;
   var pair = str.split(',');
   if (pair[0].startsWith('(') && !pair[1].endsWith(')') || pair[1].endsWith(')') && !pair[0].startsWith('(')) return false;
-
-  if (_typeof(options) === 'object' && options.checkDMS === true) {
-    return dms_lat.test(pair[0]) && dms_long.test(pair[1]);
-  }
-
   return lat.test(pair[0]) && _long.test(pair[1]);
-}
+};
 
 var threeDigit = /^\d{3}$/;
 var fourDigit = /^\d{4}$/;
@@ -1799,7 +1777,7 @@ var patterns = {
   ID: fiveDigit,
   IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
   IL: fiveDigit,
-  IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
+  IN: sixDigit,
   IS: threeDigit,
   IT: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
@@ -2048,6 +2026,12 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
+var charsetRegex = /^[^-_](?!.*?[-_]{2,})([a-z0-9\\-]{1,}).*[^-_]$/;
+function isSlug(str) {
+  assertString(str);
+  return charsetRegex.test(str);
+}
+
 var version = '11.1.0';
 var validator = {
   version: version,
@@ -2085,7 +2069,6 @@ var validator = {
   isFloatLocales: locales$2,
   isDecimal: isDecimal,
   isHexadecimal: isHexadecimal,
-  isOctal: isOctal,
   isDivisibleBy: isDivisibleBy,
   isHexColor: isHexColor,
   isISRC: isISRC,
@@ -2131,7 +2114,8 @@ var validator = {
   blacklist: blacklist$1,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
-  toString: toString
+  toString: toString,
+  isSlug: isSlug
 };
 
 return validator;
