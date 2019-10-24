@@ -14,8 +14,7 @@ const isValidDate = (str) => {
     const oYear = Number(ordinalMatch[1]);
     const oDay = Number(ordinalMatch[2]);
     // if is leap year
-    if (oYear % 4 === 0
-      && oYear % 100 !== 0) return oDay <= 366;
+    if ((oYear % 4 === 0 && oYear % 100 !== 0) || oYear % 400 === 0) return oDay <= 366;
     return oDay <= 365;
   }
   const match = str.match(/(\d{4})-?(\d{0,2})-?(\d*)/).map(Number);
@@ -27,7 +26,6 @@ const isValidDate = (str) => {
 
   // create a date object and compare
   const d = new Date(`${year}-${monthString || '01'}-${dayString || '01'}`);
-  if (isNaN(d.getUTCFullYear())) return false;
   if (month && day) {
     return d.getUTCFullYear() === year
       && (d.getUTCMonth() + 1) === month

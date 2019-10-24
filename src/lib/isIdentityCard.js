@@ -30,14 +30,85 @@ const validators = {
 
     return sanitized.endsWith(controlDigits[number % 23]);
   },
+  'he-IL': (str) => {
+    const DNI = /^\d{9}$/;
+
+    // sanitize user input
+    const sanitized = str.trim();
+
+    // validate the data structure
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+
+    const id = sanitized;
+
+    let sum = 0,
+      incNum;
+    for (let i = 0; i < id.length; i++) {
+      incNum = Number(id[i]) * ((i % 2) + 1); // Multiply number by 1 or 2
+      sum += incNum > 9 ? incNum - 9 : incNum; // Sum the digits up and add to total
+    }
+    return sum % 10 === 0;
+  },
+  'zh-TW': (str) => {
+    const ALPHABET_CODES = {
+      A: 10,
+      B: 11,
+      C: 12,
+      D: 13,
+      E: 14,
+      F: 15,
+      G: 16,
+      H: 17,
+      I: 34,
+      J: 18,
+      K: 19,
+      L: 20,
+      M: 21,
+      N: 22,
+      O: 35,
+      P: 23,
+      Q: 24,
+      R: 25,
+      S: 26,
+      T: 27,
+      U: 28,
+      V: 29,
+      W: 32,
+      X: 30,
+      Y: 31,
+      Z: 33,
+    };
+
+    const sanitized = str.trim().toUpperCase();
+
+    if (!/^[A-Z][0-9]{9}$/.test(sanitized)) return false;
+
+    return Array.from(sanitized).reduce((sum, number, index) => {
+      if (index === 0) {
+        const code = ALPHABET_CODES[number];
+
+        return ((code % 10) * 9) + Math.floor(code / 10);
+      }
+
+      if (index === 9) {
+        return ((10 - (sum % 10)) - Number(number)) % 10 === 0;
+      }
+
+      return sum + (Number(number) * (9 - index));
+    }, 0);
+  },
 };
 
-export default function isIdentityCard(str, locale = 'any') {
+export default function isIdentityCard(str, locale) {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
   } else if (locale === 'any') {
     for (const key in validators) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if (validators.hasOwnProperty(key)) {
         const validator = validators[key];
         if (validator(str)) {
