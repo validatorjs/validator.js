@@ -65,11 +65,15 @@ var _isDecimal = _interopRequireDefault(require("./lib/isDecimal"));
 
 var _isHexadecimal = _interopRequireDefault(require("./lib/isHexadecimal"));
 
+var _isOctal = _interopRequireDefault(require("./lib/isOctal"));
+
 var _isDivisibleBy = _interopRequireDefault(require("./lib/isDivisibleBy"));
 
 var _isHexColor = _interopRequireDefault(require("./lib/isHexColor"));
 
 var _isISRC = _interopRequireDefault(require("./lib/isISRC"));
+
+var _isBIC = _interopRequireDefault(require("./lib/isBIC"));
 
 var _isMD = _interopRequireDefault(require("./lib/isMD5"));
 
@@ -117,7 +121,9 @@ var _isISO31661Alpha = _interopRequireDefault(require("./lib/isISO31661Alpha2"))
 
 var _isISO31661Alpha2 = _interopRequireDefault(require("./lib/isISO31661Alpha3"));
 
-var _isBase = _interopRequireDefault(require("./lib/isBase64"));
+var _isBase = _interopRequireDefault(require("./lib/isBase32"));
+
+var _isBase2 = _interopRequireDefault(require("./lib/isBase64"));
 
 var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
@@ -149,13 +155,15 @@ var _isWhitelisted = _interopRequireDefault(require("./lib/isWhitelisted"));
 
 var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
-var _toString = _interopRequireDefault(require("./lib/util/toString"));
+var _isSlug = _interopRequireDefault(require("./lib/isSlug"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '10.11.0';
+var version = '11.1.0';
 var validator = {
   version: version,
   toDate: _toDate.default,
@@ -172,6 +180,7 @@ var validator = {
   isIPRange: _isIPRange.default,
   isFQDN: _isFQDN.default,
   isBoolean: _isBoolean.default,
+  isBIC: _isBIC.default,
   isAlpha: _isAlpha.default,
   isAlphaLocales: _isAlpha.locales,
   isAlphanumeric: _isAlphanumeric.default,
@@ -191,6 +200,7 @@ var validator = {
   isFloatLocales: _isFloat.locales,
   isDecimal: _isDecimal.default,
   isHexadecimal: _isHexadecimal.default,
+  isOctal: _isOctal.default,
   isDivisibleBy: _isDivisibleBy.default,
   isHexColor: _isHexColor.default,
   isISRC: _isISRC.default,
@@ -220,7 +230,8 @@ var validator = {
   isRFC3339: _isRFC.default,
   isISO31661Alpha2: _isISO31661Alpha.default,
   isISO31661Alpha3: _isISO31661Alpha2.default,
-  isBase64: _isBase.default,
+  isBase32: _isBase.default,
+  isBase64: _isBase2.default,
   isDataURI: _isDataURI.default,
   isMagnetURI: _isMagnetURI.default,
   isMimeType: _isMimeType.default,
@@ -235,7 +246,8 @@ var validator = {
   blacklist: _blacklist.default,
   isWhitelisted: _isWhitelisted.default,
   normalizeEmail: _normalizeEmail.default,
-  toString: _toString.default
+  toString: toString,
+  isSlug: _isSlug.default
 };
 var _default = validator;
 exports.default = _default;

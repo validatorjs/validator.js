@@ -7,6 +7,8 @@ export default function isIn(str, options) {
   if (Object.prototype.toString.call(options) === '[object Array]') {
     const array = [];
     for (i in options) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if ({}.hasOwnProperty.call(options, i)) {
         array[i] = toString(options[i]);
       }

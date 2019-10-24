@@ -1,10 +1,10 @@
 import assert from 'assert';
 import validator from '../index';
-import { locales as isPostalCodeLocales } from '../lib/isPostalCode';
-import { locales as isAlphaLocales } from '../lib/isAlpha';
-import { locales as isAlphanumericLocales } from '../lib/isAlphanumeric';
-import { locales as isMobilePhoneLocales } from '../lib/isMobilePhone';
-import { locales as isFloatLocales } from '../lib/isFloat';
+import { locales as isPostalCodeLocales } from '../src/lib/isPostalCode';
+import { locales as isAlphaLocales } from '../src/lib/isAlpha';
+import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric';
+import { locales as isMobilePhoneLocales } from '../src/lib/isMobilePhone';
+import { locales as isFloatLocales } from '../src/lib/isFloat';
 
 describe('Exports', () => {
   it('should export validators', () => {
