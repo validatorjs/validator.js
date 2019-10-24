@@ -870,6 +870,27 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate bosnian alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['bs-BA'],
+      valid: [
+        'abc',
+        'ABC',
+        'Džemper',
+        'Čekati',
+      ],
+      invalid: [
+        'abc1',
+        '  foo  ',
+        '',
+        ' Džemper ',
+        ' hej*šta-ima_kod%tebe ',
+        ' Pozdrav ',
+      ],
+    });
+  });
+
   it('should validate czech alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1345,6 +1366,24 @@ describe('Validators', () => {
         ' ',
         '789  ',
         'hello000',
+      ],
+    });
+  });
+
+  it('should validate bosnian alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['bs-BA'],
+      valid: [
+        'abc1',
+        '2HeJ',
+        'Džemper2',
+        'Šta1imaBa',
+      ],
+      invalid: [
+        ' ',
+        '789  ',
+        'abc1  ',
       ],
     });
   });
