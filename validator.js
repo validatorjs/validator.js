@@ -2029,6 +2029,12 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
+var charsetRegex = /^[^-_](?!.*?[-_]{2,})([a-z0-9\\-]{1,}).*[^-_]$/;
+function isSlug(str) {
+  assertString(str);
+  return charsetRegex.test(str);
+}
+
 var version = '11.1.0';
 var validator = {
   version: version,
@@ -2111,7 +2117,8 @@ var validator = {
   blacklist: blacklist$1,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
-  toString: toString
+  toString: toString,
+  isSlug: isSlug
 };
 
 return validator;
