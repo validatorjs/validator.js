@@ -63,8 +63,7 @@ export default function isIP(str, version = '') {
       }
     }
 
-    const address = addressAndZone[0];
-    const blocks = address.split(':');
+    const blocks = addressAndZone[0].split(':');
     let foundOmissionBlock = false; // marker to indicate ::
 
     // At least some OS accept the last 32 bits of an IPv6 address
