@@ -6,6 +6,8 @@ import equals from './lib/equals';
 import contains from './lib/contains';
 import matches from './lib/matches';
 
+import isTimezone from './lib/isTimezone';
+
 import isEmail from './lib/isEmail';
 import isURL from './lib/isURL';
 import isMACAddress from './lib/isMACAddress';
@@ -111,6 +113,7 @@ const validator = {
   equals,
   contains,
   matches,
+  isTimezone,
   isEmail,
   isURL,
   isMACAddress,
