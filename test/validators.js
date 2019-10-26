@@ -814,6 +814,9 @@ describe('Validators', () => {
         's!ome.com',
         'domain.com/',
         '/more.com',
+        'example.0',
+        '192.168.0.9999',
+        '192.168.0',
       ],
     });
   });
@@ -825,6 +828,32 @@ describe('Validators', () => {
       ],
       valid: [
         'example.com.',
+      ],
+    });
+  });
+  it('should invalidate FQDN when not require_tld', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { require_tld: false },
+      ],
+      invalid: [
+        'example.0',
+        '192.168.0',
+        '192.168.0.9999',
+      ],
+    });
+  });
+  it('should validate FQDN when not require_tld but allow_numeric_tld', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { allow_numeric_tld: true, require_tld: false },
+      ],
+      valid: [
+        'example.0',
+        '192.168.0',
+        '192.168.0.9999',
       ],
     });
   });
