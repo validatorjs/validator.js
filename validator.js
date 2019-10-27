@@ -2048,7 +2048,7 @@ function isSlug(str) {
   return charsetRegex.test(str);
 }
 
-var version = '11.1.0';
+var version = '12.0.0';
 var validator = {
   version: version,
   toDate: toDate,
