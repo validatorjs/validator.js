@@ -49,6 +49,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -691,6 +695,7 @@ var alpha = {
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
+  he: /^[א-ת]+$/,
   'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
 };
 var alphanumeric = {
@@ -719,6 +724,7 @@ var alphanumeric = {
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
+  he: /^[0-9א-ת]+$/,
   'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
 };
 var decimal = {
@@ -919,10 +925,16 @@ function isDecimal(str, options) {
   throw new Error("Invalid locale '".concat(options.locale, "'"));
 }
 
-var hexadecimal = /^[0-9A-F]+$/i;
+var hexadecimal = /^(0x|0h)?[0-9A-F]+$/i;
 function isHexadecimal(str) {
   assertString(str);
   return hexadecimal.test(str);
+}
+
+var octal = /^(0o)?[0-7]+$/i;
+function isOctal(str) {
+  assertString(str);
+  return octal.test(str);
 }
 
 function isDivisibleBy(str, num) {
@@ -1363,7 +1375,7 @@ var phones = {
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
-  'bn-BD': /^(\+?880|0)1[1356789][0-9]{8}$/,
+  'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
@@ -1392,6 +1404,7 @@ var phones = {
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
   'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
+  'es-PA': /^(\+?507)\d{7,8}$/,
   'es-PY': /^(\+?595|0)9[9876]\d{7}$/,
   'es-UY': /^(\+598|0)9[1-9][\d]{6}$/,
   'et-EE': /^(\+?372)?\s?(5|8[1-4])\s?([0-9]\s?){6,7}$/,
@@ -1408,7 +1421,7 @@ var phones = {
   'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
   'id-ID': /^(\+?62|0)8(1[123456789]|2[1238]|3[1238]|5[12356789]|7[78]|9[56789]|8[123456789])([\s?|\d]{5,11})$/,
   'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
-  'ja-JP': /^(\+?81|0)[6789]0[ \-]?\d{4}[ \-]?\d{4}$/,
+  'ja-JP': /^(\+81[ \-]?(\(0\))?|0)[6789]0[ \-]?\d{4}[ \-]?\d{4}$/,
   'kk-KZ': /^(\+?7|8)?7\d{9}$/,
   'kl-GL': /^(\+?299)?\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'ko-KR': /^((\+?82)[ \-]?)?0?1([0|1|6|7|8|9]{1})[ \-]?\d{3,4}[ \-]?\d{4}$/,
@@ -1780,7 +1793,7 @@ var patterns = {
   ID: fiveDigit,
   IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
   IL: fiveDigit,
-  IN: sixDigit,
+  IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
@@ -2072,6 +2085,7 @@ var validator = {
   isFloatLocales: locales$2,
   isDecimal: isDecimal,
   isHexadecimal: isHexadecimal,
+  isOctal: isOctal,
   isDivisibleBy: isDivisibleBy,
   isHexColor: isHexColor,
   isISRC: isISRC,
