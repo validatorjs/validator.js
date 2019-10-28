@@ -1,6 +1,6 @@
-import { format } from 'util';
 import assert from 'assert';
 import fs from 'fs';
+import { format } from 'util';
 import vm from 'vm';
 import validator from '../src/index';
 
@@ -4639,6 +4639,23 @@ describe('Validators', () => {
           '563875615',
           '56109834567',
           '56069834567',
+        ],
+      },
+      {
+        locale: 'es-EC',
+        valid: [
+          '+593995414585',
+          '593912345677',
+          '0915114585',
+          '027332615',
+        ],
+        invalid: [
+          '03321321',
+          '+593387561',
+          '59312345677',
+          '02344635',
+          '593123456789',
+          '081234567'
         ],
       },
       {
