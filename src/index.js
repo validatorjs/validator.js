@@ -37,6 +37,7 @@ import isOctal from './lib/isOctal';
 import isDivisibleBy from './lib/isDivisibleBy';
 
 import isHexColor from './lib/isHexColor';
+import isRgbColor from './lib/isRgbColor';
 
 import isISRC from './lib/isISRC';
 
@@ -141,6 +142,7 @@ const validator = {
   isOctal,
   isDivisibleBy,
   isHexColor,
+  isRgbColor,
   isISRC,
   isMD5,
   isHash,

@@ -71,6 +71,8 @@ var _isDivisibleBy = _interopRequireDefault(require("./lib/isDivisibleBy"));
 
 var _isHexColor = _interopRequireDefault(require("./lib/isHexColor"));
 
+var _isRgbColor = _interopRequireDefault(require("./lib/isRgbColor"));
+
 var _isISRC = _interopRequireDefault(require("./lib/isISRC"));
 
 var _isBIC = _interopRequireDefault(require("./lib/isBIC"));
@@ -203,6 +205,7 @@ var validator = {
   isOctal: _isOctal.default,
   isDivisibleBy: _isDivisibleBy.default,
   isHexColor: _isHexColor.default,
+  isRgbColor: _isRgbColor.default,
   isISRC: _isISRC.default,
   isMD5: _isMD.default,
   isHash: _isHash.default,
