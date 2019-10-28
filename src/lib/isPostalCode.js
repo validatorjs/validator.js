@@ -31,6 +31,7 @@ const patterns = {
   IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
   IL: fiveDigit,
   IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
+  IR: /^(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}$/,
   IS: threeDigit,
   IT: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
@@ -58,7 +59,7 @@ const patterns = {
   UA: fiveDigit,
   US: /^\d{5}(-\d{4})?$/,
   ZA: fourDigit,
-  ZM: fiveDigit,
+  ZM: fiveDigit
 };
 
 export const locales = Object.keys(patterns);
