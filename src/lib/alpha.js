@@ -26,6 +26,7 @@ export const alpha = {
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
   'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i,
+  'vi-VN':/^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
 };
 
 export const alphanumeric = {
@@ -56,6 +57,7 @@ export const alphanumeric = {
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
   'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i,
+  'vi-VN':/^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
 };
 
 export const decimal = {
@@ -91,7 +93,7 @@ export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
 export const commaDecimal = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO',
   'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin',
-  'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA',
+  'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN'
 ];
 
 for (let i = 0; i < dotDecimal.length; i++) {
