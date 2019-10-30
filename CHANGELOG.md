@@ -1,3 +1,36 @@
+#### HEAD
+
+- Added `isOctal()` validator
+  ([#1153](https://github.com/chriso/validator.js/pull/1153))
+- Added `isSlug()` validator
+  ([#1096](https://github.com/chriso/validator.js/pull/1096))
+- Added `isBIC()` validator for bank identification codes
+  ([#1071](https://github.com/chriso/validator.js/pull/1071))
+- Allow uppercase chars in `isHash()`
+  ([#1062](https://github.com/chriso/validator.js/pull/1062))
+- Allow additional prefixes in `isHexadecimal()`
+  ([#1147](https://github.com/chriso/validator.js/pull/1147))
+- Allow additional separators in `isMACAddress()`
+  ([#1065](https://github.com/chriso/validator.js/pull/1065))
+- Better defaults for `isLength()`
+  ([#1070](https://github.com/chriso/validator.js/pull/1070))
+- Bug fixes
+  ([#1074](https://github.com/chriso/validator.js/pull/1074))
+- New and improved locales
+  ([#1059](https://github.com/chriso/validator.js/pull/1059),
+   [#1060](https://github.com/chriso/validator.js/pull/1060),
+   [#1069](https://github.com/chriso/validator.js/pull/1069),
+   [#1073](https://github.com/chriso/validator.js/pull/1073),
+   [#1082](https://github.com/chriso/validator.js/pull/1082),
+   [#1092](https://github.com/chriso/validator.js/pull/1092),
+   [#1121](https://github.com/chriso/validator.js/pull/1121),
+   [#1125](https://github.com/chriso/validator.js/pull/1125),
+   [#1132](https://github.com/chriso/validator.js/pull/1132),
+   [#1152](https://github.com/chriso/validator.js/pull/1152),
+   [#1165](https://github.com/chriso/validator.js/pull/1165),
+   [#1166](https://github.com/chriso/validator.js/pull/1166),
+   [#1174](https://github.com/chriso/validator.js/pull/1174))
+
 #### 11.1.0
 
 - Code coverage improvements
