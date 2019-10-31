@@ -2,6 +2,8 @@ import assertString from './util/assertString';
 
 const ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
 const ipv6Block = /^[0-9A-F]{1,4}$/i;
+// validating ipv4 if port has been included
+const ipv4WithPortMaybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3}):(\d{1,5})$/;
 
 export default function isIP(str, version = '') {
   assertString(str);
@@ -9,11 +11,20 @@ export default function isIP(str, version = '') {
   if (!version) {
     return isIP(str, 4) || isIP(str, 6);
   } else if (version === '4') {
-    if (!ipv4Maybe.test(str)) {
+    if(ipv4WithPortMaybe.test(str)){
+      const ipAddress = str.split(':')[0].split('.').sort((a, b) => a - b);
+      const port = str.split(':')[1];
+      if(ipAddress[3]<=255 && port<= 49151){
+        // port range is from 1 to 64738 but ports from 49152 to 64738 are for dynamic or private ports that cannot be registered with IANA
+        // referance : https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+        return true;
+      }
+    }else if(ipv4Maybe.test(str)){
+      const parts = str.split('.').sort((a, b) => a - b);
+      return parts[3] <= 255;
+    }else{
       return false;
     }
-    const parts = str.split('.').sort((a, b) => a - b);
-    return parts[3] <= 255;
   } else if (version === '6') {
     const blocks = str.split(':');
     let foundOmissionBlock = false; // marker to indicate ::
