@@ -223,6 +223,7 @@ var validator = {
   isISSN: _isISSN.default,
   isMobilePhone: _isMobilePhone.default,
   isMobilePhoneLocales: _isMobilePhone.locales,
+  getMobileLocalPattern: _isMobilePhone.getLocalPattern,
   isPostalCode: _isPostalCode.default,
   isPostalCodeLocales: _isPostalCode.locales,
   isCurrency: _isCurrency.default,

@@ -1494,6 +1494,9 @@ function isMobilePhone(str, locale, options) {
 
   throw new Error("Invalid locale '".concat(locale, "'"));
 }
+var getLocalPattern = function getLocalPattern(local) {
+  return phones[local];
+};
 var locales$3 = Object.keys(phones);
 
 function currencyRegex(options) {
@@ -2109,6 +2112,7 @@ var validator = {
   isISSN: isISSN,
   isMobilePhone: isMobilePhone,
   isMobilePhoneLocales: locales$3,
+  getMobileLocalPattern: getLocalPattern,
   isPostalCode: isPostalCode,
   isPostalCodeLocales: locales$4,
   isCurrency: isCurrency,

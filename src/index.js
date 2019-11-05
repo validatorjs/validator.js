@@ -67,7 +67,7 @@ import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
 
-import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
+import isMobilePhone, { locales as isMobilePhoneLocales, getLocalPattern as getMobileLocalPattern } from './lib/isMobilePhone';
 
 import isCurrency from './lib/isCurrency';
 
@@ -161,6 +161,7 @@ const validator = {
   isISSN,
   isMobilePhone,
   isMobilePhoneLocales,
+  getMobileLocalPattern,
   isPostalCode,
   isPostalCodeLocales,
   isCurrency,

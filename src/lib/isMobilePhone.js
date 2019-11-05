@@ -129,4 +129,8 @@ export default function isMobilePhone(str, locale, options) {
   throw new Error(`Invalid locale '${locale}'`);
 }
 
+export const getLocalPattern = function (local) {
+  return phones[local];
+};
+
 export const locales = Object.keys(phones);
