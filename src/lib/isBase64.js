@@ -2,10 +2,10 @@ import assertString from './util/assertString';
 
 const notBase64 = /[^A-Z0-9+\/=]/i;
 
-export default function isBase64(str) {
+export default function isBase64(str, strict = true) {
   assertString(str);
   const len = str.length;
-  if (!len || len % 4 !== 0 || notBase64.test(str)) {
+  if (!len || (strict && len % 4 !== 0) || notBase64.test(str)) {
     return false;
   }
   const firstPaddingChar = str.indexOf('=');
