@@ -71,8 +71,7 @@
     "build:node": "babel src -d .",
     "build": "npm run build:browser && npm run build:node && npm run build:es",
     "pretest": "npm run lint && npm run build",
-    "test": "nyc mocha --require @babel/register --reporter dot",
-    "buildtest": "npm run build && npm run lint:fix && npm run test"
+    "test": "nyc mocha --require @babel/register --reporter dot"
   },
   "engines": {
     "node": ">= 0.10"
