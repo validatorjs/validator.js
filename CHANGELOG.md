@@ -1,3 +1,70 @@
+#### HEAD
+
+- Added `isOctal()` validator
+  ([#1153](https://github.com/chriso/validator.js/pull/1153))
+- Added `isSlug()` validator
+  ([#1096](https://github.com/chriso/validator.js/pull/1096))
+- Added `isBIC()` validator for bank identification codes
+  ([#1071](https://github.com/chriso/validator.js/pull/1071))
+- Allow uppercase chars in `isHash()`
+  ([#1062](https://github.com/chriso/validator.js/pull/1062))
+- Allow additional prefixes in `isHexadecimal()`
+  ([#1147](https://github.com/chriso/validator.js/pull/1147))
+- Allow additional separators in `isMACAddress()`
+  ([#1065](https://github.com/chriso/validator.js/pull/1065))
+- Better defaults for `isLength()`
+  ([#1070](https://github.com/chriso/validator.js/pull/1070))
+- Bug fixes
+  ([#1074](https://github.com/chriso/validator.js/pull/1074))
+- New and improved locales
+  ([#1059](https://github.com/chriso/validator.js/pull/1059),
+   [#1060](https://github.com/chriso/validator.js/pull/1060),
+   [#1069](https://github.com/chriso/validator.js/pull/1069),
+   [#1073](https://github.com/chriso/validator.js/pull/1073),
+   [#1082](https://github.com/chriso/validator.js/pull/1082),
+   [#1092](https://github.com/chriso/validator.js/pull/1092),
+   [#1121](https://github.com/chriso/validator.js/pull/1121),
+   [#1125](https://github.com/chriso/validator.js/pull/1125),
+   [#1132](https://github.com/chriso/validator.js/pull/1132),
+   [#1152](https://github.com/chriso/validator.js/pull/1152),
+   [#1165](https://github.com/chriso/validator.js/pull/1165),
+   [#1166](https://github.com/chriso/validator.js/pull/1166),
+   [#1174](https://github.com/chriso/validator.js/pull/1174))
+
+#### 11.1.0
+
+- Code coverage improvements
+  ([#1024](https://github.com/chriso/validator.js/pull/1024))
+- New and improved locales
+  ([#1035](https://github.com/chriso/validator.js/pull/1035),
+   [#1040](https://github.com/chriso/validator.js/pull/1040),
+   [#1041](https://github.com/chriso/validator.js/pull/1041),
+   [#1048](https://github.com/chriso/validator.js/pull/1048),
+   [#1049](https://github.com/chriso/validator.js/pull/1049),
+   [#1052](https://github.com/chriso/validator.js/pull/1052),
+   [#1054](https://github.com/chriso/validator.js/pull/1054),
+   [#1055](https://github.com/chriso/validator.js/pull/1055),
+   [#1056](https://github.com/chriso/validator.js/pull/1056),
+   [#1057](https://github.com/chriso/validator.js/pull/1057))
+
+#### 11.0.0
+
+- Added a `isBase32()` validator
+  ([#1023](https://github.com/chriso/validator.js/pull/1023))
+- Updated `isEmail()` to validate display names according to RFC2822
+  ([#1004](https://github.com/chriso/validator.js/pull/1004))
+- Updated `isEmail()` to check total email length
+  ([#1007](https://github.com/chriso/validator.js/pull/1007))
+- The internal `toString()` util is no longer exported
+  ([0277eb](https://github.com/chriso/validator.js/commit/0277eb00d245a3479af52adf7d927d4036895650))
+- New and improved locales
+  ([#999](https://github.com/chriso/validator.js/pull/999),
+   [#1010](https://github.com/chriso/validator.js/pull/1010),
+   [#1017](https://github.com/chriso/validator.js/pull/1017),
+   [#1022](https://github.com/chriso/validator.js/pull/1022),
+   [#1031](https://github.com/chriso/validator.js/pull/1031),
+   [#1032](https://github.com/chriso/validator.js/pull/1032))
+
 #### 10.11.0
 
 - Fix imports like `import .. from "validator/lib/.."`

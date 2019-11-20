@@ -1,6 +1,8 @@
 import assertString from './util/assertString';
 var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 var macAddressNoColons = /^([0-9a-fA-F]){12}$/;
+var macAddressWithHyphen = /^([0-9a-fA-F][0-9a-fA-F]-){5}([0-9a-fA-F][0-9a-fA-F])$/;
+var macAddressWithSpaces = /^([0-9a-fA-F][0-9a-fA-F]\s){5}([0-9a-fA-F][0-9a-fA-F])$/;
 export default function isMACAddress(str, options) {
   assertString(str);
 
@@ -8,5 +10,5 @@ export default function isMACAddress(str, options) {
     return macAddressNoColons.test(str);
   }
 
-  return macAddress.test(str);
+  return macAddress.test(str) || macAddressWithHyphen.test(str) || macAddressWithSpaces.test(str);
 }

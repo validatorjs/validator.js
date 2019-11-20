@@ -12,6 +12,7 @@ const patterns = {
   AU: fourDigit,
   BE: fourDigit,
   BG: fourDigit,
+  BR: /^\d{5}-\d{3}$/,
   CA: /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][\s\-]?\d[ABCEGHJ-NPRSTV-Z]\d$/i,
   CH: fourDigit,
   CZ: /^\d{3}\s?\d{2}$/,
@@ -26,8 +27,10 @@ const patterns = {
   GR: /^\d{3}\s?\d{2}$/,
   HR: /^([1-5]\d{4}$)/,
   HU: fourDigit,
+  ID: fiveDigit,
+  IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
   IL: fiveDigit,
-  IN: sixDigit,
+  IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
@@ -37,14 +40,17 @@ const patterns = {
   LU: fourDigit,
   LV: /^LV\-\d{4}$/,
   MX: fiveDigit,
+  MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
   NL: /^\d{4}\s?[a-z]{2}$/i,
   NO: fourDigit,
+  NZ: fourDigit,
   PL: /^\d{2}\-\d{3}$/,
+  PR: /^00[679]\d{2}([ -]\d{4})?$/,
   PT: /^\d{4}\-\d{3}?$/,
   RO: sixDigit,
   RU: sixDigit,
   SA: fiveDigit,
-  SE: /^\d{3}\s?\d{2}$/,
+  SE: /^[1-9]\d{2}\s?\d{2}$/,
   SI: fourDigit,
   SK: /^\d{3}\s?\d{2}$/,
   TN: fourDigit,
@@ -63,6 +69,8 @@ export default function (str, locale) {
     return patterns[locale].test(str);
   } else if (locale === 'any') {
     for (const key in patterns) {
+      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+      // istanbul ignore else
       if (patterns.hasOwnProperty(key)) {
         const pattern = patterns[key];
         if (pattern.test(str)) {

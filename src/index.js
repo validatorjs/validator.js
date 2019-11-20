@@ -33,11 +33,14 @@ import isInt from './lib/isInt';
 import isFloat, { locales as isFloatLocales } from './lib/isFloat';
 import isDecimal from './lib/isDecimal';
 import isHexadecimal from './lib/isHexadecimal';
+import isOctal from './lib/isOctal';
 import isDivisibleBy from './lib/isDivisibleBy';
 
 import isHexColor from './lib/isHexColor';
 
 import isISRC from './lib/isISRC';
+
+import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
@@ -73,6 +76,7 @@ import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
 
+import isBase32 from './lib/isBase32';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
@@ -94,9 +98,9 @@ import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
 
-import toString from './lib/util/toString';
+import isSlug from './lib/isSlug';
 
-const version = '10.11.0';
+const version = '12.0.0';
 
 const validator = {
   version,
@@ -114,6 +118,7 @@ const validator = {
   isIPRange,
   isFQDN,
   isBoolean,
+  isBIC,
   isAlpha,
   isAlphaLocales,
   isAlphanumeric,
@@ -133,6 +138,7 @@ const validator = {
   isFloatLocales,
   isDecimal,
   isHexadecimal,
+  isOctal,
   isDivisibleBy,
   isHexColor,
   isISRC,
@@ -162,6 +168,7 @@ const validator = {
   isRFC3339,
   isISO31661Alpha2,
   isISO31661Alpha3,
+  isBase32,
   isBase64,
   isDataURI,
   isMagnetURI,
@@ -178,6 +185,7 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
+  isSlug,
 };
 
 export default validator;

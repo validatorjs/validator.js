@@ -28,9 +28,11 @@ import isInt from './lib/isInt';
 import isFloat, { locales as isFloatLocales } from './lib/isFloat';
 import isDecimal from './lib/isDecimal';
 import isHexadecimal from './lib/isHexadecimal';
+import isOctal from './lib/isOctal';
 import isDivisibleBy from './lib/isDivisibleBy';
 import isHexColor from './lib/isHexColor';
 import isISRC from './lib/isISRC';
+import isBIC from './lib/isBIC';
 import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
 import isJWT from './lib/isJWT';
@@ -54,6 +56,7 @@ import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
+import isBase32 from './lib/isBase32';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
@@ -70,8 +73,8 @@ import whitelist from './lib/whitelist';
 import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
-import toString from './lib/util/toString';
-var version = '10.11.0';
+import isSlug from './lib/isSlug';
+var version = '12.0.0';
 var validator = {
   version: version,
   toDate: toDate,
@@ -88,6 +91,7 @@ var validator = {
   isIPRange: isIPRange,
   isFQDN: isFQDN,
   isBoolean: isBoolean,
+  isBIC: isBIC,
   isAlpha: isAlpha,
   isAlphaLocales: isAlphaLocales,
   isAlphanumeric: isAlphanumeric,
@@ -107,6 +111,7 @@ var validator = {
   isFloatLocales: isFloatLocales,
   isDecimal: isDecimal,
   isHexadecimal: isHexadecimal,
+  isOctal: isOctal,
   isDivisibleBy: isDivisibleBy,
   isHexColor: isHexColor,
   isISRC: isISRC,
@@ -136,6 +141,7 @@ var validator = {
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
   isISO31661Alpha3: isISO31661Alpha3,
+  isBase32: isBase32,
   isBase64: isBase64,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
@@ -151,6 +157,7 @@ var validator = {
   blacklist: blacklist,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
-  toString: toString
+  toString: toString,
+  isSlug: isSlug
 };
 export default validator;
