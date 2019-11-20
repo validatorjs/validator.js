@@ -1,3 +1,7 @@
+#### 11.2.0
+
+- Include Philippines country mobile validtion
+
 #### 11.1.0
 
 - Code coverage improvements
