@@ -1,4 +1,4 @@
-#### HEAD
+#### 12.1.0
 
 - ES module for webpack tree shaking
   ([#1015](https://github.com/chriso/validator.js/pull/1015))
