@@ -1,5 +1,17 @@
 #### HEAD
 
+- ES module for webpack tree shaking
+  ([#1015](https://github.com/chriso/validator.js/pull/1015))
+- Updated `isIP()` to accept scoped IPv6 addresses
+  ([#1160](https://github.com/chriso/validator.js/pull/1160))
+- New and improved locales
+  ([#1162](https://github.com/chriso/validator.js/pull/1162),
+   [#1183](https://github.com/chriso/validator.js/pull/1183),
+   [#1187](https://github.com/chriso/validator.js/pull/1187),
+   [#1191](https://github.com/chriso/validator.js/pull/1191))
+
+#### 12.0.0
+
 - Added `isOctal()` validator
   ([#1153](https://github.com/chriso/validator.js/pull/1153))
 - Added `isSlug()` validator
