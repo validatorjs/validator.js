@@ -1,22 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = isEmail;
-
-var _assertString = _interopRequireDefault(require("./util/assertString"));
-
-var _merge = _interopRequireDefault(require("./util/merge"));
-
-var _isByteLength = _interopRequireDefault(require("./isByteLength"));
-
-var _isFQDN = _interopRequireDefault(require("./isFQDN"));
-
-var _isIP = _interopRequireDefault(require("./isIP"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -25,6 +6,11 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+import assertString from './util/assertString';
+import merge from './util/merge';
+import isByteLength from './isByteLength';
+import isFQDN from './isFQDN';
+import isIP from './isIP';
 var default_email_options = {
   allow_display_name: false,
   require_display_name: false,
@@ -80,9 +66,9 @@ function validateDisplayName(display_name) {
   return true;
 }
 
-function isEmail(str, options) {
-  (0, _assertString.default)(str);
-  options = (0, _merge.default)(options, default_email_options);
+export default function isEmail(str, options) {
+  assertString(str);
+  options = merge(options, default_email_options);
 
   if (options.require_display_name || options.allow_display_name) {
     var display_email = str.match(splitNameAddress);
@@ -132,7 +118,7 @@ function isEmail(str, options) {
 
     var username = user.split('+')[0]; // Dots are not included in gmail length restriction
 
-    if (!(0, _isByteLength.default)(username.replace('.', ''), {
+    if (!isByteLength(username.replace('.', ''), {
       min: 6,
       max: 30
     })) {
@@ -148,29 +134,29 @@ function isEmail(str, options) {
     }
   }
 
-  if (!(0, _isByteLength.default)(user, {
+  if (!isByteLength(user, {
     max: 64
-  }) || !(0, _isByteLength.default)(domain, {
+  }) || !isByteLength(domain, {
     max: 254
   })) {
     return false;
   }
 
-  if (!(0, _isFQDN.default)(domain, {
+  if (!isFQDN(domain, {
     require_tld: options.require_tld
   })) {
     if (!options.allow_ip_domain) {
       return false;
     }
 
-    if (!(0, _isIP.default)(domain)) {
+    if (!isIP(domain)) {
       if (!domain.startsWith('[') || !domain.endsWith(']')) {
         return false;
       }
 
       var noBracketdomain = domain.substr(1, domain.length - 2);
 
-      if (noBracketdomain.length === 0 || !(0, _isIP.default)(noBracketdomain)) {
+      if (noBracketdomain.length === 0 || !isIP(noBracketdomain)) {
         return false;
       }
     }
@@ -192,6 +178,3 @@ function isEmail(str, options) {
 
   return true;
 }
-
-module.exports = exports.default;
-module.exports.default = exports.default;

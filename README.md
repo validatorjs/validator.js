@@ -41,6 +41,12 @@ Or, import only a subset of the library:
 import isEmail from 'validator/lib/isEmail';
 ```
 
+#### Tree-shakeable ES imports
+
+```javascript
+import isEmail from 'validator/es/lib/isEmail';
+```
+
 ### Client-side usage
 
 The library can be loaded either as a standalone script, or through an [AMD][amd]-compatible loader
