@@ -85,22 +85,27 @@ function _nonIterableRest() {
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
+function _getTypeName(input) {
+  if (input === null) {
+    return 'null';
+  }
+
+  var invalidType = _typeof(input);
+
+  if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
+    invalidType = input.constructor.name;
+  } else {
+    invalidType = "a ".concat(invalidType);
+  }
+
+  return invalidType;
+}
+
+function assertString(input) {
+  var isString = typeof input === 'string' || input instanceof String;
+
   if (!isString) {
-    var invalidType;
-
-    if (input === null) {
-      invalidType = 'null';
-    } else {
-      invalidType = _typeof(input);
-
-      if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
-        invalidType = input.constructor.name;
-      } else {
-        invalidType = "a ".concat(invalidType);
-      }
-    }
-
-    throw new TypeError("Expected string but received ".concat(invalidType, "."));
+    throw new TypeError("Expected string but received ".concat(_getTypeName(input), "."));
   }
 }
 
