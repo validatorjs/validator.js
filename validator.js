@@ -256,6 +256,36 @@ function isFQDN(str, options) {
   return true;
 }
 
+/**
+11.3.  Examples
+
+   The following addresses
+
+             fe80::1234 (on the 1st link of the node)
+             ff02::5678 (on the 5th link of the node)
+             ff08::9abc (on the 10th organization of the node)
+
+   would be represented as follows:
+
+             fe80::1234%1
+             ff02::5678%5
+             ff08::9abc%10
+
+   (Here we assume a natural translation from a zone index to the
+   <zone_id> part, where the Nth zone of any scope is translated into
+   "N".)
+
+   If we use interface names as <zone_id>, those addresses could also be
+   represented as follows:
+
+            fe80::1234%ne0
+            ff02::5678%pvc1.3
+            ff08::9abc%interface10
+
+   where the interface "ne0" belongs to the 1st link, "pvc1.3" belongs
+   to the 5th link, and "interface10" belongs to the 10th organization.
+ * * */
+
 var ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
 var ipv6Block = /^[0-9A-F]{1,4}$/i;
 function isIP(str) {
@@ -275,7 +305,29 @@ function isIP(str) {
     });
     return parts[3] <= 255;
   } else if (version === '6') {
-    var blocks = str.split(':');
+    var addressAndZone = [str]; // ipv6 addresses could have scoped architecture
+    // according to https://tools.ietf.org/html/rfc4007#section-11
+
+    if (str.includes('%')) {
+      addressAndZone = str.split('%');
+
+      if (addressAndZone.length !== 2) {
+        // it must be just two parts
+        return false;
+      }
+
+      if (!addressAndZone[0].includes(':')) {
+        // the first part must be the address
+        return false;
+      }
+
+      if (addressAndZone[1] === '') {
+        // the second part must not be empty
+        return false;
+      }
+    }
+
+    var blocks = addressAndZone[0].split(':');
     var foundOmissionBlock = false; // marker to indicate ::
     // At least some OS accept the last 32 bits of an IPv6 address
     // (i.e. 2 of the blocks) in IPv4 notation, and RFC 3493 says
@@ -1402,6 +1454,7 @@ var phones = {
   'en-ZA': /^(\+?27|0)\d{9}$/,
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
+  'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
   'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
   'es-PA': /^(\+?507)\d{7,8}$/,
@@ -1428,6 +1481,7 @@ var phones = {
   'lt-LT': /^(\+370|8)\d{8}$/,
   'ms-MY': /^(\+?6?01){1}(([0145]{1}(\-|\s)?\d{7,8})|([236789]{1}(\s|\-)?\d{7}))$/,
   'nb-NO': /^(\+?47)?[49]\d{7}$/,
+  'ne-NP': /^(\+?977)?9[78]\d{8}$/,
   'nl-BE': /^(\+?32|0)4?\d{8}$/,
   'nl-NL': /^(\+?31|0)6?\d{8}$/,
   'nn-NO': /^(\+?47)?[49]\d{7}$/,
