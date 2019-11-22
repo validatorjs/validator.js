@@ -5,6 +5,7 @@ import { locales as isAlphaLocales } from '../src/lib/isAlpha';
 import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric';
 import { locales as isMobilePhoneLocales } from '../src/lib/isMobilePhone';
 import { locales as isFloatLocales } from '../src/lib/isFloat';
+import { locales as isIdentityCardLocales } from '../src/lib/isIdentityCard';
 
 describe('Exports', () => {
   it('should export validators', () => {
@@ -49,5 +50,10 @@ describe('Exports', () => {
   it('should export isFloat\'s supported locales', () => {
     assert.ok(isFloatLocales instanceof Array);
     assert.ok(validator.isFloatLocales instanceof Array);
+  });
+
+  it('should export isIdentityCard\'s supported locales', () => {
+    assert.ok(isIdentityCardLocales instanceof Array);
+    assert.ok(validator.isIdentityCardLocales instanceof Array);
   });
 });

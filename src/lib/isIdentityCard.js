@@ -101,6 +101,7 @@ const validators = {
   },
 };
 
+export const locales = Object.keys(validators);
 export default function isIdentityCard(str, locale) {
   assertString(str);
   if (locale in validators) {

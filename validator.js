@@ -1276,6 +1276,7 @@ var validators = {
     }, 0);
   }
 };
+var locales$3 = Object.keys(validators);
 function isIdentityCard(str, locale) {
   assertString(str);
 
@@ -1547,7 +1548,7 @@ function isMobilePhone(str, locale, options) {
 
   throw new Error("Invalid locale '".concat(locale, "'"));
 }
-var locales$3 = Object.keys(phones);
+var locales$4 = Object.keys(phones);
 
 function currencyRegex(options) {
   var decimal_digits = "\\d{".concat(options.digits_after_decimal[0], "}");
@@ -1877,7 +1878,7 @@ var patterns = {
   ZA: fourDigit,
   ZM: fiveDigit
 };
-var locales$4 = Object.keys(patterns);
+var locales$5 = Object.keys(patterns);
 var isPostalCode = function (str, locale) {
   assertString(str);
 
@@ -2157,13 +2158,14 @@ var validator = {
   isIn: isIn,
   isCreditCard: isCreditCard,
   isIdentityCard: isIdentityCard,
+  isIdentityCardLocales: locales$3,
   isISIN: isISIN,
   isISBN: isISBN,
   isISSN: isISSN,
   isMobilePhone: isMobilePhone,
-  isMobilePhoneLocales: locales$3,
+  isMobilePhoneLocales: locales$4,
   isPostalCode: isPostalCode,
-  isPostalCodeLocales: locales$4,
+  isPostalCodeLocales: locales$5,
   isCurrency: isCurrency,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,

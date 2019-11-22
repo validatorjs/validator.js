@@ -88,6 +88,7 @@ var validators = {
     }, 0);
   }
 };
+export var locales = Object.keys(validators);
 export default function isIdentityCard(str, locale) {
   assertString(str);
 
