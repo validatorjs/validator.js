@@ -1455,7 +1455,7 @@ var phones = {
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
   'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
-  'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
+  'es-ES': /^(\+?34)?[6|7]\d{8}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
   'es-PA': /^(\+?507)\d{7,8}$/,
   'es-PY': /^(\+?595|0)9[9876]\d{7}$/,
@@ -1823,6 +1823,13 @@ var threeDigit = /^\d{3}$/;
 var fourDigit = /^\d{4}$/;
 var fiveDigit = /^\d{5}$/;
 var sixDigit = /^\d{6}$/;
+var validators$1 = {
+  ES: function ES(str) {
+    // sanitize user input
+    var sanitized = str.trim();
+    return sanitized.length === 5 && parseInt(sanitized, 10) >= 1001 && parseInt(sanitized, 10) <= 52999;
+  }
+};
 var patterns = {
   AD: /^AD\d{3}$/,
   AT: fourDigit,
@@ -1837,7 +1844,9 @@ var patterns = {
   DK: fourDigit,
   DZ: fiveDigit,
   EE: fiveDigit,
-  ES: fiveDigit,
+  ES: {
+    test: validators$1.ES
+  },
   FI: fiveDigit,
   FR: /^\d{2}\s?\d{3}$/,
   GB: /^(gir\s?0aa|[a-z]{1,2}\d[\da-z]?\s?(\d[a-z]{2})?)$/i,
