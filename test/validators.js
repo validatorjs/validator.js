@@ -994,6 +994,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate portuguese alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['pt-PT'],
+      valid: [
+        'palíndromo',
+        'órgão',
+        'qwértyúão',
+        'àäãcëüïÄÏÜ',
+      ],
+      invalid: [
+        '12abc',
+        'Heiß',
+        'Øre',
+        'æøå',
+        '',
+      ],
+    });
+  });
+
   it('should validate italian alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1461,6 +1481,26 @@ describe('Validators', () => {
         'äbc1',
         '  fäö  ',
         'Heiß!',
+        '',
+      ],
+    });
+  });
+
+  it('should validate portuguese alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['pt-PT'],
+      valid: [
+        'palíndromo',
+        '2órgão',
+        'qwértyúão9',
+        'àäãcë4üïÄÏÜ',
+      ],
+      invalid: [
+        '!abc',
+        'Heiß',
+        'Øre',
+        'æøå',
         '',
       ],
     });
