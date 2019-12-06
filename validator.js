@@ -49,6 +49,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -252,6 +256,36 @@ function isFQDN(str, options) {
   return true;
 }
 
+/**
+11.3.  Examples
+
+   The following addresses
+
+             fe80::1234 (on the 1st link of the node)
+             ff02::5678 (on the 5th link of the node)
+             ff08::9abc (on the 10th organization of the node)
+
+   would be represented as follows:
+
+             fe80::1234%1
+             ff02::5678%5
+             ff08::9abc%10
+
+   (Here we assume a natural translation from a zone index to the
+   <zone_id> part, where the Nth zone of any scope is translated into
+   "N".)
+
+   If we use interface names as <zone_id>, those addresses could also be
+   represented as follows:
+
+            fe80::1234%ne0
+            ff02::5678%pvc1.3
+            ff08::9abc%interface10
+
+   where the interface "ne0" belongs to the 1st link, "pvc1.3" belongs
+   to the 5th link, and "interface10" belongs to the 10th organization.
+ * * */
+
 var ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
 var ipv6Block = /^[0-9A-F]{1,4}$/i;
 function isIP(str) {
@@ -271,7 +305,29 @@ function isIP(str) {
     });
     return parts[3] <= 255;
   } else if (version === '6') {
-    var blocks = str.split(':');
+    var addressAndZone = [str]; // ipv6 addresses could have scoped architecture
+    // according to https://tools.ietf.org/html/rfc4007#section-11
+
+    if (str.includes('%')) {
+      addressAndZone = str.split('%');
+
+      if (addressAndZone.length !== 2) {
+        // it must be just two parts
+        return false;
+      }
+
+      if (!addressAndZone[0].includes(':')) {
+        // the first part must be the address
+        return false;
+      }
+
+      if (addressAndZone[1] === '') {
+        // the second part must not be empty
+        return false;
+      }
+    }
+
+    var blocks = addressAndZone[0].split(':');
     var foundOmissionBlock = false; // marker to indicate ::
     // At least some OS accept the last 32 bits of an IPv6 address
     // (i.e. 2 of the blocks) in IPv4 notation, and RFC 3493 says
@@ -690,7 +746,9 @@ var alpha = {
   'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
-  ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/
+  ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
+  he: /^[א-ת]+$/,
+  'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
 };
 var alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
@@ -717,7 +775,9 @@ var alphanumeric = {
   'tr-TR': /^[0-9A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
-  ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/
+  ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
+  he: /^[0-9א-ת]+$/,
+  'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
 };
 var decimal = {
   'en-US': '.',
@@ -917,10 +977,16 @@ function isDecimal(str, options) {
   throw new Error("Invalid locale '".concat(options.locale, "'"));
 }
 
-var hexadecimal = /^[0-9A-F]+$/i;
+var hexadecimal = /^(0x|0h)?[0-9A-F]+$/i;
 function isHexadecimal(str) {
   assertString(str);
   return hexadecimal.test(str);
+}
+
+var octal = /^(0o)?[0-7]+$/i;
+function isOctal(str) {
+  assertString(str);
+  return octal.test(str);
 }
 
 function isDivisibleBy(str, num) {
@@ -1361,7 +1427,7 @@ var phones = {
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
-  'bn-BD': /^(\+?880|0)1[1356789][0-9]{8}$/,
+  'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
@@ -1388,8 +1454,10 @@ var phones = {
   'en-ZA': /^(\+?27|0)\d{9}$/,
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
+  'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
   'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
+  'es-PA': /^(\+?507)\d{7,8}$/,
   'es-PY': /^(\+?595|0)9[9876]\d{7}$/,
   'es-UY': /^(\+598|0)9[1-9][\d]{6}$/,
   'et-EE': /^(\+?372)?\s?(5|8[1-4])\s?([0-9]\s?){6,7}$/,
@@ -1406,13 +1474,14 @@ var phones = {
   'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
   'id-ID': /^(\+?62|0)8(1[123456789]|2[1238]|3[1238]|5[12356789]|7[78]|9[56789]|8[123456789])([\s?|\d]{5,11})$/,
   'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
-  'ja-JP': /^(\+?81|0)[6789]0[ \-]?\d{4}[ \-]?\d{4}$/,
+  'ja-JP': /^(\+81[ \-]?(\(0\))?|0)[6789]0[ \-]?\d{4}[ \-]?\d{4}$/,
   'kk-KZ': /^(\+?7|8)?7\d{9}$/,
   'kl-GL': /^(\+?299)?\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'ko-KR': /^((\+?82)[ \-]?)?0?1([0|1|6|7|8|9]{1})[ \-]?\d{3,4}[ \-]?\d{4}$/,
   'lt-LT': /^(\+370|8)\d{8}$/,
   'ms-MY': /^(\+?6?01){1}(([0145]{1}(\-|\s)?\d{7,8})|([236789]{1}(\s|\-)?\d{7}))$/,
   'nb-NO': /^(\+?47)?[49]\d{7}$/,
+  'ne-NP': /^(\+?977)?9[78]\d{8}$/,
   'nl-BE': /^(\+?32|0)4?\d{8}$/,
   'nl-NL': /^(\+?31|0)6?\d{8}$/,
   'nn-NO': /^(\+?47)?[49]\d{7}$/,
@@ -1429,7 +1498,7 @@ var phones = {
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
-  'zh-CN': /^((\+|00)86)?1([358][0-9]|4[579]|6[67]|7[0135678]|9[189])[0-9]{8}$/,
+  'zh-CN': /^((\+|00)86)?1([358][0-9]|4[579]|6[67]|7[01235678]|9[189])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -1778,7 +1847,7 @@ var patterns = {
   ID: fiveDigit,
   IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
   IL: fiveDigit,
-  IN: sixDigit,
+  IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
@@ -2027,7 +2096,13 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var version = '11.1.0';
+var charsetRegex = /^[^-_](?!.*?[-_]{2,})([a-z0-9\\-]{1,}).*[^-_]$/;
+function isSlug(str) {
+  assertString(str);
+  return charsetRegex.test(str);
+}
+
+var version = '12.1.0';
 var validator = {
   version: version,
   toDate: toDate,
@@ -2064,6 +2139,7 @@ var validator = {
   isFloatLocales: locales$2,
   isDecimal: isDecimal,
   isHexadecimal: isHexadecimal,
+  isOctal: isOctal,
   isDivisibleBy: isDivisibleBy,
   isHexColor: isHexColor,
   isISRC: isISRC,
@@ -2109,7 +2185,8 @@ var validator = {
   blacklist: blacklist$1,
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
-  toString: toString
+  toString: toString,
+  isSlug: isSlug
 };
 
 return validator;

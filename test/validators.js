@@ -1,6 +1,6 @@
-import { format } from 'util';
 import assert from 'assert';
 import fs from 'fs';
+import { format } from 'util';
 import vm from 'vm';
 import validator from '../src/index';
 
@@ -748,6 +748,10 @@ describe('Validators', () => {
         '::1',
         '2001:db8:0000:1:1:1:1:1',
         '::ffff:127.0.0.1',
+        'fe80::1234%1',
+        'ff08::9abc%10',
+        'ff08::9abc%interface10',
+        'ff02::5678%pvc1.3',
       ],
       invalid: [
         '127.0.0.1',
@@ -755,6 +759,10 @@ describe('Validators', () => {
         '255.255.255.255',
         '1.2.3.4',
         '::ffff:287.0.0.1',
+        '%',
+        'fe80::1234%',
+        'fe80::1234%1%3%4',
+        'fe80%fe80%',
       ],
     });
     test({
@@ -1031,6 +1039,30 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate farsi alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['fa-IR'],
+      valid: [
+        'پدر',
+        'مادر',
+        'برادر',
+        'خواهر',
+      ],
+      invalid: [
+        'فارسی۱۲۳',
+        '۱۶۴',
+        'abc1',
+        '  foo  ',
+        '',
+        'ÄBC',
+        'FÜübar',
+        'Jön',
+        'Heiß',
+      ],
+    });
+  });
+
   it('should validate kurdish alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1238,6 +1270,23 @@ describe('Validators', () => {
         'ЫыЪъЭэ',
         '120',
         'jαckγ',
+      ],
+    });
+  });
+
+  it('should validate Hebrew alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['he'],
+      valid: [
+        'בדיקה',
+        'שלום',
+      ],
+      invalid: [
+        'בדיקה123',
+        '  foo  ',
+        'abc1',
+        '',
       ],
     });
   });
@@ -1472,6 +1521,24 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate farsi alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['fa-IR'],
+      valid: [
+        'پارسی۱۲۳',
+        '۱۴۵۶',
+        'مژگان9',
+      ],
+      invalid: [
+        'äca ',
+        'abcßة',
+        'föö!!',
+        '٤٥٦',
+      ],
+    });
+  });
+
   it('should validate kurdish alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
@@ -1642,6 +1709,23 @@ describe('Validators', () => {
         'Heiß',
         'ЫыЪъЭэ',
         'jαckγ',
+      ],
+    });
+  });
+
+  it('should validate Hebrew alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['he'],
+      valid: [
+        'אבג123',
+        'שלום11',
+      ],
+      invalid: [
+        'אבג ',
+        'לא!!',
+        'abc',
+        '  foo  ',
       ],
     });
   });
@@ -2419,9 +2503,39 @@ describe('Validators', () => {
       valid: [
         'deadBEEF',
         'ff0044',
+        '0xff0044',
+        '0XfF0044',
+        '0x0123456789abcDEF',
+        '0X0123456789abcDEF',
+        '0hfedCBA9876543210',
+        '0HfedCBA9876543210',
+        '0123456789abcDEF',
       ],
       invalid: [
         'abcdefg',
+        '',
+        '..',
+        '0xa2h',
+        '0xa20x',
+        '0x0123456789abcDEFq',
+        '0hfedCBA9876543210q',
+        '01234q56789abcDEF',
+      ],
+    });
+  });
+
+  it('should validate octal strings', () => {
+    test({
+      validator: 'isOctal',
+      valid: [
+        '076543210',
+        '0o01234567',
+      ],
+      invalid: [
+        'abcdefg',
+        '012345678',
+        '012345670c',
+        '00c12345670c',
         '',
         '..',
       ],
@@ -3786,13 +3900,13 @@ describe('Validators', () => {
           '01717112029',
           '8801898765432',
           '+8801312345678',
+          '01494676946',
         ],
         invalid: [
           '',
           '0174626346',
           '017943563469',
           '18001234567',
-          '01494676946',
           '0131234567',
         ],
       },
@@ -3921,6 +4035,9 @@ describe('Validators', () => {
           '+8619912341234',
           '+8619812341234',
           '+8619112341234',
+          '17269427292',
+          '+8617269427292',
+          '008617269427292',
         ],
         invalid: [
           '12345',
@@ -4508,6 +4625,25 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: ['ne-NP'],
+        valid: [
+          '+9779817385479',
+          '+9779717385478',
+          '+9779862002615',
+          '+9779853660020',
+        ],
+        invalid: [
+          '12345',
+          '',
+          'Vml2YW11cyBmZXJtZtesting123',
+          '+97796123456789',
+          '+9771234567',
+          '+977981234',
+          '4736338855',
+          '66338855',
+        ],
+      },
+      {
         locale: 'vi-VN',
         valid: [
           '0336012403',
@@ -4547,6 +4683,28 @@ describe('Validators', () => {
           '563875615',
           '56109834567',
           '56069834567',
+        ],
+      },
+      {
+        locale: 'es-EC',
+        valid: [
+          '+593987654321',
+          '593987654321',
+          '0987654321',
+          '027332615',
+          '+59323456789',
+        ],
+        invalid: [
+          '03321321',
+          '+593387561',
+          '59312345677',
+          '02344635',
+          '593123456789',
+          '081234567',
+          '+593912345678',
+          '+593902345678',
+          '+593287654321',
+          '593287654321',
         ],
       },
       {
@@ -4599,6 +4757,22 @@ describe('Validators', () => {
           '+34704789321',
           '704789321',
           '+34754789321',
+        ],
+      },
+      {
+        locale: 'es-PA',
+        valid: [
+          '+5076784565',
+          '+5074321557',
+          '5073331112',
+          '+50723431212',
+        ],
+        invalid: [
+          '+50755555',
+          '+207123456',
+          '2001236542',
+          '+507987643254',
+          '+507jjjghtf',
         ],
       },
       {
@@ -4840,6 +5014,10 @@ describe('Validators', () => {
           '06012345678',
           '090 1234 5678',
           '+8190-1234-5678',
+          '+81 (0)90-1234-5678',
+          '+819012345678',
+          '+81-(0)90-1234-5678',
+          '+81 90 1234 5678',
         ],
         invalid: [
           '12345',
@@ -4860,6 +5038,10 @@ describe('Validators', () => {
           '03-1234-5678',
           '+81312345678',
           '+816-1234-5678',
+          '+81 090 1234 5678',
+          '+8109012345678',
+          '+81-090-1234-5678',
+          '90 1234 5678',
         ],
       },
       {
@@ -6685,6 +6867,29 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'IN',
+        valid: [
+          '364240',
+          '360005',
+        ],
+        invalid: [
+          '123',
+          '012345',
+          '011111',
+          '101123',
+          '291123',
+          '351123',
+          '541123',
+          '551123',
+          '651123',
+          '661123',
+          '861123',
+          '871123',
+          '881123',
+          '891123',
+        ],
+      },
+      {
         locale: 'BG',
         valid: [
           '1000',
@@ -6924,6 +7129,22 @@ describe('Validators', () => {
         'message/http; charset=utf-8',
         'model/vnd.gtw; charset=utf-8',
         'video/mp4; charset=utf-8',
+      ],
+    });
+  });
+
+  it('should validate slug', () => {
+    test({
+      validator: 'isSlug',
+      args: ['cs_67CZ'],
+      valid: ['cs-cz', 'cscz'],
+      invalid: [
+        'not-----------slug',
+        '@#_$@',
+        '-not-slug',
+        'not-slug-',
+        '_not-slug',
+        'not-slug_',
       ],
     });
   });
