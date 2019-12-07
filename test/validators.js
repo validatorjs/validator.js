@@ -534,6 +534,18 @@ describe('Validators', () => {
       ],
     });
   });
+  
+  it('should validate URLs with underscores', () => {
+    test({
+      validator: 'isURL',
+      args: [],
+      valid: [
+        'http://foo_bar.com#>part1',
+        'http://foo_bar.com#id with space'
+      ],
+      invalid: [],
+    });
+  });
 
   it('should let users specify a host whitelist', () => {
     test({
