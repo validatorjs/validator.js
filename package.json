@@ -1,10 +1,12 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "11.1.0",
+  "version": "12.1.0",
+  "sideEffects": false,
   "homepage": "https://github.com/chriso/validator.js",
   "files": [
     "index.js",
+    "es",
     "lib",
     "README.md",
     "LICENCE",
@@ -22,12 +24,10 @@
     "assert"
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
-  "contributors": [
-    {
-      "name": "Anthony Nandaa",
-      "url": "https://github.com/profnandaa"
-    }
-  ],
+  "contributors": [{
+    "name": "Anthony Nandaa",
+    "url": "https://github.com/profnandaa"
+  }],
   "main": "index.js",
   "bugs": {
     "url": "https://github.com/chriso/validator.js/issues"
@@ -56,12 +56,14 @@
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
     "clean:node": "rm -rf index.js lib",
+    "clean:es": "rm -rf es",
     "clean:browser": "rm -rf validator*.js",
-    "clean": "npm run clean:node && npm run clean:browser",
+    "clean": "npm run clean:node && npm run clean:browser && npm run clean:es",
     "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
     "build:browser": "node --require @babel/register build-browser && npm run minify",
+    "build:es": "babel src -d es --env-name=es",
     "build:node": "babel src -d .",
-    "build": "npm run build:browser && npm run build:node",
+    "build": "npm run build:browser && npm run build:node && npm run build:es",
     "pretest": "npm run lint && npm run build",
     "test": "nyc mocha --require @babel/register --reporter dot"
   },
