@@ -100,6 +100,8 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
 
+import isSemver from './lib/isSemver';
+
 const version = '12.1.0';
 
 const validator = {
