@@ -6937,6 +6937,7 @@ describe('Validators', () => {
           'AW5 TF12',
           '756  90HG',
           'A65T F12',
+          'O62 O1O2',
         ],
       },
       {
