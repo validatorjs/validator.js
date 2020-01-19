@@ -6715,7 +6715,7 @@ describe('Validators', () => {
     test({
       validator: 'isEmpty',
       args: [{
-        to_string: true
+        to_string: true,
       }],
       error: [undefined, null, [], NaN],
     });
@@ -6725,7 +6725,7 @@ describe('Validators', () => {
     test({
       validator: 'isEmpty',
       valid: [undefined, null, []],
-      invalid: ["not empty"]
+      invalid: ['not empty'],
     });
   });
 

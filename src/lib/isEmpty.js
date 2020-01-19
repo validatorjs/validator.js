@@ -8,7 +8,7 @@ const default_is_empty_options = {
 
 export default function isEmpty(str, options) {
   let emptyValues = [undefined, null, [], false, 0, '', '0'];
-  
+
   options = merge(options, default_is_empty_options);
 
   if (options.to_string) {
@@ -26,12 +26,12 @@ export default function isEmpty(str, options) {
   }
 
   if (typeof str === 'object') {
-    for (key in str) {
+    for (let key in str) {
       if (str.hasOwnProperty(key)) {
-        return false
+        return false;
       }
     }
-    return true
+    return true;
   }
 
   return false;

@@ -1080,7 +1080,7 @@
     to_string: false
   };
   function isEmpty(str, options) {
-    var emptyValues = [undefined, null, [], NaN, false, 0, '', '0'];
+    var emptyValues = [undefined, null, [], false, 0, '', '0'];
     options = merge(options, default_is_empty_options);
 
     if (options.to_string) {
@@ -1095,6 +1095,16 @@
       if (str === emptyValues[i]) {
         return true;
       }
+    }
+
+    if (_typeof(str) === 'object') {
+      for (var key in str) {
+        if (str.hasOwnProperty(key)) {
+          return false;
+        }
+      }
+
+      return true;
     }
 
     return false;
