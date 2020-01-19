@@ -38,7 +38,9 @@ export default function isIP(str) {
 
   if (!version) {
     return isIP(str, 4) || isIP(str, 6);
-  } else if (version === '4') {
+  }
+
+  if (version === '4') {
     if (!ipv4Maybe.test(str)) {
       return false;
     }
@@ -47,7 +49,9 @@ export default function isIP(str) {
       return a - b;
     });
     return parts[3] <= 255;
-  } else if (version === '6') {
+  }
+
+  if (version === '6') {
     var addressAndZone = [str]; // ipv6 addresses could have scoped architecture
     // according to https://tools.ietf.org/html/rfc4007#section-11
 
@@ -87,7 +91,9 @@ export default function isIP(str) {
 
     if (str === '::') {
       return true;
-    } else if (str.substr(0, 2) === '::') {
+    }
+
+    if (str.substr(0, 2) === '::') {
       blocks.shift();
       blocks.shift();
       foundOmissionBlock = true;

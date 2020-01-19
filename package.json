@@ -24,10 +24,12 @@
     "assert"
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
-  "contributors": [{
-    "name": "Anthony Nandaa",
-    "url": "https://github.com/profnandaa"
-  }],
+  "contributors": [
+    {
+      "name": "Anthony Nandaa",
+      "url": "https://github.com/profnandaa"
+    }
+  ],
   "main": "index.js",
   "bugs": {
     "url": "https://github.com/chriso/validator.js/issues"
@@ -38,17 +40,18 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.0.0",
-    "@babel/register": "^7.0.0",
+    "@babel/register": "^7.8.3",
+    "@babel/standalone": "^7.8.3",
     "babel-eslint": "^10.0.1",
     "babel-plugin-add-module-exports": "^1.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.11.0",
-    "mocha": "^5.1.1",
-    "nyc": "^14.1.0",
-    "rollup": "^0.43.0",
+    "mocha": "^7.0.0",
+    "nyc": "^15.0.0",
+    "rollup": "^1.29.0",
     "rollup-plugin-babel": "^4.0.1",
     "uglify-js": "^3.0.19"
   },

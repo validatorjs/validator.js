@@ -93,7 +93,9 @@ export default function isIdentityCard(str, locale) {
 
   if (locale in validators) {
     return validators[locale](str);
-  } else if (locale === 'any') {
+  }
+
+  if (locale === 'any') {
     for (var key in validators) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else

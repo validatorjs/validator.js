@@ -47,8 +47,7 @@ function validateDisplayName(display_name) {
     }
 
     // the quotes in display name must start with character symbol \
-    const all_start_with_back_slash =
-      display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
+    const all_start_with_back_slash = display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
     if (!all_start_with_back_slash) {
       return false;
     }
@@ -118,8 +117,8 @@ export default function isEmail(str, options) {
     }
   }
 
-  if (!isByteLength(user, { max: 64 }) ||
-            !isByteLength(domain, { max: 254 })) {
+  if (!isByteLength(user, { max: 64 })
+            || !isByteLength(domain, { max: 254 })) {
     return false;
   }
 
@@ -143,13 +142,13 @@ export default function isEmail(str, options) {
 
   if (user[0] === '"') {
     user = user.slice(1, user.length - 1);
-    return options.allow_utf8_local_part ?
-      quotedEmailUserUtf8.test(user) :
-      quotedEmailUser.test(user);
+    return options.allow_utf8_local_part
+      ? quotedEmailUserUtf8.test(user)
+      : quotedEmailUser.test(user);
   }
 
-  const pattern = options.allow_utf8_local_part ?
-    emailUserUtf8Part : emailUserPart;
+  const pattern = options.allow_utf8_local_part
+    ? emailUserUtf8Part : emailUserPart;
 
   const user_parts = user.split('.');
   for (let i = 0; i < user_parts.length; i++) {

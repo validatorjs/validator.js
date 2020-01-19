@@ -27,7 +27,7 @@ export default function isFQDN(str, options) {
       return false;
     }
     // disallow spaces
-    if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20]/.test(tld)) {
+    if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20]/u.test(tld)) {
       return false;
     }
   }

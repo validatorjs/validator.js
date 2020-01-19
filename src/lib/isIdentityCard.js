@@ -26,7 +26,7 @@ const validators = {
     }
 
     // validate the control digit
-    const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, char => charsValue[char]);
+    const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, (char) => charsValue[char]);
 
     return sanitized.endsWith(controlDigits[number % 23]);
   },
@@ -105,7 +105,7 @@ export default function isIdentityCard(str, locale) {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
-  } else if (locale === 'any') {
+  } if (locale === 'any') {
     for (const key in validators) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
