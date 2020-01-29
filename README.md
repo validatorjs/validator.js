@@ -89,6 +89,7 @@ Validator                               | Description
 **isBase32(str)**                       | check if a string is base32 encoded.
 **isBase64(str)**                       | check if a string is base64 encoded.
 **isBefore(str [, date])**              | check if the string is a date that's before the specified date.
+**isIBAN(str)**                         | check if a string is a IBAN (International Bank Account Number).
 **isBIC(str)**                          | check if a string is a BIC (Bank Identification Code) or SWIFT code.
 **isBoolean(str)**                      | check if a string is a boolean.
 **isByteLength(str [, options])**          | check if the string's length (in UTF-8 bytes) falls in a range.<br/><br/>`options` is an object which defaults to `{min:0, max: undefined}`.
