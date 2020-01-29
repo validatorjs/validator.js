@@ -1,7 +1,7 @@
 import assertString from './util/assertString';
 
-const lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
-const long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
+const lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)(e[+-]\d+?)?$/;
+const long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?(e[+-]\d+?)?$/;
 
 export default function (str) {
   assertString(str);
