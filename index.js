@@ -75,6 +75,8 @@ var _isHexColor = _interopRequireDefault(require("./lib/isHexColor"));
 
 var _isISRC = _interopRequireDefault(require("./lib/isISRC"));
 
+var _isIBAN = _interopRequireDefault(require("./lib/isIBAN"));
+
 var _isBIC = _interopRequireDefault(require("./lib/isBIC"));
 
 var _isMD = _interopRequireDefault(require("./lib/isMD5"));
@@ -182,6 +184,7 @@ var validator = {
   isIPRange: _isIPRange.default,
   isFQDN: _isFQDN.default,
   isBoolean: _isBoolean.default,
+  isIBAN: _isIBAN.default,
   isBIC: _isBIC.default,
   isAlpha: _isAlpha.default,
   isAlphaLocales: _isAlpha.locales,
