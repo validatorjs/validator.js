@@ -27,6 +27,8 @@
 }(this, (function () { 'use strict';
 
 function _typeof(obj) {
+  "@babel/helpers - typeof";
+
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
       return typeof obj;
@@ -1769,6 +1771,12 @@ function isCurrency(str, options) {
   return currencyRegex(options).test(str);
 }
 
+var btc = /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/;
+function isBtcAddress(str) {
+  assertString(str);
+  return btc.test(str);
+}
+
 /* eslint-disable max-len */
 // from http://goo.gl/0ejHHW
 
@@ -2313,6 +2321,7 @@ var validator = {
   isPostalCode: isPostalCode,
   isPostalCodeLocales: locales$4,
   isCurrency: isCurrency,
+  isBtcAddress: isBtcAddress,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
