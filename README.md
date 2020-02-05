@@ -114,6 +114,7 @@ Validator                               | Description
 **isIP(str [, version])**               | check if the string is an IP (version 4 or 6).
 **isIPRange(str)**                      | check if the string is an IP Range(version 4 only).
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
+**isEAN(str)**                          | check if the string is an EAN (European Article Number).
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
 **isISO31661Alpha2(str)**               | check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
 **isISO31661Alpha3(str)**               | check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
