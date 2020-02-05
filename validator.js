@@ -1460,7 +1460,7 @@ function isIdentityCard(str, locale) {
  */
 
 var LENGTH_EAN_8 = 8;
-var validEanRegex = /(?<!\d)(\d{8}|\d{13})(?!\d)$/;
+var validEanRegex = /^(\d{8}|\d{13})$/;
 /**
  * Get position weight given:
  * EAN length and digit index/position

@@ -16,7 +16,7 @@ import assertString from './util/assertString';
  * with exact numberic matching of 8 or 13 digits [0-9]
  */
 const LENGTH_EAN_8 = 8;
-const validEanRegex = /(?<!\d)(\d{8}|\d{13})(?!\d)$/;
+const validEanRegex = /^(\d{8}|\d{13})$/;
 
 
 /**
