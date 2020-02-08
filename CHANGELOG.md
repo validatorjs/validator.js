@@ -1,3 +1,61 @@
+#### 12.2.0
+
+- Support CSS Colors Level 4 spec
+  ([#1233](https://github.com/chriso/validator.js/pull/1233))
+- Improve the `toFloat()` sanitizer
+  ([#1227](https://github.com/chriso/validator.js/pull/1227))
+- New and improved locales
+  ([#1200](https://github.com/chriso/validator.js/pull/1200),
+   [#1207](https://github.com/chriso/validator.js/pull/1207),
+   [#1213](https://github.com/chriso/validator.js/pull/1213),
+   [#1217](https://github.com/chriso/validator.js/pull/1217),
+   [#1234](https://github.com/chriso/validator.js/pull/1234))
+
+#### 12.1.0
+
+- ES module for webpack tree shaking
+  ([#1015](https://github.com/chriso/validator.js/pull/1015))
+- Updated `isIP()` to accept scoped IPv6 addresses
+  ([#1160](https://github.com/chriso/validator.js/pull/1160))
+- New and improved locales
+  ([#1162](https://github.com/chriso/validator.js/pull/1162),
+   [#1183](https://github.com/chriso/validator.js/pull/1183),
+   [#1187](https://github.com/chriso/validator.js/pull/1187),
+   [#1191](https://github.com/chriso/validator.js/pull/1191))
+
+#### 12.0.0
+
+- Added `isOctal()` validator
+  ([#1153](https://github.com/chriso/validator.js/pull/1153))
+- Added `isSlug()` validator
+  ([#1096](https://github.com/chriso/validator.js/pull/1096))
+- Added `isBIC()` validator for bank identification codes
+  ([#1071](https://github.com/chriso/validator.js/pull/1071))
+- Allow uppercase chars in `isHash()`
+  ([#1062](https://github.com/chriso/validator.js/pull/1062))
+- Allow additional prefixes in `isHexadecimal()`
+  ([#1147](https://github.com/chriso/validator.js/pull/1147))
+- Allow additional separators in `isMACAddress()`
+  ([#1065](https://github.com/chriso/validator.js/pull/1065))
+- Better defaults for `isLength()`
+  ([#1070](https://github.com/chriso/validator.js/pull/1070))
+- Bug fixes
+  ([#1074](https://github.com/chriso/validator.js/pull/1074))
+- New and improved locales
+  ([#1059](https://github.com/chriso/validator.js/pull/1059),
+   [#1060](https://github.com/chriso/validator.js/pull/1060),
+   [#1069](https://github.com/chriso/validator.js/pull/1069),
+   [#1073](https://github.com/chriso/validator.js/pull/1073),
+   [#1082](https://github.com/chriso/validator.js/pull/1082),
+   [#1092](https://github.com/chriso/validator.js/pull/1092),
+   [#1121](https://github.com/chriso/validator.js/pull/1121),
+   [#1125](https://github.com/chriso/validator.js/pull/1125),
+   [#1132](https://github.com/chriso/validator.js/pull/1132),
+   [#1152](https://github.com/chriso/validator.js/pull/1152),
+   [#1165](https://github.com/chriso/validator.js/pull/1165),
+   [#1166](https://github.com/chriso/validator.js/pull/1166),
+   [#1174](https://github.com/chriso/validator.js/pull/1174))
+
 #### 11.1.0
 
 - Code coverage improvements
