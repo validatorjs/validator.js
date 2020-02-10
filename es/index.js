@@ -32,6 +32,7 @@ import isOctal from './lib/isOctal';
 import isDivisibleBy from './lib/isDivisibleBy';
 import isHexColor from './lib/isHexColor';
 import isISRC from './lib/isISRC';
+import isIBAN from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
@@ -47,11 +48,14 @@ import isBefore from './lib/isBefore';
 import isIn from './lib/isIn';
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
+import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 import isCurrency from './lib/isCurrency';
+import isBtcAddress from './lib/isBtcAddress';
+import isISO6391 from './lib/isISO6391';
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
@@ -91,6 +95,7 @@ var validator = {
   isIPRange: isIPRange,
   isFQDN: isFQDN,
   isBoolean: isBoolean,
+  isIBAN: isIBAN,
   isBIC: isBIC,
   isAlpha: isAlpha,
   isAlphaLocales: isAlphaLocales,
@@ -129,6 +134,7 @@ var validator = {
   isIn: isIn,
   isCreditCard: isCreditCard,
   isIdentityCard: isIdentityCard,
+  isEAN: isEAN,
   isISIN: isISIN,
   isISBN: isISBN,
   isISSN: isISSN,
@@ -137,6 +143,8 @@ var validator = {
   isPostalCode: isPostalCode,
   isPostalCodeLocales: isPostalCodeLocales,
   isCurrency: isCurrency,
+  isBtcAddress: isBtcAddress,
+  isISO6391: isISO6391,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,

@@ -117,6 +117,7 @@ Validator                               | Description
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
 **isEAN(str)**                          | check if the string is an EAN (European Article Number).
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
+**isISO6391(str)**                      | check if the string is a valid [ISO 6391](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
 **isISO31661Alpha2(str)**               | check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
 **isISO31661Alpha3(str)**               | check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
 **isISO8601(str)**                      | check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date; for additional checks for valid dates, e.g. invalidates dates like `2009-02-29`, pass `options` object as a second parameter with `options.strict = true`.

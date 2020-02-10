@@ -6634,6 +6634,25 @@ describe('Validators', () => {
     '2010-13-1',
   ];
 
+  it('should validate ISO 6391', () => {
+    test({
+      validator: 'isISO6391',
+      valid: [
+        'ab',
+        'aa',
+        'bs',
+        'ht',
+      ],
+      invalid: [
+        'ark',
+        'll',
+        'l',
+        '90',
+        '#4',
+      ],
+    });
+  });
+
   it('should validate ISO 8601 dates', () => {
     // from http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     test({
