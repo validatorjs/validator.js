@@ -962,12 +962,12 @@ function isMultibyte(str) {
  * @param {string} flags
  * @return {object} - RegExp object
  */
-
-function buildMultiLineRegexp(parts) {
+function multilineRegexp(parts) {
   var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
   var regexpAsStringLiteral = parts.join('');
   return new RegExp(regexpAsStringLiteral, flags);
 }
+
 /**
  * Regular Expression to match
  * semantic versioning (SemVer)
@@ -975,8 +975,7 @@ function buildMultiLineRegexp(parts) {
  * Reference: https://semver.org/
  */
 
-
-var semanticVersioningRegex = buildMultiLineRegexp(['^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)', '(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))', '?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$']);
+var semanticVersioningRegex = multilineRegexp(['^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)', '(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))', '?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$']);
 function isSemVer(str) {
   assertString(str);
   return semanticVersioningRegex.test(str);
