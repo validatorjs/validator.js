@@ -2,7 +2,7 @@ import assertString from './util/assertString';
 
 /**
  * Build RegExp object from an array
- * of multiple/multi-line RegExp objects
+ * of multiple/multi-line regexp parts
  *
  * @param {string[]} parts
  * @param {string} flags
