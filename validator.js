@@ -956,7 +956,7 @@ function isMultibyte(str) {
 
 /**
  * Build RegExp object from an array
- * of multiple/multi-line RegExp objects
+ * of multiple/multi-line regexp parts
  *
  * @param {string[]} parts
  * @param {string} flags
