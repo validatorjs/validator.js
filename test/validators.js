@@ -841,6 +841,20 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate FQDN with "require_tld" as true', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { require_tld: true },
+      ],
+      valid: [
+        'example.tld',
+      ],
+      invalid: [
+        'example',
+      ],
+    });
+  });
 
   it('should validate alpha strings', () => {
     test({
