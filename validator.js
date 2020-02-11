@@ -954,6 +954,33 @@ function isMultibyte(str) {
   return multibyte.test(str);
 }
 
+/**
+ * Build RegExp object from an array
+ * of multiple/multi-line regexp parts
+ *
+ * @param {string[]} parts
+ * @param {string} flags
+ * @return {object} - RegExp object
+ */
+function multilineRegexp(parts) {
+  var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var regexpAsStringLiteral = parts.join('');
+  return new RegExp(regexpAsStringLiteral, flags);
+}
+
+/**
+ * Regular Expression to match
+ * semantic versioning (SemVer)
+ * built from multi-line, multi-parts regexp
+ * Reference: https://semver.org/
+ */
+
+var semanticVersioningRegex = multilineRegexp(['^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)', '(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))', '?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$']);
+function isSemVer(str) {
+  assertString(str);
+  return semanticVersioningRegex.test(str);
+}
+
 var surrogatePair = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
 function isSurrogatePair(str) {
   assertString(str);
@@ -2354,6 +2381,7 @@ var validator = {
   isHalfWidth: isHalfWidth,
   isVariableWidth: isVariableWidth,
   isMultibyte: isMultibyte,
+  isSemVer: isSemVer,
   isSurrogatePair: isSurrogatePair,
   isInt: isInt,
   isFloat: isFloat,

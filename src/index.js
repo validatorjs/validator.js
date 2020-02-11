@@ -27,6 +27,7 @@ import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
 import isVariableWidth from './lib/isVariableWidth';
 import isMultibyte from './lib/isMultibyte';
+import isSemVer from './lib/isSemVer';
 import isSurrogatePair from './lib/isSurrogatePair';
 
 import isInt from './lib/isInt';
@@ -137,6 +138,7 @@ const validator = {
   isHalfWidth,
   isVariableWidth,
   isMultibyte,
+  isSemVer,
   isSurrogatePair,
   isInt,
   isFloat,

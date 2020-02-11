@@ -57,6 +57,8 @@ var _isVariableWidth = _interopRequireDefault(require("./lib/isVariableWidth"));
 
 var _isMultibyte = _interopRequireDefault(require("./lib/isMultibyte"));
 
+var _isSemVer = _interopRequireDefault(require("./lib/isSemVer"));
+
 var _isSurrogatePair = _interopRequireDefault(require("./lib/isSurrogatePair"));
 
 var _isInt = _interopRequireDefault(require("./lib/isInt"));
@@ -203,6 +205,7 @@ var validator = {
   isHalfWidth: _isHalfWidth.default,
   isVariableWidth: _isVariableWidth.default,
   isMultibyte: _isMultibyte.default,
+  isSemVer: _isSemVer.default,
   isSurrogatePair: _isSurrogatePair.default,
   isInt: _isInt.default,
   isFloat: _isFloat.default,
