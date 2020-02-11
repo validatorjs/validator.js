@@ -1,7 +1,7 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "12.1.0",
+  "version": "12.2.0",
   "sideEffects": false,
   "homepage": "https://github.com/chriso/validator.js",
   "files": [
@@ -24,10 +24,12 @@
     "assert"
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
-  "contributors": [{
-    "name": "Anthony Nandaa",
-    "url": "https://github.com/profnandaa"
-  }],
+  "contributors": [
+    {
+      "name": "Anthony Nandaa",
+      "url": "https://github.com/profnandaa"
+    }
+  ],
   "main": "index.js",
   "bugs": {
     "url": "https://github.com/chriso/validator.js/issues"

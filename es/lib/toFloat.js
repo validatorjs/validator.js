@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
+import isFloat from './isFloat';
 export default function toFloat(str) {
-  assertString(str);
+  if (!isFloat(str)) return NaN;
   return parseFloat(str);
 }

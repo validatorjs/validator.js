@@ -40,6 +40,7 @@ import isHexColor from './lib/isHexColor';
 
 import isISRC from './lib/isISRC';
 
+import isIBAN from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
@@ -63,6 +64,7 @@ import isIn from './lib/isIn';
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
 
+import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
@@ -70,6 +72,8 @@ import isISSN from './lib/isISSN';
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 
 import isCurrency from './lib/isCurrency';
+
+import isBtcAddress from './lib/isBtcAddress';
 
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
@@ -100,7 +104,7 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
 
-const version = '12.1.0';
+const version = '12.2.0';
 
 const validator = {
   version,
@@ -118,6 +122,7 @@ const validator = {
   isIPRange,
   isFQDN,
   isBoolean,
+  isIBAN,
   isBIC,
   isAlpha,
   isAlphaLocales,
@@ -156,6 +161,7 @@ const validator = {
   isIn,
   isCreditCard,
   isIdentityCard,
+  isEAN,
   isISIN,
   isISBN,
   isISSN,
@@ -164,6 +170,7 @@ const validator = {
   isPostalCode,
   isPostalCodeLocales,
   isCurrency,
+  isBtcAddress,
   isISO8601,
   isRFC3339,
   isISO31661Alpha2,

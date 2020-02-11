@@ -1281,6 +1281,8 @@ describe('Validators', () => {
       valid: [
         'αβγδεζηθικλμνξοπρςστυφχψω',
         'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ',
+        'άέήίΰϊϋόύώ',
+        'ΆΈΉΊΪΫΎΏ',
       ],
       invalid: [
         '0AİıÖöÇçŞşĞğÜüZ1',
@@ -3160,6 +3162,33 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate IBAN', () => {
+    test({
+      validator: 'isIBAN',
+      valid: [
+        'BE71 0961 2345 6769',
+        'FR76 3000 6000 0112 3456 7890 189',
+        'DE91 1000 0000 0123 4567 89',
+        'GR96 0810 0010 0000 0123 4567 890',
+        'RO09 BCYP 0000 0012 3456 7890',
+        'SA44 2000 0001 2345 6789 1234',
+        'ES79 2100 0813 6101 2345 6789',
+        'CH56 0483 5012 3456 7800 9',
+        'GB98 MIDL 0700 9312 3456 78',
+        'IL170108000000012612345',
+        'IT60X0542811101000000123456',
+        'JO71CBJO0000000000001234567890',
+        'TR320010009999901234567890',
+        'BR1500000000000010932840814P2',
+        'LB92000700000000123123456123',
+      ],
+      invalid: [
+        'XX22YYY1234567890123',
+        'FR14 2004 1010 0505 0001 3',
+      ],
+    });
+  });
+
   it('should validate BIC codes', () => {
     test({
       validator: 'isBIC',
@@ -3442,6 +3471,25 @@ describe('Validators', () => {
       invalid: [
         '340101319X',
         '9784873113685',
+      ],
+    });
+  });
+
+  it('should validate EANs', () => {
+    test({
+      validator: 'isEAN',
+      valid: [
+        '9421023610112',
+        '1234567890128',
+        '4012345678901',
+        '9771234567003',
+        '9783161484100',
+        '73513537',
+      ],
+      invalid: [
+        '5901234123451',
+        '079777681629',
+        '0705632085948',
       ],
     });
   });
@@ -6473,6 +6521,22 @@ describe('Validators', () => {
         '',
         '- $',
         '-$10,123.45',
+      ],
+    });
+  });
+
+  it('should validate Bitcoin addresses', () => {
+    test({
+      validator: 'isBtcAddress',
+      valid: [
+        '1MUz4VMYui5qY1mxUiG8BQ1Luv6tqkvaiL',
+        '3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy',
+        'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
+      ],
+      invalid: [
+        '4J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy',
+        '0x56F0B8A998425c53c75C4A303D4eF987533c5597',
+        'pp8skudq3x5hzw8ew7vzsw8tn4k8wxsqsv0lt0mf3g',
       ],
     });
   });
