@@ -30,6 +30,10 @@ export default function isFQDN(str, options) {
     if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20]/.test(tld)) {
       return false;
     }
+    if (Array.isArray(options.require_tld)) {
+      // TODO Array.includes though for browser BC does this
+      return options.require_tld.indexOf(tld) !== -1;
+    }
   }
   for (let part, i = 0; i < parts.length; i++) {
     part = parts[i];
