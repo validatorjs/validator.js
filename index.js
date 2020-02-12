@@ -57,6 +57,8 @@ var _isVariableWidth = _interopRequireDefault(require("./lib/isVariableWidth"));
 
 var _isMultibyte = _interopRequireDefault(require("./lib/isMultibyte"));
 
+var _isSemVer = _interopRequireDefault(require("./lib/isSemVer"));
+
 var _isSurrogatePair = _interopRequireDefault(require("./lib/isSurrogatePair"));
 
 var _isInt = _interopRequireDefault(require("./lib/isInt"));
@@ -76,6 +78,8 @@ var _isHexColor = _interopRequireDefault(require("./lib/isHexColor"));
 var _isRgbColor = _interopRequireDefault(require("./lib/isRgbColor"));
 
 var _isISRC = _interopRequireDefault(require("./lib/isISRC"));
+
+var _isIBAN = _interopRequireDefault(require("./lib/isIBAN"));
 
 var _isBIC = _interopRequireDefault(require("./lib/isBIC"));
 
@@ -107,6 +111,8 @@ var _isCreditCard = _interopRequireDefault(require("./lib/isCreditCard"));
 
 var _isIdentityCard = _interopRequireDefault(require("./lib/isIdentityCard"));
 
+var _isEAN = _interopRequireDefault(require("./lib/isEAN"));
+
 var _isISIN = _interopRequireDefault(require("./lib/isISIN"));
 
 var _isISBN = _interopRequireDefault(require("./lib/isISBN"));
@@ -116,6 +122,8 @@ var _isISSN = _interopRequireDefault(require("./lib/isISSN"));
 var _isMobilePhone = _interopRequireWildcard(require("./lib/isMobilePhone"));
 
 var _isCurrency = _interopRequireDefault(require("./lib/isCurrency"));
+
+var _isBtcAddress = _interopRequireDefault(require("./lib/isBtcAddress"));
 
 var _isISO = _interopRequireDefault(require("./lib/isISO8601"));
 
@@ -167,7 +175,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '12.1.0';
+var version = '12.2.0';
 var validator = {
   version: version,
   toDate: _toDate.default,
@@ -184,6 +192,7 @@ var validator = {
   isIPRange: _isIPRange.default,
   isFQDN: _isFQDN.default,
   isBoolean: _isBoolean.default,
+  isIBAN: _isIBAN.default,
   isBIC: _isBIC.default,
   isAlpha: _isAlpha.default,
   isAlphaLocales: _isAlpha.locales,
@@ -198,6 +207,7 @@ var validator = {
   isHalfWidth: _isHalfWidth.default,
   isVariableWidth: _isVariableWidth.default,
   isMultibyte: _isMultibyte.default,
+  isSemVer: _isSemVer.default,
   isSurrogatePair: _isSurrogatePair.default,
   isInt: _isInt.default,
   isFloat: _isFloat.default,
@@ -223,6 +233,7 @@ var validator = {
   isIn: _isIn.default,
   isCreditCard: _isCreditCard.default,
   isIdentityCard: _isIdentityCard.default,
+  isEAN: _isEAN.default,
   isISIN: _isISIN.default,
   isISBN: _isISBN.default,
   isISSN: _isISSN.default,
@@ -231,6 +242,7 @@ var validator = {
   isPostalCode: _isPostalCode.default,
   isPostalCodeLocales: _isPostalCode.locales,
   isCurrency: _isCurrency.default,
+  isBtcAddress: _isBtcAddress.default,
   isISO8601: _isISO.default,
   isRFC3339: _isRFC.default,
   isISO31661Alpha2: _isISO31661Alpha.default,

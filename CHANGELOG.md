@@ -1,3 +1,16 @@
+#### 12.2.0
+
+- Support CSS Colors Level 4 spec
+  ([#1233](https://github.com/chriso/validator.js/pull/1233))
+- Improve the `toFloat()` sanitizer
+  ([#1227](https://github.com/chriso/validator.js/pull/1227))
+- New and improved locales
+  ([#1200](https://github.com/chriso/validator.js/pull/1200),
+   [#1207](https://github.com/chriso/validator.js/pull/1207),
+   [#1213](https://github.com/chriso/validator.js/pull/1213),
+   [#1217](https://github.com/chriso/validator.js/pull/1217),
+   [#1234](https://github.com/chriso/validator.js/pull/1234))
+
 #### 12.1.0
 
 - ES module for webpack tree shaking
