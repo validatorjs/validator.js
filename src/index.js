@@ -14,6 +14,7 @@ import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
 
 import isBoolean from './lib/isBoolean';
+import isLocale from './lib/isLocale';
 
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
 import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
@@ -157,6 +158,7 @@ const validator = {
   isJSON,
   isEmpty,
   isLength,
+  isLocale,
   isByteLength,
   isUUID,
   isMongoId,
