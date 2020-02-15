@@ -121,6 +121,8 @@ var _isISSN = _interopRequireDefault(require("./lib/isISSN"));
 
 var _isMobilePhone = _interopRequireWildcard(require("./lib/isMobilePhone"));
 
+var _isEthereumAddress = _interopRequireDefault(require("./lib/isEthereumAddress"));
+
 var _isCurrency = _interopRequireDefault(require("./lib/isCurrency"));
 
 var _isBtcAddress = _interopRequireDefault(require("./lib/isBtcAddress"));
@@ -241,6 +243,7 @@ var validator = {
   isMobilePhoneLocales: _isMobilePhone.locales,
   isPostalCode: _isPostalCode.default,
   isPostalCodeLocales: _isPostalCode.locales,
+  isEthereumAddress: _isEthereumAddress.default,
   isCurrency: _isCurrency.default,
   isBtcAddress: _isBtcAddress.default,
   isISO8601: _isISO.default,
