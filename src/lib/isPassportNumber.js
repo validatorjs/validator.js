@@ -5,45 +5,45 @@
  * https://countrycode.org/ -- Country Codes
  */
 const passportRegexByCountryCode = {
-  AM: /^[a-zA-Z]{2}\d{7}$/, // ARMENIA
-  AR: /^[a-zA-Z]{3}\d{6}$/, // ARGENTINA
-  AT: /^[a-zA-Z](\s?)\d{7}$/, // AUSTRIA
-  AU: /^[a-zA-Z]\d{7}$/, // AUSTRALIA
-  BE: /^[a-zA-Z]{2}\d{6}$/, // BELGIUM
+  AM: /^[A-Z]{2}\d{7}$/, // ARMENIA
+  AR: /^[A-Z]{3}\d{6}$/, // ARGENTINA
+  AT: /^[A-Z]\d{7}$/, // AUSTRIA
+  AU: /^[A-Z]\d{7}$/, // AUSTRALIA
+  BE: /^[A-Z]{2}\d{6}$/, // BELGIUM
   BG: /^\d{9}$/, // BULGARIA
-  CA: /^[a-zA-Z]{2}\d{6}$/, // CANADA
-  CH: /^[a-zA-Z]\d{7}$/, // SWITZERLAND
+  CA: /^[A-Z]{2}\d{6}$/, // CANADA
+  CH: /^[A-Z]\d{7}$/, // SWITZERLAND
   CN: /^[GE]\d{8}$/, // CHINA [G=Ordinary, E=Electronic] followed by 8-digits
-  CY: /^[a-zA-Z](\d{6}|\d{8})$/, // CYPRUS
+  CY: /^[A-Z](\d{6}|\d{8})$/, // CYPRUS
   CZ: /^\d{8}$/, // CZECH REPUBLIC
   DE: /^[CFGHJKLMNPRTVWXYZ0-9]{9}$/, // GERMANY
   DK: /^\d{9}$/, // DENMARK
-  EE: /^([a-zA-Z]\d{7}|[A-Z]{2}\d{7})$/, // ESTONIA (K followed by 7-digits), e-passports have 2 UPPERCASE followed by 7 digits
-  ES: /^[a-zA-Z0-9]{2}([a-zA-Z0-9]?)\d{6}$/, // SPAIN
-  FI: /^[a-zA-Z]{2}\d{7}$/, // FINLAND
-  FR: /^\d{2}[a-zA-Z]{2}\d{5}$/, // FRANCE
+  EE: /^([A-Z]\d{7}|[A-Z]{2}\d{7})$/, // ESTONIA (K followed by 7-digits), e-passports have 2 UPPERCASE followed by 7 digits
+  ES: /^[A-Z0-9]{2}([A-Z0-9]?)\d{6}$/, // SPAIN
+  FI: /^[A-Z]{2}\d{7}$/, // FINLAND
+  FR: /^\d{2}[A-Z]{2}\d{5}$/, // FRANCE
   GB: /^\d{9}$/, // UNITED KINGDOM
-  GR: /^[a-zA-Z]{2}\d{7}$/, // GREECE
+  GR: /^[A-Z]{2}\d{7}$/, // GREECE
   HR: /^\d{9}$/, // CROATIA
-  HU: /^[a-zA-Z]{2}(\d{6}|\d{7})$/, // HUNGARY
-  IE: /^[a-zA-Z0-9]{2}\d{7}$/, // IRELAND
+  HU: /^[A-Z]{2}(\d{6}|\d{7})$/, // HUNGARY
+  IE: /^[A-Z0-9]{2}\d{7}$/, // IRELAND
   IS: /^(A)\d{7}$/, // ICELAND
-  IT: /^[a-zA-Z0-9]{2}\d{7}$/, // ITALY
-  JP: /^[a-zA-Z]{2}\d{7}$/, // JAPAN
+  IT: /^[A-Z0-9]{2}\d{7}$/, // ITALY
+  JP: /^[A-Z]{2}\d{7}$/, // JAPAN
   KR: /^[MS]\d{8}$/, // SOUTH KOREA, REPUBLIC OF KOREA, [S=PS Passports, M=PM Passports]
-  LT: /^[a-zA-Z0-9]{8}$/, // LITHUANIA
-  LU: /^[a-zA-Z0-9]{8}$/, // LUXEMBURG
-  LV: /^[a-zA-Z0-9]{2}\d{7}$/, // LATVIA
+  LT: /^[A-Z0-9]{8}$/, // LITHUANIA
+  LU: /^[A-Z0-9]{8}$/, // LUXEMBURG
+  LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
   MT: /^\d{7}$/, // MALTA
-  NL: /^[a-zA-Z]{2}[a-zA-Z0-9]{6}\d$/, // NETHERLANDS
-  PO: /^[a-zA-Z]{2}(\s?)\d{7}$/, // POLAND
-  PT: /^[a-zA-Z]\d{6}$/, // PORTUGAL
+  NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
+  PO: /^[A-Z]{2}\d{7}$/, // POLAND
+  PT: /^[A-Z]\d{6}$/, // PORTUGAL
   RO: /^\d{8,9}$/, // ROMANIA
   SE: /^\d{8}$/, // SWEDEN
-  SL: /^(P)[a-zA-Z]\d{7}$/, // SLOVANIA
-  SK: /^[0-9a-zA-Z]\d{7}$/, // SLOVAKIA
-  TR: /^[a-zA-Z](\s?)\d{8}$/, // TURKEY
-  UA: /^[a-zA-Z]{2}\d{6}$/, // UKRAINE
+  SL: /^(P)[A-Z]\d{7}$/, // SLOVANIA
+  SK: /^[0-9A-Z]\d{7}$/, // SLOVAKIA
+  TR: /^[A-Z]\d{8}$/, // TURKEY
+  UA: /^[A-Z]{2}\d{6}$/, // UKRAINE
   US: /^\d{9}$/, // UNITED STATES
 };
 
@@ -56,6 +56,8 @@ const passportRegexByCountryCode = {
  * @return {boolean}
  */
 export default function isPassportNumber(str, countryCode) {
+  const normalizedStr = str.replace(/\s/g, '').toUpperCase();
+
   return (countryCode.toUpperCase() in passportRegexByCountryCode) &&
-    passportRegexByCountryCode[countryCode].test(str);
+    passportRegexByCountryCode[countryCode].test(normalizedStr);
 }
