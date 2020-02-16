@@ -40,7 +40,7 @@ export default function isIP(str, version = '') {
     if (!ipv4Maybe.test(str)) {
       return false;
     }
-    const parts = str.split('.').sort((a, b) => a - b);
+    const parts = str.split('.').map(part => parseInt(part)).sort((a, b) => a - b);
     return parts[3] <= 255;
   } else if (version === '6') {
     let addressAndZone = [str];
