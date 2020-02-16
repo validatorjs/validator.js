@@ -985,7 +985,7 @@ var passportRegexByCountryCode = {
 };
 /**
  * Check if str is a valid passport number
- * relative to provided country code.
+ * relative to provided ISO Country Code.
  *
  * @param {string} str
  * @param {string} countryCode
@@ -993,6 +993,7 @@ var passportRegexByCountryCode = {
  */
 
 function isPassportNumber(str, countryCode) {
+  /** Remove All Whitespaces, Convert to UPPERCASE */
   var normalizedStr = str.replace(/\s/g, '').toUpperCase();
   return countryCode.toUpperCase() in passportRegexByCountryCode && passportRegexByCountryCode[countryCode].test(normalizedStr);
 }

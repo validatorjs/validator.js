@@ -49,13 +49,14 @@ const passportRegexByCountryCode = {
 
 /**
  * Check if str is a valid passport number
- * relative to provided country code.
+ * relative to provided ISO Country Code.
  *
  * @param {string} str
  * @param {string} countryCode
  * @return {boolean}
  */
 export default function isPassportNumber(str, countryCode) {
+  /** Remove All Whitespaces, Convert to UPPERCASE */
   const normalizedStr = str.replace(/\s/g, '').toUpperCase();
 
   return (countryCode.toUpperCase() in passportRegexByCountryCode) &&
