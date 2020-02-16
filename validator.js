@@ -402,7 +402,7 @@ function isFQDN(str, options) {
    to the 5th link, and "interface10" belongs to the 10th organization.
  * * */
 
-var ipv4Maybe = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
+var ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
 var ipv6Block = /^[0-9A-F]{1,4}$/i;
 function isIP(str) {
   var version = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -846,17 +846,6 @@ function isIPRange(str) {
 function isBoolean(str) {
   assertString(str);
   return ['true', 'false', '1', '0'].indexOf(str) >= 0;
-}
-
-var localeReg = /^[A-z]{2,4}([_-]([A-z]{4}|[\d]{3}))?([_-]([A-z]{2}|[\d]{3}))?$/;
-function isLocale(str) {
-  assertString(str);
-
-  if (str === 'en_US_POSIX' || str === 'ca_ES_VALENCIA') {
-    return true;
-  }
-
-  return localeReg.test(str);
 }
 
 function isAlpha(str) {
