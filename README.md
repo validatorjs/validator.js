@@ -140,7 +140,7 @@ Validator                               | Description
 **isMultibyte(str)**                    | check if the string contains one or more multibyte chars.
 **isNumeric(str [, options])**                      | check if the string contains only numbers.<br/><br/>`options` is an object which defaults to `{no_symbols: false}`. If `no_symbols` is true, the validator will reject numeric strings that feature a symbol (e.g. `+`, `-`, or `.`).
 **isOctal(str)**                        | check if the string is a valid octal number.
-**isPassportNumber(str, countryCode)    | check if the string is a valid passport number relative to a specific country code.
+**isPassportNumber(str, countryCode)**    | check if the string is a valid passport number relative to a specific country code.
 **isPort(str)**                         | check if the string is a valid port number.
 **isPostalCode(str, locale)**           | check if the string is a postal code,<br/><br/>(locale is one of `[ 'AD', 'AT', 'AU', 'BE', 'BG', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'DZ', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'ID', 'IE' 'IL', 'IN', 'IR', 'IS', 'IT', 'JP', 'KE', 'LI', 'LT', 'LU', 'LV', 'MT', 'MX', 'NL', 'NO', 'NZ', 'PL', 'PR', 'PT', 'RO', 'RU', 'SA', 'SE', 'SI', 'TN', 'TW', 'UA', 'US', 'ZA', 'ZM' ]` OR 'any'. If 'any' is used, function will check if any of the locals match. Locale list is `validator.isPostalCodeLocales`.).
 **isSemVer(str)**                       | check if the string is a Semantic Versioning Specification (SemVer).
