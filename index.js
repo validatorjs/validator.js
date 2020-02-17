@@ -35,11 +35,15 @@ var _isFQDN = _interopRequireDefault(require("./lib/isFQDN"));
 
 var _isBoolean = _interopRequireDefault(require("./lib/isBoolean"));
 
+var _isLocale = _interopRequireDefault(require("./lib/isLocale"));
+
 var _isAlpha = _interopRequireWildcard(require("./lib/isAlpha"));
 
 var _isAlphanumeric = _interopRequireWildcard(require("./lib/isAlphanumeric"));
 
 var _isNumeric = _interopRequireDefault(require("./lib/isNumeric"));
+
+var _isPassportNumber = _interopRequireDefault(require("./lib/isPassportNumber"));
 
 var _isPort = _interopRequireDefault(require("./lib/isPort"));
 
@@ -201,6 +205,7 @@ var validator = {
   isAlphanumeric: _isAlphanumeric.default,
   isAlphanumericLocales: _isAlphanumeric.locales,
   isNumeric: _isNumeric.default,
+  isPassportNumber: _isPassportNumber.default,
   isPort: _isPort.default,
   isLowercase: _isLowercase.default,
   isUppercase: _isUppercase.default,
@@ -227,6 +232,7 @@ var validator = {
   isJSON: _isJSON.default,
   isEmpty: _isEmpty.default,
   isLength: _isLength.default,
+  isLocale: _isLocale.default,
   isByteLength: _isByteLength.default,
   isUUID: _isUUID.default,
   isMongoId: _isMongoId.default,
