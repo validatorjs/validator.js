@@ -14,10 +14,12 @@ import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
 
 import isBoolean from './lib/isBoolean';
+import isLocale from './lib/isLocale';
 
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
 import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
+import isPassportNumber from './lib/isPassportNumber';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
@@ -27,6 +29,7 @@ import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
 import isVariableWidth from './lib/isVariableWidth';
 import isMultibyte from './lib/isMultibyte';
+import isSemVer from './lib/isSemVer';
 import isSurrogatePair from './lib/isSurrogatePair';
 
 import isInt from './lib/isInt';
@@ -37,10 +40,12 @@ import isOctal from './lib/isOctal';
 import isDivisibleBy from './lib/isDivisibleBy';
 
 import isHexColor from './lib/isHexColor';
+import isRgbColor from './lib/isRgbColor';
 import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
+import isIBAN from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
@@ -64,13 +69,18 @@ import isIn from './lib/isIn';
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
 
+import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
 
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 
+import isEthereumAddress from './lib/isEthereumAddress';
+
 import isCurrency from './lib/isCurrency';
+
+import isBtcAddress from './lib/isBtcAddress';
 
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
@@ -101,7 +111,7 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
 
-const version = '12.1.0';
+const version = '12.2.0';
 
 const validator = {
   version,
@@ -119,12 +129,14 @@ const validator = {
   isIPRange,
   isFQDN,
   isBoolean,
+  isIBAN,
   isBIC,
   isAlpha,
   isAlphaLocales,
   isAlphanumeric,
   isAlphanumericLocales,
   isNumeric,
+  isPassportNumber,
   isPort,
   isLowercase,
   isUppercase,
@@ -133,6 +145,7 @@ const validator = {
   isHalfWidth,
   isVariableWidth,
   isMultibyte,
+  isSemVer,
   isSurrogatePair,
   isInt,
   isFloat,
@@ -142,6 +155,7 @@ const validator = {
   isOctal,
   isDivisibleBy,
   isHexColor,
+  isRgbColor,
   isHSL,
   isISRC,
   isMD5,
@@ -150,6 +164,7 @@ const validator = {
   isJSON,
   isEmpty,
   isLength,
+  isLocale,
   isByteLength,
   isUUID,
   isMongoId,
@@ -158,6 +173,7 @@ const validator = {
   isIn,
   isCreditCard,
   isIdentityCard,
+  isEAN,
   isISIN,
   isISBN,
   isISSN,
@@ -165,7 +181,9 @@ const validator = {
   isMobilePhoneLocales,
   isPostalCode,
   isPostalCodeLocales,
+  isEthereumAddress,
   isCurrency,
+  isBtcAddress,
   isISO8601,
   isRFC3339,
   isISO31661Alpha2,
