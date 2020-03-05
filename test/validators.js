@@ -2009,7 +2009,7 @@ describe('Validators', () => {
         'K01234567',
       ],
     });
-    
+
     test({
       validator: 'isPassportNumber',
       args: ['DZ'],
