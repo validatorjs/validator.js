@@ -18,6 +18,7 @@ const passportRegexByCountryCode = {
   CZ: /^\d{8}$/, // CZECH REPUBLIC
   DE: /^[CFGHJKLMNPRTVWXYZ0-9]{9}$/, // GERMANY
   DK: /^\d{9}$/, // DENMARK
+  DZ: /^\d{9}$/, // ALGERIA
   EE: /^([A-Z]\d{7}|[A-Z]{2}\d{7})$/, // ESTONIA (K followed by 7-digits), e-passports have 2 UPPERCASE followed by 7 digits
   ES: /^[A-Z0-9]{2}([A-Z0-9]?)\d{6}$/, // SPAIN
   FI: /^[A-Z]{2}\d{7}$/, // FINLAND

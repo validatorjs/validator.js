@@ -2012,6 +2012,23 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['DZ'],
+      valid: [
+        '855609385',
+        '154472412',
+        '197025599',
+      ],
+      invalid: [
+        'AS0123456',
+        'A012345678',
+        '0123456789',
+        '12345678',
+        '98KK54321',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['EE'],
       valid: [
         'K4218285',
