@@ -94,12 +94,12 @@ const ibanRegexThroughCountryCode = {
  * @return {boolean}
  */
 function hasValidIbanFormat(str) {
-  // Strip white spaces and hyphens, keep only digits and A-Z latin alphabetic
-  const strippedStr = str.replace(/[^A-Z0-9]+/gi, '').toUpperCase();
+  // Strip white spaces and hyphens
+  const strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
   const isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
 
   return (isoCountryCode in ibanRegexThroughCountryCode) &&
-      ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
+    ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
 }
 
 /**
