@@ -1,3 +1,36 @@
+#### HEAD
+
+- Added `isEthereumAddress()` validator
+  to validate [Ethereum addresses](https://en.wikipedia.org/wiki/Ethereum#Addresses)
+  ([#1117](https://github.com/chriso/validator.js/pull/1117))
+- Added `isBtcAddress()` validator
+  to validate [Bitcoin addresses](https://en.bitcoin.it/wiki/Address)
+  ([#1163](https://github.com/chriso/validator.js/pull/1163))
+- Added `isIBAN()` validator
+  to validate [International Bank Account Numbers](https://en.wikipedia.org/wiki/International_Bank_Account_Number)
+  ([#1243](https://github.com/chriso/validator.js/pull/1243))
+- Added `isEAN()` validator
+  to validate [International Article Numbers](https://en.wikipedia.org/wiki/International_Article_Number)
+  ([#1244](https://github.com/chriso/validator.js/pull/1244))
+- Added `isSemVer()` validator
+  to validate [Semantic Version Numbers](https://semver.org)
+  ([#1246](https://github.com/chriso/validator.js/pull/1246))
+- Added `isPassportNumber()` validator
+  ([#1250](https://github.com/chriso/validator.js/pull/1250))
+- Added `isRgbColor()` validator
+  ([#1141](https://github.com/chriso/validator.js/pull/1141))
+- Added `isHSL()` validator
+  ([#1159](https://github.com/chriso/validator.js/pull/1159))
+- Added `isLocale()` validator
+  ([#1072](https://github.com/chriso/validator.js/pull/1072))
+- Improved the `isIP()` validator
+  ([#1211](https://github.com/chriso/validator.js/pull/1211))
+- Improved the `isMACAddress()` validator
+  ([#1267](https://github.com/chriso/validator.js/pull/1267))
+- New and improved locales
+  ([#1238](https://github.com/chriso/validator.js/pull/1238),
+   [#1265](https://github.com/chriso/validator.js/pull/1265))
+
 #### 12.2.0
 
 - Support CSS Colors Level 4 spec
