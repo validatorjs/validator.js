@@ -1,4 +1,4 @@
-#### HEAD
+#### 13.0.0
 
 - Added `isEthereumAddress()` validator
   to validate [Ethereum addresses](https://en.wikipedia.org/wiki/Ethereum#Addresses)

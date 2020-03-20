@@ -83,7 +83,7 @@ import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
 import isSlug from './lib/isSlug';
-var version = '12.2.0';
+var version = '13.0.0';
 var validator = {
   version: version,
   toDate: toDate,
