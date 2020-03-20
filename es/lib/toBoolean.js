@@ -3,8 +3,8 @@ export default function toBoolean(str, strict) {
   assertString(str);
 
   if (strict) {
-    return str === '1' || str === 'true';
+    return str === '1' || /^true$/i.test(str);
   }
 
-  return str !== '0' && str !== 'false' && str !== '';
+  return str !== '0' && !/^false$/i.test(str) && str !== '';
 }

@@ -1,10 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = isPassportNumber;
-
 /**
  * Reference:
  * https://en.wikipedia.org/ -- Wikipedia
@@ -104,11 +97,8 @@ var passportRegexByCountryCode = {
  * @return {boolean}
  */
 
-function isPassportNumber(str, countryCode) {
+export default function isPassportNumber(str, countryCode) {
   /** Remove All Whitespaces, Convert to UPPERCASE */
   var normalizedStr = str.replace(/\s/g, '').toUpperCase();
   return countryCode.toUpperCase() in passportRegexByCountryCode && passportRegexByCountryCode[countryCode].test(normalizedStr);
 }
-
-module.exports = exports.default;
-module.exports.default = exports.default;

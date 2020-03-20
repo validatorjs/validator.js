@@ -27,6 +27,8 @@
 }(this, (function () { 'use strict';
 
 function _typeof(obj) {
+  "@babel/helpers - typeof";
+
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
       return typeof obj;
@@ -402,7 +404,7 @@ function isFQDN(str, options) {
    to the 5th link, and "interface10" belongs to the 10th organization.
  * * */
 
-var ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+var ipv4Maybe = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
 var ipv6Block = /^[0-9A-F]{1,4}$/i;
 function isIP(str) {
   var version = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -812,6 +814,7 @@ var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 var macAddressNoColons = /^([0-9a-fA-F]){12}$/;
 var macAddressWithHyphen = /^([0-9a-fA-F][0-9a-fA-F]-){5}([0-9a-fA-F][0-9a-fA-F])$/;
 var macAddressWithSpaces = /^([0-9a-fA-F][0-9a-fA-F]\s){5}([0-9a-fA-F][0-9a-fA-F])$/;
+var macAddressWithDots = /^([0-9a-fA-F]{4}).([0-9a-fA-F]{4}).([0-9a-fA-F]{4})$/;
 function isMACAddress(str, options) {
   assertString(str);
 
@@ -819,7 +822,7 @@ function isMACAddress(str, options) {
     return macAddressNoColons.test(str);
   }
 
-  return macAddress.test(str) || macAddressWithHyphen.test(str) || macAddressWithSpaces.test(str);
+  return macAddress.test(str) || macAddressWithHyphen.test(str) || macAddressWithSpaces.test(str) || macAddressWithDots.test(str);
 }
 
 var subnetMaybe = /^\d{1,2}$/;
@@ -846,6 +849,17 @@ function isIPRange(str) {
 function isBoolean(str) {
   assertString(str);
   return ['true', 'false', '1', '0'].indexOf(str) >= 0;
+}
+
+var localeReg = /^[A-z]{2,4}([_-]([A-z]{4}|[\d]{3}))?([_-]([A-z]{2}|[\d]{3}))?$/;
+function isLocale(str) {
+  assertString(str);
+
+  if (str === 'en_US_POSIX' || str === 'ca_ES_VALENCIA') {
+    return true;
+  }
+
+  return localeReg.test(str);
 }
 
 function isAlpha(str) {
@@ -917,6 +931,8 @@ var passportRegexByCountryCode = {
   // GERMANY
   DK: /^\d{9}$/,
   // DENMARK
+  DZ: /^\d{9}$/,
+  // ALGERIA
   EE: /^([A-Z]\d{7}|[A-Z]{2}\d{7})$/,
   // ESTONIA (K followed by 7-digits), e-passports have 2 UPPERCASE followed by 7 digits
   ES: /^[A-Z0-9]{2}([A-Z0-9]?)\d{6}$/,
@@ -1156,6 +1172,13 @@ function isRgbColor(str) {
   return rgbColor.test(str) || rgbaColor.test(str) || rgbColorPercent.test(str) || rgbaColorPercent.test(str);
 }
 
+var hslcomma = /^(hsl)a?\(\s*((\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?))(deg|grad|rad|turn|\s*)(\s*,\s*(\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?)%){2}\s*(,\s*((\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?)%?)\s*)?\)$/i;
+var hslspace = /^(hsl)a?\(\s*((\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?))(deg|grad|rad|turn|\s)(\s*(\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?)%){2}\s*(\/\s*((\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?)%?)\s*)?\)$/i;
+function isHSL(str) {
+  assertString(str);
+  return hslcomma.test(str) || hslspace.test(str);
+}
+
 var isrc = /^[A-Z]{2}[0-9A-Z]{3}\d{2}\d{5}$/;
 function isISRC(str) {
   assertString(str);
@@ -1257,8 +1280,8 @@ var ibanRegexThroughCountryCode = {
  */
 
 function hasValidIbanFormat(str) {
-  // Strip white spaces and hyphens, keep only digits and A-Z latin alphabetic
-  var strippedStr = str.replace(/[^A-Z0-9]+/gi, '').toUpperCase();
+  // Strip white spaces and hyphens
+  var strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
   var isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
   return isoCountryCode in ibanRegexThroughCountryCode && ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
 }
@@ -2517,6 +2540,7 @@ var validator = {
   isDivisibleBy: isDivisibleBy,
   isHexColor: isHexColor,
   isRgbColor: isRgbColor,
+  isHSL: isHSL,
   isISRC: isISRC,
   isMD5: isMD5,
   isHash: isHash,

@@ -12,9 +12,11 @@ import isIP from './lib/isIP';
 import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
 import isBoolean from './lib/isBoolean';
+import isLocale from './lib/isLocale';
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
 import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
+import isPassportNumber from './lib/isPassportNumber';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
@@ -23,6 +25,7 @@ import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
 import isVariableWidth from './lib/isVariableWidth';
 import isMultibyte from './lib/isMultibyte';
+import isSemVer from './lib/isSemVer';
 import isSurrogatePair from './lib/isSurrogatePair';
 import isInt from './lib/isInt';
 import isFloat, { locales as isFloatLocales } from './lib/isFloat';
@@ -31,7 +34,10 @@ import isHexadecimal from './lib/isHexadecimal';
 import isOctal from './lib/isOctal';
 import isDivisibleBy from './lib/isDivisibleBy';
 import isHexColor from './lib/isHexColor';
+import isRgbColor from './lib/isRgbColor';
+import isHSL from './lib/isHSL';
 import isISRC from './lib/isISRC';
+import isIBAN from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
@@ -47,11 +53,14 @@ import isBefore from './lib/isBefore';
 import isIn from './lib/isIn';
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
+import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
+import isEthereumAddress from './lib/isEthereumAddress';
 import isCurrency from './lib/isCurrency';
+import isBtcAddress from './lib/isBtcAddress';
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
@@ -91,12 +100,14 @@ var validator = {
   isIPRange: isIPRange,
   isFQDN: isFQDN,
   isBoolean: isBoolean,
+  isIBAN: isIBAN,
   isBIC: isBIC,
   isAlpha: isAlpha,
   isAlphaLocales: isAlphaLocales,
   isAlphanumeric: isAlphanumeric,
   isAlphanumericLocales: isAlphanumericLocales,
   isNumeric: isNumeric,
+  isPassportNumber: isPassportNumber,
   isPort: isPort,
   isLowercase: isLowercase,
   isUppercase: isUppercase,
@@ -105,6 +116,7 @@ var validator = {
   isHalfWidth: isHalfWidth,
   isVariableWidth: isVariableWidth,
   isMultibyte: isMultibyte,
+  isSemVer: isSemVer,
   isSurrogatePair: isSurrogatePair,
   isInt: isInt,
   isFloat: isFloat,
@@ -114,6 +126,8 @@ var validator = {
   isOctal: isOctal,
   isDivisibleBy: isDivisibleBy,
   isHexColor: isHexColor,
+  isRgbColor: isRgbColor,
+  isHSL: isHSL,
   isISRC: isISRC,
   isMD5: isMD5,
   isHash: isHash,
@@ -121,6 +135,7 @@ var validator = {
   isJSON: isJSON,
   isEmpty: isEmpty,
   isLength: isLength,
+  isLocale: isLocale,
   isByteLength: isByteLength,
   isUUID: isUUID,
   isMongoId: isMongoId,
@@ -129,6 +144,7 @@ var validator = {
   isIn: isIn,
   isCreditCard: isCreditCard,
   isIdentityCard: isIdentityCard,
+  isEAN: isEAN,
   isISIN: isISIN,
   isISBN: isISBN,
   isISSN: isISSN,
@@ -136,7 +152,9 @@ var validator = {
   isMobilePhoneLocales: isMobilePhoneLocales,
   isPostalCode: isPostalCode,
   isPostalCodeLocales: isPostalCodeLocales,
+  isEthereumAddress: isEthereumAddress,
   isCurrency: isCurrency,
+  isBtcAddress: isBtcAddress,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
