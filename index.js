@@ -33,6 +33,8 @@ var _isIPRange = _interopRequireDefault(require("./lib/isIPRange"));
 
 var _isFQDN = _interopRequireDefault(require("./lib/isFQDN"));
 
+var _isDate = _interopRequireDefault(require("./lib/isDate"));
+
 var _isBoolean = _interopRequireDefault(require("./lib/isBoolean"));
 
 var _isLocale = _interopRequireDefault(require("./lib/isLocale"));
@@ -276,7 +278,8 @@ var validator = {
   isWhitelisted: _isWhitelisted.default,
   normalizeEmail: _normalizeEmail.default,
   toString: toString,
-  isSlug: _isSlug.default
+  isSlug: _isSlug.default,
+  isDate: _isDate.default
 };
 var _default = validator;
 exports.default = _default;

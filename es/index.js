@@ -11,6 +11,7 @@ import isMACAddress from './lib/isMACAddress';
 import isIP from './lib/isIP';
 import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
+import isDate from './lib/isDate';
 import isBoolean from './lib/isBoolean';
 import isLocale from './lib/isLocale';
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
@@ -176,6 +177,7 @@ var validator = {
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
   toString: toString,
-  isSlug: isSlug
+  isSlug: isSlug,
+  isDate: isDate
 };
 export default validator;

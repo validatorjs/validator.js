@@ -8025,4 +8025,34 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate date', () => {
+    test({
+      validator: 'isDate',
+      valid: [
+        new Date(),
+        new Date([2014, 2, 15]),
+        new Date('2014-03-15'),
+        '2002-07-15',
+        '2002/07/15',
+        '07/15/2002',
+        '07-15-2002',
+        '2015-07-15T07:00:00+0000',
+      ],
+      invalid: [
+        '',
+        '1000033',
+        'foo',
+        '15/07/2015', // DD-MM-YYYY invalid
+        '15-07-2015', // DD-MM-YYYY invalid
+        new Date('not a valid date'),
+        { toString() { return '[object Date]'; } },
+        null,
+        undefined,
+        42,
+        [2002, 7, 15],
+        { year: 2002, month: 7, day: 15 },
+      ],
+    });
+  });
 });
