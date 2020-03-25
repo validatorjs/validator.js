@@ -34,8 +34,13 @@ describe('Sanitizers', () => {
         '': false,
         1: true,
         true: true,
+        True: true,
+        TRUE: true,
         foobar: true,
         '   ': true,
+        false: false,
+        False: false,
+        FALSE: false,
       },
     });
     test({
@@ -46,8 +51,13 @@ describe('Sanitizers', () => {
         '': false,
         1: true,
         true: true,
+        True: true,
+        TRUE: true,
         foobar: false,
         '   ': false,
+        false: false,
+        False: false,
+        FALSE: false,
       },
     });
   });
@@ -137,6 +147,7 @@ describe('Sanitizers', () => {
         '2.': 2.0,
         '-2.5': -2.5,
         '.5': 0.5,
+        '2020-01-06T14:31:00.135Z': NaN,
         foo: NaN,
       },
     });

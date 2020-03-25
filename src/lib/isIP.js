@@ -28,7 +28,7 @@ import assertString from './util/assertString';
    where the interface "ne0" belongs to the 1st link, "pvc1.3" belongs
    to the 5th link, and "interface10" belongs to the 10th organization.
  * * */
-const ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+const ipv4Maybe = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
 const ipv6Block = /^[0-9A-F]{1,4}$/i;
 
 export default function isIP(str, version = '') {
