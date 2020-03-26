@@ -98,6 +98,61 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
+function _createForOfIteratorHelper(o) {
+  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
+      var i = 0;
+
+      var F = function () {};
+
+      return {
+        s: F,
+        n: function () {
+          if (i >= o.length) return {
+            done: true
+          };
+          return {
+            done: false,
+            value: o[i++]
+          };
+        },
+        e: function (e) {
+          throw e;
+        },
+        f: F
+      };
+    }
+
+    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  var it,
+      normalCompletion = true,
+      didErr = false,
+      err;
+  return {
+    s: function () {
+      it = o[Symbol.iterator]();
+    },
+    n: function () {
+      var step = it.next();
+      normalCompletion = step.done;
+      return step;
+    },
+    e: function (e) {
+      didErr = true;
+      err = e;
+    },
+    f: function () {
+      try {
+        if (!normalCompletion && it.return != null) it.return();
+      } finally {
+        if (didErr) throw err;
+      }
+    }
+  };
+}
+
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
@@ -860,9 +915,52 @@ function isIPRange(str) {
   return isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0;
 }
 
+function isValidFormat(format) {
+  return /(^(y{4}|y{2})[\/-](m{1,2})[\/-](d{1,2})$)|(^(m{1,2})[\/-](d{1,2})[\/-]((y{4}|y{2})$))|(^(d{1,2})[\/-](m{1,2})[\/-]((y{4}|y{2})$))/gi.test(format);
+}
+
+function zip(x, y) {
+  var zippedArr = [],
+      len = Math.min(x.length, y.length);
+  var i = 0;
+
+  for (; i < len; i++) {
+    zippedArr.push([x[i], y[i]]);
+  }
+
+  return zippedArr;
+}
+
 function isDate(input) {
-  if (typeof input === 'string') {
-    return isFinite(Date.parse(input));
+  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY/MM/DD';
+
+  if (typeof input === 'string' && isValidFormat(format)) {
+    var splitter = /[-/]/,
+        dateAndFormat = zip(input.split(splitter), format.toLowerCase().split(splitter)),
+        dateObj = {};
+
+    var _iterator = _createForOfIteratorHelper(dateAndFormat),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _step$value = _slicedToArray(_step.value, 2),
+            dateWord = _step$value[0],
+            formatWord = _step$value[1];
+
+        if (dateWord.length !== formatWord.length) {
+          return false;
+        }
+
+        dateObj[formatWord.charAt(0)] = dateWord;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return new Date("".concat(dateObj.m, "/").concat(dateObj.d, "/").concat(dateObj.y)).getDate() === +dateObj.d;
   }
 
   return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
