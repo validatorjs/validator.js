@@ -173,7 +173,8 @@ Sanitizer                              | Description
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
 **isSlug**                             | Check if the string is of type slug. `Options` allow a single hyphen between string. e.g. [`cn-cn`, `cn-c-c`]
-**isDate**                             | Check if the input is a valid date. e.g. [`2002-07-15`, new Date()]
+**isDate(input, [, format])**          | Check if the input is a valid date. e.g. [`2002-07-15`, new Date()]
+`format` is a string and defaults to 'YYYY/MM/DD'
 
 ### XSS Sanitization
 
