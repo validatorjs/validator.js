@@ -149,6 +149,8 @@ var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
 var _isMagnetURI = _interopRequireDefault(require("./lib/isMagnetURI"));
 
+var _isBase64URL = _interopRequireDefault(require("./lib/isBase64URL"));
+
 var _isMimeType = _interopRequireDefault(require("./lib/isMimeType"));
 
 var _isLatLong = _interopRequireDefault(require("./lib/isLatLong"));
@@ -261,6 +263,7 @@ var validator = {
   isISO31661Alpha3: _isISO31661Alpha2.default,
   isBase32: _isBase.default,
   isBase64: _isBase2.default,
+  isBase64URL: _isBase64URL.default,
   isDataURI: _isDataURI.default,
   isMagnetURI: _isMagnetURI.default,
   isMimeType: _isMimeType.default,
