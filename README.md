@@ -152,6 +152,7 @@ Validator                               | Description
 **isVariableWidth(str)**                | check if the string contains a mixture of full and half-width chars.
 **isWhitelisted(str, chars)**           | checks characters if they appear in the whitelist.
 **matches(str, pattern [, modifiers])** | check if string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
+**isbase64URL(str)**                    | check if the string is a [base64 url](https://base64.guru/standards/base64url).
 
 ## Sanitizers
 
