@@ -51,6 +51,18 @@ const validators = {
     }
     return sum % 10 === 0;
   },
+  'ar-TN': (str) => {
+    const DNI = /^\d{8}$/;
+
+    // sanitize user input
+    const sanitized = str.trim();
+
+    // validate the data structure
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+    return true;
+  },
   'zh-TW': (str) => {
     const ALPHABET_CODES = {
       A: 10,
