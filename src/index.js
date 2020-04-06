@@ -12,6 +12,7 @@ import isMACAddress from './lib/isMACAddress';
 import isIP from './lib/isIP';
 import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
+import isDate from './lib/isDate';
 
 import isBoolean from './lib/isBoolean';
 import isLocale from './lib/isLocale';
@@ -206,6 +207,7 @@ const validator = {
   normalizeEmail,
   toString,
   isSlug,
+  isDate,
 };
 
 export default validator;
