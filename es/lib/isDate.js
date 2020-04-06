@@ -16,13 +16,12 @@ function isValidFormat(format) {
   return /(^(y{4}|y{2})[\/-](m{1,2})[\/-](d{1,2})$)|(^(m{1,2})[\/-](d{1,2})[\/-]((y{4}|y{2})$))|(^(d{1,2})[\/-](m{1,2})[\/-]((y{4}|y{2})$))/gi.test(format);
 }
 
-function zip(x, y) {
+function zip(date, format) {
   var zippedArr = [],
-      len = Math.min(x.length, y.length);
-  var i = 0;
+      len = Math.min(date.length, format.length);
 
-  for (; i < len; i++) {
-    zippedArr.push([x[i], y[i]]);
+  for (var i = 0; i < len; i++) {
+    zippedArr.push([date[i], format[i]]);
   }
 
   return zippedArr;
