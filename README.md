@@ -152,6 +152,7 @@ Validator                               | Description
 **isVariableWidth(str)**                | check if the string contains a mixture of full and half-width chars.
 **isWhitelisted(str, chars)**           | checks characters if they appear in the whitelist.
 **matches(str, pattern [, modifiers])** | check if string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
+**isDate(input, [, format])**          | Check if the input is a valid date. e.g. [`2002-07-15`, new Date()].<br/><br/>`format` is a string and defaults to `YYYY/MM/DD`
 
 ## Sanitizers
 
@@ -173,7 +174,6 @@ Sanitizer                              | Description
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
 **isSlug**                             | Check if the string is of type slug. `Options` allow a single hyphen between string. e.g. [`cn-cn`, `cn-c-c`]
-**isDate(input, [, format])**          | Check if the input is a valid date. e.g. [`2002-07-15`, new Date()]. `format` is a string and defaults to 'YYYY/MM/DD'
 
 ### XSS Sanitization
 
