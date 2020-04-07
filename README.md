@@ -152,6 +152,7 @@ Validator                               | Description
 **isVariableWidth(str)**                | check if the string contains a mixture of full and half-width chars.
 **isWhitelisted(str, chars)**           | checks characters if they appear in the whitelist.
 **matches(str, pattern [, modifiers])** | check if string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
+**isDate(input, [, format])**          | Check if the input is a valid date. e.g. [`2002-07-15`, new Date()].<br/><br/>`format` is a string and defaults to `YYYY/MM/DD`
 
 ## Sanitizers
 
