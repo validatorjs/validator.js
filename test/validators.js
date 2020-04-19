@@ -2733,6 +2733,32 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate vowel strings', () => {
+    test({
+      validator: 'isVowel',
+      valid: [
+        'A',
+        'E',
+        'I',
+        'O',
+        'U',
+        'a',
+        'e',
+        'i',
+        'o',
+        'u',
+      ],
+      invalid: [
+        'Z',
+        'm',
+        'k',
+        'B',
+        '1',
+        'AE',
+      ],
+    });
+  });
+
   it('should validate integers', () => {
     test({
       validator: 'isInt',

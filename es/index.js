@@ -21,6 +21,7 @@ import isPassportNumber from './lib/isPassportNumber';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
+import isVowel from './lib/isVowel';
 import isAscii from './lib/isAscii';
 import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
@@ -178,6 +179,7 @@ var validator = {
   normalizeEmail: normalizeEmail,
   toString: toString,
   isSlug: isSlug,
-  isDate: isDate
+  isDate: isDate,
+  isVowel: isVowel
 };
 export default validator;

@@ -43,7 +43,7 @@ function _typeof(obj) {
 }
 
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
 
 function _arrayWithHoles(arr) {
@@ -51,7 +51,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -77,80 +80,8 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-  return arr2;
-}
-
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _createForOfIteratorHelper(o) {
-  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
-    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
-      var i = 0;
-
-      var F = function () {};
-
-      return {
-        s: F,
-        n: function () {
-          if (i >= o.length) return {
-            done: true
-          };
-          return {
-            done: false,
-            value: o[i++]
-          };
-        },
-        e: function (e) {
-          throw e;
-        },
-        f: F
-      };
-    }
-
-    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-
-  var it,
-      normalCompletion = true,
-      didErr = false,
-      err;
-  return {
-    s: function () {
-      it = o[Symbol.iterator]();
-    },
-    n: function () {
-      var step = it.next();
-      normalCompletion = step.done;
-      return step;
-    },
-    e: function (e) {
-      didErr = true;
-      err = e;
-    },
-    f: function () {
-      try {
-        if (!normalCompletion && it.return != null) it.return();
-      } finally {
-        if (didErr) throw err;
-      }
-    }
-  };
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
 function assertString(input) {
@@ -937,12 +868,12 @@ function isDate(input) {
     var splitter = /[-/]/,
         dateAndFormat = zip(input.split(splitter), format.toLowerCase().split(splitter)),
         dateObj = {};
-
-    var _iterator = _createForOfIteratorHelper(dateAndFormat),
-        _step;
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
 
     try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      for (var _iterator = dateAndFormat[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var _step$value = _slicedToArray(_step.value, 2),
             dateWord = _step$value[0],
             formatWord = _step$value[1];
@@ -954,9 +885,18 @@ function isDate(input) {
         dateObj[formatWord.charAt(0)] = dateWord;
       }
     } catch (err) {
-      _iterator.e(err);
+      _didIteratorError = true;
+      _iteratorError = err;
     } finally {
-      _iterator.f();
+      try {
+        if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+          _iterator["return"]();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
     }
 
     return new Date("".concat(dateObj.m, "/").concat(dateObj.d, "/").concat(dateObj.y)).getDate() === +dateObj.d;
@@ -1153,6 +1093,14 @@ function isLowercase(str) {
 function isUppercase(str) {
   assertString(str);
   return str === str.toUpperCase();
+}
+
+var vowels = 'aeiouAEIOU';
+function isVowel(str) {
+  assertString(str); // catch cases like AE || aeiou
+
+  if (str.length > 1) return false;
+  return vowels.includes(str);
 }
 
 /* eslint-disable no-control-regex */
@@ -2843,7 +2791,8 @@ var validator = {
   normalizeEmail: normalizeEmail,
   toString: toString,
   isSlug: isSlug,
-  isDate: isDate
+  isDate: isDate,
+  isVowel: isVowel
 };
 
 return validator;
