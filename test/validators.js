@@ -8028,7 +8028,8 @@ describe('Validators', () => {
 
   it('should validate base64URL', () => {
     test({
-      validator: 'isBase64URL',
+      validator: 'isBase64',
+      args: [{ urlSafe: true }],
       valid: [
         'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
         '1234',

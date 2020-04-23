@@ -2121,7 +2121,13 @@ function isBase32(str) {
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
 function isBase64(str) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   assertString(str);
+
+  if (options.urlSafe) {
+    return /^[A-Za-z0-9_-]+$/.test(str);
+  }
+
   var len = str.length;
 
   if (!len || len % 4 !== 0 || notBase64.test(str)) {
@@ -2176,11 +2182,6 @@ var magnetURI = /^magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32,40}&dn=.+&tr=.+$/i;
 function isMagnetURI(url) {
   assertString(url);
   return magnetURI.test(url.trim());
-}
-
-function isBase64Url(str) {
-  assertString(str);
-  return /^[A-Za-z0-9_-]+$/.test(str);
 }
 
 /*
@@ -2593,7 +2594,6 @@ var validator = {
   isISO31661Alpha3: isISO31661Alpha3,
   isBase32: isBase32,
   isBase64: isBase64,
-  isBase64URL: isBase64Url,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
   isMimeType: isMimeType,

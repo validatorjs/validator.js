@@ -69,7 +69,6 @@ import isBase32 from './lib/isBase32';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
-import isBase64URL from './lib/isBase64URL';
 import isMimeType from './lib/isMimeType';
 import isLatLong from './lib/isLatLong';
 import isPostalCode, { locales as isPostalCodeLocales } from './lib/isPostalCode';
@@ -162,7 +161,6 @@ var validator = {
   isISO31661Alpha3: isISO31661Alpha3,
   isBase32: isBase32,
   isBase64: isBase64,
-  isBase64URL: isBase64URL,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
   isMimeType: isMimeType,
