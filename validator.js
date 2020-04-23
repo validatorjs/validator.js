@@ -983,7 +983,19 @@ function isLocale(str) {
 
 function isAlpha(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   assertString(str);
+  var ignore = options.ignore;
+
+  if (ignore) {
+    if (ignore instanceof RegExp) {
+      str = str.replace(ignore, '');
+    } else if (typeof ignore === 'string') {
+      str = str.replace(new RegExp("[".concat(ignore, "]"), 'g'), '');
+    } else {
+      throw new Error('ignore should be instance of a String or RegExp');
+    }
+  }
 
   if (locale in alpha) {
     return alpha[locale].test(str);
@@ -1580,7 +1592,7 @@ function isIn(str, options) {
 
 /* eslint-disable max-len */
 
-var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|6[27][0-9]{14})$/;
+var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3,6})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12,15}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|6[27][0-9]{14})$/;
 /* eslint-enable max-len */
 
 function isCreditCard(str) {
@@ -1661,6 +1673,17 @@ var validators = {
     }
 
     return sum % 10 === 0;
+  },
+  'ar-TN': function arTN(str) {
+    var DNI = /^\d{8}$/; // sanitize user input
+
+    var sanitized = str.trim(); // validate the data structure
+
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+
+    return true;
   },
   'zh-TW': function zhTW(str) {
     var ALPHABET_CODES = {
@@ -1948,12 +1971,14 @@ var phones = {
   'en-PK': /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/,
   'en-RW': /^(\+?250|0)?[7]\d{8}$/,
   'en-SG': /^(\+65)?[89]\d{7}$/,
+  'en-SL': /^(?:0|94|\+94)?(7(0|1|2|5|6|7|8)( |-)?\d)\d{6}$/,
   'en-TZ': /^(\+?255|0)?[67]\d{8}$/,
   'en-UG': /^(\+?256|0)?[7]\d{8}$/,
   'en-US': /^((\+1|1)?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/,
   'en-ZA': /^(\+?27|0)\d{9}$/,
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
+  'es-CR': /^(\+506)?[2-8]\d{7}$/,
   'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
   'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
