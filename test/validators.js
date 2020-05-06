@@ -295,6 +295,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate email against list of valid tlds', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ valid_tlds: ['com', 'io'] }],
+      valid: [
+        'email@validator.com',
+        'email@validator.io',
+      ],
+      invalid: [
+        'email@validator.org',
+        'email@validator',
+      ],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',
@@ -341,7 +356,7 @@ describe('Validators', () => {
         'http://example.com/example.json#/foo/bar',
       ],
       invalid: [
-        'http://localhost:3000/',
+        'http://localhost1:3000/',
         '//foobar.com',
         'xyz://foobar.com',
         'invalid/',
@@ -629,6 +644,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate url against list of valid tlds', () => {
+    test({
+      validator: 'isURL',
+      args: [{ valid_tlds: ['com', 'io'] }],
+      valid: [
+        'github.com',
+        'github.io',
+      ],
+      invalid: [
+        'github.org',
+        'github',
+      ],
+    });
+  });
+
   it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',
@@ -847,6 +877,22 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate FQDN against list of valid tlds', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { valid_tlds: ['valid'] },
+      ],
+      valid: [
+        'test.example.valid',
+      ],
+      invalid: [
+        'example',
+        'example.invalid',
+      ],
+    });
+  });
+
 
   it('should validate alpha strings', () => {
     test({
