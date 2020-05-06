@@ -356,7 +356,7 @@ describe('Validators', () => {
         'http://example.com/example.json#/foo/bar',
       ],
       invalid: [
-        'http://localhost1:3000/',
+        'http://localhost:3000/',
         '//foobar.com',
         'xyz://foobar.com',
         'invalid/',
