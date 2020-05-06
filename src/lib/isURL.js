@@ -25,6 +25,7 @@ const default_url_options = {
   allow_underscores: false,
   allow_trailing_dot: false,
   allow_protocol_relative_urls: false,
+  valid_tlds: [],
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;

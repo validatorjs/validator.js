@@ -10,6 +10,7 @@ const default_email_options = {
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
+  valid_tlds: [],
 };
 
 /* eslint-disable max-len */
@@ -123,7 +124,7 @@ export default function isEmail(str, options) {
     return false;
   }
 
-  if (!isFQDN(domain, { require_tld: options.require_tld })) {
+  if (!isFQDN(domain, options)) {
     if (!options.allow_ip_domain) {
       return false;
     }

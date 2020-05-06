@@ -5,6 +5,7 @@ const default_fqdn_options = {
   require_tld: true,
   allow_underscores: false,
   allow_trailing_dot: false,
+  valid_tlds: [],
 };
 
 export default function isFQDN(str, options) {
@@ -29,6 +30,9 @@ export default function isFQDN(str, options) {
     // disallow spaces && special characers
     if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20\u00A9\uFFFD]/.test(tld)) {
       return false;
+    }
+    if (options.valid_tlds.length > 0) {
+      return options.valid_tlds.indexOf(tld) !== -1;
     }
   }
   for (let part, i = 0; i < parts.length; i++) {
