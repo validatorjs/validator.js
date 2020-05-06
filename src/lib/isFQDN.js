@@ -31,7 +31,7 @@ export default function isFQDN(str, options) {
     if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20\u00A9\uFFFD]/.test(tld)) {
       return false;
     }
-    if (options.valid_tlds.length > 0) {
+    if (Array.isArray(options.valid_tlds) && options.valid_tlds.length > 0) {
       return options.valid_tlds.indexOf(tld) !== -1;
     }
   }
