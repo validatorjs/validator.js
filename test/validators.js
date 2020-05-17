@@ -7293,7 +7293,6 @@ describe('Validators', () => {
         '(-$)',
       ],
     });
-
     // $##,###.## with no negatives (en-US, en-CA, en-AU, en-HK)
     test({
       validator: 'isCurrency',
@@ -7346,6 +7345,29 @@ describe('Validators', () => {
         '',
         '- $',
         '-$10,123.45',
+      ],
+    });
+
+    //  R$ ##,###.## (pt_BR)
+    test({
+      validator: 'isCurrency',
+      args: [
+        {
+          symbol: 'R$',
+          require_symbol: true,
+          allow_space_after_symbol: true,
+          symbol_after_digits: false,
+          thousands_separator: '.',
+          decimal_separator: ',',
+        },
+      ],
+      valid: [
+        'R$ 1.400,00',
+        'R$ 400,00',
+      ],
+      invalid: [
+        '$ 1.400,00',
+        '$R 1.400,00',
       ],
     });
   });
