@@ -63,7 +63,7 @@ const patterns = {
 
 export const locales = Object.keys(patterns);
 
-export default function (str, locale) {
+export default function isPostalCode(str, locale) {
   assertString(str);
   if (locale in patterns) {
     return patterns[locale].test(str);
