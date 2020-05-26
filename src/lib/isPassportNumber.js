@@ -28,6 +28,7 @@ const passportRegexByCountryCode = {
   HR: /^\d{9}$/, // CROATIA
   HU: /^[A-Z]{2}(\d{6}|\d{7})$/, // HUNGARY
   IE: /^[A-Z0-9]{2}\d{7}$/, // IRELAND
+  IN: /^[A-Z]{1}-?\d{7}$/, // INDIA
   IS: /^(A)\d{7}$/, // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/, // ITALY
   JP: /^[A-Z]{2}\d{7}$/, // JAPAN
