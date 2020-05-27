@@ -4,13 +4,13 @@ import merge from './util/merge';
 const notBase64 = /[^A-Z0-9+\/=]/i;
 const urlSafeBase64 = /^[A-Z0-9_\-]+$/i;
 
-const default_base64_options = {
+const defaultBase64Options = {
   urlSafe: false,
 };
 
 export default function isBase64(str, options) {
   assertString(str);
-  options = merge(options, default_base64_options);
+  options = merge(options, defaultBase64Options);
   const len = str.length;
 
   if (options.urlSafe) {
