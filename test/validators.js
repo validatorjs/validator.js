@@ -5464,6 +5464,26 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: ['en-ZW'],
+        valid: [
+          '+263561890123',
+          '+263715558041',
+          '+263775551112',
+          '+263775551695',
+          '+263715556633',
+        ],
+        invalid: [
+          '12345',
+          '',
+          'Vml2YW11cyBmZXJtZtesting123',
+          '+2631234567890',
+          '+2641234567',
+          '+263981234',
+          '4736338855',
+          '66338855',
+        ],
+      },
+      {
         locale: 'ru-RU',
         valid: [
           '+79676338855',
@@ -6473,6 +6493,22 @@ describe('Validators', () => {
       ],
       args: [],
     });
+  });
+
+  // de-CH
+  test({
+    validator: 'isMobilePhone',
+    valid: [
+      '+41751112233',
+      '+41761112233',
+      '+41771112233',
+      '+41781112233',
+      '+41791112233',
+    ],
+    invalid: [
+      '+41441112233',
+    ],
+    args: [],
   });
 
   it('should error on invalid locale', () => {
@@ -8208,6 +8244,36 @@ describe('Validators', () => {
         'not-slug-',
         '_not-slug',
         'not-slug_',
+      ],
+    });
+  });
+
+  it('should validate base64URL', () => {
+    test({
+      validator: 'isBase64',
+      args: [{ urlSafe: true }],
+      valid: [
+        'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
+        '1234',
+        'bXVtLW5ldmVyLXByb3Vk',
+        'PDw_Pz8-Pg',
+        'VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw',
+      ],
+      invalid: [
+        ' AA',
+        '\tAA',
+        '\rAA',
+        '\nAA',
+        '123=',
+        'This+isa/bad+base64Url==',
+        '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
+      ],
+      error: [
+        null,
+        undefined,
+        {},
+        [],
+        42,
       ],
     });
   });
