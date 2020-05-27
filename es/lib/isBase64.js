@@ -1,14 +1,18 @@
 import assertString from './util/assertString';
+import merge from './util/merge';
 var notBase64 = /[^A-Z0-9+\/=]/i;
-export default function isBase64(str) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+var urlSafeBase64 = /^[A-Z0-9_\-]+$/i;
+var defaultBase64Options = {
+  urlSafe: false
+};
+export default function isBase64(str, options) {
   assertString(str);
+  options = merge(options, defaultBase64Options);
+  var len = str.length;
 
   if (options.urlSafe) {
-    return /^[A-Za-z0-9_-]+$/.test(str);
+    return urlSafeBase64.test(str);
   }
-
-  var len = str.length;
 
   if (!len || len % 4 !== 0 || notBase64.test(str)) {
     return false;
