@@ -88,7 +88,7 @@ Validator                               | Description
 **isAlphanumeric(str [, locale])**      | check if the string contains only letters and numbers.<br/><br/>Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'fa-IR', 'he', 'hu-HU', 'it-IT', 'ku-IQ', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sl-SI', 'sk-SK', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']`) and defaults to `en-US`. Locale list is `validator.isAlphanumericLocales`.
 **isAscii(str)**                        | check if the string contains ASCII chars only.
 **isBase32(str)**                       | check if a string is base32 encoded.
-**isBase64(str)**                       | check if a string is base64 encoded.
+**isBase64(str, [, options])**          | check if a string is base64 encoded. options is optional and defaults to `{urlSafe: false}`<br/> when `urlSafe` is true it tests the given base64 encoded string is [url safe](https://base64.guru/standards/base64url)
 **isBefore(str [, date])**              | check if the string is a date that's before the specified date.
 **isIBAN(str)**                         | check if a string is a IBAN (International Bank Account Number).
 **isBIC(str)**                          | check if a string is a BIC (Bank Identification Code) or SWIFT code.
