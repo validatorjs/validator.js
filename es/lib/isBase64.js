@@ -1,7 +1,7 @@
 import assertString from './util/assertString';
 import merge from './util/merge';
 var notBase64 = /[^A-Z0-9+\/=]/i;
-var UrlSafeBase64 = /^[A-Z0-9_\-]+$/i;
+var urlSafeBase64 = /^[A-Z0-9_\-]+$/i;
 var default_base64_options = {
   urlSafe: false
 };
@@ -11,7 +11,7 @@ export default function isBase64(str, options) {
   var len = str.length;
 
   if (options.urlSafe) {
-    return UrlSafeBase64.test(str);
+    return urlSafeBase64.test(str);
   }
 
   if (!len || len % 4 !== 0 || notBase64.test(str)) {
