@@ -3956,6 +3956,21 @@ describe('Validators', () => {
           'Y1234567B',
           'Z1234567C',
         ],
+      }, {
+        locale: 'IN',
+        valid: [
+          '298448863364',
+          '2984 4886 3364',
+        ],
+        invalid: [
+          '99999999R',
+          '12345678Z',
+          '01234567L',
+          '01234567l',
+          'X1234567l',
+          'x1234567l',
+          'X1234567L',
+        ],
       },
       {
         locale: 'he-IL',
@@ -4084,12 +4099,10 @@ describe('Validators', () => {
     ];
 
     let allValid = [];
-    let allInvalid = [];
 
     // Test fixtures
     fixtures.forEach((fixture) => {
       if (fixture.valid) allValid = allValid.concat(fixture.valid);
-      if (fixture.invalid) allInvalid = allInvalid.concat(fixture.invalid);
       test({
         validator: 'isIdentityCard',
         valid: fixture.valid,
@@ -4106,7 +4119,6 @@ describe('Validators', () => {
       ],
       invalid: [
         'foo',
-        ...allInvalid,
       ],
       args: ['any'],
     });
