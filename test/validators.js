@@ -2158,6 +2158,20 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['IN'],
+      valid: [
+        'A-1234567',
+        'A1234567',
+        'X0019390',
+      ],
+      invalid: [
+        'AB-1234567',
+        '0123456789',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['IS'],
       valid: [
         'A2040611',
