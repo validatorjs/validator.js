@@ -6465,6 +6465,22 @@ describe('Validators', () => {
     });
   });
 
+  // de-CH
+  test({
+    validator: 'isMobilePhone',
+    valid: [
+      '+41751112233',
+      '+41761112233',
+      '+41771112233',
+      '+41781112233',
+      '+41791112233',
+    ],
+    invalid: [
+      '+41441112233',
+    ],
+    args: [],
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isMobilePhone',
