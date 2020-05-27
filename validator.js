@@ -2196,7 +2196,9 @@ function currencyRegex(options) {
   options.digits_after_decimal.forEach(function (digit, index) {
     if (index !== 0) decimal_digits = "".concat(decimal_digits, "|\\d{").concat(digit, "}");
   });
-  var symbol = "(\\".concat(options.symbol.replace(/\./g, '\\.'), ")").concat(options.require_symbol ? '' : '?'),
+  var symbol = "(".concat(options.symbol.replace(/\W/, function (m) {
+    return "\\".concat(m);
+  }), ")").concat(options.require_symbol ? '' : '?'),
       negative = '-?',
       whole_dollar_amount_without_sep = '[1-9]\\d*',
       whole_dollar_amount_with_sep = "[1-9]\\d{0,2}(\\".concat(options.thousands_separator, "\\d{3})*"),
@@ -2361,7 +2363,13 @@ function isBase32(str) {
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
 function isBase64(str) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   assertString(str);
+
+  if (options.urlSafe) {
+    return /^[A-Za-z0-9_-]+$/.test(str);
+  }
+
   var len = str.length;
 
   if (!len || len % 4 !== 0 || notBase64.test(str)) {
