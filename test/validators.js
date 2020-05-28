@@ -4640,6 +4640,7 @@ describe('Validators', () => {
         'rvDegNzo9uhaHahlgB1vC',
         '',
         'rvDegNzo9uhaHahlgB1v ',
+        '1234567890123456/#@$',
       ],
     });
   });
