@@ -61,6 +61,8 @@ import isByteLength from './lib/isByteLength';
 
 import isUUID from './lib/isUUID';
 import isMongoId from './lib/isMongoId';
+import isFirestoreId from './lib/isFirestoreId';
+
 
 import isAfter from './lib/isAfter';
 import isBefore from './lib/isBefore';
@@ -169,6 +171,7 @@ const validator = {
   isByteLength,
   isUUID,
   isMongoId,
+  isFirestoreId,
   isAfter,
   isBefore,
   isIn,

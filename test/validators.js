@@ -4629,6 +4629,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate generated Firestore DocumentId', () => {
+    test({
+      validator: 'isFirestoreId',
+      valid: [
+        'rvDegNzo9uhaHahlgB1v',
+      ],
+      invalid: [
+        'rvDegNzo9uhaHahlgB1',
+        'rvDegNzo9uhaHahlgB1vC',
+        '',
+        'rvDegNzo9uhaHahlgB1v ',
+      ],
+    });
+  });
+
   it('should define the module using an AMD-compatible loader', () => {
     let window = {
       validator: null,
