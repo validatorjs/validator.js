@@ -1,9 +1,10 @@
 import assertString from './util/assertString';
 import { alpha } from './alpha';
-export default function isAlpha(str) {
+export default function isAlpha(_str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  assertString(str);
+  assertString(_str);
+  var str = _str;
   var ignore = options.ignore;
 
   if (ignore) {
