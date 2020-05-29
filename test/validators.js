@@ -871,10 +871,11 @@ describe('Validators', () => {
   it('should validate alpha string with ignored characters', () => {
     test({
       validator: 'isAlpha',
-      args: ['en-US', { ignore: ' -' }], // ignore [space -]
+      args: ['en-US', { ignore: '- /' }], // ignore [space-/]
       valid: [
         'en-US',
         'this is a valid alpha string',
+        'us/usa',
       ],
       invalid: [
         '1. this is not a valid alpha string',

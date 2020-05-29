@@ -991,7 +991,7 @@ function isAlpha(str) {
     if (ignore instanceof RegExp) {
       str = str.replace(ignore, '');
     } else if (typeof ignore === 'string') {
-      str = str.replace(new RegExp("[".concat(ignore, "]"), 'g'), '');
+      str = str.replace(new RegExp("[".concat(ignore.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&'), "]"), 'g'), ''); // escape regex for ignore
     } else {
       throw new Error('ignore should be instance of a String or RegExp');
     }
