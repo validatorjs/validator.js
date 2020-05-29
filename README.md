@@ -125,7 +125,7 @@ Validator                               | Description
 **isISO31661Alpha3(str)**               | check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
 **isISRC(str)**                         | check if the string is a [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code).
 **isISSN(str [, options])**             | check if the string is an [ISSN](https://en.wikipedia.org/wiki/International_Standard_Serial_Number).<br/><br/>`options` is an object which defaults to `{ case_sensitive: false, require_hyphen: false }`. If `case_sensitive` is true, ISSNs with a lowercase `'x'` as the check digit are rejected.
-**isJSON(str)**                         | check if the string is valid JSON (note: uses JSON.parse).
+**isJSON(str [, options])**             | check if the string is valid JSON (note: uses JSON.parse).<br/><br/>`options` is an object which defaults to `{ allow_primitives: false }`. If `allow_primitives` is true, the primitives 'true', 'false' and 'null' are accepted as valid JSON values.
 **isJWT(str)**                         | check if the string is valid JWT token.
 **isLatLong(str)**                      | check if the string is a valid latitude-longitude coordinate in the format `lat,long` or `lat, long`.
 **isLength(str [, options])**              | check if the string's length falls in a range.<br/><br/>`options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
