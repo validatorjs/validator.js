@@ -2197,6 +2197,20 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['IN'],
+      valid: [
+        'A-1234567',
+        'A1234567',
+        'X0019390',
+      ],
+      invalid: [
+        'AB-1234567',
+        '0123456789',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['IS'],
       valid: [
         'A2040611',
@@ -3461,6 +3475,12 @@ describe('Validators', () => {
         '$Zs.ewu.su84',
         'ks64$S/9.dy$§kz.3sd73b',
       ],
+      error: [
+        [],
+        {},
+        null,
+        undefined,
+      ],
     });
   });
 
@@ -3864,6 +3884,7 @@ describe('Validators', () => {
         'TR320010009999901234567890',
         'BR1500000000000010932840814P2',
         'LB92000700000000123123456123',
+        'IR200170000000339545727003',
       ],
       invalid: [
         'XX22YYY1234567890123',
@@ -3979,6 +4000,39 @@ describe('Validators', () => {
           'X1234567A',
           'Y1234567B',
           'Z1234567C',
+        ],
+      }, {
+        locale: 'IN',
+        valid: [
+          '298448863364',
+          '2984 4886 3364',
+        ],
+        invalid: [
+          '99999999R',
+          '12345678Z',
+          '01234567L',
+          '01234567l',
+          'X1234567l',
+          'x1234567l',
+          'X1234567L',
+        ],
+      },
+      {
+        locale: 'NO',
+        valid: [
+          '09053426694',
+          '26028338723',
+          '08031470790',
+          '12051539514',
+          '02077448074',
+          '14035638319',
+          '13031379673',
+          '29126214926',
+        ],
+        invalid: [
+          '09053426699',
+          '26028338724',
+          '92031470790',
         ],
       },
       {
@@ -4108,12 +4162,10 @@ describe('Validators', () => {
     ];
 
     let allValid = [];
-    let allInvalid = [];
 
     // Test fixtures
     fixtures.forEach((fixture) => {
       if (fixture.valid) allValid = allValid.concat(fixture.valid);
-      if (fixture.invalid) allInvalid = allInvalid.concat(fixture.invalid);
       test({
         validator: 'isIdentityCard',
         valid: fixture.valid,
@@ -4130,7 +4182,6 @@ describe('Validators', () => {
       ],
       invalid: [
         'foo',
-        ...allInvalid,
       ],
       args: ['any'],
     });
@@ -4563,6 +4614,35 @@ describe('Validators', () => {
         'Zm9vYmFy====',
       ],
     });
+
+    test({
+      validator: 'isBase64',
+      args: [{ urlSafe: true }],
+      valid: [
+        'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
+        '1234',
+        'bXVtLW5ldmVyLXByb3Vk',
+        'PDw_Pz8-Pg',
+        'VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw',
+      ],
+      invalid: [
+        ' AA',
+        '\tAA',
+        '\rAA',
+        '',
+        '\nAA',
+        'This+isa/bad+base64Url==',
+        '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
+      ],
+      error: [
+        null,
+        undefined,
+        {},
+        [],
+        42,
+      ],
+    });
+
     for (let i = 0, str = '', encoded; i < 1000; i++) {
       str += String.fromCharCode(Math.random() * 26 | 97); // eslint-disable-line no-bitwise
       encoded = Buffer.from(str).toString('base64');
@@ -4757,6 +4837,31 @@ describe('Validators', () => {
           '+9639626626262',
           '+963332210972',
           '0114152198',
+        ],
+      },
+      {
+        locale: 'ar-LY',
+        valid: [
+          '912220000',
+          '0923330000',
+          '218945550000',
+          '+218958880000',
+          '212220000',
+          '0212220000',
+          '+218212220000',
+        ],
+        invalid: [
+          '9122220000',
+          '00912220000',
+          '09211110000',
+          '+0921110000',
+          '+2180921110000',
+          '021222200000',
+          '213333444444',
+          '',
+          '+212234',
+          '+21',
+          '02122333',
         ],
       },
       {
@@ -4968,6 +5073,7 @@ describe('Validators', () => {
           '+8619812341234',
           '+8619112341234',
           '17269427292',
+          '16565600001',
           '+8617269427292',
           '008617269427292',
         ],
@@ -5459,6 +5565,26 @@ describe('Validators', () => {
           'Vml2YW11cyBmZXJtZtesting123',
           '010-38238383',
           '966684590',
+        ],
+      },
+      {
+        locale: ['en-ZW'],
+        valid: [
+          '+263561890123',
+          '+263715558041',
+          '+263775551112',
+          '+263775551695',
+          '+263715556633',
+        ],
+        invalid: [
+          '12345',
+          '',
+          'Vml2YW11cyBmZXJtZtesting123',
+          '+2631234567890',
+          '+2641234567',
+          '+263981234',
+          '4736338855',
+          '66338855',
         ],
       },
       {
@@ -6473,6 +6599,22 @@ describe('Validators', () => {
     });
   });
 
+  // de-CH
+  test({
+    validator: 'isMobilePhone',
+    valid: [
+      '+41751112233',
+      '+41761112233',
+      '+41771112233',
+      '+41781112233',
+      '+41791112233',
+    ],
+    invalid: [
+      '+41441112233',
+    ],
+    args: [],
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isMobilePhone',
@@ -7332,7 +7474,6 @@ describe('Validators', () => {
         '(-$)',
       ],
     });
-
     // $##,###.## with no negatives (en-US, en-CA, en-AU, en-HK)
     test({
       validator: 'isCurrency',
@@ -7385,6 +7526,29 @@ describe('Validators', () => {
         '',
         '- $',
         '-$10,123.45',
+      ],
+    });
+
+    //  R$ ##,###.## (pt_BR)
+    test({
+      validator: 'isCurrency',
+      args: [
+        {
+          symbol: 'R$',
+          require_symbol: true,
+          allow_space_after_symbol: true,
+          symbol_after_digits: false,
+          thousands_separator: '.',
+          decimal_separator: ',',
+        },
+      ],
+      valid: [
+        'R$ 1.400,00',
+        'R$ 400,00',
+      ],
+      invalid: [
+        '$ 1.400,00',
+        '$R 1.400,00',
       ],
     });
   });
@@ -7939,6 +8103,22 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'NP',
+        valid: [
+          '10811',
+          '32600',
+          '56806',
+          '977',
+        ],
+        invalid: [
+          '11977',
+          'asds',
+          '13 32',
+          '-977',
+          '97765',
+        ],
+      },
+      {
         locale: 'PL',
         valid: [
           '47-260',
@@ -8168,6 +8348,37 @@ describe('Validators', () => {
         'not-slug-',
         '_not-slug',
         'not-slug_',
+      ],
+    });
+  });
+
+  it('should validate base64URL', () => {
+    test({
+      validator: 'isBase64',
+      args: [{ urlSafe: true }],
+      valid: [
+        'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
+        '1234',
+        'bXVtLW5ldmVyLXByb3Vk',
+        'PDw_Pz8-Pg',
+        'VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw',
+      ],
+      invalid: [
+        ' AA',
+        '\tAA',
+        '\rAA',
+        '\nAA',
+        '123=',
+        '',
+        'This+isa/bad+base64Url==',
+        '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
+      ],
+      error: [
+        null,
+        undefined,
+        {},
+        [],
+        42,
       ],
     });
   });

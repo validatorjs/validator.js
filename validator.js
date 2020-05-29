@@ -82,7 +82,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -1035,6 +1035,7 @@ function isNumeric(str, options) {
  * https://docs.microsoft.com/en-us/microsoft-365/compliance/eu-passport-number -- EU Passport Number
  * https://countrycode.org/ -- Country Codes
  */
+
 var passportRegexByCountryCode = {
   AM: /^[A-Z]{2}\d{7}$/,
   // ARMENIA
@@ -1082,6 +1083,8 @@ var passportRegexByCountryCode = {
   // HUNGARY
   IE: /^[A-Z0-9]{2}\d{7}$/,
   // IRELAND
+  IN: /^[A-Z]{1}-?\d{7}$/,
+  // INDIA
   IS: /^(A)\d{7}$/,
   // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/,
@@ -1129,7 +1132,9 @@ var passportRegexByCountryCode = {
  */
 
 function isPassportNumber(str, countryCode) {
+  assertString(str);
   /** Remove All Whitespaces, Convert to UPPERCASE */
+
   var normalizedStr = str.replace(/\s/g, '').toUpperCase();
   return countryCode.toUpperCase() in passportRegexByCountryCode && passportRegexByCountryCode[countryCode].test(normalizedStr);
 }
@@ -1357,6 +1362,7 @@ var ibanRegexThroughCountryCode = {
   IE: /^(IE[0-9]{2})[A-Z0-9]{4}\d{14}$/,
   IL: /^(IL[0-9]{2})\d{19}$/,
   IQ: /^(IQ[0-9]{2})[A-Z]{4}\d{15}$/,
+  IR: /^(IR[0-9]{2})0\d{2}0\d{18}$/,
   IS: /^(IS[0-9]{2})\d{22}$/,
   IT: /^(IT[0-9]{2})[A-Z]{1}\d{10}[A-Z0-9]{12}$/,
   JO: /^(JO[0-9]{2})[A-Z]{4}\d{22}$/,
@@ -1482,10 +1488,42 @@ function isHash(str, algorithm) {
   return hash.test(str);
 }
 
-var jwt = /^([A-Za-z0-9\-_~+\/]+[=]{0,2})\.([A-Za-z0-9\-_~+\/]+[=]{0,2})(?:\.([A-Za-z0-9\-_~+\/]+[=]{0,2}))?$/;
+var notBase64 = /[^A-Z0-9+\/=]/i;
+var urlSafeBase64 = /^[A-Z0-9_\-]+$/i;
+var defaultBase64Options = {
+  urlSafe: false
+};
+function isBase64(str, options) {
+  assertString(str);
+  options = merge(options, defaultBase64Options);
+  var len = str.length;
+
+  if (options.urlSafe) {
+    return urlSafeBase64.test(str);
+  }
+
+  if (!len || len % 4 !== 0 || notBase64.test(str)) {
+    return false;
+  }
+
+  var firstPaddingChar = str.indexOf('=');
+  return firstPaddingChar === -1 || firstPaddingChar === len - 1 || firstPaddingChar === len - 2 && str[len - 1] === '=';
+}
+
 function isJWT(str) {
   assertString(str);
-  return jwt.test(str);
+  var dotSplit = str.split('.');
+  var len = dotSplit.length;
+
+  if (len > 3 || len < 2) {
+    return false;
+  }
+
+  return dotSplit.reduce(function (acc, currElem) {
+    return acc && isBase64(currElem, {
+      urlSafe: true
+    });
+  }, true);
 }
 
 function isJSON(str) {
@@ -1652,6 +1690,43 @@ var validators = {
       return charsValue[_char];
     });
     return sanitized.endsWith(controlDigits[number % 23]);
+  },
+  IN: function IN(str) {
+    var DNI = /^[1-9]\d{3}\s?\d{4}\s?\d{4}$/; // multiplication table
+
+    var d = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 0, 6, 7, 8, 9, 5], [2, 3, 4, 0, 1, 7, 8, 9, 5, 6], [3, 4, 0, 1, 2, 8, 9, 5, 6, 7], [4, 0, 1, 2, 3, 9, 5, 6, 7, 8], [5, 9, 8, 7, 6, 0, 4, 3, 2, 1], [6, 5, 9, 8, 7, 1, 0, 4, 3, 2], [7, 6, 5, 9, 8, 2, 1, 0, 4, 3], [8, 7, 6, 5, 9, 3, 2, 1, 0, 4], [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]]; // permutation table
+
+    var p = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 5, 7, 6, 2, 8, 3, 0, 9, 4], [5, 8, 0, 3, 7, 9, 6, 1, 4, 2], [8, 9, 1, 6, 0, 4, 3, 5, 2, 7], [9, 4, 5, 3, 1, 2, 6, 8, 7, 0], [4, 2, 8, 6, 5, 7, 3, 9, 0, 1], [2, 7, 9, 3, 8, 0, 6, 4, 1, 5], [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]]; // sanitize user input
+
+    var sanitized = str.trim(); // validate the data structure
+
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+
+    var c = 0;
+    var invertedArray = sanitized.replace(/\s/g, '').split('').map(Number).reverse();
+    invertedArray.forEach(function (val, i) {
+      c = d[c][p[i % 8][val]];
+    });
+    return c === 0;
+  },
+  NO: function NO(str) {
+    var sanitized = str.trim();
+    if (isNaN(Number(sanitized))) return false;
+    if (sanitized.length !== 11) return false;
+    if (sanitized === '00000000000') return false; // https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
+
+    var f = sanitized.split('').map(Number);
+    var k1 = (11 - (3 * f[0] + 7 * f[1] + 6 * f[2] + 1 * f[3] + 8 * f[4] + 9 * f[5] + 4 * f[6] + 5 * f[7] + 2 * f[8]) % 11) % 11;
+    var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11;
+
+    if (k1 === 11) {
+      k1 = 0;
+    }
+
+    if (k1 !== f[9] || k2 !== f[10]) return false;
+    return true;
   },
   'he-IL': function heIL(str) {
     var DNI = /^\d{9}$/; // sanitize user input
@@ -2065,6 +2140,7 @@ var phones = {
   'ar-IQ': /^(\+?964|0)?7[0-9]\d{8}$/,
   'ar-JO': /^(\+?962|0)?7[789]\d{7}$/,
   'ar-KW': /^(\+?965)[569]\d{7}$/,
+  'ar-LY': /^((\+?218)|0)?(9[1-6]\d{7}|[1-8]\d{7,9})$/,
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
@@ -2075,6 +2151,7 @@ var phones = {
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
   'de-AT': /^(\+43|0)\d{1,4}\d{3,12}$/,
+  'de-CH': /^(\+41|0)(7[5-9])\d{1,7}$/,
   'el-GR': /^(\+?30|0)?(69\d{8})$/,
   'en-AU': /^(\+?61|0)4\d{8}$/,
   'en-GB': /^(\+?44|0)7\d{9}$/,
@@ -2098,6 +2175,7 @@ var phones = {
   'en-US': /^((\+1|1)?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/,
   'en-ZA': /^(\+?27|0)\d{9}$/,
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
+  'en-ZW': /^(\+263)[0-9]{9}$/,
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
   'es-CR': /^(\+506)?[2-8]\d{7}$/,
   'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
@@ -2144,7 +2222,7 @@ var phones = {
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
-  'zh-CN': /^((\+|00)86)?1([358][0-9]|4[579]|6[67]|7[01235678]|9[189])[0-9]{8}$/,
+  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[189])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -2207,7 +2285,9 @@ function currencyRegex(options) {
   options.digits_after_decimal.forEach(function (digit, index) {
     if (index !== 0) decimal_digits = "".concat(decimal_digits, "|\\d{").concat(digit, "}");
   });
-  var symbol = "(\\".concat(options.symbol.replace(/\./g, '\\.'), ")").concat(options.require_symbol ? '' : '?'),
+  var symbol = "(".concat(options.symbol.replace(/\W/, function (m) {
+    return "\\".concat(m);
+  }), ")").concat(options.require_symbol ? '' : '?'),
       negative = '-?',
       whole_dollar_amount_without_sep = '[1-9]\\d*',
       whole_dollar_amount_with_sep = "[1-9]\\d{0,2}(\\".concat(options.thousands_separator, "\\d{3})*"),
@@ -2370,19 +2450,6 @@ function isBase32(str) {
   return false;
 }
 
-var notBase64 = /[^A-Z0-9+\/=]/i;
-function isBase64(str) {
-  assertString(str);
-  var len = str.length;
-
-  if (!len || len % 4 !== 0 || notBase64.test(str)) {
-    return false;
-  }
-
-  var firstPaddingChar = str.indexOf('=');
-  return firstPaddingChar === -1 || firstPaddingChar === len - 1 || firstPaddingChar === len - 2 && str[len - 1] === '=';
-}
-
 var validMediaType = /^[a-z]+\/[a-z0-9\-\+]+$/i;
 var validAttribute = /^[a-z\-]+=[a-z0-9\-]+$/i;
 var validData = /^[a-z0-9!\$&'\(\)\*\+,;=\-\._~:@\/\?%\s]*$/i;
@@ -2470,13 +2537,13 @@ function isMimeType(str) {
 
 var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
 var _long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
-var isLatLong = function (str) {
+function isLatLong(str) {
   assertString(str);
   if (!str.includes(',')) return false;
   var pair = str.split(',');
   if (pair[0].startsWith('(') && !pair[1].endsWith(')') || pair[1].endsWith(')') && !pair[0].startsWith('(')) return false;
   return lat.test(pair[0]) && _long.test(pair[1]);
-};
+}
 
 var threeDigit = /^\d{3}$/;
 var fourDigit = /^\d{4}$/;
@@ -2519,6 +2586,7 @@ var patterns = {
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
   NL: /^\d{4}\s?[a-z]{2}$/i,
   NO: fourDigit,
+  NP: /^(10|21|22|32|33|34|44|45|56|57)\d{3}$|^(977)$/i,
   NZ: fourDigit,
   PL: /^\d{2}\-\d{3}$/,
   PR: /^00[679]\d{2}([ -]\d{4})?$/,
@@ -2537,7 +2605,7 @@ var patterns = {
   ZM: fiveDigit
 };
 var locales$4 = Object.keys(patterns);
-var isPostalCode = function (str, locale) {
+function isPostalCode(str, locale) {
   assertString(str);
 
   if (locale in patterns) {
@@ -2559,7 +2627,7 @@ var isPostalCode = function (str, locale) {
   }
 
   throw new Error("Invalid locale '".concat(locale, "'"));
-};
+}
 
 function ltrim(str, chars) {
   assertString(str); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
