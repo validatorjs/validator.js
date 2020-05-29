@@ -73,8 +73,5 @@
   "engines": {
     "node": ">= 0.10"
   },
-  "license": "MIT",
-  "dependencies": {
-    "coveralls": "^3.1.0"
-  }
+  "license": "MIT"
 }
