@@ -1,7 +1,12 @@
 import assertString from './util/assertString';
 
-export default function isFirestoreId(str) {
-  const alnum = /[a-zA-Z0-9]{20}/;
+const firestoreId = {
+  generated: /^[a-zA-Z0-9]{20}$/,
+  custom: /^(?!\.\.?$)(?!__.*__$)([^\/]{1,1500})$/,
+};
+
+export default function isFirestoreId(str, type = 'generated') {
   assertString(str);
-  return alnum.test(str) && str.length === 20;
+  const pattern = firestoreId[type];
+  return pattern && pattern.test(str);
 }

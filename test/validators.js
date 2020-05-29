@@ -4643,6 +4643,20 @@ describe('Validators', () => {
         '1234567890123456/#@$',
       ],
     });
+    test({
+      validator: 'isFirestoreId',
+      args: ['custom'],
+      valid: [
+        'customId34234canBe1500BytesLong.',
+      ],
+      invalid: [
+        '',
+        'customId34234/canBe1500BytesLong',
+        '.',
+        '..',
+        '__customId34234canBe1500BytesLong__',
+      ],
+    });
   });
 
   it('should define the module using an AMD-compatible loader', () => {
