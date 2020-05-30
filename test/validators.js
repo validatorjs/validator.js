@@ -3520,6 +3520,15 @@ describe('Validators', () => {
       valid: ['foo', 'foobar', 'bazfoo'],
       invalid: ['bar', 'fobar'],
     });
+
+    test({
+      validator: 'contains',
+      args: ['foo', {
+        ignoreCase: true,
+      }],
+      valid: ['Foo', 'FOObar', 'BAZfoo'],
+      invalid: ['bar', 'fobar', 'baxoof'],
+    });
   });
 
   it('should validate strings against a pattern', () => {

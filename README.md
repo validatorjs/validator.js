@@ -81,7 +81,7 @@ Here is a list of the validators currently available.
 
 Validator                               | Description
 --------------------------------------- | --------------------------------------
-***contains(str, seed)***               | check if the string contains the seed.
+**contains(str, seed [, options ])**    | check if the string contains the seed.<br/><br/>`options` is an object that defaults to `{ ignoreCase: false}`.<br/>`ignoreCase` specified whether the case of the substring be same or not.  
 **equals(str, comparison)**             | check if the string matches the comparison.
 **isAfter(str [, date])**               | check if the string is a date that's after the specified date (defaults to now).
 **isAlpha(str [, locale])**             | check if the string contains only letters (a-zA-Z).<br/><br/>Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'fa-IR', 'he', 'hu-HU', 'it-IT', 'ku-IQ', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sl-SI', 'sk-SK', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']`) and defaults to `en-US`. Locale list is `validator.isAlphaLocales`.
