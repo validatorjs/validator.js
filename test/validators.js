@@ -1839,6 +1839,30 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings with locale', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        locale: 'fr-FR',
+      }],
+      valid: [
+        '123',
+        '00123',
+        '-00123',
+        '0',
+        '-0',
+        '+123',
+        '123,123',
+        '+000000',
+      ],
+      invalid: [
+        ' ',
+        '',
+        ',',
+      ],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
@@ -4339,7 +4363,27 @@ describe('Validators', () => {
         '{ \'key\': \'value\' }',
         'null',
         '1234',
+        '"nope"',
+      ],
+    });
+  });
+
+  it('should validate JSON with primitives', () => {
+    test({
+      validator: 'isJSON',
+      args: [{ allow_primitives: true }],
+      valid: [
+        '{ "key": "value" }',
+        '{}',
+        'null',
         'false',
+        'true',
+      ],
+      invalid: [
+        '{ key: "value" }',
+        '{ \'key\': \'value\' }',
+        '{ "key": value }',
+        '1234',
         '"nope"',
       ],
     });
@@ -6165,20 +6209,27 @@ describe('Validators', () => {
         locale: 'nl-NL',
         valid: [
           '0670123456',
-          '+31670123456',
+          '0612345678',
+          '31612345678',
           '31670123456',
-          '021234567',
-          '+3121234567',
-          '3121234567',
+          '+31612345678',
+          '+31670123456',
+          '+31(0)612345678',
+          '0031612345678',
+          '0031(0)612345678',
         ],
         invalid: [
           '12345',
           '+3112345',
           '3112345',
           '06701234567',
+          '012345678',
           '+3104701234567',
           '3104701234567',
           '0212345678',
+          '021234567',
+          '+3121234567',
+          '3121234567',
           '+310212345678',
           '310212345678',
         ],
