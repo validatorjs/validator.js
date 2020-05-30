@@ -1839,6 +1839,30 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings with locale', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        locale: 'fr-FR',
+      }],
+      valid: [
+        '123',
+        '00123',
+        '-00123',
+        '0',
+        '-0',
+        '+123',
+        '123,123',
+        '+000000',
+      ],
+      invalid: [
+        ' ',
+        '',
+        ',',
+      ],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
