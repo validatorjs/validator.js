@@ -98,9 +98,12 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-function _createForOfIteratorHelper(o) {
+function _createForOfIteratorHelper(o, allowArrayLike) {
+  var it;
+
   if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
-    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (it) o = it;
       var i = 0;
 
       var F = function () {};
@@ -126,8 +129,7 @@ function _createForOfIteratorHelper(o) {
     throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
 
-  var it,
-      normalCompletion = true,
+  var normalCompletion = true,
       didErr = false,
       err;
   return {
@@ -1514,12 +1516,22 @@ function isJWT(str) {
   }, true);
 }
 
-function isJSON(str) {
+var default_json_options = {
+  allow_primitives: false
+};
+function isJSON(str, options) {
   assertString(str);
 
   try {
+    options = merge(options, default_json_options);
+    var primitives = [];
+
+    if (options.allow_primitives) {
+      primitives = [null, false, true];
+    }
+
     var obj = JSON.parse(str);
-    return !!obj && _typeof(obj) === 'object';
+    return primitives.includes(obj) || !!obj && _typeof(obj) === 'object';
   } catch (e) {
     /* ignore */
   }
@@ -2195,7 +2207,7 @@ var phones = {
   'nb-NO': /^(\+?47)?[49]\d{7}$/,
   'ne-NP': /^(\+?977)?9[78]\d{8}$/,
   'nl-BE': /^(\+?32|0)4?\d{8}$/,
-  'nl-NL': /^(\+?31|0)6?\d{8}$/,
+  'nl-NL': /^(((\+|00)?31\(0\))|((\+|00)?31)|0)6{1}\d{8}$/,
   'nn-NO': /^(\+?47)?[49]\d{7}$/,
   'pl-PL': /^(\+?48)? ?[5-8]\d ?\d{3} ?\d{2} ?\d{2}$/,
   'pt-BR': /(?=^(\+?5{2}\-?|0)[1-9]{2}\-?\d{4}\-?\d{4}$)(^(\+?5{2}\-?|0)[1-9]{2}\-?[6-9]{1}\d{3}\-?\d{4}$)|(^(\+?5{2}\-?|0)[1-9]{2}\-?9[6-9]{1}\d{3}\-?\d{4}$)/,
