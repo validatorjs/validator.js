@@ -5512,6 +5512,7 @@ describe('Validators', () => {
           '98765432',
           '+6587654321',
           '+6598765432',
+          '+6565241234',
         ],
         invalid: [
           '987654321',
@@ -8369,6 +8370,7 @@ describe('Validators', () => {
         'not-slug-',
         '_not-slug',
         'not-slug_',
+        'not slug',
       ],
     });
   });
