@@ -8369,6 +8369,7 @@ describe('Validators', () => {
         'not-slug-',
         '_not-slug',
         'not-slug_',
+        'not slug',
       ],
     });
   });
