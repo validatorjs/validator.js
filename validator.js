@@ -27,6 +27,8 @@
 }(this, (function () { 'use strict';
 
 function _typeof(obj) {
+  "@babel/helpers - typeof";
+
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
       return typeof obj;
@@ -41,7 +43,7 @@ function _typeof(obj) {
 }
 
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 function _arrayWithHoles(arr) {
@@ -49,6 +51,7 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -74,8 +77,82 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _createForOfIteratorHelper(o, allowArrayLike) {
+  var it;
+
+  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (it) o = it;
+      var i = 0;
+
+      var F = function () {};
+
+      return {
+        s: F,
+        n: function () {
+          if (i >= o.length) return {
+            done: true
+          };
+          return {
+            done: false,
+            value: o[i++]
+          };
+        },
+        e: function (e) {
+          throw e;
+        },
+        f: F
+      };
+    }
+
+    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  var normalCompletion = true,
+      didErr = false,
+      err;
+  return {
+    s: function () {
+      it = o[Symbol.iterator]();
+    },
+    n: function () {
+      var step = it.next();
+      normalCompletion = step.done;
+      return step;
+    },
+    e: function (e) {
+      didErr = true;
+      err = e;
+    },
+    f: function () {
+      try {
+        if (!normalCompletion && it.return != null) it.return();
+      } finally {
+        if (didErr) throw err;
+      }
+    }
+  };
 }
 
 function assertString(input) {
@@ -106,8 +183,124 @@ function toDate(date) {
   return !isNaN(date) ? new Date(date) : null;
 }
 
-function toFloat(str) {
+var alpha = {
+  'en-US': /^[A-Z]+$/i,
+  'bg-BG': /^[А-Я]+$/i,
+  'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
+  'da-DK': /^[A-ZÆØÅ]+$/i,
+  'de-DE': /^[A-ZÄÖÜß]+$/i,
+  'el-GR': /^[Α-ώ]+$/i,
+  'es-ES': /^[A-ZÁÉÍÑÓÚÜ]+$/i,
+  'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
+  'it-IT': /^[A-ZÀÉÈÌÎÓÒÙ]+$/i,
+  'nb-NO': /^[A-ZÆØÅ]+$/i,
+  'nl-NL': /^[A-ZÁÉËÏÓÖÜÚ]+$/i,
+  'nn-NO': /^[A-ZÆØÅ]+$/i,
+  'hu-HU': /^[A-ZÁÉÍÓÖŐÚÜŰ]+$/i,
+  'pl-PL': /^[A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
+  'pt-PT': /^[A-ZÃÁÀÂÄÇÉÊËÍÏÕÓÔÖÚÜ]+$/i,
+  'ru-RU': /^[А-ЯЁ]+$/i,
+  'sl-SI': /^[A-ZČĆĐŠŽ]+$/i,
+  'sk-SK': /^[A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
+  'sr-RS@latin': /^[A-ZČĆŽŠĐ]+$/i,
+  'sr-RS': /^[А-ЯЂЈЉЊЋЏ]+$/i,
+  'sv-SE': /^[A-ZÅÄÖ]+$/i,
+  'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
+  'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
+  'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
+  ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
+  he: /^[א-ת]+$/,
+  'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
+};
+var alphanumeric = {
+  'en-US': /^[0-9A-Z]+$/i,
+  'bg-BG': /^[0-9А-Я]+$/i,
+  'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
+  'da-DK': /^[0-9A-ZÆØÅ]+$/i,
+  'de-DE': /^[0-9A-ZÄÖÜß]+$/i,
+  'el-GR': /^[0-9Α-ω]+$/i,
+  'es-ES': /^[0-9A-ZÁÉÍÑÓÚÜ]+$/i,
+  'fr-FR': /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
+  'it-IT': /^[0-9A-ZÀÉÈÌÎÓÒÙ]+$/i,
+  'hu-HU': /^[0-9A-ZÁÉÍÓÖŐÚÜŰ]+$/i,
+  'nb-NO': /^[0-9A-ZÆØÅ]+$/i,
+  'nl-NL': /^[0-9A-ZÁÉËÏÓÖÜÚ]+$/i,
+  'nn-NO': /^[0-9A-ZÆØÅ]+$/i,
+  'pl-PL': /^[0-9A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
+  'pt-PT': /^[0-9A-ZÃÁÀÂÄÇÉÊËÍÏÕÓÔÖÚÜ]+$/i,
+  'ru-RU': /^[0-9А-ЯЁ]+$/i,
+  'sl-SI': /^[0-9A-ZČĆĐŠŽ]+$/i,
+  'sk-SK': /^[0-9A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
+  'sr-RS@latin': /^[0-9A-ZČĆŽŠĐ]+$/i,
+  'sr-RS': /^[0-9А-ЯЂЈЉЊЋЏ]+$/i,
+  'sv-SE': /^[0-9A-ZÅÄÖ]+$/i,
+  'tr-TR': /^[0-9A-ZÇĞİıÖŞÜ]+$/i,
+  'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
+  'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
+  ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
+  he: /^[0-9א-ת]+$/,
+  'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
+};
+var decimal = {
+  'en-US': '.',
+  ar: '٫'
+};
+var englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
+
+for (var locale, i = 0; i < englishLocales.length; i++) {
+  locale = "en-".concat(englishLocales[i]);
+  alpha[locale] = alpha['en-US'];
+  alphanumeric[locale] = alphanumeric['en-US'];
+  decimal[locale] = decimal['en-US'];
+} // Source: http://www.localeplanet.com/java/
+
+
+var arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
+
+for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
+  _locale = "ar-".concat(arabicLocales[_i]);
+  alpha[_locale] = alpha.ar;
+  alphanumeric[_locale] = alphanumeric.ar;
+  decimal[_locale] = decimal.ar;
+} // Source: https://en.wikipedia.org/wiki/Decimal_mark
+
+
+var dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
+var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+
+for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
+  decimal[dotDecimal[_i2]] = decimal['en-US'];
+}
+
+for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
+  decimal[commaDecimal[_i3]] = ',';
+}
+
+alpha['pt-BR'] = alpha['pt-PT'];
+alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
+decimal['pt-BR'] = decimal['pt-PT']; // see #862
+
+alpha['pl-Pl'] = alpha['pl-PL'];
+alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
+decimal['pl-Pl'] = decimal['pl-PL'];
+
+function isFloat(str, options) {
   assertString(str);
+  options = options || {};
+
+  var _float = new RegExp("^(?:[-+])?(?:[0-9]+)?(?:\\".concat(options.locale ? decimal[options.locale] : '.', "[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$"));
+
+  if (str === '' || str === '.' || str === '-' || str === '+') {
+    return false;
+  }
+
+  var value = parseFloat(str.replace(',', '.'));
+  return _float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
+}
+var locales = Object.keys(decimal);
+
+function toFloat(str) {
+  if (!isFloat(str)) return NaN;
   return parseFloat(str);
 }
 
@@ -120,10 +313,10 @@ function toBoolean(str, strict) {
   assertString(str);
 
   if (strict) {
-    return str === '1' || str === 'true';
+    return str === '1' || /^true$/i.test(str);
   }
 
-  return str !== '0' && str !== 'false' && str !== '';
+  return str !== '0' && !/^false$/i.test(str) && str !== '';
 }
 
 function equals(str, comparison) {
@@ -220,10 +413,10 @@ function isFQDN(str, options) {
 
     if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
       return false;
-    } // disallow spaces
+    } // disallow spaces && special characers
 
 
-    if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20]/.test(tld)) {
+    if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20\u00A9\uFFFD]/.test(tld)) {
       return false;
     }
   }
@@ -252,7 +445,37 @@ function isFQDN(str, options) {
   return true;
 }
 
-var ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+/**
+11.3.  Examples
+
+   The following addresses
+
+             fe80::1234 (on the 1st link of the node)
+             ff02::5678 (on the 5th link of the node)
+             ff08::9abc (on the 10th organization of the node)
+
+   would be represented as follows:
+
+             fe80::1234%1
+             ff02::5678%5
+             ff08::9abc%10
+
+   (Here we assume a natural translation from a zone index to the
+   <zone_id> part, where the Nth zone of any scope is translated into
+   "N".)
+
+   If we use interface names as <zone_id>, those addresses could also be
+   represented as follows:
+
+            fe80::1234%ne0
+            ff02::5678%pvc1.3
+            ff08::9abc%interface10
+
+   where the interface "ne0" belongs to the 1st link, "pvc1.3" belongs
+   to the 5th link, and "interface10" belongs to the 10th organization.
+ * * */
+
+var ipv4Maybe = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
 var ipv6Block = /^[0-9A-F]{1,4}$/i;
 function isIP(str) {
   var version = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -271,7 +494,29 @@ function isIP(str) {
     });
     return parts[3] <= 255;
   } else if (version === '6') {
-    var blocks = str.split(':');
+    var addressAndZone = [str]; // ipv6 addresses could have scoped architecture
+    // according to https://tools.ietf.org/html/rfc4007#section-11
+
+    if (str.includes('%')) {
+      addressAndZone = str.split('%');
+
+      if (addressAndZone.length !== 2) {
+        // it must be just two parts
+        return false;
+      }
+
+      if (!addressAndZone[0].includes(':')) {
+        // the first part must be the address
+        return false;
+      }
+
+      if (addressAndZone[1] === '') {
+        // the second part must not be empty
+        return false;
+      }
+    }
+
+    var blocks = addressAndZone[0].split(':');
     var foundOmissionBlock = false; // marker to indicate ::
     // At least some OS accept the last 32 bits of an IPv6 address
     // (i.e. 2 of the blocks) in IPv4 notation, and RFC 3493 says
@@ -492,6 +737,17 @@ function isEmail(str, options) {
   return true;
 }
 
+/*
+options for isURL method
+
+require_protocol - if set as true isURL will return false if protocol is not present in the URL
+require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option
+protocols - valid protocols can be modified with this option
+require_host - if set as false isURL will not check if host is present in the URL
+allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
+
+*/
+
 var default_url_options = {
   protocols: ['http', 'https', 'ftp'],
   require_tld: true,
@@ -629,6 +885,7 @@ var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 var macAddressNoColons = /^([0-9a-fA-F]){12}$/;
 var macAddressWithHyphen = /^([0-9a-fA-F][0-9a-fA-F]-){5}([0-9a-fA-F][0-9a-fA-F])$/;
 var macAddressWithSpaces = /^([0-9a-fA-F][0-9a-fA-F]\s){5}([0-9a-fA-F][0-9a-fA-F])$/;
+var macAddressWithDots = /^([0-9a-fA-F]{4}).([0-9a-fA-F]{4}).([0-9a-fA-F]{4})$/;
 function isMACAddress(str, options) {
   assertString(str);
 
@@ -636,7 +893,7 @@ function isMACAddress(str, options) {
     return macAddressNoColons.test(str);
   }
 
-  return macAddress.test(str) || macAddressWithHyphen.test(str) || macAddressWithSpaces.test(str);
+  return macAddress.test(str) || macAddressWithHyphen.test(str) || macAddressWithSpaces.test(str) || macAddressWithDots.test(str);
 }
 
 var subnetMaybe = /^\d{1,2}$/;
@@ -660,109 +917,71 @@ function isIPRange(str) {
   return isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0;
 }
 
+function isValidFormat(format) {
+  return /(^(y{4}|y{2})[\/-](m{1,2})[\/-](d{1,2})$)|(^(m{1,2})[\/-](d{1,2})[\/-]((y{4}|y{2})$))|(^(d{1,2})[\/-](m{1,2})[\/-]((y{4}|y{2})$))/gi.test(format);
+}
+
+function zip(date, format) {
+  var zippedArr = [],
+      len = Math.min(date.length, format.length);
+
+  for (var i = 0; i < len; i++) {
+    zippedArr.push([date[i], format[i]]);
+  }
+
+  return zippedArr;
+}
+
+function isDate(input) {
+  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY/MM/DD';
+
+  if (typeof input === 'string' && isValidFormat(format)) {
+    var splitter = /[-/]/,
+        dateAndFormat = zip(input.split(splitter), format.toLowerCase().split(splitter)),
+        dateObj = {};
+
+    var _iterator = _createForOfIteratorHelper(dateAndFormat),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _step$value = _slicedToArray(_step.value, 2),
+            dateWord = _step$value[0],
+            formatWord = _step$value[1];
+
+        if (dateWord.length !== formatWord.length) {
+          return false;
+        }
+
+        dateObj[formatWord.charAt(0)] = dateWord;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return new Date("".concat(dateObj.m, "/").concat(dateObj.d, "/").concat(dateObj.y)).getDate() === +dateObj.d;
+  }
+
+  return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
+}
+
 function isBoolean(str) {
   assertString(str);
   return ['true', 'false', '1', '0'].indexOf(str) >= 0;
 }
 
-var alpha = {
-  'en-US': /^[A-Z]+$/i,
-  'bg-BG': /^[А-Я]+$/i,
-  'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
-  'da-DK': /^[A-ZÆØÅ]+$/i,
-  'de-DE': /^[A-ZÄÖÜß]+$/i,
-  'el-GR': /^[Α-ω]+$/i,
-  'es-ES': /^[A-ZÁÉÍÑÓÚÜ]+$/i,
-  'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
-  'it-IT': /^[A-ZÀÉÈÌÎÓÒÙ]+$/i,
-  'nb-NO': /^[A-ZÆØÅ]+$/i,
-  'nl-NL': /^[A-ZÁÉËÏÓÖÜÚ]+$/i,
-  'nn-NO': /^[A-ZÆØÅ]+$/i,
-  'hu-HU': /^[A-ZÁÉÍÓÖŐÚÜŰ]+$/i,
-  'pl-PL': /^[A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
-  'pt-PT': /^[A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]+$/i,
-  'ru-RU': /^[А-ЯЁ]+$/i,
-  'sl-SI': /^[A-ZČĆĐŠŽ]+$/i,
-  'sk-SK': /^[A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
-  'sr-RS@latin': /^[A-ZČĆŽŠĐ]+$/i,
-  'sr-RS': /^[А-ЯЂЈЉЊЋЏ]+$/i,
-  'sv-SE': /^[A-ZÅÄÖ]+$/i,
-  'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
-  'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
-  'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
-  ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
-  'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
-};
-var alphanumeric = {
-  'en-US': /^[0-9A-Z]+$/i,
-  'bg-BG': /^[0-9А-Я]+$/i,
-  'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
-  'da-DK': /^[0-9A-ZÆØÅ]+$/i,
-  'de-DE': /^[0-9A-ZÄÖÜß]+$/i,
-  'el-GR': /^[0-9Α-ω]+$/i,
-  'es-ES': /^[0-9A-ZÁÉÍÑÓÚÜ]+$/i,
-  'fr-FR': /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
-  'it-IT': /^[0-9A-ZÀÉÈÌÎÓÒÙ]+$/i,
-  'hu-HU': /^[0-9A-ZÁÉÍÓÖŐÚÜŰ]+$/i,
-  'nb-NO': /^[0-9A-ZÆØÅ]+$/i,
-  'nl-NL': /^[0-9A-ZÁÉËÏÓÖÜÚ]+$/i,
-  'nn-NO': /^[0-9A-ZÆØÅ]+$/i,
-  'pl-PL': /^[0-9A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
-  'pt-PT': /^[0-9A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]+$/i,
-  'ru-RU': /^[0-9А-ЯЁ]+$/i,
-  'sl-SI': /^[0-9A-ZČĆĐŠŽ]+$/i,
-  'sk-SK': /^[0-9A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
-  'sr-RS@latin': /^[0-9A-ZČĆŽŠĐ]+$/i,
-  'sr-RS': /^[0-9А-ЯЂЈЉЊЋЏ]+$/i,
-  'sv-SE': /^[0-9A-ZÅÄÖ]+$/i,
-  'tr-TR': /^[0-9A-ZÇĞİıÖŞÜ]+$/i,
-  'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
-  'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
-  ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
-  'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
-};
-var decimal = {
-  'en-US': '.',
-  ar: '٫'
-};
-var englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
+var localeReg = /^[A-z]{2,4}([_-]([A-z]{4}|[\d]{3}))?([_-]([A-z]{2}|[\d]{3}))?$/;
+function isLocale(str) {
+  assertString(str);
 
-for (var locale, i = 0; i < englishLocales.length; i++) {
-  locale = "en-".concat(englishLocales[i]);
-  alpha[locale] = alpha['en-US'];
-  alphanumeric[locale] = alphanumeric['en-US'];
-  decimal[locale] = decimal['en-US'];
-} // Source: http://www.localeplanet.com/java/
+  if (str === 'en_US_POSIX' || str === 'ca_ES_VALENCIA') {
+    return true;
+  }
 
-
-var arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
-
-for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
-  _locale = "ar-".concat(arabicLocales[_i]);
-  alpha[_locale] = alpha.ar;
-  alphanumeric[_locale] = alphanumeric.ar;
-  decimal[_locale] = decimal.ar;
-} // Source: https://en.wikipedia.org/wiki/Decimal_mark
-
-
-var dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
-var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
-
-for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
-  decimal[dotDecimal[_i2]] = decimal['en-US'];
+  return localeReg.test(str);
 }
-
-for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
-  decimal[commaDecimal[_i3]] = ',';
-}
-
-alpha['pt-BR'] = alpha['pt-PT'];
-alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
-decimal['pt-BR'] = decimal['pt-PT']; // see #862
-
-alpha['pl-Pl'] = alpha['pl-PL'];
-alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
-decimal['pl-Pl'] = decimal['pl-PL'];
 
 function isAlpha(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
@@ -774,7 +993,7 @@ function isAlpha(str) {
 
   throw new Error("Invalid locale '".concat(locale, "'"));
 }
-var locales = Object.keys(alpha);
+var locales$1 = Object.keys(alpha);
 
 function isAlphanumeric(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
@@ -786,7 +1005,7 @@ function isAlphanumeric(str) {
 
   throw new Error("Invalid locale '".concat(locale, "'"));
 }
-var locales$1 = Object.keys(alphanumeric);
+var locales$2 = Object.keys(alphanumeric);
 
 var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
 var numericNoSymbols = /^[0-9]+$/;
@@ -798,6 +1017,116 @@ function isNumeric(str, options) {
   }
 
   return numeric.test(str);
+}
+
+/**
+ * Reference:
+ * https://en.wikipedia.org/ -- Wikipedia
+ * https://docs.microsoft.com/en-us/microsoft-365/compliance/eu-passport-number -- EU Passport Number
+ * https://countrycode.org/ -- Country Codes
+ */
+
+var passportRegexByCountryCode = {
+  AM: /^[A-Z]{2}\d{7}$/,
+  // ARMENIA
+  AR: /^[A-Z]{3}\d{6}$/,
+  // ARGENTINA
+  AT: /^[A-Z]\d{7}$/,
+  // AUSTRIA
+  AU: /^[A-Z]\d{7}$/,
+  // AUSTRALIA
+  BE: /^[A-Z]{2}\d{6}$/,
+  // BELGIUM
+  BG: /^\d{9}$/,
+  // BULGARIA
+  CA: /^[A-Z]{2}\d{6}$/,
+  // CANADA
+  CH: /^[A-Z]\d{7}$/,
+  // SWITZERLAND
+  CN: /^[GE]\d{8}$/,
+  // CHINA [G=Ordinary, E=Electronic] followed by 8-digits
+  CY: /^[A-Z](\d{6}|\d{8})$/,
+  // CYPRUS
+  CZ: /^\d{8}$/,
+  // CZECH REPUBLIC
+  DE: /^[CFGHJKLMNPRTVWXYZ0-9]{9}$/,
+  // GERMANY
+  DK: /^\d{9}$/,
+  // DENMARK
+  DZ: /^\d{9}$/,
+  // ALGERIA
+  EE: /^([A-Z]\d{7}|[A-Z]{2}\d{7})$/,
+  // ESTONIA (K followed by 7-digits), e-passports have 2 UPPERCASE followed by 7 digits
+  ES: /^[A-Z0-9]{2}([A-Z0-9]?)\d{6}$/,
+  // SPAIN
+  FI: /^[A-Z]{2}\d{7}$/,
+  // FINLAND
+  FR: /^\d{2}[A-Z]{2}\d{5}$/,
+  // FRANCE
+  GB: /^\d{9}$/,
+  // UNITED KINGDOM
+  GR: /^[A-Z]{2}\d{7}$/,
+  // GREECE
+  HR: /^\d{9}$/,
+  // CROATIA
+  HU: /^[A-Z]{2}(\d{6}|\d{7})$/,
+  // HUNGARY
+  IE: /^[A-Z0-9]{2}\d{7}$/,
+  // IRELAND
+  IN: /^[A-Z]{1}-?\d{7}$/,
+  // INDIA
+  IS: /^(A)\d{7}$/,
+  // ICELAND
+  IT: /^[A-Z0-9]{2}\d{7}$/,
+  // ITALY
+  JP: /^[A-Z]{2}\d{7}$/,
+  // JAPAN
+  KR: /^[MS]\d{8}$/,
+  // SOUTH KOREA, REPUBLIC OF KOREA, [S=PS Passports, M=PM Passports]
+  LT: /^[A-Z0-9]{8}$/,
+  // LITHUANIA
+  LU: /^[A-Z0-9]{8}$/,
+  // LUXEMBURG
+  LV: /^[A-Z0-9]{2}\d{7}$/,
+  // LATVIA
+  MT: /^\d{7}$/,
+  // MALTA
+  NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/,
+  // NETHERLANDS
+  PO: /^[A-Z]{2}\d{7}$/,
+  // POLAND
+  PT: /^[A-Z]\d{6}$/,
+  // PORTUGAL
+  RO: /^\d{8,9}$/,
+  // ROMANIA
+  SE: /^\d{8}$/,
+  // SWEDEN
+  SL: /^(P)[A-Z]\d{7}$/,
+  // SLOVANIA
+  SK: /^[0-9A-Z]\d{7}$/,
+  // SLOVAKIA
+  TR: /^[A-Z]\d{8}$/,
+  // TURKEY
+  UA: /^[A-Z]{2}\d{6}$/,
+  // UKRAINE
+  US: /^\d{9}$/ // UNITED STATES
+
+};
+/**
+ * Check if str is a valid passport number
+ * relative to provided ISO Country Code.
+ *
+ * @param {string} str
+ * @param {string} countryCode
+ * @return {boolean}
+ */
+
+function isPassportNumber(str, countryCode) {
+  assertString(str);
+  /** Remove All Whitespaces, Convert to UPPERCASE */
+
+  var normalizedStr = str.replace(/\s/g, '').toUpperCase();
+  return countryCode.toUpperCase() in passportRegexByCountryCode && passportRegexByCountryCode[countryCode].test(normalizedStr);
 }
 
 var _int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
@@ -870,26 +1199,38 @@ function isMultibyte(str) {
   return multibyte.test(str);
 }
 
+/**
+ * Build RegExp object from an array
+ * of multiple/multi-line regexp parts
+ *
+ * @param {string[]} parts
+ * @param {string} flags
+ * @return {object} - RegExp object
+ */
+function multilineRegexp(parts) {
+  var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var regexpAsStringLiteral = parts.join('');
+  return new RegExp(regexpAsStringLiteral, flags);
+}
+
+/**
+ * Regular Expression to match
+ * semantic versioning (SemVer)
+ * built from multi-line, multi-parts regexp
+ * Reference: https://semver.org/
+ */
+
+var semanticVersioningRegex = multilineRegexp(['^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)', '(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))', '?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$']);
+function isSemVer(str) {
+  assertString(str);
+  return semanticVersioningRegex.test(str);
+}
+
 var surrogatePair = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
 function isSurrogatePair(str) {
   assertString(str);
   return surrogatePair.test(str);
 }
-
-function isFloat(str, options) {
-  assertString(str);
-  options = options || {};
-
-  var _float = new RegExp("^(?:[-+])?(?:[0-9]+)?(?:\\".concat(options.locale ? decimal[options.locale] : '.', "[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$"));
-
-  if (str === '' || str === '.' || str === '-' || str === '+') {
-    return false;
-  }
-
-  var value = parseFloat(str.replace(',', '.'));
-  return _float.test(str) && (!options.hasOwnProperty('min') || value >= options.min) && (!options.hasOwnProperty('max') || value <= options.max) && (!options.hasOwnProperty('lt') || value < options.lt) && (!options.hasOwnProperty('gt') || value > options.gt);
-}
-var locales$2 = Object.keys(decimal);
 
 var includes = function includes(arr, val) {
   return arr.some(function (arrVal) {
@@ -919,10 +1260,16 @@ function isDecimal(str, options) {
   throw new Error("Invalid locale '".concat(options.locale, "'"));
 }
 
-var hexadecimal = /^[0-9A-F]+$/i;
+var hexadecimal = /^(0x|0h)?[0-9A-F]+$/i;
 function isHexadecimal(str) {
   assertString(str);
   return hexadecimal.test(str);
+}
+
+var octal = /^(0o)?[0-7]+$/i;
+function isOctal(str) {
+  assertString(str);
+  return octal.test(str);
 }
 
 function isDivisibleBy(str, num) {
@@ -930,16 +1277,172 @@ function isDivisibleBy(str, num) {
   return toFloat(str) % parseInt(num, 10) === 0;
 }
 
-var hexcolor = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
+var hexcolor = /^#?([0-9A-F]{3}|[0-9A-F]{4}|[0-9A-F]{6}|[0-9A-F]{8})$/i;
 function isHexColor(str) {
   assertString(str);
   return hexcolor.test(str);
+}
+
+var rgbColor = /^rgb\((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]),){2}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\)$/;
+var rgbaColor = /^rgba\((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]),){3}(0?\.\d|1(\.0)?|0(\.0)?)\)$/;
+var rgbColorPercent = /^rgb\((([0-9]%|[1-9][0-9]%|100%),){2}([0-9]%|[1-9][0-9]%|100%)\)/;
+var rgbaColorPercent = /^rgba\((([0-9]%|[1-9][0-9]%|100%),){3}(0?\.\d|1(\.0)?|0(\.0)?)\)/;
+function isRgbColor(str) {
+  var includePercentValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  assertString(str);
+
+  if (!includePercentValues) {
+    return rgbColor.test(str) || rgbaColor.test(str);
+  }
+
+  return rgbColor.test(str) || rgbaColor.test(str) || rgbColorPercent.test(str) || rgbaColorPercent.test(str);
+}
+
+var hslcomma = /^(hsl)a?\(\s*((\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?))(deg|grad|rad|turn|\s*)(\s*,\s*(\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?)%){2}\s*(,\s*((\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?)%?)\s*)?\)$/i;
+var hslspace = /^(hsl)a?\(\s*((\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?))(deg|grad|rad|turn|\s)(\s*(\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?)%){2}\s*(\/\s*((\+|\-)?([0-9]+(\.[0-9]+)?(e(\+|\-)?[0-9]+)?|\.[0-9]+(e(\+|\-)?[0-9]+)?)%?)\s*)?\)$/i;
+function isHSL(str) {
+  assertString(str);
+  return hslcomma.test(str) || hslspace.test(str);
 }
 
 var isrc = /^[A-Z]{2}[0-9A-Z]{3}\d{2}\d{5}$/;
 function isISRC(str) {
   assertString(str);
   return isrc.test(str);
+}
+
+/**
+ * List of country codes with
+ * corresponding IBAN regular expression
+ * Reference: https://en.wikipedia.org/wiki/International_Bank_Account_Number
+ */
+
+var ibanRegexThroughCountryCode = {
+  AD: /^(AD[0-9]{2})\d{8}[A-Z0-9]{12}$/,
+  AE: /^(AE[0-9]{2})\d{3}\d{16}$/,
+  AL: /^(AL[0-9]{2})\d{8}[A-Z0-9]{16}$/,
+  AT: /^(AT[0-9]{2})\d{16}$/,
+  AZ: /^(AZ[0-9]{2})[A-Z0-9]{4}\d{20}$/,
+  BA: /^(BA[0-9]{2})\d{16}$/,
+  BE: /^(BE[0-9]{2})\d{12}$/,
+  BG: /^(BG[0-9]{2})[A-Z]{4}\d{6}[A-Z0-9]{8}$/,
+  BH: /^(BH[0-9]{2})[A-Z]{4}[A-Z0-9]{14}$/,
+  BR: /^(BR[0-9]{2})\d{23}[A-Z]{1}[A-Z0-9]{1}$/,
+  BY: /^(BY[0-9]{2})[A-Z0-9]{4}\d{20}$/,
+  CH: /^(CH[0-9]{2})\d{5}[A-Z0-9]{12}$/,
+  CR: /^(CR[0-9]{2})\d{18}$/,
+  CY: /^(CY[0-9]{2})\d{8}[A-Z0-9]{16}$/,
+  CZ: /^(CZ[0-9]{2})\d{20}$/,
+  DE: /^(DE[0-9]{2})\d{18}$/,
+  DK: /^(DK[0-9]{2})\d{14}$/,
+  DO: /^(DO[0-9]{2})[A-Z]{4}\d{20}$/,
+  EE: /^(EE[0-9]{2})\d{16}$/,
+  ES: /^(ES[0-9]{2})\d{20}$/,
+  FI: /^(FI[0-9]{2})\d{14}$/,
+  FO: /^(FO[0-9]{2})\d{14}$/,
+  FR: /^(FR[0-9]{2})\d{10}[A-Z0-9]{11}\d{2}$/,
+  GB: /^(GB[0-9]{2})[A-Z]{4}\d{14}$/,
+  GE: /^(GE[0-9]{2})[A-Z0-9]{2}\d{16}$/,
+  GI: /^(GI[0-9]{2})[A-Z]{4}[A-Z0-9]{15}$/,
+  GL: /^(GL[0-9]{2})\d{14}$/,
+  GR: /^(GR[0-9]{2})\d{7}[A-Z0-9]{16}$/,
+  GT: /^(GT[0-9]{2})[A-Z0-9]{4}[A-Z0-9]{20}$/,
+  HR: /^(HR[0-9]{2})\d{17}$/,
+  HU: /^(HU[0-9]{2})\d{24}$/,
+  IE: /^(IE[0-9]{2})[A-Z0-9]{4}\d{14}$/,
+  IL: /^(IL[0-9]{2})\d{19}$/,
+  IQ: /^(IQ[0-9]{2})[A-Z]{4}\d{15}$/,
+  IR: /^(IR[0-9]{2})0\d{2}0\d{18}$/,
+  IS: /^(IS[0-9]{2})\d{22}$/,
+  IT: /^(IT[0-9]{2})[A-Z]{1}\d{10}[A-Z0-9]{12}$/,
+  JO: /^(JO[0-9]{2})[A-Z]{4}\d{22}$/,
+  KW: /^(KW[0-9]{2})[A-Z]{4}[A-Z0-9]{22}$/,
+  KZ: /^(KZ[0-9]{2})\d{3}[A-Z0-9]{13}$/,
+  LB: /^(LB[0-9]{2})\d{4}[A-Z0-9]{20}$/,
+  LC: /^(LC[0-9]{2})[A-Z]{4}[A-Z0-9]{24}$/,
+  LI: /^(LI[0-9]{2})\d{5}[A-Z0-9]{12}$/,
+  LT: /^(LT[0-9]{2})\d{16}$/,
+  LU: /^(LU[0-9]{2})\d{3}[A-Z0-9]{13}$/,
+  LV: /^(LV[0-9]{2})[A-Z]{4}[A-Z0-9]{13}$/,
+  MC: /^(MC[0-9]{2})\d{10}[A-Z0-9]{11}\d{2}$/,
+  MD: /^(MD[0-9]{2})[A-Z0-9]{20}$/,
+  ME: /^(ME[0-9]{2})\d{18}$/,
+  MK: /^(MK[0-9]{2})\d{3}[A-Z0-9]{10}\d{2}$/,
+  MR: /^(MR[0-9]{2})\d{23}$/,
+  MT: /^(MT[0-9]{2})[A-Z]{4}\d{5}[A-Z0-9]{18}$/,
+  MU: /^(MU[0-9]{2})[A-Z]{4}\d{19}[A-Z]{3}$/,
+  NL: /^(NL[0-9]{2})[A-Z]{4}\d{10}$/,
+  NO: /^(NO[0-9]{2})\d{11}$/,
+  PK: /^(PK[0-9]{2})[A-Z0-9]{4}\d{16}$/,
+  PL: /^(PL[0-9]{2})\d{24}$/,
+  PS: /^(PS[0-9]{2})[A-Z0-9]{4}\d{21}$/,
+  PT: /^(PT[0-9]{2})\d{21}$/,
+  QA: /^(QA[0-9]{2})[A-Z]{4}[A-Z0-9]{21}$/,
+  RO: /^(RO[0-9]{2})[A-Z]{4}[A-Z0-9]{16}$/,
+  RS: /^(RS[0-9]{2})\d{18}$/,
+  SA: /^(SA[0-9]{2})\d{2}[A-Z0-9]{18}$/,
+  SC: /^(SC[0-9]{2})[A-Z]{4}\d{20}[A-Z]{3}$/,
+  SE: /^(SE[0-9]{2})\d{20}$/,
+  SI: /^(SI[0-9]{2})\d{15}$/,
+  SK: /^(SK[0-9]{2})\d{20}$/,
+  SM: /^(SM[0-9]{2})[A-Z]{1}\d{10}[A-Z0-9]{12}$/,
+  TL: /^(TL[0-9]{2})\d{19}$/,
+  TN: /^(TN[0-9]{2})\d{20}$/,
+  TR: /^(TR[0-9]{2})\d{5}[A-Z0-9]{17}$/,
+  UA: /^(UA[0-9]{2})\d{6}[A-Z0-9]{19}$/,
+  VA: /^(VA[0-9]{2})\d{18}$/,
+  VG: /^(VG[0-9]{2})[A-Z0-9]{4}\d{16}$/,
+  XK: /^(XK[0-9]{2})\d{16}$/
+};
+/**
+ * Check whether string has correct universal IBAN format
+ * The IBAN consists of up to 34 alphanumeric characters, as follows:
+ * Country Code using ISO 3166-1 alpha-2, two letters
+ * check digits, two digits and
+ * Basic Bank Account Number (BBAN), up to 30 alphanumeric characters.
+ * NOTE: Permitted IBAN characters are: digits [0-9] and the 26 latin alphabetic [A-Z]
+ *
+ * @param {string} str - string under validation
+ * @return {boolean}
+ */
+
+function hasValidIbanFormat(str) {
+  // Strip white spaces and hyphens
+  var strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
+  var isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
+  return isoCountryCode in ibanRegexThroughCountryCode && ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
+}
+/**
+   * Check whether string has valid IBAN Checksum
+   * by performing basic mod-97 operation and
+   * the remainder should equal 1
+   * -- Start by rearranging the IBAN by moving the four initial characters to the end of the string
+   * -- Replace each letter in the string with two digits, A -> 10, B = 11, Z = 35
+   * -- Interpret the string as a decimal integer and
+   * -- compute the remainder on division by 97 (mod 97)
+   * Reference: https://en.wikipedia.org/wiki/International_Bank_Account_Number
+   *
+   * @param {string} str
+   * @return {boolean}
+   */
+
+
+function hasValidIbanChecksum(str) {
+  var strippedStr = str.replace(/[^A-Z0-9]+/gi, '').toUpperCase(); // Keep only digits and A-Z latin alphabetic
+
+  var rearranged = strippedStr.slice(4) + strippedStr.slice(0, 4);
+  var alphaCapsReplacedWithDigits = rearranged.replace(/[A-Z]/g, function (_char) {
+    return _char.charCodeAt(0) - 55;
+  });
+  var remainder = alphaCapsReplacedWithDigits.match(/\d{1,7}/g).reduce(function (acc, value) {
+    return Number(acc + value) % 97;
+  }, '');
+  return remainder === 1;
+}
+
+function isIBAN(str) {
+  assertString(str);
+  return hasValidIbanFormat(str) && hasValidIbanChecksum(str);
 }
 
 var isBICReg = /^[A-z]{4}[A-z]{2}\w{2}(\w{3})?$/;
@@ -975,18 +1478,60 @@ function isHash(str, algorithm) {
   return hash.test(str);
 }
 
-var jwt = /^([A-Za-z0-9\-_~+\/]+[=]{0,2})\.([A-Za-z0-9\-_~+\/]+[=]{0,2})(?:\.([A-Za-z0-9\-_~+\/]+[=]{0,2}))?$/;
-function isJWT(str) {
+var notBase64 = /[^A-Z0-9+\/=]/i;
+var urlSafeBase64 = /^[A-Z0-9_\-]+$/i;
+var defaultBase64Options = {
+  urlSafe: false
+};
+function isBase64(str, options) {
   assertString(str);
-  return jwt.test(str);
+  options = merge(options, defaultBase64Options);
+  var len = str.length;
+
+  if (options.urlSafe) {
+    return urlSafeBase64.test(str);
+  }
+
+  if (!len || len % 4 !== 0 || notBase64.test(str)) {
+    return false;
+  }
+
+  var firstPaddingChar = str.indexOf('=');
+  return firstPaddingChar === -1 || firstPaddingChar === len - 1 || firstPaddingChar === len - 2 && str[len - 1] === '=';
 }
 
-function isJSON(str) {
+function isJWT(str) {
+  assertString(str);
+  var dotSplit = str.split('.');
+  var len = dotSplit.length;
+
+  if (len > 3 || len < 2) {
+    return false;
+  }
+
+  return dotSplit.reduce(function (acc, currElem) {
+    return acc && isBase64(currElem, {
+      urlSafe: true
+    });
+  }, true);
+}
+
+var default_json_options = {
+  allow_primitives: false
+};
+function isJSON(str, options) {
   assertString(str);
 
   try {
+    options = merge(options, default_json_options);
+    var primitives = [];
+
+    if (options.allow_primitives) {
+      primitives = [null, false, true];
+    }
+
     var obj = JSON.parse(str);
-    return !!obj && _typeof(obj) === 'object';
+    return primitives.includes(obj) || !!obj && _typeof(obj) === 'object';
   } catch (e) {
     /* ignore */
   }
@@ -1085,7 +1630,7 @@ function isIn(str, options) {
 
 /* eslint-disable max-len */
 
-var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|6[27][0-9]{14})$/;
+var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3,6})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12,15}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|6[27][0-9]{14})$/;
 /* eslint-enable max-len */
 
 function isCreditCard(str) {
@@ -1146,6 +1691,43 @@ var validators = {
     });
     return sanitized.endsWith(controlDigits[number % 23]);
   },
+  IN: function IN(str) {
+    var DNI = /^[1-9]\d{3}\s?\d{4}\s?\d{4}$/; // multiplication table
+
+    var d = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 0, 6, 7, 8, 9, 5], [2, 3, 4, 0, 1, 7, 8, 9, 5, 6], [3, 4, 0, 1, 2, 8, 9, 5, 6, 7], [4, 0, 1, 2, 3, 9, 5, 6, 7, 8], [5, 9, 8, 7, 6, 0, 4, 3, 2, 1], [6, 5, 9, 8, 7, 1, 0, 4, 3, 2], [7, 6, 5, 9, 8, 2, 1, 0, 4, 3], [8, 7, 6, 5, 9, 3, 2, 1, 0, 4], [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]]; // permutation table
+
+    var p = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 5, 7, 6, 2, 8, 3, 0, 9, 4], [5, 8, 0, 3, 7, 9, 6, 1, 4, 2], [8, 9, 1, 6, 0, 4, 3, 5, 2, 7], [9, 4, 5, 3, 1, 2, 6, 8, 7, 0], [4, 2, 8, 6, 5, 7, 3, 9, 0, 1], [2, 7, 9, 3, 8, 0, 6, 4, 1, 5], [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]]; // sanitize user input
+
+    var sanitized = str.trim(); // validate the data structure
+
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+
+    var c = 0;
+    var invertedArray = sanitized.replace(/\s/g, '').split('').map(Number).reverse();
+    invertedArray.forEach(function (val, i) {
+      c = d[c][p[i % 8][val]];
+    });
+    return c === 0;
+  },
+  NO: function NO(str) {
+    var sanitized = str.trim();
+    if (isNaN(Number(sanitized))) return false;
+    if (sanitized.length !== 11) return false;
+    if (sanitized === '00000000000') return false; // https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
+
+    var f = sanitized.split('').map(Number);
+    var k1 = (11 - (3 * f[0] + 7 * f[1] + 6 * f[2] + 1 * f[3] + 8 * f[4] + 9 * f[5] + 4 * f[6] + 5 * f[7] + 2 * f[8]) % 11) % 11;
+    var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11;
+
+    if (k1 === 11) {
+      k1 = 0;
+    }
+
+    if (k1 !== f[9] || k2 !== f[10]) return false;
+    return true;
+  },
   'he-IL': function heIL(str) {
     var DNI = /^\d{9}$/; // sanitize user input
 
@@ -1166,6 +1748,138 @@ var validators = {
     }
 
     return sum % 10 === 0;
+  },
+  'ar-TN': function arTN(str) {
+    var DNI = /^\d{8}$/; // sanitize user input
+
+    var sanitized = str.trim(); // validate the data structure
+
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+
+    return true;
+  },
+  'zh-CN': function zhCN(str) {
+    var provinceAndCitys = {
+      11: '北京',
+      12: '天津',
+      13: '河北',
+      14: '山西',
+      15: '内蒙古',
+      21: '辽宁',
+      22: '吉林',
+      23: '黑龙江',
+      31: '上海',
+      32: '江苏',
+      33: '浙江',
+      34: '安徽',
+      35: '福建',
+      36: '江西',
+      37: '山东',
+      41: '河南',
+      42: '湖北',
+      43: '湖南',
+      44: '广东',
+      45: '广西',
+      46: '海南',
+      50: '重庆',
+      51: '四川',
+      52: '贵州',
+      53: '云南',
+      54: '西藏',
+      61: '陕西',
+      62: '甘肃',
+      63: '青海',
+      64: '宁夏',
+      65: '新疆',
+      71: '台湾',
+      81: '香港',
+      82: '澳门',
+      91: '国外'
+    };
+    var powers = ['7', '9', '10', '5', '8', '4', '2', '1', '6', '3', '7', '9', '10', '5', '8', '4', '2'];
+    var parityBit = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+
+    var checkAddressCode = function checkAddressCode(addressCode) {
+      var check = /^[1-9]\d{5}$/.test(addressCode);
+      if (!check) return false; // eslint-disable-next-line radix
+
+      return !!provinceAndCitys[Number.parseInt(addressCode.substring(0, 2))];
+    };
+
+    var checkBirthDayCode = function checkBirthDayCode(birDayCode) {
+      var check = /^[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))$/.test(birDayCode);
+      if (!check) return false;
+      var yyyy = parseInt(birDayCode.substring(0, 4), 10);
+      var mm = parseInt(birDayCode.substring(4, 6), 10);
+      var dd = parseInt(birDayCode.substring(6), 10);
+      var xdata = new Date(yyyy, mm - 1, dd);
+
+      if (xdata > new Date()) {
+        return false; // eslint-disable-next-line max-len
+      } else if (xdata.getFullYear() === yyyy && xdata.getMonth() === mm - 1 && xdata.getDate() === dd) {
+        return true;
+      }
+
+      return false;
+    };
+
+    var getParityBit = function getParityBit(idCardNo) {
+      var id17 = idCardNo.substring(0, 17);
+      var power = 0;
+
+      for (var i = 0; i < 17; i++) {
+        // eslint-disable-next-line radix
+        power += parseInt(id17.charAt(i), 10) * Number.parseInt(powers[i]);
+      }
+
+      var mod = power % 11;
+      return parityBit[mod];
+    };
+
+    var checkParityBit = function checkParityBit(idCardNo) {
+      return getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase();
+    };
+
+    var check15IdCardNo = function check15IdCardNo(idCardNo) {
+      var check = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(idCardNo);
+      if (!check) return false;
+      var addressCode = idCardNo.substring(0, 6);
+      check = checkAddressCode(addressCode);
+      if (!check) return false;
+      var birDayCode = "19".concat(idCardNo.substring(6, 12));
+      check = checkBirthDayCode(birDayCode);
+      if (!check) return false;
+      return checkParityBit(idCardNo);
+    };
+
+    var check18IdCardNo = function check18IdCardNo(idCardNo) {
+      var check = /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}(\d|x|X)$/.test(idCardNo);
+      if (!check) return false;
+      var addressCode = idCardNo.substring(0, 6);
+      check = checkAddressCode(addressCode);
+      if (!check) return false;
+      var birDayCode = idCardNo.substring(6, 14);
+      check = checkBirthDayCode(birDayCode);
+      if (!check) return false;
+      return checkParityBit(idCardNo);
+    };
+
+    var checkIdCardNo = function checkIdCardNo(idCardNo) {
+      var check = /^\d{15}|(\d{17}(\d|x|X))$/.test(idCardNo);
+      if (!check) return false;
+
+      if (idCardNo.length === 15) {
+        return check15IdCardNo(idCardNo);
+      } else if (idCardNo.length === 18) {
+        return check18IdCardNo(idCardNo);
+      }
+
+      return false;
+    };
+
+    return checkIdCardNo(str);
   },
   'zh-TW': function zhTW(str) {
     var ALPHABET_CODES = {
@@ -1234,6 +1948,73 @@ function isIdentityCard(str, locale) {
   }
 
   throw new Error("Invalid locale '".concat(locale, "'"));
+}
+
+/**
+ * The most commonly used EAN standard is
+ * the thirteen-digit EAN-13, while the
+ * less commonly used 8-digit EAN-8 barcode was
+ * introduced for use on small packages.
+ * EAN consists of:
+ * GS1 prefix, manufacturer code, product code and check digit
+ * Reference: https://en.wikipedia.org/wiki/International_Article_Number
+ */
+/**
+ * Define EAN Lenghts; 8 for EAN-8; 13 for EAN-13
+ * and Regular Expression for valid EANs (EAN-8, EAN-13),
+ * with exact numberic matching of 8 or 13 digits [0-9]
+ */
+
+var LENGTH_EAN_8 = 8;
+var validEanRegex = /^(\d{8}|\d{13})$/;
+/**
+ * Get position weight given:
+ * EAN length and digit index/position
+ *
+ * @param {number} length
+ * @param {number} index
+ * @return {number}
+ */
+
+function getPositionWeightThroughLengthAndIndex(length, index) {
+  if (length === LENGTH_EAN_8) {
+    return index % 2 === 0 ? 3 : 1;
+  }
+
+  return index % 2 === 0 ? 1 : 3;
+}
+/**
+ * Calculate EAN Check Digit
+ * Reference: https://en.wikipedia.org/wiki/International_Article_Number#Calculation_of_checksum_digit
+ *
+ * @param {string} ean
+ * @return {number}
+ */
+
+
+function calculateCheckDigit(ean) {
+  var checksum = ean.slice(0, -1).split('').map(function (_char, index) {
+    return Number(_char) * getPositionWeightThroughLengthAndIndex(ean.length, index);
+  }).reduce(function (acc, partialSum) {
+    return acc + partialSum;
+  }, 0);
+  var remainder = 10 - checksum % 10;
+  return remainder < 10 ? remainder : 0;
+}
+/**
+ * Check if string is valid EAN:
+ * Matches EAN-8/EAN-13 regex
+ * Has valid check digit.
+ *
+ * @param {string} str
+ * @return {boolean}
+ */
+
+
+function isEAN(str) {
+  assertString(str);
+  var actualCheckDigit = Number(str.slice(-1));
+  return validEanRegex.test(str) && actualCheckDigit === calculateCheckDigit(str);
 }
 
 var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
@@ -1351,6 +2132,7 @@ function isISSN(str) {
 /* eslint-disable max-len */
 
 var phones = {
+  'am-AM': /^(\+?374|0)((10|[9|7][0-9])\d{6}$|[2-4]\d{7}$)/,
   'ar-AE': /^((\+?971)|0)?5[024568]\d{7}$/,
   'ar-BH': /^(\+?973)?(3|6)\d{7}$/,
   'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
@@ -1358,22 +2140,25 @@ var phones = {
   'ar-IQ': /^(\+?964|0)?7[0-9]\d{8}$/,
   'ar-JO': /^(\+?962|0)?7[789]\d{7}$/,
   'ar-KW': /^(\+?965)[569]\d{7}$/,
+  'ar-LY': /^((\+?218)|0)?(9[1-6]\d{7}|[1-8]\d{7,9})$/,
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
-  'bn-BD': /^(\+?880|0)1[1356789][0-9]{8}$/,
+  'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
   'de-AT': /^(\+43|0)\d{1,4}\d{3,12}$/,
+  'de-CH': /^(\+41|0)(7[5-9])\d{1,7}$/,
   'el-GR': /^(\+?30|0)?(69\d{8})$/,
   'en-AU': /^(\+?61|0)4\d{8}$/,
   'en-GB': /^(\+?44|0)7\d{9}$/,
   'en-GG': /^(\+?44|0)1481\d{6}$/,
   'en-GH': /^(\+233|0)(20|50|24|54|27|57|26|56|23|28)\d{7}$/,
-  'en-HK': /^(\+?852\-?)?[456789]\d{3}\-?\d{4}$/,
+  'en-HK': /^(\+?852[-\s]?)?[456789]\d{3}[-\s]?\d{4}$/,
+  'en-MO': /^(\+?853[-\s]?)?[6]\d{3}[-\s]?\d{4}$/,
   'en-IE': /^(\+?353|0)8[356789]\d{7}$/,
   'en-IN': /^(\+?91|0)?[6789]\d{9}$/,
   'en-KE': /^(\+?254|0)(7|1)\d{8}$/,
@@ -1384,14 +2169,19 @@ var phones = {
   'en-PK': /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/,
   'en-RW': /^(\+?250|0)?[7]\d{8}$/,
   'en-SG': /^(\+65)?[89]\d{7}$/,
+  'en-SL': /^(?:0|94|\+94)?(7(0|1|2|5|6|7|8)( |-)?\d)\d{6}$/,
   'en-TZ': /^(\+?255|0)?[67]\d{8}$/,
   'en-UG': /^(\+?256|0)?[7]\d{8}$/,
   'en-US': /^((\+1|1)?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/,
   'en-ZA': /^(\+?27|0)\d{9}$/,
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
+  'en-ZW': /^(\+263)[0-9]{9}$/,
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
+  'es-CR': /^(\+506)?[2-8]\d{7}$/,
+  'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
   'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
+  'es-PA': /^(\+?507)\d{7,8}$/,
   'es-PY': /^(\+?595|0)9[9876]\d{7}$/,
   'es-UY': /^(\+598|0)9[1-9][\d]{6}$/,
   'et-EE': /^(\+?372)?\s?(5|8[1-4])\s?([0-9]\s?){6,7}$/,
@@ -1408,15 +2198,16 @@ var phones = {
   'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
   'id-ID': /^(\+?62|0)8(1[123456789]|2[1238]|3[1238]|5[12356789]|7[78]|9[56789]|8[123456789])([\s?|\d]{5,11})$/,
   'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
-  'ja-JP': /^(\+?81|0)[6789]0[ \-]?\d{4}[ \-]?\d{4}$/,
+  'ja-JP': /^(\+81[ \-]?(\(0\))?|0)[6789]0[ \-]?\d{4}[ \-]?\d{4}$/,
   'kk-KZ': /^(\+?7|8)?7\d{9}$/,
   'kl-GL': /^(\+?299)?\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'ko-KR': /^((\+?82)[ \-]?)?0?1([0|1|6|7|8|9]{1})[ \-]?\d{3,4}[ \-]?\d{4}$/,
   'lt-LT': /^(\+370|8)\d{8}$/,
   'ms-MY': /^(\+?6?01){1}(([0145]{1}(\-|\s)?\d{7,8})|([236789]{1}(\s|\-)?\d{7}))$/,
   'nb-NO': /^(\+?47)?[49]\d{7}$/,
+  'ne-NP': /^(\+?977)?9[78]\d{8}$/,
   'nl-BE': /^(\+?32|0)4?\d{8}$/,
-  'nl-NL': /^(\+?31|0)6?\d{8}$/,
+  'nl-NL': /^(((\+|00)?31\(0\))|((\+|00)?31)|0)6{1}\d{8}$/,
   'nn-NO': /^(\+?47)?[49]\d{7}$/,
   'pl-PL': /^(\+?48)? ?[5-8]\d ?\d{3} ?\d{2} ?\d{2}$/,
   'pt-BR': /(?=^(\+?5{2}\-?|0)[1-9]{2}\-?\d{4}\-?\d{4}$)(^(\+?5{2}\-?|0)[1-9]{2}\-?[6-9]{1}\d{3}\-?\d{4}$)|(^(\+?5{2}\-?|0)[1-9]{2}\-?9[6-9]{1}\d{3}\-?\d{4}$)/,
@@ -1431,7 +2222,7 @@ var phones = {
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
-  'zh-CN': /^((\+|00)86)?1([358][0-9]|4[579]|6[67]|7[0135678]|9[189])[0-9]{8}$/,
+  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[189])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -1440,6 +2231,7 @@ var phones = {
 phones['en-CA'] = phones['en-US'];
 phones['fr-BE'] = phones['nl-BE'];
 phones['zh-HK'] = phones['en-HK'];
+phones['zh-MO'] = phones['en-MO'];
 function isMobilePhone(str, locale, options) {
   assertString(str);
 
@@ -1482,12 +2274,20 @@ function isMobilePhone(str, locale, options) {
 }
 var locales$3 = Object.keys(phones);
 
+var eth = /^(0x)[0-9a-f]{40}$/i;
+function isEthereumAddress(str) {
+  assertString(str);
+  return eth.test(str);
+}
+
 function currencyRegex(options) {
   var decimal_digits = "\\d{".concat(options.digits_after_decimal[0], "}");
   options.digits_after_decimal.forEach(function (digit, index) {
     if (index !== 0) decimal_digits = "".concat(decimal_digits, "|\\d{").concat(digit, "}");
   });
-  var symbol = "(\\".concat(options.symbol.replace(/\./g, '\\.'), ")").concat(options.require_symbol ? '' : '?'),
+  var symbol = "(".concat(options.symbol.replace(/\W/, function (m) {
+    return "\\".concat(m);
+  }), ")").concat(options.require_symbol ? '' : '?'),
       negative = '-?',
       whole_dollar_amount_without_sep = '[1-9]\\d*',
       whole_dollar_amount_with_sep = "[1-9]\\d{0,2}(\\".concat(options.thousands_separator, "\\d{3})*"),
@@ -1553,6 +2353,12 @@ function isCurrency(str, options) {
   assertString(str);
   options = merge(options, default_currency_options);
   return currencyRegex(options).test(str);
+}
+
+var btc = /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/;
+function isBtcAddress(str) {
+  assertString(str);
+  return btc.test(str);
 }
 
 /* eslint-disable max-len */
@@ -1644,19 +2450,6 @@ function isBase32(str) {
   return false;
 }
 
-var notBase64 = /[^A-Z0-9+\/=]/i;
-function isBase64(str) {
-  assertString(str);
-  var len = str.length;
-
-  if (!len || len % 4 !== 0 || notBase64.test(str)) {
-    return false;
-  }
-
-  var firstPaddingChar = str.indexOf('=');
-  return firstPaddingChar === -1 || firstPaddingChar === len - 1 || firstPaddingChar === len - 2 && str[len - 1] === '=';
-}
-
 var validMediaType = /^[a-z]+\/[a-z0-9\-\+]+$/i;
 var validAttribute = /^[a-z\-]+=[a-z0-9\-]+$/i;
 var validData = /^[a-z0-9!\$&'\(\)\*\+,;=\-\._~:@\/\?%\s]*$/i;
@@ -1744,13 +2537,13 @@ function isMimeType(str) {
 
 var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
 var _long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
-var isLatLong = function (str) {
+function isLatLong(str) {
   assertString(str);
   if (!str.includes(',')) return false;
   var pair = str.split(',');
   if (pair[0].startsWith('(') && !pair[1].endsWith(')') || pair[1].endsWith(')') && !pair[0].startsWith('(')) return false;
   return lat.test(pair[0]) && _long.test(pair[1]);
-};
+}
 
 var threeDigit = /^\d{3}$/;
 var fourDigit = /^\d{4}$/;
@@ -1778,9 +2571,9 @@ var patterns = {
   HR: /^([1-5]\d{4}$)/,
   HU: fourDigit,
   ID: fiveDigit,
-  IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
+  IE: /^(?!.*(?:o))[A-z]\d[\dw]\s\w{4}$/i,
   IL: fiveDigit,
-  IN: sixDigit,
+  IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
@@ -1793,6 +2586,7 @@ var patterns = {
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
   NL: /^\d{4}\s?[a-z]{2}$/i,
   NO: fourDigit,
+  NP: /^(10|21|22|32|33|34|44|45|56|57)\d{3}$|^(977)$/i,
   NZ: fourDigit,
   PL: /^\d{2}\-\d{3}$/,
   PR: /^00[679]\d{2}([ -]\d{4})?$/,
@@ -1811,7 +2605,7 @@ var patterns = {
   ZM: fiveDigit
 };
 var locales$4 = Object.keys(patterns);
-var isPostalCode = function (str, locale) {
+function isPostalCode(str, locale) {
   assertString(str);
 
   if (locale in patterns) {
@@ -1833,7 +2627,7 @@ var isPostalCode = function (str, locale) {
   }
 
   throw new Error("Invalid locale '".concat(locale, "'"));
-};
+}
 
 function ltrim(str, chars) {
   assertString(str); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
@@ -2035,7 +2829,7 @@ function isSlug(str) {
   return charsetRegex.test(str);
 }
 
-var version = '11.1.0';
+var version = '13.0.0';
 var validator = {
   version: version,
   toDate: toDate,
@@ -2052,12 +2846,14 @@ var validator = {
   isIPRange: isIPRange,
   isFQDN: isFQDN,
   isBoolean: isBoolean,
+  isIBAN: isIBAN,
   isBIC: isBIC,
   isAlpha: isAlpha,
-  isAlphaLocales: locales,
+  isAlphaLocales: locales$1,
   isAlphanumeric: isAlphanumeric,
-  isAlphanumericLocales: locales$1,
+  isAlphanumericLocales: locales$2,
   isNumeric: isNumeric,
+  isPassportNumber: isPassportNumber,
   isPort: isPort,
   isLowercase: isLowercase,
   isUppercase: isUppercase,
@@ -2066,14 +2862,18 @@ var validator = {
   isHalfWidth: isHalfWidth,
   isVariableWidth: isVariableWidth,
   isMultibyte: isMultibyte,
+  isSemVer: isSemVer,
   isSurrogatePair: isSurrogatePair,
   isInt: isInt,
   isFloat: isFloat,
-  isFloatLocales: locales$2,
+  isFloatLocales: locales,
   isDecimal: isDecimal,
   isHexadecimal: isHexadecimal,
+  isOctal: isOctal,
   isDivisibleBy: isDivisibleBy,
   isHexColor: isHexColor,
+  isRgbColor: isRgbColor,
+  isHSL: isHSL,
   isISRC: isISRC,
   isMD5: isMD5,
   isHash: isHash,
@@ -2081,6 +2881,7 @@ var validator = {
   isJSON: isJSON,
   isEmpty: isEmpty,
   isLength: isLength,
+  isLocale: isLocale,
   isByteLength: isByteLength,
   isUUID: isUUID,
   isMongoId: isMongoId,
@@ -2089,6 +2890,7 @@ var validator = {
   isIn: isIn,
   isCreditCard: isCreditCard,
   isIdentityCard: isIdentityCard,
+  isEAN: isEAN,
   isISIN: isISIN,
   isISBN: isISBN,
   isISSN: isISSN,
@@ -2096,7 +2898,9 @@ var validator = {
   isMobilePhoneLocales: locales$3,
   isPostalCode: isPostalCode,
   isPostalCodeLocales: locales$4,
+  isEthereumAddress: isEthereumAddress,
   isCurrency: isCurrency,
+  isBtcAddress: isBtcAddress,
   isISO8601: isISO8601,
   isRFC3339: isRFC3339,
   isISO31661Alpha2: isISO31661Alpha2,
@@ -2118,7 +2922,8 @@ var validator = {
   isWhitelisted: isWhitelisted,
   normalizeEmail: normalizeEmail,
   toString: toString,
-  isSlug: isSlug
+  isSlug: isSlug,
+  isDate: isDate
 };
 
 return validator;

@@ -1,7 +1,15 @@
 import assertString from './util/assertString';
 import toString from './util/toString';
+import merge from './util/merge';
 
-export default function contains(str, elem) {
+const defaulContainsOptions = {
+  ignoreCase: false,
+};
+
+export default function contains(str, elem, options) {
   assertString(str);
-  return str.indexOf(toString(elem)) >= 0;
+  options = merge(options, defaulContainsOptions);
+  return options.ignoreCase ?
+    str.toLowerCase().indexOf(toString(elem).toLowerCase()) >= 0 :
+    str.indexOf(toString(elem)) >= 0;
 }

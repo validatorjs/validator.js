@@ -2,6 +2,12 @@ sudo: false
 language: node_js
 node_js:
   - stable
+  - 12
+  - 11
+  - 10
+  - 9
   - 8
 notifications:
   email: false
+after_script:
+  - npm install coveralls & coveralls

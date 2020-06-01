@@ -28,7 +28,7 @@ const patterns = {
   HR: /^([1-5]\d{4}$)/,
   HU: fourDigit,
   ID: fiveDigit,
-  IE: /^[A-z]\d[\d|w]\s\w{4}$/i,
+  IE: /^(?!.*(?:o))[A-z]\d[\dw]\s\w{4}$/i,
   IL: fiveDigit,
   IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
@@ -43,6 +43,7 @@ const patterns = {
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
   NL: /^\d{4}\s?[a-z]{2}$/i,
   NO: fourDigit,
+  NP: /^(10|21|22|32|33|34|44|45|56|57)\d{3}$|^(977)$/i,
   NZ: fourDigit,
   PL: /^\d{2}\-\d{3}$/,
   PR: /^00[679]\d{2}([ -]\d{4})?$/,
@@ -63,7 +64,7 @@ const patterns = {
 
 export const locales = Object.keys(patterns);
 
-export default function (str, locale) {
+export default function isPostalCode(str, locale) {
   assertString(str);
   if (locale in patterns) {
     return patterns[locale].test(str);

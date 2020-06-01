@@ -1,5 +1,7 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -31,13 +33,19 @@ var _isIPRange = _interopRequireDefault(require("./lib/isIPRange"));
 
 var _isFQDN = _interopRequireDefault(require("./lib/isFQDN"));
 
+var _isDate = _interopRequireDefault(require("./lib/isDate"));
+
 var _isBoolean = _interopRequireDefault(require("./lib/isBoolean"));
+
+var _isLocale = _interopRequireDefault(require("./lib/isLocale"));
 
 var _isAlpha = _interopRequireWildcard(require("./lib/isAlpha"));
 
 var _isAlphanumeric = _interopRequireWildcard(require("./lib/isAlphanumeric"));
 
 var _isNumeric = _interopRequireDefault(require("./lib/isNumeric"));
+
+var _isPassportNumber = _interopRequireDefault(require("./lib/isPassportNumber"));
 
 var _isPort = _interopRequireDefault(require("./lib/isPort"));
 
@@ -55,6 +63,8 @@ var _isVariableWidth = _interopRequireDefault(require("./lib/isVariableWidth"));
 
 var _isMultibyte = _interopRequireDefault(require("./lib/isMultibyte"));
 
+var _isSemVer = _interopRequireDefault(require("./lib/isSemVer"));
+
 var _isSurrogatePair = _interopRequireDefault(require("./lib/isSurrogatePair"));
 
 var _isInt = _interopRequireDefault(require("./lib/isInt"));
@@ -65,11 +75,19 @@ var _isDecimal = _interopRequireDefault(require("./lib/isDecimal"));
 
 var _isHexadecimal = _interopRequireDefault(require("./lib/isHexadecimal"));
 
+var _isOctal = _interopRequireDefault(require("./lib/isOctal"));
+
 var _isDivisibleBy = _interopRequireDefault(require("./lib/isDivisibleBy"));
 
 var _isHexColor = _interopRequireDefault(require("./lib/isHexColor"));
 
+var _isRgbColor = _interopRequireDefault(require("./lib/isRgbColor"));
+
+var _isHSL = _interopRequireDefault(require("./lib/isHSL"));
+
 var _isISRC = _interopRequireDefault(require("./lib/isISRC"));
+
+var _isIBAN = _interopRequireDefault(require("./lib/isIBAN"));
 
 var _isBIC = _interopRequireDefault(require("./lib/isBIC"));
 
@@ -101,6 +119,8 @@ var _isCreditCard = _interopRequireDefault(require("./lib/isCreditCard"));
 
 var _isIdentityCard = _interopRequireDefault(require("./lib/isIdentityCard"));
 
+var _isEAN = _interopRequireDefault(require("./lib/isEAN"));
+
 var _isISIN = _interopRequireDefault(require("./lib/isISIN"));
 
 var _isISBN = _interopRequireDefault(require("./lib/isISBN"));
@@ -109,7 +129,11 @@ var _isISSN = _interopRequireDefault(require("./lib/isISSN"));
 
 var _isMobilePhone = _interopRequireWildcard(require("./lib/isMobilePhone"));
 
+var _isEthereumAddress = _interopRequireDefault(require("./lib/isEthereumAddress"));
+
 var _isCurrency = _interopRequireDefault(require("./lib/isCurrency"));
+
+var _isBtcAddress = _interopRequireDefault(require("./lib/isBtcAddress"));
 
 var _isISO = _interopRequireDefault(require("./lib/isISO8601"));
 
@@ -155,11 +179,15 @@ var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
 var _isSlug = _interopRequireDefault(require("./lib/isSlug"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '11.1.0';
+var version = '13.0.0';
 var validator = {
   version: version,
   toDate: _toDate.default,
@@ -176,12 +204,14 @@ var validator = {
   isIPRange: _isIPRange.default,
   isFQDN: _isFQDN.default,
   isBoolean: _isBoolean.default,
+  isIBAN: _isIBAN.default,
   isBIC: _isBIC.default,
   isAlpha: _isAlpha.default,
   isAlphaLocales: _isAlpha.locales,
   isAlphanumeric: _isAlphanumeric.default,
   isAlphanumericLocales: _isAlphanumeric.locales,
   isNumeric: _isNumeric.default,
+  isPassportNumber: _isPassportNumber.default,
   isPort: _isPort.default,
   isLowercase: _isLowercase.default,
   isUppercase: _isUppercase.default,
@@ -190,14 +220,18 @@ var validator = {
   isHalfWidth: _isHalfWidth.default,
   isVariableWidth: _isVariableWidth.default,
   isMultibyte: _isMultibyte.default,
+  isSemVer: _isSemVer.default,
   isSurrogatePair: _isSurrogatePair.default,
   isInt: _isInt.default,
   isFloat: _isFloat.default,
   isFloatLocales: _isFloat.locales,
   isDecimal: _isDecimal.default,
   isHexadecimal: _isHexadecimal.default,
+  isOctal: _isOctal.default,
   isDivisibleBy: _isDivisibleBy.default,
   isHexColor: _isHexColor.default,
+  isRgbColor: _isRgbColor.default,
+  isHSL: _isHSL.default,
   isISRC: _isISRC.default,
   isMD5: _isMD.default,
   isHash: _isHash.default,
@@ -205,6 +239,7 @@ var validator = {
   isJSON: _isJSON.default,
   isEmpty: _isEmpty.default,
   isLength: _isLength.default,
+  isLocale: _isLocale.default,
   isByteLength: _isByteLength.default,
   isUUID: _isUUID.default,
   isMongoId: _isMongoId.default,
@@ -213,6 +248,7 @@ var validator = {
   isIn: _isIn.default,
   isCreditCard: _isCreditCard.default,
   isIdentityCard: _isIdentityCard.default,
+  isEAN: _isEAN.default,
   isISIN: _isISIN.default,
   isISBN: _isISBN.default,
   isISSN: _isISSN.default,
@@ -220,7 +256,9 @@ var validator = {
   isMobilePhoneLocales: _isMobilePhone.locales,
   isPostalCode: _isPostalCode.default,
   isPostalCodeLocales: _isPostalCode.locales,
+  isEthereumAddress: _isEthereumAddress.default,
   isCurrency: _isCurrency.default,
+  isBtcAddress: _isBtcAddress.default,
   isISO8601: _isISO.default,
   isRFC3339: _isRFC.default,
   isISO31661Alpha2: _isISO31661Alpha.default,
@@ -242,7 +280,8 @@ var validator = {
   isWhitelisted: _isWhitelisted.default,
   normalizeEmail: _normalizeEmail.default,
   toString: toString,
-  isSlug: _isSlug.default
+  isSlug: _isSlug.default,
+  isDate: _isDate.default
 };
 var _default = validator;
 exports.default = _default;

@@ -1,10 +1,12 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "11.1.0",
+  "version": "13.0.0",
+  "sideEffects": false,
   "homepage": "https://github.com/chriso/validator.js",
   "files": [
     "index.js",
+    "es",
     "lib",
     "README.md",
     "LICENCE",
@@ -48,6 +50,7 @@
     "eslint-plugin-import": "^2.11.0",
     "mocha": "^5.1.1",
     "nyc": "^14.1.0",
+    "rimraf": "^3.0.0",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "^4.0.1",
     "uglify-js": "^3.0.19"
@@ -55,13 +58,15 @@
   "scripts": {
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
-    "clean:node": "rm -rf index.js lib",
-    "clean:browser": "rm -rf validator*.js",
-    "clean": "npm run clean:node && npm run clean:browser",
+    "clean:node": "rimraf index.js lib",
+    "clean:es": "rimraf es",
+    "clean:browser": "rimraf validator*.js",
+    "clean": "npm run clean:node && npm run clean:browser && npm run clean:es",
     "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
     "build:browser": "node --require @babel/register build-browser && npm run minify",
+    "build:es": "babel src -d es --env-name=es",
     "build:node": "babel src -d .",
-    "build": "npm run build:browser && npm run build:node",
+    "build": "npm run build:browser && npm run build:node && npm run build:es",
     "pretest": "npm run lint && npm run build",
     "test": "nyc mocha --require @babel/register --reporter dot"
   },
