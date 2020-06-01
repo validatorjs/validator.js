@@ -4551,16 +4551,16 @@ describe('Validators', () => {
 
   it('should define the module using an AMD-compatible loader', () => {
     let window = {
-      validator: null,
-      define(module) {
-        window.validator = module();
+      validator: {},
+      define(exports, factory) {
+        factory(window.validator);
       },
     };
     window.define.amd = true;
 
     let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
-    assert.equal(window.validator.trim('  foobar '), 'foobar');
+    assert.equal(window.validator.default.trim('  foobar '), 'foobar');
   });
 
   it('should bind validator to the window if no module loaders are available', () => {
