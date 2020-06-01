@@ -2,7 +2,7 @@ import assert from 'assert';
 import fs from 'fs';
 import { format } from 'util';
 import vm from 'vm';
-import validator from '../src/index';
+import validator, { isBase64 } from '../src/index';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
@@ -4527,7 +4527,7 @@ describe('Validators', () => {
     for (let i = 0, str = '', encoded; i < 1000; i++) {
       str += String.fromCharCode(Math.random() * 26 | 97); // eslint-disable-line no-bitwise
       encoded = Buffer.from(str).toString('base64');
-      if (!validator.isBase64(encoded)) {
+      if (!isBase64(encoded)) {
         let msg = format('validator.isBase64() failed with "%s"', encoded);
         throw new Error(msg);
       }
