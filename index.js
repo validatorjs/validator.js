@@ -5,7 +5,553 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+Object.defineProperty(exports, "toDate", {
+  enumerable: true,
+  get: function get() {
+    return _toDate.default;
+  }
+});
+Object.defineProperty(exports, "toFloat", {
+  enumerable: true,
+  get: function get() {
+    return _toFloat.default;
+  }
+});
+Object.defineProperty(exports, "toInt", {
+  enumerable: true,
+  get: function get() {
+    return _toInt.default;
+  }
+});
+Object.defineProperty(exports, "toBoolean", {
+  enumerable: true,
+  get: function get() {
+    return _toBoolean.default;
+  }
+});
+Object.defineProperty(exports, "equals", {
+  enumerable: true,
+  get: function get() {
+    return _equals.default;
+  }
+});
+Object.defineProperty(exports, "contains", {
+  enumerable: true,
+  get: function get() {
+    return _contains.default;
+  }
+});
+Object.defineProperty(exports, "matches", {
+  enumerable: true,
+  get: function get() {
+    return _matches.default;
+  }
+});
+Object.defineProperty(exports, "isEmail", {
+  enumerable: true,
+  get: function get() {
+    return _isEmail.default;
+  }
+});
+Object.defineProperty(exports, "isURL", {
+  enumerable: true,
+  get: function get() {
+    return _isURL.default;
+  }
+});
+Object.defineProperty(exports, "isMACAddress", {
+  enumerable: true,
+  get: function get() {
+    return _isMACAddress.default;
+  }
+});
+Object.defineProperty(exports, "isIP", {
+  enumerable: true,
+  get: function get() {
+    return _isIP.default;
+  }
+});
+Object.defineProperty(exports, "isIPRange", {
+  enumerable: true,
+  get: function get() {
+    return _isIPRange.default;
+  }
+});
+Object.defineProperty(exports, "isFQDN", {
+  enumerable: true,
+  get: function get() {
+    return _isFQDN.default;
+  }
+});
+Object.defineProperty(exports, "isDate", {
+  enumerable: true,
+  get: function get() {
+    return _isDate.default;
+  }
+});
+Object.defineProperty(exports, "isBoolean", {
+  enumerable: true,
+  get: function get() {
+    return _isBoolean.default;
+  }
+});
+Object.defineProperty(exports, "isLocale", {
+  enumerable: true,
+  get: function get() {
+    return _isLocale.default;
+  }
+});
+Object.defineProperty(exports, "isAlpha", {
+  enumerable: true,
+  get: function get() {
+    return _isAlpha.default;
+  }
+});
+Object.defineProperty(exports, "isAlphaLocales", {
+  enumerable: true,
+  get: function get() {
+    return _isAlpha.locales;
+  }
+});
+Object.defineProperty(exports, "isAlphanumeric", {
+  enumerable: true,
+  get: function get() {
+    return _isAlphanumeric.default;
+  }
+});
+Object.defineProperty(exports, "isAlphanumericLocales", {
+  enumerable: true,
+  get: function get() {
+    return _isAlphanumeric.locales;
+  }
+});
+Object.defineProperty(exports, "isNumeric", {
+  enumerable: true,
+  get: function get() {
+    return _isNumeric.default;
+  }
+});
+Object.defineProperty(exports, "isPassportNumber", {
+  enumerable: true,
+  get: function get() {
+    return _isPassportNumber.default;
+  }
+});
+Object.defineProperty(exports, "isPort", {
+  enumerable: true,
+  get: function get() {
+    return _isPort.default;
+  }
+});
+Object.defineProperty(exports, "isLowercase", {
+  enumerable: true,
+  get: function get() {
+    return _isLowercase.default;
+  }
+});
+Object.defineProperty(exports, "isUppercase", {
+  enumerable: true,
+  get: function get() {
+    return _isUppercase.default;
+  }
+});
+Object.defineProperty(exports, "isAscii", {
+  enumerable: true,
+  get: function get() {
+    return _isAscii.default;
+  }
+});
+Object.defineProperty(exports, "isFullWidth", {
+  enumerable: true,
+  get: function get() {
+    return _isFullWidth.default;
+  }
+});
+Object.defineProperty(exports, "isHalfWidth", {
+  enumerable: true,
+  get: function get() {
+    return _isHalfWidth.default;
+  }
+});
+Object.defineProperty(exports, "isVariableWidth", {
+  enumerable: true,
+  get: function get() {
+    return _isVariableWidth.default;
+  }
+});
+Object.defineProperty(exports, "isMultibyte", {
+  enumerable: true,
+  get: function get() {
+    return _isMultibyte.default;
+  }
+});
+Object.defineProperty(exports, "isSemVer", {
+  enumerable: true,
+  get: function get() {
+    return _isSemVer.default;
+  }
+});
+Object.defineProperty(exports, "isSurrogatePair", {
+  enumerable: true,
+  get: function get() {
+    return _isSurrogatePair.default;
+  }
+});
+Object.defineProperty(exports, "isInt", {
+  enumerable: true,
+  get: function get() {
+    return _isInt.default;
+  }
+});
+Object.defineProperty(exports, "isFloat", {
+  enumerable: true,
+  get: function get() {
+    return _isFloat.default;
+  }
+});
+Object.defineProperty(exports, "isFloatLocales", {
+  enumerable: true,
+  get: function get() {
+    return _isFloat.locales;
+  }
+});
+Object.defineProperty(exports, "isDecimal", {
+  enumerable: true,
+  get: function get() {
+    return _isDecimal.default;
+  }
+});
+Object.defineProperty(exports, "isHexadecimal", {
+  enumerable: true,
+  get: function get() {
+    return _isHexadecimal.default;
+  }
+});
+Object.defineProperty(exports, "isOctal", {
+  enumerable: true,
+  get: function get() {
+    return _isOctal.default;
+  }
+});
+Object.defineProperty(exports, "isDivisibleBy", {
+  enumerable: true,
+  get: function get() {
+    return _isDivisibleBy.default;
+  }
+});
+Object.defineProperty(exports, "isHexColor", {
+  enumerable: true,
+  get: function get() {
+    return _isHexColor.default;
+  }
+});
+Object.defineProperty(exports, "isRgbColor", {
+  enumerable: true,
+  get: function get() {
+    return _isRgbColor.default;
+  }
+});
+Object.defineProperty(exports, "isHSL", {
+  enumerable: true,
+  get: function get() {
+    return _isHSL.default;
+  }
+});
+Object.defineProperty(exports, "isISRC", {
+  enumerable: true,
+  get: function get() {
+    return _isISRC.default;
+  }
+});
+Object.defineProperty(exports, "isIBAN", {
+  enumerable: true,
+  get: function get() {
+    return _isIBAN.default;
+  }
+});
+Object.defineProperty(exports, "isBIC", {
+  enumerable: true,
+  get: function get() {
+    return _isBIC.default;
+  }
+});
+Object.defineProperty(exports, "isMD5", {
+  enumerable: true,
+  get: function get() {
+    return _isMD.default;
+  }
+});
+Object.defineProperty(exports, "isHash", {
+  enumerable: true,
+  get: function get() {
+    return _isHash.default;
+  }
+});
+Object.defineProperty(exports, "isJWT", {
+  enumerable: true,
+  get: function get() {
+    return _isJWT.default;
+  }
+});
+Object.defineProperty(exports, "isJSON", {
+  enumerable: true,
+  get: function get() {
+    return _isJSON.default;
+  }
+});
+Object.defineProperty(exports, "isEmpty", {
+  enumerable: true,
+  get: function get() {
+    return _isEmpty.default;
+  }
+});
+Object.defineProperty(exports, "isLength", {
+  enumerable: true,
+  get: function get() {
+    return _isLength.default;
+  }
+});
+Object.defineProperty(exports, "isByteLength", {
+  enumerable: true,
+  get: function get() {
+    return _isByteLength.default;
+  }
+});
+Object.defineProperty(exports, "isUUID", {
+  enumerable: true,
+  get: function get() {
+    return _isUUID.default;
+  }
+});
+Object.defineProperty(exports, "isMongoId", {
+  enumerable: true,
+  get: function get() {
+    return _isMongoId.default;
+  }
+});
+Object.defineProperty(exports, "isAfter", {
+  enumerable: true,
+  get: function get() {
+    return _isAfter.default;
+  }
+});
+Object.defineProperty(exports, "isBefore", {
+  enumerable: true,
+  get: function get() {
+    return _isBefore.default;
+  }
+});
+Object.defineProperty(exports, "isIn", {
+  enumerable: true,
+  get: function get() {
+    return _isIn.default;
+  }
+});
+Object.defineProperty(exports, "isCreditCard", {
+  enumerable: true,
+  get: function get() {
+    return _isCreditCard.default;
+  }
+});
+Object.defineProperty(exports, "isIdentityCard", {
+  enumerable: true,
+  get: function get() {
+    return _isIdentityCard.default;
+  }
+});
+Object.defineProperty(exports, "isEAN", {
+  enumerable: true,
+  get: function get() {
+    return _isEAN.default;
+  }
+});
+Object.defineProperty(exports, "isISIN", {
+  enumerable: true,
+  get: function get() {
+    return _isISIN.default;
+  }
+});
+Object.defineProperty(exports, "isISBN", {
+  enumerable: true,
+  get: function get() {
+    return _isISBN.default;
+  }
+});
+Object.defineProperty(exports, "isISSN", {
+  enumerable: true,
+  get: function get() {
+    return _isISSN.default;
+  }
+});
+Object.defineProperty(exports, "isMobilePhone", {
+  enumerable: true,
+  get: function get() {
+    return _isMobilePhone.default;
+  }
+});
+Object.defineProperty(exports, "isMobilePhoneLocales", {
+  enumerable: true,
+  get: function get() {
+    return _isMobilePhone.locales;
+  }
+});
+Object.defineProperty(exports, "isEthereumAddress", {
+  enumerable: true,
+  get: function get() {
+    return _isEthereumAddress.default;
+  }
+});
+Object.defineProperty(exports, "isCurrency", {
+  enumerable: true,
+  get: function get() {
+    return _isCurrency.default;
+  }
+});
+Object.defineProperty(exports, "isBtcAddress", {
+  enumerable: true,
+  get: function get() {
+    return _isBtcAddress.default;
+  }
+});
+Object.defineProperty(exports, "isISO8601", {
+  enumerable: true,
+  get: function get() {
+    return _isISO.default;
+  }
+});
+Object.defineProperty(exports, "isRFC3339", {
+  enumerable: true,
+  get: function get() {
+    return _isRFC.default;
+  }
+});
+Object.defineProperty(exports, "isISO31661Alpha2", {
+  enumerable: true,
+  get: function get() {
+    return _isISO31661Alpha.default;
+  }
+});
+Object.defineProperty(exports, "isISO31661Alpha3", {
+  enumerable: true,
+  get: function get() {
+    return _isISO31661Alpha2.default;
+  }
+});
+Object.defineProperty(exports, "isBase32", {
+  enumerable: true,
+  get: function get() {
+    return _isBase.default;
+  }
+});
+Object.defineProperty(exports, "isBase64", {
+  enumerable: true,
+  get: function get() {
+    return _isBase2.default;
+  }
+});
+Object.defineProperty(exports, "isDataURI", {
+  enumerable: true,
+  get: function get() {
+    return _isDataURI.default;
+  }
+});
+Object.defineProperty(exports, "isMagnetURI", {
+  enumerable: true,
+  get: function get() {
+    return _isMagnetURI.default;
+  }
+});
+Object.defineProperty(exports, "isMimeType", {
+  enumerable: true,
+  get: function get() {
+    return _isMimeType.default;
+  }
+});
+Object.defineProperty(exports, "isLatLong", {
+  enumerable: true,
+  get: function get() {
+    return _isLatLong.default;
+  }
+});
+Object.defineProperty(exports, "isPostalCode", {
+  enumerable: true,
+  get: function get() {
+    return _isPostalCode.default;
+  }
+});
+Object.defineProperty(exports, "isPostalCodeLocales", {
+  enumerable: true,
+  get: function get() {
+    return _isPostalCode.locales;
+  }
+});
+Object.defineProperty(exports, "ltrim", {
+  enumerable: true,
+  get: function get() {
+    return _ltrim.default;
+  }
+});
+Object.defineProperty(exports, "rtrim", {
+  enumerable: true,
+  get: function get() {
+    return _rtrim.default;
+  }
+});
+Object.defineProperty(exports, "trim", {
+  enumerable: true,
+  get: function get() {
+    return _trim.default;
+  }
+});
+Object.defineProperty(exports, "escape", {
+  enumerable: true,
+  get: function get() {
+    return _escape.default;
+  }
+});
+Object.defineProperty(exports, "unescape", {
+  enumerable: true,
+  get: function get() {
+    return _unescape.default;
+  }
+});
+Object.defineProperty(exports, "stripLow", {
+  enumerable: true,
+  get: function get() {
+    return _stripLow.default;
+  }
+});
+Object.defineProperty(exports, "whitelist", {
+  enumerable: true,
+  get: function get() {
+    return _whitelist.default;
+  }
+});
+Object.defineProperty(exports, "blacklist", {
+  enumerable: true,
+  get: function get() {
+    return _blacklist.default;
+  }
+});
+Object.defineProperty(exports, "isWhitelisted", {
+  enumerable: true,
+  get: function get() {
+    return _isWhitelisted.default;
+  }
+});
+Object.defineProperty(exports, "normalizeEmail", {
+  enumerable: true,
+  get: function get() {
+    return _normalizeEmail.default;
+  }
+});
+Object.defineProperty(exports, "isSlug", {
+  enumerable: true,
+  get: function get() {
+    return _isSlug.default;
+  }
+});
+exports.version = exports.default = void 0;
 
 var _toDate = _interopRequireDefault(require("./lib/toDate"));
 
@@ -183,11 +729,10 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var version = '13.0.0';
+exports.version = version;
 var validator = {
   version: version,
   toDate: _toDate.default,
@@ -285,5 +830,3 @@ var validator = {
 };
 var _default = validator;
 exports.default = _default;
-module.exports = exports.default;
-module.exports.default = exports.default;

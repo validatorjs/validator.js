@@ -21,10 +21,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.validator = factory());
-}(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.validator = global.validator || {})));
+}(this, (function (exports) { 'use strict';
 
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -82,7 +82,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -98,9 +98,12 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-function _createForOfIteratorHelper(o) {
+function _createForOfIteratorHelper(o, allowArrayLike) {
+  var it;
+
   if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
-    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (it) o = it;
       var i = 0;
 
       var F = function () {};
@@ -126,8 +129,7 @@ function _createForOfIteratorHelper(o) {
     throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
 
-  var it,
-      normalCompletion = true,
+  var normalCompletion = true,
       didErr = false,
       err;
   return {
@@ -2846,6 +2848,100 @@ var validator = {
   isDate: isDate
 };
 
-return validator;
+exports['default'] = validator;
+exports.version = version;
+exports.toDate = toDate;
+exports.toFloat = toFloat;
+exports.toInt = toInt;
+exports.toBoolean = toBoolean;
+exports.equals = equals;
+exports.contains = contains;
+exports.matches = matches;
+exports.isEmail = isEmail;
+exports.isURL = isURL;
+exports.isMACAddress = isMACAddress;
+exports.isIP = isIP;
+exports.isIPRange = isIPRange;
+exports.isFQDN = isFQDN;
+exports.isBoolean = isBoolean;
+exports.isIBAN = isIBAN;
+exports.isBIC = isBIC;
+exports.isAlpha = isAlpha;
+exports.isAlphaLocales = locales$1;
+exports.isAlphanumeric = isAlphanumeric;
+exports.isAlphanumericLocales = locales$2;
+exports.isNumeric = isNumeric;
+exports.isPassportNumber = isPassportNumber;
+exports.isPort = isPort;
+exports.isLowercase = isLowercase;
+exports.isUppercase = isUppercase;
+exports.isAscii = isAscii;
+exports.isFullWidth = isFullWidth;
+exports.isHalfWidth = isHalfWidth;
+exports.isVariableWidth = isVariableWidth;
+exports.isMultibyte = isMultibyte;
+exports.isSemVer = isSemVer;
+exports.isSurrogatePair = isSurrogatePair;
+exports.isInt = isInt;
+exports.isFloat = isFloat;
+exports.isFloatLocales = locales;
+exports.isDecimal = isDecimal;
+exports.isHexadecimal = isHexadecimal;
+exports.isOctal = isOctal;
+exports.isDivisibleBy = isDivisibleBy;
+exports.isHexColor = isHexColor;
+exports.isRgbColor = isRgbColor;
+exports.isHSL = isHSL;
+exports.isISRC = isISRC;
+exports.isMD5 = isMD5;
+exports.isHash = isHash;
+exports.isJWT = isJWT;
+exports.isJSON = isJSON;
+exports.isEmpty = isEmpty;
+exports.isLength = isLength;
+exports.isLocale = isLocale;
+exports.isByteLength = isByteLength;
+exports.isUUID = isUUID;
+exports.isMongoId = isMongoId;
+exports.isAfter = isAfter;
+exports.isBefore = isBefore;
+exports.isIn = isIn;
+exports.isCreditCard = isCreditCard;
+exports.isIdentityCard = isIdentityCard;
+exports.isEAN = isEAN;
+exports.isISIN = isISIN;
+exports.isISBN = isISBN;
+exports.isISSN = isISSN;
+exports.isMobilePhone = isMobilePhone;
+exports.isMobilePhoneLocales = locales$3;
+exports.isPostalCode = isPostalCode;
+exports.isPostalCodeLocales = locales$4;
+exports.isEthereumAddress = isEthereumAddress;
+exports.isCurrency = isCurrency;
+exports.isBtcAddress = isBtcAddress;
+exports.isISO8601 = isISO8601;
+exports.isRFC3339 = isRFC3339;
+exports.isISO31661Alpha2 = isISO31661Alpha2;
+exports.isISO31661Alpha3 = isISO31661Alpha3;
+exports.isBase32 = isBase32;
+exports.isBase64 = isBase64;
+exports.isDataURI = isDataURI;
+exports.isMagnetURI = isMagnetURI;
+exports.isMimeType = isMimeType;
+exports.isLatLong = isLatLong;
+exports.ltrim = ltrim;
+exports.rtrim = rtrim;
+exports.trim = trim;
+exports.escape = escape;
+exports.unescape = unescape;
+exports.stripLow = stripLow;
+exports.whitelist = whitelist;
+exports.blacklist = blacklist$1;
+exports.isWhitelisted = isWhitelisted;
+exports.normalizeEmail = normalizeEmail;
+exports.isSlug = isSlug;
+exports.isDate = isDate;
+
+Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
