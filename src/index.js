@@ -303,7 +303,6 @@ export {
   blacklist,
   isWhitelisted,
   normalizeEmail,
-  toString,
   isSlug,
   isDate,
 };
