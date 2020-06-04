@@ -48,7 +48,7 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
-    "fs-extra": "^9.0.1",
+    "fs-extra": "^8.1.0",
     "glob": "^7.1.6",
     "mocha": "^5.1.1",
     "nyc": "^14.1.0",
