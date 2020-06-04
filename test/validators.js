@@ -2755,6 +2755,26 @@ describe('Validators', () => {
     });
   });
 
+
+  it('should validate imei strings', () => {
+    test({
+      validator: 'isIMEI',
+      valid: [
+        '352099001761481',
+        '868932036356090',
+        '490154203237518',
+        '546918475942169',
+        '998227667144730',
+        '532729766805999',
+      ],
+      invalid: [
+        '490154203237517',
+        '3568680000414120',
+        '3520990017614823',
+      ],
+    });
+  });
+
   it('should validate uppercase strings', () => {
     test({
       validator: 'isUppercase',

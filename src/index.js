@@ -25,6 +25,8 @@ import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
 
+import isIMEI from './lib/isIMEI';
+
 import isAscii from './lib/isAscii';
 import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
@@ -150,6 +152,7 @@ const validator = {
   isSemVer,
   isSurrogatePair,
   isInt,
+  isIMEI,
   isFloat,
   isFloatLocales,
   isDecimal,
