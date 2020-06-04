@@ -59,6 +59,14 @@ The library can be loaded either as a standalone script, or through an [AMD][amd
 </script>
 ```
 
+### Deno usage
+
+```ts
+import { validator } from "https://raw.githubusercontent.com/validatorjs/validator.js/master/mod.ts";
+// or
+import isEmail from "https://raw.githubusercontent.com/validatorjs/validator.js/master/deno/lib/isEmail.js";
+```
+
 The library can also be installed through [bower][bower]
 
 ```bash

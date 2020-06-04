@@ -46,8 +46,20 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
@@ -92,6 +104,10 @@ function _arrayLikeToArray(arr, len) {
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
 
   return arr2;
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function _nonIterableRest() {
@@ -338,21 +354,6 @@ function toString$1(input) {
   return String(input);
 }
 
-function contains(str, elem) {
-  assertString(str);
-  return str.indexOf(toString$1(elem)) >= 0;
-}
-
-function matches(str, pattern, modifiers) {
-  assertString(str);
-
-  if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
-    pattern = new RegExp(pattern, modifiers);
-  }
-
-  return pattern.test(str);
-}
-
 function merge() {
   var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var defaults = arguments.length > 1 ? arguments[1] : undefined;
@@ -364,6 +365,25 @@ function merge() {
   }
 
   return obj;
+}
+
+var defaulContainsOptions = {
+  ignoreCase: false
+};
+function contains(str, elem, options) {
+  assertString(str);
+  options = merge(options, defaulContainsOptions);
+  return options.ignoreCase ? str.toLowerCase().indexOf(toString$1(elem).toLowerCase()) >= 0 : str.indexOf(toString$1(elem)) >= 0;
+}
+
+function matches(str, pattern, modifiers) {
+  assertString(str);
+
+  if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
+    pattern = new RegExp(pattern, modifiers);
+  }
+
+  return pattern.test(str);
 }
 
 /* eslint-disable prefer-rest-params */
@@ -1007,7 +1027,6 @@ function isAlphanumeric(str) {
 }
 var locales$2 = Object.keys(alphanumeric);
 
-var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
 var numericNoSymbols = /^[0-9]+$/;
 function isNumeric(str, options) {
   assertString(str);
@@ -1016,7 +1035,7 @@ function isNumeric(str, options) {
     return numericNoSymbols.test(str);
   }
 
-  return numeric.test(str);
+  return new RegExp("^[+-]?([0-9]*[".concat((options || {}).locale ? decimal[options.locale] : '.', "])?[0-9]+$")).test(str);
 }
 
 /**
@@ -2129,6 +2148,67 @@ function isISSN(str) {
   return checksum % 11 === 0;
 }
 
+/**
+ * An Employer Identification Number (EIN), also known as a Federal Tax Identification Number,
+ *  is used to identify a business entity.
+ *
+ * NOTES:
+ *  - Prefix 47 is being reserved for future use
+ *  - Prefixes 26, 27, 45, 46 and 47 were previously assigned by the Philadelphia campus.
+ *
+ * See `http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes`
+ * for more information.
+ */
+
+/**
+ * Campus prefixes according to locales
+ */
+
+var campusPrefix = {
+  'en-US': {
+    andover: ['10', '12'],
+    atlanta: ['60', '67'],
+    austin: ['50', '53'],
+    brookhaven: ['01', '02', '03', '04', '05', '06', '11', '13', '14', '16', '21', '22', '23', '25', '34', '51', '52', '54', '55', '56', '57', '58', '59', '65'],
+    cincinnati: ['30', '32', '35', '36', '37', '38', '61'],
+    fresno: ['15', '24'],
+    internet: ['20', '26', '27', '45', '46', '47'],
+    kansas: ['40', '44'],
+    memphis: ['94', '95'],
+    ogden: ['80', '90'],
+    philadelphia: ['33', '39', '41', '42', '43', '46', '48', '62', '63', '64', '66', '68', '71', '72', '73', '74', '75', '76', '77', '81', '82', '83', '84', '85', '86', '87', '88', '91', '92', '93', '98', '99'],
+    sba: ['31']
+  }
+};
+
+function getPrefixes(locale) {
+  var prefixes = [];
+
+  for (var location in campusPrefix[locale]) {
+    if (campusPrefix[locale].hasOwnProperty(location)) {
+      prefixes.push.apply(prefixes, _toConsumableArray(campusPrefix[locale][location]));
+    }
+  }
+
+  prefixes.sort();
+  return prefixes;
+} // tax id regex formats for various loacles
+
+
+var taxIdFormat = {
+  'en-US': /^\d{2}[- ]{0,1}\d{7}$/
+};
+function isTaxID(str) {
+  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
+  assertString(str);
+
+  if (!taxIdFormat[locale].test(str)) {
+    return false;
+  }
+
+  return getPrefixes(locale).indexOf(str.substr(0, 2)) !== -1;
+}
+
 /* eslint-disable max-len */
 
 var phones = {
@@ -2144,6 +2224,7 @@ var phones = {
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
+  'bs-BA': /^((((\+|0{2})3876)|06)[0-6])((?<=4)\d{7}|(?<!4)\d{6})$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
   'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
@@ -2168,7 +2249,7 @@ var phones = {
   'en-NZ': /^(\+?64|0)[28]\d{7,9}$/,
   'en-PK': /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/,
   'en-RW': /^(\+?250|0)?[7]\d{8}$/,
-  'en-SG': /^(\+65)?[89]\d{7}$/,
+  'en-SG': /^(\+65)?[689]\d{7}$/,
   'en-SL': /^(?:0|94|\+94)?(7(0|1|2|5|6|7|8)( |-)?\d)\d{6}$/,
   'en-TZ': /^(\+?255|0)?[67]\d{8}$/,
   'en-UG': /^(\+?256|0)?[7]\d{8}$/,
@@ -2537,11 +2618,22 @@ function isMimeType(str) {
 
 var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
 var _long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
-function isLatLong(str) {
+var latDMS = /^(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/i;
+var longDMS = /^\s*([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/i;
+var defaultLatLongOptions = {
+  checkDMS: false
+};
+function isLatLong(str, options) {
   assertString(str);
+  options = merge(options, defaultLatLongOptions);
   if (!str.includes(',')) return false;
   var pair = str.split(',');
   if (pair[0].startsWith('(') && !pair[1].endsWith(')') || pair[1].endsWith(')') && !pair[0].startsWith('(')) return false;
+
+  if (options.checkDMS) {
+    return latDMS.test(pair[0]) && longDMS.test(pair[1]);
+  }
+
   return lat.test(pair[0]) && _long.test(pair[1]);
 }
 
@@ -2823,7 +2915,7 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var charsetRegex = /^[^-_](?!.*?[-_]{2,})([a-z0-9\\-]{1,}).*[^-_]$/;
+var charsetRegex = /^[^\s-_](?!.*?[-_]{2,})([a-z0-9-\\]{1,})[^\s]*[^-_\s]$/;
 function isSlug(str) {
   assertString(str);
   return charsetRegex.test(str);
@@ -2923,6 +3015,7 @@ var validator = {
   normalizeEmail: normalizeEmail,
   toString: toString,
   isSlug: isSlug,
+  isTaxID: isTaxID,
   isDate: isDate
 };
 

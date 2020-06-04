@@ -48,6 +48,8 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
+    "fs-extra": "^9.0.1",
+    "glob": "^7.1.6",
     "mocha": "^5.1.1",
     "nyc": "^14.1.0",
     "rimraf": "^3.0.0",
@@ -66,7 +68,8 @@
     "build:browser": "node --require @babel/register build-browser && npm run minify",
     "build:es": "babel src -d es --env-name=es",
     "build:node": "babel src -d .",
-    "build": "npm run build:browser && npm run build:node && npm run build:es",
+    "build:deno": "node .deno.js",
+    "build": "npm run build:browser && npm run build:node && npm run build:es && npm run build:deno",
     "pretest": "npm run lint && npm run build",
     "test": "nyc mocha --require @babel/register --reporter dot"
   },

@@ -58,6 +58,7 @@ import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
+import isTaxID from './lib/isTaxID';
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 import isEthereumAddress from './lib/isEthereumAddress';
 import isCurrency from './lib/isCurrency';
@@ -178,6 +179,7 @@ var validator = {
   normalizeEmail: normalizeEmail,
   toString: toString,
   isSlug: isSlug,
+  isTaxID: isTaxID,
   isDate: isDate
 };
 export default validator;
