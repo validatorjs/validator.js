@@ -1,14 +1,28 @@
 import assertString from './util/assertString';
 
 
-let imeiRegex = /^[0-9]{15}$/;
+let imeiRegexWithoutHypens = /^[0-9]{15}$/;
+let imeiRegexWithHypens = /^\d{2}-\d{6}-\d{6}-\d{1}$/;
 
-export default function isIMEI(str) {
+
+export default function isIMEI(str, options) {
   assertString(str);
+  options = options || {};
+
+  // default regex for checking imei is the one without hyphens
+
+  let imeiRegex = imeiRegexWithoutHypens;
+
+  if (options.allow_hyphens) {
+    imeiRegex = imeiRegexWithHypens;
+  }
+
 
   if (!imeiRegex.test(str)) {
     return false;
   }
+
+  str = str.replace(/-/g, '');
 
   let sum = 0,
     mul = 2,

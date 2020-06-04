@@ -2775,6 +2775,28 @@ describe('Validators', () => {
     });
   });
 
+
+  it('should validate imei strings with hyphens', () => {
+    test({
+      validator: 'isIMEI',
+      args: [{ allow_hyphens: true }],
+      valid: [
+        '35-209900-176148-1',
+        '86-893203-635609-0',
+        '49-015420-323751-8',
+        '54-691847-594216-9',
+        '99-822766-714473-0',
+        '53-272976-680599-9',
+      ],
+      invalid: [
+        '49-015420-323751-7',
+        '35-686800-0041412-0',
+        '35-209900-1761482-3',
+      ],
+    });
+  });
+
+
   it('should validate uppercase strings', () => {
     test({
       validator: 'isUppercase',
