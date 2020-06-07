@@ -69,6 +69,5 @@ export default function isStrongPassword(password, score = false, strongThreshol
   if (analysis.symbolCount > 0) {
     points += 10;
   }
-  console.log(`isStrongPassword: ${password} scored ${points}`);
   return score ? points : points >= strongThreshold;
 }
