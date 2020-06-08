@@ -1267,7 +1267,7 @@ function isOctal(str) {
 
 function isDivisibleBy(str, num) {
   assertString(str);
-  return toFloat(str) % parseInt(num, 10) === 0;
+  return toFloat(str) % Number(num) === 0;
 }
 
 var hexcolor = /^#?([0-9A-F]{3}|[0-9A-F]{4}|[0-9A-F]{6}|[0-9A-F]{8})$/i;
@@ -2195,7 +2195,9 @@ function currencyRegex(options) {
   options.digits_after_decimal.forEach(function (digit, index) {
     if (index !== 0) decimal_digits = "".concat(decimal_digits, "|\\d{").concat(digit, "}");
   });
-  var symbol = "(\\".concat(options.symbol.replace(/\./g, '\\.'), ")").concat(options.require_symbol ? '' : '?'),
+  var symbol = "(".concat(options.symbol.replace(/\W/, function (m) {
+    return "\\".concat(m);
+  }), ")").concat(options.require_symbol ? '' : '?'),
       negative = '-?',
       whole_dollar_amount_without_sep = '[1-9]\\d*',
       whole_dollar_amount_with_sep = "[1-9]\\d{0,2}(\\".concat(options.thousands_separator, "\\d{3})*"),
