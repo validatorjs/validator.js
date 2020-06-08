@@ -25,6 +25,8 @@ import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
 
+import isIMEI from './lib/isIMEI';
+
 import isAscii from './lib/isAscii';
 import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
@@ -74,6 +76,7 @@ import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
+import isTaxID from './lib/isTaxID';
 
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 
@@ -149,6 +152,7 @@ const validator = {
   isSemVer,
   isSurrogatePair,
   isInt,
+  isIMEI,
   isFloat,
   isFloatLocales,
   isDecimal,
@@ -207,6 +211,7 @@ const validator = {
   normalizeEmail,
   toString,
   isSlug,
+  isTaxID,
   isDate,
 };
 

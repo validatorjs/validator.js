@@ -1839,6 +1839,30 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings with locale', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        locale: 'fr-FR',
+      }],
+      valid: [
+        '123',
+        '00123',
+        '-00123',
+        '0',
+        '-0',
+        '+123',
+        '123,123',
+        '+000000',
+      ],
+      invalid: [
+        ' ',
+        '',
+        ',',
+      ],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
@@ -2152,6 +2176,20 @@ describe('Validators', () => {
       ],
       invalid: [
         'XND012345',
+        '0123456789',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['IN'],
+      valid: [
+        'A-1234567',
+        'A1234567',
+        'X0019390',
+      ],
+      invalid: [
+        'AB-1234567',
         '0123456789',
       ],
     });
@@ -2713,6 +2751,26 @@ describe('Validators', () => {
       invalid: [
         'fooBar',
         '123A',
+      ],
+    });
+  });
+
+
+  it('should validate imei strings', () => {
+    test({
+      validator: 'isIMEI',
+      valid: [
+        '352099001761481',
+        '868932036356090',
+        '490154203237518',
+        '546918475942169',
+        '998227667144730',
+        '532729766805999',
+      ],
+      invalid: [
+        '490154203237517',
+        '3568680000414120',
+        '3520990017614823',
       ],
     });
   });
@@ -3422,6 +3480,12 @@ describe('Validators', () => {
         '$Zs.ewu.su84',
         'ks64$S/9.dy$§kz.3sd73b',
       ],
+      error: [
+        [],
+        {},
+        null,
+        undefined,
+      ],
     });
   });
 
@@ -3475,6 +3539,15 @@ describe('Validators', () => {
       args: ['foo'],
       valid: ['foo', 'foobar', 'bazfoo'],
       invalid: ['bar', 'fobar'],
+    });
+
+    test({
+      validator: 'contains',
+      args: ['foo', {
+        ignoreCase: true,
+      }],
+      valid: ['Foo', 'FOObar', 'BAZfoo'],
+      invalid: ['bar', 'fobar', 'baxoof'],
     });
   });
 
@@ -3825,6 +3898,7 @@ describe('Validators', () => {
         'TR320010009999901234567890',
         'BR1500000000000010932840814P2',
         'LB92000700000000123123456123',
+        'IR200170000000339545727003',
       ],
       invalid: [
         'XX22YYY1234567890123',
@@ -3956,6 +4030,39 @@ describe('Validators', () => {
           'Y1234567B',
           'Z1234567C',
         ],
+      }, {
+        locale: 'IN',
+        valid: [
+          '298448863364',
+          '2984 4886 3364',
+        ],
+        invalid: [
+          '99999999R',
+          '12345678Z',
+          '01234567L',
+          '01234567l',
+          'X1234567l',
+          'x1234567l',
+          'X1234567L',
+        ],
+      },
+      {
+        locale: 'NO',
+        valid: [
+          '09053426694',
+          '26028338723',
+          '08031470790',
+          '12051539514',
+          '02077448074',
+          '14035638319',
+          '13031379673',
+          '29126214926',
+        ],
+        invalid: [
+          '09053426699',
+          '26028338724',
+          '92031470790',
+        ],
       },
       {
         locale: 'he-IL',
@@ -4084,12 +4191,10 @@ describe('Validators', () => {
     ];
 
     let allValid = [];
-    let allInvalid = [];
 
     // Test fixtures
     fixtures.forEach((fixture) => {
       if (fixture.valid) allValid = allValid.concat(fixture.valid);
-      if (fixture.invalid) allInvalid = allInvalid.concat(fixture.invalid);
       test({
         validator: 'isIdentityCard',
         valid: fixture.valid,
@@ -4106,7 +4211,6 @@ describe('Validators', () => {
       ],
       invalid: [
         'foo',
-        ...allInvalid,
       ],
       args: ['any'],
     });
@@ -4294,7 +4398,27 @@ describe('Validators', () => {
         '{ \'key\': \'value\' }',
         'null',
         '1234',
+        '"nope"',
+      ],
+    });
+  });
+
+  it('should validate JSON with primitives', () => {
+    test({
+      validator: 'isJSON',
+      args: [{ allow_primitives: true }],
+      valid: [
+        '{ "key": "value" }',
+        '{}',
+        'null',
         'false',
+        'true',
+      ],
+      invalid: [
+        '{ key: "value" }',
+        '{ \'key\': \'value\' }',
+        '{ "key": value }',
+        '1234',
         '"nope"',
       ],
     });
@@ -4539,6 +4663,35 @@ describe('Validators', () => {
         'Zm9vYmFy====',
       ],
     });
+
+    test({
+      validator: 'isBase64',
+      args: [{ urlSafe: true }],
+      valid: [
+        'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
+        '1234',
+        'bXVtLW5ldmVyLXByb3Vk',
+        'PDw_Pz8-Pg',
+        'VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw',
+      ],
+      invalid: [
+        ' AA',
+        '\tAA',
+        '\rAA',
+        '',
+        '\nAA',
+        'This+isa/bad+base64Url==',
+        '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
+      ],
+      error: [
+        null,
+        undefined,
+        {},
+        [],
+        42,
+      ],
+    });
+
     for (let i = 0, str = '', encoded; i < 1000; i++) {
       str += String.fromCharCode(Math.random() * 26 | 97); // eslint-disable-line no-bitwise
       encoded = Buffer.from(str).toString('base64');
@@ -4736,6 +4889,31 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'ar-LY',
+        valid: [
+          '912220000',
+          '0923330000',
+          '218945550000',
+          '+218958880000',
+          '212220000',
+          '0212220000',
+          '+218212220000',
+        ],
+        invalid: [
+          '9122220000',
+          '00912220000',
+          '09211110000',
+          '+0921110000',
+          '+2180921110000',
+          '021222200000',
+          '213333444444',
+          '',
+          '+212234',
+          '+21',
+          '02122333',
+        ],
+      },
+      {
         locale: 'ar-SY',
         valid: [
           '0944549710',
@@ -4816,6 +4994,45 @@ describe('Validators', () => {
           '017943563469',
           '18001234567',
           '0131234567',
+        ],
+      },
+      {
+        locale: 'bs-BA',
+        valid: [
+          '060123456',
+          '061123456',
+          '062123456',
+          '063123456',
+          '0641234567',
+          '065123456',
+          '066123456',
+          '+38760123456',
+          '+38761123456',
+          '+38762123456',
+          '+38763123456',
+          '+387641234567',
+          '+38765123456',
+          '+38766123456',
+          '0038760123456',
+          '0038761123456',
+          '0038762123456',
+          '0038763123456',
+          '00387641234567',
+          '0038765123456',
+          '0038766123456',
+        ],
+        invalid: [
+          '0601234567',
+          '0611234567',
+          '06212345',
+          '06312345',
+          '064123456',
+          '0651234567',
+          '06612345',
+          '+3866123456',
+          '+3856123456',
+          '00038760123456',
+          '038761123456',
         ],
       },
       {
@@ -4944,6 +5161,7 @@ describe('Validators', () => {
           '+8619812341234',
           '+8619112341234',
           '17269427292',
+          '16565600001',
           '+8617269427292',
           '008617269427292',
         ],
@@ -5368,6 +5586,7 @@ describe('Validators', () => {
           '98765432',
           '+6587654321',
           '+6598765432',
+          '+6565241234',
         ],
         invalid: [
           '987654321',
@@ -5435,6 +5654,26 @@ describe('Validators', () => {
           'Vml2YW11cyBmZXJtZtesting123',
           '010-38238383',
           '966684590',
+        ],
+      },
+      {
+        locale: ['en-ZW'],
+        valid: [
+          '+263561890123',
+          '+263715558041',
+          '+263775551112',
+          '+263775551695',
+          '+263715556633',
+        ],
+        invalid: [
+          '12345',
+          '',
+          'Vml2YW11cyBmZXJtZtesting123',
+          '+2631234567890',
+          '+2641234567',
+          '+263981234',
+          '4736338855',
+          '66338855',
         ],
       },
       {
@@ -6045,20 +6284,27 @@ describe('Validators', () => {
         locale: 'nl-NL',
         valid: [
           '0670123456',
-          '+31670123456',
+          '0612345678',
+          '31612345678',
           '31670123456',
-          '021234567',
-          '+3121234567',
-          '3121234567',
+          '+31612345678',
+          '+31670123456',
+          '+31(0)612345678',
+          '0031612345678',
+          '0031(0)612345678',
         ],
         invalid: [
           '12345',
           '+3112345',
           '3112345',
           '06701234567',
+          '012345678',
           '+3104701234567',
           '3104701234567',
           '0212345678',
+          '021234567',
+          '+3121234567',
+          '3121234567',
           '+310212345678',
           '310212345678',
         ],
@@ -6447,6 +6693,22 @@ describe('Validators', () => {
       ],
       args: [],
     });
+  });
+
+  // de-CH
+  test({
+    validator: 'isMobilePhone',
+    valid: [
+      '+41751112233',
+      '+41761112233',
+      '+41771112233',
+      '+41781112233',
+      '+41791112233',
+    ],
+    invalid: [
+      '+41441112233',
+    ],
+    args: [],
   });
 
   it('should error on invalid locale', () => {
@@ -7790,6 +8052,30 @@ describe('Validators', () => {
         ' ',
       ],
     });
+
+    test({
+      validator: 'isLatLong',
+      args: [{
+        checkDMS: true,
+      }],
+      valid: [
+        '40° 26′ 46″ N, 79° 58′ 56″ W',
+        '40° 26′ 46″ S, 79° 58′ 56″ E',
+        '90° 0′ 0″ S, 180° 0′ 0″ E',
+        '40° 26′ 45.9996″ N, 79° 58′ 55.2″ E',
+        '40° 26′ 46″ n, 79° 58′ 56″ w',
+        '40°26′46″s, 79°58′56″e',
+        '11° 0′ 0.005″ S, 180° 0′ 0″ E',
+        '40°26′45.9996″N, 79°58′55.2″E',
+
+      ],
+      invalid: [
+        '100° 26′ 46″ N, 79° 70′ 56″ W',
+        '40° 89′ 46″ S, 79° 58′ 100″ E',
+        '40° 26.445′ 45″ N, 79° 58′ 55.2″ E',
+        '40° 46″ N, 79° 58′ 56″ W',
+      ],
+    });
   });
 
   it('should validate postal code', () => {
@@ -7934,6 +8220,22 @@ describe('Validators', () => {
           '1118 BH',
           '3950IO',
           '3997 GH',
+        ],
+      },
+      {
+        locale: 'NP',
+        valid: [
+          '10811',
+          '32600',
+          '56806',
+          '977',
+        ],
+        invalid: [
+          '11977',
+          'asds',
+          '13 32',
+          '-977',
+          '97765',
         ],
       },
       {
@@ -8154,6 +8456,23 @@ describe('Validators', () => {
     });
   });
 
+
+  it('should validate taxID', () => {
+    test({
+      validator: 'isTaxID',
+      valid: [
+        '01-1234567',
+        '01 1234567',
+        '011234567'],
+      invalid: [
+        '0-11234567',
+        '01#1234567',
+        '01  1234567',
+        '01 1234 567'],
+    });
+  });
+
+
   it('should validate slug', () => {
     test({
       validator: 'isSlug',
@@ -8166,6 +8485,38 @@ describe('Validators', () => {
         'not-slug-',
         '_not-slug',
         'not-slug_',
+        'not slug',
+      ],
+    });
+  });
+
+  it('should validate base64URL', () => {
+    test({
+      validator: 'isBase64',
+      args: [{ urlSafe: true }],
+      valid: [
+        'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
+        '1234',
+        'bXVtLW5ldmVyLXByb3Vk',
+        'PDw_Pz8-Pg',
+        'VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw',
+      ],
+      invalid: [
+        ' AA',
+        '\tAA',
+        '\rAA',
+        '\nAA',
+        '123=',
+        '',
+        'This+isa/bad+base64Url==',
+        '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
+      ],
+      error: [
+        null,
+        undefined,
+        {},
+        [],
+        42,
       ],
     });
   });

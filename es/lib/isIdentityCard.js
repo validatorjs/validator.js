@@ -22,6 +22,43 @@ var validators = {
     });
     return sanitized.endsWith(controlDigits[number % 23]);
   },
+  IN: function IN(str) {
+    var DNI = /^[1-9]\d{3}\s?\d{4}\s?\d{4}$/; // multiplication table
+
+    var d = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 0, 6, 7, 8, 9, 5], [2, 3, 4, 0, 1, 7, 8, 9, 5, 6], [3, 4, 0, 1, 2, 8, 9, 5, 6, 7], [4, 0, 1, 2, 3, 9, 5, 6, 7, 8], [5, 9, 8, 7, 6, 0, 4, 3, 2, 1], [6, 5, 9, 8, 7, 1, 0, 4, 3, 2], [7, 6, 5, 9, 8, 2, 1, 0, 4, 3], [8, 7, 6, 5, 9, 3, 2, 1, 0, 4], [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]]; // permutation table
+
+    var p = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 5, 7, 6, 2, 8, 3, 0, 9, 4], [5, 8, 0, 3, 7, 9, 6, 1, 4, 2], [8, 9, 1, 6, 0, 4, 3, 5, 2, 7], [9, 4, 5, 3, 1, 2, 6, 8, 7, 0], [4, 2, 8, 6, 5, 7, 3, 9, 0, 1], [2, 7, 9, 3, 8, 0, 6, 4, 1, 5], [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]]; // sanitize user input
+
+    var sanitized = str.trim(); // validate the data structure
+
+    if (!DNI.test(sanitized)) {
+      return false;
+    }
+
+    var c = 0;
+    var invertedArray = sanitized.replace(/\s/g, '').split('').map(Number).reverse();
+    invertedArray.forEach(function (val, i) {
+      c = d[c][p[i % 8][val]];
+    });
+    return c === 0;
+  },
+  NO: function NO(str) {
+    var sanitized = str.trim();
+    if (isNaN(Number(sanitized))) return false;
+    if (sanitized.length !== 11) return false;
+    if (sanitized === '00000000000') return false; // https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
+
+    var f = sanitized.split('').map(Number);
+    var k1 = (11 - (3 * f[0] + 7 * f[1] + 6 * f[2] + 1 * f[3] + 8 * f[4] + 9 * f[5] + 4 * f[6] + 5 * f[7] + 2 * f[8]) % 11) % 11;
+    var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11;
+
+    if (k1 === 11) {
+      k1 = 0;
+    }
+
+    if (k1 !== f[9] || k2 !== f[10]) return false;
+    return true;
+  },
   'he-IL': function heIL(str) {
     var DNI = /^\d{9}$/; // sanitize user input
 
