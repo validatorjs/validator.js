@@ -1,3 +1,48 @@
+#### HEAD
+
+- Added an `isIMEI()` validator
+  ([#1346](https://github.com/chriso/validator.js/pull/1346))
+- Added an `isDate()` validator
+  ([#1270](https://github.com/chriso/validator.js/pull/1270))
+- Added an `isTaxID()` validator
+  ([#1336](https://github.com/chriso/validator.js/pull/1336))
+- Added DMS support to `isLatLong()`
+  ([#1340](https://github.com/chriso/validator.js/pull/1340))
+- Added support for URL-safe base64 validation
+  ([#1277](https://github.com/chriso/validator.js/pull/1277))
+- Added support for primitives in `isJSON()`
+  ([#1328](https://github.com/chriso/validator.js/pull/1328))
+- Added support for case-insensitive matching to `contains()`
+  ([#1334](https://github.com/chriso/validator.js/pull/1334))
+- Support additional cards in `isCreditCard()`
+  ([#1177](https://github.com/chriso/validator.js/pull/1177))
+- Support additional currencies in `isCurrency()`
+  ([#1306](https://github.com/chriso/validator.js/pull/1306))
+- Fixed `isFQDN()` handling of certain special chars
+  ([#1091](https://github.com/chriso/validator.js/pull/1091))
+- Fixed a bug in `isSlug()`
+  ([#1338](https://github.com/chriso/validator.js/pull/1338))
+- New and improved locales
+  ([#1112](https://github.com/chriso/validator.js/pull/1112),
+   [#1167](https://github.com/chriso/validator.js/pull/1167),
+   [#1198](https://github.com/chriso/validator.js/pull/1198),
+   [#1199](https://github.com/chriso/validator.js/pull/1199),
+   [#1273](https://github.com/chriso/validator.js/pull/1273),
+   [#1279](https://github.com/chriso/validator.js/pull/1279),
+   [#1281](https://github.com/chriso/validator.js/pull/1281),
+   [#1293](https://github.com/chriso/validator.js/pull/1293),
+   [#1294](https://github.com/chriso/validator.js/pull/1294),
+   [#1311](https://github.com/chriso/validator.js/pull/1311),
+   [#1312](https://github.com/chriso/validator.js/pull/1312),
+   [#1313](https://github.com/chriso/validator.js/pull/1313),
+   [#1314](https://github.com/chriso/validator.js/pull/1314),
+   [#1315](https://github.com/chriso/validator.js/pull/1315),
+   [#1317](https://github.com/chriso/validator.js/pull/1317),
+   [#1322](https://github.com/chriso/validator.js/pull/1322),
+   [#1324](https://github.com/chriso/validator.js/pull/1324),
+   [#1330](https://github.com/chriso/validator.js/pull/1330),
+   [#1337](https://github.com/chriso/validator.js/pull/1337))
+
 #### 13.0.0
 
 - Added `isEthereumAddress()` validator
