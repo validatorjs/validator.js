@@ -1,5 +1,5 @@
 import assertString from './util/assertString';
-var charsetRegex = /^[^-_](?!.*?[-_]{2,})([a-z0-9\\-]{1,}).*[^-_]$/;
+var charsetRegex = /^[^\s-_](?!.*?[-_]{2,})([a-z0-9-\\]{1,})[^\s]*[^-_\s]$/;
 export default function isSlug(str) {
   assertString(str);
   return charsetRegex.test(str);

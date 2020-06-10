@@ -21,6 +21,7 @@ import isPassportNumber from './lib/isPassportNumber';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
+import isIMEI from './lib/isIMEI';
 import isAscii from './lib/isAscii';
 import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
@@ -58,6 +59,7 @@ import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
+import isTaxID from './lib/isTaxID';
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 import isEthereumAddress from './lib/isEthereumAddress';
 import isCurrency from './lib/isCurrency';
@@ -120,6 +122,7 @@ var validator = {
   isSemVer: isSemVer,
   isSurrogatePair: isSurrogatePair,
   isInt: isInt,
+  isIMEI: isIMEI,
   isFloat: isFloat,
   isFloatLocales: isFloatLocales,
   isDecimal: isDecimal,
@@ -178,6 +181,7 @@ var validator = {
   normalizeEmail: normalizeEmail,
   toString: toString,
   isSlug: isSlug,
+  isTaxID: isTaxID,
   isDate: isDate
 };
 export default validator;

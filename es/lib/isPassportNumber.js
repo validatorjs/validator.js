@@ -1,9 +1,11 @@
+import assertString from './util/assertString';
 /**
  * Reference:
  * https://en.wikipedia.org/ -- Wikipedia
  * https://docs.microsoft.com/en-us/microsoft-365/compliance/eu-passport-number -- EU Passport Number
  * https://countrycode.org/ -- Country Codes
  */
+
 var passportRegexByCountryCode = {
   AM: /^[A-Z]{2}\d{7}$/,
   // ARMENIA
@@ -51,6 +53,8 @@ var passportRegexByCountryCode = {
   // HUNGARY
   IE: /^[A-Z0-9]{2}\d{7}$/,
   // IRELAND
+  IN: /^[A-Z]{1}-?\d{7}$/,
+  // INDIA
   IS: /^(A)\d{7}$/,
   // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/,
@@ -98,7 +102,9 @@ var passportRegexByCountryCode = {
  */
 
 export default function isPassportNumber(str, countryCode) {
+  assertString(str);
   /** Remove All Whitespaces, Convert to UPPERCASE */
+
   var normalizedStr = str.replace(/\s/g, '').toUpperCase();
   return countryCode.toUpperCase() in passportRegexByCountryCode && passportRegexByCountryCode[countryCode].test(normalizedStr);
 }

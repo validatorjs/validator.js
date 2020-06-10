@@ -1,5 +1,5 @@
 import assertString from './util/assertString';
-var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
+import { decimal } from './alpha';
 var numericNoSymbols = /^[0-9]+$/;
 export default function isNumeric(str, options) {
   assertString(str);
@@ -8,5 +8,5 @@ export default function isNumeric(str, options) {
     return numericNoSymbols.test(str);
   }
 
-  return numeric.test(str);
+  return new RegExp("^[+-]?([0-9]*[".concat((options || {}).locale ? decimal[options.locale] : '.', "])?[0-9]+$")).test(str);
 }
