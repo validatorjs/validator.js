@@ -1,4 +1,4 @@
-#### HEAD
+#### 13.1.0
 
 - Added an `isIMEI()` validator
   ([#1346](https://github.com/chriso/validator.js/pull/1346))
