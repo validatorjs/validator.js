@@ -85,7 +85,7 @@ function scorePassword(analysis, scoringOptions) {
   return points;
 }
 
-export default function isStrongPassword(str, requirementOptions = {}, scoringOptions = null) {
+export default function isStrongPassword(str, requirementOptions = null, scoringOptions = null) {
   assertString(str);
   const analysis = analyzePassword(str);
   if (scoringOptions) {
@@ -93,7 +93,7 @@ export default function isStrongPassword(str, requirementOptions = {}, scoringOp
     const score = scorePassword(analysis, defaultScoringOptions);
     return scoringOptions.returnScore ? score : score >= scoringOptions.minStrongScore;
   }
-  requirementOptions = merge(requirementOptions, defaultRequirementOptions);
+  requirementOptions = merge(requirementOptions || {}, defaultRequirementOptions);
   return analysis.length >= requirementOptions.minLength &&
         analysis.lowercaseCount >= requirementOptions.minLowercase &&
         analysis.uppercaseCount >= requirementOptions.minUppercase &&
