@@ -8532,7 +8532,27 @@ describe('Validators', () => {
       validator: 'isStrongPassword',
       valid: [
         '%2%k{7BsL"M%Kd6e',
-        'EXAMPLE of very long_password!',
+        'EXAMPLE of very long_password123!',
+        'mxH_+2vs&54_+H3P',
+        '+&DxJ=X7-4L8jRCD',
+        'etV*p%Nr6w&H%FeF',
+      ],
+      invalid: [
+        '',
+        'password',
+        'hunter2',
+        'hello world',
+        'passw0rd',
+        'password!',
+        'PASSWORD!',
+      ],
+    });
+    test({
+      validator: 'isStrongPassword',
+      args: [{}, {}], // Test scoring
+      valid: [
+        '%2%k{7BsL"M%Kd6e',
+        'EXAMPLE of very long_password123!',
         'mxH_+2vs&54_+H3P',
         '+&DxJ=X7-4L8jRCD',
         'etV*p%Nr6w&H%FeF',
