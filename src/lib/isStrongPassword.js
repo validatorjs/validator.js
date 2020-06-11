@@ -85,9 +85,9 @@ function scorePassword(analysis, scoringOptions) {
   return points;
 }
 
-export default function isStrongPassword(password, requirementOptions = {}, scoringOptions = null) {
-  assertString(password);
-  const analysis = analyzePassword(password);
+export default function isStrongPassword(str, requirementOptions = {}, scoringOptions = null) {
+  assertString(str);
+  const analysis = analyzePassword(str);
   if (scoringOptions) {
     scoringOptions = merge(scoringOptions, defaultScoringOptions);
     const score = scorePassword(analysis, defaultScoringOptions);
