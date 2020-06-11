@@ -1,3 +1,4 @@
+import merge from './util/merge';
 import assertString from './util/assertString';
 
 const upperCaseRegex = /^[A-Z]$/;
@@ -5,10 +6,29 @@ const lowerCaseRegex = /^[a-z]$/;
 const numberRegex = /^[0-9]$/;
 const symbolRegex = /^[-#!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
 
+const defaultRequirementOptions = {
+  minLength: 8,
+  minLowercase: 1,
+  minUppercase: 1,
+  minNumbers: 1,
+  minSymbols: 1,
+};
+
+const defaultScoringOptions = {
+  returnScore: false,
+  pointsPerUnique: 1,
+  pointsPerRepeat: 0.5,
+  pointsForContainingLower: 10,
+  pointsForContainingUpper: 10,
+  pointsForContainingNumber: 10,
+  pointsForContainingSymbol: 10,
+  strengthThreshold: 50,
+};
+
 /* Counts number of occurances of each char in a string
  * could be moved to util/ ?
 */
-function countFrom(str) {
+function countChars(str) {
   let result = {};
   Array.from(str).forEach((char) => {
     let curVal = result[char];
@@ -23,7 +43,7 @@ function countFrom(str) {
 
 /* Return information about a password */
 function analyzePassword(password) {
-  let charMap = countFrom(password);
+  let charMap = countChars(password);
   let analysis = {
     length: password.length,
     uniqueChars: Object.keys(charMap).length,
@@ -46,28 +66,37 @@ function analyzePassword(password) {
   return analysis;
 }
 
-/* Scores passwords
- * Optional Parameters for isStrongPassword:
- * score           : if true, will return the calculated score rather than true/false
- * strongThreshold : replace the default threshold for what score a strong password receives
-*/
-
-export default function isStrongPassword(password, score = false, strongThreshold = 50) {
-  assertString(password);
-  let analysis = analyzePassword(password);
-  let points = analysis.uniqueChars;
-  points += (analysis.length - analysis.uniqueChars) * 0.2;
+function scorePassword(analysis, scoringOptions) {
+  let points = 0;
+  points += analysis.uniqueChars * scoringOptions.pointsPerUnique;
+  points += (analysis.length - analysis.uniqueChars) * scoringOptions.pointsPerRepeat;
   if (analysis.lowercaseCount > 0) {
-    points += 10;
+    points += scoringOptions.pointsForContainingLower;
   }
   if (analysis.uppercaseCount > 0) {
-    points += 10;
+    points += scoringOptions.pointsForContainingUpper;
   }
   if (analysis.numberCount > 0) {
-    points += 10;
+    points += scoringOptions.pointsForContainingNumber;
   }
   if (analysis.symbolCount > 0) {
-    points += 10;
+    points += scoringOptions.pointsForContainingSymbol;
   }
-  return score ? points : points >= strongThreshold;
+  return points;
+}
+
+export default function isStrongPassword(password, requirementOptions = {}, scoringOptions = null) {
+  assertString(password);
+  const analysis = analyzePassword(password);
+  if (scoringOptions) {
+    scoringOptions = merge(scoringOptions, defaultScoringOptions);
+    const score = scorePassword(analysis, defaultScoringOptions);
+    return scoringOptions.returnScore ? score : score >= scoringOptions.strengthThreshold;
+  }
+  requirementOptions = merge(requirementOptions, defaultRequirementOptions);
+  return analysis.length >= requirementOptions.minLength &&
+        analysis.lowercaseCount >= requirementOptions.minLowercase &&
+        analysis.uppercaseCount >= requirementOptions.minUppercase &&
+        analysis.numberCount >= requirementOptions.minNumbers &&
+        analysis.symbolCount >= requirementOptions.minSymbols;
 }
