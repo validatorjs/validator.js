@@ -22,7 +22,7 @@ const defaultScoringOptions = {
   pointsForContainingUpper: 10,
   pointsForContainingNumber: 10,
   pointsForContainingSymbol: 10,
-  strengthThreshold: 50,
+  minStrongScore: 50,
 };
 
 /* Counts number of occurances of each char in a string
@@ -91,7 +91,7 @@ export default function isStrongPassword(password, requirementOptions = {}, scor
   if (scoringOptions) {
     scoringOptions = merge(scoringOptions, defaultScoringOptions);
     const score = scorePassword(analysis, defaultScoringOptions);
-    return scoringOptions.returnScore ? score : score >= scoringOptions.strengthThreshold;
+    return scoringOptions.returnScore ? score : score >= scoringOptions.minStrongScore;
   }
   requirementOptions = merge(requirementOptions, defaultRequirementOptions);
   return analysis.length >= requirementOptions.minLength &&
