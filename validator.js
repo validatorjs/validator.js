@@ -1171,6 +1171,31 @@ function isPort(str) {
   });
 }
 
+/* eslint-disable no-plusplus */
+function isPermutation(str, pattern) {
+  var m = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  pattern.split('').forEach(function (c) {
+    if (!m[c]) m[c] = 0;
+    ++m[c];
+  });
+  var N = str.length,
+      K = pattern.length,
+      i = 0,
+      j = 0,
+      need = K;
+
+  while (j < N) {
+    if (m[str[j]]-- > 0 && ! --need) return true;
+
+    if (++j - i === K) {
+      if (++m[str[i]] > 0) ++need;
+      ++i;
+    }
+  }
+
+  return false;
+}
+
 function isLowercase(str) {
   assertString(str);
   return str === str.toLowerCase();
@@ -2350,7 +2375,7 @@ var phones = {
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
-  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[189])[0-9]{8}$/,
+  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[012356789])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -2994,6 +3019,7 @@ var validator = {
   isNumeric: isNumeric,
   isPassportNumber: isPassportNumber,
   isPort: isPort,
+  isPermutation: isPermutation,
   isLowercase: isLowercase,
   isUppercase: isUppercase,
   isAscii: isAscii,

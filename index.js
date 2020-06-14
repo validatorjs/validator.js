@@ -49,6 +49,8 @@ var _isPassportNumber = _interopRequireDefault(require("./lib/isPassportNumber")
 
 var _isPort = _interopRequireDefault(require("./lib/isPort"));
 
+var _isPermutation = _interopRequireDefault(require("./lib/isPermutation"));
+
 var _isLowercase = _interopRequireDefault(require("./lib/isLowercase"));
 
 var _isUppercase = _interopRequireDefault(require("./lib/isUppercase"));
@@ -215,6 +217,7 @@ var validator = {
   isNumeric: _isNumeric.default,
   isPassportNumber: _isPassportNumber.default,
   isPort: _isPort.default,
+  isPermutation: _isPermutation.default,
   isLowercase: _isLowercase.default,
   isUppercase: _isUppercase.default,
   isAscii: _isAscii.default,

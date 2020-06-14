@@ -1883,6 +1883,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Permutation in String', () => {
+    test({
+      validator: 'isPermutation',
+      args: ['ab'],
+      valid: ['eidbaooo', 'eidabooo', 'abaataba', 'baba'],
+      invalid: [
+        'eidbiaooo',
+        'eidaooo',
+        'edi',
+        'aib',
+        '',
+      ],
+    });
+  });
+
   it('should validate passport number', () => {
     test({
       validator: 'isPassportNumber',

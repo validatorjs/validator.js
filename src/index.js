@@ -22,6 +22,7 @@ import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphan
 import isNumeric from './lib/isNumeric';
 import isPassportNumber from './lib/isPassportNumber';
 import isPort from './lib/isPort';
+import isPermutation from './lib/isPermutation';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
 
@@ -142,6 +143,7 @@ const validator = {
   isNumeric,
   isPassportNumber,
   isPort,
+  isPermutation,
   isLowercase,
   isUppercase,
   isAscii,
