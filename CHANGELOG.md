@@ -1,3 +1,8 @@
+#### 13.1.1
+
+- Hotfix for a regex incompatibility in some browsers
+  ([#1355](https://github.com/chriso/validator.js/pull/1355))
+
 #### 13.1.0
 
 - Added an `isIMEI()` validator

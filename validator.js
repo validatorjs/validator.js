@@ -2271,7 +2271,6 @@ var phones = {
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
-  'bs-BA': /^((((\+|0{2})3876)|06)[0-6])((?<=4)\d{7}|(?<!4)\d{6})$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
   'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
@@ -2969,7 +2968,7 @@ function isSlug(str) {
   return charsetRegex.test(str);
 }
 
-var version = '13.1.0';
+var version = '13.1.1';
 var validator = {
   version: version,
   toDate: toDate,
