@@ -5,6 +5,14 @@ const threeDigit = /^\d{3}$/;
 const fourDigit = /^\d{4}$/;
 const fiveDigit = /^\d{5}$/;
 const sixDigit = /^\d{6}$/;
+const validators = {
+  ES: function ES(str) {
+    // sanitize user input
+    let sanitizedInput = str.trim();
+    return sanitizedInput.length === 5 && parseInt(sanitizedInput, 10) >= 1001
+      && parseInt(sanitizedInput, 10) <= 52999;
+  },
+};
 
 const patterns = {
   AD: /^AD\d{3}$/,
@@ -20,7 +28,9 @@ const patterns = {
   DK: fourDigit,
   DZ: fiveDigit,
   EE: fiveDigit,
-  ES: fiveDigit,
+  ES: {
+    test: validators.ES,
+  },
   FI: fiveDigit,
   FR: /^\d{2}\s?\d{3}$/,
   GB: /^(gir\s?0aa|[a-z]{1,2}\d[\da-z]?\s?(\d[a-z]{2})?)$/i,
