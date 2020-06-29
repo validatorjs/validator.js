@@ -19,7 +19,6 @@ const defaultOptions = {
   pointsForContainingUpper: 10,
   pointsForContainingNumber: 10,
   pointsForContainingSymbol: 10,
-  minStrongScore: 50,
 };
 
 /* Counts number of occurances of each char in a string
