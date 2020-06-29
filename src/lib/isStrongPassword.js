@@ -6,15 +6,12 @@ const lowerCaseRegex = /^[a-z]$/;
 const numberRegex = /^[0-9]$/;
 const symbolRegex = /^[-#!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
 
-const defaultRequirementOptions = {
+const defaultOptions = {
   minLength: 8,
   minLowercase: 1,
   minUppercase: 1,
   minNumbers: 1,
   minSymbols: 1,
-};
-
-const defaultScoringOptions = {
   returnScore: false,
   pointsPerUnique: 1,
   pointsPerRepeat: 0.5,
@@ -85,18 +82,16 @@ function scorePassword(analysis, scoringOptions) {
   return points;
 }
 
-export default function isStrongPassword(str, requirementOptions = null, scoringOptions = null) {
+export default function isStrongPassword(str, options = null) {
   assertString(str);
   const analysis = analyzePassword(str);
-  if (scoringOptions) {
-    scoringOptions = merge(scoringOptions, defaultScoringOptions);
-    const score = scorePassword(analysis, defaultScoringOptions);
-    return scoringOptions.returnScore ? score : score >= scoringOptions.minStrongScore;
+  options = merge(options || {}, defaultOptions);
+  if (options.returnScore) {
+    return scorePassword(analysis, options);
   }
-  requirementOptions = merge(requirementOptions || {}, defaultRequirementOptions);
-  return analysis.length >= requirementOptions.minLength &&
-        analysis.lowercaseCount >= requirementOptions.minLowercase &&
-        analysis.uppercaseCount >= requirementOptions.minUppercase &&
-        analysis.numberCount >= requirementOptions.minNumbers &&
-        analysis.symbolCount >= requirementOptions.minSymbols;
+  return analysis.length >= options.minLength
+        && analysis.lowercaseCount >= options.minLowercase
+        && analysis.uppercaseCount >= options.minUppercase
+        && analysis.numberCount >= options.minNumbers
+        && analysis.symbolCount >= options.minSymbols;
 }
