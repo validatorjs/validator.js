@@ -1048,6 +1048,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Vietnamese alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['vi-VN'],
+      valid: [
+        'thiến',
+        'nghiêng',
+        'xin',
+        'chào',
+        'thế',
+        'giới',
+      ],
+      invalid: [
+        'thầy3',
+        'Ba gà',
+        '',
+      ],
+    });
+  });
+
   it('should validate arabic alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1554,6 +1574,21 @@ describe('Validators', () => {
         'äca ',
         'abcß',
         'föö!!',
+      ],
+    });
+  });
+
+  it('should validate Vietnamese alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['vi-VN'],
+      valid: [
+        'Thầy3',
+        '3Gà',
+      ],
+      invalid: [
+        'toang!',
+        'Cậu Vàng',
       ],
     });
   });
