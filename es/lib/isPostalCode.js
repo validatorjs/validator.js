@@ -4,6 +4,7 @@ var threeDigit = /^\d{3}$/;
 var fourDigit = /^\d{4}$/;
 var fiveDigit = /^\d{5}$/;
 var sixDigit = /^\d{6}$/;
+var ESValidator = /^(5[0-2]{1}|[0-4]{1}\d{1})\d{3}$/;
 var patterns = {
   AD: /^AD\d{3}$/,
   AT: fourDigit,
@@ -18,7 +19,7 @@ var patterns = {
   DK: fourDigit,
   DZ: fiveDigit,
   EE: fiveDigit,
-  ES: fiveDigit,
+  ES: ESValidator,
   FI: fiveDigit,
   FR: /^\d{2}\s?\d{3}$/,
   GB: /^(gir\s?0aa|[a-z]{1,2}\d[\da-z]?\s?(\d[a-z]{2})?)$/i,
@@ -27,7 +28,7 @@ var patterns = {
   HU: fourDigit,
   ID: fiveDigit,
   IE: /^(?!.*(?:o))[A-z]\d[\dw]\s\w{4}$/i,
-  IL: fiveDigit,
+  IL: /^(\d{5}|\d{7})$/,
   IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,
