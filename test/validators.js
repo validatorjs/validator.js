@@ -3341,6 +3341,20 @@ describe('Validators', () => {
         'rgba(3%,3%,101%,0.3)',
       ],
     });
+
+    // test where includePercentValues is given as false
+    test({
+      validator: 'isRgbColor',
+      args: [false],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+      ],
+      invalid: [
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+      ],
+    });
   });
 
   it('should validate ISRC code strings', () => {
@@ -4176,6 +4190,7 @@ describe('Validators', () => {
           '235407195106112745',
           '210203197503102721',
           '520323197806058856',
+          '235477190110989',
         ],
         invalid: [
           '235407195106112742',
@@ -4196,6 +4211,7 @@ describe('Validators', () => {
           'X231071922',
           '1234*678Z',
           '12345678!',
+          '235407207006112742',
         ],
       },
       {
