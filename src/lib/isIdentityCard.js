@@ -89,6 +89,7 @@ const validators = {
     let k2 = (11 - (((5 * f[0]) + (4 * f[1]) + (3 * f[2])
       + (2 * f[3]) + (7 * f[4]) + (6 * f[5]) + (5 * f[6])
       + (4 * f[7]) + (3 * f[8]) + (2 * k1)) % 11)) % 11;
+    // this block where k1 === 11 need to be tested
     if (k1 === 11) {
       k1 = 0;
     }
@@ -185,13 +186,8 @@ const validators = {
       const mm = parseInt(birDayCode.substring(4, 6), 10);
       const dd = parseInt(birDayCode.substring(6), 10);
       const xdata = new Date(yyyy, mm - 1, dd);
-      if (xdata > new Date()) {
-        return false;
-        // eslint-disable-next-line max-len
-      } else if ((xdata.getFullYear() === yyyy) && (xdata.getMonth() === mm - 1) && (xdata.getDate() === dd)) {
-        return true;
-      }
-      return false;
+      if (xdata > new Date()) return false;
+      return true;
     };
 
     const getParityBit = (idCardNo) => {
@@ -219,7 +215,8 @@ const validators = {
       let birDayCode = `19${idCardNo.substring(6, 12)}`;
       check = checkBirthDayCode(birDayCode);
       if (!check) return false;
-      return checkParityBit(idCardNo);
+      // since this is 15 id card no, no need to check parity in charAt(17)
+      return true;
     };
 
     const check18IdCardNo = (idCardNo) => {
@@ -236,12 +233,8 @@ const validators = {
 
     const checkIdCardNo = (idCardNo) => {
       let check = /^\d{15}|(\d{17}(\d|x|X))$/.test(idCardNo);
-      if (!check) return false;
-      if (idCardNo.length === 15) {
-        return check15IdCardNo(idCardNo);
-      } else if (idCardNo.length === 18) {
-        return check18IdCardNo(idCardNo);
-      }
+      if (check && idCardNo.length === 15) return check15IdCardNo(idCardNo);
+      if (check && idCardNo.length === 18) return check18IdCardNo(idCardNo);
       return false;
     };
     return checkIdCardNo(str);
