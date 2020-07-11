@@ -6,8 +6,7 @@
  * @param {string} flags
  * @return {object} - RegExp object
  */
-export default function multilineRegexp(parts) {
-  var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+export default function multilineRegexp(parts, flags) {
   var regexpAsStringLiteral = parts.join('');
   return new RegExp(regexpAsStringLiteral, flags);
 }

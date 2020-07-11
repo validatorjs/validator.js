@@ -6,7 +6,7 @@
  * @param {string} flags
  * @return {object} - RegExp object
  */
-export default function multilineRegexp(parts, flags = '') {
+export default function multilineRegexp(parts, flags) {
   const regexpAsStringLiteral = parts.join('');
 
   return new RegExp(regexpAsStringLiteral, flags);
