@@ -48,6 +48,8 @@ function getPrefixes(locale) {
   var prefixes = [];
 
   for (var location in campusPrefix[locale]) {
+    // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+    // istanbul ignore else
     if (campusPrefix[locale].hasOwnProperty(location)) {
       prefixes.push.apply(prefixes, _toConsumableArray(campusPrefix[locale][location]));
     }
@@ -55,7 +57,7 @@ function getPrefixes(locale) {
 
   prefixes.sort();
   return prefixes;
-} // tax id regex formats for various loacles
+} // tax id regex formats for various locales
 
 
 var taxIdFormat = {
@@ -65,9 +67,13 @@ export default function isTaxID(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
   assertString(str);
 
-  if (!taxIdFormat[locale].test(str)) {
-    return false;
+  if (locale in taxIdFormat) {
+    if (!taxIdFormat[locale].test(str)) {
+      return false;
+    }
+
+    return getPrefixes(locale).indexOf(str.substr(0, 2)) !== -1;
   }
 
-  return getPrefixes(locale).indexOf(str.substr(0, 2)) !== -1;
+  throw new Error("Invalid locale '".concat(locale, "'"));
 }
