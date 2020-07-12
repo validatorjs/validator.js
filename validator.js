@@ -223,6 +223,7 @@ var alpha = {
   'sv-SE': /^[A-ZÅÄÖ]+$/i,
   'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
+  'vi-VN': /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
@@ -253,6 +254,7 @@ var alphanumeric = {
   'tr-TR': /^[0-9A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
+  'vi-VN': /^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
   'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
@@ -282,7 +284,7 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
 
 
 var dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
-var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN'];
 
 for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
   decimal[dotDecimal[_i2]] = decimal['en-US'];
@@ -593,7 +595,8 @@ var default_email_options = {
   allow_display_name: false,
   require_display_name: false,
   allow_utf8_local_part: true,
-  require_tld: true
+  require_tld: true,
+  blacklisted_chars: ''
 };
 /* eslint-disable max-len */
 
@@ -752,6 +755,10 @@ function isEmail(str, options) {
     if (!pattern.test(user_parts[_i])) {
       return false;
     }
+  }
+
+  if (options.blacklisted_chars) {
+    if (user.search(new RegExp("[".concat(options.blacklisted_chars, "]+"), 'g')) !== -1) return false;
   }
 
   return true;
@@ -1785,7 +1792,7 @@ var validators = {
 
     var f = sanitized.split('').map(Number);
     var k1 = (11 - (3 * f[0] + 7 * f[1] + 6 * f[2] + 1 * f[3] + 8 * f[4] + 9 * f[5] + 4 * f[6] + 5 * f[7] + 2 * f[8]) % 11) % 11;
-    var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11;
+    var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11; // this block where k1 === 11 need to be tested
 
     if (k1 === 11) {
       k1 = 0;
@@ -1881,14 +1888,8 @@ var validators = {
       var mm = parseInt(birDayCode.substring(4, 6), 10);
       var dd = parseInt(birDayCode.substring(6), 10);
       var xdata = new Date(yyyy, mm - 1, dd);
-
-      if (xdata > new Date()) {
-        return false; // eslint-disable-next-line max-len
-      } else if (xdata.getFullYear() === yyyy && xdata.getMonth() === mm - 1 && xdata.getDate() === dd) {
-        return true;
-      }
-
-      return false;
+      if (xdata > new Date()) return false;
+      return true;
     };
 
     var getParityBit = function getParityBit(idCardNo) {
@@ -1916,8 +1917,9 @@ var validators = {
       if (!check) return false;
       var birDayCode = "19".concat(idCardNo.substring(6, 12));
       check = checkBirthDayCode(birDayCode);
-      if (!check) return false;
-      return checkParityBit(idCardNo);
+      if (!check) return false; // since this is 15 id card no, no need to check parity in charAt(17)
+
+      return true;
     };
 
     var check18IdCardNo = function check18IdCardNo(idCardNo) {
@@ -1934,14 +1936,8 @@ var validators = {
 
     var checkIdCardNo = function checkIdCardNo(idCardNo) {
       var check = /^\d{15}|(\d{17}(\d|x|X))$/.test(idCardNo);
-      if (!check) return false;
-
-      if (idCardNo.length === 15) {
-        return check15IdCardNo(idCardNo);
-      } else if (idCardNo.length === 18) {
-        return check18IdCardNo(idCardNo);
-      }
-
+      if (check && idCardNo.length === 15) return check15IdCardNo(idCardNo);
+      if (check && idCardNo.length === 18) return check18IdCardNo(idCardNo);
       return false;
     };
 
@@ -2271,6 +2267,7 @@ var phones = {
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
+  'bs-BA': /^((((\+|00)3876)|06))((([0-3]|[5-6])\d{6})|(4\d{7}))$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
   'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
@@ -2307,7 +2304,7 @@ var phones = {
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
   'es-CR': /^(\+506)?[2-8]\d{7}$/,
   'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
-  'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
+  'es-ES': /^(\+?34)?[6|7]\d{8}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
   'es-PA': /^(\+?507)\d{7,8}$/,
   'es-PY': /^(\+?595|0)9[9876]\d{7}$/,
@@ -2350,7 +2347,7 @@ var phones = {
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
-  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[189])[0-9]{8}$/,
+  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[012356789])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -2702,7 +2699,7 @@ var patterns = {
   DK: fourDigit,
   DZ: fiveDigit,
   EE: fiveDigit,
-  ES: fiveDigit,
+  ES: /^(5[0-2]{1}|[0-4]{1}\d{1})\d{3}$/,
   FI: fiveDigit,
   FR: /^\d{2}\s?\d{3}$/,
   GB: /^(gir\s?0aa|[a-z]{1,2}\d[\da-z]?\s?(\d[a-z]{2})?)$/i,
@@ -2711,7 +2708,7 @@ var patterns = {
   HU: fourDigit,
   ID: fiveDigit,
   IE: /^(?!.*(?:o))[A-z]\d[\dw]\s\w{4}$/i,
-  IL: fiveDigit,
+  IL: /^(\d{5}|\d{7})$/,
   IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,

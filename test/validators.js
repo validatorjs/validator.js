@@ -295,6 +295,19 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate email addresses with blacklisted chars in  the name', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ blacklisted_chars: 'abc' }],
+      valid: [
+        'emil@gmail.com',
+      ],
+      invalid: [
+        'email@gmail.com',
+      ],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',

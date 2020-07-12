@@ -19,7 +19,8 @@ var default_email_options = {
   allow_display_name: false,
   require_display_name: false,
   allow_utf8_local_part: true,
-  require_tld: true
+  require_tld: true,
+  blacklisted_chars: ''
 };
 /* eslint-disable max-len */
 
@@ -178,6 +179,10 @@ export default function isEmail(str, options) {
     if (!pattern.test(user_parts[_i2])) {
       return false;
     }
+  }
+
+  if (options.blacklisted_chars) {
+    if (user.search(new RegExp("[".concat(options.blacklisted_chars, "]+"), 'g')) !== -1) return false;
   }
 
   return true;
