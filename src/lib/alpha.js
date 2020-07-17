@@ -63,6 +63,7 @@ export const alphanumeric = {
 export const decimal = {
   'en-US': '.',
   ar: '٫',
+  'fr-FR': ',',
 };
 
 
