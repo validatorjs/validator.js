@@ -51,11 +51,6 @@ var validators = {
     var f = sanitized.split('').map(Number);
     var k1 = (11 - (3 * f[0] + 7 * f[1] + 6 * f[2] + 1 * f[3] + 8 * f[4] + 9 * f[5] + 4 * f[6] + 5 * f[7] + 2 * f[8]) % 11) % 11;
     var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11;
-
-    if (k1 === 11) {
-      k1 = 0;
-    }
-
     if (k1 !== f[9] || k2 !== f[10]) return false;
     return true;
   },
@@ -92,56 +87,50 @@ var validators = {
     return true;
   },
   'zh-CN': function zhCN(str) {
-    var provinceAndCitys = {
-      11: '北京',
-      12: '天津',
-      13: '河北',
-      14: '山西',
-      15: '内蒙古',
-      21: '辽宁',
-      22: '吉林',
-      23: '黑龙江',
-      31: '上海',
-      32: '江苏',
-      33: '浙江',
-      34: '安徽',
-      35: '福建',
-      36: '江西',
-      37: '山东',
-      41: '河南',
-      42: '湖北',
-      43: '湖南',
-      44: '广东',
-      45: '广西',
-      46: '海南',
-      50: '重庆',
-      51: '四川',
-      52: '贵州',
-      53: '云南',
-      54: '西藏',
-      61: '陕西',
-      62: '甘肃',
-      63: '青海',
-      64: '宁夏',
-      65: '新疆',
-      71: '台湾',
-      81: '香港',
-      82: '澳门',
-      91: '国外'
-    };
+    var provincesAndCities = ['11', // 北京
+    '12', // 天津
+    '13', // 河北
+    '14', // 山西
+    '15', // 内蒙古
+    '21', // 辽宁
+    '22', // 吉林
+    '23', // 黑龙江
+    '31', // 上海
+    '32', // 江苏
+    '33', // 浙江
+    '34', // 安徽
+    '35', // 福建
+    '36', // 江西
+    '37', // 山东
+    '41', // 河南
+    '42', // 湖北
+    '43', // 湖南
+    '44', // 广东
+    '45', // 广西
+    '46', // 海南
+    '50', // 重庆
+    '51', // 四川
+    '52', // 贵州
+    '53', // 云南
+    '54', // 西藏
+    '61', // 陕西
+    '62', // 甘肃
+    '63', // 青海
+    '64', // 宁夏
+    '65', // 新疆
+    '71', // 台湾
+    '81', // 香港
+    '82', // 澳门
+    '91' // 国外
+    ];
     var powers = ['7', '9', '10', '5', '8', '4', '2', '1', '6', '3', '7', '9', '10', '5', '8', '4', '2'];
     var parityBit = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
 
     var checkAddressCode = function checkAddressCode(addressCode) {
-      var check = /^[1-9]\d{5}$/.test(addressCode);
-      if (!check) return false; // eslint-disable-next-line radix
-
-      return !!provinceAndCitys[Number.parseInt(addressCode.substring(0, 2))];
+      return provincesAndCities.includes(addressCode);
     };
 
     var checkBirthDayCode = function checkBirthDayCode(birDayCode) {
-      var check = /^[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))$/.test(birDayCode);
-      if (!check) return false;
       var yyyy = parseInt(birDayCode.substring(0, 4), 10);
       var mm = parseInt(birDayCode.substring(4, 6), 10);
       var dd = parseInt(birDayCode.substring(6), 10);
@@ -161,8 +150,7 @@ var validators = {
       var power = 0;
 
       for (var i = 0; i < 17; i++) {
-        // eslint-disable-next-line radix
-        power += parseInt(id17.charAt(i), 10) * Number.parseInt(powers[i]);
+        power += parseInt(id17.charAt(i), 10) * parseInt(powers[i], 10);
       }
 
       var mod = power % 11;
@@ -176,19 +164,19 @@ var validators = {
     var check15IdCardNo = function check15IdCardNo(idCardNo) {
       var check = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(idCardNo);
       if (!check) return false;
-      var addressCode = idCardNo.substring(0, 6);
+      var addressCode = idCardNo.substring(0, 2);
       check = checkAddressCode(addressCode);
       if (!check) return false;
       var birDayCode = "19".concat(idCardNo.substring(6, 12));
       check = checkBirthDayCode(birDayCode);
       if (!check) return false;
-      return checkParityBit(idCardNo);
+      return true;
     };
 
     var check18IdCardNo = function check18IdCardNo(idCardNo) {
       var check = /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}(\d|x|X)$/.test(idCardNo);
       if (!check) return false;
-      var addressCode = idCardNo.substring(0, 6);
+      var addressCode = idCardNo.substring(0, 2);
       check = checkAddressCode(addressCode);
       if (!check) return false;
       var birDayCode = idCardNo.substring(6, 14);
@@ -203,11 +191,9 @@ var validators = {
 
       if (idCardNo.length === 15) {
         return check15IdCardNo(idCardNo);
-      } else if (idCardNo.length === 18) {
-        return check18IdCardNo(idCardNo);
       }
 
-      return false;
+      return check18IdCardNo(idCardNo);
     };
 
     return checkIdCardNo(str);

@@ -223,6 +223,7 @@ var alpha = {
   'sv-SE': /^[A-ZÅÄÖ]+$/i,
   'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
+  'vi-VN': /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
@@ -253,6 +254,7 @@ var alphanumeric = {
   'tr-TR': /^[0-9A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
+  'vi-VN': /^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
   'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
@@ -282,7 +284,7 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
 
 
 var dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
-var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN'];
 
 for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
   decimal[dotDecimal[_i2]] = decimal['en-US'];
@@ -1273,8 +1275,7 @@ function isMultibyte(str) {
  * @param {string} flags
  * @return {object} - RegExp object
  */
-function multilineRegexp(parts) {
-  var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+function multilineRegexp(parts, flags) {
   var regexpAsStringLiteral = parts.join('');
   return new RegExp(regexpAsStringLiteral, flags);
 }
@@ -1286,7 +1287,7 @@ function multilineRegexp(parts) {
  * Reference: https://semver.org/
  */
 
-var semanticVersioningRegex = multilineRegexp(['^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)', '(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))', '?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$']);
+var semanticVersioningRegex = multilineRegexp(['^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)', '(?:-((?:0|[1-9]\\d*|\\d*[a-z-][0-9a-z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-z-][0-9a-z-]*))*))', '?(?:\\+([0-9a-z-]+(?:\\.[0-9a-z-]+)*))?$'], 'i');
 function isSemVer(str) {
   assertString(str);
   return semanticVersioningRegex.test(str);
@@ -1786,11 +1787,6 @@ var validators = {
     var f = sanitized.split('').map(Number);
     var k1 = (11 - (3 * f[0] + 7 * f[1] + 6 * f[2] + 1 * f[3] + 8 * f[4] + 9 * f[5] + 4 * f[6] + 5 * f[7] + 2 * f[8]) % 11) % 11;
     var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11;
-
-    if (k1 === 11) {
-      k1 = 0;
-    }
-
     if (k1 !== f[9] || k2 !== f[10]) return false;
     return true;
   },
@@ -1827,56 +1823,50 @@ var validators = {
     return true;
   },
   'zh-CN': function zhCN(str) {
-    var provinceAndCitys = {
-      11: '北京',
-      12: '天津',
-      13: '河北',
-      14: '山西',
-      15: '内蒙古',
-      21: '辽宁',
-      22: '吉林',
-      23: '黑龙江',
-      31: '上海',
-      32: '江苏',
-      33: '浙江',
-      34: '安徽',
-      35: '福建',
-      36: '江西',
-      37: '山东',
-      41: '河南',
-      42: '湖北',
-      43: '湖南',
-      44: '广东',
-      45: '广西',
-      46: '海南',
-      50: '重庆',
-      51: '四川',
-      52: '贵州',
-      53: '云南',
-      54: '西藏',
-      61: '陕西',
-      62: '甘肃',
-      63: '青海',
-      64: '宁夏',
-      65: '新疆',
-      71: '台湾',
-      81: '香港',
-      82: '澳门',
-      91: '国外'
-    };
+    var provincesAndCities = ['11', // 北京
+    '12', // 天津
+    '13', // 河北
+    '14', // 山西
+    '15', // 内蒙古
+    '21', // 辽宁
+    '22', // 吉林
+    '23', // 黑龙江
+    '31', // 上海
+    '32', // 江苏
+    '33', // 浙江
+    '34', // 安徽
+    '35', // 福建
+    '36', // 江西
+    '37', // 山东
+    '41', // 河南
+    '42', // 湖北
+    '43', // 湖南
+    '44', // 广东
+    '45', // 广西
+    '46', // 海南
+    '50', // 重庆
+    '51', // 四川
+    '52', // 贵州
+    '53', // 云南
+    '54', // 西藏
+    '61', // 陕西
+    '62', // 甘肃
+    '63', // 青海
+    '64', // 宁夏
+    '65', // 新疆
+    '71', // 台湾
+    '81', // 香港
+    '82', // 澳门
+    '91' // 国外
+    ];
     var powers = ['7', '9', '10', '5', '8', '4', '2', '1', '6', '3', '7', '9', '10', '5', '8', '4', '2'];
     var parityBit = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
 
     var checkAddressCode = function checkAddressCode(addressCode) {
-      var check = /^[1-9]\d{5}$/.test(addressCode);
-      if (!check) return false; // eslint-disable-next-line radix
-
-      return !!provinceAndCitys[Number.parseInt(addressCode.substring(0, 2))];
+      return provincesAndCities.includes(addressCode);
     };
 
     var checkBirthDayCode = function checkBirthDayCode(birDayCode) {
-      var check = /^[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))$/.test(birDayCode);
-      if (!check) return false;
       var yyyy = parseInt(birDayCode.substring(0, 4), 10);
       var mm = parseInt(birDayCode.substring(4, 6), 10);
       var dd = parseInt(birDayCode.substring(6), 10);
@@ -1896,8 +1886,7 @@ var validators = {
       var power = 0;
 
       for (var i = 0; i < 17; i++) {
-        // eslint-disable-next-line radix
-        power += parseInt(id17.charAt(i), 10) * Number.parseInt(powers[i]);
+        power += parseInt(id17.charAt(i), 10) * parseInt(powers[i], 10);
       }
 
       var mod = power % 11;
@@ -1911,19 +1900,19 @@ var validators = {
     var check15IdCardNo = function check15IdCardNo(idCardNo) {
       var check = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(idCardNo);
       if (!check) return false;
-      var addressCode = idCardNo.substring(0, 6);
+      var addressCode = idCardNo.substring(0, 2);
       check = checkAddressCode(addressCode);
       if (!check) return false;
       var birDayCode = "19".concat(idCardNo.substring(6, 12));
       check = checkBirthDayCode(birDayCode);
       if (!check) return false;
-      return checkParityBit(idCardNo);
+      return true;
     };
 
     var check18IdCardNo = function check18IdCardNo(idCardNo) {
       var check = /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}(\d|x|X)$/.test(idCardNo);
       if (!check) return false;
-      var addressCode = idCardNo.substring(0, 6);
+      var addressCode = idCardNo.substring(0, 2);
       check = checkAddressCode(addressCode);
       if (!check) return false;
       var birDayCode = idCardNo.substring(6, 14);
@@ -1938,11 +1927,9 @@ var validators = {
 
       if (idCardNo.length === 15) {
         return check15IdCardNo(idCardNo);
-      } else if (idCardNo.length === 18) {
-        return check18IdCardNo(idCardNo);
       }
 
-      return false;
+      return check18IdCardNo(idCardNo);
     };
 
     return checkIdCardNo(str);
@@ -2232,6 +2219,8 @@ function getPrefixes(locale) {
   var prefixes = [];
 
   for (var location in campusPrefix[locale]) {
+    // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+    // istanbul ignore else
     if (campusPrefix[locale].hasOwnProperty(location)) {
       prefixes.push.apply(prefixes, _toConsumableArray(campusPrefix[locale][location]));
     }
@@ -2239,7 +2228,7 @@ function getPrefixes(locale) {
 
   prefixes.sort();
   return prefixes;
-} // tax id regex formats for various loacles
+} // tax id regex formats for various locales
 
 
 var taxIdFormat = {
@@ -2249,11 +2238,15 @@ function isTaxID(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
   assertString(str);
 
-  if (!taxIdFormat[locale].test(str)) {
-    return false;
+  if (locale in taxIdFormat) {
+    if (!taxIdFormat[locale].test(str)) {
+      return false;
+    }
+
+    return getPrefixes(locale).indexOf(str.substr(0, 2)) !== -1;
   }
 
-  return getPrefixes(locale).indexOf(str.substr(0, 2)) !== -1;
+  throw new Error("Invalid locale '".concat(locale, "'"));
 }
 
 /* eslint-disable max-len */
@@ -2271,6 +2264,7 @@ var phones = {
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
+  'bs-BA': /^((((\+|00)3876)|06))((([0-3]|[5-6])\d{6})|(4\d{7}))$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
   'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
@@ -2307,7 +2301,7 @@ var phones = {
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
   'es-CR': /^(\+506)?[2-8]\d{7}$/,
   'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
-  'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
+  'es-ES': /^(\+?34)?[6|7]\d{8}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
   'es-PA': /^(\+?507)\d{7,8}$/,
   'es-PY': /^(\+?595|0)9[9876]\d{7}$/,
@@ -2350,7 +2344,7 @@ var phones = {
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
-  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[189])[0-9]{8}$/,
+  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[012356789])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -2702,7 +2696,7 @@ var patterns = {
   DK: fourDigit,
   DZ: fiveDigit,
   EE: fiveDigit,
-  ES: fiveDigit,
+  ES: /^(5[0-2]{1}|[0-4]{1}\d{1})\d{3}$/,
   FI: fiveDigit,
   FR: /^\d{2}\s?\d{3}$/,
   GB: /^(gir\s?0aa|[a-z]{1,2}\d[\da-z]?\s?(\d[a-z]{2})?)$/i,
@@ -2711,7 +2705,7 @@ var patterns = {
   HU: fourDigit,
   ID: fiveDigit,
   IE: /^(?!.*(?:o))[A-z]\d[\dw]\s\w{4}$/i,
-  IL: fiveDigit,
+  IL: /^(\d{5}|\d{7})$/,
   IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,

@@ -39,6 +39,8 @@ function getPrefixes(locale) {
   const prefixes = [];
 
   for (const location in campusPrefix[locale]) {
+    // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+    // istanbul ignore else
     if (campusPrefix[locale].hasOwnProperty(location)) {
       prefixes.push(...campusPrefix[locale][location]);
     }
@@ -49,7 +51,7 @@ function getPrefixes(locale) {
   return prefixes;
 }
 
-// tax id regex formats for various loacles
+// tax id regex formats for various locales
 
 const taxIdFormat = {
 
@@ -60,9 +62,12 @@ const taxIdFormat = {
 
 export default function isTaxID(str, locale = 'en-US') {
   assertString(str);
-  if (!taxIdFormat[locale].test(str)) {
-    return false;
+  if (locale in taxIdFormat) {
+    if (!taxIdFormat[locale].test(str)) {
+      return false;
+    }
+    return getPrefixes(locale).indexOf(str.substr(0, 2)) !== -1;
   }
-  return getPrefixes(locale).indexOf(str.substr(0, 2)) !== -1;
+  throw new Error(`Invalid locale '${locale}'`);
 }
 
