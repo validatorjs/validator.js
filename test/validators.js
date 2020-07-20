@@ -4086,7 +4086,8 @@ describe('Validators', () => {
           'Y1234567B',
           'Z1234567C',
         ],
-      }, {
+      },
+      {
         locale: 'IN',
         valid: [
           '298448863364',
@@ -4100,6 +4101,19 @@ describe('Validators', () => {
           'X1234567l',
           'x1234567l',
           'X1234567L',
+        ],
+      },
+      {
+        locale: 'IT',
+        valid: [
+          'CR43675TM',
+          'CA79382RA',
+        ],
+        invalid: [
+          'CA00000AA',
+          'CB2342TG',
+          'CS123456A',
+          'C1236EC',
         ],
       },
       {
