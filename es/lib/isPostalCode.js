@@ -11,6 +11,7 @@ var patterns = {
   BE: fourDigit,
   BG: fourDigit,
   BR: /^\d{5}-\d{3}$/,
+  BY: sixDigit,
   CA: /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][\s\-]?\d[ABCEGHJ-NPRSTV-Z]\d$/i,
   CH: fourDigit,
   CZ: /^\d{3}\s?\d{2}$/,
