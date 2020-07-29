@@ -1778,6 +1778,12 @@ var validators = {
     });
     return c === 0;
   },
+  IT: function IT(str) {
+    if (str.length !== 9) return false;
+    if (str === 'CA00000AA') return false; // https://it.wikipedia.org/wiki/Carta_d%27identit%C3%A0_elettronica_italiana
+
+    return str.search(/C[A-Z][0-9]{5}[A-Z]{2}/i) > -1;
+  },
   NO: function NO(str) {
     var sanitized = str.trim();
     if (isNaN(Number(sanitized))) return false;
@@ -2288,6 +2294,7 @@ var phones = {
   'en-NG': /^(\+?234|0)?[789]\d{9}$/,
   'en-NZ': /^(\+?64|0)[28]\d{7,9}$/,
   'en-PK': /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/,
+  'en-PH': /^(09|\+639)\d{9}$/,
   'en-RW': /^(\+?250|0)?[7]\d{8}$/,
   'en-SG': /^(\+65)?[689]\d{7}$/,
   'en-SL': /^(?:0|94|\+94)?(7(0|1|2|5|6|7|8)( |-)?\d)\d{6}$/,
