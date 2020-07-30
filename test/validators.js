@@ -634,7 +634,7 @@ describe('Validators', () => {
       validator: 'isURL',
       args: [{ validate_length: false }],
       valid: [
-        `http://foobar.com/f`,
+        'http://foobar.com/f',
         `http://foobar.com/${new Array(2083).join('f')}`,
       ],
       invalid: [],
