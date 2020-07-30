@@ -629,6 +629,18 @@ describe('Validators', () => {
     });
   });
 
+  it('should allow user to skip URL length validation', () => {
+    test({
+      validator: 'isURL',
+      args: [{ validate_length: false }],
+      valid: [
+        `http://foobar.com/f`,
+        `http://foobar.com/${new Array(2083).join('f')}`,
+      ],
+      invalid: [],
+    });
+  });
+
   it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',

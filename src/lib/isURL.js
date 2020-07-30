@@ -12,6 +12,7 @@ require_valid_protocol - isURL will check if the URL's protocol is present in th
 protocols - valid protocols can be modified with this option
 require_host - if set as false isURL will not check if host is present in the URL
 allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
+validate_length - if set as false isURL will skip string length validation (2083 characters is IE max URL length)
 
 */
 
@@ -25,6 +26,7 @@ const default_url_options = {
   allow_underscores: false,
   allow_trailing_dot: false,
   allow_protocol_relative_urls: false,
+  validate_length: true
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
@@ -45,13 +47,18 @@ function checkHost(host, matches) {
 
 export default function isURL(url, options) {
   assertString(url);
-  if (!url || url.length >= 2083 || /[\s<>]/.test(url)) {
+  if (!url || /[\s<>]/.test(url)) {
     return false;
   }
   if (url.indexOf('mailto:') === 0) {
     return false;
   }
   options = merge(options, default_url_options);
+
+  if (options.validate_length && url.length >= 2083) {
+    return false;
+  }
+
   let protocol, auth, host, hostname, port, port_str, split, ipv6;
 
   split = url.split('#');
