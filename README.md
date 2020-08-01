@@ -150,6 +150,7 @@ Validator                               | Description
 **isSurrogatePair(str)**                | check if the string contains any surrogate pairs chars.
 **isUppercase(str)**                    | check if the string is uppercase.
 **isSlug**                              | Check if the string is of type slug. `Options` allow a single hyphen between string. e.g. [`cn-cn`, `cn-c-c`]
+**isSvg**                               | Check if the string is a valid SVG.
 **isTaxID(str, locale)**                | Check if the given value is a valid Tax Identification    Number. Default locale is `en-US`
 **isURL(str [, options])**              | check if the string is an URL.<br/><br/>`options` is an object which defaults to `{ protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_host: true, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false, disallow_auth: false }`.<br/><br/>require_protocol - if set as true isURL will return false if protocol is not present in the URL.<br/>require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option.<br/>protocols - valid protocols can be modified with this option.<br/>require_host - if set as false isURL will not check if host is present in the URL.<br/>allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed.
 **isUUID(str [, version])**             | check if the string is a UUID (version 3, 4 or 5).
