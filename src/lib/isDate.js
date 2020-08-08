@@ -13,11 +13,17 @@ function zip(date, format) {
   return zippedArr;
 }
 
-export default function isDate(input, format = 'YYYY/MM/DD') {
+export default function isDate(input, format = 'YYYY/MM/DD', strictMode = false) {
   if (typeof input === 'string' && isValidFormat(format)) {
-    const splitter = /[-/]/,
-      dateAndFormat = zip(input.split(splitter), format.toLowerCase().split(splitter)),
-      dateObj = {};
+    const formatDelimiter = ['.', '-', '/'].find(delimiter => format.indexOf(delimiter) !== -1);
+    const dateDelimiter = strictMode
+      ? formatDelimiter
+      : ['.', '-', '/'].find(delimiter => input.indexOf(delimiter) !== -1);
+    const dateAndFormat = zip(
+      input.split(dateDelimiter),
+      format.toLowerCase().split(formatDelimiter)
+    );
+    const dateObj = {};
 
     for (const [dateWord, formatWord] of dateAndFormat) {
       if (dateWord.length !== formatWord.length) {
