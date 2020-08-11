@@ -86,6 +86,9 @@ import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
 import isSlug from './lib/isSlug';
+import isRingCentralIvrPin from './lib/isRingCentralIvrPin';
+import isRingCentralPassword from './lib/isRingCentralPassword';
+import isLimitedExtensionPostRequest from './lib/isLimitedExtensionPostRequest';
 var version = '13.1.1';
 var validator = {
   version: version,
@@ -182,6 +185,9 @@ var validator = {
   toString: toString,
   isSlug: isSlug,
   isTaxID: isTaxID,
-  isDate: isDate
+  isDate: isDate,
+  isRingCentralIvrPin: isRingCentralIvrPin,
+  isRingCentralPassword: isRingCentralPassword,
+  isLimitedExtensionPostRequest: isLimitedExtensionPostRequest
 };
 export default validator;

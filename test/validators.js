@@ -119,6 +119,56 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate RingCentral IVR Pin', () => {
+    test({
+      validator: 'isRingCentralIvrPin',
+      valid: [
+        '010203',
+      ],
+      invalid: [
+        '123456',
+        '12345',
+        '987654',
+      ],
+    });
+  });
+
+  it('should validate RingCentral Password', () => {
+    test({
+      validator: 'isRingCentralPassword',
+      valid: [
+        'P@ssw0rd1',
+        'P@ssw0rd123',
+      ],
+      invalid: [
+        'password',
+        'PASSWORD',
+        'password1',
+        'PASSWORD1',
+        'P@ss w0rd1',
+      ],
+    });
+  });
+
+  it('should validate RingCentral Limited Extension Post Request', () => {
+    test({
+      validator: 'isLimitedExtensionPostRequest',
+      valid: [
+        {
+          extensionNumber: '123',
+          contact: {
+            firstName: '123',
+            email: 'john.celoria@ringcentral.com',
+          },
+          password: 'P@ssw0rd123',
+          ivrPin: '010203',
+          type: 'Limited',
+        },
+      ],
+      invalid: [],
+    });
+  });
+
   it('should validate email addresses with domain specific validation', () => {
     test({
       validator: 'isEmail',

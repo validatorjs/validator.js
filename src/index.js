@@ -115,6 +115,10 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
 
+import isRingCentralIvrPin from './lib/isRingCentralIvrPin';
+import isRingCentralPassword from './lib/isRingCentralPassword';
+import isLimitedExtensionPostRequest from './lib/isLimitedExtensionPostRequest';
+
 const version = '13.1.1';
 
 const validator = {
@@ -213,6 +217,9 @@ const validator = {
   isSlug,
   isTaxID,
   isDate,
+  isRingCentralIvrPin,
+  isRingCentralPassword,
+  isLimitedExtensionPostRequest,
 };
 
 export default validator;
