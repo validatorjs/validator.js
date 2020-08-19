@@ -26,7 +26,7 @@ export const alpha = {
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
-  'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i,
+  fa: /^['آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی']+$/i,
 };
 
 export const alphanumeric = {
@@ -57,12 +57,13 @@ export const alphanumeric = {
   'vi-VN': /^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
-  'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i,
+  fa: /^['0-9آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی۱۲۳۴۵۶۷۸۹۰']+$/i,
 };
 
 export const decimal = {
   'en-US': '.',
   ar: '٫',
+  fa: '٫',
 };
 
 
@@ -86,6 +87,17 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
   alpha[locale] = alpha.ar;
   alphanumeric[locale] = alphanumeric.ar;
   decimal[locale] = decimal.ar;
+}
+
+export const farsiLocales = [
+  'IR', 'AF',
+];
+
+for (let locale, i = 0; i < farsiLocales.length; i++) {
+  locale = `fa-${farsiLocales[i]}`;
+  alpha[locale] = alpha.fa;
+  alphanumeric[locale] = alphanumeric.fa;
+  decimal[locale] = decimal.fa;
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
