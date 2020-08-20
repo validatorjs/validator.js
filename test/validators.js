@@ -4733,6 +4733,7 @@ describe('Validators', () => {
     test({
       validator: 'isBase64',
       valid: [
+        '',
         'Zg==',
         'Zm8=',
         'Zm9v',
@@ -4752,7 +4753,6 @@ describe('Validators', () => {
       ],
       invalid: [
         '12345',
-        '',
         'Vml2YW11cyBmZXJtZtesting123',
         'Zg=',
         'Z===',
@@ -4766,6 +4766,7 @@ describe('Validators', () => {
       validator: 'isBase64',
       args: [{ urlSafe: true }],
       valid: [
+        '',
         'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
         '1234',
         'bXVtLW5ldmVyLXByb3Vk',
@@ -4776,7 +4777,6 @@ describe('Validators', () => {
         ' AA',
         '\tAA',
         '\rAA',
-        '',
         '\nAA',
         'This+isa/bad+base64Url==',
         '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
@@ -8717,6 +8717,7 @@ describe('Validators', () => {
       validator: 'isBase64',
       args: [{ urlSafe: true }],
       valid: [
+        '',
         'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
         '1234',
         'bXVtLW5ldmVyLXByb3Vk',
@@ -8729,7 +8730,6 @@ describe('Validators', () => {
         '\rAA',
         '\nAA',
         '123=',
-        '',
         'This+isa/bad+base64Url==',
         '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
       ],
