@@ -1,8 +1,15 @@
 import assertString from './util/assertString';
 
 /**
- * en-US TIN Validation
+ * TIN Validation
+ * Validates Tax Identification Numbers (TINs) from the US, EU member states and the United Kingdom.
+ * 
+ * EU-UK:
+ * National TIN validity is calculated using public algorithms as made available by DG TAXUD.
+ * 
+ * See `https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx` for more information.
  *
+ * US:
  * An Employer Identification Number (EIN), also known as a Federal Tax Identification Number,
  *  is used to identify a business entity.
  *
@@ -47,6 +54,34 @@ function enUsGetPrefixes() {
 }
 
 /*
+ * de-AT validation function
+ * Verify TIN validity by calculating check digit
+ */
+function deAtCheck(tin) {
+  const digits = tin.replace(/\D/g, '').split('').map(a => parseInt(a, 10));
+
+  let checksum = 0;
+  for (let i = 0; i < 8; i++) {
+    if (i % 2 === 0) {
+      checksum += digits[i];
+    } else {
+      const product = digits[i] * 2;
+      if (product > 9) {
+        checksum += product.toString().split('').map(a => parseInt(a, 10)).reduce((a, b) => a + b, 0);
+      } else {
+        checksum += product;
+      }
+    }
+  }
+
+  checksum = 100 - checksum;
+  if (checksum % 10 === digits[8]) {
+    return true;
+  }
+  return false;
+}
+
+/*
  * en-US validation function
  * Verify that the TIN starts with a valid IRS campus prefix
  */
@@ -57,6 +92,7 @@ function enUsCheck(tin) {
 // tax id regex formats for various locales
 const taxIdFormat = {
 
+  'de-AT': /^\d{2}[-]{0,1}\d{3}[\/]{0,1}\d{4}$/,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
 
 };
@@ -65,6 +101,7 @@ const taxIdFormat = {
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
 
+  'de-AT': deAtCheck,
   'en-US': enUsCheck,
 
 };
