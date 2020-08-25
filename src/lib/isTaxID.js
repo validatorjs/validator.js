@@ -105,6 +105,12 @@ function elGrCheck(tin) {
 }
 
 /*
+ * en-GB validation function
+ * No syntax check, only structure from regex.
+ */
+function enGbCheck() { return true; }
+
+/*
  * en-US validation function
  * Verify that the TIN starts with a valid IRS campus prefix
  */
@@ -113,10 +119,13 @@ function enUsCheck(tin) {
 }
 
 // tax id regex formats for various locales
+// should be changed to ISO 3166-1, language is irrelevant
+// keep en-US for compatibility
 const taxIdFormat = {
 
   'de-AT': /^\d{2}[-]{0,1}\d{3}[\/]{0,1}\d{4}$/,
   'el-GR': /^\d{9}$/,
+  'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Za-z](?![DFIQUVO])[A-Za-z]\d{6}[ABCD\s]$/,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
 
 };
@@ -127,6 +136,7 @@ const taxIdCheck = {
 
   'de-AT': deAtCheck,
   'el-GR': elGrCheck,
+  'en-GB': enGbCheck,
   'en-US': enUsCheck,
 
 };

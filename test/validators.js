@@ -8809,6 +8809,27 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['en-GB'],
+      valid: [
+        '1234567890',
+        'AA123456A',
+        'AA123456 '],
+      invalid: [
+        'GB123456A',
+        '123456789',
+        '12345678901',
+        'NK123456A',
+        'TN123456A',
+        'ZZ123456A',
+        'GB123456Z',
+        'DM123456A',
+        'AO123456A',
+        'GB-123456A',
+        'GB 123456 A',
+        'GB123456  '],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['en-US'],
       valid: [
         '01-1234567',
