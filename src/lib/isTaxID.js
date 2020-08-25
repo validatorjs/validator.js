@@ -55,7 +55,7 @@ function enUsGetPrefixes() {
 
 /*
  * de-AT validation function
- * Verify TIN validity by calculating check digit
+ * Verify TIN validity by calculating check (last) digit
  */
 function deAtCheck(tin) {
   // split digits into an array for further processing
@@ -84,6 +84,27 @@ function deAtCheck(tin) {
 }
 
 /*
+ * el-GR validation function
+ * Verify TIN validity by calculating check (last) digit
+ * Algorithm not in DG TAXUD document- sourced from:
+ * http://epixeirisi.gr/%CE%9A%CE%A1%CE%99%CE%A3%CE%99%CE%9C%CE%91-%CE%98%CE%95%CE%9C%CE%91%CE%A4%CE%91-%CE%A6%CE%9F%CE%A1%CE%9F%CE%9B%CE%9F%CE%93%CE%99%CE%91%CE%A3-%CE%9A%CE%91%CE%99-%CE%9B%CE%9F%CE%93%CE%99%CE%A3%CE%A4%CE%99%CE%9A%CE%97%CE%A3/23791/%CE%91%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82-%CE%A6%CE%BF%CF%81%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CE%BA%CE%BF%CF%8D-%CE%9C%CE%B7%CF%84%CF%81%CF%8E%CE%BF%CF%85
+ */
+function elGrCheck(tin) {
+  // split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+
+  let checksum = 0;
+  for (let i = 0; i < 8; i++) {
+    checksum += digits[i] * (2 ** (8 - i));
+  }
+
+  if (checksum % 11 === digits[8]) {
+    return true;
+  }
+  return false;
+}
+
+/*
  * en-US validation function
  * Verify that the TIN starts with a valid IRS campus prefix
  */
@@ -95,6 +116,7 @@ function enUsCheck(tin) {
 const taxIdFormat = {
 
   'de-AT': /^\d{2}[-]{0,1}\d{3}[\/]{0,1}\d{4}$/,
+  'el-GR': /^\d{9}$/,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
 
 };
@@ -104,6 +126,7 @@ const taxIdFormat = {
 const taxIdCheck = {
 
   'de-AT': deAtCheck,
+  'el-GR': elGrCheck,
   'en-US': enUsCheck,
 
 };

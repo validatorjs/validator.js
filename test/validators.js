@@ -8778,8 +8778,35 @@ describe('Validators', () => {
     });
   });
 
-
+  // EU-UK valid numbers sourced from https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx except where noted else.
   it('should validate taxID', () => {
+    test({
+      validator: 'isTaxID',
+      args: ['de-AT'],
+      valid: [
+        '931736581',
+        '93-173/6581'],
+      invalid: [
+        '999999999',
+        '93 173 6581',
+        '93--173/6581',
+        '93-173/65811',
+        '93-173/658'],
+    });
+    // el-GR numbers constructed by @tplessas
+    test({
+      validator: 'isTaxID',
+      args: ['el-GR'],
+      valid: [
+        '758426713',
+        '054100004'],
+      invalid: [
+        '123456789',
+        '1234567890',
+        '12345678',
+        '12 3456789',
+        '12-345/6789'],
+    });
     test({
       validator: 'isTaxID',
       args: ['en-US'],
@@ -8801,17 +8828,6 @@ describe('Validators', () => {
         '07-1234567',
         '28-1234567',
         '96-1234567'],
-    });
-    test({
-      validator: 'isTaxID',
-      args: ['de-AT'],
-      valid: [
-        '931736581',
-        '93-173/6581'],
-      invalid: [
-        '999999999',
-        '93 173 6581',
-        '93--173/6581'],
     });
     test({
       validator: 'isTaxID',
