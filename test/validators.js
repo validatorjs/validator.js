@@ -8782,6 +8782,7 @@ describe('Validators', () => {
   it('should validate taxID', () => {
     test({
       validator: 'isTaxID',
+      args: ['en-US'],
       valid: [
         '01-1234567',
         '01 1234567',
@@ -8800,6 +8801,17 @@ describe('Validators', () => {
         '07-1234567',
         '28-1234567',
         '96-1234567'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['de-AT'],
+      valid: [
+        '931736581',
+        '93-173/6581'],
+      invalid: [
+        '999999999',
+        '93 173 6581',
+        '93--173/6581'],
     });
     test({
       validator: 'isTaxID',

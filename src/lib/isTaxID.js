@@ -3,10 +3,10 @@ import assertString from './util/assertString';
 /**
  * TIN Validation
  * Validates Tax Identification Numbers (TINs) from the US, EU member states and the United Kingdom.
- * 
+ *
  * EU-UK:
  * National TIN validity is calculated using public algorithms as made available by DG TAXUD.
- * 
+ *
  * See `https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx` for more information.
  *
  * US:
@@ -58,6 +58,7 @@ function enUsGetPrefixes() {
  * Verify TIN validity by calculating check digit
  */
 function deAtCheck(tin) {
+  // split digits into an array for further processing
   const digits = tin.replace(/\D/g, '').split('').map(a => parseInt(a, 10));
 
   let checksum = 0;
@@ -67,6 +68,7 @@ function deAtCheck(tin) {
     } else {
       const product = digits[i] * 2;
       if (product > 9) {
+        // sum digits of product and add to checksum
         checksum += product.toString().split('').map(a => parseInt(a, 10)).reduce((a, b) => a + b, 0);
       } else {
         checksum += product;
