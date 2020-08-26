@@ -53,6 +53,9 @@ function enUsGetPrefixes() {
   return prefixes;
 }
 
+// List of locales whence TINs should be sanitized
+const sanitizeBeforeChecks = ['de-AT', 'fr-BE', 'nl-BE'];
+
 /*
  * de-AT validation function
  * Verify TIN validity by calculating check (last) digit
@@ -105,12 +108,6 @@ function elGrCheck(tin) {
 }
 
 /*
- * en-GB validation function
- * No syntax check, only structure from regex.
- */
-function enGbCheck() { return true; }
-
-/*
  * en-US validation function
  * Verify that the TIN starts with a valid IRS campus prefix
  */
@@ -118,15 +115,19 @@ function enUsCheck(tin) {
   return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
 }
 
+// function frNlBeCheck(tin) { }
+
 // tax id regex formats for various locales
-// should be changed to ISO 3166-1, language is irrelevant
+// should maybe be changed to ISO 3166-1, language is irrelevant
 // keep en-US for compatibility
 const taxIdFormat = {
 
-  'de-AT': /^\d{2}[-]{0,1}\d{3}[\/]{0,1}\d{4}$/,
+  'de-AT': /^\d{9}$/,
   'el-GR': /^\d{9}$/,
-  'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Za-z](?![DFIQUVO])[A-Za-z]\d{6}[ABCD\s]$/,
+  'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD\s]$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
+  // 'fr-BE': //,
+  // 'nl-BE': //,
 
 };
 
@@ -136,8 +137,9 @@ const taxIdCheck = {
 
   'de-AT': deAtCheck,
   'el-GR': elGrCheck,
-  'en-GB': enGbCheck,
   'en-US': enUsCheck,
+  // 'fr-BE': frNlBeCheck,
+  // 'nl-BE': frNlBeCheck,
 
 };
 
@@ -149,13 +151,19 @@ const taxIdCheck = {
  */
 export default function isTaxID(str, locale = 'en-US') {
   assertString(str);
+  // copy TIN to avoid mutation if sanitized
+  let strcopy = str.slice(0);
+
   if (locale in taxIdFormat) {
-    if (!taxIdFormat[locale].test(str)) {
+    if (sanitizeBeforeChecks.includes(locale)) {
+      strcopy = strcopy.replace(/[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g, '');
+    }
+    if (!taxIdFormat[locale].test(strcopy)) {
       return false;
     }
 
     if (locale in taxIdCheck) {
-      return taxIdCheck[locale](str);
+      return taxIdCheck[locale](strcopy);
     }
     // Fallthrough; not all locales have algorithmic checks
     return true;
