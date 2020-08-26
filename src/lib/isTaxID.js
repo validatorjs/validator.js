@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import isDate from './isDate';
 
 /**
  * TIN Validation
@@ -53,11 +54,12 @@ function enUsGetPrefixes() {
   return prefixes;
 }
 
-// List of locales whence TINs should be sanitized
+// List of locales whence TINs should be sanitized (remove all special characters)
 const sanitizeBeforeChecks = ['de-AT', 'fr-BE', 'nl-BE'];
 
 /*
  * de-AT validation function
+ * (Abgabenkontonummer, persons/entities)
  * Verify TIN validity by calculating check (last) digit
  */
 function deAtCheck(tin) {
@@ -88,6 +90,7 @@ function deAtCheck(tin) {
 
 /*
  * el-GR validation function
+ * (Arithmos Forologikou Mitroou (AFM/ΑΦΜ), persons/entities)
  * Verify TIN validity by calculating check (last) digit
  * Algorithm not in DG TAXUD document- sourced from:
  * http://epixeirisi.gr/%CE%9A%CE%A1%CE%99%CE%A3%CE%99%CE%9C%CE%91-%CE%98%CE%95%CE%9C%CE%91%CE%A4%CE%91-%CE%A6%CE%9F%CE%A1%CE%9F%CE%9B%CE%9F%CE%93%CE%99%CE%91%CE%A3-%CE%9A%CE%91%CE%99-%CE%9B%CE%9F%CE%93%CE%99%CE%A3%CE%A4%CE%99%CE%9A%CE%97%CE%A3/23791/%CE%91%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82-%CE%A6%CE%BF%CF%81%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CE%BA%CE%BF%CF%8D-%CE%9C%CE%B7%CF%84%CF%81%CF%8E%CE%BF%CF%85
@@ -115,7 +118,31 @@ function enUsCheck(tin) {
   return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
 }
 
-// function frNlBeCheck(tin) { }
+/*
+ * fr/nl-BE validation function
+ * (Numéro national (N.N.), persons only)
+ * Checks if birth date (first six digits) is valid and calculates check (last two) digits
+ */
+function frNlBeCheck(tin) {
+  // Zero month/day value is acceptable
+  if (tin.slice(2, 4) !== '00' || tin.slice(4, 6) !== '00') {
+    // Extract date from first six digits of TIN
+    const date = `${tin.slice(0, 2)}/${tin.slice(2, 4)}/${tin.slice(4, 6)}`;
+    if (!isDate(date, 'YY/MM/DD')) {
+      return false;
+    }
+  }
+
+  let checksum = 97 - (parseInt(tin.slice(0, 9), 10) % 97);
+  const checkdigits = parseInt(tin.slice(9, 11), 10);
+  if (checksum !== checkdigits) {
+    checksum = 97 - (parseInt(`2${tin.slice(0, 9)}`, 10) % 97);
+    if (checksum !== checkdigits) {
+      return false;
+    }
+  }
+  return true;
+}
 
 // tax id regex formats for various locales
 // should maybe be changed to ISO 3166-1, language is irrelevant
@@ -126,8 +153,8 @@ const taxIdFormat = {
   'el-GR': /^\d{9}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD\s]$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
-  // 'fr-BE': //,
-  // 'nl-BE': //,
+  'fr-BE': /^\d{11}$/,
+  'nl-BE': /^\d{11}$/,
 
 };
 
@@ -138,8 +165,8 @@ const taxIdCheck = {
   'de-AT': deAtCheck,
   'el-GR': elGrCheck,
   'en-US': enUsCheck,
-  // 'fr-BE': frNlBeCheck,
-  // 'nl-BE': frNlBeCheck,
+  'fr-BE': frNlBeCheck,
+  'nl-BE': frNlBeCheck,
 
 };
 
@@ -151,7 +178,7 @@ const taxIdCheck = {
  */
 export default function isTaxID(str, locale = 'en-US') {
   assertString(str);
-  // copy TIN to avoid mutation if sanitized
+  // Copy TIN to avoid mutation if sanitized
   let strcopy = str.slice(0);
 
   if (locale in taxIdFormat) {

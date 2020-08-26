@@ -8852,6 +8852,26 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['nl-BE'],
+      valid: [
+        '00012511148',
+        '00/0125-11148',
+        '00000011115'],
+      invalid: [
+        '00 01 2511148',
+        '01022911148',
+        '00013211148',
+        '0001251114',
+        '000125111480'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['fr-BE'],
+      valid: [
+        '00012511119'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['is-NOT'],
       error: [
         '01-1234567',
