@@ -123,7 +123,7 @@ function enUsCheck(tin) {
  * (Numéro national (N.N.), persons only)
  * Checks if birth date (first six digits) is valid and calculates check (last two) digits
  */
-function frNlBeCheck(tin) {
+function frBeCheck(tin) {
   // Zero month/day value is acceptable
   if (tin.slice(2, 4) !== '00' || tin.slice(4, 6) !== '00') {
     // Extract date from first six digits of TIN
@@ -145,19 +145,19 @@ function frNlBeCheck(tin) {
 }
 
 // tax id regex formats for various locales
-// should maybe be changed to ISO 3166-1, language is irrelevant
-// keep en-US for compatibility
 const taxIdFormat = {
 
   'de-AT': /^\d{9}$/,
   'el-GR': /^\d{9}$/,
-  'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD\s]$/i,
+  'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'fr-BE': /^\d{11}$/,
-  'nl-BE': /^\d{11}$/,
+  // 'fr-FR': /^[0-3]\d\s{0,1}\d{2}(\s{0,1}\d{3}){3}$/,
 
 };
 
+// taxIdFormat locale aliases
+taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
@@ -165,10 +165,13 @@ const taxIdCheck = {
   'de-AT': deAtCheck,
   'el-GR': elGrCheck,
   'en-US': enUsCheck,
-  'fr-BE': frNlBeCheck,
-  'nl-BE': frNlBeCheck,
+  'fr-BE': frBeCheck,
+  // 'fr-FR': frFrCheck,
 
 };
+
+// taxIdCheck locale aliases
+taxIdCheck['nl-BE'] = taxIdCheck['fr-BE'];
 
 /*
  * Validator function
