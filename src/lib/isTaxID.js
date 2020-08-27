@@ -54,9 +54,6 @@ function enUsGetPrefixes() {
   return prefixes;
 }
 
-// List of locales whence TINs should be sanitized (remove all special characters)
-const sanitizeBeforeChecks = ['de-AT', 'fr-BE', 'nl-BE'];
-
 /*
  * de-AT validation function
  * (Abgabenkontonummer, persons/entities)
@@ -207,6 +204,15 @@ const taxIdFormat = {
 // taxIdFormat locale aliases
 taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 
+// Regexes for locales where characters should be omitted before checking format
+const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;
+const sanitizeRegexes = {
+  'de-AT': allsymbols,
+  'fr-BE': allsymbols,
+};
+// sanitizeRegexes locale aliases
+sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
+
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
 
@@ -235,8 +241,8 @@ export default function isTaxID(str, locale = 'en-US') {
   let strcopy = str.slice(0);
 
   if (locale in taxIdFormat) {
-    if (sanitizeBeforeChecks.includes(locale)) {
-      strcopy = strcopy.replace(/[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g, '');
+    if (locale in sanitizeRegexes) {
+      strcopy = strcopy.replace(sanitizeRegexes[locale], '');
     }
     if (!taxIdFormat[locale].test(strcopy)) {
       return false;
