@@ -80,12 +80,7 @@ function deAtCheck(tin) {
       }
     }
   }
-
-  checksum = (100 - checksum) % 10;
-  if (checksum === digits[8]) {
-    return true;
-  }
-  return false;
+  return (100 - checksum) % 10 === digits[8];
 }
 
 /*
@@ -112,11 +107,7 @@ function elCyCheck(tin) {
       }
     }
   }
-
-  if (String.fromCharCode((checksum % 26) + 65) === tin.charAt(8)) {
-    return true;
-  }
-  return false;
+  return String.fromCharCode((checksum % 26) + 65) === tin.charAt(8);
 }
 
 /*
@@ -134,11 +125,7 @@ function elGrCheck(tin) {
   for (let i = 0; i < 8; i++) {
     checksum += digits[i] * (2 ** (8 - i));
   }
-
-  if (checksum % 11 === digits[8]) {
-    return true;
-  }
-  return false;
+  return checksum % 11 === digits[8];
 }
 
 /*
@@ -184,10 +171,23 @@ function frFrCheck(tin) {
   tin = tin.replace(/\s/g, '');
   const checksum = parseInt(tin.slice(0, 10), 10) % 511;
   const checkdigits = parseInt(tin.slice(10, 13), 10);
-  if (checksum === checkdigits) {
-    return true;
+  return checksum === checkdigits;
+}
+
+/*
+ * hu-HU validation function
+ * (Adóazonosító jel, persons only)
+ * Verify TIN validity by calculating check (last) digit
+ */
+function huHuCheck(tin) {
+  // split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+
+  let checksum = 8;
+  for (let i = 1; i < 9; i++) {
+    checksum += digits[i] * (i + 1);
   }
-  return false;
+  return checksum % 11 === digits[9];
 }
 
 // tax id regex formats for various locales
@@ -200,6 +200,7 @@ const taxIdFormat = {
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'fr-BE': /^\d{11}$/,
   'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both with official spec and provided example
+  'hu-HU': /^8\d{9}$/,
 
 };
 
@@ -215,6 +216,7 @@ const taxIdCheck = {
   'en-US': enUsCheck,
   'fr-BE': frBeCheck,
   'fr-FR': frFrCheck,
+  'hu-HU': huHuCheck,
 
 };
 

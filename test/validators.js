@@ -8900,6 +8900,18 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['hu-HU'],
+      valid: [
+        '8071592153'],
+      invalid: [
+        '80 71-592/153',
+        '80715921534',
+        '807159215',
+        '8071592152',
+        '8071582153'],
+    });
+    test({
+      validator: 'isTaxID',
       valid: [
         '01-1234567'],
     });
