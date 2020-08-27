@@ -8793,6 +8793,19 @@ describe('Validators', () => {
         '93-173/65811',
         '93-173/658'],
     });
+    test({
+      validator: 'isTaxID',
+      args: ['el-CY'],
+      valid: [
+        '00123123T',
+        '99652156X'],
+      invalid: [
+        '99652156A',
+        '00124123T',
+        '00123123',
+        '001123123T',
+        '00 12-3123/T'],
+    });
     // el-GR numbers constructed by @tplessas
     test({
       validator: 'isTaxID',
@@ -8882,7 +8895,13 @@ describe('Validators', () => {
         '01022911148',
         '00013211148',
         '0001251114',
-        '000125111480'],
+        '000125111480',
+        '00012511149'],
+    });
+    test({
+      validator: 'isTaxID',
+      valid: [
+        '01-1234567'],
     });
     test({
       validator: 'isTaxID',

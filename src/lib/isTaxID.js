@@ -64,7 +64,7 @@ const sanitizeBeforeChecks = ['de-AT', 'fr-BE', 'nl-BE'];
  */
 function deAtCheck(tin) {
   // split digits into an array for further processing
-  const digits = tin.replace(/\D/g, '').split('').map(a => parseInt(a, 10));
+  const digits = tin.split('').map(a => parseInt(a, 10));
 
   let checksum = 0;
   for (let i = 0; i < 8; i++) {
@@ -83,6 +83,37 @@ function deAtCheck(tin) {
 
   checksum = (100 - checksum) % 10;
   if (checksum === digits[8]) {
+    return true;
+  }
+  return false;
+}
+
+/*
+ * el-CY validation function
+ * (Arithmos Forologikou Mitroou (AFM/ΑΦΜ), persons only)
+ * Verify TIN validity by calculating ASCII value of check (last) character
+ */
+function elCyCheck(tin) {
+  // split digits into an array for further processing
+  const digits = tin.slice(0, 8).split('').map(a => parseInt(a, 10));
+
+  let checksum = 0;
+  for (let i = 1; i < digits.length; i += 2) {
+    checksum += digits[i];
+  }
+
+  for (let i = 0; i < digits.length; i += 2) {
+    if (digits[i] < 2) {
+      checksum += 1 - digits[i];
+    } else {
+      checksum += (2 * (digits[i] - 2)) + 5;
+      if (digits[i] > 4) {
+        checksum += 2;
+      }
+    }
+  }
+
+  if (String.fromCharCode((checksum % 26) + 65) === tin.charAt(8)) {
     return true;
   }
   return false;
@@ -163,6 +194,7 @@ function frFrCheck(tin) {
 const taxIdFormat = {
 
   'de-AT': /^\d{9}$/,
+  'el-CY': /^[09]\d{7}[A-Z]$/,
   'el-GR': /^\d{9}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
@@ -178,6 +210,7 @@ taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 const taxIdCheck = {
 
   'de-AT': deAtCheck,
+  'el-CY': elCyCheck,
   'el-GR': elGrCheck,
   'en-US': enUsCheck,
   'fr-BE': frBeCheck,
