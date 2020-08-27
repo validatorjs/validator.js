@@ -8852,6 +8852,26 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['fr-BE'],
+      valid: [
+        '00012511119'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['fr-FR'],
+      valid: [
+        '30 23 217 600 053',
+        '3023217600053'],
+      invalid: [
+        '30 2 3 217 600 053',
+        '3 023217-600/053',
+        '3023217600052',
+        '3023217500053',
+        '30232176000534',
+        '302321760005'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['nl-BE'],
       valid: [
         '00012511148',
@@ -8863,12 +8883,6 @@ describe('Validators', () => {
         '00013211148',
         '0001251114',
         '000125111480'],
-    });
-    test({
-      validator: 'isTaxID',
-      args: ['fr-BE'],
-      valid: [
-        '00012511119'],
     });
     test({
       validator: 'isTaxID',

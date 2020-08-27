@@ -81,8 +81,8 @@ function deAtCheck(tin) {
     }
   }
 
-  checksum = 100 - checksum;
-  if (checksum % 10 === digits[8]) {
+  checksum = (100 - checksum) % 10;
+  if (checksum === digits[8]) {
     return true;
   }
   return false;
@@ -93,7 +93,7 @@ function deAtCheck(tin) {
  * (Arithmos Forologikou Mitroou (AFM/ΑΦΜ), persons/entities)
  * Verify TIN validity by calculating check (last) digit
  * Algorithm not in DG TAXUD document- sourced from:
- * http://epixeirisi.gr/%CE%9A%CE%A1%CE%99%CE%A3%CE%99%CE%9C%CE%91-%CE%98%CE%95%CE%9C%CE%91%CE%A4%CE%91-%CE%A6%CE%9F%CE%A1%CE%9F%CE%9B%CE%9F%CE%93%CE%99%CE%91%CE%A3-%CE%9A%CE%91%CE%99-%CE%9B%CE%9F%CE%93%CE%99%CE%A3%CE%A4%CE%99%CE%9A%CE%97%CE%A3/23791/%CE%91%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82-%CE%A6%CE%BF%CF%81%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CE%BA%CE%BF%CF%8D-%CE%9C%CE%B7%CF%84%CF%81%CF%8E%CE%BF%CF%85
+ * `http://epixeirisi.gr/%CE%9A%CE%A1%CE%99%CE%A3%CE%99%CE%9C%CE%91-%CE%98%CE%95%CE%9C%CE%91%CE%A4%CE%91-%CE%A6%CE%9F%CE%A1%CE%9F%CE%9B%CE%9F%CE%93%CE%99%CE%91%CE%A3-%CE%9A%CE%91%CE%99-%CE%9B%CE%9F%CE%93%CE%99%CE%A3%CE%A4%CE%99%CE%9A%CE%97%CE%A3/23791/%CE%91%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82-%CE%A6%CE%BF%CF%81%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CE%BA%CE%BF%CF%8D-%CE%9C%CE%B7%CF%84%CF%81%CF%8E%CE%BF%CF%85`
  */
 function elGrCheck(tin) {
   // split digits into an array for further processing
@@ -144,6 +144,21 @@ function frBeCheck(tin) {
   return true;
 }
 
+/*
+ * fr-FR validation function
+ * (Numéro fiscal de référence (numéro SPI), persons only)
+ * Verify TIN validity by calculating check (last three) digits
+ */
+function frFrCheck(tin) {
+  tin = tin.replace(/\s/g, '');
+  const checksum = parseInt(tin.slice(0, 10), 10) % 511;
+  const checkdigits = parseInt(tin.slice(10, 13), 10);
+  if (checksum === checkdigits) {
+    return true;
+  }
+  return false;
+}
+
 // tax id regex formats for various locales
 const taxIdFormat = {
 
@@ -152,7 +167,7 @@ const taxIdFormat = {
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'fr-BE': /^\d{11}$/,
-  // 'fr-FR': /^[0-3]\d\s{0,1}\d{2}(\s{0,1}\d{3}){3}$/,
+  'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both with official spec and provided example
 
 };
 
@@ -166,7 +181,7 @@ const taxIdCheck = {
   'el-GR': elGrCheck,
   'en-US': enUsCheck,
   'fr-BE': frBeCheck,
-  // 'fr-FR': frFrCheck,
+  'fr-FR': frFrCheck,
 
 };
 
