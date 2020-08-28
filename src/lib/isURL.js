@@ -100,7 +100,7 @@ export default function isURL(url, options) {
       return false;
     }
     auth = split.shift();
-    if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
+    if (auth.indexOf(':') === -1 || (auth.indexOf(':') >= 0 && auth.split(':').length > 2)) {
       return false;
     }
   }

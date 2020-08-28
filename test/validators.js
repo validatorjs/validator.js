@@ -339,6 +339,7 @@ describe('Validators', () => {
         'http://[::FFFF:129.144.52.38]:80/index.html',
         'http://[2010:836B:4179::836B:4179]',
         'http://example.com/example.json#/foo/bar',
+        'http://user:@www.foobar.com',
       ],
       invalid: [
         'http://localhost:3000/',
@@ -379,6 +380,7 @@ describe('Validators', () => {
         '////foobar.com',
         'http:////foobar.com',
         'https://example.com/foo/<script>alert(\'XSS\')</script>/',
+        'myemail@mail.com',
       ],
     });
   });
