@@ -81,6 +81,56 @@ function deAtCheck(tin) {
 }
 
 /*
+ * de-DE validation function
+ * (Steueridentifikationsnummer (Steuer-IdNr.), persons only)
+ * Tests for single duplicate/triplicate value, then calculates check (last) digit
+ * Partial implementation of spec (not tested with checkvalue starting at 10, no point)
+ */
+function deDeCheck(tin) {
+  // Split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+
+  // Fill array with strings of number positions
+  let occurences = [];
+  for (let i = 0; i < digits.length - 1; i++) {
+    occurences.push('');
+    for (let j = 0; j < digits.length - 1; j++) {
+      if (digits[i] === digits[j]) {
+        occurences[i] += j;
+      }
+    }
+  }
+
+  // Remove digits with one occurence and test for only one duplicate/triplicate
+  occurences = occurences.filter(a => a.length > 1);
+  if (occurences.length !== 2 && occurences.length !== 3) { return false; }
+
+  // In case of triplicate value only two digits are allowed next to each other
+  if (occurences[0].length === 3) {
+    const trip_locations = occurences[0].split('').map(a => parseInt(a, 10));
+    let recurrent = 0; // Amount of neighbour occurences
+    for (let i = 0; i < trip_locations.length - 1; i++) {
+      if (trip_locations[i] + 1 === trip_locations[i + 1]) {
+        recurrent += 1;
+      }
+    }
+    if (recurrent === 2) {
+      return false;
+    }
+  }
+
+  // Calculate check digit
+  let checkvalue = 0;
+  for (let i = 0; i < digits.length - 1; i++) {
+    checkvalue = (digits[i] + checkvalue) % 10 === 0 ? (10 * 2) % 11 :
+      (((digits[i] + checkvalue) % 10) * 2) % 11;
+  }
+  checkvalue = 11 - checkvalue === 10 ? 0 : 11 - checkvalue;
+
+  return checkvalue === digits[10];
+}
+
+/*
  * el-CY validation function
  * (Arithmos Forologikou Mitroou (AFM/ΑΦΜ), persons only)
  * Verify TIN validity by calculating ASCII value of check (last) character
@@ -90,10 +140,12 @@ function elCyCheck(tin) {
   const digits = tin.slice(0, 8).split('').map(a => parseInt(a, 10));
 
   let checksum = 0;
+  // add digits in even places
   for (let i = 1; i < digits.length; i += 2) {
     checksum += digits[i];
   }
 
+  // add digits in odd places
   for (let i = 0; i < digits.length; i += 2) {
     if (digits[i] < 2) {
       checksum += 1 - digits[i];
@@ -191,6 +243,7 @@ function huHuCheck(tin) {
 const taxIdFormat = {
 
   'de-AT': /^\d{9}$/,
+  'de-DE': /^[1-9]\d{10}$/,
   'el-CY': /^[09]\d{7}[A-Z]$/,
   'el-GR': /^\d{9}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
@@ -208,6 +261,7 @@ taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;
 const sanitizeRegexes = {
   'de-AT': allsymbols,
+  'de-DE': /[\/\\]/g,
   'fr-BE': allsymbols,
 };
 // sanitizeRegexes locale aliases
@@ -217,6 +271,7 @@ sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
 const taxIdCheck = {
 
   'de-AT': deAtCheck,
+  'de-DE': deDeCheck,
   'el-CY': elCyCheck,
   'el-GR': elGrCheck,
   'en-US': enUsCheck,
