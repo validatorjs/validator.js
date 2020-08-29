@@ -70,6 +70,42 @@ function iso7064Check(digits) {
 }
 
 /*
+ * bg-BG validation function
+ * (Edinen graždanski nomer (EGN/ЕГН), persons only)
+ * Checks if birth date (first six digits) is valid and calculates check (last) digit
+ */
+function bgBgCheck(tin) {
+  // Extract full year, normalize month and check birth date validity
+  let century_year = parseInt(tin.slice(0, 2), 10);
+  if (century_year < 10) { century_year = `0${century_year}`; }
+  let month = parseInt(tin.slice(2, 4), 10);
+  if (month > 40) {
+    month -= 40;
+    century_year = `20${century_year}`;
+  } else if (month > 20) {
+    month -= 20;
+    century_year = `18${century_year}`;
+  } else {
+    century_year = `19${century_year}`;
+  }
+  if (month < 10) { month = `0${month}`; }
+  const date = `${century_year}/${month}/${tin.slice(4, 6)}`;
+  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+
+  // split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+
+  // Calculate checksum by multiplying digits with fixed values
+  const multip_lookup = [2, 4, 8, 5, 10, 9, 7, 3, 6];
+  let checksum = 0;
+  for (let i = 0; i < multip_lookup.length; i++) {
+    checksum += digits[i] * multip_lookup[i];
+  }
+  checksum = checksum % 11 === 10 ? 0 : checksum % 11;
+  return checksum === digits[9];
+}
+
+/*
  * de-AT validation function
  * (Abgabenkontonummer, persons/entities)
  * Verify TIN validity by calculating check (last) digit
@@ -201,9 +237,7 @@ function frBeCheck(tin) {
   if (tin.slice(2, 4) !== '00' || tin.slice(4, 6) !== '00') {
     // Extract date from first six digits of TIN
     const date = `${tin.slice(0, 2)}/${tin.slice(2, 4)}/${tin.slice(4, 6)}`;
-    if (!isDate(date, 'YY/MM/DD')) {
-      return false;
-    }
+    if (!isDate(date, 'YY/MM/DD')) { return false; }
   }
 
   let checksum = 97 - (parseInt(tin.slice(0, 9), 10) % 97);
@@ -259,6 +293,7 @@ function hrHrCheck(tin) {
 // tax id regex formats for various locales
 const taxIdFormat = {
 
+  'bg-BG': /^\d{10}$/,
   'de-AT': /^\d{9}$/,
   'de-DE': /^[1-9]\d{10}$/,
   'el-CY': /^[09]\d{7}[A-Z]$/,
@@ -275,19 +310,10 @@ const taxIdFormat = {
 // taxIdFormat locale aliases
 taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 
-// Regexes for locales where characters should be omitted before checking format
-const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;
-const sanitizeRegexes = {
-  'de-AT': allsymbols,
-  'de-DE': /[\/\\]/g,
-  'fr-BE': allsymbols,
-};
-// sanitizeRegexes locale aliases
-sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
-
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
 
+  'bg-BG': bgBgCheck,
   'de-AT': deAtCheck,
   'de-DE': deDeCheck,
   'el-CY': elCyCheck,
@@ -302,6 +328,16 @@ const taxIdCheck = {
 
 // taxIdCheck locale aliases
 taxIdCheck['nl-BE'] = taxIdCheck['fr-BE'];
+
+// Regexes for locales where characters should be omitted before checking format
+const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;
+const sanitizeRegexes = {
+  'de-AT': allsymbols,
+  'de-DE': /[\/\\]/g,
+  'fr-BE': allsymbols,
+};
+// sanitizeRegexes locale aliases
+sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
 
 /*
  * Validator function

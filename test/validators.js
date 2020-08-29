@@ -8782,6 +8782,22 @@ describe('Validators', () => {
   it('should validate taxID', () => {
     test({
       validator: 'isTaxID',
+      args: ['bg-BG'],
+      valid: [
+        '7501010010',
+        '0101010012',
+        '0111010010',
+        '7521010014',
+        '7541010019'],
+      invalid: [
+        '750101001',
+        '75010100101',
+        '75-01010/01 0',
+        '7521320010',
+        '7501010019'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['de-AT'],
       valid: [
         '931736581',
