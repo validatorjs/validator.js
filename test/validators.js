@@ -8930,6 +8930,18 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['hr-HR'],
+      valid: [
+        '94577403194'],
+      invalid: [
+        '94 57-7403/194',
+        '9457740319',
+        '945774031945',
+        '94577403197',
+        '94587403194'],
+    });
+    test({
+      validator: 'isTaxID',
       valid: [
         '01-1234567'],
     });

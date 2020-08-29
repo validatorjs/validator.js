@@ -55,6 +55,21 @@ function enUsGetPrefixes() {
 }
 
 /*
+ * ISO 7064 validation function
+ * Called with an array of single-digit integers by locale-specific functions
+ * to validate TINs according to ISO 7064 (MOD 11, 10).
+ */
+function iso7064Check(digits) {
+  let checkvalue = 10;
+  for (let i = 0; i < digits.length - 1; i++) {
+    checkvalue = (digits[i] + checkvalue) % 10 === 0 ? (10 * 2) % 11 :
+      (((digits[i] + checkvalue) % 10) * 2) % 11;
+  }
+  checkvalue = checkvalue === 1 ? 0 : 11 - checkvalue;
+  return checkvalue === digits[10];
+}
+
+/*
  * de-AT validation function
  * (Abgabenkontonummer, persons/entities)
  * Verify TIN validity by calculating check (last) digit
@@ -83,8 +98,8 @@ function deAtCheck(tin) {
 /*
  * de-DE validation function
  * (Steueridentifikationsnummer (Steuer-IdNr.), persons only)
- * Tests for single duplicate/triplicate value, then calculates check (last) digit
- * Partial implementation of spec (not tested with checkvalue starting at 10, no point)
+ * Tests for single duplicate/triplicate value, then calculates ISO 7064 check (last) digit
+ * Partial implementation of spec (same result with both algorithms always)
  */
 function deDeCheck(tin) {
   // Split digits into an array for further processing
@@ -118,16 +133,7 @@ function deDeCheck(tin) {
       return false;
     }
   }
-
-  // Calculate check digit
-  let checkvalue = 0;
-  for (let i = 0; i < digits.length - 1; i++) {
-    checkvalue = (digits[i] + checkvalue) % 10 === 0 ? (10 * 2) % 11 :
-      (((digits[i] + checkvalue) % 10) * 2) % 11;
-  }
-  checkvalue = 11 - checkvalue === 10 ? 0 : 11 - checkvalue;
-
-  return checkvalue === digits[10];
+  return iso7064Check(digits);
 }
 
 /*
@@ -239,6 +245,17 @@ function huHuCheck(tin) {
   return checksum % 11 === digits[9];
 }
 
+/*
+ * hr-HR validation function
+ * (Osobni identifikacijski broj (OIB), persons/entities)
+ * Verify TIN validity by calling iso7064Check(digits)
+ */
+function hrHrCheck(tin) {
+  // split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+  return iso7064Check(digits);
+}
+
 // tax id regex formats for various locales
 const taxIdFormat = {
 
@@ -250,6 +267,7 @@ const taxIdFormat = {
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'fr-BE': /^\d{11}$/,
   'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both with official spec and provided example
+  'hr-HR': /^\d{11}$/,
   'hu-HU': /^8\d{9}$/,
 
 };
@@ -278,6 +296,7 @@ const taxIdCheck = {
   'fr-BE': frBeCheck,
   'fr-FR': frFrCheck,
   'hu-HU': huHuCheck,
+  'hr-HR': hrHrCheck,
 
 };
 
