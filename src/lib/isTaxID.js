@@ -158,7 +158,7 @@ function csCzCheck(tin) {
     if (parseInt(tin, 10) % 11 !== 0) {
       // Some numbers up to and including 1985 are still valid if
       // check (last) digit equals 0 and modulo of first 9 digits equals 10
-      let checkdigit = parseInt(tin.slice(0, 9), 10) % 11;
+      const checkdigit = parseInt(tin.slice(0, 9), 10) % 11;
       if (parseInt(full_year, 10) < 1986 && checkdigit === 10) {
         if (parseInt(tin.slice(9), 10) !== 0) { return false; }
       } else {
@@ -234,6 +234,68 @@ function deDeCheck(tin) {
     }
   }
   return iso7064Check(digits);
+}
+
+/*
+ * dk-DK validation function
+ * (CPR-nummer (personnummer), persons only)
+ * Checks if birth date (first six digits) is valid and assigned to century (seventh) digit,
+ * and calculates check (last) digit
+ */
+function dkDkCheck(tin) {
+  tin = tin.replace(/\W/, '');
+
+  // Extract year, check if valid for given century digit and add century
+  let year = parseInt(tin.slice(4, 6), 10);
+  const century_digit = tin.slice(6, 7);
+  switch (century_digit) {
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+      year = `19${year}`;
+      break;
+    case '4':
+    case '9':
+      if (year < 37) {
+        year = `20${year}`;
+      } else {
+        year = `19${year}`;
+      }
+      break;
+    default:
+      if (year < 37) {
+        year = `20${year}`;
+      } else if (year > 58) {
+        year = `18${year}`;
+      } else {
+        return false;
+      }
+      break;
+  }
+  // Add missing zero if needed
+  if (year.length === 3) {
+    year = [year.slice(0, 2), '0', year.slice(2)].join('');
+  }
+  // Check date validity
+  const date = `${year}/${tin.slice(2, 4)}/${tin.slice(0, 2)}`;
+  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+
+  // Split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+  let checksum = 0;
+  let weight = 4;
+  // Multiply by weight and add to checksum
+  for (let i = 0; i < 9; i++) {
+    checksum += digits[i] * weight;
+    weight -= 1;
+    if (weight === 1) {
+      weight = 7;
+    }
+  }
+  checksum %= 11;
+  if (checksum === 1) { return false; }
+  return checksum === 0 ? digits[9] === 0 : digits[9] === 11 - checksum;
 }
 
 /*
@@ -401,6 +463,7 @@ const taxIdFormat = {
   'cs-CZ': /^\d{6}\/{0,1}\d{3,4}$/,
   'de-AT': /^\d{9}$/,
   'de-DE': /^[1-9]\d{10}$/,
+  'dk-DK': /^\d{6}-{0,1}\d{4}$/,
   'el-CY': /^[09]\d{7}[A-Z]$/,
   'el-GR': /^[01234789]\d{8}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
@@ -423,6 +486,7 @@ const taxIdCheck = {
   'cs-CZ': csCzCheck,
   'de-AT': deAtCheck,
   'de-DE': deDeCheck,
+  'dk-DK': dkDkCheck,
   'el-CY': elCyCheck,
   'el-GR': elGrCheck,
   'en-US': enUsCheck,

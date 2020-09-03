@@ -8778,7 +8778,7 @@ describe('Validators', () => {
     });
   });
 
-  // EU-UK valid numbers sourced from https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx except where noted else.
+  // EU-UK valid numbers sourced from https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx or constructed by @tplessas.
   it('should validate taxID', () => {
     test({
       validator: 'isTaxID',
@@ -8796,7 +8796,6 @@ describe('Validators', () => {
         '7521320010',
         '7501010019'],
     });
-    // cs-CZ numbers constructed by @tplessas
     test({
       validator: 'isTaxID',
       args: ['cs-CZ'],
@@ -8852,6 +8851,26 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['dk-DK'],
+      valid: [
+        '010111-1113',
+        '0101110117',
+        '2110084008',
+        '2110489008',
+        '2110595002',
+        '2110197007',
+        '0101110117',
+        '0101110230'],
+      invalid: [
+        '010111/1113',
+        '010111111',
+        '01011111133',
+        '2110485008',
+        '2902034000',
+        '0101110630'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['el-CY'],
       valid: [
         '00123123T',
@@ -8863,7 +8882,6 @@ describe('Validators', () => {
         '001123123T',
         '00 12-3123/T'],
     });
-    // el-GR numbers constructed by @tplessas
     test({
       validator: 'isTaxID',
       args: ['el-GR'],
