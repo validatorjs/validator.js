@@ -106,6 +106,70 @@ function bgBgCheck(tin) {
 }
 
 /*
+ * cs-CZ validation function
+ * (Rodné číslo (RČ), persons only)
+ * Checks if birth date (first six digits) is valid and divisibility by 11
+ * Material not in DG TAXUD document sourced from:
+ * -`https://lorenc.info/3MA381/overeni-spravnosti-rodneho-cisla.htm`
+ * -`https://www.mvcr.cz/clanek/rady-a-sluzby-dokumenty-rodne-cislo.aspx`
+ */
+function csCzCheck(tin) {
+  tin = tin.replace(/\W/, '');
+
+  // Extract full year from TIN length
+  let full_year = parseInt(tin.slice(0, 2), 10);
+  if (tin.length === 10) {
+    if (full_year < 54) {
+      full_year = `20${full_year}`;
+    } else {
+      full_year = `19${full_year}`;
+    }
+  } else {
+    if (tin.slice(6) === '000') { return false; } // Three-zero serial not assigned before 1954
+    if (full_year < 54) {
+      full_year = `19${full_year}`;
+    } else {
+      return false; // No 18XX years seen in any of the resources
+    }
+  }
+  // Add missing zero if needed
+  if (full_year.length === 3) {
+    full_year = [full_year.slice(0, 2), '0', full_year.slice(2)].join('');
+  }
+
+  // Extract month from TIN and normalize
+  let month = parseInt(tin.slice(2, 4), 10);
+  if (month > 50) {
+    month -= 50;
+  }
+  if (month > 20) {
+    // Month-plus-twenty was only introduced in 2004
+    if (parseInt(full_year, 10) < 2004) { return false; }
+    month -= 20;
+  }
+  if (month < 10) { month = `0${month}`; }
+
+  // Check date validity
+  const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
+  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+
+  // Verify divisibility by 11
+  if (tin.length === 10) {
+    if (parseInt(tin, 10) % 11 !== 0) {
+      // Some numbers up to and including 1985 are still valid if
+      // check (last) digit equals 0 and modulo of first 9 digits equals 10
+      let checkdigit = parseInt(tin.slice(0, 9), 10) % 11;
+      if (parseInt(full_year, 10) < 1986 && checkdigit === 10) {
+        if (parseInt(tin.slice(9), 10) !== 0) { return false; }
+      } else {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+/*
  * de-AT validation function
  * (Abgabenkontonummer, persons/entities)
  * Verify TIN validity by calculating check (last) digit
@@ -294,6 +358,7 @@ function hrHrCheck(tin) {
 const taxIdFormat = {
 
   'bg-BG': /^\d{10}$/,
+  'cs-CZ': /^\d{6}\/{0,1}\d{3,4}$/i,
   'de-AT': /^\d{9}$/,
   'de-DE': /^[1-9]\d{10}$/,
   'el-CY': /^[09]\d{7}[A-Z]$/,
@@ -314,6 +379,7 @@ taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 const taxIdCheck = {
 
   'bg-BG': bgBgCheck,
+  'cs-CZ': csCzCheck,
   'de-AT': deAtCheck,
   'de-DE': deDeCheck,
   'el-CY': elCyCheck,
