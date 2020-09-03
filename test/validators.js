@@ -8796,7 +8796,7 @@ describe('Validators', () => {
         '7521320010',
         '7501010019'],
     });
-    // cs-CZ valid numbers constructed by @tplessas
+    // cs-CZ numbers constructed by @tplessas
     test({
       validator: 'isTaxID',
       args: ['cs-CZ'],
@@ -8871,11 +8871,13 @@ describe('Validators', () => {
         '758426713',
         '054100004'],
       invalid: [
-        '123456789',
-        '1234567890',
-        '12345678',
-        '12 3456789',
-        '12-345/6789'],
+        '054100005',
+        '05410000',
+        '0541000055',
+        '05 4100005',
+        '05-410/0005',
+        '658426713',
+        '558426713'],
     });
     test({
       validator: 'isTaxID',

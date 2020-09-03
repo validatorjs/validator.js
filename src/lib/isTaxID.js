@@ -283,6 +283,11 @@ function elGrCheck(tin) {
   return checksum % 11 === digits[8];
 }
 
+/* en-GB validation function (should go here if needed)
+ * National Insurance Number (NINO) or Unique Taxpayer Reference (UTR),
+ * persons/entities respectively
+ */
+
 /*
  * en-US validation function
  * Verify that the TIN starts with a valid IRS campus prefix
@@ -362,7 +367,7 @@ const taxIdFormat = {
   'de-AT': /^\d{9}$/,
   'de-DE': /^[1-9]\d{10}$/,
   'el-CY': /^[09]\d{7}[A-Z]$/,
-  'el-GR': /^\d{9}$/,
+  'el-GR': /^[01234789]\d{8}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'fr-BE': /^\d{11}$/,
