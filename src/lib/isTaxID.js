@@ -284,8 +284,8 @@ function elGrCheck(tin) {
 }
 
 /* en-GB validation function (should go here if needed)
- * National Insurance Number (NINO) or Unique Taxpayer Reference (UTR),
- * persons/entities respectively
+ * (National Insurance Number (NINO) or Unique Taxpayer Reference (UTR),
+ * persons/entities respectively)
  */
 
 /*
@@ -333,6 +333,17 @@ function frFrCheck(tin) {
 }
 
 /*
+ * hr-HR validation function
+ * (Osobni identifikacijski broj (OIB), persons/entities)
+ * Verify TIN validity by calling iso7064Check(digits)
+ */
+function hrHrCheck(tin) {
+  // split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+  return iso7064Check(digits);
+}
+
+/*
  * hu-HU validation function
  * (Adóazonosító jel, persons only)
  * Verify TIN validity by calculating check (last) digit
@@ -349,21 +360,45 @@ function huHuCheck(tin) {
 }
 
 /*
- * hr-HR validation function
- * (Osobni identifikacijski broj (OIB), persons/entities)
- * Verify TIN validity by calling iso7064Check(digits)
+ * sk-SK validation function
+ * (Rodné číslo (RČ) or bezvýznamové identifikačné číslo (BIČ), persons only)
+ * Checks validity of pre-1954 birth numbers (rodné číslo) only
+ * Due to the introduction of the pseudo-random BIČ it is not possible to test
+ * post-1954 birth numbers without knowing whether they are BIČ or RČ beforehand
  */
-function hrHrCheck(tin) {
-  // split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
-  return iso7064Check(digits);
+function skSkCheck(tin) {
+  if (tin.length === 9) {
+    tin = tin.replace(/\W/, '');
+    if (tin.slice(6) === '000') { return false; } // Three-zero serial not assigned before 1954
+
+    // Extract full year from TIN length
+    let full_year = parseInt(tin.slice(0, 2), 10);
+    if (full_year > 53) { return false; }
+    if (full_year < 10) {
+      full_year = `190${full_year}`;
+    } else {
+      full_year = `19${full_year}`;
+    }
+
+    // Extract month from TIN and normalize
+    let month = parseInt(tin.slice(2, 4), 10);
+    if (month > 50) {
+      month -= 50;
+    }
+    if (month < 10) { month = `0${month}`; }
+
+    // Check date validity
+    const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
+    if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+  }
+  return true;
 }
 
 // tax id regex formats for various locales
 const taxIdFormat = {
 
   'bg-BG': /^\d{10}$/,
-  'cs-CZ': /^\d{6}\/{0,1}\d{3,4}$/i,
+  'cs-CZ': /^\d{6}\/{0,1}\d{3,4}$/,
   'de-AT': /^\d{9}$/,
   'de-DE': /^[1-9]\d{10}$/,
   'el-CY': /^[09]\d{7}[A-Z]$/,
@@ -374,6 +409,7 @@ const taxIdFormat = {
   'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both with official spec and provided example
   'hr-HR': /^\d{11}$/,
   'hu-HU': /^8\d{9}$/,
+  'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
 
 };
 
@@ -392,8 +428,9 @@ const taxIdCheck = {
   'en-US': enUsCheck,
   'fr-BE': frBeCheck,
   'fr-FR': frFrCheck,
-  'hu-HU': huHuCheck,
   'hr-HR': hrHrCheck,
+  'hu-HU': huHuCheck,
+  'sk-SK': skSkCheck,
 
 };
 
