@@ -482,6 +482,11 @@ function huHuCheck(tin) {
   return checksum % 11 === digits[9];
 }
 
+/* lt-LT validation function (should go here if needed)
+ * (Asmens kodas, persons/entities respectively)
+ * Current validation check is alias of etEeCheck- same format applies
+ */
+
 /*
  * sk-SK validation function
  * (Rodné číslo (RČ) or bezvýznamové identifikačné číslo (BIČ), persons only)
@@ -540,6 +545,7 @@ const taxIdFormat = {
 
 // taxIdFormat locale aliases
 taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
+taxIdFormat['lt-LT'] = taxIdFormat['et-EE'];
 
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
@@ -563,6 +569,7 @@ const taxIdCheck = {
 
 // taxIdCheck locale aliases
 taxIdCheck['nl-BE'] = taxIdCheck['fr-BE'];
+taxIdCheck['lt-LT'] = taxIdCheck['et-EE'];
 
 // Regexes for locales where characters should be omitted before checking format
 const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;
