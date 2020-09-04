@@ -332,7 +332,7 @@ function elCyCheck(tin) {
  * (Arithmos Forologikou Mitroou (AFM/ΑΦΜ), persons/entities)
  * Verify TIN validity by calculating check (last) digit
  * Algorithm not in DG TAXUD document- sourced from:
- * `http://epixeirisi.gr/%CE%9A%CE%A1%CE%99%CE%A3%CE%99%CE%9C%CE%91-%CE%98%CE%95%CE%9C%CE%91%CE%A4%CE%91-%CE%A6%CE%9F%CE%A1%CE%9F%CE%9B%CE%9F%CE%93%CE%99%CE%91%CE%A3-%CE%9A%CE%91%CE%99-%CE%9B%CE%9F%CE%93%CE%99%CE%A3%CE%A4%CE%99%CE%9A%CE%97%CE%A3/23791/%CE%91%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82-%CE%A6%CE%BF%CF%81%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CE%BA%CE%BF%CF%8D-%CE%9C%CE%B7%CF%84%CF%81%CF%8E%CE%BF%CF%85`
+ * - `http://epixeirisi.gr/%CE%9A%CE%A1%CE%99%CE%A3%CE%99%CE%9C%CE%91-%CE%98%CE%95%CE%9C%CE%91%CE%A4%CE%91-%CE%A6%CE%9F%CE%A1%CE%9F%CE%9B%CE%9F%CE%93%CE%99%CE%91%CE%A3-%CE%9A%CE%91%CE%99-%CE%9B%CE%9F%CE%93%CE%99%CE%A3%CE%A4%CE%99%CE%9A%CE%97%CE%A3/23791/%CE%91%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82-%CE%A6%CE%BF%CF%81%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CE%BA%CE%BF%CF%8D-%CE%9C%CE%B7%CF%84%CF%81%CF%8E%CE%BF%CF%85`
  */
 function elGrCheck(tin) {
   // split digits into an array for further processing
@@ -356,6 +356,67 @@ function elGrCheck(tin) {
  */
 function enUsCheck(tin) {
   return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
+}
+
+/*
+ * et-EE validation function
+ * (Isikukood (IK), persons only)
+ * Checks if birth date (century digit and six following) is valid and calculates check (last) digit
+ * Material not in DG TAXUD document sourced from:
+ * - `https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/Estonia-TIN.pdf`
+ */
+function etEeCheck(tin) {
+  // Extract year and add century
+  let full_year = parseInt(tin.slice(1, 3), 10);
+  const century_digit = tin.slice(0, 1);
+  switch (century_digit) {
+    case '1':
+    case '2':
+      full_year = `18${full_year}`;
+      break;
+    case '3':
+    case '4':
+      full_year = `19${full_year}`;
+      break;
+    default:
+      full_year = `20${full_year}`;
+      break;
+  }
+  // Add missing zero if needed
+  if (full_year.length === 3) {
+    full_year = [full_year.slice(0, 2), '0', full_year.slice(2)].join('');
+  }
+  // Check date validity
+  const date = `${full_year}/${tin.slice(3, 5)}/${tin.slice(5, 7)}`;
+  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+
+  // Split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+  let checksum = 0;
+  let weight = 1;
+  // Multiply by weight and add to checksum
+  for (let i = 0; i < 10; i++) {
+    checksum += digits[i] * weight;
+    weight += 1;
+    if (weight === 10) {
+      weight = 1;
+    }
+  }
+  // Do again if modulo 11 of checksum is 10
+  if (checksum % 11 === 10) {
+    checksum = 0;
+    weight = 3;
+    for (let i = 0; i < 10; i++) {
+      checksum += digits[i] * weight;
+      weight += 1;
+      if (weight === 10) {
+        weight = 1;
+      }
+    }
+    if (checksum % 11 === 10) { return digits[10] === 0; }
+  }
+
+  return checksum % 11 === digits[10];
 }
 
 /*
@@ -465,9 +526,10 @@ const taxIdFormat = {
   'de-DE': /^[1-9]\d{10}$/,
   'dk-DK': /^\d{6}-{0,1}\d{4}$/,
   'el-CY': /^[09]\d{7}[A-Z]$/,
-  'el-GR': /^[01234789]\d{8}$/,
+  'el-GR': /^([0-4]|[7-9])\d{8}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
+  'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
   'fr-BE': /^\d{11}$/,
   'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both with official spec and provided example
   'hr-HR': /^\d{11}$/,
@@ -490,6 +552,7 @@ const taxIdCheck = {
   'el-CY': elCyCheck,
   'el-GR': elGrCheck,
   'en-US': enUsCheck,
+  'et-EE': etEeCheck,
   'fr-BE': frBeCheck,
   'fr-FR': frFrCheck,
   'hr-HR': hrHrCheck,
