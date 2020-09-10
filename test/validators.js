@@ -8957,6 +8957,20 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['fi-FI'],
+      valid: [
+        '131052-308T',
+        '131002+308W',
+        '131019A3089'],
+      invalid: [
+        '131052308T',
+        '131052-308TT',
+        '131052S308T',
+        '13 1052-308/T',
+        '290219A1111'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['fr-BE'],
       valid: [
         '00012511119'],

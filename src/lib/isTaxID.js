@@ -420,6 +420,44 @@ function etEeCheck(tin) {
 }
 
 /*
+ * fi-FI validation function
+ * (Henkilötunnus (HETU), persons only)
+ * Checks if birth date (first six digits plus century symbol) is valid
+ * and calculates check (last) digit
+ */
+function fiFiCheck(tin) {
+  // Extract year and add century
+  let full_year = parseInt(tin.slice(4, 6), 10);
+  const century_symbol = tin.slice(6, 7);
+  switch (century_symbol) {
+    case '+':
+      full_year = `18${full_year}`;
+      break;
+    case '-':
+      full_year = `19${full_year}`;
+      break;
+    default:
+      full_year = `20${full_year}`;
+      break;
+  }
+  // Add missing zero if needed
+  if (full_year.length === 3) {
+    full_year = [full_year.slice(0, 2), '0', full_year.slice(2)].join('');
+  }
+  // Check date validity
+  const date = `${full_year}/${tin.slice(2, 4)}/${tin.slice(0, 2)}`;
+  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+
+  // Calculate check character
+  let checksum = parseInt((tin.slice(0, 6) + tin.slice(7, 10)), 10) % 31;
+  if (checksum < 10) { return checksum === parseInt(tin.slice(10), 10); }
+
+  checksum -= 10;
+  const letters_lookup = ['A', 'B', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y'];
+  return letters_lookup[checksum] === tin.slice(10);
+}
+
+/*
  * fr/nl-BE validation function
  * (Numéro national (N.N.), persons only)
  * Checks if birth date (first six digits) is valid and calculates check (last two) digits
@@ -535,6 +573,7 @@ const taxIdFormat = {
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
+  'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
   'fr-BE': /^\d{11}$/,
   'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both with official spec and provided example
   'hr-HR': /^\d{11}$/,
@@ -559,6 +598,7 @@ const taxIdCheck = {
   'el-GR': elGrCheck,
   'en-US': enUsCheck,
   'et-EE': etEeCheck,
+  'fi-FI': fiFiCheck,
   'fr-BE': frBeCheck,
   'fr-FR': frFrCheck,
   'hr-HR': hrHrCheck,
