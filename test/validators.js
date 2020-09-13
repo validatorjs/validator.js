@@ -295,6 +295,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate really long emails if ignore_max_length is set', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ ignore_max_length: false }],
+      valid: [],
+      invalid: [
+        'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@example.com'
+      ],
+    });
+
+    test({
+      validator: 'isEmail',
+      args: [{ ignore_max_length: true }],
+      valid: [
+        'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@example.com',
+      ],
+      invalid: [],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',
