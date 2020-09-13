@@ -301,7 +301,7 @@ describe('Validators', () => {
       args: [{ ignore_max_length: false }],
       valid: [],
       invalid: [
-        'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@example.com'
+        'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@example.com',
       ],
     });
 
