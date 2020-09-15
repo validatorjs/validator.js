@@ -9036,6 +9036,22 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['it-IT'],
+      valid: [
+        'DMLPRY77D15H501F',
+        'AXXFAXTTD41H501D'],
+      invalid: [
+        'DML PRY/77D15H501-F',
+        'DMLPRY77D15H501',
+        'DMLPRY77D15H501FF',
+        'AAPPRY77D15H501F',
+        'DMLAXA77D15H501F',
+        'AXXFAX90A01Z001F',
+        'DMLPRY77B29H501F',
+        'AXXFAX3TD41H501E'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['sk-SK'],
       valid: [
         '530121999',

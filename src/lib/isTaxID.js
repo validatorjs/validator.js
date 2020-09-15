@@ -22,38 +22,6 @@ import isDate from './isDate';
  * for more information.
  */
 
-
-// Valid US IRS campus prefixes
-const enUsCampusPrefix = {
-  andover: ['10', '12'],
-  atlanta: ['60', '67'],
-  austin: ['50', '53'],
-  brookhaven: ['01', '02', '03', '04', '05', '06', '11', '13', '14', '16', '21', '22', '23', '25', '34', '51', '52', '54', '55', '56', '57', '58', '59', '65'],
-  cincinnati: ['30', '32', '35', '36', '37', '38', '61'],
-  fresno: ['15', '24'],
-  internet: ['20', '26', '27', '45', '46', '47'],
-  kansas: ['40', '44'],
-  memphis: ['94', '95'],
-  ogden: ['80', '90'],
-  philadelphia: ['33', '39', '41', '42', '43', '46', '48', '62', '63', '64', '66', '68', '71', '72', '73', '74', '75', '76', '77', '81', '82', '83', '84', '85', '86', '87', '88', '91', '92', '93', '98', '99'],
-  sba: ['31'],
-};
-
-// Return an array of all US IRS campus prefixes
-function enUsGetPrefixes() {
-  const prefixes = [];
-
-  for (const location in enUsCampusPrefix) {
-    // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
-    // istanbul ignore else
-    if (enUsCampusPrefix.hasOwnProperty(location)) {
-      prefixes.push(...enUsCampusPrefix[location]);
-    }
-  }
-
-  return prefixes;
-}
-
 /*
  * ISO 7064 validation function
  * Called with an array of single-digit integers by locale-specific functions
@@ -345,10 +313,42 @@ function elGrCheck(tin) {
   return checksum % 11 === digits[8];
 }
 
-/* en-GB validation function (should go here if needed)
+/*
+ * en-GB validation function (should go here if needed)
  * (National Insurance Number (NINO) or Unique Taxpayer Reference (UTR),
  * persons/entities respectively)
  */
+
+// Valid US IRS campus prefixes
+const enUsCampusPrefix = {
+  andover: ['10', '12'],
+  atlanta: ['60', '67'],
+  austin: ['50', '53'],
+  brookhaven: ['01', '02', '03', '04', '05', '06', '11', '13', '14', '16', '21', '22', '23', '25', '34', '51', '52', '54', '55', '56', '57', '58', '59', '65'],
+  cincinnati: ['30', '32', '35', '36', '37', '38', '61'],
+  fresno: ['15', '24'],
+  internet: ['20', '26', '27', '45', '46', '47'],
+  kansas: ['40', '44'],
+  memphis: ['94', '95'],
+  ogden: ['80', '90'],
+  philadelphia: ['33', '39', '41', '42', '43', '46', '48', '62', '63', '64', '66', '68', '71', '72', '73', '74', '75', '76', '77', '81', '82', '83', '84', '85', '86', '87', '88', '91', '92', '93', '98', '99'],
+  sba: ['31'],
+};
+
+// Return an array of all US IRS campus prefixes
+function enUsGetPrefixes() {
+  const prefixes = [];
+
+  for (const location in enUsCampusPrefix) {
+    // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+    // istanbul ignore else
+    if (enUsCampusPrefix.hasOwnProperty(location)) {
+      prefixes.push(...enUsCampusPrefix[location]);
+    }
+  }
+
+  return prefixes;
+}
 
 /*
  * en-US validation function
@@ -520,10 +520,213 @@ function huHuCheck(tin) {
   return checksum % 11 === digits[9];
 }
 
-/* lt-LT validation function (should go here if needed)
+/*
+ * lt-LT validation function (should go here if needed)
  * (Asmens kodas, persons/entities respectively)
  * Current validation check is alias of etEeCheck- same format applies
  */
+
+/*
+ * it-IT first/last name validity check
+ * Accepts it-IT TIN-encoded names as a three-element character array and checks their validity
+ * Due to lack of clarity between resources ("Are only Italian consonants used?
+ * What happens if a person has X in their name?" etc.) only two test conditions
+ * have been implemented:
+ * Vowels may only be followed by other vowels or an X character
+ * and X characters after vowels may only be followed by other X characters.
+ */
+function itItNameCheck(name) {
+  // true at the first occurence of a vowel
+  let vowelflag = false;
+
+  // true at the first occurence of an X AFTER vowel
+  // (to properly handle last names with X as consonant)
+  let xflag = false;
+
+  for (let i = 0; i < 3; i++) {
+    if (!vowelflag && /[AEIOU]/.test(name[i])) {
+      vowelflag = true;
+    } else if (!xflag && vowelflag && (name[i] === 'X')) {
+      xflag = true;
+    } else if (i > 0) {
+      if (vowelflag && !xflag) {
+        if (!/[AEIOU]/.test(name[i])) { return false; }
+      }
+      if (xflag) {
+        if (!/X/.test(name[i])) { return false; }
+      }
+    }
+  }
+  return true;
+}
+
+/*
+ * it-IT validation function
+ * (Codice fiscale (TIN-IT), persons only)
+ * Verify name and birth date validity and calculate check character
+ * Material not in DG-TAXUD document sourced from:
+ * `https://en.wikipedia.org/wiki/Italian_fiscal_code`
+ */
+function itItCheck(tin) {
+  // Capitalize and split characters into an array for further processing
+  const chars = tin.toUpperCase().split('');
+
+  // Check first and last name validity calling itItNameCheck()
+  if (!itItNameCheck(chars.slice(0, 3))) { return false; }
+  if (!itItNameCheck(chars.slice(3, 6))) { return false; }
+
+  // Convert letters in number spaces back to numbers if any
+  const number_locations = [6, 7, 9, 10, 12, 13, 14];
+  const number_replace = {
+    L: '0',
+    M: '1',
+    N: '2',
+    P: '3',
+    Q: '4',
+    R: '5',
+    S: '6',
+    T: '7',
+    U: '8',
+    V: '9',
+  };
+  for (const i of number_locations) {
+    if (chars[i] in number_replace) {
+      chars.splice(i, 1, number_replace[chars[i]]);
+    }
+  }
+
+  // Extract month and day, and check date validity
+  const month_replace = {
+    A: '01',
+    B: '02',
+    C: '03',
+    D: '04',
+    E: '05',
+    H: '06',
+    L: '07',
+    M: '08',
+    P: '09',
+    R: '10',
+    S: '11',
+    T: '12',
+  };
+  let month = month_replace[chars[8]];
+
+  let day = parseInt(chars[9] + chars[10], 10);
+  if (day > 40) { day -= 40; }
+  if (day < 10) { day = `0${day}`; }
+
+  const date = `${chars[6]}${chars[7]}/${month}/${day}`;
+  if (!isDate(date, 'YY/MM/DD')) { return false; }
+
+  /*
+   * Check validity of birth town registry number (codice catastale)
+   * This code was created by finding the gaps in the sequences of numbers
+   * in the embedded spreadsheet of the DG-TAXUD document.
+   * This is absolutely not best practice and is therefore excluded
+   * from coverage measurements until a replacement is decided on.
+   * Perhaps something like this could be used instead:
+   * `https://github.com/matteocontrini/comuni-json`
+   */
+  const catastale_letter = `${chars[11]}`;
+  const catastale_number = parseInt(`${chars[12]}${chars[13]}${chars[14]}`, 10);
+  /* istanbul ignore next */
+  switch (catastale_letter) {
+    case 'A':
+      if (catastale_number === 0 || catastale_number === 814) { return false; }
+      break;
+    case 'C':
+      if (catastale_number === 0 || catastale_number === 170 ||
+        catastale_number === 843) { return false; }
+      break;
+    case 'D':
+    case 'E':
+    case 'F':
+    case 'G':
+    case 'B':
+    case 'L':
+      if (catastale_number === 0) { return false; }
+      break;
+    case 'H':
+      if (catastale_number === 0 || catastale_number === 5) { return false; }
+      break;
+    case 'I':
+      if (catastale_number === 0 || catastale_number === 141 ||
+        catastale_number === 267) { return false; }
+      break;
+    case 'M':
+      if (catastale_number === 0 || catastale_number > 315) { return false; }
+      break;
+    default:
+      if (catastale_number < 100 || catastale_number > 906) { return false; }
+      if (catastale_number > 161 && catastale_number < 200) { return false; }
+      if (catastale_number > 259 && catastale_number < 300) { return false; }
+      if (catastale_number > 370 && catastale_number < 400) { return false; }
+      if (catastale_number > 404 && catastale_number < 500) { return false; }
+      if (catastale_number > 533 && catastale_number < 600) { return false; }
+      if (catastale_number > 614 && catastale_number < 700) { return false; }
+      if (catastale_number > 735 && catastale_number < 800) { return false; }
+      if (catastale_number > 802 && catastale_number < 900) { return false; }
+      break;
+  }
+
+  // Calculate check character by adding up even and odd characters as numbers
+  let checksum = 0;
+  for (let i = 1; i < chars.length - 1; i += 2) {
+    let char_to_int = parseInt(chars[i], 10);
+    if (isNaN(char_to_int)) {
+      char_to_int = chars[i].charCodeAt(0) - 65;
+    }
+    checksum += char_to_int;
+  }
+
+  const odd_convert = { // Maps of characters at odd places
+    A: 1,
+    B: 0,
+    C: 5,
+    D: 7,
+    E: 9,
+    F: 13,
+    G: 15,
+    H: 17,
+    I: 19,
+    J: 21,
+    K: 2,
+    L: 4,
+    M: 18,
+    N: 20,
+    O: 11,
+    P: 3,
+    Q: 6,
+    R: 8,
+    S: 12,
+    T: 14,
+    U: 16,
+    V: 10,
+    W: 22,
+    X: 25,
+    Y: 24,
+    Z: 23,
+    0: 1,
+    1: 0,
+  };
+  for (let i = 0; i < chars.length - 1; i += 2) {
+    let char_to_int = 0;
+    if (chars[i] in odd_convert) {
+      char_to_int = odd_convert[chars[i]];
+    } else {
+      let multiplier = parseInt(chars[i], 10);
+      char_to_int = (2 * multiplier) + 1;
+      if (multiplier > 4) {
+        char_to_int += 2;
+      }
+    }
+    checksum += char_to_int;
+  }
+
+  if (String.fromCharCode(65 + (checksum % 26)) !== chars[15]) { return false; }
+  return true;
+}
 
 /*
  * sk-SK validation function
@@ -578,6 +781,7 @@ const taxIdFormat = {
   'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both with official spec and provided example
   'hr-HR': /^\d{11}$/,
   'hu-HU': /^8\d{9}$/,
+  'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
 
 };
@@ -603,6 +807,7 @@ const taxIdCheck = {
   'fr-FR': frFrCheck,
   'hr-HR': hrHrCheck,
   'hu-HU': huHuCheck,
+  'it-IT': itItCheck,
   'sk-SK': skSkCheck,
 
 };
