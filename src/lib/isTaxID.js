@@ -319,6 +319,27 @@ function elGrCheck(tin) {
  * persons/entities respectively)
  */
 
+/*
+ * en-IE validation function
+ * (Personal Public Service Number (PPS No), persons only)
+ * Verify TIN validity by calculating check (second to last) character
+ */
+function enIeCheck(tin) {
+  let checksum = 0;
+  for (let i = 0; i < 7; i++) {
+    checksum += parseInt(tin[i], 10) * (8 - i);
+  }
+  if (tin.length === 9 && tin[8] !== 'W') {
+    checksum += (tin[8].charCodeAt(0) - 64) * 9;
+  }
+
+  checksum %= 23;
+  if (checksum === 0) {
+    return tin[7] === 'W';
+  }
+  return tin[7] === String.fromCharCode(64 + checksum);
+}
+
 // Valid US IRS campus prefixes
 const enUsCampusPrefix = {
   andover: ['10', '12'],
@@ -563,7 +584,8 @@ function itItNameCheck(name) {
 /*
  * it-IT validation function
  * (Codice fiscale (TIN-IT), persons only)
- * Verify name and birth date validity and calculate check character
+ * Verify name, birth date and codice catastale validity
+ * and calculate check character.
  * Material not in DG-TAXUD document sourced from:
  * `https://en.wikipedia.org/wiki/Italian_fiscal_code`
  */
@@ -763,7 +785,12 @@ function skSkCheck(tin) {
   return true;
 }
 
-// tax id regex formats for various locales
+/*
+ * Tax id regex formats for various locales
+ *
+ * Where not explicitly specified in DG-TAXUD document both
+ * uppercase and lowercase letters are acceptable.
+ */
 const taxIdFormat = {
 
   'bg-BG': /^\d{10}$/,
@@ -774,6 +801,7 @@ const taxIdFormat = {
   'el-CY': /^[09]\d{7}[A-Z]$/,
   'el-GR': /^([0-4]|[7-9])\d{8}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
+  'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
   'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
@@ -785,7 +813,6 @@ const taxIdFormat = {
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
 
 };
-
 // taxIdFormat locale aliases
 taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 taxIdFormat['lt-LT'] = taxIdFormat['et-EE'];
@@ -800,6 +827,7 @@ const taxIdCheck = {
   'dk-DK': dkDkCheck,
   'el-CY': elCyCheck,
   'el-GR': elGrCheck,
+  'en-IE': enIeCheck,
   'en-US': enUsCheck,
   'et-EE': etEeCheck,
   'fi-FI': fiFiCheck,
@@ -811,7 +839,6 @@ const taxIdCheck = {
   'sk-SK': skSkCheck,
 
 };
-
 // taxIdCheck locale aliases
 taxIdCheck['nl-BE'] = taxIdCheck['fr-BE'];
 taxIdCheck['lt-LT'] = taxIdCheck['et-EE'];

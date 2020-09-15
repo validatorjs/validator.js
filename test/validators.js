@@ -8920,6 +8920,21 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['en-IE'],
+      valid: [
+        '1234567T',
+        '1234567TW',
+        '1234577W',
+        '1234577WW',
+        '1234577IA'],
+      invalid: [
+        '1234567',
+        '1234577WWW',
+        '1234577A',
+        '1234577JA'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['en-US'],
       valid: [
         '01-1234567',
