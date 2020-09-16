@@ -751,6 +751,49 @@ function itItCheck(tin) {
 }
 
 /*
+ * lv-LV validation function
+ * (Personas kods (PK), persons only)
+ * Check validity of birth date and calculate check (last) digit
+ * Support only for old format numbers (not starting with '32', issued before 2017/07/01)
+ * Material not in DG TAXUD document sourced from:
+ * `https://boot.ritakafija.lv/forums/index.php?/topic/88314-personas-koda-algoritms-%C4%8Deksumma/`
+ */
+function lvLvCheck(tin) {
+  tin = tin.replace(/\W/, '');
+  // Extract date from TIN
+  const day = tin.slice(0, 2);
+  if (day !== '32') { // No date/checksum check if new format
+    const month = tin.slice(2, 4);
+    if (month !== '00') { // No date check if unknown month
+      let full_year = tin.slice(4, 6);
+      switch (tin[6]) {
+        case '0':
+          full_year = `18${full_year}`;
+          break;
+        case '1':
+          full_year = `19${full_year}`;
+          break;
+        default:
+          full_year = `20${full_year}`;
+          break;
+      }
+      // Check date validity
+      const date = `${full_year}/${tin.slice(2, 4)}/${day}`;
+      if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+    }
+
+    // Calculate check digit
+    let checksum = 1101;
+    const multip_lookup = [1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+    for (let i = 0; i < tin.length - 1; i++) {
+      checksum -= parseInt(tin[i], 10) * multip_lookup[i];
+    }
+    return (parseInt(tin[10], 10) === checksum % 11);
+  }
+  return true;
+}
+
+/*
  * sk-SK validation function
  * (Rodné číslo (RČ) or bezvýznamové identifikačné číslo (BIČ), persons only)
  * Checks validity of pre-1954 birth numbers (rodné číslo) only
@@ -806,10 +849,11 @@ const taxIdFormat = {
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
   'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
   'fr-BE': /^\d{11}$/,
-  'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both with official spec and provided example
+  'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both to official spec and provided example
   'hr-HR': /^\d{11}$/,
   'hu-HU': /^8\d{9}$/,
   'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
+  'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
 
 };
@@ -836,6 +880,7 @@ const taxIdCheck = {
   'hr-HR': hrHrCheck,
   'hu-HU': huHuCheck,
   'it-IT': itItCheck,
+  'lv-LV': lvLvCheck,
   'sk-SK': skSkCheck,
 
 };

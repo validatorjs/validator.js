@@ -9067,6 +9067,20 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['lv-LV'],
+      valid: [
+        '01011012344',
+        '32579461005',
+        '01019902341',
+        '325794-61005'],
+      invalid: [
+        '010110123444',
+        '0101101234',
+        '01001612345',
+        '290217-22343'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['sk-SK'],
       valid: [
         '530121999',
