@@ -8593,6 +8593,22 @@ describe('Validators', () => {
           '00987',
         ],
       },
+      {
+        locale: 'AZ',
+        valid: [
+          'AZ0100',
+          'AZ0121',
+          'AZ3500',
+        ],
+        invalid: [
+          '',
+          ' AZ0100',
+          'AZ100',
+          'AZ34340',
+          'EN2020',
+          'AY3030',
+        ],
+      },
     ];
 
     let allValid = [];
