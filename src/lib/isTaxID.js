@@ -63,6 +63,20 @@ function luhnCheck(digits) {
 }
 
 /*
+ * Reverse TIN multiplication and summation function
+ * Called with an array of single-digit integers and a base multiplier
+ * by locale-specific functions to calculate the sum of the digits multiplied in reverse.
+ */
+function reverseMultiplyAndSum(digits, base) {
+  const reverse_digits = digits.slice(0).reverse();
+  let total = 0
+  for (let i = 0; i < digits.length; i++) {
+    total += digits[i] * (base - i);
+  }
+  return total;
+}
+
+/*
  * bg-BG validation function
  * (Edinen graždanski nomer (EGN/ЕГН), persons only)
  * Checks if birth date (first six digits) is valid and calculates check (last) digit
@@ -856,6 +870,7 @@ const taxIdFormat = {
   'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
   'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
+  // 'sv-SE': /^(\d{10}|\d{12})$/,
 
 };
 // taxIdFormat locale aliases
@@ -883,6 +898,7 @@ const taxIdCheck = {
   'it-IT': itItCheck,
   'lv-LV': lvLvCheck,
   'sk-SK': skSkCheck,
+  // 'sv-SE': svSeCheck,
 
 };
 // taxIdCheck locale aliases
@@ -895,6 +911,7 @@ const sanitizeRegexes = {
   'de-AT': allsymbols,
   'de-DE': /[\/\\]/g,
   'fr-BE': allsymbols,
+  // 'sv-SE': /[+-]/g,
 };
 // sanitizeRegexes locale aliases
 sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
