@@ -44,8 +44,7 @@ function iso7064Check(digits) {
  */
 function bgBgCheck(tin) {
   // Extract full year, normalize month and check birth date validity
-  let century_year = parseInt(tin.slice(0, 2), 10);
-  if (century_year < 10) { century_year = `0${century_year}`; }
+  let century_year = tin.slice(0, 2);
   let month = parseInt(tin.slice(2, 4), 10);
   if (month > 40) {
     month -= 40;
@@ -388,7 +387,7 @@ function enUsCheck(tin) {
  */
 function etEeCheck(tin) {
   // Extract year and add century
-  let full_year = parseInt(tin.slice(1, 3), 10);
+  let full_year = tin.slice(1, 3);
   const century_digit = tin.slice(0, 1);
   switch (century_digit) {
     case '1':
@@ -402,10 +401,6 @@ function etEeCheck(tin) {
     default:
       full_year = `20${full_year}`;
       break;
-  }
-  // Add missing zero if needed
-  if (full_year.length === 3) {
-    full_year = [full_year.slice(0, 2), '0', full_year.slice(2)].join('');
   }
   // Check date validity
   const date = `${full_year}/${tin.slice(3, 5)}/${tin.slice(5, 7)}`;
@@ -448,7 +443,7 @@ function etEeCheck(tin) {
  */
 function fiFiCheck(tin) {
   // Extract year and add century
-  let full_year = parseInt(tin.slice(4, 6), 10);
+  let full_year = tin.slice(4, 6);
   const century_symbol = tin.slice(6, 7);
   switch (century_symbol) {
     case '+':
@@ -460,10 +455,6 @@ function fiFiCheck(tin) {
     default:
       full_year = `20${full_year}`;
       break;
-  }
-  // Add missing zero if needed
-  if (full_year.length === 3) {
-    full_year = [full_year.slice(0, 2), '0', full_year.slice(2)].join('');
   }
   // Check date validity
   const date = `${full_year}/${tin.slice(2, 4)}/${tin.slice(0, 2)}`;
