@@ -38,6 +38,31 @@ function iso7064Check(digits) {
 }
 
 /*
+ * Luhn (mod 10) validation function
+ * Called with an array of single-digit integers by locale-specific functions
+ * to validate TINs according to the Luhn algorithm.
+ */
+function luhnCheck(digits) {
+  let checksum = 0;
+  let second = false;
+  for (let i = digits.length - 1; i >= 0; i--) {
+    if (second) {
+      const product = digits[i] * 2;
+      if (product > 9) {
+        // sum digits of product and add to checksum
+        checksum += product.toString().split('').map(a => parseInt(a, 10)).reduce((a, b) => a + b, 0);
+      } else {
+        checksum += product;
+      }
+    } else {
+      checksum += digits[i];
+    }
+    second = !second;
+  }
+  return checksum % 10 === 0;
+}
+
+/*
  * bg-BG validation function
  * (Edinen graždanski nomer (EGN/ЕГН), persons only)
  * Checks if birth date (first six digits) is valid and calculates check (last) digit
@@ -144,22 +169,7 @@ function csCzCheck(tin) {
 function deAtCheck(tin) {
   // split digits into an array for further processing
   const digits = tin.split('').map(a => parseInt(a, 10));
-
-  let checksum = 0;
-  for (let i = 0; i < 8; i++) {
-    if (i % 2 === 0) {
-      checksum += digits[i];
-    } else {
-      const product = digits[i] * 2;
-      if (product > 9) {
-        // sum digits of product and add to checksum
-        checksum += product.toString().split('').map(a => parseInt(a, 10)).reduce((a, b) => a + b, 0);
-      } else {
-        checksum += product;
-      }
-    }
-  }
-  return (100 - checksum) % 10 === digits[8];
+  return luhnCheck(digits);
 }
 
 /*
