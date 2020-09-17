@@ -848,11 +848,13 @@ function lvLvCheck(tin) {
  * Verify Identity Card Number structure (no other tests found)
  */
 function mtMtCheck(tin) {
-  if (tin.length !== 9) {
+  if (tin.length !== 9) { // No tests for UTR
     let chars = tin.split('');
+    // Fill with zeros if smaller than proper
     while (chars.length < 8) {
       chars.unshift(0);
     }
+    // Validate format according to last character
     switch (tin[7]) {
       case 'A':
       case 'P':
@@ -877,6 +879,67 @@ function mtMtCheck(tin) {
  */
 function nlNlCheck(tin) {
   return reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
+}
+
+/*
+ * pl-PL validation function
+ * (Powszechny Elektroniczny System Ewidencji Ludności (PESEL)
+ * or Numer identyfikacji podatkowej (NIP), persons/entities)
+ * Verify TIN validity by validating birth date (PESEL) and calculating check (last) digit
+ */
+function plPlCheck(tin) {
+  // NIP
+  if (tin.length === 10) {
+    // Calculate last digit by multiplying with lookup
+    const lookup = [6, 5, 7, 2, 3, 4, 5, 6, 7];
+    let checksum = 0;
+    for (let i = 0; i < lookup.length; i++) {
+      checksum += parseInt(tin[i], 10) * lookup[i];
+    }
+    checksum %= 11;
+    if (checksum === 10) { return false; }
+    return (checksum === parseInt(tin[9], 10));
+  }
+
+  // PESEL
+  // Extract full year using month
+  let full_year = tin.slice(0, 2);
+  let month = parseInt(tin.slice(2, 4), 10);
+  if (month > 80) {
+    full_year = `18${full_year}`;
+    month -= 80;
+  } else if (month > 60) {
+    full_year = `22${full_year}`;
+    month -= 60;
+  } else if (month > 40) {
+    full_year = `21${full_year}`;
+    month -= 40;
+  } else if (month > 20) {
+    full_year = `20${full_year}`;
+    month -= 20;
+  } else {
+    full_year = `19${full_year}`;
+  }
+  // Add leading zero to month if needed
+  if (month < 10) { month = `0${month}`; }
+  // Check date validity
+  const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
+  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+
+  // Calculate last digit by mulitplying with odd one-digit numbers except 5
+  let checksum = 0;
+  let multiplier = 1;
+  for (let i = 0; i < tin.length - 1; i++) {
+    checksum += (parseInt(tin[i], 10) * multiplier) % 10;
+    multiplier += 2;
+    if (multiplier > 10) {
+      multiplier = 1;
+    } else if (multiplier === 5) {
+      multiplier += 2;
+    }
+  }
+  checksum = 10 - (checksum % 10);
+  return checksum === parseInt(tin[10], 10);
 }
 
 /*
@@ -1064,6 +1127,7 @@ const taxIdFormat = {
   'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/,
   'nl-NL': /^\d{9}$/,
+  'pl-PL': /^\d{10,11}$/,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
@@ -1098,6 +1162,7 @@ const taxIdCheck = {
   'lv-LV': lvLvCheck,
   'mt-MT': mtMtCheck,
   'nl-NL': nlNlCheck,
+  'pl-PL': plPlCheck,
   'pt-PT': ptPtCheck,
   'ro-RO': roRoCheck,
   'sk-SK': skSkCheck,
