@@ -22,8 +22,10 @@ import isDate from './isDate';
  * for more information.
  */
 
+// Helper functions
+
 /*
- * ISO 7064 validation function
+ * ISO 7064 validation helper function
  * Called with an array of single-digit integers by locale-specific functions
  * to validate TINs according to ISO 7064 (MOD 11, 10).
  */
@@ -38,7 +40,7 @@ function iso7064Check(digits) {
 }
 
 /*
- * Luhn (mod 10) validation function
+ * Luhn (mod 10) validation helper function
  * Called with an array of single-digit integers by locale-specific functions
  * to validate TINs according to the Luhn algorithm.
  */
@@ -63,7 +65,7 @@ function luhnCheck(digits) {
 }
 
 /*
- * Reverse TIN multiplication and summation function
+ * Reverse TIN multiplication and summation helper function
  * Called with an array of single-digit integers and a base multiplier
  * by locale-specific functions to calculate the sum of the digits multiplied in reverse.
  * Usually used in locale variations of MOD 11 algorithmic checks.
@@ -75,6 +77,47 @@ function reverseMultiplyAndSum(digits, base) {
   }
   return total;
 }
+
+/*
+ * Verhoeff validation helper function
+ * Called with an array of single-digit integers by locale-specific functions
+ * to validate TINs according to the Verhoeff algorithm.
+ */
+// function verhoeffCheck(digits) {
+//   const d_table = [
+//   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+//   [1, 2, 3, 4, 0, 6, 7, 8, 9, 5], 
+//   [2, 3, 4, 0, 1, 7, 8, 9, 5, 6], 
+//   [3, 4, 0, 1, 2, 8, 9, 5, 6, 7], 
+//   [4, 0, 1, 2, 3, 9, 5, 6, 7, 8], 
+//   [5, 9, 8, 7, 6, 0, 4, 3, 2, 1], 
+//   [6, 5, 9, 8, 7, 1, 0, 4, 3, 2], 
+//   [7, 6, 5, 9, 8, 2, 1, 0, 4, 3], 
+//   [8, 7, 6, 5, 9, 3, 2, 1, 0, 4], 
+//   [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+//   ];
+// 
+//   const p_table = [
+//   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
+//   [1, 5, 7, 6, 2, 8, 3, 0, 9, 4], 
+//   [5, 8, 0, 3, 7, 9, 6, 1, 4, 2], 
+//   [8, 9, 1, 6, 0, 4, 3, 5, 2, 7], 
+//   [9, 4, 5, 3, 1, 2, 6, 8, 7, 0], 
+//   [4, 2, 8, 6, 5, 7, 3, 9, 0, 1], 
+//   [2, 7, 9, 3, 8, 0, 6, 4, 1, 5], 
+//   [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
+//   ];
+// 
+//   Copy (prevent mutation) and reverse
+//   const digits_copy = digits.slice(0).reverse();
+//   let checksum = 0;
+//   for (let  i = 0; i < digits_copy.length; i++) {
+//     checksum = d_table[checksum][p_table[i % 8][digits_copy[i]]];
+//   }
+//   return checksum === 0;
+// }
+
+// Locale functions
 
 /*
  * bg-BG validation function
