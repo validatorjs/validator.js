@@ -67,13 +67,13 @@ function luhnCheck(digits) {
  * Called with an array of single-digit integers and a base multiplier
  * by locale-specific functions to calculate the sum of the digits multiplied in reverse.
  */
-// function reverseMultiplyAndSum(digits, base) {
-//   let total = 0;
-//   for (let i = 0; i < digits.length; i++) {
-//     total += digits[i] * (base - i);
-//   }
-//   return total;
-// }
+function reverseMultiplyAndSum(digits, base) {
+  let total = 0;
+  for (let i = 0; i < digits.length; i++) {
+    total += digits[i] * (base - i);
+  }
+  return total;
+}
 
 /*
  * bg-BG validation function
@@ -347,10 +347,7 @@ function elGrCheck(tin) {
  * Verify TIN validity by calculating check (second to last) character
  */
 function enIeCheck(tin) {
-  let checksum = 0;
-  for (let i = 0; i < 7; i++) {
-    checksum += parseInt(tin[i], 10) * (8 - i);
-  }
+  let checksum = reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8);
   if (tin.length === 9 && tin[8] !== 'W') {
     checksum += (tin[8].charCodeAt(0) - 64) * 9;
   }
@@ -808,6 +805,16 @@ function lvLvCheck(tin) {
 }
 
 /*
+ * nl-NL validation function
+ * (Burgerservicenummer (BSN) or Rechtspersonen Samenwerkingsverbanden Informatie Nummer (RSIN),
+ * persons/entities respectively)
+ * Verify TIN validity by calculating check (last) digit
+ */
+function nlNlCheck(tin) {
+  return reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
+}
+
+/*
  * sk-SK validation function
  * (Rodné číslo (RČ) or bezvýznamové identifikačné číslo (BIČ), persons only)
  * Checks validity of pre-1954 birth numbers (rodné číslo) only
@@ -920,6 +927,7 @@ const taxIdFormat = {
   'hu-HU': /^8\d{9}$/,
   'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
   'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
+  'nl-NL': /^\d{9}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
   'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
 
@@ -948,6 +956,7 @@ const taxIdCheck = {
   'hu-HU': huHuCheck,
   'it-IT': itItCheck,
   'lv-LV': lvLvCheck,
+  'nl-NL': nlNlCheck,
   'sk-SK': skSkCheck,
   'sv-SE': svSeCheck,
 

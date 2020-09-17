@@ -9081,6 +9081,16 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['nl-NL'],
+      valid: [
+        '174559434'],
+      invalid: [
+        '17455943',
+        '1745594344',
+        '17 455-94/34'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['sk-SK'],
       valid: [
         '530121999',
