@@ -83,39 +83,39 @@ function reverseMultiplyAndSum(digits, base) {
  * Called with an array of single-digit integers by locale-specific functions
  * to validate TINs according to the Verhoeff algorithm.
  */
-// function verhoeffCheck(digits) {
-//   const d_table = [
-//   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-//   [1, 2, 3, 4, 0, 6, 7, 8, 9, 5], 
-//   [2, 3, 4, 0, 1, 7, 8, 9, 5, 6], 
-//   [3, 4, 0, 1, 2, 8, 9, 5, 6, 7], 
-//   [4, 0, 1, 2, 3, 9, 5, 6, 7, 8], 
-//   [5, 9, 8, 7, 6, 0, 4, 3, 2, 1], 
-//   [6, 5, 9, 8, 7, 1, 0, 4, 3, 2], 
-//   [7, 6, 5, 9, 8, 2, 1, 0, 4, 3], 
-//   [8, 7, 6, 5, 9, 3, 2, 1, 0, 4], 
-//   [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-//   ];
-// 
-//   const p_table = [
-//   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
-//   [1, 5, 7, 6, 2, 8, 3, 0, 9, 4], 
-//   [5, 8, 0, 3, 7, 9, 6, 1, 4, 2], 
-//   [8, 9, 1, 6, 0, 4, 3, 5, 2, 7], 
-//   [9, 4, 5, 3, 1, 2, 6, 8, 7, 0], 
-//   [4, 2, 8, 6, 5, 7, 3, 9, 0, 1], 
-//   [2, 7, 9, 3, 8, 0, 6, 4, 1, 5], 
-//   [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
-//   ];
-// 
-//   Copy (prevent mutation) and reverse
-//   const digits_copy = digits.slice(0).reverse();
-//   let checksum = 0;
-//   for (let  i = 0; i < digits_copy.length; i++) {
-//     checksum = d_table[checksum][p_table[i % 8][digits_copy[i]]];
-//   }
-//   return checksum === 0;
-// }
+function verhoeffCheck(digits) {
+  const d_table = [
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
+    [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
+    [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
+    [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
+    [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
+    [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
+    [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
+    [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
+    [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
+  ];
+
+  const p_table = [
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
+    [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
+    [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
+    [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
+    [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
+    [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
+    [7, 0, 4, 6, 9, 1, 3, 2, 5, 8],
+  ];
+
+  // Copy (to prevent mutation) and reverse
+  const digits_copy = digits.slice(0).reverse();
+  let checksum = 0;
+  for (let i = 0; i < digits_copy.length; i++) {
+    checksum = d_table[checksum][p_table[i % 8][digits_copy[i]]];
+  }
+  return checksum === 0;
+}
 
 // Locale functions
 
@@ -604,6 +604,25 @@ function frFrCheck(tin) {
   const checksum = parseInt(tin.slice(0, 10), 10) % 511;
   const checkdigits = parseInt(tin.slice(10, 13), 10);
   return checksum === checkdigits;
+}
+
+/*
+ * fr/lb-LU validation function
+ * (numéro d’identification personnelle, persons only)
+ * Verify birth date validity and run Luhn and Verhoeff checks
+ */
+function frLuCheck(tin) {
+  // Extract date and check validity
+  const date = `${tin.slice(0, 4)}/${tin.slice(4, 6)}/${tin.slice(6, 8)}`;
+  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+
+  // Split digits into an array for further processing
+  const digits = tin.split('').map(a => parseInt(a, 10));
+  // Run Luhn check
+  if (!luhnCheck(digits.slice(0, 12))) { return false; }
+  // Remove Luhn check digit and run Verhoeff check
+  digits.splice(11, 1);
+  return verhoeffCheck(digits);
 }
 
 /*
@@ -1141,6 +1160,8 @@ function svSeCheck(tin) {
   return luhnCheck(digits);
 }
 
+// Locale lookup objects
+
 /*
  * Tax id regex formats for various locales
  *
@@ -1164,6 +1185,7 @@ const taxIdFormat = {
   'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
   'fr-BE': /^\d{11}$/,
   'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both to official spec and provided example
+  'fr-LU': /^\d{13}$/,
   'hr-HR': /^\d{11}$/,
   'hu-HU': /^8\d{9}$/,
   'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
@@ -1179,8 +1201,9 @@ const taxIdFormat = {
 
 };
 // taxIdFormat locale aliases
-taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
+taxIdFormat['lb-LU'] = taxIdFormat['fr-LU'];
 taxIdFormat['lt-LT'] = taxIdFormat['et-EE'];
+taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
@@ -1199,6 +1222,7 @@ const taxIdCheck = {
   'fi-FI': fiFiCheck,
   'fr-BE': frBeCheck,
   'fr-FR': frFrCheck,
+  'fr-LU': frLuCheck,
   'hr-HR': hrHrCheck,
   'hu-HU': huHuCheck,
   'it-IT': itItCheck,
@@ -1214,8 +1238,9 @@ const taxIdCheck = {
 
 };
 // taxIdCheck locale aliases
-taxIdCheck['nl-BE'] = taxIdCheck['fr-BE'];
+taxIdCheck['lb-LU'] = taxIdCheck['fr-LU'];
 taxIdCheck['lt-LT'] = taxIdCheck['et-EE'];
+taxIdCheck['nl-BE'] = taxIdCheck['fr-BE'];
 
 // Regexes for locales where characters should be omitted before checking format
 const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;

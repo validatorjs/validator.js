@@ -9037,6 +9037,24 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['fr-LU'],
+      valid: [
+        '1893120105732'],
+      invalid: [
+        '189312010573',
+        '18931201057322',
+        '1893 12-01057/32',
+        '1893120105742',
+        '1893120105733'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['lb-LU'],
+      invalid: [
+        '2016023005732'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['hr-HR'],
       valid: [
         '94577403194'],
