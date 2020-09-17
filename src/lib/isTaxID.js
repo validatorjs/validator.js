@@ -400,6 +400,43 @@ function enUsCheck(tin) {
 }
 
 /*
+ * es-ES validation function
+ * (Documento Nacional de Identidad (DNI)
+ * or Número de Identificación de Extranjero (NIE), persons only)
+ * Verify TIN validity by calculating check (last) character
+ */
+function esEsCheck(tin) {
+  // Split characters into an array for further processing
+  let chars = tin.split('');
+
+  // Replace initial letter if needed
+  if (isNaN(parseInt(chars[0], 10)) && chars.length > 1) {
+    let lead_replace = 0;
+    switch (chars[0]) {
+      case 'Y':
+        lead_replace = 1;
+        break;
+      case 'Z':
+        lead_replace = 2;
+        break;
+      default:
+    }
+    chars.splice(0, 1, lead_replace);
+  // Fill with zeros if smaller than proper
+  } else if (chars.length < 9) {
+    while (chars.length < 9) {
+      chars.unshift(0);
+    }
+  }
+
+  // Calculate checksum and check according to lookup
+  const lookup = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+  chars = chars.join('');
+  let checksum = (parseInt(chars.slice(0, 8), 10) % 23);
+  return chars[8] === lookup[checksum];
+}
+
+/*
  * et-EE validation function
  * (Isikukood (IK), persons only)
  * Checks if birth date (century digit and six following) is valid and calculates check (last) digit
@@ -809,7 +846,7 @@ function lvLvCheck(tin) {
  * nl-NL validation function
  * (Burgerservicenummer (BSN) or Rechtspersonen Samenwerkingsverbanden Informatie Nummer (RSIN),
  * persons/entities respectively)
- * Verify TIN validity by calculating check (last) digit
+ * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function nlNlCheck(tin) {
   return reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
@@ -818,7 +855,7 @@ function nlNlCheck(tin) {
 /*
  * pt-PT validation function
  * (Número de identificação fiscal (NIF), persons/entities)
- * Verify TIN validity by calculating check (last) digit
+ * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function ptPtCheck(tin) {
   let checksum = 11 - (reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11);
@@ -864,7 +901,7 @@ function skSkCheck(tin) {
 /*
  * sl-SI validation function
  * (Davčna številka, persons/entities)
- * Verify TIN validity by calculating check (last) digit
+ * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function slSiCheck(tin) {
   let checksum = 11 - (reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8) % 11);
@@ -942,6 +979,7 @@ const taxIdFormat = {
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
+  'es-ES': /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/,
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
   'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
   'fr-BE': /^\d{11}$/,
@@ -973,6 +1011,7 @@ const taxIdCheck = {
   'el-GR': elGrCheck,
   'en-IE': enIeCheck,
   'en-US': enUsCheck,
+  'es-ES': esEsCheck,
   'et-EE': etEeCheck,
   'fi-FI': fiFiCheck,
   'fr-BE': frBeCheck,

@@ -8957,6 +8957,22 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['es-ES'],
+      valid: [
+        '00054237A',
+        '54237A',
+        'X1234567L',
+        'Z1234567R',
+        'M2812345C',
+        'Y2812345B'],
+      invalid: [
+        'M2812345CR',
+        'A2812345C',
+        '0/005 423-7A',
+        '00054237U'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['et-EE'],
       valid: [
         '10001010080',
