@@ -9119,6 +9119,17 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['sl-SI'],
+      valid: [
+        '15012557',
+        '15012590'],
+      invalid: [
+        '150125577',
+        '1501255',
+        '15 01-255/7'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['sv-SE'],
       valid: [
         '640823-3234',

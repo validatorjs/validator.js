@@ -66,6 +66,7 @@ function luhnCheck(digits) {
  * Reverse TIN multiplication and summation function
  * Called with an array of single-digit integers and a base multiplier
  * by locale-specific functions to calculate the sum of the digits multiplied in reverse.
+ * Usually used in locale variations of MOD 11 algorithmic checks.
  */
 function reverseMultiplyAndSum(digits, base) {
   let total = 0;
@@ -861,6 +862,17 @@ function skSkCheck(tin) {
 }
 
 /*
+ * sl-SI validation function
+ * (Davčna številka, persons/entities)
+ * Verify TIN validity by calculating check (last) digit
+ */
+function slSiCheck(tin) {
+  let checksum = 11 - (reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8) % 11);
+  if (checksum === 10) { return parseInt(tin[7], 10) === 0; }
+  return checksum === parseInt(tin[7], 10);
+}
+
+/*
  * sv-SE validation function
  * (Personnummer or samordningsnummer, persons only)
  * Checks validity of birth date and calls luhnCheck() to validate check (last) digit
@@ -941,6 +953,7 @@ const taxIdFormat = {
   'nl-NL': /^\d{9}$/,
   'pt-PT': /^\d{9}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
+  'sl-SI': /^[1-9]\d{7}$/,
   'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
 
 };
@@ -971,6 +984,7 @@ const taxIdCheck = {
   'nl-NL': nlNlCheck,
   'pt-PT': ptPtCheck,
   'sk-SK': skSkCheck,
+  'sl-SI': slSiCheck,
   'sv-SE': svSeCheck,
 
 };
