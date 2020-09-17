@@ -864,6 +864,53 @@ function ptPtCheck(tin) {
 }
 
 /*
+ * ro-RO validation function
+ * (Cod Numeric Personal (CNP) or Cod de înregistrare fiscală (CIF),
+ * persons only)
+ * Verify CNP validity by calculating check (last) digit (test not found for CIF)
+ * Material not in DG TAXUD document sourced from:
+ * `https://en.wikipedia.org/wiki/National_identification_number#Romania`
+ */
+function roRoCheck(tin) {
+  if (tin.slice(0, 4) !== '9000') { // No test found for this format
+    // Extract full year using century digit if possible
+    let full_year = tin.slice(1, 3);
+    switch (tin[0]) {
+      case '1':
+      case '2':
+        full_year = `19${full_year}`;
+        break;
+      case '3':
+      case '4':
+        full_year = `18${full_year}`;
+        break;
+      case '5':
+      case '6':
+        full_year = `20${full_year}`;
+        break;
+      default:
+    }
+
+    // Check date validity
+    const date = `${full_year}/${tin.slice(3, 5)}/${tin.slice(5, 7)}`;
+    if (date.length === 8) {
+      if (!isDate(date, 'YY/MM/DD')) { return false; }
+    } else if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+
+    // Calculate check digit
+    const digits = tin.split('').map(a => parseInt(a, 10));
+    const multipliers = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9];
+    let checksum = 0;
+    for (let i = 0; i < multipliers.length; i++) {
+      checksum += digits[i] * multipliers[i];
+    }
+    if (checksum % 11 === 10) { return digits[12] === 1; }
+    return digits[12] === checksum % 11;
+  }
+  return true;
+}
+
+/*
  * sk-SK validation function
  * (Rodné číslo (RČ) or bezvýznamové identifikačné číslo (BIČ), persons only)
  * Checks validity of pre-1954 birth numbers (rodné číslo) only
@@ -990,6 +1037,7 @@ const taxIdFormat = {
   'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
   'nl-NL': /^\d{9}$/,
   'pt-PT': /^\d{9}$/,
+  'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
   'sl-SI': /^[1-9]\d{7}$/,
   'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
@@ -1022,6 +1070,7 @@ const taxIdCheck = {
   'lv-LV': lvLvCheck,
   'nl-NL': nlNlCheck,
   'pt-PT': ptPtCheck,
+  'ro-RO': roRoCheck,
   'sk-SK': skSkCheck,
   'sl-SI': slSiCheck,
   'sv-SE': svSeCheck,
