@@ -355,9 +355,9 @@ function enIeCheck(tin) {
 
   checksum %= 23;
   if (checksum === 0) {
-    return tin[7] === 'W';
+    return tin[7].toUpperCase() === 'W';
   }
-  return tin[7] === String.fromCharCode(64 + checksum);
+  return tin[7].toUpperCase() === String.fromCharCode(64 + checksum);
 }
 
 // Valid US IRS campus prefixes
@@ -407,7 +407,7 @@ function enUsCheck(tin) {
  */
 function esEsCheck(tin) {
   // Split characters into an array for further processing
-  let chars = tin.split('');
+  let chars = tin.toUpperCase().split('');
 
   // Replace initial letter if needed
   if (isNaN(parseInt(chars[0], 10)) && chars.length > 1) {
@@ -849,7 +849,7 @@ function lvLvCheck(tin) {
  */
 function mtMtCheck(tin) {
   if (tin.length !== 9) { // No tests for UTR
-    let chars = tin.split('');
+    let chars = tin.toUpperCase().split('');
     // Fill with zeros if smaller than proper
     while (chars.length < 8) {
       chars.unshift(0);
@@ -1114,9 +1114,9 @@ const taxIdFormat = {
   'el-CY': /^[09]\d{7}[A-Z]$/,
   'el-GR': /^([0-4]|[7-9])\d{8}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
-  'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/,
+  'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
-  'es-ES': /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/,
+  'es-ES': /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/i,
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
   'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
   'fr-BE': /^\d{11}$/,
@@ -1125,7 +1125,7 @@ const taxIdFormat = {
   'hu-HU': /^8\d{9}$/,
   'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
   'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
-  'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/,
+  'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,
   'pl-PL': /^\d{10,11}$/,
   'pt-PT': /^\d{9}$/,
