@@ -9091,6 +9091,17 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['pt-PT'],
+      valid: [
+        '299999998',
+        '299992020'],
+      invalid: [
+        '2999999988',
+        '29999999',
+        '29 999-999/8'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['sk-SK'],
       valid: [
         '530121999',

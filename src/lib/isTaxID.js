@@ -815,6 +815,17 @@ function nlNlCheck(tin) {
 }
 
 /*
+ * pt-PT validation function
+ * (Número de identificação fiscal (NIF), persons/entities)
+ * Verify TIN validity by calculating check (last) digit
+ */
+function ptPtCheck(tin) {
+  let checksum = 11 - (reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11);
+  if (checksum > 9) { return parseInt(tin[8], 10) === 0; }
+  return checksum === parseInt(tin[8], 10);
+}
+
+/*
  * sk-SK validation function
  * (Rodné číslo (RČ) or bezvýznamové identifikačné číslo (BIČ), persons only)
  * Checks validity of pre-1954 birth numbers (rodné číslo) only
@@ -928,6 +939,7 @@ const taxIdFormat = {
   'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
   'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
   'nl-NL': /^\d{9}$/,
+  'pt-PT': /^\d{9}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
   'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
 
@@ -957,6 +969,7 @@ const taxIdCheck = {
   'it-IT': itItCheck,
   'lv-LV': lvLvCheck,
   'nl-NL': nlNlCheck,
+  'pt-PT': ptPtCheck,
   'sk-SK': skSkCheck,
   'sv-SE': svSeCheck,
 
