@@ -423,7 +423,7 @@ function esEsCheck(tin) {
     }
     chars.splice(0, 1, lead_replace);
   // Fill with zeros if smaller than proper
-  } else if (chars.length < 9) {
+  } else {
     while (chars.length < 9) {
       chars.unshift(0);
     }
@@ -843,6 +843,33 @@ function lvLvCheck(tin) {
 }
 
 /*
+ * mt-MT validation function
+ * (Identity Card Number or Unique Taxpayer Reference, persons/entities)
+ * Verify Identity Card Number structure (no other tests found)
+ */
+function mtMtCheck(tin) {
+  if (tin.length !== 9) {
+    let chars = tin.split('');
+    while (chars.length < 8) {
+      chars.unshift(0);
+    }
+    switch (tin[7]) {
+      case 'A':
+      case 'P':
+        if (parseInt(chars[6], 10) === 0) { return false; }
+        break;
+      default: {
+        const first_part = parseInt(chars.join('').slice(0, 5), 10);
+        if (first_part > 32000) { return false; }
+        const second_part = parseInt(chars.join('').slice(5, 7), 10);
+        if (first_part === second_part) { return false; }
+      }
+    }
+  }
+  return true;
+}
+
+/*
  * nl-NL validation function
  * (Burgerservicenummer (BSN) or Rechtspersonen Samenwerkingsverbanden Informatie Nummer (RSIN),
  * persons/entities respectively)
@@ -1035,6 +1062,7 @@ const taxIdFormat = {
   'hu-HU': /^8\d{9}$/,
   'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
   'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
+  'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/,
   'nl-NL': /^\d{9}$/,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
@@ -1068,6 +1096,7 @@ const taxIdCheck = {
   'hu-HU': huHuCheck,
   'it-IT': itItCheck,
   'lv-LV': lvLvCheck,
+  'mt-MT': mtMtCheck,
   'nl-NL': nlNlCheck,
   'pt-PT': ptPtCheck,
   'ro-RO': roRoCheck,
