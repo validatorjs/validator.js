@@ -4735,6 +4735,7 @@ describe('Validators', () => {
     test({
       validator: 'isBase64',
       valid: [
+        '',
         'Zg==',
         'Zm8=',
         'Zm9v',
@@ -4754,7 +4755,6 @@ describe('Validators', () => {
       ],
       invalid: [
         '12345',
-        '',
         'Vml2YW11cyBmZXJtZtesting123',
         'Zg=',
         'Z===',
@@ -4768,6 +4768,7 @@ describe('Validators', () => {
       validator: 'isBase64',
       args: [{ urlSafe: true }],
       valid: [
+        '',
         'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
         '1234',
         'bXVtLW5ldmVyLXByb3Vk',
@@ -4778,7 +4779,6 @@ describe('Validators', () => {
         ' AA',
         '\tAA',
         '\rAA',
-        '',
         '\nAA',
         'This+isa/bad+base64Url==',
         '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
@@ -6801,6 +6801,27 @@ describe('Validators', () => {
           '0797878674',
         ],
       },
+      {
+        locale: 'az-AZ',
+        valid: [
+          '+994707007070',
+          '0707007070',
+          '+994502111111',
+          '0505436743',
+          '0554328772',
+          '0993301022',
+          '+994776007139',
+        ],
+        invalid: [
+          'wrong-number',
+          '',
+          '994707007070',
+          '++9945005050',
+          '556007070',
+          '1234566',
+          '+994778008080a',
+        ],
+      },
     ];
 
     let allValid = [];
@@ -8572,6 +8593,22 @@ describe('Validators', () => {
           '00987',
         ],
       },
+      {
+        locale: 'AZ',
+        valid: [
+          'AZ0100',
+          'AZ0121',
+          'AZ3500',
+        ],
+        invalid: [
+          '',
+          ' AZ0100',
+          'AZ100',
+          'AZ34340',
+          'EN2020',
+          'AY3030',
+        ],
+      },
     ];
 
     let allValid = [];
@@ -8742,6 +8779,7 @@ describe('Validators', () => {
       validator: 'isBase64',
       args: [{ urlSafe: true }],
       valid: [
+        '',
         'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
         '1234',
         'bXVtLW5ldmVyLXByb3Vk',
@@ -8754,7 +8792,6 @@ describe('Validators', () => {
         '\rAA',
         '\nAA',
         '123=',
-        '',
         'This+isa/bad+base64Url==',
         '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
       ],
