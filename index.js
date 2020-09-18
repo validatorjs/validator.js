@@ -189,7 +189,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '13.1.1';
+var version = '13.1.17';
 var validator = {
   version: version,
   toDate: _toDate.default,

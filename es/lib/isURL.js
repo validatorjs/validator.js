@@ -10,6 +10,7 @@ require_valid_protocol - isURL will check if the URL's protocol is present in th
 protocols - valid protocols can be modified with this option
 require_host - if set as false isURL will not check if host is present in the URL
 allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
+validate_length - if set as false isURL will skip string length validation (IE maximum is 2083)
 
 */
 
@@ -21,7 +22,8 @@ var default_url_options = {
   require_valid_protocol: true,
   allow_underscores: false,
   allow_trailing_dot: false,
-  allow_protocol_relative_urls: false
+  allow_protocol_relative_urls: false,
+  validate_length: true
 };
 var wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
 
@@ -44,7 +46,7 @@ function checkHost(host, matches) {
 export default function isURL(url, options) {
   assertString(url);
 
-  if (!url || url.length >= 2083 || /[\s<>]/.test(url)) {
+  if (!url || /[\s<>]/.test(url)) {
     return false;
   }
 
@@ -53,6 +55,11 @@ export default function isURL(url, options) {
   }
 
   options = merge(options, default_url_options);
+
+  if (options.validate_length && url.length >= 2083) {
+    return false;
+  }
+
   var protocol, auth, host, hostname, port, port_str, split, ipv6;
   split = url.split('#');
   url = split.shift();
@@ -98,7 +105,7 @@ export default function isURL(url, options) {
 
     auth = split.shift();
 
-    if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
+    if (auth.indexOf(':') === -1 || auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
       return false;
     }
   }
