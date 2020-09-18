@@ -643,6 +643,29 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate URLs with port present', () => {
+    test({
+      validator: 'isURL',
+      args: [{ require_port: true }],
+      valid: [
+        'http://user:pass@www.foobar.com:1',
+        'http://user:@www.foobar.com:65535',
+        'http://127.0.0.1:23',
+        'http://10.0.0.0:256',
+        'http://189.123.14.13:256',
+        'http://duckduckgo.com:65535?q=%2F',
+      ],
+      invalid: [
+        'http://user:pass@www.foobar.com/',
+        'http://user:@www.foobar.com/',
+        'http://127.0.0.1/',
+        'http://10.0.0.0/',
+        'http://189.123.14.13/',
+        'http://duckduckgo.com/?q=%2F',
+      ],
+    });
+  });
+
   it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',
