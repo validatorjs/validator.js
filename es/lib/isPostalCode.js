@@ -8,6 +8,7 @@ var patterns = {
   AD: /^AD\d{3}$/,
   AT: fourDigit,
   AU: fourDigit,
+  AZ: /^AZ\d{4}$/,
   BE: fourDigit,
   BG: fourDigit,
   BR: /^\d{5}-\d{3}$/,

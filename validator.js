@@ -227,7 +227,7 @@ var alpha = {
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
-  'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
+  fa: /^['آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی']+$/i
 };
 var alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
@@ -257,11 +257,12 @@ var alphanumeric = {
   'vi-VN': /^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
-  'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
+  fa: /^['0-9آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی۱۲۳۴۵۶۷۸۹۰']+$/i
 };
 var decimal = {
   'en-US': '.',
-  ar: '٫'
+  ar: '٫',
+  fa: '٫'
 };
 var englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
@@ -280,18 +281,27 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
   alpha[_locale] = alpha.ar;
   alphanumeric[_locale] = alphanumeric.ar;
   decimal[_locale] = decimal.ar;
+}
+
+var farsiLocales = ['IR', 'AF'];
+
+for (var _locale2, _i2 = 0; _i2 < farsiLocales.length; _i2++) {
+  _locale2 = "fa-".concat(farsiLocales[_i2]);
+  alpha[_locale2] = alpha.fa;
+  alphanumeric[_locale2] = alphanumeric.fa;
+  decimal[_locale2] = decimal.fa;
 } // Source: https://en.wikipedia.org/wiki/Decimal_mark
 
 
 var dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
 var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN'];
 
-for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
-  decimal[dotDecimal[_i2]] = decimal['en-US'];
+for (var _i3 = 0; _i3 < dotDecimal.length; _i3++) {
+  decimal[dotDecimal[_i3]] = decimal['en-US'];
 }
 
-for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
-  decimal[commaDecimal[_i3]] = ',';
+for (var _i4 = 0; _i4 < commaDecimal.length; _i4++) {
+  decimal[commaDecimal[_i4]] = ',';
 }
 
 alpha['pt-BR'] = alpha['pt-PT'];
@@ -767,6 +777,7 @@ require_valid_protocol - isURL will check if the URL's protocol is present in th
 protocols - valid protocols can be modified with this option
 require_host - if set as false isURL will not check if host is present in the URL
 allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
+validate_length - if set as false isURL will skip string length validation (IE maximum is 2083)
 
 */
 
@@ -778,7 +789,8 @@ var default_url_options = {
   require_valid_protocol: true,
   allow_underscores: false,
   allow_trailing_dot: false,
-  allow_protocol_relative_urls: false
+  allow_protocol_relative_urls: false,
+  validate_length: true
 };
 var wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
 
@@ -801,7 +813,7 @@ function checkHost(host, matches) {
 function isURL(url, options) {
   assertString(url);
 
-  if (!url || url.length >= 2083 || /[\s<>]/.test(url)) {
+  if (!url || /[\s<>]/.test(url)) {
     return false;
   }
 
@@ -810,6 +822,11 @@ function isURL(url, options) {
   }
 
   options = merge(options, default_url_options);
+
+  if (options.validate_length && url.length >= 2083) {
+    return false;
+  }
+
   var protocol, auth, host, hostname, port, port_str, split, ipv6;
   split = url.split('#');
   url = split.shift();
@@ -855,7 +872,7 @@ function isURL(url, options) {
 
     auth = split.shift();
 
-    if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
+    if (auth.indexOf(':') === -1 || auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
       return false;
     }
   }
@@ -1404,6 +1421,7 @@ var ibanRegexThroughCountryCode = {
   DK: /^(DK[0-9]{2})\d{14}$/,
   DO: /^(DO[0-9]{2})[A-Z]{4}\d{20}$/,
   EE: /^(EE[0-9]{2})\d{16}$/,
+  EG: /^(EG[0-9]{2})\d{25}$/,
   ES: /^(ES[0-9]{2})\d{20}$/,
   FI: /^(FI[0-9]{2})\d{14}$/,
   FO: /^(FO[0-9]{2})\d{14}$/,
@@ -1453,6 +1471,7 @@ var ibanRegexThroughCountryCode = {
   SI: /^(SI[0-9]{2})\d{15}$/,
   SK: /^(SK[0-9]{2})\d{20}$/,
   SM: /^(SM[0-9]{2})[A-Z]{1}\d{10}[A-Z0-9]{12}$/,
+  SV: /^(SV[0-9]{2})[A-Z0-9]{4}\d{20}$/,
   TL: /^(TL[0-9]{2})\d{19}$/,
   TN: /^(TN[0-9]{2})\d{20}$/,
   TR: /^(TR[0-9]{2})\d{5}[A-Z0-9]{17}$/,
@@ -1546,7 +1565,7 @@ function isHash(str, algorithm) {
 }
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
-var urlSafeBase64 = /^[A-Z0-9_\-]+$/i;
+var urlSafeBase64 = /^[A-Z0-9_\-]*$/i;
 var defaultBase64Options = {
   urlSafe: false
 };
@@ -1559,7 +1578,7 @@ function isBase64(str, options) {
     return urlSafeBase64.test(str);
   }
 
-  if (!len || len % 4 !== 0 || notBase64.test(str)) {
+  if (len % 4 !== 0 || notBase64.test(str)) {
     return false;
   }
 
@@ -2270,13 +2289,14 @@ var phones = {
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
+  'az-AZ': /^(\+994|0)(5[015]|7[07]|99)\d{7}$/,
   'bs-BA': /^((((\+|00)3876)|06))((([0-3]|[5-6])\d{6})|(4\d{7}))$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
   'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
-  'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
+  'de-DE': /^(\+49)?0?[1|3]([0|5][0-45-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
   'de-AT': /^(\+43|0)\d{1,4}\d{3,12}$/,
   'de-CH': /^(\+41|0)(7[5-9])\d{1,7}$/,
   'el-GR': /^(\+?30|0)?(69\d{8})$/,
@@ -2350,6 +2370,7 @@ var phones = {
   'th-TH': /^(\+66|66|0)\d{9}$/,
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
+  'uz-UZ': /^(\+?998)?(6[125-79]|7[1-69]|88|9\d)\d{7}$/,
   'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
   'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[012356789])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
@@ -2572,7 +2593,7 @@ function isBase32(str) {
   assertString(str);
   var len = str.length;
 
-  if (len > 0 && len % 8 === 0 && base32.test(str)) {
+  if (len % 8 === 0 && base32.test(str)) {
     return true;
   }
 
@@ -2693,6 +2714,7 @@ var patterns = {
   AD: /^AD\d{3}$/,
   AT: fourDigit,
   AU: fourDigit,
+  AZ: /^AZ\d{4}$/,
   BE: fourDigit,
   BG: fourDigit,
   BR: /^\d{5}-\d{3}$/,
@@ -2969,7 +2991,7 @@ function isSlug(str) {
   return charsetRegex.test(str);
 }
 
-var version = '13.1.1';
+var version = '13.1.17';
 var validator = {
   version: version,
   toDate: toDate,
