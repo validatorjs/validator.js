@@ -13,18 +13,25 @@
   - [#1357](https://github.com/validatorjs/validator.js/pull/1357) add Node v6 on build pipeline @profnandaa
 
 - **New and Improved locales**:
-  - [#1439](https://github.com/validatorjs/validator.js/pull/1439) @saidfagan
-  - [#1420](https://github.com/validatorjs/validator.js/pull/1420) @icyice0217
-  - [#1411](https://github.com/validatorjs/validator.js/pull/1411) @stinkymonkeyph
-  - [#1394](https://github.com/validatorjs/validator.js/pull/1394) @heanzyzabala
-  - [#1391](https://github.com/validatorjs/validator.js/pull/1391) @heanzyzabala
-  - [#1388](https://github.com/validatorjs/validator.js/pull/1388) @stinkymonkeyph
-  - [#1384](https://github.com/validatorjs/validator.js/pull/1384) @lorenzodb1
-  - [#1371](https://github.com/validatorjs/validator.js/pull/1371) @rubiin
-  - [#1370](https://github.com/validatorjs/validator.js/pull/1370) @rubiin
-  - [#1367](https://github.com/validatorjs/validator.js/pull/1367) @rubiin
-  - [#1356](https://github.com/validatorjs/validator.js/pull/1356) @MladenZeljic
-  - [#1303](https://github.com/validatorjs/validator.js/pull/1301) @heathcliff-hu 
+  - `isMobilePhone`:
+    - [#1439](https://github.com/validatorjs/validator.js/pull/1439) `az-AZ` @saidfagan
+    - [#1420](https://github.com/validatorjs/validator.js/pull/1420) `uz-Uz` @icyice0217
+    - [#1391](https://github.com/validatorjs/validator.js/pull/1391) `de-DE` @heanzyzabala
+    - [#1388](https://github.com/validatorjs/validator.js/pull/1388) `en-PH` @stinkymonkeyph
+    - [#1370](https://github.com/validatorjs/validator.js/pull/1370) `es-ES` @rubiin
+    - [#1356](https://github.com/validatorjs/validator.js/pull/1356) `bs-BA` @MladenZeljic
+    - [#1303](https://github.com/validatorjs/validator.js/pull/1301) `zh-CN` @heathcliff-hu
+  - `isPostalCode`:
+    - [#1439](https://github.com/validatorjs/validator.js/pull/1439) `AZ` @saidfagan
+    - [#1370](https://github.com/validatorjs/validator.js/pull/1370) `ES` @rubiin
+    - [#1367](https://github.com/validatorjs/validator.js/pull/1367) `IL` @rubiin
+  - `isAlpha`, `isAlphanumeric`:
+    - [#1411](https://github.com/validatorjs/validator.js/pull/1411) `fa-AF`, `fa-IR` @stinkymonkeyph
+    - [#1371](https://github.com/validatorjs/validator.js/pull/1371) `vi-VN` @rubiin
+  - `isBAN`:
+    - [#1394](https://github.com/validatorjs/validator.js/pull/1394) `EG`, `SV` @heanzyzabala
+  - `isIdentityCard`:
+    - [#1384](https://github.com/validatorjs/validator.js/pull/1384) `IT` @lorenzodb1
 
 
 #### 13.1.1
