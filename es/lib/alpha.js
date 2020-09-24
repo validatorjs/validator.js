@@ -26,7 +26,7 @@ export var alpha = {
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
-  'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
+  fa: /^['آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی']+$/i
 };
 export var alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
@@ -56,11 +56,12 @@ export var alphanumeric = {
   'vi-VN': /^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
-  'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
+  fa: /^['0-9آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی۱۲۳۴۵۶۷۸۹۰']+$/i
 };
 export var decimal = {
   'en-US': '.',
-  ar: '٫'
+  ar: '٫',
+  fa: '٫'
 };
 export var englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
@@ -79,18 +80,27 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
   alpha[_locale] = alpha.ar;
   alphanumeric[_locale] = alphanumeric.ar;
   decimal[_locale] = decimal.ar;
+}
+
+export var farsiLocales = ['IR', 'AF'];
+
+for (var _locale2, _i2 = 0; _i2 < farsiLocales.length; _i2++) {
+  _locale2 = "fa-".concat(farsiLocales[_i2]);
+  alpha[_locale2] = alpha.fa;
+  alphanumeric[_locale2] = alphanumeric.fa;
+  decimal[_locale2] = decimal.fa;
 } // Source: https://en.wikipedia.org/wiki/Decimal_mark
 
 
 export var dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
 export var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN'];
 
-for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
-  decimal[dotDecimal[_i2]] = decimal['en-US'];
+for (var _i3 = 0; _i3 < dotDecimal.length; _i3++) {
+  decimal[dotDecimal[_i3]] = decimal['en-US'];
 }
 
-for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
-  decimal[commaDecimal[_i3]] = ',';
+for (var _i4 = 0; _i4 < commaDecimal.length; _i4++) {
+  decimal[commaDecimal[_i4]] = ',';
 }
 
 alpha['pt-BR'] = alpha['pt-PT'];

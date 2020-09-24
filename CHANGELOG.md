@@ -1,7 +1,43 @@
+#### 13.1.17
+
+- **New features**:
+  - None
+- **Fixes and chores**:
+  - [#1425](https://github.com/validatorjs/validator.js/pull/1425) fix validation for _userinfo_ part for `isURL` @heanzyzabala
+  - [#1419](https://github.com/validatorjs/validator.js/pull/1419) fix `isBase32` and `isBase64` to validate empty strings properly @AberDerBart 
+  - [#1408](https://github.com/validatorjs/validator.js/pull/1408) tests for `isTaxId` @dspinellis 
+  - [#1397](https://github.com/validatorjs/validator.js/pull/1397) added `validate_length` option for `isURL` @tomgrossman 
+  - [#1383](https://github.com/validatorjs/validator.js/pull/1383) [#1428](https://github.com/validatorjs/validator.js/pull/1428) doc typos @0xflotus @timgates42
+  - [#1376](https://github.com/validatorjs/validator.js/pull/1376) add missing tests and switch to Coverall @tux-tn
+  - [#1373](https://github.com/validatorjs/validator.js/pull/1373) improve code coverage @ezkemboi
+  - [#1357](https://github.com/validatorjs/validator.js/pull/1357) add Node v6 on build pipeline @profnandaa
+
+- **New and Improved locales**:
+  - `isMobilePhone`:
+    - [#1439](https://github.com/validatorjs/validator.js/pull/1439) `az-AZ` @saidfagan
+    - [#1420](https://github.com/validatorjs/validator.js/pull/1420) `uz-Uz` @icyice0217
+    - [#1391](https://github.com/validatorjs/validator.js/pull/1391) `de-DE` @heanzyzabala
+    - [#1388](https://github.com/validatorjs/validator.js/pull/1388) `en-PH` @stinkymonkeyph
+    - [#1370](https://github.com/validatorjs/validator.js/pull/1370) `es-ES` @rubiin
+    - [#1356](https://github.com/validatorjs/validator.js/pull/1356) `bs-BA` @MladenZeljic
+    - [#1303](https://github.com/validatorjs/validator.js/pull/1301) `zh-CN` @heathcliff-hu
+  - `isPostalCode`:
+    - [#1439](https://github.com/validatorjs/validator.js/pull/1439) `AZ` @saidfagan
+    - [#1370](https://github.com/validatorjs/validator.js/pull/1370) `ES` @rubiin
+    - [#1367](https://github.com/validatorjs/validator.js/pull/1367) `IL` @rubiin
+  - `isAlpha`, `isAlphanumeric`:
+    - [#1411](https://github.com/validatorjs/validator.js/pull/1411) `fa-AF`, `fa-IR` @stinkymonkeyph
+    - [#1371](https://github.com/validatorjs/validator.js/pull/1371) `vi-VN` @rubiin
+  - `isBAN`:
+    - [#1394](https://github.com/validatorjs/validator.js/pull/1394) `EG`, `SV` @heanzyzabala
+  - `isIdentityCard`:
+    - [#1384](https://github.com/validatorjs/validator.js/pull/1384) `IT` @lorenzodb1
+
+
 #### 13.1.1
 
 - Hotfix for a regex incompatibility in some browsers
-  ([#1355](https://github.com/chriso/validator.js/pull/1355))
+  ([#1355](https://github.com/chriso/validator.js/pull/1355)
 
 #### 13.1.0
 

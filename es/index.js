@@ -86,7 +86,7 @@ import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
 import isSlug from './lib/isSlug';
-var version = '13.1.1';
+var version = '13.1.17';
 var validator = {
   version: version,
   toDate: toDate,

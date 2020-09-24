@@ -295,6 +295,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate really long emails if ignore_max_length is set', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ ignore_max_length: false }],
+      valid: [],
+      invalid: [
+        'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@example.com',
+      ],
+    });
+
+    test({
+      validator: 'isEmail',
+      args: [{ ignore_max_length: true }],
+      valid: [
+        'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@example.com',
+      ],
+      invalid: [],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',
@@ -640,6 +660,29 @@ describe('Validators', () => {
         `http://foobar.com/${new Array(2083).join('f')}`,
       ],
       invalid: [],
+    });
+  });
+
+  it('should validate URLs with port present', () => {
+    test({
+      validator: 'isURL',
+      args: [{ require_port: true }],
+      valid: [
+        'http://user:pass@www.foobar.com:1',
+        'http://user:@www.foobar.com:65535',
+        'http://127.0.0.1:23',
+        'http://10.0.0.0:256',
+        'http://189.123.14.13:256',
+        'http://duckduckgo.com:65535?q=%2F',
+      ],
+      invalid: [
+        'http://user:pass@www.foobar.com/',
+        'http://user:@www.foobar.com/',
+        'http://127.0.0.1/',
+        'http://10.0.0.0/',
+        'http://189.123.14.13/',
+        'http://duckduckgo.com/?q=%2F',
+      ],
     });
   });
 
@@ -5950,6 +5993,26 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'es-AR',
+        valid: [
+          '5491143214321',
+          '+5491143214321',
+          '+5492414321432',
+          '5498418432143',
+        ],
+        invalid: [
+          '1143214321',
+          '91143214321',
+          '+91143214321',
+          '549841004321432',
+          '549 11 43214321',
+          '549111543214321',
+          '5714003425432',
+          '549114a214321',
+          '54 9 11 4321-4321',
+        ],
+      },
+      {
         locale: 'es-CO',
         valid: [
           '+573003321235',
@@ -8825,11 +8888,12 @@ describe('Validators', () => {
         '2020-02-30', // invalid date
         '2019-02-29', // non-leap year
         '2020-04-31', // invalid date
+        '2020/03-15', // mixed delimiter
       ],
     });
     test({
       validator: 'isDate',
-      args: ['DD/MM/YYYY'],
+      args: ['DD/MM/YYYY'], // old format for backward compatibility
       valid: [
         '15-07-2002',
         '15/07/2002',
@@ -8839,11 +8903,27 @@ describe('Validators', () => {
         '15-7-2002',
         '15/7/02',
         '15-7-02',
+        '15-07/2002',
       ],
     });
     test({
       validator: 'isDate',
-      args: ['DD/MM/YY'],
+      args: [{ format: 'DD/MM/YYYY' }],
+      valid: [
+        '15-07-2002',
+        '15/07/2002',
+      ],
+      invalid: [
+        '15/7/2002',
+        '15-7-2002',
+        '15/7/02',
+        '15-7-02',
+        '15-07/2002',
+      ],
+    });
+    test({
+      validator: 'isDate',
+      args: [{ format: 'DD/MM/YY' }],
       valid: [
         '15-07-02',
         '15/07/02',
@@ -8851,11 +8931,12 @@ describe('Validators', () => {
       invalid: [
         '15/7/2002',
         '15-7-2002',
+        '15/07-02',
       ],
     });
     test({
       validator: 'isDate',
-      args: ['D/M/YY'],
+      args: [{ format: 'D/M/YY' }],
       valid: [
         '5-7-02',
         '5/7/02',
@@ -8864,6 +8945,65 @@ describe('Validators', () => {
         '5/07/02',
         '15/7/02',
         '15-7-02',
+        '5/7-02',
+      ],
+    });
+    test({
+      validator: 'isDate',
+      args: [{ format: 'DD/MM/YYYY', strictMode: true }],
+      valid: [
+        '15/07/2002',
+      ],
+      invalid: [
+        '15-07-2002',
+        '15/7/2002',
+        '15-7-2002',
+        '15/7/02',
+        '15-7-02',
+        '15-07/2002',
+      ],
+    });
+    test({
+      validator: 'isDate',
+      args: [{ strictMode: true }],
+      valid: [
+        '2020/01/15',
+        '2014/02/15',
+        '2014/03/15',
+        '2020/02/29',
+      ],
+      invalid: [
+        '2014-02-15',
+        '2020-02-29',
+        '15-07/2002',
+        new Date(),
+        new Date([2014, 2, 15]),
+        new Date('2014-03-15'),
+      ],
+    });
+    test({
+      validator: 'isDate',
+      args: [{ delimiters: ['/', ' '] }],
+      valid: [
+        new Date(),
+        new Date([2014, 2, 15]),
+        new Date('2014-03-15'),
+        '2020/02/29',
+        '2020 02 29',
+      ],
+      invalid: [
+        '2020-02-29',
+        '',
+        '15072002',
+        null,
+        undefined,
+        { year: 2002, month: 7, day: 15 },
+        42,
+        { toString() { return '[object Date]'; } },
+        '2020/02/30',
+        '2019/02/29',
+        '2020/04/31',
+        '2020/03-15',
       ],
     });
   });
