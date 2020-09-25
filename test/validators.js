@@ -925,6 +925,29 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Azerbaijani alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['az-AZ'],
+      valid: [
+        'Azərbaycan',
+        'Bakı',
+        'üöğıəçş',
+        'sizAzərbaycanlaşdırılmışlardansınızmı',
+        'dahaBirDüzgünString',
+        'abcçdeəfgğhxıijkqlmnoöprsştuüvyz',
+      ],
+      invalid: [
+        'rəqəm1',
+        '  foo  ',
+        '',
+        'ab(cd)',
+        'simvol@',
+        'wəkil',
+      ],
+    });
+  });
+
   it('should validate bulgarian alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1443,6 +1466,27 @@ describe('Validators', () => {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+  });
+
+  it('should validate Azerbaijani alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['az-AZ'],
+      valid: [
+        'Azərbaycan',
+        'Bakı',
+        'abc1',
+        'abcç2',
+        '3kərə4kərə',
+      ],
+      invalid: [
+        '  foo1  ',
+        '',
+        'ab(cd)',
+        'simvol@',
+        'wəkil',
       ],
     });
   });
