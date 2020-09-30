@@ -201,6 +201,7 @@ function toDate(date) {
 
 var alpha = {
   'en-US': /^[A-Z]+$/i,
+  'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[А-Я]+$/i,
   'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[A-ZÆØÅ]+$/i,
@@ -231,6 +232,7 @@ var alpha = {
 };
 var alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
+  'az-AZ': /^[0-9A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[0-9А-Я]+$/i,
   'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[0-9A-ZÆØÅ]+$/i,
@@ -605,7 +607,9 @@ var default_email_options = {
   allow_display_name: false,
   require_display_name: false,
   allow_utf8_local_part: true,
-  require_tld: true
+  require_tld: true,
+  blacklisted_chars: '',
+  ignore_max_length: false
 };
 /* eslint-disable max-len */
 
@@ -724,11 +728,11 @@ function isEmail(str, options) {
     }
   }
 
-  if (!isByteLength(user, {
+  if (options.ignore_max_length === false && (!isByteLength(user, {
     max: 64
   }) || !isByteLength(domain, {
     max: 254
-  })) {
+  }))) {
     return false;
   }
 
@@ -766,6 +770,10 @@ function isEmail(str, options) {
     }
   }
 
+  if (options.blacklisted_chars) {
+    if (user.search(new RegExp("[".concat(options.blacklisted_chars, "]+"), 'g')) !== -1) return false;
+  }
+
   return true;
 }
 
@@ -776,6 +784,7 @@ require_protocol - if set as true isURL will return false if protocol is not pre
 require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option
 protocols - valid protocols can be modified with this option
 require_host - if set as false isURL will not check if host is present in the URL
+require_port - if set as true isURL will check if port is present in the URL
 allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
 validate_length - if set as false isURL will skip string length validation (IE maximum is 2083)
 
@@ -786,6 +795,7 @@ var default_url_options = {
   require_tld: true,
   require_protocol: false,
   require_host: true,
+  require_port: false,
   require_valid_protocol: true,
   allow_underscores: false,
   allow_trailing_dot: false,
@@ -901,6 +911,8 @@ function isURL(url, options) {
     if (!/^[0-9]+$/.test(port_str) || port <= 0 || port > 65535) {
       return false;
     }
+  } else if (options.require_port) {
+    return false;
   }
 
   if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
@@ -956,6 +968,12 @@ function isIPRange(str) {
   return isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0;
 }
 
+var default_date_options = {
+  format: 'YYYY/MM/DD',
+  delimiters: ['/', '-'],
+  strictMode: false
+};
+
 function isValidFormat(format) {
   return /(^(y{4}|y{2})[\/-](m{1,2})[\/-](d{1,2})$)|(^(m{1,2})[\/-](d{1,2})[\/-]((y{4}|y{2})$))|(^(d{1,2})[\/-](m{1,2})[\/-]((y{4}|y{2})$))/gi.test(format);
 }
@@ -971,13 +989,25 @@ function zip(date, format) {
   return zippedArr;
 }
 
-function isDate(input) {
-  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY/MM/DD';
+function isDate(input, options) {
+  if (typeof options === 'string') {
+    // Allow backward compatbility for old format isDate(input [, format])
+    options = merge({
+      format: options
+    }, default_date_options);
+  } else {
+    options = merge(options, default_date_options);
+  }
 
-  if (typeof input === 'string' && isValidFormat(format)) {
-    var splitter = /[-/]/,
-        dateAndFormat = zip(input.split(splitter), format.toLowerCase().split(splitter)),
-        dateObj = {};
+  if (typeof input === 'string' && isValidFormat(options.format)) {
+    var formatDelimiter = options.delimiters.find(function (delimiter) {
+      return options.format.indexOf(delimiter) !== -1;
+    });
+    var dateDelimiter = options.strictMode ? formatDelimiter : options.delimiters.find(function (delimiter) {
+      return input.indexOf(delimiter) !== -1;
+    });
+    var dateAndFormat = zip(input.split(dateDelimiter), options.format.toLowerCase().split(formatDelimiter));
+    var dateObj = {};
 
     var _iterator = _createForOfIteratorHelper(dateAndFormat),
         _step;
@@ -1003,7 +1033,11 @@ function isDate(input) {
     return new Date("".concat(dateObj.m, "/").concat(dateObj.d, "/").concat(dateObj.y)).getDate() === +dateObj.d;
   }
 
-  return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
+  if (!options.strictMode) {
+    return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
+  }
+
+  return false;
 }
 
 function isBoolean(str) {
@@ -2208,6 +2242,8 @@ function isISSN(str) {
 }
 
 /**
+ * en-US TIN Validation
+ *
  * An Employer Identification Number (EIN), also known as a Federal Tax Identification Number,
  *  is used to identify a business entity.
  *
@@ -2218,47 +2254,61 @@ function isISSN(str) {
  * See `http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes`
  * for more information.
  */
+// Valid US IRS campus prefixes
 
-/**
- * Campus prefixes according to locales
- */
+var enUsCampusPrefix = {
+  andover: ['10', '12'],
+  atlanta: ['60', '67'],
+  austin: ['50', '53'],
+  brookhaven: ['01', '02', '03', '04', '05', '06', '11', '13', '14', '16', '21', '22', '23', '25', '34', '51', '52', '54', '55', '56', '57', '58', '59', '65'],
+  cincinnati: ['30', '32', '35', '36', '37', '38', '61'],
+  fresno: ['15', '24'],
+  internet: ['20', '26', '27', '45', '46', '47'],
+  kansas: ['40', '44'],
+  memphis: ['94', '95'],
+  ogden: ['80', '90'],
+  philadelphia: ['33', '39', '41', '42', '43', '46', '48', '62', '63', '64', '66', '68', '71', '72', '73', '74', '75', '76', '77', '81', '82', '83', '84', '85', '86', '87', '88', '91', '92', '93', '98', '99'],
+  sba: ['31']
+}; // Return an array of all US IRS campus prefixes
 
-var campusPrefix = {
-  'en-US': {
-    andover: ['10', '12'],
-    atlanta: ['60', '67'],
-    austin: ['50', '53'],
-    brookhaven: ['01', '02', '03', '04', '05', '06', '11', '13', '14', '16', '21', '22', '23', '25', '34', '51', '52', '54', '55', '56', '57', '58', '59', '65'],
-    cincinnati: ['30', '32', '35', '36', '37', '38', '61'],
-    fresno: ['15', '24'],
-    internet: ['20', '26', '27', '45', '46', '47'],
-    kansas: ['40', '44'],
-    memphis: ['94', '95'],
-    ogden: ['80', '90'],
-    philadelphia: ['33', '39', '41', '42', '43', '46', '48', '62', '63', '64', '66', '68', '71', '72', '73', '74', '75', '76', '77', '81', '82', '83', '84', '85', '86', '87', '88', '91', '92', '93', '98', '99'],
-    sba: ['31']
-  }
-};
-
-function getPrefixes(locale) {
+function enUsGetPrefixes() {
   var prefixes = [];
 
-  for (var location in campusPrefix[locale]) {
+  for (var location in enUsCampusPrefix) {
     // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
     // istanbul ignore else
-    if (campusPrefix[locale].hasOwnProperty(location)) {
-      prefixes.push.apply(prefixes, _toConsumableArray(campusPrefix[locale][location]));
+    if (enUsCampusPrefix.hasOwnProperty(location)) {
+      prefixes.push.apply(prefixes, _toConsumableArray(enUsCampusPrefix[location]));
     }
   }
 
-  prefixes.sort();
   return prefixes;
+}
+/*
+ * en-US validation function
+ * Verify that the TIN starts with a valid IRS campus prefix
+ */
+
+
+function enUsCheck(tin) {
+  return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
 } // tax id regex formats for various locales
 
 
 var taxIdFormat = {
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/
+}; // Algorithmic tax id check functions for various locales
+
+var taxIdCheck = {
+  'en-US': enUsCheck
 };
+/*
+ * Validator function
+ * Return true if the passed string is a valid tax identification number
+ * for the specified locale.
+ * Throw an error exception if the locale is not supported.
+ */
+
 function isTaxID(str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
   assertString(str);
@@ -2268,7 +2318,12 @@ function isTaxID(str) {
       return false;
     }
 
-    return getPrefixes(locale).indexOf(str.substr(0, 2)) !== -1;
+    if (locale in taxIdCheck) {
+      return taxIdCheck[locale](str);
+    } // Fallthrough; not all locales have algorithmic checks
+
+
+    return true;
   }
 
   throw new Error("Invalid locale '".concat(locale, "'"));
@@ -2324,6 +2379,7 @@ var phones = {
   'en-ZA': /^(\+?27|0)\d{9}$/,
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'en-ZW': /^(\+263)[0-9]{9}$/,
+  'es-AR': /^\+?549(11|[2368]\d)\d{8}$/,
   'es-CO': /^(\+?57)?([1-8]{1}|3[0-9]{2})?[2-9]{1}\d{6}$/,
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
   'es-CR': /^(\+506)?[2-8]\d{7}$/,
