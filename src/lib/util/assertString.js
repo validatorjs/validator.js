@@ -6,6 +6,6 @@ export default function assertString(input) {
     if (input === null) invalidType = 'null';
     else if (invalidType === 'object') invalidType = input.constructor.name;
 
-    throw new TypeError(`Expected a string but received a ${invalidType}`);
+    throw new Error(`Expected a string but received a ${invalidType}`);
   }
 }
