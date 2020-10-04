@@ -19,7 +19,8 @@ var default_email_options = {
   allow_display_name: false,
   require_display_name: false,
   allow_utf8_local_part: true,
-  require_tld: true
+  require_tld: true,
+  ignore_max_length: false
 };
 /* eslint-disable max-len */
 
@@ -138,11 +139,11 @@ export default function isEmail(str, options) {
     }
   }
 
-  if (!isByteLength(user, {
+  if (options.ignore_max_length === false && (!isByteLength(user, {
     max: 64
   }) || !isByteLength(domain, {
     max: 254
-  })) {
+  }))) {
     return false;
   }
 
