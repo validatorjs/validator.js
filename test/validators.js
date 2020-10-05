@@ -9129,5 +9129,13 @@ describe('Validators', () => {
         'GBHA499',
       ],
     });
+
+    test({
+      validator: 'isVAT',
+      args: ['invalidLocale'],
+      error: [
+        'GB999 9999 00',
+      ],
+    });
   });
 });
