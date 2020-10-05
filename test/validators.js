@@ -9098,4 +9098,36 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate english VAT numbers', () => {
+    test({
+      validator: 'isVAT',
+      args: ['en-GB'],
+      valid: [
+        'GB999 9999 00',
+        'GB999 9999 96',
+        'GB999999999 999',
+        'GBGD000',
+        'GBGD499',
+        'GBHA500',
+        'GBHA999',
+      ],
+      invalid: [
+        'GB999999900',
+        'GB999999996',
+        'GB999 9999 97',
+        'GB999999999999',
+        'GB999999999 9999',
+        'GB9999999999 999',
+        'GBGD 000',
+        'GBGD 499',
+        'GBHA 500',
+        'GBHA 999',
+        'GBGD500',
+        'GBGD999',
+        'GBHA000',
+        'GBHA499',
+      ],
+    });
+  });
 });

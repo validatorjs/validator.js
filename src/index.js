@@ -116,6 +116,8 @@ import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
 
+import isVAT from './lib/isVAT';
+
 const version = '13.1.17';
 
 const validator = {
@@ -215,6 +217,7 @@ const validator = {
   isSlug,
   isTaxID,
   isDate,
+  isVAT,
 };
 
 export default validator;
