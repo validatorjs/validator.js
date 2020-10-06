@@ -2489,10 +2489,12 @@ describe('Validators', () => {
       validator: 'isPassportNumber',
       args: ['RU'],
       valid: [
+        '26 32 636829',
         '0121 345321',
-        '4398 636928',
+        '4398636928',
       ],
       invalid: [
+        'AZ 2R YU46J',
         '012A 3D5321',
         'SF233D532T',
       ],

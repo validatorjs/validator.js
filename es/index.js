@@ -69,6 +69,7 @@ import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
 import isBase32 from './lib/isBase32';
+import isBase58 from './lib/isBase58';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
@@ -164,6 +165,7 @@ var validator = {
   isISO31661Alpha2: isISO31661Alpha2,
   isISO31661Alpha3: isISO31661Alpha3,
   isBase32: isBase32,
+  isBase58: isBase58,
   isBase64: isBase64,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
