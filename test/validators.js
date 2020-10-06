@@ -2487,6 +2487,19 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['RU'],
+      valid: [
+        '0121 345321',
+        '4398 636928',
+      ],
+      invalid: [
+        '012A 3D5321',
+        'SF233D532T',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['SE'],
       valid: [
         '59000001',
