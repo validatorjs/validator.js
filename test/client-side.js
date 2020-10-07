@@ -6,7 +6,7 @@ describe('Minified version', () => {
   it('should export the same things as the server-side version', () => {
     for (let key in validator) {
       if ({}.hasOwnProperty.call(validator, key)) {
-        assert.equal(
+        assert.strictEqual(
           typeof validator[key],
           typeof min[key], `Minified version did not export ${key}`
         );
@@ -15,15 +15,15 @@ describe('Minified version', () => {
   });
 
   it('should be up to date', () => {
-    assert.equal(min.version, validator.version, 'Minified version mismatch. Run `make min`');
+    assert.strictEqual(min.version, validator.version, 'Minified version mismatch. Run `make min`');
   });
 
   it('should validate strings', () => {
-    assert.equal(min.isEmail('foo@bar.com'), true);
-    assert.equal(min.isEmail('foo'), false);
+    assert.strictEqual(min.isEmail('foo@bar.com'), true);
+    assert.strictEqual(min.isEmail('foo'), false);
   });
 
   it('should sanitize strings', () => {
-    assert.equal(min.toBoolean('1'), true);
+    assert.strictEqual(min.toBoolean('1'), true);
   });
 });

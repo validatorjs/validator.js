@@ -8,18 +8,18 @@ import { locales as isFloatLocales } from '../src/lib/isFloat';
 
 describe('Exports', () => {
   it('should export validators', () => {
-    assert.equal(typeof validator.isEmail, 'function');
-    assert.equal(typeof validator.isAlpha, 'function');
+    assert.strictEqual(typeof validator.isEmail, 'function');
+    assert.strictEqual(typeof validator.isAlpha, 'function');
   });
 
   it('should export sanitizers', () => {
-    assert.equal(typeof validator.toBoolean, 'function');
-    assert.equal(typeof validator.toFloat, 'function');
+    assert.strictEqual(typeof validator.toBoolean, 'function');
+    assert.strictEqual(typeof validator.toFloat, 'function');
   });
 
   it('should export the version number', () => {
     /* eslint-disable global-require */
-    assert.equal(
+    assert.strictEqual(
       validator.version, require('../package.json').version,
       'Version number mismatch in "package.json" vs. "validator.js"'
     );
