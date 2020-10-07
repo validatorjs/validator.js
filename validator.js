@@ -1166,8 +1166,6 @@ var passportRegexByCountryCode = {
   // PORTUGAL
   RO: /^\d{8,9}$/,
   // ROMANIA
-  RU: /^\d{2}\d{2}\d{6}$/,
-  // RUSSIAN FEDERATION
   SE: /^\d{8}$/,
   // SWEDEN
   SL: /^(P)[A-Z]\d{7}$/,
@@ -2653,17 +2651,6 @@ function isBase32(str) {
   return false;
 }
 
-var base58Reg = /^[A-HJ-NP-Za-km-z1-9]*$/;
-function isBase58(str) {
-  assertString(str);
-
-  if (base58Reg.test(str)) {
-    return true;
-  }
-
-  return false;
-}
-
 var validMediaType = /^[a-z]+\/[a-z0-9\-\+]+$/i;
 var validAttribute = /^[a-z\-]+=[a-z0-9\-]+$/i;
 var validData = /^[a-z0-9!\$&'\(\)\*\+,;=\-\._~:@\/\?%\s]*$/i;
@@ -2782,13 +2769,11 @@ var patterns = {
   BE: fourDigit,
   BG: fourDigit,
   BR: /^\d{5}-\d{3}$/,
-  BY: /2[1-4]{1}\d{4}$/,
   CA: /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][\s\-]?\d[ABCEGHJ-NPRSTV-Z]\d$/i,
   CH: fourDigit,
   CZ: /^\d{3}\s?\d{2}$/,
   DE: fiveDigit,
   DK: fourDigit,
-  DO: fiveDigit,
   DZ: fiveDigit,
   EE: fiveDigit,
   ES: /^(5[0-2]{1}|[0-4]{1}\d{1})\d{3}$/,
@@ -2797,7 +2782,6 @@ var patterns = {
   GB: /^(gir\s?0aa|[a-z]{1,2}\d[\da-z]?\s?(\d[a-z]{2})?)$/i,
   GR: /^\d{3}\s?\d{2}$/,
   HR: /^([1-5]\d{4}$)/,
-  HT: /^HT\d{4}$/,
   HU: fourDigit,
   ID: fiveDigit,
   IE: /^(?!.*(?:o))[A-z]\d[\dw]\s\w{4}$/i,
@@ -3136,7 +3120,6 @@ var validator = {
   isISO31661Alpha2: isISO31661Alpha2,
   isISO31661Alpha3: isISO31661Alpha3,
   isBase32: isBase32,
-  isBase58: isBase58,
   isBase64: isBase64,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
