@@ -2092,6 +2092,18 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['BY'],
+      valid: [
+        'MP3899901',
+      ],
+      invalid: [
+        '345333454',
+        'FG53334542',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['CA'],
       valid: [
         'GA302922',
@@ -4955,14 +4967,14 @@ describe('Validators', () => {
 
     let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
-    assert.equal(window.validator.trim('  foobar '), 'foobar');
+    assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
   it('should bind validator to the window if no module loaders are available', () => {
     let window = {};
     let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
-    assert.equal(window.validator.trim('  foobar '), 'foobar');
+    assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
   it('should validate mobile phone number', () => {
@@ -5456,6 +5468,24 @@ describe('Validators', () => {
           '+21821231234',
           '+0821231234',
           '04123456789',
+        ],
+      },
+      {
+        locale: 'es-BO',
+        valid: [
+          '+59175553635',
+          '+59162223685',
+          '+59179783890',
+          '+59160081890',
+          '79783890',
+          '60081890',
+        ],
+        invalid: [
+          '082123',
+          '08212312345',
+          '21821231234',
+          '+21821231234',
+          '+59199783890',
         ],
       },
       {
@@ -7055,6 +7085,7 @@ describe('Validators', () => {
     ],
     args: [],
   });
+
 
   it('should error on invalid locale', () => {
     test({
