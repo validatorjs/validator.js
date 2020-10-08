@@ -4967,14 +4967,14 @@ describe('Validators', () => {
 
     let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
-    assert.equal(window.validator.trim('  foobar '), 'foobar');
+    assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
   it('should bind validator to the window if no module loaders are available', () => {
     let window = {};
     let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
-    assert.equal(window.validator.trim('  foobar '), 'foobar');
+    assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
   it('should validate mobile phone number', () => {
@@ -5471,6 +5471,24 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'es-BO',
+        valid: [
+          '+59175553635',
+          '+59162223685',
+          '+59179783890',
+          '+59160081890',
+          '79783890',
+          '60081890',
+        ],
+        invalid: [
+          '082123',
+          '08212312345',
+          '21821231234',
+          '+21821231234',
+          '+59199783890',
+        ],
+      },
+      {
         locale: 'en-GG',
         valid: [
           '+441481123456',
@@ -5804,27 +5822,6 @@ describe('Validators', () => {
           '+264612457898',
           '+2626124578980',
           '+26261245789',
-        ],
-      },
-      {
-        locale: 'ka-GE',
-        valid: [
-          '+99550001111',
-          '+99551535213',
-          '+995798526662',
-          '798526662',
-          '50001111',
-          '798526662',
-          '+995799766525',
-        ],
-        invalid: [
-          '+995500011118',
-          '+9957997665250',
-          '+995999766525',
-          '20000000000',
-          '68129485729',
-          '6589394827',
-          '298RI89572',
         ],
       },
       {
@@ -7110,6 +7107,7 @@ describe('Validators', () => {
     ],
     args: [],
   });
+
 
   it('should error on invalid locale', () => {
     test({
@@ -8488,6 +8486,14 @@ describe('Validators', () => {
           '3000',
           '2017',
           '0800',
+        ],
+      }, {
+        locale: 'BY',
+        valid: [
+          '225320',
+          '211120',
+          '247710',
+          '231960',
         ],
       },
       {
