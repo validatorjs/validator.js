@@ -2092,6 +2092,18 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['BY'],
+      valid: [
+        'MP3899901',
+      ],
+      invalid: [
+        '345333454',
+        'FG53334542',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['CA'],
       valid: [
         'GA302922',
@@ -2482,6 +2494,21 @@ describe('Validators', () => {
       invalid: [
         'R05485968',
         '0511060461',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['RU'],
+      valid: [
+        '26 32 636829',
+        '0121 345321',
+        '4398636928',
+      ],
+      invalid: [
+        'AZ 2R YU46J',
+        '012A 3D5321',
+        'SF233D532T',
       ],
     });
 
@@ -4940,14 +4967,14 @@ describe('Validators', () => {
 
     let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
-    assert.equal(window.validator.trim('  foobar '), 'foobar');
+    assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
   it('should bind validator to the window if no module loaders are available', () => {
     let window = {};
     let sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
-    assert.equal(window.validator.trim('  foobar '), 'foobar');
+    assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
   it('should validate mobile phone number', () => {
@@ -5441,6 +5468,24 @@ describe('Validators', () => {
           '+21821231234',
           '+0821231234',
           '04123456789',
+        ],
+      },
+      {
+        locale: 'es-BO',
+        valid: [
+          '+59175553635',
+          '+59162223685',
+          '+59179783890',
+          '+59160081890',
+          '79783890',
+          '60081890',
+        ],
+        invalid: [
+          '082123',
+          '08212312345',
+          '21821231234',
+          '+21821231234',
+          '+59199783890',
         ],
       },
       {
@@ -6169,6 +6214,28 @@ describe('Validators', () => {
           '12345678',
           '98765432',
           '01234567',
+        ],
+      },
+      {
+        locale: 'es-DO',
+        valid: [
+          '+18096622563',
+          '+18295614488',
+          '+18495259567',
+          '8492283478',
+          '8092324576',
+          '8292387713',
+        ],
+        invalid: [
+          '+18091',
+          '+1849777777',
+          '-18296643245',
+          '+18086643245',
+          '+18396643245',
+          '8196643245',
+          '+38492283478',
+          '6492283478',
+          '8192283478',
         ],
       },
       {
@@ -7040,6 +7107,7 @@ describe('Validators', () => {
     ],
     args: [],
   });
+
 
   it('should error on invalid locale', () => {
     test({
@@ -8418,6 +8486,14 @@ describe('Validators', () => {
           '3000',
           '2017',
           '0800',
+        ],
+      }, {
+        locale: 'BY',
+        valid: [
+          '225320',
+          '211120',
+          '247710',
+          '231960',
         ],
       },
       {
