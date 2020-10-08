@@ -9102,7 +9102,7 @@ describe('Validators', () => {
   it('should validate english VAT numbers', () => {
     test({
       validator: 'isVAT',
-      args: ['en-GB'],
+      args: ['GB'],
       valid: [
         'GB999 9999 00',
         'GB999 9999 96',
@@ -9132,7 +9132,7 @@ describe('Validators', () => {
 
     test({
       validator: 'isVAT',
-      args: ['invalidLocale'],
+      args: ['invalidCountryCode'],
       error: [
         'GB999 9999 00',
       ],
