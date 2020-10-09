@@ -1424,6 +1424,23 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate persian alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['fa-IR'],
+      valid: [
+        'تست',
+        'عزیزم',
+        'ح',
+      ],
+      invalid: [
+        'تست 1',
+        '  عزیزم  ',
+        '',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlpha',
