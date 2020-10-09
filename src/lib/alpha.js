@@ -119,6 +119,9 @@ for (let i = 0; i < commaDecimal.length; i++) {
   decimal[commaDecimal[i]] = ',';
 }
 
+// see #1455
+alpha['fa-IR'] = alpha['fa-IR'];
+
 alpha['pt-BR'] = alpha['pt-PT'];
 alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 decimal['pt-BR'] = decimal['pt-PT'];
