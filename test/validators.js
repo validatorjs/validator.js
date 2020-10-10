@@ -2016,6 +2016,68 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings with thousand separator', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousand_separator: '_',
+      }],
+      valid: [
+        '123',
+        '0',
+        '-0',
+        '+123',
+        '123_123',
+        '123.000',
+        '123_123.000',
+        '123_123_123.000',
+        '+123_123_123.000',
+        '-123_123_123.000',
+        '+000_000',
+      ],
+      invalid: [
+        ' ',
+        '',
+        ',',
+        '00123',
+        '-00123',
+        '_123',
+        '_123.000',
+      ],
+    });
+  });
+
+  it('should validate numeric strings with thousand separator and locale', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousand_separator: '_',
+        locale: 'fr-FR',
+      }],
+      valid: [
+        '123,000',
+        '123_123',
+        '123_123,000',
+        '123_123_123,000',
+        '+123_123_123,000',
+        '-123_123_123,000',
+        '+000_000,000',
+      ],
+      invalid: [
+        ' ',
+        '',
+        ',',
+        '_123',
+        '_123.000',
+        '1_23',
+        '1_23.000',
+        '1_22_123',
+        '1_22_123.000',
+        '123_123_123.000_123',
+      ],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
