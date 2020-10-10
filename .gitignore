@@ -6,4 +6,4 @@ coverage.lcov
 package-lock.json
 yarn.lock
 es
-lib
+lib/*
