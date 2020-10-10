@@ -148,6 +148,7 @@ Validator                               | Description
 **isRFC3339(str)**                      | check if the string is a valid [RFC 3339](https://tools.ietf.org/html/rfc3339) date.
 **isRgbColor(str [, includePercentValues])**                     | check if the string is a rgb or rgba color.<br/><br/>`includePercentValues` defaults to `true`. If you don't want to allow to set `rgb` or `rgba` values with percents, like `rgb(5%,5%,5%)`, or `rgba(90%,90%,90%,.3)`, then set it to false.
 **isSemVer(str)**                       | check if the string is a Semantic Versioning Specification (SemVer).
+**isReverse(str,target)**                | check if the string is reverse of target string.
 **isSurrogatePair(str)**                | check if the string contains any surrogate pairs chars.
 **isUppercase(str)**                    | check if the string is uppercase.
 **isSlug**                              | Check if the string is of type slug. `Options` allow a single hyphen between string. e.g. [`cn-cn`, `cn-c-c`]

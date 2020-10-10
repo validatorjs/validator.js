@@ -9085,6 +9085,18 @@ describe('Validators', () => {
     });
   });
 
+  it('should check whether two strings are reverse of one another ', () => {
+    test({
+      validator: 'isReverse',
+      args: ['rubin'],
+      valid: ['nibur'],
+      invalid: [
+        'nibrn',
+        'nibru',
+      ],
+    });
+  });
+
   it('should validate base64URL', () => {
     test({
       validator: 'isBase64',
