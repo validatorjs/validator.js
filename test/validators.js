@@ -2020,7 +2020,7 @@ describe('Validators', () => {
     test({
       validator: 'isNumeric',
       args: [{
-        thousand_separator: '_',
+        thousands_separator: '_',
       }],
       valid: [
         '123',
@@ -2051,7 +2051,7 @@ describe('Validators', () => {
     test({
       validator: 'isNumeric',
       args: [{
-        thousand_separator: '_',
+        thousands_separator: '_',
         locale: 'fr-FR',
       }],
       valid: [
@@ -2074,6 +2074,39 @@ describe('Validators', () => {
         '1_22_123',
         '1_22_123.000',
         '123_123_123.000_123',
+      ],
+    });
+  });
+
+  it('should not validate numeric strings with invalid thousand_seperator chars', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '__',
+      }],
+      error: [
+        '123',
+        '123__123',
+      ],
+    });
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '9',
+      }],
+      error: [
+        '123',
+        '1239123',
+      ],
+    });
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '0',
+      }],
+      error: [
+        '123',
+        '1230123',
       ],
     });
   });
