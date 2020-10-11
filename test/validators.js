@@ -1441,6 +1441,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Thai alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['th-TH'],
+      valid: [
+        'สวัสดี',
+        'ยินดีต้อนรับ เทสเคส',
+      ],
+      invalid: [
+        'สวัสดีHi',
+        '123 ยินดีต้อนรับ',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlpha',
