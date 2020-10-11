@@ -12,7 +12,6 @@ import isIP from './lib/isIP';
 import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
 import isDate from './lib/isDate';
-import isTime from './lib/isTime';
 import isBoolean from './lib/isBoolean';
 import isLocale from './lib/isLocale';
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
@@ -183,7 +182,6 @@ var validator = {
   toString: toString,
   isSlug: isSlug,
   isTaxID: isTaxID,
-  isDate: isDate,
-  isTime: isTime
+  isDate: isDate
 };
 export default validator;

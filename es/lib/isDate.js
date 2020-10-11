@@ -12,13 +12,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-import merge from './util/merge';
-var default_date_options = {
-  format: 'YYYY/MM/DD',
-  delimiters: ['/', '-'],
-  strictMode: false
-};
-
 function isValidFormat(format) {
   return /(^(y{4}|y{2})[\/-](m{1,2})[\/-](d{1,2})$)|(^(m{1,2})[\/-](d{1,2})[\/-]((y{4}|y{2})$))|(^(d{1,2})[\/-](m{1,2})[\/-]((y{4}|y{2})$))/gi.test(format);
 }
@@ -34,25 +27,13 @@ function zip(date, format) {
   return zippedArr;
 }
 
-export default function isDate(input, options) {
-  if (typeof options === 'string') {
-    // Allow backward compatbility for old format isDate(input [, format])
-    options = merge({
-      format: options
-    }, default_date_options);
-  } else {
-    options = merge(options, default_date_options);
-  }
+export default function isDate(input) {
+  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY/MM/DD';
 
-  if (typeof input === 'string' && isValidFormat(options.format)) {
-    var formatDelimiter = options.delimiters.find(function (delimiter) {
-      return options.format.indexOf(delimiter) !== -1;
-    });
-    var dateDelimiter = options.strictMode ? formatDelimiter : options.delimiters.find(function (delimiter) {
-      return input.indexOf(delimiter) !== -1;
-    });
-    var dateAndFormat = zip(input.split(dateDelimiter), options.format.toLowerCase().split(formatDelimiter));
-    var dateObj = {};
+  if (typeof input === 'string' && isValidFormat(format)) {
+    var splitter = /[-/]/,
+        dateAndFormat = zip(input.split(splitter), format.toLowerCase().split(splitter)),
+        dateObj = {};
 
     var _iterator = _createForOfIteratorHelper(dateAndFormat),
         _step;
@@ -78,9 +59,5 @@ export default function isDate(input, options) {
     return new Date("".concat(dateObj.m, "/").concat(dateObj.d, "/").concat(dateObj.y)).getDate() === +dateObj.d;
   }
 
-  if (!options.strictMode) {
-    return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
-  }
-
-  return false;
+  return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
 }
