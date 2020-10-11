@@ -9007,4 +9007,118 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate time', () => {
+    test({
+      validator: 'isTime',
+      valid: [
+        '00:00',
+        '23:59',
+        '9:00',
+      ],
+      invalid: [
+        '',
+        null,
+        undefined,
+        0,
+        new Date().getHours(),
+        '07:00 PM',
+        '23',
+        '00:60',
+        '00:',
+        '01:0 ',
+        '001:01',
+      ],
+    });
+    test({
+      validator: 'isTime',
+      args: [{ hourFormat: 'hour24', mode: 'withSeconds' }],
+      valid: [
+        '23:59:59',
+        '00:00:00',
+        '9:50:01',
+        new Date().toLocaleTimeString(),
+      ],
+      invalid: [
+        '',
+        null,
+        undefined,
+        23,
+        new Date().getHours(),
+        '01:00:01 PM',
+        '13:00:',
+        '00',
+        '26',
+        '00;01',
+        '0 :09',
+        '59:59:59',
+        '24:00:00',
+        '00:59:60',
+        '99:99:99',
+        '009:50:01',
+      ],
+    });
+    test({
+      validator: 'isTime',
+      args: [{ hourFormat: 'hour12' }],
+      valid: [
+        '12:59 PM',
+        '12:59 AM',
+        '01:00 PM',
+        '01:00 AM',
+        '7:00 AM',
+      ],
+      invalid: [
+        '',
+        null,
+        undefined,
+        0,
+        new Date().getHours(),
+        '12:59 MM',
+        '12:59 MA',
+        '12:59 PA',
+        '12:59 A M',
+        '13:00 PM',
+        '23',
+        '00:60',
+        '00:',
+        '9:00',
+        '01:0 ',
+        '001:01',
+        '12:59:00 PM',
+        '12:59:00 A M',
+        '12:59:00 ',
+      ],
+    });
+    test({
+      validator: 'isTime',
+      args: [{ hourFormat: 'hour12', mode: 'withSeconds' }],
+      valid: [
+        '12:59:59 PM',
+        new Date().toLocaleTimeString('en-US'),
+        '7:00:00 AM',
+      ],
+      invalid: [
+        '',
+        null,
+        undefined,
+        23,
+        new Date().getHours(),
+        new Date().toLocaleTimeString(),
+        '01:00: 1 PM',
+        '13:00:',
+        '13:00:00 PM',
+        '00',
+        '26',
+        '00;01',
+        '0 :09',
+        '59:59:59',
+        '24:00:00',
+        '00:59:60',
+        '99:99:99',
+        '9:50:01',
+        '009:50:01',
+      ],
+    });
+  });
 });
