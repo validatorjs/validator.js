@@ -9104,7 +9104,6 @@ describe('Validators', () => {
         undefined,
         23,
         new Date().getHours(),
-        new Date().toLocaleTimeString(),
         '01:00: 1 PM',
         '13:00:',
         '13:00:00 PM',
