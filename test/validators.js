@@ -9095,7 +9095,7 @@ describe('Validators', () => {
       args: [{ hourFormat: 'hour12', mode: 'withSeconds' }],
       valid: [
         '12:59:59 PM',
-        new Date().toLocaleTimeString('en-US'),
+        '2:34:45 AM',
         '7:00:00 AM',
       ],
       invalid: [
