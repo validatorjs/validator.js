@@ -3604,16 +3604,39 @@ describe('Validators', () => {
       });
     });
 
+    ['sha256', 'ripemd256'].forEach((algorithm) => {
+      test({
+        validator: 'isHash',
+        args: [algorithm],
+        valid: [
+          '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824',
+          '1d996e033d612d9af2b44b70061ee0e868bfd14c2dd90b129e1edeb7953e7985',
+          '80f70bfeaed5886e33536bcfa8c05c60afef5a0e48f699a7912d5e399cdcc441',
+          '579282cfb65ca1f109b78536effaf621b853c9f7079664a3fbe2b519f435898c',
+          '2CF24dba5FB0a30e26E83b2AC5b9E29E1b161e5C1fa7425E73043362938b9824',
+          '80F70bFEAed5886e33536bcfa8c05c60aFEF5a0e48f699a7912d5e399cdCC441',
+        ],
+        invalid: [
+          'KYT0bf1c35032a71a14c2f719e5a14c1',
+          'KYT0bf1c35032a71a14c2f719e5a14c1dsjkjkjkjkkjk',
+          'q94375dj93458w34',
+          '39485729348',
+          '%&FHKJFvk',
+        ],
+      });
+    });
+
+
     test({
       validator: 'isHash',
-      args: ['sha256'],
+      args: ['ripemd320'],
       valid: [
-        '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824',
-        '1d996e033d612d9af2b44b70061ee0e868bfd14c2dd90b129e1edeb7953e7985',
-        '80f70bfeaed5886e33536bcfa8c05c60afef5a0e48f699a7912d5e399cdcc441',
-        '579282cfb65ca1f109b78536effaf621b853c9f7079664a3fbe2b519f435898c',
-        '2CF24dba5FB0a30e26E83b2AC5b9E29E1b161e5C1fa7425E73043362938b9824',
-        '80F70bFEAed5886e33536bcfa8c05c60aFEF5a0e48f699a7912d5e399cdCC441',
+        'f67746905ee923478b292ca3d80018bc9a76836ca4365073546b0a8d8d91188d5589173b59fe31a4',
+        '6ac37023b71d83469b703c1b4d8789bc6f65a6189331c7d849722e9aea84b65381c6ed3c0e0f1a2a',
+        'be895978650fcb658879089419970b0fef3c9dbabc37f48b71285768706b06f997df29d96000e2b1',
+        '7425eb255dde0085d9ef99e24bee2729eeb0fc3f7ab40809525ea5b819ab9945c25d7bfc402fdade',
+        'c24f6c238db6b41d139fa745f995e49874faa46f38861173929684f6d5aa84b97b52cce158bf0f3e',
+        '2f4c1185d10894db45f8935d6ef76ee72b8ca2d005a6ce5e412b19a6cd05b52672187a060661dcc0',
       ],
       invalid: [
         'KYT0bf1c35032a71a14c2f719e5a14c1',

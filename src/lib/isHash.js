@@ -9,6 +9,8 @@ const lengths = {
   sha512: 128,
   ripemd128: 32,
   ripemd160: 40,
+  ripemd256: 64,
+  ripemd320: 80,
   tiger128: 32,
   tiger160: 40,
   tiger192: 48,
