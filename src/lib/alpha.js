@@ -7,6 +7,7 @@ export const alpha = {
   'de-DE': /^[A-ZÄÖÜß]+$/i,
   'el-GR': /^[Α-ώ]+$/i,
   'es-ES': /^[A-ZÁÉÍÑÓÚÜ]+$/i,
+  'fa-IR': /^[ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$/i,
   'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
   'it-IT': /^[A-ZÀÉÈÌÎÓÒÙ]+$/i,
   'nb-NO': /^[A-ZÆØÅ]+$/i,
@@ -117,6 +118,9 @@ for (let i = 0; i < dotDecimal.length; i++) {
 for (let i = 0; i < commaDecimal.length; i++) {
   decimal[commaDecimal[i]] = ',';
 }
+
+// see #1455
+alpha['fa-IR'] = alpha['fa-IR'];
 
 alpha['pt-BR'] = alpha['pt-PT'];
 alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
