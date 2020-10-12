@@ -1,8 +1,9 @@
 import assertString from './util/assertString';
 
 const lengths = {
-  md5: 32,
+  md2: 32,
   md4: 32,
+  md5: 32,
   sha1: 40,
   sha256: 64,
   sha384: 96,

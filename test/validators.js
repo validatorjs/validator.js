@@ -3539,7 +3539,7 @@ describe('Validators', () => {
   });
 
   it('should validate hash strings', () => {
-    ['md5', 'md4', 'ripemd128', 'tiger128'].forEach((algorithm) => {
+    ['md2', 'md4', 'md5', 'ripemd128', 'tiger128'].forEach((algorithm) => {
       test({
         validator: 'isHash',
         args: [algorithm],
@@ -3550,6 +3550,8 @@ describe('Validators', () => {
           '0bf1c35032a71a14c2f719e5a14c1e96',
           'd94f3F016Ae679C3008de268209132F2',
           '88DAE00e614d8f24cfd5a8b3f8002E93',
+          '6b890c9292668cdbbfda00a4ebf31f05',
+          '03d85a0d629d2c442e987525319fc471',
         ],
         invalid: [
           'q94375dj93458w34',
