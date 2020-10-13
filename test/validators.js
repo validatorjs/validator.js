@@ -8935,6 +8935,19 @@ describe('Validators', () => {
           'AA1234',
         ],
       },
+      {
+        locale: 'TH',
+        valid: [
+          '10250',
+          '72170',
+          '12140',
+        ],
+        invalid: [
+          'T1025',
+          'T72170',
+          '12140TH',
+        ],
+      },
     ];
 
     let allValid = [];
