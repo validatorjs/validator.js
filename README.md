@@ -122,7 +122,7 @@ Validator                               | Description
 **isIPRange(str)**                      | check if the string is an IP Range(version 4 only).
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
-**isISO8601(str)**                      | check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date; for additional checks for valid dates, e.g. invalidates dates like `2009-02-29`, pass `options` object as a second parameter with `options.strict = true`.
+**isISO8601(str)**                      | check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date. <br/>`options` is an object which defaults to `{ strict: false, strictSeparator: false }`. If `strict` is true, date strings with invalid dates like `2009-02-29` will be invalid. If `strictSeparator` is true, date strings with date and time separated by anything other than a T will be invalid.
 **isISO31661Alpha2(str)**               | check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
 **isISO31661Alpha3(str)**               | check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
 **isISRC(str)**                         | check if the string is a [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code).
