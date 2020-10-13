@@ -2993,6 +2993,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate snakecase strings', () => {
+    test({
+      validator: 'isSnakeCase',
+      valid: [
+        'STRING',
+        'string',
+        'is_snake_case',
+        'SCREAMING_SNAKE_CASE',
+        'version_v2',
+      ],
+      invalid: [
+        '',
+        ' ',
+        '_',
+        'isNotSnakeCase',
+        'is_not_snakeCase',
+        'my_function()',
+        'hello!',
+      ],
+    });
+  });
+
   it('should validate integers', () => {
     test({
       validator: 'isInt',
