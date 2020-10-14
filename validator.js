@@ -1236,17 +1236,6 @@ function isUppercase(str) {
   return str === str.toUpperCase();
 }
 
-var snakeCaseRegex = /^([A-Z]+(_[A-Z0-9]+)*)$|^([a-z]+(_[a-z0-9]+)*)$/;
-function isSnakeCase(str) {
-  assertString(str); // Make sure that the string contains either uppercase or lowercase letters only.
-
-  if (str.toLowerCase() === str || str.toUpperCase() === str) {
-    return snakeCaseRegex.test(str);
-  }
-
-  return false;
-}
-
 var imeiRegexWithoutHypens = /^[0-9]{15}$/;
 var imeiRegexWithHypens = /^\d{2}-\d{6}-\d{6}-\d{1}$/;
 function isIMEI(str, options) {
@@ -3108,7 +3097,6 @@ var validator = {
   isPort: isPort,
   isLowercase: isLowercase,
   isUppercase: isUppercase,
-  isSnakeCase: isSnakeCase,
   isAscii: isAscii,
   isFullWidth: isFullWidth,
   isHalfWidth: isHalfWidth,

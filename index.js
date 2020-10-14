@@ -53,8 +53,6 @@ var _isLowercase = _interopRequireDefault(require("./lib/isLowercase"));
 
 var _isUppercase = _interopRequireDefault(require("./lib/isUppercase"));
 
-var _isSnakeCase = _interopRequireDefault(require("./lib/isSnakeCase"));
-
 var _isIMEI = _interopRequireDefault(require("./lib/isIMEI"));
 
 var _isAscii = _interopRequireDefault(require("./lib/isAscii"));
@@ -151,9 +149,7 @@ var _isISO31661Alpha2 = _interopRequireDefault(require("./lib/isISO31661Alpha3")
 
 var _isBase = _interopRequireDefault(require("./lib/isBase32"));
 
-var _isBase2 = _interopRequireDefault(require("./lib/isBase58"));
-
-var _isBase3 = _interopRequireDefault(require("./lib/isBase64"));
+var _isBase2 = _interopRequireDefault(require("./lib/isBase64"));
 
 var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
@@ -221,7 +217,6 @@ var validator = {
   isPort: _isPort.default,
   isLowercase: _isLowercase.default,
   isUppercase: _isUppercase.default,
-  isSnakeCase: _isSnakeCase.default,
   isAscii: _isAscii.default,
   isFullWidth: _isFullWidth.default,
   isHalfWidth: _isHalfWidth.default,
@@ -272,8 +267,7 @@ var validator = {
   isISO31661Alpha2: _isISO31661Alpha.default,
   isISO31661Alpha3: _isISO31661Alpha2.default,
   isBase32: _isBase.default,
-  isBase58: _isBase2.default,
-  isBase64: _isBase3.default,
+  isBase64: _isBase2.default,
   isDataURI: _isDataURI.default,
   isMagnetURI: _isMagnetURI.default,
   isMimeType: _isMimeType.default,
