@@ -1952,6 +1952,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Thai alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['th-TH'],
+      valid: [
+        'สวัสดี ๑๒๓',
+        'ยินดีต้อนรับทั้ง ๒ คน',
+      ],
+      invalid: [
+        '1.สวัสดี',
+        'ยินดีต้อนรับทั้ง 2 คน',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlphanumeric',
