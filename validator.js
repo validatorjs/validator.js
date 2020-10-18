@@ -2296,15 +2296,52 @@ function enUsGetPrefixes() {
 
 function enUsCheck(tin) {
   return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
+}
+/*
+ * de-DE validation function
+ * Verify the checksum of the German TIN
+ */
+
+
+function deDeCheck(tin) {
+  // TIN as number array without checksum
+  var tinArray = tin.split('').slice(0, 10).map(function (_char) {
+    return parseInt(_char, 10);
+  }); // Rule 1: First digit must not be zero
+
+  var firstDigitNotZero = parseInt(tin[0], 10) !== 0; // Rule 2a: Exactly one digit exists twice or thrice, the rest once or not at all
+
+  var digitFreq = _toConsumableArray(new Array(10).keys()).map(function (n) {
+    return tinArray.filter(function (k) {
+      return k === n;
+    }).length;
+  });
+
+  var validDigitDistribution = digitFreq.filter(function (n) {
+    return n === 2 || n === 3;
+  }).length === 1;
+  console.log(digitFreq); // Rule 3: Checksum (11th digit can be calculated from the first 10 digits)
+
+  var want = parseInt(tin[10], 10);
+  var have = (11 - tinArray.reduce(function (prev, curr) {
+    var lastDigitOfSum = (prev + curr) % 10;
+    var z = lastDigitOfSum > 0 ? lastDigitOfSum : 10;
+    return z * 2 % 11;
+  }, 10)) % 10;
+  var checksumValid = want === have; // TIN is valid if all rules apply
+
+  return firstDigitNotZero && validDigitDistribution && checksumValid;
 } // tax id regex formats for various locales
 
 
 var taxIdFormat = {
-  'en-US': /^\d{2}[- ]{0,1}\d{7}$/
+  'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
+  'de-DE': /^[0-9]{11}$/
 }; // Algorithmic tax id check functions for various locales
 
 var taxIdCheck = {
-  'en-US': enUsCheck
+  'en-US': enUsCheck,
+  'de-DE': deDeCheck
 };
 /*
  * Validator function

@@ -9095,6 +9095,17 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['de-DE'],
+      valid: [
+        '94687032750',
+      ],
+      invalid: [
+        '94687032751',
+        '12345',
+        '123456789012'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['is-NOT'],
       error: [
         '01-1234567',
