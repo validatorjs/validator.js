@@ -1,9 +1,10 @@
 import assertString from './util/assertString';
 
 const validators = {
+  'de-LI': str => /^FL[- ]?\d{1-5}[UZ]?$/.test(str),
   'de-DE': (str) => {
     // Rule 1: License plate must match regex
-    const regex = /^[A-Z]{1,3}[- ][A-Z]{1,2}[- ][0-9]{1,4}$/;
+    const regex = /^[A-Z]{1,3}[- ]?[A-Z]{1,2}[- ]?[0-9]{1,4}$/;
     const plateSections = str.split(/[ -]/g);
     const validFormat = regex.test(str);
     // Rule 2: First section (1-3 letters until sepatator) must be a valid county code
