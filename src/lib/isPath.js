@@ -7,9 +7,11 @@ const validPathBySystem = {
 
 export default function isPath(str, os) {
   assertString(str);
-  assertString(os);
 
-  const system = os.toLowerCase();
+  const system = os && os.length > 0 && os.toLowerCase();
 
-  return (system in validPathBySystem) && validPathBySystem[system].test(str);
+  if (system && validPathBySystem[system]) {
+    return validPathBySystem[system].test(str);
+  }
+  return false;
 }

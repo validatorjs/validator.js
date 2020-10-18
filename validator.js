@@ -3077,9 +3077,13 @@ var validPathBySystem = {
 };
 function isPath(str, os) {
   assertString(str);
-  assertString(os);
-  var system = os.toLowerCase();
-  return system in validPathBySystem && validPathBySystem[system].test(str);
+  var system = os && os.length > 0 && os.toLowerCase();
+
+  if (system && validPathBySystem[system]) {
+    return validPathBySystem[system].test(str);
+  }
+
+  return false;
 }
 
 var version = '13.1.17';
