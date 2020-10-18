@@ -117,6 +117,7 @@ phones['en-CA'] = phones['en-US'];
 phones['fr-BE'] = phones['nl-BE'];
 phones['zh-HK'] = phones['en-HK'];
 phones['zh-MO'] = phones['en-MO'];
+phones['ga-IE'] = phones['en-IE'];
 
 export default function isMobilePhone(str, locale, options) {
   assertString(str);
