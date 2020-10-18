@@ -3071,6 +3071,17 @@ function isSlug(str) {
   return charsetRegex.test(str);
 }
 
+var validPathBySystem = {
+  windows: /^[a-zA-Z]:\\(((?![<>:"/\\|?*]).)+((?<![ .])\\)?)*$/,
+  unix: /^(\/|\/\/)*([^/\0]+(\/)?)+$/
+};
+function isPath(str, os) {
+  assertString(str);
+  assertString(os);
+  var system = os.toLowerCase();
+  return system in validPathBySystem && validPathBySystem[system].test(str);
+}
+
 var version = '13.1.17';
 var validator = {
   version: version,
@@ -3168,7 +3179,8 @@ var validator = {
   toString: toString,
   isSlug: isSlug,
   isTaxID: isTaxID,
-  isDate: isDate
+  isDate: isDate,
+  isPath: isPath
 };
 
 return validator;

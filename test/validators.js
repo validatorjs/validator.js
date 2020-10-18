@@ -9299,4 +9299,59 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate windows directories', () => {
+    test({
+      validator: 'isPath',
+      args: ['windows'],
+      valid: [
+        'C:\\Documents\\my unhashed password.txt',
+        'C:\\Documents\\Music\\scorpions - sly.mp3',
+        'd:\\music videos\\amon_amarth_-_Cry_of_the_balck_birds.mp4',
+        'd:\\just a folder\\',
+      ],
+      invalid: [
+        '\\Program Files\\Custom Utilities\\StringFinder.exe',
+        '2018\\January.xlsx',
+        '..\\Publications\\TravelBrochure.pdf',
+      ],
+    });
+  });
+
+  it('should validate unix directories', () => {
+    test({
+      validator: 'isPath',
+      args: ['unix'],
+      valid: [
+        '/home',
+        '/home/waddah',
+        '/home/waddah/photos',
+        '/home/waddah/melodic death metal/amon amarth/',
+        '/Publications/TravelBrochure.pdf',
+        '//Publications/TravelBrochure.pdf',
+      ],
+      invalid: [
+        '..//xxx',
+      ],
+    });
+  });
+
+  it('should return false if passed system is not supported', () => {
+    test({
+      validator: 'isPath',
+      args: ['kali'],
+      invalid: [
+        'C:\\Documents\\my unhashed password.txt',
+        'C:\\Documents\\Music\\scorpions - sly.mp3',
+        'd:\\music videos\\amon_amarth_-_Cry_of_the_balck_birds.mp4',
+        'd:\\just a folder\\',
+        '/home',
+        '/home/waddah',
+        '/home/waddah/photos',
+        '/home/waddah/melodic death metal/amon amarth/',
+        '/Publications/TravelBrochure.pdf',
+        '//Publications/TravelBrochure.pdf',
+      ],
+    });
+  });
 });
