@@ -9299,4 +9299,34 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should be valid license plate', () => {
+    test({
+      validator: 'isLicensePlate',
+      args: ['de-DE'],
+      valid: [
+        'M A 1',
+        'M A 12',
+        'M A 123',
+        'M A 1234',
+        'M AB 1',
+        'M AB 12',
+        'M AB 123',
+        'M AB 1234',
+        'FS A 1',
+        'FS A 12',
+        'FS A 123',
+        'FS A 1234',
+        'FS AB 1',
+        'FS AB 12',
+        'FS AB 123',
+        'FS AB 1234',
+      ],
+      invalid: [
+        'YY AB 123',
+        'PAF AB 1234',
+        'M ABC 123',
+        'M AB 12345',
+      ],
+    });
+  });
 });

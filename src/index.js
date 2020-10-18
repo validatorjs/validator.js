@@ -115,6 +115,7 @@ import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
+import isLicensePlate from './lib/isLicensePlate';
 
 const version = '13.1.17';
 
@@ -215,6 +216,7 @@ const validator = {
   isSlug,
   isTaxID,
   isDate,
+  isLicensePlate,
 };
 
 export default validator;
