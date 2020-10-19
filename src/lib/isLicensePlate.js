@@ -2,6 +2,7 @@ import assertString from './util/assertString';
 
 const validators = {
   'de-LI': str => /^FL[- ]?\d{1-5}[UZ]?$/.test(str),
+  'sq-AL': str => /^[A-Z]{2}[- ]?((\d{3}[- ]?(([A-Z]{2})|T))|(R[- ]?\d{3}))$/.test(str),
   'de-DE': (str) => {
     // Rule 1: License plate must match regex
     const regex = /^[A-Z]{1,3}[- ]?[A-Z]{1,2}[- ]?[0-9]{1,4}$/;
