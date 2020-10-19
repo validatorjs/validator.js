@@ -752,57 +752,6 @@ function itItCheck(tin) {
   const date = `${chars[6]}${chars[7]}/${month}/${day}`;
   if (!isDate(date, 'YY/MM/DD')) { return false; }
 
-  /*
-   * Check validity of birth town registry number (codice catastale)
-   * This code was created by finding the gaps in the sequences of numbers
-   * in the embedded spreadsheet of the DG-TAXUD document.
-   * This is absolutely not best practice and is therefore excluded
-   * from coverage measurements until a replacement is decided on.
-   * Perhaps something like this could be used instead:
-   * `https://github.com/matteocontrini/comuni-json`
-   */
-  const catastale_letter = `${chars[11]}`;
-  const catastale_number = parseInt(`${chars[12]}${chars[13]}${chars[14]}`, 10);
-  /* istanbul ignore next */
-  switch (catastale_letter) {
-    case 'A':
-      if (catastale_number === 0 || catastale_number === 814) { return false; }
-      break;
-    case 'C':
-      if (catastale_number === 0 || catastale_number === 170 ||
-        catastale_number === 843) { return false; }
-      break;
-    case 'D':
-    case 'E':
-    case 'F':
-    case 'G':
-    case 'B':
-    case 'L':
-      if (catastale_number === 0) { return false; }
-      break;
-    case 'H':
-      if (catastale_number === 0 || catastale_number === 5) { return false; }
-      break;
-    case 'I':
-      if (catastale_number === 0 || catastale_number === 141 ||
-        catastale_number === 267) { return false; }
-      break;
-    case 'M':
-      if (catastale_number === 0 || catastale_number > 315) { return false; }
-      break;
-    default:
-      if (catastale_number < 100 || catastale_number > 906) { return false; }
-      if (catastale_number > 161 && catastale_number < 200) { return false; }
-      if (catastale_number > 259 && catastale_number < 300) { return false; }
-      if (catastale_number > 370 && catastale_number < 400) { return false; }
-      if (catastale_number > 404 && catastale_number < 500) { return false; }
-      if (catastale_number > 533 && catastale_number < 600) { return false; }
-      if (catastale_number > 614 && catastale_number < 700) { return false; }
-      if (catastale_number > 735 && catastale_number < 800) { return false; }
-      if (catastale_number > 802 && catastale_number < 900) { return false; }
-      break;
-  }
-
   // Calculate check character by adding up even and odd characters as numbers
   let checksum = 0;
   for (let i = 1; i < chars.length - 1; i += 2) {
