@@ -456,7 +456,7 @@ describe('Validators', () => {
       ],
     });
   });
-  
+
   it('should validate host URL with any protocol and without a TDL', () => {
     test({
       validator: 'isURL',
