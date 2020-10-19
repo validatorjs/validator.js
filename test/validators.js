@@ -456,6 +456,26 @@ describe('Validators', () => {
       ],
     });
   });
+  
+  it('should validate host URL with any protocol and without a TDL', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        require_valid_protocol: false,
+        require_tld: false,
+      }],
+      valid: [
+        'example.com',
+        'localhost',
+        '192.168.0.1',
+      ],
+      invalid: [
+        'localhost.',
+        '192.168.0',
+        '192.168.0.9999',
+      ],
+    });
+  });
 
   it('should validate URLs with underscores', () => {
     test({
@@ -481,6 +501,7 @@ describe('Validators', () => {
       valid: [
         'http://foobar.com/',
         'http://foobar/',
+        'http://docker-foobar',
         'http://localhost/',
         'foobar/',
         'foobar',
@@ -893,6 +914,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate FQDN with trailing dot option', () => {
     test({
       validator: 'isFQDN',
