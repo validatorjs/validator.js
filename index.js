@@ -285,7 +285,7 @@ var validator = {
   toString: toString,
   isSlug: _isSlug.default,
   isTaxID: _isTaxID.default,
-  isDate: _isDate.default,
+  isDate: _isDate.default
 };
 var _default = validator;
 exports.default = _default;
