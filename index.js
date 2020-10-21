@@ -149,9 +149,7 @@ var _isISO31661Alpha2 = _interopRequireDefault(require("./lib/isISO31661Alpha3")
 
 var _isBase = _interopRequireDefault(require("./lib/isBase32"));
 
-var _isBase2 = _interopRequireDefault(require("./lib/isBase58"));
-
-var _isBase3 = _interopRequireDefault(require("./lib/isBase64"));
+var _isBase2 = _interopRequireDefault(require("./lib/isBase64"));
 
 var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
@@ -184,8 +182,6 @@ var _isWhitelisted = _interopRequireDefault(require("./lib/isWhitelisted"));
 var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
 var _isSlug = _interopRequireDefault(require("./lib/isSlug"));
-
-var _isLicensePlate = _interopRequireDefault(require("./lib/isLicensePlate"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
@@ -271,8 +267,7 @@ var validator = {
   isISO31661Alpha2: _isISO31661Alpha.default,
   isISO31661Alpha3: _isISO31661Alpha2.default,
   isBase32: _isBase.default,
-  isBase58: _isBase2.default,
-  isBase64: _isBase3.default,
+  isBase64: _isBase2.default,
   isDataURI: _isDataURI.default,
   isMagnetURI: _isMagnetURI.default,
   isMimeType: _isMimeType.default,
@@ -291,7 +286,6 @@ var validator = {
   isSlug: _isSlug.default,
   isTaxID: _isTaxID.default,
   isDate: _isDate.default,
-  isLicensePlate: _isLicensePlate.default
 };
 var _default = validator;
 exports.default = _default;
