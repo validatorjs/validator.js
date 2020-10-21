@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import * as algorithms from './util/algorithms';
 import isDate from './isDate';
 
 /**
@@ -21,101 +22,6 @@ import isDate from './isDate';
  * See `http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes`
  * for more information.
  */
-
-// Helper functions
-
-/*
- * ISO 7064 validation helper function
- * Called with an array of single-digit integers by locale-specific functions
- * to validate TINs according to ISO 7064 (MOD 11, 10).
- */
-function iso7064Check(digits) {
-  let checkvalue = 10;
-  for (let i = 0; i < digits.length - 1; i++) {
-    checkvalue = (digits[i] + checkvalue) % 10 === 0 ? (10 * 2) % 11 :
-      (((digits[i] + checkvalue) % 10) * 2) % 11;
-  }
-  checkvalue = checkvalue === 1 ? 0 : 11 - checkvalue;
-  return checkvalue === digits[10];
-}
-
-/*
- * Luhn (mod 10) validation helper function
- * Called with an array of single-digit integers by locale-specific functions
- * to validate TINs according to the Luhn algorithm.
- */
-function luhnCheck(digits) {
-  let checksum = 0;
-  let second = false;
-  for (let i = digits.length - 1; i >= 0; i--) {
-    if (second) {
-      const product = digits[i] * 2;
-      if (product > 9) {
-        // sum digits of product and add to checksum
-        checksum += product.toString().split('').map(a => parseInt(a, 10)).reduce((a, b) => a + b, 0);
-      } else {
-        checksum += product;
-      }
-    } else {
-      checksum += digits[i];
-    }
-    second = !second;
-  }
-  return checksum % 10 === 0;
-}
-
-/*
- * Reverse TIN multiplication and summation helper function
- * Called with an array of single-digit integers and a base multiplier
- * by locale-specific functions to calculate the sum of the digits multiplied in reverse.
- * Usually used in locale variations of MOD 11 algorithmic checks.
- */
-function reverseMultiplyAndSum(digits, base) {
-  let total = 0;
-  for (let i = 0; i < digits.length; i++) {
-    total += digits[i] * (base - i);
-  }
-  return total;
-}
-
-/*
- * Verhoeff validation helper function
- * Called with an array of single-digit integers by locale-specific functions
- * to validate TINs according to the Verhoeff algorithm.
- */
-function verhoeffCheck(digits) {
-  const d_table = [
-    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
-    [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
-    [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
-    [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
-    [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
-    [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
-    [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
-    [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
-    [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-  ];
-
-  const p_table = [
-    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
-    [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
-    [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
-    [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
-    [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
-    [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
-    [7, 0, 4, 6, 9, 1, 3, 2, 5, 8],
-  ];
-
-  // Copy (to prevent mutation) and reverse
-  const digits_copy = digits.slice(0).reverse();
-  let checksum = 0;
-  for (let i = 0; i < digits_copy.length; i++) {
-    checksum = d_table[checksum][p_table[i % 8][digits_copy[i]]];
-  }
-  return checksum === 0;
-}
 
 // Locale functions
 
@@ -224,9 +130,7 @@ function csCzCheck(tin) {
  * Verify TIN validity by calling luhnCheck()
  */
 function deAtCheck(tin) {
-  // split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
-  return luhnCheck(digits);
+  return algorithms.luhnCheck(tin);
 }
 
 /*
@@ -267,7 +171,7 @@ function deDeCheck(tin) {
       return false;
     }
   }
-  return iso7064Check(digits);
+  return algorithms.iso7064Check(tin);
 }
 
 /*
@@ -391,7 +295,7 @@ function elGrCheck(tin) {
  * Verify TIN validity by calculating check (second to last) character
  */
 function enIeCheck(tin) {
-  let checksum = reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8);
+  let checksum = algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8);
   if (tin.length === 9 && tin[8] !== 'W') {
     checksum += (tin[8].charCodeAt(0) - 64) * 9;
   }
@@ -616,13 +520,10 @@ function frLuCheck(tin) {
   const date = `${tin.slice(0, 4)}/${tin.slice(4, 6)}/${tin.slice(6, 8)}`;
   if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
-  // Split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
   // Run Luhn check
-  if (!luhnCheck(digits.slice(0, 12))) { return false; }
+  if (!algorithms.luhnCheck(tin.slice(0, 12))) { return false; }
   // Remove Luhn check digit and run Verhoeff check
-  digits.splice(11, 1);
-  return verhoeffCheck(digits);
+  return algorithms.verhoeffCheck(`${tin.slice(0, 11)}${tin[12]}`);
 }
 
 /*
@@ -631,9 +532,7 @@ function frLuCheck(tin) {
  * Verify TIN validity by calling iso7064Check(digits)
  */
 function hrHrCheck(tin) {
-  // split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
-  return iso7064Check(digits);
+  return algorithms.iso7064Check(tin);
 }
 
 /*
@@ -889,7 +788,7 @@ function mtMtCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function nlNlCheck(tin) {
-  return reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
+  return algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
 }
 
 /*
@@ -959,7 +858,7 @@ function plPlCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function ptPtCheck(tin) {
-  let checksum = 11 - (reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11);
+  let checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11);
   if (checksum > 9) { return parseInt(tin[8], 10) === 0; }
   return checksum === parseInt(tin[8], 10);
 }
@@ -1052,7 +951,7 @@ function skSkCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function slSiCheck(tin) {
-  let checksum = 11 - (reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8) % 11);
+  let checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8) % 11);
   if (checksum === 10) { return parseInt(tin[7], 10) === 0; }
   return checksum === parseInt(tin[7], 10);
 }
@@ -1104,9 +1003,7 @@ function svSeCheck(tin) {
     if (!isDate(date, 'YY/MM/DD')) { return false; }
   } else if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
-  // Extract digits and run Luhn check
-  const digits = tin.replace(/\W/, '').split('').map(a => parseInt(a, 10));
-  return luhnCheck(digits);
+  return algorithms.luhnCheck(tin.replace(/\W/, ''));
 }
 
 // Locale lookup objects
@@ -1209,7 +1106,7 @@ sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
  */
 export default function isTaxID(str, locale = 'en-US') {
   assertString(str);
-  // Copy TIN to avoid mutation if sanitized
+  // Copy TIN to avoid replacement if sanitized
   let strcopy = str.slice(0);
 
   if (locale in taxIdFormat) {
