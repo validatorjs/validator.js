@@ -9302,6 +9302,21 @@ describe('Validators', () => {
   it('should be valid license plate', () => {
     test({
       validator: 'isLicensePlate',
+      args: ['de-LI'],
+      valid: [
+        'FL 1',
+        'FL 99999',
+        'FL 1337',
+      ],
+      invalid: [
+        '',
+        'FL 999999',
+        'AB 12345',
+        'FL -1',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['de-DE'],
       valid: [
         'M A 1',
@@ -9320,12 +9335,19 @@ describe('Validators', () => {
         'FS AB 12',
         'FS AB 123',
         'FS AB 1234',
+        'FSAB1234',
+        'FS-AB-1234',
+        'FS AB 1234 H',
+        'FS AB 1234 E',
+        'FSAB1234E',
+        'FS-AB-1234-E',
       ],
       invalid: [
         'YY AB 123',
         'PAF AB 1234',
         'M ABC 123',
         'M AB 12345',
+        'FS AB 1234 A',
       ],
     });
   });
