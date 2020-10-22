@@ -9302,6 +9302,23 @@ describe('Validators', () => {
   it('should be valid license plate', () => {
     test({
       validator: 'isLicensePlate',
+      args: ['pt-PT'],
+      valid: [
+        'AA-12-34',
+        '12·34·AB',
+        '12·AB·34',
+        'AB 12 CD',
+        'AB12CD',
+      ],
+      invalid: [
+        '',
+        'notalicenseplate',
+        'A1-B2-C3',
+        'ABC-1-EF',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['de-LI'],
       valid: [
         'FL 1',
