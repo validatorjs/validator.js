@@ -1,0 +1,182 @@
+
+
+             <!--  <div class="main-user-border container-fluid mb-3 pb-2 text-center">
+                 for  shipping address
+                </div>
+             <form>
+                   <div class="form-group row">
+                        <label for="address" class="col-sm-3 col-form-label">address</label>
+                        <div class="col-sm-6">
+                        <textarea class="form-control" id="address" rows="2"  placeholder="address of residence"></textarea>
+                        </div>
+                  </div>
+                   <div class="form-group row">
+                          <label for="inputAddress2" class="col-sm-3 col-form-label">Address 2</label>
+                          <div class="col-sm-6">
+                          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio">
+                        </div>
+                  </div
+                  >
+                  <div class="form-group row">
+                    <label for="City" class="col-sm-3 col-form-label">City</label>
+                        <div class="col-sm-6">
+                          <input type="city" name="city" class="form-control" id="City" placeholder="City of residence">
+                        </div>
+                </div>
+     
+                 <div class="form-group row">
+                          <label for="SelectState" class="col-sm-3 col-form-label">Select State</label>
+                           <div class="col-sm-6">
+                          <select class="form-control" id="SelectState">
+                          
+                             <option selected>Choose...</option>
+                  <option  value="01">Andhra Pradesh</option>
+                  <option value="02">Arunachal Pradesh </option>
+                  <option value="03">Assam</option>
+                  <option value="04">Bihar </option>
+                  <option value="05">Chhattisgarh</option>
+                  <option value="06">Goa</option>
+                  <option value="07">Gujarat</option>
+                  <option value="08">Haryana</option>
+                  <option value="09">Himachal Pradesh</option>
+                  <option value="10">Jharkhand</option>
+                  <option value="11">Karnataka</option>
+                  <option value="12">Kerala</option>
+                  <option  value="13">Madhya Pradesh</option>
+                  <option value="14">Maharashtra</option>
+                  <option value="15">Manipur</option>
+                  <option value="16">Meghalaya</option>
+                  <option value="17">Mizoram</option>
+                  <option value="18">Nagaland</option>
+                  <option value="19">Odisha</option>
+                  <option value="20">Punjab</option>
+                  <option value="21">Rajasthan</option>
+                  <option value="22">Sikkim</option>
+                  <option value="23">Tamil Nadu</option>
+                  <option value="24">Telangana</option>
+                  <option value="25">Tripura</option>
+                  <option value="26">Uttarakhand</option>
+                  <option value="27">Uttar Pradesh</option>
+                  <option value="28">West Bengal</option>
+                          </select>
+                            </div>
+                 </div>
+                 <div class="form-group row">
+                        <label for="inputZip"  class="col-sm-3 col-form-label" >Zip</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control" id="inputZip">
+                      </div>
+                </div>
+             </form>   
+                                 
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+  bootstrap checkbox 
+ <div class="form-group row">
+        <div class="col-sm-3">Checkbox</div>
+        <div class="col-sm-7">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck1">
+            <label class="form-check-label" for="gridCheck1">
+              Example checkbox
+            </label>
+          </div>
+        </div>
+      </div> -->
+
+<!-- 
+                <div class="form-group row">
+                   
+                    <div class="col-sm-7">
+                      <div class="form-check">            
+                          <label class="col-sm-1 col-form-label" ></label>           
+                          <input class="form-check-input" type="checkbox" value="" id="termsandconditions" required>
+                          <label class="form-check-label" for="invalidCheck">
+                            Agree to terms and conditions
+                          </label>                     
+                        </div>
+                    </div>
+                </div>
+                
+ -->
+<!--       
+<div class="container main-div-form float-none ">
+   <div class="main-user-border container-fluid mb-3 pb-2 text-center">
+      user details - for shopping address
+    </div>
+                <div class="float-left w-50">
+                  <div class="main-user-border container-fluid mb-3 pb-2 text-center">
+      user details - for shopping address
+    </div>
+                        <form>
+                  <div class="form-group row">
+                      <label for="inputFirstname" class="col-sm-3 col-form-label">First name</label>
+                          <div class="col-sm-6">
+                            <input type="firstname" class="form-control" id="inputFirstname" placeholder="First name">
+                          </div>
+                  </div>
+                   <div class="form-group row">
+                    
+                      <label for="inputLastname" class="col-sm-3 col-form-label">Last name</label>
+                          <div class="col-sm-6">
+                            <input type="lastname" class="form-control" id="inputLastname" placeholder="Last name">
+                          </div>
+                  </div>
+      <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+          <div class="col-sm-7">
+            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+          </div>
+      </div>
+      <fieldset class="form-group">
+        <div class="row">
+          <legend class="col-form-label col-sm-3 pt-0">Radios</legend>
+          <div class="col-sm-7">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                <label class="form-check-label" for="gridRadios1">
+                  First radio
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                <label class="form-check-label" for="gridRadios2">
+                  Second radio
+                </label>
+              </div>
+            
+          </div>
+        </div>
+      </fieldset>
+     
+      <div class="form-group row">
+        <div class="col-sm-5">
+          <button type="submit" class="btn btn-primary">Sign in</button>
+        </div>
+      </div>
+                      </form>
+                </div> --><!-- /.float-left-div -->
