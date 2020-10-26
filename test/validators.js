@@ -9003,6 +9003,14 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'MY',
+        valid: [
+          '56000',
+          '12000',
+          '79502',
+        ],
+      },
+      {
         locale: 'PR',
         valid: [
           '00979',
@@ -9060,6 +9068,13 @@ describe('Validators', () => {
           'T1025',
           'T72170',
           '12140TH',
+        ],
+      },
+      {
+        locale: 'SG',
+        valid: [
+          '308215',
+          '546080',
         ],
       },
     ];
