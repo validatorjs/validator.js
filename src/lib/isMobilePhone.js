@@ -115,6 +115,7 @@ const phones = {
 
 // aliases
 phones['en-CA'] = phones['en-US'];
+phones['fr-CA'] = phones['en-CA'];
 phones['fr-BE'] = phones['nl-BE'];
 phones['zh-HK'] = phones['en-HK'];
 phones['zh-MO'] = phones['en-MO'];
