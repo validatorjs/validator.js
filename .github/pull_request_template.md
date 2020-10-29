@@ -7,6 +7,6 @@ feat(validatorName): brief title of what has been done
 
 ## Checklist
 
-[:white_check_mark: ] PR contains only changes related; no stray files, etc.
+[] PR contains only changes related; no stray files, etc.
 - [ ] README updated (where applicable)
 - [ ] Tests written (where applicable)
