@@ -7,6 +7,6 @@ feat(validatorName): brief title of what has been done
 
 ## Checklist
 
-- [checked ] PR contains only changes related; no stray files, etc.
+- [## Checklist ] PR contains only changes related; no stray files, etc.
 - [ ] README updated (where applicable)
 - [ ] Tests written (where applicable)
