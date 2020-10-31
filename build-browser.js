@@ -6,7 +6,7 @@ import babelPresetEnv from '@babel/preset-env';
 import pkg from './package.json';
 
 rollup({
-  entry: 'src/index.js',
+  input: 'src/index.js',
   plugins: [
     babel({
       presets: [[babelPresetEnv, { modules: false }]],
@@ -15,18 +15,21 @@ rollup({
   ],
 }).then(bundle => (
   bundle.write({
-    dest: 'validator.js',
-    format: 'umd',
-    moduleName: pkg.name,
-    banner: (
-      `/*!\n${
-        String(fs.readFileSync('./LICENSE'))
-          .trim()
-          .split('\n')
-          .map(l => ` * ${l}`)
-          .join('\n')
-      }\n */`
-    ),
+    output: {
+      file: 'validator.js',
+      format: 'umd',
+      name: pkg.name,
+      indent: false,
+      banner: (
+        `/*!\n${
+          String(fs.readFileSync('./LICENSE'))
+            .trim()
+            .split('\n')
+            .map(l => ` * ${l}`)
+            .join('\n')
+        }\n */`
+      ),
+    },
   })
 )).catch((e) => {
   process.stderr.write(`${e.message}\n`);
