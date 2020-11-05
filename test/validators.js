@@ -9413,3 +9413,12 @@ describe('Validators', () => {
     });
   });
 });
+
+it('should validate string is subsequence of another string', () => {
+  test({
+    validator: 'isSubsequence',
+    args: ['dog'],
+    valid: ['ksdlopg', 'dsodcgs', 'dohgsk'],
+    invalid: ['sksdg', 'dsoh'],
+  });
+});

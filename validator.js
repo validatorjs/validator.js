@@ -3079,6 +3079,23 @@ function isSlug(str) {
   return charsetRegex.test(str);
 }
 
+function isSubsequence(a, b) {
+  var a_length = a.length;
+  var b_length = b.length;
+  var a_index = 0;
+  var b_index = 0;
+  assertString(a);
+  assertString(b);
+
+  for (a_index = 0; a_index < a_length && b_index < b_length; a_index += 1) {
+    if (a.charAt(a_index) === b.charAt(b_index)) {
+      b_index += 1;
+    }
+  }
+
+  return b_index === b_length;
+}
+
 var version = '13.1.17';
 var validator = {
   version: version,
@@ -3176,7 +3193,8 @@ var validator = {
   toString: toString,
   isSlug: isSlug,
   isTaxID: isTaxID,
-  isDate: isDate
+  isDate: isDate,
+  isSubsequence: isSubsequence
 };
 
 return validator;
