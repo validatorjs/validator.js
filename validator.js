@@ -46,8 +46,20 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
@@ -92,6 +104,10 @@ function _arrayLikeToArray(arr, len) {
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
 
   return arr2;
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function _nonIterableRest() {
@@ -185,12 +201,14 @@ function toDate(date) {
 
 var alpha = {
   'en-US': /^[A-Z]+$/i,
+  'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[А-Я]+$/i,
   'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[A-ZÆØÅ]+$/i,
   'de-DE': /^[A-ZÄÖÜß]+$/i,
   'el-GR': /^[Α-ώ]+$/i,
   'es-ES': /^[A-ZÁÉÍÑÓÚÜ]+$/i,
+  'fa-IR': /^[ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$/i,
   'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
   'it-IT': /^[A-ZÀÉÈÌÎÓÒÙ]+$/i,
   'nb-NO': /^[A-ZÆØÅ]+$/i,
@@ -205,15 +223,18 @@ var alpha = {
   'sr-RS@latin': /^[A-ZČĆŽŠĐ]+$/i,
   'sr-RS': /^[А-ЯЂЈЉЊЋЏ]+$/i,
   'sv-SE': /^[A-ZÅÄÖ]+$/i,
+  'th-TH': /^[ก-๐\s]+$/i,
   'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
+  'vi-VN': /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
-  'fa-IR': /^['آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی']+$/i
+  fa: /^['آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی']+$/i
 };
 var alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
+  'az-AZ': /^[0-9A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[0-9А-Я]+$/i,
   'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[0-9A-ZÆØÅ]+$/i,
@@ -234,16 +255,19 @@ var alphanumeric = {
   'sr-RS@latin': /^[0-9A-ZČĆŽŠĐ]+$/i,
   'sr-RS': /^[0-9А-ЯЂЈЉЊЋЏ]+$/i,
   'sv-SE': /^[0-9A-ZÅÄÖ]+$/i,
+  'th-TH': /^[ก-๙\s]+$/i,
   'tr-TR': /^[0-9A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
+  'vi-VN': /^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
-  'fa-IR': /^['0-9آابپتثجچهخدذرزژسشصضطظعغفقکگلمنوهی۱۲۳۴۵۶۷۸۹۰']+$/i
+  fa: /^['0-9آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی۱۲۳۴۵۶۷۸۹۰']+$/i
 };
 var decimal = {
   'en-US': '.',
-  ar: '٫'
+  ar: '٫',
+  fa: '٫'
 };
 var englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
@@ -262,20 +286,31 @@ for (var _locale, _i = 0; _i < arabicLocales.length; _i++) {
   alpha[_locale] = alpha.ar;
   alphanumeric[_locale] = alphanumeric.ar;
   decimal[_locale] = decimal.ar;
+}
+
+var farsiLocales = ['IR', 'AF'];
+
+for (var _locale2, _i2 = 0; _i2 < farsiLocales.length; _i2++) {
+  _locale2 = "fa-".concat(farsiLocales[_i2]);
+  alpha[_locale2] = alpha.fa;
+  alphanumeric[_locale2] = alphanumeric.fa;
+  decimal[_locale2] = decimal.fa;
 } // Source: https://en.wikipedia.org/wiki/Decimal_mark
 
 
 var dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
-var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA'];
+var commaDecimal = ['bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN'];
 
-for (var _i2 = 0; _i2 < dotDecimal.length; _i2++) {
-  decimal[dotDecimal[_i2]] = decimal['en-US'];
+for (var _i3 = 0; _i3 < dotDecimal.length; _i3++) {
+  decimal[dotDecimal[_i3]] = decimal['en-US'];
 }
 
-for (var _i3 = 0; _i3 < commaDecimal.length; _i3++) {
-  decimal[commaDecimal[_i3]] = ',';
-}
+for (var _i4 = 0; _i4 < commaDecimal.length; _i4++) {
+  decimal[commaDecimal[_i4]] = ',';
+} // see #1455
 
+
+alpha['fa-IR'] = alpha['fa-IR'];
 alpha['pt-BR'] = alpha['pt-PT'];
 alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 decimal['pt-BR'] = decimal['pt-PT']; // see #862
@@ -338,21 +373,6 @@ function toString$1(input) {
   return String(input);
 }
 
-function contains(str, elem) {
-  assertString(str);
-  return str.indexOf(toString$1(elem)) >= 0;
-}
-
-function matches(str, pattern, modifiers) {
-  assertString(str);
-
-  if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
-    pattern = new RegExp(pattern, modifiers);
-  }
-
-  return pattern.test(str);
-}
-
 function merge() {
   var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var defaults = arguments.length > 1 ? arguments[1] : undefined;
@@ -364,6 +384,25 @@ function merge() {
   }
 
   return obj;
+}
+
+var defaulContainsOptions = {
+  ignoreCase: false
+};
+function contains(str, elem, options) {
+  assertString(str);
+  options = merge(options, defaulContainsOptions);
+  return options.ignoreCase ? str.toLowerCase().indexOf(toString$1(elem).toLowerCase()) >= 0 : str.indexOf(toString$1(elem)) >= 0;
+}
+
+function matches(str, pattern, modifiers) {
+  assertString(str);
+
+  if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
+    pattern = new RegExp(pattern, modifiers);
+  }
+
+  return pattern.test(str);
 }
 
 /* eslint-disable prefer-rest-params */
@@ -573,7 +612,8 @@ var default_email_options = {
   allow_display_name: false,
   require_display_name: false,
   allow_utf8_local_part: true,
-  require_tld: true
+  require_tld: true,
+  ignore_max_length: false
 };
 /* eslint-disable max-len */
 
@@ -692,11 +732,11 @@ function isEmail(str, options) {
     }
   }
 
-  if (!isByteLength(user, {
+  if (options.ignore_max_length === false && (!isByteLength(user, {
     max: 64
   }) || !isByteLength(domain, {
     max: 254
-  })) {
+  }))) {
     return false;
   }
 
@@ -744,7 +784,9 @@ require_protocol - if set as true isURL will return false if protocol is not pre
 require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option
 protocols - valid protocols can be modified with this option
 require_host - if set as false isURL will not check if host is present in the URL
+require_port - if set as true isURL will check if port is present in the URL
 allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
+validate_length - if set as false isURL will skip string length validation (IE maximum is 2083)
 
 */
 
@@ -753,10 +795,12 @@ var default_url_options = {
   require_tld: true,
   require_protocol: false,
   require_host: true,
+  require_port: false,
   require_valid_protocol: true,
   allow_underscores: false,
   allow_trailing_dot: false,
-  allow_protocol_relative_urls: false
+  allow_protocol_relative_urls: false,
+  validate_length: true
 };
 var wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
 
@@ -779,7 +823,7 @@ function checkHost(host, matches) {
 function isURL(url, options) {
   assertString(url);
 
-  if (!url || url.length >= 2083 || /[\s<>]/.test(url)) {
+  if (!url || /[\s<>]/.test(url)) {
     return false;
   }
 
@@ -788,6 +832,11 @@ function isURL(url, options) {
   }
 
   options = merge(options, default_url_options);
+
+  if (options.validate_length && url.length >= 2083) {
+    return false;
+  }
+
   var protocol, auth, host, hostname, port, port_str, split, ipv6;
   split = url.split('#');
   url = split.shift();
@@ -833,7 +882,7 @@ function isURL(url, options) {
 
     auth = split.shift();
 
-    if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
+    if (auth.indexOf(':') === -1 || auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
       return false;
     }
   }
@@ -862,6 +911,8 @@ function isURL(url, options) {
     if (!/^[0-9]+$/.test(port_str) || port <= 0 || port > 65535) {
       return false;
     }
+  } else if (options.require_port) {
+    return false;
   }
 
   if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
@@ -917,6 +968,12 @@ function isIPRange(str) {
   return isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0;
 }
 
+var default_date_options = {
+  format: 'YYYY/MM/DD',
+  delimiters: ['/', '-'],
+  strictMode: false
+};
+
 function isValidFormat(format) {
   return /(^(y{4}|y{2})[\/-](m{1,2})[\/-](d{1,2})$)|(^(m{1,2})[\/-](d{1,2})[\/-]((y{4}|y{2})$))|(^(d{1,2})[\/-](m{1,2})[\/-]((y{4}|y{2})$))/gi.test(format);
 }
@@ -932,13 +989,25 @@ function zip(date, format) {
   return zippedArr;
 }
 
-function isDate(input) {
-  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY/MM/DD';
+function isDate(input, options) {
+  if (typeof options === 'string') {
+    // Allow backward compatbility for old format isDate(input [, format])
+    options = merge({
+      format: options
+    }, default_date_options);
+  } else {
+    options = merge(options, default_date_options);
+  }
 
-  if (typeof input === 'string' && isValidFormat(format)) {
-    var splitter = /[-/]/,
-        dateAndFormat = zip(input.split(splitter), format.toLowerCase().split(splitter)),
-        dateObj = {};
+  if (typeof input === 'string' && isValidFormat(options.format)) {
+    var formatDelimiter = options.delimiters.find(function (delimiter) {
+      return options.format.indexOf(delimiter) !== -1;
+    });
+    var dateDelimiter = options.strictMode ? formatDelimiter : options.delimiters.find(function (delimiter) {
+      return input.indexOf(delimiter) !== -1;
+    });
+    var dateAndFormat = zip(input.split(dateDelimiter), options.format.toLowerCase().split(formatDelimiter));
+    var dateObj = {};
 
     var _iterator = _createForOfIteratorHelper(dateAndFormat),
         _step;
@@ -964,7 +1033,11 @@ function isDate(input) {
     return new Date("".concat(dateObj.m, "/").concat(dateObj.d, "/").concat(dateObj.y)).getDate() === +dateObj.d;
   }
 
-  return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
+  if (!options.strictMode) {
+    return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
+  }
+
+  return false;
 }
 
 function isBoolean(str) {
@@ -1020,7 +1093,6 @@ function isAlphanumeric(str) {
 }
 var locales$2 = Object.keys(alphanumeric);
 
-var numeric = /^[+-]?([0-9]*[.])?[0-9]+$/;
 var numericNoSymbols = /^[0-9]+$/;
 function isNumeric(str, options) {
   assertString(str);
@@ -1029,7 +1101,7 @@ function isNumeric(str, options) {
     return numericNoSymbols.test(str);
   }
 
-  return numeric.test(str);
+  return new RegExp("^[+-]?([0-9]*[".concat((options || {}).locale ? decimal[options.locale] : '.', "])?[0-9]+$")).test(str);
 }
 
 /**
@@ -1052,6 +1124,8 @@ var passportRegexByCountryCode = {
   // BELGIUM
   BG: /^\d{9}$/,
   // BULGARIA
+  BY: /^[A-Z]{2}\d{7}$/,
+  // BELARUS
   CA: /^[A-Z]{2}\d{6}$/,
   // CANADA
   CH: /^[A-Z]\d{7}$/,
@@ -1112,6 +1186,8 @@ var passportRegexByCountryCode = {
   // PORTUGAL
   RO: /^\d{8,9}$/,
   // ROMANIA
+  RU: /^\d{2}\d{2}\d{6}$/,
+  // RUSSIAN FEDERATION
   SE: /^\d{8}$/,
   // SWEDEN
   SL: /^(P)[A-Z]\d{7}$/,
@@ -1175,6 +1251,53 @@ function isUppercase(str) {
   return str === str.toUpperCase();
 }
 
+var imeiRegexWithoutHypens = /^[0-9]{15}$/;
+var imeiRegexWithHypens = /^\d{2}-\d{6}-\d{6}-\d{1}$/;
+function isIMEI(str, options) {
+  assertString(str);
+  options = options || {}; // default regex for checking imei is the one without hyphens
+
+  var imeiRegex = imeiRegexWithoutHypens;
+
+  if (options.allow_hyphens) {
+    imeiRegex = imeiRegexWithHypens;
+  }
+
+  if (!imeiRegex.test(str)) {
+    return false;
+  }
+
+  str = str.replace(/-/g, '');
+  var sum = 0,
+      mul = 2,
+      l = 14;
+
+  for (var i = 0; i < l; i++) {
+    var digit = str.substring(l - i - 1, l - i);
+    var tp = parseInt(digit, 10) * mul;
+
+    if (tp >= 10) {
+      sum += tp % 10 + 1;
+    } else {
+      sum += tp;
+    }
+
+    if (mul === 1) {
+      mul += 1;
+    } else {
+      mul -= 1;
+    }
+  }
+
+  var chk = (10 - sum % 10) % 10;
+
+  if (chk !== parseInt(str.substring(14, 15), 10)) {
+    return false;
+  }
+
+  return true;
+}
+
 /* eslint-disable no-control-regex */
 
 var ascii = /^[\x00-\x7F]+$/;
@@ -1220,8 +1343,7 @@ function isMultibyte(str) {
  * @param {string} flags
  * @return {object} - RegExp object
  */
-function multilineRegexp(parts) {
-  var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+function multilineRegexp(parts, flags) {
   var regexpAsStringLiteral = parts.join('');
   return new RegExp(regexpAsStringLiteral, flags);
 }
@@ -1233,7 +1355,7 @@ function multilineRegexp(parts) {
  * Reference: https://semver.org/
  */
 
-var semanticVersioningRegex = multilineRegexp(['^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)', '(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))', '?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$']);
+var semanticVersioningRegex = multilineRegexp(['^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)', '(?:-((?:0|[1-9]\\d*|\\d*[a-z-][0-9a-z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-z-][0-9a-z-]*))*))', '?(?:\\+([0-9a-z-]+(?:\\.[0-9a-z-]+)*))?$'], 'i');
 function isSemVer(str) {
   assertString(str);
   return semanticVersioningRegex.test(str);
@@ -1350,6 +1472,7 @@ var ibanRegexThroughCountryCode = {
   DK: /^(DK[0-9]{2})\d{14}$/,
   DO: /^(DO[0-9]{2})[A-Z]{4}\d{20}$/,
   EE: /^(EE[0-9]{2})\d{16}$/,
+  EG: /^(EG[0-9]{2})\d{25}$/,
   ES: /^(ES[0-9]{2})\d{20}$/,
   FI: /^(FI[0-9]{2})\d{14}$/,
   FO: /^(FO[0-9]{2})\d{14}$/,
@@ -1399,6 +1522,7 @@ var ibanRegexThroughCountryCode = {
   SI: /^(SI[0-9]{2})\d{15}$/,
   SK: /^(SK[0-9]{2})\d{20}$/,
   SM: /^(SM[0-9]{2})[A-Z]{1}\d{10}[A-Z0-9]{12}$/,
+  SV: /^(SV[0-9]{2})[A-Z0-9]{4}\d{20}$/,
   TL: /^(TL[0-9]{2})\d{19}$/,
   TN: /^(TN[0-9]{2})\d{20}$/,
   TR: /^(TR[0-9]{2})\d{5}[A-Z0-9]{17}$/,
@@ -1492,7 +1616,7 @@ function isHash(str, algorithm) {
 }
 
 var notBase64 = /[^A-Z0-9+\/=]/i;
-var urlSafeBase64 = /^[A-Z0-9_\-]+$/i;
+var urlSafeBase64 = /^[A-Z0-9_\-]*$/i;
 var defaultBase64Options = {
   urlSafe: false
 };
@@ -1505,7 +1629,7 @@ function isBase64(str, options) {
     return urlSafeBase64.test(str);
   }
 
-  if (!len || len % 4 !== 0 || notBase64.test(str)) {
+  if (len % 4 !== 0 || notBase64.test(str)) {
     return false;
   }
 
@@ -1724,6 +1848,12 @@ var validators = {
     });
     return c === 0;
   },
+  IT: function IT(str) {
+    if (str.length !== 9) return false;
+    if (str === 'CA00000AA') return false; // https://it.wikipedia.org/wiki/Carta_d%27identit%C3%A0_elettronica_italiana
+
+    return str.search(/C[A-Z][0-9]{5}[A-Z]{2}/i) > -1;
+  },
   NO: function NO(str) {
     var sanitized = str.trim();
     if (isNaN(Number(sanitized))) return false;
@@ -1733,11 +1863,6 @@ var validators = {
     var f = sanitized.split('').map(Number);
     var k1 = (11 - (3 * f[0] + 7 * f[1] + 6 * f[2] + 1 * f[3] + 8 * f[4] + 9 * f[5] + 4 * f[6] + 5 * f[7] + 2 * f[8]) % 11) % 11;
     var k2 = (11 - (5 * f[0] + 4 * f[1] + 3 * f[2] + 2 * f[3] + 7 * f[4] + 6 * f[5] + 5 * f[6] + 4 * f[7] + 3 * f[8] + 2 * k1) % 11) % 11;
-
-    if (k1 === 11) {
-      k1 = 0;
-    }
-
     if (k1 !== f[9] || k2 !== f[10]) return false;
     return true;
   },
@@ -1774,56 +1899,50 @@ var validators = {
     return true;
   },
   'zh-CN': function zhCN(str) {
-    var provinceAndCitys = {
-      11: '北京',
-      12: '天津',
-      13: '河北',
-      14: '山西',
-      15: '内蒙古',
-      21: '辽宁',
-      22: '吉林',
-      23: '黑龙江',
-      31: '上海',
-      32: '江苏',
-      33: '浙江',
-      34: '安徽',
-      35: '福建',
-      36: '江西',
-      37: '山东',
-      41: '河南',
-      42: '湖北',
-      43: '湖南',
-      44: '广东',
-      45: '广西',
-      46: '海南',
-      50: '重庆',
-      51: '四川',
-      52: '贵州',
-      53: '云南',
-      54: '西藏',
-      61: '陕西',
-      62: '甘肃',
-      63: '青海',
-      64: '宁夏',
-      65: '新疆',
-      71: '台湾',
-      81: '香港',
-      82: '澳门',
-      91: '国外'
-    };
+    var provincesAndCities = ['11', // 北京
+    '12', // 天津
+    '13', // 河北
+    '14', // 山西
+    '15', // 内蒙古
+    '21', // 辽宁
+    '22', // 吉林
+    '23', // 黑龙江
+    '31', // 上海
+    '32', // 江苏
+    '33', // 浙江
+    '34', // 安徽
+    '35', // 福建
+    '36', // 江西
+    '37', // 山东
+    '41', // 河南
+    '42', // 湖北
+    '43', // 湖南
+    '44', // 广东
+    '45', // 广西
+    '46', // 海南
+    '50', // 重庆
+    '51', // 四川
+    '52', // 贵州
+    '53', // 云南
+    '54', // 西藏
+    '61', // 陕西
+    '62', // 甘肃
+    '63', // 青海
+    '64', // 宁夏
+    '65', // 新疆
+    '71', // 台湾
+    '81', // 香港
+    '82', // 澳门
+    '91' // 国外
+    ];
     var powers = ['7', '9', '10', '5', '8', '4', '2', '1', '6', '3', '7', '9', '10', '5', '8', '4', '2'];
     var parityBit = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
 
     var checkAddressCode = function checkAddressCode(addressCode) {
-      var check = /^[1-9]\d{5}$/.test(addressCode);
-      if (!check) return false; // eslint-disable-next-line radix
-
-      return !!provinceAndCitys[Number.parseInt(addressCode.substring(0, 2))];
+      return provincesAndCities.includes(addressCode);
     };
 
     var checkBirthDayCode = function checkBirthDayCode(birDayCode) {
-      var check = /^[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))$/.test(birDayCode);
-      if (!check) return false;
       var yyyy = parseInt(birDayCode.substring(0, 4), 10);
       var mm = parseInt(birDayCode.substring(4, 6), 10);
       var dd = parseInt(birDayCode.substring(6), 10);
@@ -1843,8 +1962,7 @@ var validators = {
       var power = 0;
 
       for (var i = 0; i < 17; i++) {
-        // eslint-disable-next-line radix
-        power += parseInt(id17.charAt(i), 10) * Number.parseInt(powers[i]);
+        power += parseInt(id17.charAt(i), 10) * parseInt(powers[i], 10);
       }
 
       var mod = power % 11;
@@ -1858,19 +1976,19 @@ var validators = {
     var check15IdCardNo = function check15IdCardNo(idCardNo) {
       var check = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(idCardNo);
       if (!check) return false;
-      var addressCode = idCardNo.substring(0, 6);
+      var addressCode = idCardNo.substring(0, 2);
       check = checkAddressCode(addressCode);
       if (!check) return false;
       var birDayCode = "19".concat(idCardNo.substring(6, 12));
       check = checkBirthDayCode(birDayCode);
       if (!check) return false;
-      return checkParityBit(idCardNo);
+      return true;
     };
 
     var check18IdCardNo = function check18IdCardNo(idCardNo) {
       var check = /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}(\d|x|X)$/.test(idCardNo);
       if (!check) return false;
-      var addressCode = idCardNo.substring(0, 6);
+      var addressCode = idCardNo.substring(0, 2);
       check = checkAddressCode(addressCode);
       if (!check) return false;
       var birDayCode = idCardNo.substring(6, 14);
@@ -1885,11 +2003,9 @@ var validators = {
 
       if (idCardNo.length === 15) {
         return check15IdCardNo(idCardNo);
-      } else if (idCardNo.length === 18) {
-        return check18IdCardNo(idCardNo);
       }
 
-      return false;
+      return check18IdCardNo(idCardNo);
     };
 
     return checkIdCardNo(str);
@@ -2142,6 +2258,94 @@ function isISSN(str) {
   return checksum % 11 === 0;
 }
 
+/**
+ * en-US TIN Validation
+ *
+ * An Employer Identification Number (EIN), also known as a Federal Tax Identification Number,
+ *  is used to identify a business entity.
+ *
+ * NOTES:
+ *  - Prefix 47 is being reserved for future use
+ *  - Prefixes 26, 27, 45, 46 and 47 were previously assigned by the Philadelphia campus.
+ *
+ * See `http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes`
+ * for more information.
+ */
+// Valid US IRS campus prefixes
+
+var enUsCampusPrefix = {
+  andover: ['10', '12'],
+  atlanta: ['60', '67'],
+  austin: ['50', '53'],
+  brookhaven: ['01', '02', '03', '04', '05', '06', '11', '13', '14', '16', '21', '22', '23', '25', '34', '51', '52', '54', '55', '56', '57', '58', '59', '65'],
+  cincinnati: ['30', '32', '35', '36', '37', '38', '61'],
+  fresno: ['15', '24'],
+  internet: ['20', '26', '27', '45', '46', '47'],
+  kansas: ['40', '44'],
+  memphis: ['94', '95'],
+  ogden: ['80', '90'],
+  philadelphia: ['33', '39', '41', '42', '43', '46', '48', '62', '63', '64', '66', '68', '71', '72', '73', '74', '75', '76', '77', '81', '82', '83', '84', '85', '86', '87', '88', '91', '92', '93', '98', '99'],
+  sba: ['31']
+}; // Return an array of all US IRS campus prefixes
+
+function enUsGetPrefixes() {
+  var prefixes = [];
+
+  for (var location in enUsCampusPrefix) {
+    // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
+    // istanbul ignore else
+    if (enUsCampusPrefix.hasOwnProperty(location)) {
+      prefixes.push.apply(prefixes, _toConsumableArray(enUsCampusPrefix[location]));
+    }
+  }
+
+  return prefixes;
+}
+/*
+ * en-US validation function
+ * Verify that the TIN starts with a valid IRS campus prefix
+ */
+
+
+function enUsCheck(tin) {
+  return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
+} // tax id regex formats for various locales
+
+
+var taxIdFormat = {
+  'en-US': /^\d{2}[- ]{0,1}\d{7}$/
+}; // Algorithmic tax id check functions for various locales
+
+var taxIdCheck = {
+  'en-US': enUsCheck
+};
+/*
+ * Validator function
+ * Return true if the passed string is a valid tax identification number
+ * for the specified locale.
+ * Throw an error exception if the locale is not supported.
+ */
+
+function isTaxID(str) {
+  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
+  assertString(str);
+
+  if (locale in taxIdFormat) {
+    if (!taxIdFormat[locale].test(str)) {
+      return false;
+    }
+
+    if (locale in taxIdCheck) {
+      return taxIdCheck[locale](str);
+    } // Fallthrough; not all locales have algorithmic checks
+
+
+    return true;
+  }
+
+  throw new Error("Invalid locale '".concat(locale, "'"));
+}
+
 /* eslint-disable max-len */
 
 var phones = {
@@ -2149,6 +2353,7 @@ var phones = {
   'ar-AE': /^((\+?971)|0)?5[024568]\d{7}$/,
   'ar-BH': /^(\+?973)?(3|6)\d{7}$/,
   'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
+  'ar-LB': /^(\+?961)?((3|81)\d{6}|7\d{7})$/,
   'ar-EG': /^((\+?20)|0)?1[0125]\d{8}$/,
   'ar-IQ': /^(\+?964|0)?7[0-9]\d{8}$/,
   'ar-JO': /^(\+?962|0)?7[789]\d{7}$/,
@@ -2157,14 +2362,18 @@ var phones = {
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
+  'az-AZ': /^(\+994|0)(5[015]|7[07]|99)\d{7}$/,
+  'bs-BA': /^((((\+|00)3876)|06))((([0-3]|[5-6])\d{6})|(4\d{7}))$/,
   'be-BY': /^(\+?375)?(24|25|29|33|44)\d{7}$/,
   'bg-BG': /^(\+?359|0)?8[789]\d{7}$/,
   'bn-BD': /^(\+?880|0)1[13456789][0-9]{8}$/,
+  'ca-AD': /^(\+376)?[346]\d{5}$/,
   'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
-  'de-DE': /^(\+49)?0?1(5[0-25-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
+  'de-DE': /^(\+49)?0?[1|3]([0|5][0-45-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
   'de-AT': /^(\+43|0)\d{1,4}\d{3,12}$/,
   'de-CH': /^(\+41|0)(7[5-9])\d{1,7}$/,
+  'de-LU': /^(\+352)?((6\d1)\d{6})$/,
   'el-GR': /^(\+?30|0)?(69\d{8})$/,
   'en-AU': /^(\+?61|0)4\d{8}$/,
   'en-GB': /^(\+?44|0)7\d{9}$/,
@@ -2180,8 +2389,9 @@ var phones = {
   'en-NG': /^(\+?234|0)?[789]\d{9}$/,
   'en-NZ': /^(\+?64|0)[28]\d{7,9}$/,
   'en-PK': /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/,
+  'en-PH': /^(09|\+639)\d{9}$/,
   'en-RW': /^(\+?250|0)?[7]\d{8}$/,
-  'en-SG': /^(\+65)?[89]\d{7}$/,
+  'en-SG': /^(\+65)?[689]\d{7}$/,
   'en-SL': /^(?:0|94|\+94)?(7(0|1|2|5|6|7|8)( |-)?\d)\d{6}$/,
   'en-TZ': /^(\+?255|0)?[67]\d{8}$/,
   'en-UG': /^(\+?256|0)?[7]\d{8}$/,
@@ -2189,10 +2399,16 @@ var phones = {
   'en-ZA': /^(\+?27|0)\d{9}$/,
   'en-ZM': /^(\+?26)?09[567]\d{7}$/,
   'en-ZW': /^(\+263)[0-9]{9}$/,
+  'es-AR': /^\+?549(11|[2368]\d)\d{8}$/,
+  'es-BO': /^(\+?591)?(6|7)\d{7}$/,
+  'es-CO': /^(\+?57)?([1-8]{1}|3[0-9]{2})?[2-9]{1}\d{6}$/,
   'es-CL': /^(\+?56|0)[2-9]\d{1}\d{7}$/,
   'es-CR': /^(\+506)?[2-8]\d{7}$/,
+  'es-DO': /^(\+?1)?8[024]9\d{7}$/,
+  'es-HN': /^(\+?504)?[9|8]\d{7}$/,
   'es-EC': /^(\+?593|0)([2-7]|9[2-9])\d{7}$/,
-  'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
+  'es-ES': /^(\+?34)?[6|7]\d{8}$/,
+  'es-PE': /^(\+?51)?9\d{8}$/,
   'es-MX': /^(\+?52)?(1|01)?\d{10,11}$/,
   'es-PA': /^(\+?507)\d{7,8}$/,
   'es-PY': /^(\+?595|0)9[9876]\d{7}$/,
@@ -2211,7 +2427,9 @@ var phones = {
   'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
   'id-ID': /^(\+?62|0)8(1[123456789]|2[1238]|3[1238]|5[12356789]|7[78]|9[56789]|8[123456789])([\s?|\d]{5,11})$/,
   'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
+  'it-SM': /^((\+378)|(0549)|(\+390549)|(\+3780549))?6\d{5,9}$/,
   'ja-JP': /^(\+81[ \-]?(\(0\))?|0)[6789]0[ \-]?\d{4}[ \-]?\d{4}$/,
+  'ka-GE': /^(\+?995)?(5|79)\d{7}$/,
   'kk-KZ': /^(\+?7|8)?7\d{9}$/,
   'kl-GL': /^(\+?299)?\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'ko-KR': /^((\+?82)[ \-]?)?0?1([0|1|6|7|8|9]{1})[ \-]?\d{3,4}[ \-]?\d{4}$/,
@@ -2223,19 +2441,21 @@ var phones = {
   'nl-NL': /^(((\+|00)?31\(0\))|((\+|00)?31)|0)6{1}\d{8}$/,
   'nn-NO': /^(\+?47)?[49]\d{7}$/,
   'pl-PL': /^(\+?48)? ?[5-8]\d ?\d{3} ?\d{2} ?\d{2}$/,
-  'pt-BR': /(?=^(\+?5{2}\-?|0)[1-9]{2}\-?\d{4}\-?\d{4}$)(^(\+?5{2}\-?|0)[1-9]{2}\-?[6-9]{1}\d{3}\-?\d{4}$)|(^(\+?5{2}\-?|0)[1-9]{2}\-?9[6-9]{1}\d{3}\-?\d{4}$)/,
+  'pt-BR': /^((\+?55\ ?[1-9]{2}\ ?)|(\+?55\ ?\([1-9]{2}\)\ ?)|(0[1-9]{2}\ ?)|(\([1-9]{2}\)\ ?)|([1-9]{2}\ ?))((\d{4}\-?\d{4})|(9[2-9]{1}\d{3}\-?\d{4}))$/,
   'pt-PT': /^(\+?351)?9[1236]\d{7}$/,
   'ro-RO': /^(\+?4?0)\s?7\d{2}(\/|\s|\.|\-)?\d{3}(\s|\.|\-)?\d{3}$/,
   'ru-RU': /^(\+?7|8)?9\d{9}$/,
   'sl-SI': /^(\+386\s?|0)(\d{1}\s?\d{3}\s?\d{2}\s?\d{2}|\d{2}\s?\d{3}\s?\d{3})$/,
   'sk-SK': /^(\+?421)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
+  'sq-AL': /^(\+355|0)6[789]\d{6}$/,
   'sr-RS': /^(\+3816|06)[- \d]{5,9}$/,
   'sv-SE': /^(\+?46|0)[\s\-]?7[\s\-]?[02369]([\s\-]?\d){7}$/,
   'th-TH': /^(\+66|66|0)\d{9}$/,
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
+  'uz-UZ': /^(\+?998)?(6[125-79]|7[1-69]|88|9\d)\d{7}$/,
   'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
-  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[189])[0-9]{8}$/,
+  'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[012356789])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
 /* eslint-enable max-len */
@@ -2245,6 +2465,7 @@ phones['en-CA'] = phones['en-US'];
 phones['fr-BE'] = phones['nl-BE'];
 phones['zh-HK'] = phones['en-HK'];
 phones['zh-MO'] = phones['en-MO'];
+phones['ga-IE'] = phones['en-IE'];
 function isMobilePhone(str, locale, options) {
   assertString(str);
 
@@ -2456,7 +2677,18 @@ function isBase32(str) {
   assertString(str);
   var len = str.length;
 
-  if (len > 0 && len % 8 === 0 && base32.test(str)) {
+  if (len % 8 === 0 && base32.test(str)) {
+    return true;
+  }
+
+  return false;
+}
+
+var base58Reg = /^[A-HJ-NP-Za-km-z1-9]*$/;
+function isBase58(str) {
+  assertString(str);
+
+  if (base58Reg.test(str)) {
     return true;
   }
 
@@ -2550,11 +2782,22 @@ function isMimeType(str) {
 
 var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
 var _long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
-function isLatLong(str) {
+var latDMS = /^(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/i;
+var longDMS = /^\s*([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/i;
+var defaultLatLongOptions = {
+  checkDMS: false
+};
+function isLatLong(str, options) {
   assertString(str);
+  options = merge(options, defaultLatLongOptions);
   if (!str.includes(',')) return false;
   var pair = str.split(',');
   if (pair[0].startsWith('(') && !pair[1].endsWith(')') || pair[1].endsWith(')') && !pair[0].startsWith('(')) return false;
+
+  if (options.checkDMS) {
+    return latDMS.test(pair[0]) && longDMS.test(pair[1]);
+  }
+
   return lat.test(pair[0]) && _long.test(pair[1]);
 }
 
@@ -2566,26 +2809,30 @@ var patterns = {
   AD: /^AD\d{3}$/,
   AT: fourDigit,
   AU: fourDigit,
+  AZ: /^AZ\d{4}$/,
   BE: fourDigit,
   BG: fourDigit,
   BR: /^\d{5}-\d{3}$/,
+  BY: /2[1-4]{1}\d{4}$/,
   CA: /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][\s\-]?\d[ABCEGHJ-NPRSTV-Z]\d$/i,
   CH: fourDigit,
   CZ: /^\d{3}\s?\d{2}$/,
   DE: fiveDigit,
   DK: fourDigit,
+  DO: fiveDigit,
   DZ: fiveDigit,
   EE: fiveDigit,
-  ES: fiveDigit,
+  ES: /^(5[0-2]{1}|[0-4]{1}\d{1})\d{3}$/,
   FI: fiveDigit,
   FR: /^\d{2}\s?\d{3}$/,
   GB: /^(gir\s?0aa|[a-z]{1,2}\d[\da-z]?\s?(\d[a-z]{2})?)$/i,
   GR: /^\d{3}\s?\d{2}$/,
   HR: /^([1-5]\d{4}$)/,
+  HT: /^HT\d{4}$/,
   HU: fourDigit,
   ID: fiveDigit,
   IE: /^(?!.*(?:o))[A-z]\d[\dw]\s\w{4}$/i,
-  IL: fiveDigit,
+  IL: /^(\d{5}|\d{7})$/,
   IN: /^((?!10|29|35|54|55|65|66|86|87|88|89)[1-9][0-9]{5})$/,
   IS: threeDigit,
   IT: fiveDigit,
@@ -2597,6 +2844,7 @@ var patterns = {
   LV: /^LV\-\d{4}$/,
   MX: fiveDigit,
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
+  MY: fiveDigit,
   NL: /^\d{4}\s?[a-z]{2}$/i,
   NO: fourDigit,
   NP: /^(10|21|22|32|33|34|44|45|56|57)\d{3}$|^(977)$/i,
@@ -2608,8 +2856,10 @@ var patterns = {
   RU: sixDigit,
   SA: fiveDigit,
   SE: /^[1-9]\d{2}\s?\d{2}$/,
+  SG: sixDigit,
   SI: fourDigit,
   SK: /^\d{3}\s?\d{2}$/,
+  TH: fiveDigit,
   TN: fourDigit,
   TW: /^\d{3}(\d{2})?$/,
   UA: fiveDigit,
@@ -2827,7 +3077,7 @@ function normalizeEmail(email, options) {
       parts[0] = parts[0].toLowerCase();
     }
 
-    parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preffered
+    parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preferred
   } else if (options.all_lowercase) {
     // Any other address
     parts[0] = parts[0].toLowerCase();
@@ -2836,13 +3086,13 @@ function normalizeEmail(email, options) {
   return parts.join('@');
 }
 
-var charsetRegex = /^[^-_](?!.*?[-_]{2,})([a-z0-9\\-]{1,}).*[^-_]$/;
+var charsetRegex = /^[^\s-_](?!.*?[-_]{2,})([a-z0-9-\\]{1,})[^\s]*[^-_\s]$/;
 function isSlug(str) {
   assertString(str);
   return charsetRegex.test(str);
 }
 
-var version = '13.0.0';
+var version = '13.1.17';
 var validator = {
   version: version,
   toDate: toDate,
@@ -2878,6 +3128,7 @@ var validator = {
   isSemVer: isSemVer,
   isSurrogatePair: isSurrogatePair,
   isInt: isInt,
+  isIMEI: isIMEI,
   isFloat: isFloat,
   isFloatLocales: locales,
   isDecimal: isDecimal,
@@ -2919,6 +3170,7 @@ var validator = {
   isISO31661Alpha2: isISO31661Alpha2,
   isISO31661Alpha3: isISO31661Alpha3,
   isBase32: isBase32,
+  isBase58: isBase58,
   isBase64: isBase64,
   isDataURI: isDataURI,
   isMagnetURI: isMagnetURI,
@@ -2936,6 +3188,7 @@ var validator = {
   normalizeEmail: normalizeEmail,
   toString: toString,
   isSlug: isSlug,
+  isTaxID: isTaxID,
   isDate: isDate
 };
 

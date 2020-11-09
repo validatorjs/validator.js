@@ -53,6 +53,8 @@ var _isLowercase = _interopRequireDefault(require("./lib/isLowercase"));
 
 var _isUppercase = _interopRequireDefault(require("./lib/isUppercase"));
 
+var _isIMEI = _interopRequireDefault(require("./lib/isIMEI"));
+
 var _isAscii = _interopRequireDefault(require("./lib/isAscii"));
 
 var _isFullWidth = _interopRequireDefault(require("./lib/isFullWidth"));
@@ -127,6 +129,8 @@ var _isISBN = _interopRequireDefault(require("./lib/isISBN"));
 
 var _isISSN = _interopRequireDefault(require("./lib/isISSN"));
 
+var _isTaxID = _interopRequireDefault(require("./lib/isTaxID"));
+
 var _isMobilePhone = _interopRequireWildcard(require("./lib/isMobilePhone"));
 
 var _isEthereumAddress = _interopRequireDefault(require("./lib/isEthereumAddress"));
@@ -145,7 +149,9 @@ var _isISO31661Alpha2 = _interopRequireDefault(require("./lib/isISO31661Alpha3")
 
 var _isBase = _interopRequireDefault(require("./lib/isBase32"));
 
-var _isBase2 = _interopRequireDefault(require("./lib/isBase64"));
+var _isBase2 = _interopRequireDefault(require("./lib/isBase58"));
+
+var _isBase3 = _interopRequireDefault(require("./lib/isBase64"));
 
 var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
@@ -183,11 +189,9 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '13.0.0';
+var version = '13.1.17';
 var validator = {
   version: version,
   toDate: _toDate.default,
@@ -223,6 +227,7 @@ var validator = {
   isSemVer: _isSemVer.default,
   isSurrogatePair: _isSurrogatePair.default,
   isInt: _isInt.default,
+  isIMEI: _isIMEI.default,
   isFloat: _isFloat.default,
   isFloatLocales: _isFloat.locales,
   isDecimal: _isDecimal.default,
@@ -264,7 +269,8 @@ var validator = {
   isISO31661Alpha2: _isISO31661Alpha.default,
   isISO31661Alpha3: _isISO31661Alpha2.default,
   isBase32: _isBase.default,
-  isBase64: _isBase2.default,
+  isBase58: _isBase2.default,
+  isBase64: _isBase3.default,
   isDataURI: _isDataURI.default,
   isMagnetURI: _isMagnetURI.default,
   isMimeType: _isMimeType.default,
@@ -281,6 +287,7 @@ var validator = {
   normalizeEmail: _normalizeEmail.default,
   toString: toString,
   isSlug: _isSlug.default,
+  isTaxID: _isTaxID.default,
   isDate: _isDate.default
 };
 var _default = validator;
