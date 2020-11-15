@@ -954,6 +954,45 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate alpha string with ignored characters', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: '- /' }], // ignore [space-/]
+      valid: [
+        'en-US',
+        'this is a valid alpha string',
+        'us/usa',
+      ],
+      invalid: [
+        '1. this is not a valid alpha string',
+        'this$is also not a valid.alpha string',
+        'this is also not a valid alpha string.',
+      ],
+    });
+
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: /[\s/-]/g }], // ignore [space -]
+      valid: [
+        'en-US',
+        'this is a valid alpha string',
+      ],
+      invalid: [
+        '1. this is not a valid alpha string',
+        'this$is also not a valid.alpha string',
+        'this is also not a valid alpha string.',
+      ],
+    });
+
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: 1234 }], // invalid ignore matcher
+      error: [
+        'alpha',
+      ],
+    });
+  });
+
   it('should validate Azerbaijani alpha strings', () => {
     test({
       validator: 'isAlpha',
