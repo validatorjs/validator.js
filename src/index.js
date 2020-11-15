@@ -207,18 +207,21 @@ const validator = {
   escape,
   unescape,
   stripLow,
+  // TODO: - Remove whitelist in next major release
   /**
    * @deprecated Since version 13.1.18.
    * Will be removed in a future version. Use allowlist instead.
    */
   whitelist: allowlist,
   allowlist,
+  // TODO: - Remove blacklist in next major release
   /**
    * @deprecated Since version 13.1.18.
    * Will be removed in a future version. Use denylist instead.
    */
   blacklist: denylist,
   denylist,
+  // TODO: - Remove isWhitelisted in next major release
   /**
    * @deprecated Since version 13.1.18.
    * Will be removed in a future version. Use isAllowlisted instead.
