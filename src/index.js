@@ -110,7 +110,7 @@ import unescape from './lib/unescape';
 import stripLow from './lib/stripLow';
 import allowlist from './lib/allowlist';
 import denylist from './lib/denylist';
-import isWhitelisted from './lib/isWhitelisted';
+import isAllowlisted from './lib/isAllowlisted';
 
 import normalizeEmail from './lib/normalizeEmail';
 
@@ -219,7 +219,12 @@ const validator = {
    */
   blacklist: denylist,
   denylist,
-  isWhitelisted,
+  /**
+   * @deprecated Since version 13.1.18.
+   * Will be removed in a future version. Use isAllowlisted instead.
+   */
+  isWhitelisted: isAllowlisted,
+  isAllowlisted,
   normalizeEmail,
   toString,
   isSlug,
