@@ -138,10 +138,12 @@ export default function isURL(url, options) {
 
   host = host || ipv6;
 
-  if (options.host_whitelist && !checkHost(host, options.host_whitelist)) {
+  const allowlist = options.host_allowlist || options.host_whitelist;
+  if (allowlist && !checkHost(host, allowlist)) {
     return false;
   }
-  if (options.host_blacklist && checkHost(host, options.host_blacklist)) {
+  const denylist = options.host_denylist || options.host_blacklist;
+  if (denylist && checkHost(host, denylist)) {
     return false;
   }
 
