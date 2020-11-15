@@ -14,13 +14,13 @@ const default_decimal_options = {
   locale: 'en-US',
 };
 
-const blacklist = ['', '-', '+'];
+const denylist = ['', '-', '+'];
 
 export default function isDecimal(str, options) {
   assertString(str);
   options = merge(options, default_decimal_options);
   if (options.locale in decimal) {
-    return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
+    return !includes(denylist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
   }
   throw new Error(`Invalid locale '${options.locale}'`);
 }
