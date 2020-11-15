@@ -108,7 +108,7 @@ import trim from './lib/trim';
 import escape from './lib/escape';
 import unescape from './lib/unescape';
 import stripLow from './lib/stripLow';
-import whitelist from './lib/whitelist';
+import allowlist from './lib/allowlist';
 import denylist from './lib/denylist';
 import isWhitelisted from './lib/isWhitelisted';
 
@@ -207,7 +207,12 @@ const validator = {
   escape,
   unescape,
   stripLow,
-  whitelist,
+  /**
+   * @deprecated Since version 13.1.18.
+   * Will be removed in a future version. Use allowlist instead.
+   */
+  whitelist: allowlist,
+  allowlist,
   /**
    * @deprecated Since version 13.1.18.
    * Will be removed in a future version. Use denylist instead.
