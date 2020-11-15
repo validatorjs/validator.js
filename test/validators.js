@@ -295,6 +295,20 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate email addresses with blacklisted chars in  the name', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ blacklisted_chars: 'abc' }],
+      valid: [
+        'emil@gmail.com',
+      ],
+      invalid: [
+        'email@gmail.com',
+      ],
+    });
+  });
+
+
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
       validator: 'isEmail',
