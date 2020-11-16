@@ -295,10 +295,33 @@ describe('Validators', () => {
     });
   });
 
-  it('should not validate email addresses with blacklisted chars in  the name', () => {
+  it('should not validate email addresses with denylisted chars in the name', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ denylisted_chars: 'abc' }],
+      valid: [
+        'emil@gmail.com',
+      ],
+      invalid: [
+        'email@gmail.com',
+      ],
+    });
+
+    // TODO: remove deprecated tests
     test({
       validator: 'isEmail',
       args: [{ blacklisted_chars: 'abc' }],
+      valid: [
+        'emil@gmail.com',
+      ],
+      invalid: [
+        'email@gmail.com',
+      ],
+    });
+
+    test({
+      validator: 'isEmail',
+      args: [{ denylisted_chars: 'a', blacklisted_chars: 'aei' }],
       valid: [
         'emil@gmail.com',
       ],
