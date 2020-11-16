@@ -175,11 +175,11 @@ var _unescape = _interopRequireDefault(require("./lib/unescape"));
 
 var _stripLow = _interopRequireDefault(require("./lib/stripLow"));
 
-var _whitelist = _interopRequireDefault(require("./lib/whitelist"));
+var _allowlist = _interopRequireDefault(require("./lib/allowlist"));
 
-var _blacklist = _interopRequireDefault(require("./lib/blacklist"));
+var _denylist = _interopRequireDefault(require("./lib/denylist"));
 
-var _isWhitelisted = _interopRequireDefault(require("./lib/isWhitelisted"));
+var _isAllowlisted = _interopRequireDefault(require("./lib/isAllowlisted"));
 
 var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
@@ -281,9 +281,30 @@ var validator = {
   escape: _escape.default,
   unescape: _unescape.default,
   stripLow: _stripLow.default,
-  whitelist: _whitelist.default,
-  blacklist: _blacklist.default,
-  isWhitelisted: _isWhitelisted.default,
+  // TODO: - Remove whitelist in next major release
+
+  /**
+   * @deprecated Since version 13.1.18.
+   * Will be removed in a future version. Use allowlist instead.
+   */
+  whitelist: _allowlist.default,
+  allowlist: _allowlist.default,
+  // TODO: - Remove blacklist in next major release
+
+  /**
+   * @deprecated Since version 13.1.18.
+   * Will be removed in a future version. Use denylist instead.
+   */
+  blacklist: _denylist.default,
+  denylist: _denylist.default,
+  // TODO: - Remove isWhitelisted in next major release
+
+  /**
+   * @deprecated Since version 13.1.18.
+   * Will be removed in a future version. Use isAllowlisted instead.
+   */
+  isWhitelisted: _isAllowlisted.default,
+  isAllowlisted: _isAllowlisted.default,
   normalizeEmail: _normalizeEmail.default,
   toString: toString,
   isSlug: _isSlug.default,

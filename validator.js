@@ -94,7 +94,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -175,21 +175,10 @@ function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
   if (!isString) {
-    var invalidType;
+    var invalidType = _typeof(input);
 
-    if (input === null) {
-      invalidType = 'null';
-    } else {
-      invalidType = _typeof(input);
-
-      if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
-        invalidType = input.constructor.name;
-      } else {
-        invalidType = "a ".concat(invalidType);
-      }
-    }
-
-    throw new TypeError("Expected string but received ".concat(invalidType, "."));
+    if (input === null) invalidType = 'null';else if (invalidType === 'object') invalidType = input.constructor.name;
+    throw new TypeError("Expected a string but received a ".concat(invalidType));
   }
 }
 
@@ -428,7 +417,8 @@ function isByteLength(str, options) {
 var default_fqdn_options = {
   require_tld: true,
   allow_underscores: false,
-  allow_trailing_dot: false
+  allow_trailing_dot: false,
+  allow_numeric_tld: false
 };
 function isFQDN(str, options) {
   assertString(str);
@@ -462,6 +452,10 @@ function isFQDN(str, options) {
 
   for (var part, _i = 0; _i < parts.length; _i++) {
     part = parts[_i];
+
+    if (!options.allow_numeric_tld && _i === parts.length - 1 && /^\d+$/.test(part)) {
+      return false; // reject numeric TLDs
+    }
 
     if (options.allow_underscores) {
       part = part.replace(/_/g, '');
@@ -613,6 +607,9 @@ var default_email_options = {
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
+  // TODO: - Remove blacklisted_chars in next major release
+  blacklisted_chars: '',
+  denylisted_chars: '',
   ignore_max_length: false
 };
 /* eslint-disable max-len */
@@ -772,6 +769,12 @@ function isEmail(str, options) {
     if (!pattern.test(user_parts[_i])) {
       return false;
     }
+  } // TODO: - Remove blacklisted_chars support in next major release
+
+
+  if (options.denylisted_chars || options.blacklisted_chars) {
+    var denylisted_chars = options.denylisted_chars ? options.denylisted_chars : options.blacklisted_chars;
+    if (user.search(new RegExp("[".concat(denylisted_chars, "]+"), 'g')) !== -1) return false;
   }
 
   return true;
@@ -919,13 +922,18 @@ function isURL(url, options) {
     return false;
   }
 
-  host = host || ipv6;
+  host = host || ipv6; // TODO: - Remove whitelist in next major release
 
-  if (options.host_whitelist && !checkHost(host, options.host_whitelist)) {
+  var allowlist = options.host_allowlist || options.host_whitelist;
+
+  if (allowlist && !checkHost(host, allowlist)) {
     return false;
-  }
+  } // TODO: - Remove blacklist in next major release
 
-  if (options.host_blacklist && checkHost(host, options.host_blacklist)) {
+
+  var denylist = options.host_denylist || options.host_blacklist;
+
+  if (denylist && checkHost(host, denylist)) {
     return false;
   }
 
@@ -1383,13 +1391,13 @@ var default_decimal_options = {
   decimal_digits: '1,',
   locale: 'en-US'
 };
-var blacklist = ['', '-', '+'];
+var denylist = ['', '-', '+'];
 function isDecimal(str, options) {
   assertString(str);
   options = merge(options, default_decimal_options);
 
   if (options.locale in decimal) {
-    return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
+    return !includes(denylist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
   }
 
   throw new Error("Invalid locale '".concat(options.locale, "'"));
@@ -2920,7 +2928,7 @@ function unescape(str) {
   return str.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#x2F;/g, '/').replace(/&#x5C;/g, '\\').replace(/&#96;/g, '`');
 }
 
-function blacklist$1(str, chars) {
+function denylist$1(str, chars) {
   assertString(str);
   return str.replace(new RegExp("[".concat(chars, "]+"), 'g'), '');
 }
@@ -2928,15 +2936,15 @@ function blacklist$1(str, chars) {
 function stripLow(str, keep_new_lines) {
   assertString(str);
   var chars = keep_new_lines ? '\\x00-\\x09\\x0B\\x0C\\x0E-\\x1F\\x7F' : '\\x00-\\x1F\\x7F';
-  return blacklist$1(str, chars);
+  return denylist$1(str, chars);
 }
 
-function whitelist(str, chars) {
+function allowlist(str, chars) {
   assertString(str);
   return str.replace(new RegExp("[^".concat(chars, "]+"), 'g'), '');
 }
 
-function isWhitelisted(str, chars) {
+function isAllowlisted(str, chars) {
   assertString(str);
 
   for (var i = str.length - 1; i >= 0; i--) {
@@ -3182,9 +3190,30 @@ var validator = {
   escape: escape,
   unescape: unescape,
   stripLow: stripLow,
-  whitelist: whitelist,
-  blacklist: blacklist$1,
-  isWhitelisted: isWhitelisted,
+  // TODO: - Remove whitelist in next major release
+
+  /**
+   * @deprecated Since version 13.1.18.
+   * Will be removed in a future version. Use allowlist instead.
+   */
+  whitelist: allowlist,
+  allowlist: allowlist,
+  // TODO: - Remove blacklist in next major release
+
+  /**
+   * @deprecated Since version 13.1.18.
+   * Will be removed in a future version. Use denylist instead.
+   */
+  blacklist: denylist$1,
+  denylist: denylist$1,
+  // TODO: - Remove isWhitelisted in next major release
+
+  /**
+   * @deprecated Since version 13.1.18.
+   * Will be removed in a future version. Use isAllowlisted instead.
+   */
+  isWhitelisted: isAllowlisted,
+  isAllowlisted: isAllowlisted,
   normalizeEmail: normalizeEmail,
   toString: toString,
   isSlug: isSlug,
