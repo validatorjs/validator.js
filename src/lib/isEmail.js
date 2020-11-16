@@ -10,6 +10,7 @@ const default_email_options = {
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
+  blacklisted_chars: '',
   ignore_max_length: false,
 };
 
@@ -159,6 +160,9 @@ export default function isEmail(str, options) {
     if (!pattern.test(user_parts[i])) {
       return false;
     }
+  }
+  if (options.blacklisted_chars) {
+    if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
   }
 
   return true;

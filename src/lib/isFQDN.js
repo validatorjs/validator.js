@@ -5,6 +5,7 @@ const default_fqdn_options = {
   require_tld: true,
   allow_underscores: false,
   allow_trailing_dot: false,
+  allow_numeric_tld: false,
 };
 
 export default function isFQDN(str, options) {
@@ -33,6 +34,9 @@ export default function isFQDN(str, options) {
   }
   for (let part, i = 0; i < parts.length; i++) {
     part = parts[i];
+    if (!options.allow_numeric_tld && i === parts.length - 1 && /^\d+$/.test(part)) {
+      return false; // reject numeric TLDs
+    }
     if (options.allow_underscores) {
       part = part.replace(/_/g, '');
     }

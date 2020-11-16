@@ -94,7 +94,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Map" || n === "Set") return Array.from(n);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -1056,9 +1056,22 @@ function isLocale(str) {
   return localeReg.test(str);
 }
 
-function isAlpha(str) {
+function isAlpha(_str) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
-  assertString(str);
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  assertString(_str);
+  var str = _str;
+  var ignore = options.ignore;
+
+  if (ignore) {
+    if (ignore instanceof RegExp) {
+      str = str.replace(ignore, '');
+    } else if (typeof ignore === 'string') {
+      str = str.replace(new RegExp("[".concat(ignore.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&'), "]"), 'g'), ''); // escape regex for ignore
+    } else {
+      throw new Error('ignore should be instance of a String or RegExp');
+    }
+  }
 
   if (locale in alpha) {
     return alpha[locale].test(str);
