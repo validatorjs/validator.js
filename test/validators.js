@@ -573,11 +573,11 @@ describe('Validators', () => {
     });
   });
 
-  it('should let users specify a host whitelist', () => {
+  it('should let users specify a host allowlist', () => {
     test({
       validator: 'isURL',
       args: [{
-        host_whitelist: ['foo.com', 'bar.com'],
+        host_allowlist: ['foo.com', 'bar.com'],
       }],
       valid: [
         'http://bar.com/',
@@ -591,11 +591,11 @@ describe('Validators', () => {
     });
   });
 
-  it('should allow regular expressions in the host whitelist', () => {
+  it('should allow regular expressions in the host allowlist', () => {
     test({
       validator: 'isURL',
       args: [{
-        host_whitelist: ['bar.com', 'foo.com', /\.foo\.com$/],
+        host_allowlist: ['bar.com', 'foo.com', /\.foo\.com$/],
       }],
       valid: [
         'http://bar.com/',
@@ -612,11 +612,11 @@ describe('Validators', () => {
     });
   });
 
-  it('should let users specify a host blacklist', () => {
+  it('should let users specify a host denylist', () => {
     test({
       validator: 'isURL',
       args: [{
-        host_blacklist: ['foo.com', 'bar.com'],
+        host_denylist: ['foo.com', 'bar.com'],
       }],
       valid: [
         'http://foobar.com',
@@ -630,11 +630,11 @@ describe('Validators', () => {
     });
   });
 
-  it('should allow regular expressions in the host blacklist', () => {
+  it('should allow regular expressions in the host denylist', () => {
     test({
       validator: 'isURL',
       args: [{
-        host_blacklist: ['bar.com', 'foo.com', /\.foo\.com$/],
+        host_denylist: ['bar.com', 'foo.com', /\.foo\.com$/],
       }],
       valid: [
         'http://foobar.com',
@@ -8601,9 +8601,9 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate whitelisted characters', () => {
+  it('should validate allowlisted characters', () => {
     test({
-      validator: 'isWhitelisted',
+      validator: 'isAllowlisted',
       args: ['abcdefghijklmnopqrstuvwxyz-'],
       valid: ['foo', 'foobar', 'baz-foo'],
       invalid: ['foo bar', 'fo.bar', 'türkçe'],

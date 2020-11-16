@@ -220,9 +220,9 @@ describe('Sanitizers', () => {
     });
   });
 
-  it('should sanitize a string based on a whitelist', () => {
+  it('should sanitize a string based on a allowlist', () => {
     test({
-      sanitizer: 'whitelist',
+      sanitizer: 'allowlist',
       args: ['abc'],
       expect: {
         abcdef: 'abc',
@@ -233,9 +233,9 @@ describe('Sanitizers', () => {
     });
   });
 
-  it('should sanitize a string based on a blacklist', () => {
+  it('should sanitize a string based on a denylist', () => {
     test({
-      sanitizer: 'blacklist',
+      sanitizer: 'denylist',
       args: ['abc'],
       expect: {
         abcdef: 'def',
