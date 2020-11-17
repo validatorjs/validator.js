@@ -21,7 +21,7 @@ const defaultOptions = {
   pointsForContainingSymbol: 10,
 };
 
-/* Counts number of occurances of each char in a string
+/* Counts number of occurrences of each char in a string
  * could be moved to util/ ?
 */
 function countChars(str) {
