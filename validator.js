@@ -94,7 +94,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -175,21 +175,10 @@ function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
   if (!isString) {
-    var invalidType;
+    var invalidType = _typeof(input);
 
-    if (input === null) {
-      invalidType = 'null';
-    } else {
-      invalidType = _typeof(input);
-
-      if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
-        invalidType = input.constructor.name;
-      } else {
-        invalidType = "a ".concat(invalidType);
-      }
-    }
-
-    throw new TypeError("Expected string but received ".concat(invalidType, "."));
+    if (input === null) invalidType = 'null';else if (invalidType === 'object') invalidType = input.constructor.name;
+    throw new TypeError("Expected a string but received a ".concat(invalidType));
   }
 }
 
@@ -428,7 +417,8 @@ function isByteLength(str, options) {
 var default_fqdn_options = {
   require_tld: true,
   allow_underscores: false,
-  allow_trailing_dot: false
+  allow_trailing_dot: false,
+  allow_numeric_tld: false
 };
 function isFQDN(str, options) {
   assertString(str);
@@ -462,6 +452,10 @@ function isFQDN(str, options) {
 
   for (var part, _i = 0; _i < parts.length; _i++) {
     part = parts[_i];
+
+    if (!options.allow_numeric_tld && _i === parts.length - 1 && /^\d+$/.test(part)) {
+      return false; // reject numeric TLDs
+    }
 
     if (options.allow_underscores) {
       part = part.replace(/_/g, '');
@@ -613,6 +607,7 @@ var default_email_options = {
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
+  blacklisted_chars: '',
   ignore_max_length: false
 };
 /* eslint-disable max-len */
@@ -772,6 +767,10 @@ function isEmail(str, options) {
     if (!pattern.test(user_parts[_i])) {
       return false;
     }
+  }
+
+  if (options.blacklisted_chars) {
+    if (user.search(new RegExp("[".concat(options.blacklisted_chars, "]+"), 'g')) !== -1) return false;
   }
 
   return true;
@@ -2359,6 +2358,7 @@ var phones = {
   'ar-JO': /^(\+?962|0)?7[789]\d{7}$/,
   'ar-KW': /^(\+?965)[569]\d{7}$/,
   'ar-LY': /^((\+?218)|0)?(9[1-6]\d{7}|[1-8]\d{7,9})$/,
+  'ar-MA': /^(?:(?:\+|00)212|0)[5-7]\d{8}$/,
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
