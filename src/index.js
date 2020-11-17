@@ -24,6 +24,7 @@ import isPassportNumber from './lib/isPassportNumber';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
+import isSnakeCase from './lib/isSnakeCase';
 
 import isIMEI from './lib/isIMEI';
 
@@ -145,6 +146,7 @@ const validator = {
   isPort,
   isLowercase,
   isUppercase,
+  isSnakeCase,
   isAscii,
   isFullWidth,
   isHalfWidth,
