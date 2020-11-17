@@ -37,10 +37,7 @@ export default function isFQDN(str, options) {
     if (!options.allow_numeric_tld && i === parts.length - 1 && /^\d+$/.test(part)) {
       return false; // reject numeric TLDs
     }
-    if (options.allow_underscores) {
-      part = part.replace(/_/g, '');
-    }
-    if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {
+    if (!/^[a-z_\u00a1-\uffff0-9-]+$/i.test(part)) {
       return false;
     }
     // disallow full-width chars
@@ -48,6 +45,9 @@ export default function isFQDN(str, options) {
       return false;
     }
     if (part[0] === '-' || part[part.length - 1] === '-') {
+      return false;
+    }
+    if (!options.allow_underscores && /_/.test(part)) {
       return false;
     }
   }

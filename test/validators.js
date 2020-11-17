@@ -481,6 +481,7 @@ describe('Validators', () => {
         'http://foo_bar.com',
         'http://pr.example_com.294.example.com/',
         'http://foo__bar.com',
+        'http://_.example.com',
       ],
       invalid: [],
     });
