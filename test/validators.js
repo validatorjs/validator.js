@@ -295,6 +295,20 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate email addresses with blacklisted chars in  the name', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ blacklisted_chars: 'abc' }],
+      valid: [
+        'emil@gmail.com',
+      ],
+      invalid: [
+        'email@gmail.com',
+      ],
+    });
+  });
+
+
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
       validator: 'isEmail',
@@ -467,6 +481,7 @@ describe('Validators', () => {
         'http://foo_bar.com',
         'http://pr.example_com.294.example.com/',
         'http://foo__bar.com',
+        'http://_.example.com',
       ],
       invalid: [],
     });
@@ -890,6 +905,9 @@ describe('Validators', () => {
         '/more.com',
         'domain.com�',
         'domain.com©',
+        'example.0',
+        '192.168.0.9999',
+        '192.168.0',
       ],
     });
   });
@@ -901,6 +919,32 @@ describe('Validators', () => {
       ],
       valid: [
         'example.com.',
+      ],
+    });
+  });
+  it('should invalidate FQDN when not require_tld', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { require_tld: false },
+      ],
+      invalid: [
+        'example.0',
+        '192.168.0',
+        '192.168.0.9999',
+      ],
+    });
+  });
+  it('should validate FQDN when not require_tld but allow_numeric_tld', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { allow_numeric_tld: true, require_tld: false },
+      ],
+      valid: [
+        'example.0',
+        '192.168.0',
+        '192.168.0.9999',
       ],
     });
   });
@@ -921,6 +965,45 @@ describe('Validators', () => {
         'FÜübar',
         'Jön',
         'Heiß',
+      ],
+    });
+  });
+
+  it('should validate alpha string with ignored characters', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: '- /' }], // ignore [space-/]
+      valid: [
+        'en-US',
+        'this is a valid alpha string',
+        'us/usa',
+      ],
+      invalid: [
+        '1. this is not a valid alpha string',
+        'this$is also not a valid.alpha string',
+        'this is also not a valid alpha string.',
+      ],
+    });
+
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: /[\s/-]/g }], // ignore [space -]
+      valid: [
+        'en-US',
+        'this is a valid alpha string',
+      ],
+      invalid: [
+        '1. this is not a valid alpha string',
+        'this$is also not a valid.alpha string',
+        'this is also not a valid alpha string.',
+      ],
+    });
+
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: 1234 }], // invalid ignore matcher
+      error: [
+        'alpha',
       ],
     });
   });
@@ -5225,6 +5308,36 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'ar-MA',
+        valid: [
+          '0522714782',
+          '0690851123',
+          '0708186135',
+          '+212522714782',
+          '+212690851123',
+          '+212708186135',
+          '00212522714782',
+          '00212690851123',
+          '00212708186135',
+        ],
+        invalid: [
+          '522714782',
+          '690851123',
+          '708186135',
+          '212522714782',
+          '212690851123',
+          '212708186135',
+          '0212522714782',
+          '0212690851123',
+          '0212708186135',
+          '',
+          '12345',
+          '0922714782',
+          '+212190851123',
+          '00212408186135',
+        ],
+      },
+      {
         locale: 'ar-SY',
         valid: [
           '0944549710',
@@ -7169,6 +7282,68 @@ describe('Validators', () => {
           '+994778008080a',
         ],
       },
+      {
+        locale: 'de-LU',
+        valid: [
+          '601123456',
+          '+352601123456',
+        ],
+        invalid: [
+          'NaN',
+          '791234',
+          '+352791234',
+          '26791234',
+          '+35226791234',
+          '+112039812',
+          '+352703123456',
+          '1234',
+        ],
+      },
+      {
+        locale: 'it-SM',
+        valid: [
+          '612345',
+          '05496123456',
+          '+37861234567',
+          '+390549612345678',
+          '+37805496123456789',
+        ],
+        invalid: [
+          '61234567890',
+          '6123',
+          '1234567',
+          '+49123456',
+          'NotANumber',
+        ],
+      },
+      {
+        locale: 'sq-AL',
+        valid: [
+          '067123456',
+          '+35567123456',
+        ],
+        invalid: [
+          '67123456',
+          '06712345',
+          '06712345678',
+          '065123456',
+          '057123456',
+          'NotANumber',
+        ],
+      },
+      {
+        locale: 'ca-AD',
+        valid: [
+          '+376312345',
+          '312345',
+        ],
+        invalid: [
+          '31234',
+          '31234567',
+          '512345',
+          'NotANumber',
+        ],
+      },
     ];
 
     let allValid = [];
@@ -9048,6 +9223,14 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'MY',
+        valid: [
+          '56000',
+          '12000',
+          '79502',
+        ],
+      },
+      {
         locale: 'PR',
         valid: [
           '00979',
@@ -9105,6 +9288,13 @@ describe('Validators', () => {
           'T1025',
           'T72170',
           '12140TH',
+        ],
+      },
+      {
+        locale: 'SG',
+        valid: [
+          '308215',
+          '546080',
         ],
       },
     ];

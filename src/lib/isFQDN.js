@@ -5,6 +5,7 @@ const default_fqdn_options = {
   require_tld: true,
   allow_underscores: false,
   allow_trailing_dot: false,
+  allow_numeric_tld: false,
 };
 
 export default function isFQDN(str, options) {
@@ -33,10 +34,10 @@ export default function isFQDN(str, options) {
   }
   for (let part, i = 0; i < parts.length; i++) {
     part = parts[i];
-    if (options.allow_underscores) {
-      part = part.replace(/_/g, '');
+    if (!options.allow_numeric_tld && i === parts.length - 1 && /^\d+$/.test(part)) {
+      return false; // reject numeric TLDs
     }
-    if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {
+    if (!/^[a-z_\u00a1-\uffff0-9-]+$/i.test(part)) {
       return false;
     }
     // disallow full-width chars
@@ -44,6 +45,9 @@ export default function isFQDN(str, options) {
       return false;
     }
     if (part[0] === '-' || part[part.length - 1] === '-') {
+      return false;
+    }
+    if (!options.allow_underscores && /_/.test(part)) {
       return false;
     }
   }
