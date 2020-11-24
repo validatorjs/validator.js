@@ -12,5 +12,4 @@ notifications:
   email: false
 after_success:
   - npm install -g codecov
-  - npm run build
   - npm run test:ci > coverage.lcov && codecov
