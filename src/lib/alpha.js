@@ -68,7 +68,6 @@ export const alphanumeric = {
 export const decimal = {
   'en-US': '.',
   ar: '٫',
-  fa: '٫',
 };
 
 
@@ -100,9 +99,8 @@ export const farsiLocales = [
 
 for (let locale, i = 0; i < farsiLocales.length; i++) {
   locale = `fa-${farsiLocales[i]}`;
-  alpha[locale] = alpha.fa;
   alphanumeric[locale] = alphanumeric.fa;
-  decimal[locale] = decimal.fa;
+  decimal[locale] = decimal.ar;
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
@@ -132,3 +130,6 @@ decimal['pt-BR'] = decimal['pt-PT'];
 alpha['pl-Pl'] = alpha['pl-PL'];
 alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
 decimal['pl-Pl'] = decimal['pl-PL'];
+
+// see #1455
+alpha['fa-AF'] = alpha.fa;
