@@ -9,3 +9,4 @@ yarn.lock
 /lib
 validator.js
 validator.min.js
+index.js
