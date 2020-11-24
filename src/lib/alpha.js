@@ -9,7 +9,6 @@ export const alpha = {
   'es-ES': /^[A-ZÁÉÍÑÓÚÜ]+$/i,
   'fa-IR': /^[ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$/i,
   'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
-  'fr-CA': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
   'it-IT': /^[A-ZÀÉÈÌÎÓÒÙ]+$/i,
   'nb-NO': /^[A-ZÆØÅ]+$/i,
   'nl-NL': /^[A-ZÁÉËÏÓÖÜÚ]+$/i,
@@ -43,7 +42,6 @@ export const alphanumeric = {
   'el-GR': /^[0-9Α-ω]+$/i,
   'es-ES': /^[0-9A-ZÁÉÍÑÓÚÜ]+$/i,
   'fr-FR': /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
-  'fr-CA': /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
   'it-IT': /^[0-9A-ZÀÉÈÌÎÓÒÙ]+$/i,
   'hu-HU': /^[0-9A-ZÁÉÍÓÖŐÚÜŰ]+$/i,
   'nb-NO': /^[0-9A-ZÆØÅ]+$/i,
@@ -108,11 +106,11 @@ for (let locale, i = 0; i < farsiLocales.length; i++) {
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
-export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY', 'fr-CA'];
+export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
 export const commaDecimal = [
-  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'id-ID', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO',
-  'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin',
-  'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
+  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-CA', 'fr-FR',
+  'id-ID', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
+  'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
 ];
 
 for (let i = 0; i < dotDecimal.length; i++) {
@@ -123,8 +121,8 @@ for (let i = 0; i < commaDecimal.length; i++) {
   decimal[commaDecimal[i]] = ',';
 }
 
-// see #1455
-alpha['fa-IR'] = alpha['fa-IR'];
+alpha['fr-CA'] = alpha['fr-FR'];
+alphanumeric['fr-CA'] = alphanumeric['fr-FR'];
 
 alpha['pt-BR'] = alpha['pt-PT'];
 alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
