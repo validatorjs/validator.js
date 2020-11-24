@@ -7,3 +7,5 @@ package-lock.json
 yarn.lock
 /es
 /lib
+validator.js
+validator.min.js

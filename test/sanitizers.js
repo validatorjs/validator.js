@@ -246,6 +246,28 @@ describe('Sanitizers', () => {
     });
   });
 
+  it('should score passwords', () => {
+    test({
+      sanitizer: 'isStrongPassword',
+      args: [{
+        returnScore: true,
+        pointsPerUnique: 1,
+        pointsPerRepeat: 0.5,
+        pointsForContainingLower: 10,
+        pointsForContainingUpper: 10,
+        pointsForContainingNumber: 10,
+        pointsForContainingSymbol: 10,
+      }],
+      expect: {
+        abc: 13,
+        abcc: 13.5,
+        aBc: 23,
+        'Abc123!': 47,
+        '!@#$%^&*()': 20,
+      },
+    });
+  });
+
   it('should normalize an email based on domain', () => {
     test({
       sanitizer: 'normalizeEmail',

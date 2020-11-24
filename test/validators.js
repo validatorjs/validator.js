@@ -295,6 +295,20 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate email addresses with blacklisted chars in  the name', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ blacklisted_chars: 'abc' }],
+      valid: [
+        'emil@gmail.com',
+      ],
+      invalid: [
+        'email@gmail.com',
+      ],
+    });
+  });
+
+
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
       validator: 'isEmail',
@@ -467,6 +481,7 @@ describe('Validators', () => {
         'http://foo_bar.com',
         'http://pr.example_com.294.example.com/',
         'http://foo__bar.com',
+        'http://_.example.com',
       ],
       invalid: [],
     });
@@ -890,6 +905,9 @@ describe('Validators', () => {
         '/more.com',
         'domain.com�',
         'domain.com©',
+        'example.0',
+        '192.168.0.9999',
+        '192.168.0',
       ],
     });
   });
@@ -901,6 +919,32 @@ describe('Validators', () => {
       ],
       valid: [
         'example.com.',
+      ],
+    });
+  });
+  it('should invalidate FQDN when not require_tld', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { require_tld: false },
+      ],
+      invalid: [
+        'example.0',
+        '192.168.0',
+        '192.168.0.9999',
+      ],
+    });
+  });
+  it('should validate FQDN when not require_tld but allow_numeric_tld', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { allow_numeric_tld: true, require_tld: false },
+      ],
+      valid: [
+        'example.0',
+        '192.168.0',
+        '192.168.0.9999',
       ],
     });
   });
@@ -921,6 +965,45 @@ describe('Validators', () => {
         'FÜübar',
         'Jön',
         'Heiß',
+      ],
+    });
+  });
+
+  it('should validate alpha string with ignored characters', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: '- /' }], // ignore [space-/]
+      valid: [
+        'en-US',
+        'this is a valid alpha string',
+        'us/usa',
+      ],
+      invalid: [
+        '1. this is not a valid alpha string',
+        'this$is also not a valid.alpha string',
+        'this is also not a valid alpha string.',
+      ],
+    });
+
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: /[\s/-]/g }], // ignore [space -]
+      valid: [
+        'en-US',
+        'this is a valid alpha string',
+      ],
+      invalid: [
+        '1. this is not a valid alpha string',
+        'this$is also not a valid.alpha string',
+        'this is also not a valid alpha string.',
+      ],
+    });
+
+    test({
+      validator: 'isAlpha',
+      args: ['en-US', { ignore: 1234 }], // invalid ignore matcher
+      error: [
+        'alpha',
       ],
     });
   });
@@ -5249,6 +5332,36 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'ar-MA',
+        valid: [
+          '0522714782',
+          '0690851123',
+          '0708186135',
+          '+212522714782',
+          '+212690851123',
+          '+212708186135',
+          '00212522714782',
+          '00212690851123',
+          '00212708186135',
+        ],
+        invalid: [
+          '522714782',
+          '690851123',
+          '708186135',
+          '212522714782',
+          '212690851123',
+          '212708186135',
+          '0212522714782',
+          '0212690851123',
+          '0212708186135',
+          '',
+          '12345',
+          '0922714782',
+          '+212190851123',
+          '00212408186135',
+        ],
+      },
+      {
         locale: 'ar-SY',
         valid: [
           '0944549710',
@@ -8464,6 +8577,113 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 8601 dates, with strictSeparator = true', () => {
+    test({
+      validator: 'isISO8601',
+      args: [
+        { strictSeparator: true },
+      ],
+      valid: [
+        '2009-12T12:34',
+        '2009',
+        '2009-05-19',
+        '2009-05-19',
+        '20090519',
+        '2009123',
+        '2009-05',
+        '2009-123',
+        '2009-222',
+        '2009-001',
+        '2009-W01-1',
+        '2009-W51-1',
+        '2009-W511',
+        '2009-W33',
+        '2009W511',
+        '2009-05-19',
+        '2009-05-19T14:39Z',
+        '2009-W21-2',
+        '2009-W21-2T01:22',
+        '2009-139',
+        '20090621T0545Z',
+        '2007-04-06T00:00',
+        '2007-04-05T24:00',
+        '2010-02-18T16:23:48.5',
+        '2010-02-18T16:23:48,444',
+        '2010-02-18T16:23:48,3-06:00',
+        '2010-02-18T16:23.4',
+        '2010-02-18T16:23,25',
+        '2010-02-18T16:23.33+0600',
+        '2010-02-18T16.23334444',
+        '2010-02-18T16,2283',
+        '2009-10-10',
+        '2020-366',
+        '2000-366',
+      ],
+      invalid: [
+        '200905',
+        '2009367',
+        '2009-',
+        '2007-04-05T24:50',
+        '2009-000',
+        '2009-M511',
+        '2009M511',
+        '2009-05-19T14a39r',
+        '2009-05-19T14:3924',
+        '2009-0519',
+        '2009-05-1914:39',
+        '2009-05-19 14:',
+        '2009-05-19r14:39',
+        '2009-05-19 14a39a22',
+        '200912-01',
+        '2009-05-19 14:39:22+06a00',
+        '2009-05-19 146922.500',
+        '2010-02-18T16.5:23.35:48',
+        '2010-02-18T16:23.35:48',
+        '2010-02-18T16:23.35:48.45',
+        '2009-05-19 14.5.44',
+        '2010-02-18T16:23.33.600',
+        '2010-02-18T16,25:23:48,444',
+        '2010-13-1',
+        '2009-05-19 00:00',
+        // Previously valid cases
+        '2009-05-19 14',
+        '2009-05-19 14:31',
+        '2009-05-19 14:39:22',
+        '2009-05-19 14:39:22-06:00',
+        '2009-05-19 14:39:22+0600',
+        '2009-05-19 14:39:22-01',
+      ],
+    });
+  });
+
+  it('should validate ISO 8601 dates, with strict = true and strictSeparator = true (regression)', () => {
+    test({
+      validator: 'isISO8601',
+      args: [
+        { strict: true, strictSeparator: true },
+      ],
+      valid: [
+        '2000-02-29',
+        '2009-123',
+        '2009-222',
+        '2020-366',
+        '2400-366',
+      ],
+      invalid: [
+        '2010-02-30',
+        '2009-02-29',
+        '2009-366',
+        '2019-02-31',
+        '2009-05-19 14',
+        '2009-05-19 14:31',
+        '2009-05-19 14:39:22',
+        '2009-05-19 14:39:22-06:00',
+        '2009-05-19 14:39:22+0600',
+        '2009-05-19 14:39:22-01',
+      ],
+    });
+  });
+
   it('should validate RFC 3339 dates', () => {
     test({
       validator: 'isRFC3339',
@@ -9038,6 +9258,14 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'MY',
+        valid: [
+          '56000',
+          '12000',
+          '79502',
+        ],
+      },
+      {
         locale: 'PR',
         valid: [
           '00979',
@@ -9095,6 +9323,13 @@ describe('Validators', () => {
           'T1025',
           'T72170',
           '12140TH',
+        ],
+      },
+      {
+        locale: 'SG',
+        valid: [
+          '308215',
+          '546080',
         ],
       },
     ];
@@ -9203,10 +9438,164 @@ describe('Validators', () => {
     });
   });
 
-
+  // EU-UK valid numbers sourced from https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx or constructed by @tplessas.
   it('should validate taxID', () => {
     test({
       validator: 'isTaxID',
+      args: ['bg-BG'],
+      valid: [
+        '7501010010',
+        '0101010012',
+        '0111010010',
+        '7521010014',
+        '7541010019'],
+      invalid: [
+        '750101001',
+        '75010100101',
+        '75-01010/01 0',
+        '7521320010',
+        '7501010019'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['cs-CZ'],
+      valid: [
+        '530121999',
+        '530121/999',
+        '530121/9990',
+        '5301219990',
+        '1602295134',
+        '5451219994',
+        '0424175466',
+        '0532175468',
+        '7159079940'],
+      invalid: [
+        '53-0121 999',
+        '530121000',
+        '960121999',
+        '0124175466',
+        '0472301754',
+        '1975116400',
+        '7159079945'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['de-AT'],
+      valid: [
+        '931736581',
+        '93-173/6581',
+        '93--173/6581'],
+      invalid: [
+        '999999999',
+        '93 173 6581',
+        '93-173/65811',
+        '93-173/658'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['de-DE'],
+      valid: [
+        '26954371827',
+        '86095742719',
+        '65929970489',
+        '79608434120',
+        '659/299/7048/9'],
+      invalid: [
+        '26954371828',
+        '86095752719',
+        '8609575271',
+        '860957527190',
+        '65299970489',
+        '65999970489',
+        '6592997048-9'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['dk-DK'],
+      valid: [
+        '010111-1113',
+        '0101110117',
+        '2110084008',
+        '2110489008',
+        '2110595002',
+        '2110197007',
+        '0101110117',
+        '0101110230'],
+      invalid: [
+        '010111/1113',
+        '010111111',
+        '01011111133',
+        '2110485008',
+        '2902034000',
+        '0101110630'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['el-CY'],
+      valid: [
+        '00123123T',
+        '99652156X'],
+      invalid: [
+        '99652156A',
+        '00124123T',
+        '00123123',
+        '001123123T',
+        '00 12-3123/T'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['el-GR'],
+      valid: [
+        '758426713',
+        '054100004'],
+      invalid: [
+        '054100005',
+        '05410000',
+        '0541000055',
+        '05 4100005',
+        '05-410/0005',
+        '658426713',
+        '558426713'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-GB'],
+      valid: [
+        '1234567890',
+        'AA123456A',
+        'AA123456 '],
+      invalid: [
+        'GB123456A',
+        '123456789',
+        '12345678901',
+        'NK123456A',
+        'TN123456A',
+        'ZZ123456A',
+        'GB123456Z',
+        'DM123456A',
+        'AO123456A',
+        'GB-123456A',
+        'GB 123456 A',
+        'GB123456  '],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-IE'],
+      valid: [
+        '1234567T',
+        '1234567TW',
+        '1234577W',
+        '1234577WW',
+        '1234577IA'],
+      invalid: [
+        '1234567',
+        '1234577WWW',
+        '1234577A',
+        '1234577JA'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-US'],
       valid: [
         '01-1234567',
         '01 1234567',
@@ -9225,6 +9614,297 @@ describe('Validators', () => {
         '07-1234567',
         '28-1234567',
         '96-1234567'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['es-ES'],
+      valid: [
+        '00054237A',
+        '54237A',
+        'X1234567L',
+        'Z1234567R',
+        'M2812345C',
+        'Y2812345B'],
+      invalid: [
+        'M2812345CR',
+        'A2812345C',
+        '0/005 423-7A',
+        '00054237U'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['et-EE'],
+      valid: [
+        '10001010080',
+        '46304280206',
+        '37102250382',
+        '32708101201'],
+      invalid: [
+        '46304280205',
+        '61002293333',
+        '4-6304 28/0206',
+        '4630428020',
+        '463042802066'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['fi-FI'],
+      valid: [
+        '131052-308T',
+        '131002+308W',
+        '131019A3089'],
+      invalid: [
+        '131052308T',
+        '131052-308TT',
+        '131052S308T',
+        '13 1052-308/T',
+        '290219A1111'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['fr-BE'],
+      valid: [
+        '00012511119'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['fr-FR'],
+      valid: [
+        '30 23 217 600 053',
+        '3023217600053'],
+      invalid: [
+        '30 2 3 217 600 053',
+        '3 023217-600/053',
+        '3023217600052',
+        '3023217500053',
+        '30232176000534',
+        '302321760005'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['nl-BE'],
+      valid: [
+        '00012511148',
+        '00/0125-11148',
+        '00000011115'],
+      invalid: [
+        '00 01 2511148',
+        '01022911148',
+        '00013211148',
+        '0001251114',
+        '000125111480',
+        '00012511149'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['fr-LU'],
+      valid: [
+        '1893120105732'],
+      invalid: [
+        '189312010573',
+        '18931201057322',
+        '1893 12-01057/32',
+        '1893120105742',
+        '1893120105733'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['lb-LU'],
+      invalid: [
+        '2016023005732'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['hr-HR'],
+      valid: [
+        '94577403194'],
+      invalid: [
+        '94 57-7403/194',
+        '9457740319',
+        '945774031945',
+        '94577403197',
+        '94587403194'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['hu-HU'],
+      valid: [
+        '8071592153'],
+      invalid: [
+        '80 71-592/153',
+        '80715921534',
+        '807159215',
+        '8071592152',
+        '8071582153'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['lt-LT'],
+      valid: [
+        '33309240064'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['it-IT'],
+      valid: [
+        'DMLPRY77D15H501F',
+        'AXXFAXTTD41H501D'],
+      invalid: [
+        'DML PRY/77D15H501-F',
+        'DMLPRY77D15H501',
+        'DMLPRY77D15H501FF',
+        'AAPPRY77D15H501F',
+        'DMLAXA77D15H501F',
+        'AXXFAX90A01Z001F',
+        'DMLPRY77B29H501F',
+        'AXXFAX3TD41H501E'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['lv-LV'],
+      valid: [
+        '01011012344',
+        '32579461005',
+        '01019902341',
+        '325794-61005'],
+      invalid: [
+        '010110123444',
+        '0101101234',
+        '01001612345',
+        '290217-22343'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['mt-MT'],
+      valid: [
+        '1234567A',
+        '882345608',
+        '34581M',
+        '199Z'],
+      invalid: [
+        '812345608',
+        '88234560',
+        '8823456088',
+        '11234567A',
+        '12/34-567 A',
+        '88 23-456/08',
+        '1234560A',
+        '0000000M',
+        '3200100G'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['nl-NL'],
+      valid: [
+        '174559434'],
+      invalid: [
+        '17455943',
+        '1745594344',
+        '17 455-94/34'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['pl-PL'],
+      valid: [
+        '2234567895',
+        '02070803628',
+        '02870803622',
+        '02670803626',
+        '01510813623'],
+      invalid: [
+        '020708036285',
+        '223456789',
+        '22 345-678/95',
+        '02 070-8036/28',
+        '2234567855',
+        '02223013623'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['pt-PT'],
+      valid: [
+        '299999998',
+        '299992020'],
+      invalid: [
+        '2999999988',
+        '29999999',
+        '29 999-999/8'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['ro-RO'],
+      valid: [
+        '8001011234563',
+        '9000123456789',
+        '1001011234560',
+        '3001011234564',
+        '5001011234568'],
+      invalid: [
+        '5001011234569',
+        '500 1011-234/568',
+        '500101123456',
+        '50010112345688',
+        '5001011504568',
+        '8000230234563',
+        '6000230234563'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['sk-SK'],
+      valid: [
+        '530121999',
+        '536221/999',
+        '031121999',
+        '520229999',
+        '1234567890'],
+      invalid: [
+        '53012199999',
+        '990101999',
+        '530121000',
+        '53012199',
+        '53-0121 999',
+        '535229999'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['sl-SI'],
+      valid: [
+        '15012557',
+        '15012590'],
+      invalid: [
+        '150125577',
+        '1501255',
+        '15 01-255/7'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['sv-SE'],
+      valid: [
+        '640823-3234',
+        '640883-3231',
+        '6408833231',
+        '19640823-3233',
+        '196408233233',
+        '19640883-3230',
+        '200228+5266',
+        '20180101-5581'],
+      invalid: [
+        '640823+3234',
+        '160230-3231',
+        '160260-3231',
+        '160260-323',
+        '160260323',
+        '640823+323',
+        '640823323',
+        '640823+32344',
+        '64082332344',
+        '19640823-32333',
+        '1964082332333'],
+    });
+    test({
+      validator: 'isTaxID',
+      valid: [
+        '01-1234567'],
     });
     test({
       validator: 'isTaxID',
@@ -9258,6 +9938,35 @@ describe('Validators', () => {
         '_not-slug',
         'not-slug_',
         'not slug',
+      ],
+    });
+  });
+
+  it('should validate strong passwords', () => {
+    test({
+      validator: 'isStrongPassword',
+      args: [{
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      }],
+      valid: [
+        '%2%k{7BsL"M%Kd6e',
+        'EXAMPLE of very long_password123!',
+        'mxH_+2vs&54_+H3P',
+        '+&DxJ=X7-4L8jRCD',
+        'etV*p%Nr6w&H%FeF',
+      ],
+      invalid: [
+        '',
+        'password',
+        'hunter2',
+        'hello world',
+        'passw0rd',
+        'password!',
+        'PASSWORD!',
       ],
     });
   });

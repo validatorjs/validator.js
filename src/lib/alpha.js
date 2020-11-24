@@ -110,7 +110,7 @@ for (let locale, i = 0; i < farsiLocales.length; i++) {
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
 export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY', 'fr-CA'];
 export const commaDecimal = [
-  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO',
+  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'id-ID', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO',
   'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin',
   'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
 ];
