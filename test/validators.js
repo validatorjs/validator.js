@@ -2130,6 +2130,30 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings with locale', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        locale: 'fr-CA',
+      }],
+      valid: [
+        '123',
+        '00123',
+        '-00123',
+        '0',
+        '-0',
+        '+123',
+        '123,123',
+        '+000000',
+      ],
+      invalid: [
+        ' ',
+        '',
+        '.',
+      ],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
@@ -5942,6 +5966,17 @@ describe('Validators', () => {
           '+34612457898',
           '+336124578980',
           '+3361245789',
+        ],
+      },
+      {
+        locale: 'fr-CA',
+        valid: ['19876543210', '8005552222', '+15673628910'],
+        invalid: [
+          '564785',
+          '0123456789',
+          '1437439210',
+          '+10345672645',
+          '11435213543',
         ],
       },
       {
