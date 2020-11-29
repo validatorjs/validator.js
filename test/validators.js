@@ -2130,6 +2130,101 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings with thousand separator', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '_',
+      }],
+      valid: [
+        '123',
+        '0',
+        '-0',
+        '+123',
+        '123_123',
+        '123.000',
+        '123_123.000',
+        '123_123_123.000',
+        '+123_123_123.000',
+        '-123_123_123.000',
+        '+000_000',
+      ],
+      invalid: [
+        ' ',
+        '',
+        ',',
+        '00123',
+        '-00123',
+        '_123',
+        '_123.000',
+      ],
+    });
+  });
+
+  it('should validate numeric strings with thousand separator and locale', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '_',
+        locale: 'fr-FR',
+      }],
+      valid: [
+        '123,000',
+        '123_123',
+        '123_123,000',
+        '123_123_123,000',
+        '+123_123_123,000',
+        '-123_123_123,000',
+        '+000_000,000',
+      ],
+      invalid: [
+        ' ',
+        '',
+        ',',
+        '_123',
+        '_123.000',
+        '1_23',
+        '1_23.000',
+        '1_22_123',
+        '1_22_123.000',
+        '123_123_123.000_123',
+      ],
+    });
+  });
+
+  it('should not validate numeric strings with invalid thousand_seperator chars', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '__',
+      }],
+      error: [
+        '123',
+        '123__123',
+      ],
+    });
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '9',
+      }],
+      error: [
+        '123',
+        '1239123',
+      ],
+    });
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '0',
+      }],
+      error: [
+        '123',
+        '1230123',
+      ],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
