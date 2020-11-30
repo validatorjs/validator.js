@@ -4619,7 +4619,7 @@ function isVAT(str, countryCode) {
   throw new Error("Invalid country code: '".concat(countryCode, "'"));
 }
 
-var version = '13.5.0';
+var version = '13.5.1';
 var validator = {
   version: version,
   toDate: toDate,

@@ -9,4 +9,4 @@ yarn.lock
 /lib
 validator.js
 validator.min.js
-index.js
+# index.js # -- to avoid forgetting to publish it, see #1537
