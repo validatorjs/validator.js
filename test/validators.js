@@ -10218,6 +10218,22 @@ describe('Validators', () => {
 
     test({
       validator: 'isVAT',
+      args: ['IT'],
+      valid: [
+        'IT12345678910',
+        '12345678910',
+      ],
+      invalid: [
+        'IT12345678 910',
+        'IT 123456789101',
+        'IT123456789101',
+        'GB12345678910',
+        'IT123456789',
+      ],
+    });
+
+    test({
+      validator: 'isVAT',
       args: ['invalidCountryCode'],
       error: [
         'GB999 9999 00',
