@@ -19,6 +19,7 @@
 - **New and Improved locales**:
   - `isAlpha`, `isAlphanumeric`:
     - [#1528](https://github.com/validatorjs/validator.js/pull/1528) multiple fixes @tux-tn @purell
+    - [#1513](https://github.com/validatorjs/validator.js/pull/1513) `id-ID` and docs update @bekicot
     - [#1484](https://github.com/validatorjs/validator.js/pull/1484) [#1481](https://github.com/validatorjs/validator.js/pull/1481) `th-TH` @ipiranhaa
     - [#1455](https://github.com/validatorjs/validator.js/pull/1455) `fa-IR` @fakhrip
     - [#1447](https://github.com/validatorjs/validator.js/pull/1447) `az-AZ` @saidfagan
@@ -32,6 +33,7 @@
     - [#1444](https://github.com/validatorjs/validator.js/pull/1444) `es-AR` @csrgt
     - [#1407](https://github.com/validatorjs/validator.js/pull/1407) `pt-BR` @viniciushvsilva
   - `isPostalCode`:
+    - [#1534](https://github.com/validatorjs/validator.js/pull/1534) `CN` @httpsbao
     - [#1515](https://github.com/validatorjs/validator.js/pull/1515) `IR` @masoudDaliriyan
     - [#1502](https://github.com/validatorjs/validator.js/pull/1502) `SG`, `MY` @stranger26
     - [#1480](https://github.com/validatorjs/validator.js/pull/1480) `TH` @ipiranhaa
@@ -39,7 +41,7 @@
     - [#1456](https://github.com/validatorjs/validator.js/pull/1456) `DO` and `HT` @yomed
   - `isPassportNumber`:
     - [#1468](https://github.com/validatorjs/validator.js/pull/1468) `BY` @zenby
-    - [#1467](https://github.com/validatorjs/validator.js/pull/1468) `RU` @dkochetkov
+    - [#1467](https://github.com/validatorjs/validator.js/pull/1467) `RU` @dkochetkov
 
 <sub>&mdash; this release is dedicated to @dbnandaa 🧒</sub>
 
