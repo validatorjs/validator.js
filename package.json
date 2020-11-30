@@ -1,7 +1,7 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "13.1.17",
+  "version": "13.5.0",
   "sideEffects": false,
   "homepage": "https://github.com/chriso/validator.js",
   "files": [
