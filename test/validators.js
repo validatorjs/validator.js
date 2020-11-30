@@ -3534,6 +3534,29 @@ describe('Validators', () => {
     });
     test({
       validator: 'isInt',
+      args: [{ allow_leading_zeroes: null }],
+      valid: [
+        '13',
+        '123',
+        '0',
+        '123',
+        '-0',
+        '+1',
+        '01',
+        '-01',
+        '000',
+        '-000',
+        '+000',
+      ],
+      invalid: [
+        '100e10',
+        '123.123',
+        '   ',
+        '',
+      ],
+    });
+    test({
+      validator: 'isInt',
       args: [{
         min: 10,
       }],
@@ -3587,6 +3610,27 @@ describe('Validators', () => {
         '3.2',
         '33',
         'a',
+      ],
+    });
+    test({
+      validator: 'isInt',
+      args: [{
+        min: null,
+        max: undefined,
+        gt: null,
+        lt: undefined,
+      }],
+      valid: [
+        '300',
+        '-123',
+        '14',
+        '0',
+      ],
+      invalid: [
+        '100e10',
+        '123.123',
+        '   ',
+        '',
       ],
     });
   });
@@ -3783,6 +3827,39 @@ describe('Validators', () => {
       invalid: [
         '10',
         '-5.5',
+      ],
+    });
+    test({
+      validator: 'isFloat',
+      args: [{
+        min: null,
+        max: undefined,
+        gt: null,
+        lt: undefined,
+      }],
+      valid: [
+        '123',
+        '123.',
+        '123.123',
+        '-123.123',
+        '-0.123',
+        '+0.123',
+        '0.123',
+        '.0',
+        '-.123',
+        '+.123',
+        '01.123',
+        '-0.22250738585072011e-307',
+      ],
+      invalid: [
+        '+',
+        '-',
+        '  ',
+        '',
+        '.',
+        'foo',
+        '20.foo',
+        '2020-01-06T14:31:00.135Z',
       ],
     });
     test({
