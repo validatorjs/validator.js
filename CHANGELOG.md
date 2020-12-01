@@ -1,4 +1,4 @@
-#### 13.5.0
+#### ~13.5.0~ 13.5.1
 
 - **New features**:
   - `isVAT` [#1463](https://github.com/validatorjs/validator.js/pull/1463) @ CodingNagger
