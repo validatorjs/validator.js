@@ -3768,6 +3768,7 @@ var phones = {
   'ar-KW': /^(\+?965)[569]\d{7}$/,
   'ar-LY': /^((\+?218)|0)?(9[1-6]\d{7}|[1-8]\d{7,9})$/,
   'ar-MA': /^(?:(?:\+|00)212|0)[5-7]\d{8}$/,
+  'ar-OM': /^((\+|00)968)?(9[1-9])\d{6}$/,
   'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
   'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
   'ar-TN': /^(\+?216)?[2459]\d{7}$/,
@@ -4619,7 +4620,7 @@ function isVAT(str, countryCode) {
   throw new Error("Invalid country code: '".concat(countryCode, "'"));
 }
 
-var version = '13.5.0';
+var version = '13.5.1';
 var validator = {
   version: version,
   toDate: toDate,
