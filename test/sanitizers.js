@@ -268,6 +268,20 @@ describe('Sanitizers', () => {
     });
   });
 
+  it('should score passwords with default options', () => {
+    test({
+      sanitizer: 'isStrongPassword',
+      expect: {
+        abc: false,
+        abcc: false,
+        aBc: false,
+        'Abc123!': false,
+        '!@#$%^&*()': false,
+        'abc123!@f#rA': true,
+      },
+    });
+  });
+
   it('should normalize an email based on domain', () => {
     test({
       sanitizer: 'normalizeEmail',
