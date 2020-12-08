@@ -79,6 +79,7 @@ describe('Validators', () => {
         `${repeat('a', 31)}@gmail.com`,
         'test@gmail.com',
         'test.1@gmail.com',
+        'test@1337.com',
       ],
       invalid: [
         'invalidemail@',
@@ -374,6 +375,7 @@ describe('Validators', () => {
         'http://[2010:836B:4179::836B:4179]',
         'http://example.com/example.json#/foo/bar',
         'http://user:@www.foobar.com',
+        'http://1337.com',
       ],
       invalid: [
         'http://localhost:3000/',
@@ -894,6 +896,7 @@ describe('Validators', () => {
         'foo--bar.com',
         'xn--froschgrn-x9a.com',
         'rebecca.blackfriday',
+        '1337.com',
       ],
       invalid: [
         'abc',
