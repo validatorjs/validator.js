@@ -4000,10 +4000,19 @@ function isCurrency(str, options) {
   return currencyRegex(options).test(str);
 }
 
-var btc = /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/;
+var bech32 = /^(bc1)[a-z0-9]{25,39}$/;
+var base58 = /^(1|3)[A-HJ-NP-Za-km-z1-9]{25,39}$/;
 function isBtcAddress(str) {
-  assertString(str);
-  return btc.test(str);
+  assertString(str); // check for bech32
+
+  if (str.startsWith('bc1')) {
+    console.log({
+      str: str
+    });
+    return bech32.test(str);
+  }
+
+  return base58.test(str);
 }
 
 /* eslint-disable max-len */
