@@ -10255,6 +10255,21 @@ describe('Validators', () => {
         'IT123456789',
       ],
     });
+    
+    test({
+      validator: 'isVAT',
+      args: ['DE'],
+      valid: [
+        'DE123456789'
+      ],
+      invalid: [
+        'DE123456789 52',
+        'IT 123456789101',
+        'IT123456789101',
+        'GB12345678910',
+        'IT123456789',
+      ],
+    });
 
     test({
       validator: 'isVAT',
