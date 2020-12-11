@@ -29,6 +29,7 @@ const default_url_options = {
   allow_trailing_dot: false,
   allow_protocol_relative_urls: false,
   validate_length: true,
+  isAnyURI: false,
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
@@ -48,23 +49,47 @@ function checkHost(host, matches) {
 }
 
 export default function isURL(url, options) {
+  options = merge(options, default_url_options);
+
+  if (options.isAnyURI && url === '') { // URI enhancement
+    return true;
+  }
   assertString(url);
   if (!url || /[\s<>]/.test(url)) {
     return false;
   }
-  if (url.indexOf('mailto:') === 0) {
+
+  if (url.indexOf('mailto:') === 0 && !options.isAnyURI) { // URI enhancement
     return false;
   }
-  options = merge(options, default_url_options);
 
   if (options.validate_length && url.length >= 2083) {
     return false;
+  }
+
+  if (url.indexOf('urn:') === 0 && options.isAnyURI) { // URI enhancement
+    return true;
   }
 
   let protocol, auth, host, hostname, port, port_str, split, ipv6;
 
   split = url.split('#');
   url = split.shift();
+
+  if (split.length > 1 && options.isAnyURI) { // URI enhancement
+    return false;
+  }
+
+  split = url.split('%');
+
+  if (split.length > 1 && options.isAnyURI) { // URI enhancement
+    let i;
+    for (i = 1; i < split.length; i++) {
+      if (!(/[A-F\d]{2}/gm.test(split[i]))) {
+        return false;
+      }
+    }
+  }
 
   split = url.split('?');
   url = split.shift();
@@ -91,6 +116,10 @@ export default function isURL(url, options) {
 
   split = url.split('/');
   url = split.shift();
+
+  if (url === '..' && options.isAnyURI) { // URI enhancement
+    return true;
+  }
 
   if (url === '' && !options.require_host) {
     return true;

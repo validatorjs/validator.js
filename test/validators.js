@@ -703,6 +703,30 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate XDS:AnyURI', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        isAnyURI: true,
+      }],
+      valid: [
+        'http://datypic.com',
+        'mailto:info@datypic.com',
+        '../%C3%A9dition.html',
+        '../édition.html',
+        'http://datypic.com/prod.html#shirt',
+        '../prod.html#shirt',
+        'urn:example:org',
+        '',
+      ],
+      invalid: [
+        'http://datypic.com#frag1#frag2',
+        'http://datypic.com#f% rag',
+        '../%C3%dition.html',
+      ],
+    });
+  });
+
   it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',
