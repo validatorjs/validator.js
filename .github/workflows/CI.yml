@@ -23,10 +23,10 @@ jobs:
       run: npm install
     - name: Run Tests
       run: npm test
-    - if: ${{ matrix.node-version }} == 14
+    - if: matrix.node-version == 14
       name: Generate coverage file
       run: npm run test:ci > coverage.lcov
-    - if: ${{ matrix.node-version }} == 14
+    - if: matrix.node-version == 14
       name: Send coverage info to Codecov
       uses: codecov/codecov-action@v1
       with:
