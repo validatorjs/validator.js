@@ -3,7 +3,7 @@
   "description": "String validation and sanitization",
   "version": "13.5.1",
   "sideEffects": false,
-  "homepage": "https://github.com/chriso/validator.js",
+  "homepage": "https://github.com/validatorjs/validator.js",
   "files": [
     "index.js",
     "es",
@@ -32,11 +32,11 @@
   ],
   "main": "index.js",
   "bugs": {
-    "url": "https://github.com/chriso/validator.js/issues"
+    "url": "https://github.com/validatorjs/validator.js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chriso/validator.js.git"
+    "url": "https://github.com/validatorjs/validator.js.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
