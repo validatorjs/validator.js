@@ -25,10 +25,7 @@
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
   "contributors": [
-    {
-      "name": "Anthony Nandaa",
-      "url": "https://github.com/profnandaa"
-    }
+    "Anthony Nandaa (https://github.com/profnandaa)"
   ],
   "main": "index.js",
   "bugs": {
@@ -36,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/validatorjs/validator.js.git"
+    "url": "git+https://github.com/validatorjs/validator.js.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
