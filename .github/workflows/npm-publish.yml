@@ -6,7 +6,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - name: Setup Node.js
+    - name: Setup Node.js 14
       uses: actions/setup-node@v2-beta
       with:
         node-version: 14

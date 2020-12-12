@@ -1,18 +1,17 @@
 name: CI
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
       matrix:
         node-version: [14, 12, 10, 8, 6]
     steps:
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2-beta
       with:
         node-version: ${{ matrix.node-version }}
@@ -30,5 +29,4 @@ jobs:
       name: Send coverage info to Codecov
       uses: codecov/codecov-action@v1
       with:
-        verbose: true
         file: ./coverage.lcov
