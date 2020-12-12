@@ -1,0 +1,32 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: ['14', '12', '10', '8', '6']
+    steps:
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: ${{ matrix.node-version }}
+        check-latest: true
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: npm install
+    - name: Run Tests
+      run: npm test
+    - name: Upload coverage to Codecov
+      if: ${{ matrix.node-version }} == '14'
+      run: npm run test:ci > coverage.lcov
+      uses: codecov/codecov-action@v1
+      with:
+        verbose: true
+        file: ./coverage.lcov
