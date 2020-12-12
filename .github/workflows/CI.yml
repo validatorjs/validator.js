@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node-version: ['14', '12', '10', '8', '6']
+        node-version: [14, 12, 10, 8, 6]
     steps:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2-beta
@@ -23,11 +23,11 @@ jobs:
       run: npm install
     - name: Run Tests
       run: npm test
-    - name: Generate coverage file
-      if: ${{ matrix.node-version }} == '14'
+    - if: ${{ matrix.node-version }} == 14
+      name: Generate coverage file
       run: npm run test:ci > coverage.lcov
-    - name: Send coverage info to Codecov
-      if: ${{ matrix.node-version }} == '14'
+    - if: ${{ matrix.node-version }} == 14
+      name: Send coverage info to Codecov
       uses: codecov/codecov-action@v1
       with:
         verbose: true
