@@ -7487,7 +7487,7 @@ describe('Validators', () => {
     });
   });
 
-  // de-CH
+  // de-CH, fr-CH, it-CH
   test({
     validator: 'isMobilePhone',
     valid: [
@@ -7496,9 +7496,10 @@ describe('Validators', () => {
       '+41771112233',
       '+41781112233',
       '+41791112233',
+      '+411122112211',
     ],
     invalid: [
-      '+41441112233',
+      '+41041112233',
     ],
     args: [],
   });
