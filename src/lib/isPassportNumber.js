@@ -34,21 +34,28 @@ const passportRegexByCountryCode = {
   IN: /^[A-Z]{1}-?\d{7}$/, // INDIA
   IS: /^(A)\d{7}$/, // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/, // ITALY
+  JM: /^[Aa]\d{7}$/, // JAMAICA
   JP: /^[A-Z]{2}\d{7}$/, // JAPAN
   KR: /^[MS]\d{8}$/, // SOUTH KOREA, REPUBLIC OF KOREA, [S=PS Passports, M=PM Passports]
+  KZ: /^[a-zA-Z]\d{7}$/, // KAZAKHSTAN
   LT: /^[A-Z0-9]{8}$/, // LITHUANIA
+  LI: /^[a-zA-Z]\d{5}$/, // LIECHTENSTEIN
   LU: /^[A-Z0-9]{8}$/, // LUXEMBURG
   LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
+  MY: /^[AaHhKk]\d{8}$/, // MALAYSIA
   MT: /^\d{7}$/, // MALTA
+  MX: /(^[Gg]\d{8}$|^[0][8]\d{9}$|^[8]\d{9}$)/, // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
+  NZ: /^([Ll]([Aa]|[Dd]|[Ff]|[Hh])|[Ee]([Aa]|[Pp])|[Nn])\d{6}$/, // NEW ZELAND
   PO: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
   RO: /^\d{8,9}$/, // ROMANIA
   RU: /^\d{2}\d{2}\d{6}$/, // RUSSIAN FEDERATION
   SE: /^\d{8}$/, // SWEDEN
-  SL: /^(P)[A-Z]\d{7}$/, // SLOVANIA
+  SL: /^(P)[A-Z]\d{7}$/, // SLOVENIA
   SK: /^[0-9A-Z]\d{7}$/, // SLOVAKIA
   TR: /^[A-Z]\d{8}$/, // TURKEY
+  TH: /(^[a-zA-Z]\d{7}$|^[a-zA-Z]{2}\d{7}$|^[a-zA-Z]\d{6}$)/, // THAILAND
   UA: /^[A-Z]{2}\d{6}$/, // UKRAINE
   US: /^\d{9}$/, // UNITED STATES
 };

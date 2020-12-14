@@ -430,17 +430,15 @@ function isFQDN(str, options) {
   }
 
   var parts = str.split('.');
-
-  for (var i = 0; i < parts.length; i++) {
-    if (parts[i].length > 63) {
-      return false;
-    }
-  }
+  var tld = parts[parts.length - 1];
 
   if (options.require_tld) {
-    var tld = parts.pop();
+    // disallow fqdns without tld
+    if (parts.length < 2) {
+      return false;
+    }
 
-    if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
+    if (!/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
       return false;
     } // disallow spaces && special characers
 
@@ -448,13 +446,16 @@ function isFQDN(str, options) {
     if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20\u00A9\uFFFD]/.test(tld)) {
       return false;
     }
+  } // reject numeric TLDs
+
+
+  if (!options.allow_numeric_tld && /^\d+$/.test(tld)) {
+    return false;
   }
 
-  for (var part, _i = 0; _i < parts.length; _i++) {
-    part = parts[_i];
-
-    if (!options.allow_numeric_tld && _i === parts.length - 1 && /^\d+$/.test(part)) {
-      return false; // reject numeric TLDs
+  return parts.every(function (part) {
+    if (part.length > 63) {
+      return false;
     }
 
     if (!/^[a-z_\u00a1-\uffff0-9-]+$/i.test(part)) {
@@ -464,18 +465,19 @@ function isFQDN(str, options) {
 
     if (/[\uff01-\uff5e]/.test(part)) {
       return false;
-    }
+    } // disallow parts starting or ending with hyphen
 
-    if (part[0] === '-' || part[part.length - 1] === '-') {
+
+    if (/^-|-$/.test(part)) {
       return false;
     }
 
     if (!options.allow_underscores && /_/.test(part)) {
       return false;
     }
-  }
 
-  return true;
+    return true;
+  });
 }
 
 /**
@@ -1165,20 +1167,32 @@ var passportRegexByCountryCode = {
   // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/,
   // ITALY
+  JM: /^[Aa]\d{7}$/,
+  // JAMAICA
   JP: /^[A-Z]{2}\d{7}$/,
   // JAPAN
   KR: /^[MS]\d{8}$/,
   // SOUTH KOREA, REPUBLIC OF KOREA, [S=PS Passports, M=PM Passports]
+  KZ: /^[a-zA-Z]\d{7}$/,
+  // KAZAKHSTAN
   LT: /^[A-Z0-9]{8}$/,
   // LITHUANIA
+  LI: /^[a-zA-Z]\d{5}$/,
+  // LIECHTENSTEIN
   LU: /^[A-Z0-9]{8}$/,
   // LUXEMBURG
   LV: /^[A-Z0-9]{2}\d{7}$/,
   // LATVIA
+  MY: /^[AaHhKk]\d{8}$/,
+  // MALAYSIA
   MT: /^\d{7}$/,
   // MALTA
+  MX: /(^[Gg]\d{8}$|^[0][8]\d{9}$|^[8]\d{9}$)/,
+  // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/,
   // NETHERLANDS
+  NZ: /^([Ll]([Aa]|[Dd]|[Ff]|[Hh])|[Ee]([Aa]|[Pp])|[Nn])\d{6}$/,
+  // NEW ZELAND
   PO: /^[A-Z]{2}\d{7}$/,
   // POLAND
   PT: /^[A-Z]\d{6}$/,
@@ -1190,11 +1204,13 @@ var passportRegexByCountryCode = {
   SE: /^\d{8}$/,
   // SWEDEN
   SL: /^(P)[A-Z]\d{7}$/,
-  // SLOVANIA
+  // SLOVENIA
   SK: /^[0-9A-Z]\d{7}$/,
   // SLOVAKIA
   TR: /^[A-Z]\d{8}$/,
   // TURKEY
+  TH: /(^[a-zA-Z]\d{7}$|^[a-zA-Z]{2}\d{7}$|^[a-zA-Z]\d{6}$)/,
+  // THAILAND
   UA: /^[A-Z]{2}\d{6}$/,
   // UKRAINE
   US: /^\d{9}$/ // UNITED STATES
@@ -3853,6 +3869,7 @@ var phones = {
   'pl-PL': /^(\+?48)? ?[5-8]\d ?\d{3} ?\d{2} ?\d{2}$/,
   'pt-BR': /^((\+?55\ ?[1-9]{2}\ ?)|(\+?55\ ?\([1-9]{2}\)\ ?)|(0[1-9]{2}\ ?)|(\([1-9]{2}\)\ ?)|([1-9]{2}\ ?))((\d{4}\-?\d{4})|(9[2-9]{1}\d{3}\-?\d{4}))$/,
   'pt-PT': /^(\+?351)?9[1236]\d{7}$/,
+  'pt-AO': /^(\+244)\d{9}$/,
   'ro-RO': /^(\+?4?0)\s?7\d{2}(\/|\s|\.|\-)?\d{3}(\s|\.|\-)?\d{3}$/,
   'ru-RU': /^(\+?7|8)?9\d{9}$/,
   'sl-SI': /^(\+386\s?|0)(\d{1}\s?\d{3}\s?\d{2}\s?\d{2}|\d{2}\s?\d{3}\s?\d{3})$/,
@@ -4006,9 +4023,6 @@ function isBtcAddress(str) {
   assertString(str); // check for bech32
 
   if (str.startsWith('bc1')) {
-    console.log({
-      str: str
-    });
     return bech32.test(str);
   }
 
