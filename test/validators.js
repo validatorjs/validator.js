@@ -10302,6 +10302,16 @@ describe('Validators', () => {
         'FS AB 1234 A',
       ],
     });
+    test({
+      validator: 'isLicensePlate',
+      args: ['asdfasdf'],
+      error: [
+        'FL 1',
+        'FS AB 123',
+        'FL 999999',
+        'FS AB 1234 A',
+      ],
+    });
   });
   it('should validate english VAT numbers', () => {
     test({
