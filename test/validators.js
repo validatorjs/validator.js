@@ -2499,6 +2499,7 @@ describe('Validators', () => {
       valid: [
         'A00000000',
         'H12345678',
+        'K43143233',
       ],
       invalid: [
         'A1234567',
