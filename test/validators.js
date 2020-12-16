@@ -9367,5 +9367,31 @@ describe('Validators', () => {
         'FS AB 1234 A',
       ],
     });
+    test({
+      validator: 'isLicensePlate',
+      args: ['sq-AL'],
+      valid: [
+        'AA 000 AA',
+        'ZZ 999 ZZ',
+      ],
+      invalid: [
+        '',
+        'AA 0 A',
+        'AAA 00 AAA',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
+      args: ['any'],
+      valid: [
+        'FL 1',
+        'FS AB 123',
+      ],
+      invalid: [
+        '',
+        'FL 999999',
+        'FS AB 1234 A',
+      ],
+    });
   });
 });
