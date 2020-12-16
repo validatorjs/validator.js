@@ -1,3 +1,50 @@
+#### ~13.5.0~ 13.5.1
+
+- **New features**:
+  - `isVAT` [#1463](https://github.com/validatorjs/validator.js/pull/1463) @ CodingNagger
+  - `isTaxID` [#1446](https://github.com/validatorjs/validator.js/pull/1446) @tplessas
+  - `isBase58` [#1445](https://github.com/validatorjs/validator.js/pull/1445) @ezkemboi
+  - `isStrongPassword` [#1348](https://github.com/validatorjs/validator.js/pull/1348) @door-bell
+
+- **Fixes and Enhancements**:
+  - [#1486](https://github.com/validatorjs/validator.js/pull/1486) `isISO8601`: add `strictSeparator` @brostone51
+  - [#1474](https://github.com/validatorjs/validator.js/pull/1474) `isFQDN`: make more strict @CristhianMotoche
+  - [#1469](https://github.com/validatorjs/validator.js/pull/1469) `isFQDN`: `allow_underscore` option @gibson042
+  - [#1449](https://github.com/validatorjs/validator.js/pull/1449) `isEmail`: character blacklisting @rubiin
+  - [#1436](https://github.com/validatorjs/validator.js/pull/1436) `isURL`: added `require_port` option @yshanli
+  - [#1435](https://github.com/validatorjs/validator.js/pull/1435) `isEmail`: respect `ignore_max_length` option @evantahler
+  - [#1402](https://github.com/validatorjs/validator.js/pull/1402) `isDate`: add strictMode and prevent mixed delimiters @tux-tn
+  - [#1286](https://github.com/validatorjs/validator.js/pull/1286) `isAlpha`: support `ignore` option @mum-never-proud
+
+- **New and Improved locales**:
+  - `isAlpha`, `isAlphanumeric`:
+    - [#1528](https://github.com/validatorjs/validator.js/pull/1528) multiple fixes @tux-tn @purell
+    - [#1513](https://github.com/validatorjs/validator.js/pull/1513) `id-ID` and docs update @bekicot
+    - [#1484](https://github.com/validatorjs/validator.js/pull/1484) [#1481](https://github.com/validatorjs/validator.js/pull/1481) `th-TH` @ipiranhaa
+    - [#1455](https://github.com/validatorjs/validator.js/pull/1455) `fa-IR` @fakhrip
+    - [#1447](https://github.com/validatorjs/validator.js/pull/1447) `az-AZ` @saidfagan
+  - `isMobilePhone`:
+    - [#1521](https://github.com/validatorjs/validator.js/pull/1521) `ar-MA` @artpumpkin
+    - [#1492](https://github.com/validatorjs/validator.js/pull/1492) `de-LU`,`it-SM`, `sq-AL` and `ga-IE` @firlus
+    - [#1487](https://github.com/validatorjs/validator.js/pull/1487) `en-HN` @jehielmartinez
+    - [#1473](https://github.com/validatorjs/validator.js/pull/1473) `ar-LB`, `es-PE`, `ka-GE` @rubiin
+    - [#1470](https://github.com/validatorjs/validator.js/pull/1444) `es-DO` @devrasec
+    - [#1460](https://github.com/validatorjs/validator.js/pull/1444) `es-BO` @rubiin
+    - [#1444](https://github.com/validatorjs/validator.js/pull/1444) `es-AR` @csrgt
+    - [#1407](https://github.com/validatorjs/validator.js/pull/1407) `pt-BR` @viniciushvsilva
+  - `isPostalCode`:
+    - [#1534](https://github.com/validatorjs/validator.js/pull/1534) `CN` @httpsbao
+    - [#1515](https://github.com/validatorjs/validator.js/pull/1515) `IR` @masoudDaliriyan
+    - [#1502](https://github.com/validatorjs/validator.js/pull/1502) `SG`, `MY` @stranger26
+    - [#1480](https://github.com/validatorjs/validator.js/pull/1480) `TH` @ipiranhaa
+    - [#1459](https://github.com/validatorjs/validator.js/pull/1456) `BY` @rubiin
+    - [#1456](https://github.com/validatorjs/validator.js/pull/1456) `DO` and `HT` @yomed
+  - `isPassportNumber`:
+    - [#1468](https://github.com/validatorjs/validator.js/pull/1468) `BY` @zenby
+    - [#1467](https://github.com/validatorjs/validator.js/pull/1467) `RU` @dkochetkov
+
+<sub>&mdash; this release is dedicated to @dbnandaa 🧒</sub>
+
 #### 13.1.17
 
 - **New features**:
