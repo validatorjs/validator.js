@@ -3784,7 +3784,7 @@ var phones = {
   'da-DK': /^(\+?45)?\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}$/,
   'de-DE': /^(\+49)?0?[1|3]([0|5][0-45-9]\d|6([23]|0\d?)|7([0-57-9]|6\d))\d{7}$/,
   'de-AT': /^(\+43|0)\d{1,4}\d{3,12}$/,
-  'de-CH': /^(\+41|0)(7[5-9])\d{1,7}$/,
+  'de-CH': /^(\+41|0)([1-9])\d{1,9}$/,
   'de-LU': /^(\+352)?((6\d1)\d{6})$/,
   'el-GR': /^(\+?30|0)?(69\d{8})$/,
   'en-AU': /^(\+?61|0)4\d{8}$/,
@@ -3880,6 +3880,8 @@ phones['fr-BE'] = phones['nl-BE'];
 phones['zh-HK'] = phones['en-HK'];
 phones['zh-MO'] = phones['en-MO'];
 phones['ga-IE'] = phones['en-IE'];
+phones['fr-CH'] = phones['de-CH'];
+phones['it-CH'] = phones['fr-CH'];
 function isMobilePhone(str, locale, options) {
   assertString(str);
 
