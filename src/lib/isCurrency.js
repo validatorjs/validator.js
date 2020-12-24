@@ -70,10 +70,41 @@ const default_currency_options = {
   require_decimal: false,
   digits_after_decimal: [2],
   allow_space_after_digits: false,
+  min: undefined,
+  max: undefined,
 };
+
+function numericValue(str, options) {
+  if (str === undefined) return str;
+  if (typeof str === 'number') return str;
+
+  let tsre = new RegExp(options.thousands_separator, 'g');
+  let trimed_str = str.replace(options.symbol, '').trim()
+    .replace(tsre, '')
+    .replace(options.decimal_separator, '.');
+  return Number.parseFloat(trimed_str);
+}
+
+function isInInterval(str, options) {
+  let { max, min } = options;
+
+  // if max/min is empty there is no need check
+  if (max === undefined && min === undefined) {
+    return true;
+  }
+
+  const min_val = numericValue(min, options);
+  const max_val = numericValue(max, options);
+  const str_val = numericValue(str, options);
+
+  const min_condition = min_val === undefined || min_val <= str_val;
+  const max_condition = max_val === undefined || max_val >= str_val;
+
+  return min_condition && max_condition;
+}
 
 export default function isCurrency(str, options) {
   assertString(str);
   options = merge(options, default_currency_options);
-  return currencyRegex(options).test(str);
+  return currencyRegex(options).test(str) && isInInterval(str, options);
 }
