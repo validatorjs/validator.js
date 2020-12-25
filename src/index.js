@@ -93,6 +93,7 @@ import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
 
 import isBase32 from './lib/isBase32';
+import isBase58 from './lib/isBase58';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
@@ -115,8 +116,12 @@ import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
+import isLicensePlate from './lib/isLicensePlate';
+import isStrongPassword from './lib/isStrongPassword';
 
-const version = '13.1.17';
+import isVAT from './lib/isVAT';
+
+const version = '13.5.1';
 
 const validator = {
   version,
@@ -195,6 +200,7 @@ const validator = {
   isISO31661Alpha2,
   isISO31661Alpha3,
   isBase32,
+  isBase58,
   isBase64,
   isDataURI,
   isMagnetURI,
@@ -212,9 +218,12 @@ const validator = {
   normalizeEmail,
   toString,
   isSlug,
+  isStrongPassword,
   isTaxID,
   isDate,
   isTime,
+  isLicensePlate,
+  isVAT,
 };
 
 export default validator;

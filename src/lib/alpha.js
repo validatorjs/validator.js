@@ -1,11 +1,13 @@
 export const alpha = {
   'en-US': /^[A-Z]+$/i,
+  'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[А-Я]+$/i,
   'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[A-ZÆØÅ]+$/i,
   'de-DE': /^[A-ZÄÖÜß]+$/i,
   'el-GR': /^[Α-ώ]+$/i,
   'es-ES': /^[A-ZÁÉÍÑÓÚÜ]+$/i,
+  'fa-IR': /^[ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$/i,
   'fr-FR': /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]+$/i,
   'it-IT': /^[A-ZÀÉÈÌÎÓÒÙ]+$/i,
   'nb-NO': /^[A-ZÆØÅ]+$/i,
@@ -20,6 +22,7 @@ export const alpha = {
   'sr-RS@latin': /^[A-ZČĆŽŠĐ]+$/i,
   'sr-RS': /^[А-ЯЂЈЉЊЋЏ]+$/i,
   'sv-SE': /^[A-ZÅÄÖ]+$/i,
+  'th-TH': /^[ก-๐\s]+$/i,
   'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
   'vi-VN': /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
@@ -31,6 +34,7 @@ export const alpha = {
 
 export const alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
+  'az-AZ': /^[0-9A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[0-9А-Я]+$/i,
   'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[0-9A-ZÆØÅ]+$/i,
@@ -51,6 +55,7 @@ export const alphanumeric = {
   'sr-RS@latin': /^[0-9A-ZČĆŽŠĐ]+$/i,
   'sr-RS': /^[0-9А-ЯЂЈЉЊЋЏ]+$/i,
   'sv-SE': /^[0-9A-ZÅÄÖ]+$/i,
+  'th-TH': /^[ก-๙\s]+$/i,
   'tr-TR': /^[0-9A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
@@ -63,7 +68,6 @@ export const alphanumeric = {
 export const decimal = {
   'en-US': '.',
   ar: '٫',
-  fa: '٫',
 };
 
 
@@ -95,17 +99,16 @@ export const farsiLocales = [
 
 for (let locale, i = 0; i < farsiLocales.length; i++) {
   locale = `fa-${farsiLocales[i]}`;
-  alpha[locale] = alpha.fa;
   alphanumeric[locale] = alphanumeric.fa;
-  decimal[locale] = decimal.fa;
+  decimal[locale] = decimal.ar;
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
 export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
 export const commaDecimal = [
-  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-FR', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO',
-  'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS@latin',
-  'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
+  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-CA', 'fr-FR',
+  'id-ID', 'it-IT', 'ku-IQ', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
+  'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
 ];
 
 for (let i = 0; i < dotDecimal.length; i++) {
@@ -116,6 +119,9 @@ for (let i = 0; i < commaDecimal.length; i++) {
   decimal[commaDecimal[i]] = ',';
 }
 
+alpha['fr-CA'] = alpha['fr-FR'];
+alphanumeric['fr-CA'] = alphanumeric['fr-FR'];
+
 alpha['pt-BR'] = alpha['pt-PT'];
 alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 decimal['pt-BR'] = decimal['pt-PT'];
@@ -124,3 +130,6 @@ decimal['pt-BR'] = decimal['pt-PT'];
 alpha['pl-Pl'] = alpha['pl-PL'];
 alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
 decimal['pl-Pl'] = decimal['pl-PL'];
+
+// see #1455
+alpha['fa-AF'] = alpha.fa;

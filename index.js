@@ -149,7 +149,9 @@ var _isISO31661Alpha2 = _interopRequireDefault(require("./lib/isISO31661Alpha3")
 
 var _isBase = _interopRequireDefault(require("./lib/isBase32"));
 
-var _isBase2 = _interopRequireDefault(require("./lib/isBase64"));
+var _isBase2 = _interopRequireDefault(require("./lib/isBase58"));
+
+var _isBase3 = _interopRequireDefault(require("./lib/isBase64"));
 
 var _isDataURI = _interopRequireDefault(require("./lib/isDataURI"));
 
@@ -183,13 +185,19 @@ var _normalizeEmail = _interopRequireDefault(require("./lib/normalizeEmail"));
 
 var _isSlug = _interopRequireDefault(require("./lib/isSlug"));
 
+var _isLicensePlate = _interopRequireDefault(require("./lib/isLicensePlate"));
+
+var _isStrongPassword = _interopRequireDefault(require("./lib/isStrongPassword"));
+
+var _isVAT = _interopRequireDefault(require("./lib/isVAT"));
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = '13.1.17';
+var version = '13.5.1';
 var validator = {
   version: version,
   toDate: _toDate.default,
@@ -267,7 +275,8 @@ var validator = {
   isISO31661Alpha2: _isISO31661Alpha.default,
   isISO31661Alpha3: _isISO31661Alpha2.default,
   isBase32: _isBase.default,
-  isBase64: _isBase2.default,
+  isBase58: _isBase2.default,
+  isBase64: _isBase3.default,
   isDataURI: _isDataURI.default,
   isMagnetURI: _isMagnetURI.default,
   isMimeType: _isMimeType.default,
@@ -284,8 +293,11 @@ var validator = {
   normalizeEmail: _normalizeEmail.default,
   toString: toString,
   isSlug: _isSlug.default,
+  isStrongPassword: _isStrongPassword.default,
   isTaxID: _isTaxID.default,
-  isDate: _isDate.default
+  isDate: _isDate.default,
+  isLicensePlate: _isLicensePlate.default,
+  isVAT: _isVAT.default
 };
 var _default = validator;
 exports.default = _default;
