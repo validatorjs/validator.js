@@ -21,5 +21,6 @@ export default function isIPRange(str) {
     return false;
   }
 
-  return isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0;
+  return (isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0) ||
+          (isIP(parts[0], 6) && parts[1] <= 64 && parts[1] >= 0);
 }
