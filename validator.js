@@ -1165,6 +1165,8 @@ var passportRegexByCountryCode = {
   // LATVIA
   MT: /^\d{7}$/,
   // MALTA
+  MY: /^[AHK]\d{8}$/,
+  // MALAYSIA
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/,
   // NETHERLANDS
   PO: /^[A-Z]{2}\d{7}$/,
