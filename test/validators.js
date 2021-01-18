@@ -1571,6 +1571,45 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate alphanumeric string with ignored characters', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: '@_- ' }], // ignore [@ space _ -]
+      valid: [
+        'Hello@123',
+        'this is a valid alphaNumeric string',
+        'En-US @ alpha_numeric',
+      ],
+      invalid: [
+        'In*Valid',
+        'hello$123',
+        '{invalid}',
+      ],
+    });
+
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: /[\s/-]/g }], // ignore [space -]
+      valid: [
+        'en-US',
+        'this is a valid alphaNumeric string',
+      ],
+      invalid: [
+        'INVALID$ AlphaNum Str',
+        'hello@123',
+        'abc*123',
+      ],
+    });
+
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: 1234 }], // invalid ignore matcher (ignore should be instance of a String or RegExp)
+      error: [
+        'alpha',
+      ],
+    });
+  });
+
   it('should validate defined english aliases', () => {
     test({
       validator: 'isAlphanumeric',
