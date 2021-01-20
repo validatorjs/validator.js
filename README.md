@@ -59,6 +59,16 @@ The library can be loaded either as a standalone script, or through an [AMD][amd
 </script>
 ```
 
+Through [Unpkg CDN](unpkg.com)
+The library can be loaded either as a standalone script, or through [Unpkg CDN](unpkg.com)
+
+```html
+<script type="text/javascript" src="https://unpkg.com/validator.js@latest/dist/validator.min.js"></script>
+<script type="text/javascript">
+    console.log(validator.isEmail('foo@bar.com')); //=> true
+</script>
+```
+
 The library can also be installed through [bower][bower]
 
 ```bash
