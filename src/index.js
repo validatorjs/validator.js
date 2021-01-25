@@ -85,6 +85,7 @@ import isEthereumAddress from './lib/isEthereumAddress';
 import isCurrency from './lib/isCurrency';
 
 import isBtcAddress from './lib/isBtcAddress';
+import isTezosAddress from './lib/isTezosAddress';
 
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
@@ -194,6 +195,7 @@ const validator = {
   isEthereumAddress,
   isCurrency,
   isBtcAddress,
+  isTezosAddress,
   isISO8601,
   isRFC3339,
   isISO31661Alpha2,

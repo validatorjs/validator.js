@@ -8487,6 +8487,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Tezos addresses', () => {
+    test({
+      validator: 'isTezosAddress',
+      valid: [
+        'tz1X1vL2pE2BK4KzyirPwv87P8Xi3PicB1A8',
+        'tz1TCHgBP9Lw1gE8bjAhh473HtjVx8TaYDo4',
+        'tz1ckhWrX5AEVd3Y8FK2tczs3uAD3j3idgmu',
+        'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf',
+        'KT19kgnqC5VWoxktLRdRUERbyUPku9YioE8W',
+        'KT1QuofAgnsWffHzLA7D78rxytJruGHDe7XG',
+      ],
+      invalid: [
+        'tz1X1vL2pE2BK4KzyirPwv87P8Xi3PicB1A',
+        'tz1TCHgBP9Lw1gE8bjAhh473HtjVx8TaYDo4c',
+        'z1ckhWrX5AEVd3Y8FK2tczs3uAD3j3idgmua',
+        'tz1X1vL2pE2BK4KzyirPwv87P8Xi3PicB1A_',
+        '1NahonrApDqaDbLn8KvK8EfU6omgug2JL6',
+        '0x7557aE3860cdd6Dd48788ac85bD568B0c2EB1405',
+      ],
+    });
+  });
+
   it('should validate booleans', () => {
     test({
       validator: 'isBoolean',
