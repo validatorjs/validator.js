@@ -1177,6 +1177,8 @@ var passportRegexByCountryCode = {
   // LUXEMBURG
   LV: /^[A-Z0-9]{2}\d{7}$/,
   // LATVIA
+  LY: /^[A-Z0-9]{8}$/,
+  // LIBYA
   MT: /^\d{7}$/,
   // MALTA
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/,
@@ -1887,6 +1889,18 @@ var validators = {
     }
 
     return sum % 10 === 0;
+  },
+  'ar-LY': function arLY(str) {
+    // Libya National Identity Number NIN is 12 digits, the first digit is either 1 or 2
+    var NIN = /^(1|2)\d{11}$/; // sanitize user input
+
+    var sanitized = str.trim(); // validate the data structure
+
+    if (!NIN.test(sanitized)) {
+      return false;
+    }
+
+    return true;
   },
   'ar-TN': function arTN(str) {
     var DNI = /^\d{8}$/; // sanitize user input
@@ -2699,7 +2713,7 @@ function elGrCheck(tin) {
     checksum += digits[i] * Math.pow(2, 8 - i);
   }
 
-  return checksum % 11 === digits[8];
+  return checksum % 11 % 10 === digits[8];
 }
 /*
  * en-GB validation function (should go here if needed)
