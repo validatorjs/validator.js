@@ -6,6 +6,7 @@
 [![Downloads][downloads-image]][npm-url]
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
+[![Gitter](https://badges.gitter.im/validatorjs/community.svg)](https://gitter.im/validatorjs/community)
 
 A library of string validators and sanitizers.
 
