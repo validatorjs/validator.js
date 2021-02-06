@@ -10239,7 +10239,7 @@ describe('Validators', () => {
         '23:59:59',
         '00:00:00',
         '9:50:01',
-        new Date().toLocaleTimeString(),
+        new Intl.DateTimeFormat("en" , { timeStyle: "medium", hour12: false }).format(new Date()),
       ],
       invalid: [
         '',
