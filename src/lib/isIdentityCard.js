@@ -75,6 +75,25 @@ const validators = {
 
     return c === 0;
   },
+  IR: (str) => {
+    if (!str.match(/^\d{10}$/)) return false;
+    str = (`0000${str}`).substr(str.length - 6);
+
+    if (parseInt(str.substr(3, 6), 10) === 0) return false;
+
+    const lastNumber = parseInt(str.substr(9, 1), 10);
+    let sum = 0;
+
+    for (let i = 0; i < 9; i++) {
+      sum += parseInt(str.substr(i, 1), 10) * (10 - i);
+    }
+
+    sum %= 11;
+
+    return (
+      (sum < 2 && lastNumber === sum) || (sum >= 2 && lastNumber === 11 - sum)
+    );
+  },
   IT: function IT(str) {
     if (str.length !== 9) return false;
     if (str === 'CA00000AA') return false; // https://it.wikipedia.org/wiki/Carta_d%27identit%C3%A0_elettronica_italiana
