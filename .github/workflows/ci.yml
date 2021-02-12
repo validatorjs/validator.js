@@ -6,7 +6,7 @@ on:
     branches: [master]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         node-version: [14, 12, 10, 8, 6]
