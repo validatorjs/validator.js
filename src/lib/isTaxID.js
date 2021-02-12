@@ -280,7 +280,7 @@ function elGrCheck(tin) {
   for (let i = 0; i < 8; i++) {
     checksum += digits[i] * (2 ** (8 - i));
   }
-  return checksum % 11 === digits[8];
+  return ((checksum % 11) % 10) === digits[8];
 }
 
 /*
