@@ -9999,12 +9999,11 @@ describe('Validators', () => {
     test({
       validator: 'isSlug',
       valid: [
+        'foo',
         'foo-bar',
         'foo_bar',
-        'foo',
         'foo-bar-foo',
         'foo-bar_foo',
-        'foo_foo',
         'foo-bar_foo*75-b4r-**_foo',
         'foo-bar_foo*75-b4r-**_foo-&&',
       ],
