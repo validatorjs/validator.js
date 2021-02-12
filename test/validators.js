@@ -2590,7 +2590,6 @@ describe('Validators', () => {
         '4017173LV',
       ],
     });
-
     test({
       validator: 'isPassportNumber',
       args: ['MT'],
@@ -2602,7 +2601,19 @@ describe('Validators', () => {
         'MT01234',
       ],
     });
-
+    test({
+      validator: 'isPassportNumber',
+      args: ['MZ'],
+      valid: [
+        'AB0808212',
+        '08AB12123',
+      ],
+      invalid: [
+        '1AB011241',
+        '1AB01121',
+        'ABAB01121',
+      ],
+    });
     test({
       validator: 'isPassportNumber',
       args: ['NL'],
