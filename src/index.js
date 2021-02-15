@@ -115,6 +115,7 @@ import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
+import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
@@ -219,6 +220,7 @@ const validator = {
   isStrongPassword,
   isTaxID,
   isDate,
+  isLicensePlate,
   isVAT,
 };
 

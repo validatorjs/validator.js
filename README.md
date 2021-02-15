@@ -1,8 +1,8 @@
 # validator.js
 
 [![NPM version][npm-image]][npm-url]
-[![Build Status](https://travis-ci.org/validatorjs/validator.js.svg?branch=master)](https://travis-ci.org/validatorjs/validator.js)
-[![codecov](https://codecov.io/gh/validatorjs/validator.js/branch/master/graph/badge.svg)](https://codecov.io/gh/validatorjs/validator.js)
+[![CI][ci-image]][ci-url]
+[![Coverage][codecov-image]][codecov-url]
 [![Downloads][downloads-image]][npm-url]
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
@@ -131,6 +131,7 @@ Validator                               | Description
 **isJWT(str)**                         | check if the string is valid JWT token.
 **isLatLong(str [, options])**                      | check if the string is a valid latitude-longitude coordinate in the format `lat,long` or `lat, long`.<br/><br/>`options` is an object that defaults to `{ checkDMS: false }`. Pass `checkDMS` as `true` to validate DMS(degrees, minutes, and seconds) latitude-longitude format. 
 **isLength(str [, options])**              | check if the string's length falls in a range.<br/><br/>`options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
+**isLicensePlate(str [, locale])**     | check if string matches the format of a country's license plate.<br/><br/>(locale is one of `['de-DE', 'de-LI', 'pt-PT', 'sq-AL']` or `any`)
 **isLocale(str)**                       | check if the string is a locale
 **isLowercase(str)**                    | check if the string is lowercase.
 **isMACAddress(str)**                   | check if the string is a MAC address.<br/><br/>`options` is an object which defaults to `{no_colons: false}`. If `no_colons` is true, the validator will allow MAC addresses without the colons. Also, it allows the use of hyphens, spaces or dots e.g  '01 02 03 04 05 ab', '01-02-03-04-05-ab' or '0102.0304.05ab'.
@@ -182,7 +183,7 @@ Sanitizer                              | Description
 
 ### XSS Sanitization
 
-XSS sanitization was removed from the library in [2d5d6999](https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
+XSS sanitization was removed from the library in [2d5d6999](https://github.com/validatorjs/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
 
 For an alternative, have a look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters) or at [DOMPurify](https://github.com/cure53/DOMPurify).
 
@@ -252,8 +253,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [npm-url]: https://npmjs.org/package/validator
 [npm-image]: http://img.shields.io/npm/v/validator.svg
 
-[travis-url]: https://travis-ci.org/chriso/validator.js
-[travis-image]: http://img.shields.io/travis/chriso/validator.js.svg
+[codecov-url]: https://codecov.io/gh/validatorjs/validator.js
+[codecov-image]: https://codecov.io/gh/validatorjs/validator.js/branch/master/graph/badge.svg
+
+[ci-url]: https://github.com/validatorjs/validator.js/actions?query=workflow%3ACI
+[ci-image]: https://github.com/validatorjs/validator.js/workflows/CI/badge.svg?branch=master
 
 [amd]: http://requirejs.org/docs/whyamd.html
 [bower]: http://bower.io/
