@@ -10,3 +10,6 @@ yarn.lock
 validator.js
 validator.min.js
 index.js
+
+# Ignore VSCode workspace config
+workspace.code-workspace

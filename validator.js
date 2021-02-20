@@ -2699,7 +2699,7 @@ function elGrCheck(tin) {
     checksum += digits[i] * Math.pow(2, 8 - i);
   }
 
-  return checksum % 11 === digits[8];
+  return checksum % 11 % 10 === digits[8];
 }
 /*
  * en-GB validation function (should go here if needed)
@@ -3867,7 +3867,7 @@ var phones = {
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'uz-UZ': /^(\+?998)?(6[125-79]|7[1-69]|88|9\d)\d{7}$/,
-  'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
+  'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-9]))|(9([0-9])))([0-9]{7})$/,
   'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[012356789])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
@@ -4557,9 +4557,10 @@ function isLicensePlate(str, locale) {
 var upperCaseRegex = /^[A-Z]$/;
 var lowerCaseRegex = /^[a-z]$/;
 var numberRegex = /^[0-9]$/;
-var symbolRegex = /^[-#!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
+var symbolRegex = /^[-#!$@%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
 var defaultOptions = {
   minLength: 8,
+  maxLength: 15,
   minLowercase: 1,
   minUppercase: 1,
   minNumbers: 1,
@@ -4635,8 +4636,10 @@ function scorePassword(analysis, scoringOptions) {
 
   if (analysis.symbolCount > 0) {
     points += scoringOptions.pointsForContainingSymbol;
-  }
+  } // If password exceeds maximum configured length, password is no longer considered strong
 
+
+  points = analysis.length <= scoringOptions.maxLength ? points : 0;
   return points;
 }
 
@@ -4650,7 +4653,7 @@ function isStrongPassword(str) {
     return scorePassword(analysis, options);
   }
 
-  return analysis.length >= options.minLength && analysis.lowercaseCount >= options.minLowercase && analysis.uppercaseCount >= options.minUppercase && analysis.numberCount >= options.minNumbers && analysis.symbolCount >= options.minSymbols;
+  return analysis.length >= options.minLength && analysis.length <= options.maxLength && analysis.lowercaseCount >= options.minLowercase && analysis.uppercaseCount >= options.minUppercase && analysis.numberCount >= options.minNumbers && analysis.symbolCount >= options.minSymbols;
 }
 
 var vatMatchers = {

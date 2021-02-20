@@ -264,6 +264,8 @@ describe('Sanitizers', () => {
         aBc: 23,
         'Abc123!': 47,
         '!@#$%^&*()': 20,
+        // Note the default maxLength is 15 chars, so this will exceed that and return 0
+        'ThisPassword15t00!0NG!': 0,
       },
     });
   });
@@ -278,6 +280,8 @@ describe('Sanitizers', () => {
         'Abc123!': false,
         '!@#$%^&*()': false,
         'abc123!@f#rA': true,
+        // Note the default maxLength is 15 chars, so this will return false
+        'ThisPassword15t00!0NG!': false,
       },
     });
   });

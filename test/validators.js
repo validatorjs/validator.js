@@ -10017,6 +10017,7 @@ describe('Validators', () => {
       validator: 'isStrongPassword',
       args: [{
         minLength: 8,
+        maxLength: 20,
         minLowercase: 1,
         minUppercase: 1,
         minNumbers: 1,
@@ -10024,10 +10025,10 @@ describe('Validators', () => {
       }],
       valid: [
         '%2%k{7BsL"M%Kd6e',
-        'EXAMPLE of very long_password123!',
         'mxH_+2vs&54_+H3P',
         '+&DxJ=X7-4L8jRCD',
         'etV*p%Nr6w&H%FeF',
+        '10NG !egal password',
       ],
       invalid: [
         '',
@@ -10037,6 +10038,7 @@ describe('Validators', () => {
         'passw0rd',
         'password!',
         'PASSWORD!',
+        'EXAMPLE of very long_password123!',
       ],
     });
   });

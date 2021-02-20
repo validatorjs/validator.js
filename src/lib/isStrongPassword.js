@@ -8,6 +8,7 @@ const symbolRegex = /^[-#!$@%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
 
 const defaultOptions = {
   minLength: 8,
+  maxLength: 15,
   minLowercase: 1,
   minUppercase: 1,
   minNumbers: 1,
@@ -78,6 +79,10 @@ function scorePassword(analysis, scoringOptions) {
   if (analysis.symbolCount > 0) {
     points += scoringOptions.pointsForContainingSymbol;
   }
+
+  // If password exceeds maximum configured length, password is no longer considered strong
+  points = analysis.length <= scoringOptions.maxLength ? points : 0;
+
   return points;
 }
 
@@ -89,6 +94,7 @@ export default function isStrongPassword(str, options = null) {
     return scorePassword(analysis, options);
   }
   return analysis.length >= options.minLength
+        && analysis.length <= options.maxLength
         && analysis.lowercaseCount >= options.minLowercase
         && analysis.uppercaseCount >= options.minUppercase
         && analysis.numberCount >= options.minNumbers
