@@ -2250,6 +2250,18 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['BR'],
+      valid: [
+        'FZ973689',
+        'GH231233',
+      ],
+      invalid: [
+        'ABX29332',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['BY'],
       valid: [
         'MP3899901',
@@ -9891,6 +9903,20 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['pt-BR'],
+      valid: [
+        '01494282941',
+        '74407265027',
+        '05423994000172',
+        '11867044000130'],
+      invalid: [
+        '170.691.440-72',
+        '01494282042',
+        '94.592.973/0001-82',
+        '28592361000192'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['pt-PT'],
       valid: [
         '299999998',
@@ -10212,6 +10238,21 @@ describe('Validators', () => {
     });
   });
   it('should be valid license plate', () => {
+    test({
+      validator: 'isLicensePlate',
+      args: ['pt-BR'],
+      valid: [
+        'ABC1234',
+        'RDW8A21',
+        'MMM2593',
+        'DZA8E23',
+      ],
+      invalid: [
+        '',
+        'ABC23E2',
+        'ZE23E23',
+      ],
+    });
     test({
       validator: 'isLicensePlate',
       args: ['pt-PT'],

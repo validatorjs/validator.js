@@ -1125,6 +1125,8 @@ var passportRegexByCountryCode = {
   // BELGIUM
   BG: /^\d{9}$/,
   // BULGARIA
+  BR: /^[A-Z]{2}\d{6}$/,
+  // BRAZIL
   BY: /^[A-Z]{2}\d{7}$/,
   // BELARUS
   CA: /^[A-Z]{2}\d{6}$/,
@@ -2699,7 +2701,7 @@ function elGrCheck(tin) {
     checksum += digits[i] * Math.pow(2, 8 - i);
   }
 
-  return checksum % 11 === digits[8];
+  return checksum % 11 % 10 === digits[8];
 }
 /*
  * en-GB validation function (should go here if needed)
@@ -3413,6 +3415,98 @@ function plPlCheck(tin) {
   return checksum === parseInt(tin[10], 10);
 }
 /*
+* pt-BR validation function
+* (Cadastro de Pessoas Físicas (CPF, persons)
+* Cadastro Nacional de Pessoas Jurídicas (CNPJ, entities)
+* Both inputs will be validated
+*/
+
+
+function ptBrCheck(tin) {
+  tin = tin.replace(/[^\d]+/g, '');
+  if (tin === '') return false;
+
+  if (tin.length === 11) {
+    var _sum;
+
+    var ramainder;
+    _sum = 0;
+    tin = tin.replace(/[^\d]+/g, '');
+    if ( // Reject known invalid CPFs
+    tin === '11111111111' || tin === '22222222222' || tin === '33333333333' || tin === '44444444444' || tin === '55555555555' || tin === '66666666666' || tin === '77777777777' || tin === '88888888888' || tin === '99999999999' || tin === '00000000000') return false;
+
+    for (var i = 1; i <= 9; i++) {
+      _sum += parseInt(tin.substring(i - 1, i), 10) * (11 - i);
+    }
+
+    ramainder = _sum * 10 % 11;
+    if (ramainder === 10 || ramainder === 11) ramainder = 0;
+    if (ramainder !== parseInt(tin.substring(9, 10), 10)) return false;
+    _sum = 0;
+
+    for (var _i8 = 1; _i8 <= 10; _i8++) {
+      _sum += parseInt(tin.substring(_i8 - 1, _i8), 10) * (12 - _i8);
+    }
+
+    ramainder = _sum * 10 % 11;
+    if (ramainder === 10 || ramainder === 11) ramainder = 0;
+    if (ramainder !== parseInt(tin.substring(10, 11), 10)) return false;
+    return true;
+  }
+
+  if (tin.length !== 14) {
+    return false;
+  }
+
+  if ( // Reject know invalid CNPJs
+  tin === '00000000000000' || tin === '11111111111111' || tin === '22222222222222' || tin === '33333333333333' || tin === '44444444444444' || tin === '55555555555555' || tin === '66666666666666' || tin === '77777777777777' || tin === '88888888888888' || tin === '99999999999999') {
+    return false;
+  }
+
+  var length = tin.length - 2;
+  var identifiers = tin.substring(0, length);
+  var verificators = tin.substring(length);
+  var sum = 0;
+  var pos = length - 7;
+
+  for (var _i9 = length; _i9 >= 1; _i9--) {
+    sum += identifiers.charAt(length - _i9) * pos;
+    pos -= 1;
+
+    if (pos < 2) {
+      pos = 9;
+    }
+  }
+
+  var result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+
+  if (result !== parseInt(verificators.charAt(0), 10)) {
+    return false;
+  }
+
+  length += 1;
+  identifiers = tin.substring(0, length);
+  sum = 0;
+  pos = length - 7;
+
+  for (var _i10 = length; _i10 >= 1; _i10--) {
+    sum += identifiers.charAt(length - _i10) * pos;
+    pos -= 1;
+
+    if (pos < 2) {
+      pos = 9;
+    }
+  }
+
+  result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+
+  if (result !== parseInt(verificators.charAt(1), 10)) {
+    return false;
+  }
+
+  return true;
+}
+/*
  * pt-PT validation function
  * (Número de identificação fiscal (NIF), persons/entities)
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
@@ -3670,6 +3764,7 @@ var taxIdFormat = {
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,
   'pl-PL': /^\d{10,11}$/,
+  'pt-BR': /^\d{11,14}$/,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
@@ -3704,6 +3799,7 @@ var taxIdCheck = {
   'mt-MT': mtMtCheck,
   'nl-NL': nlNlCheck,
   'pl-PL': plPlCheck,
+  'pt-BR': ptBrCheck,
   'pt-PT': ptPtCheck,
   'ro-RO': roRoCheck,
   'sk-SK': skSkCheck,
@@ -3867,7 +3963,7 @@ var phones = {
   'tr-TR': /^(\+?90|0)?5\d{9}$/,
   'uk-UA': /^(\+?38|8)?0\d{9}$/,
   'uz-UZ': /^(\+?998)?(6[125-79]|7[1-69]|88|9\d)\d{7}$/,
-  'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-6|89]))|(9([0-9])))([0-9]{7})$/,
+  'vi-VN': /^(\+?84|0)((3([2-9]))|(5([2689]))|(7([0|6-9]))|(8([1-9]))|(9([0-9])))([0-9]{7})$/,
   'zh-CN': /^((\+|00)86)?1([3568][0-9]|4[579]|6[67]|7[01235678]|9[012356789])[0-9]{8}$/,
   'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
@@ -4525,6 +4621,9 @@ var validators$1 = {
   'de-LI': function deLI(str) {
     return /^FL[- ]?\d{1,5}[UZ]?$/.test(str);
   },
+  'pt-BR': function ptBR(str) {
+    return /^[A-Z]{3}[0-9][A-Za-z0-9][0-9]{2}$/.test(str);
+  },
   'pt-PT': function ptPT(str) {
     return /^([A-Z]{2}|[0-9]{2})[ -·]?([A-Z]{2}|[0-9]{2})[ -·]?([A-Z]{2}|[0-9]{2})$/.test(str);
   },
@@ -4557,7 +4656,7 @@ function isLicensePlate(str, locale) {
 var upperCaseRegex = /^[A-Z]$/;
 var lowerCaseRegex = /^[a-z]$/;
 var numberRegex = /^[0-9]$/;
-var symbolRegex = /^[-#!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
+var symbolRegex = /^[-#!$@%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
 var defaultOptions = {
   minLength: 8,
   minLowercase: 1,
