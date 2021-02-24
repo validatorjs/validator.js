@@ -735,7 +735,7 @@ describe('Validators', () => {
     test({
       validator: 'isMACAddress',
       args: [{
-        noSeparator: true,
+        no_separators: true,
       }],
       valid: [
         'abababababab',
