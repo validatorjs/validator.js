@@ -7,7 +7,7 @@ const macAddressWithDots = /^([0-9a-fA-F]{4}\.){2}([0-9a-fA-F]{4})$/;
 export default function isMACAddress(str, options) {
   assertString(str);
   /**
-   * @deprecated `no_colons` deprecated
+   * @deprecated `no_colons` TODO: remove it in the next major
   */
   if (options && (options.no_colons || options.no_separators)) {
     return macAddressNoSeparators.test(str);
