@@ -9,7 +9,7 @@ export default function isMACAddress(str, options) {
   /**
    * @deprecated `no_colons` deprecated
   */
-  if (options && (options.no_colons || options.noSeparators)) {
+  if (options && (options.no_colons || options.no_separators)) {
     return macAddressNoSeparators.test(str);
   }
 
