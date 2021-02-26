@@ -10,17 +10,18 @@ jobs:
     strategy:
       matrix:
         node-version: [14, 12, 10, 8, 6]
+    name: Run tests on Node.js ${{ matrix.node-version }}
     steps:
     - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2-beta
       with:
         node-version: ${{ matrix.node-version }}
         check-latest: true
-    - name: Checkout Repository
+    - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Install Dependencies
+    - name: Install dependencies
       run: npm install
-    - name: Run Tests
+    - name: Run tests
       run: npm test
     - if: matrix.node-version == 14
       name: Generate coverage file
