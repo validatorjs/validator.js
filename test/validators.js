@@ -719,21 +719,23 @@ describe('Validators', () => {
       invalid: [
         'abc',
         '01:02:03:04:05',
+        '01:02:03:04:05:z0',
         '01:02:03:04::ab',
         '1:2:3:4:5:6',
         'AB:CD:EF:GH:01:02',
         'A9C5 D4 9F EB D3',
         '01-02 03:04 05 ab',
         '0102.03:04.05ab',
+        '900f/dffs/sdea',
       ],
     });
   });
 
-  it('should validate MAC addresses without colons', () => {
+  it('should validate MAC addresses without separator', () => {
     test({
       validator: 'isMACAddress',
       args: [{
-        no_colons: true,
+        no_separators: true,
       }],
       valid: [
         'abababababab',
