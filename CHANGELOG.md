@@ -84,441 +84,441 @@
 #### 13.1.1
 
 - Hotfix for a regex incompatibility in some browsers
-  ([#1355](https://github.com/chriso/validator.js/pull/1355)
+  ([#1355](https://github.com/validatorjs/validator.js/pull/1355)
 
 #### 13.1.0
 
 - Added an `isIMEI()` validator
-  ([#1346](https://github.com/chriso/validator.js/pull/1346))
+  ([#1346](https://github.com/validatorjs/validator.js/pull/1346))
 - Added an `isDate()` validator
-  ([#1270](https://github.com/chriso/validator.js/pull/1270))
+  ([#1270](https://github.com/validatorjs/validator.js/pull/1270))
 - Added an `isTaxID()` validator
-  ([#1336](https://github.com/chriso/validator.js/pull/1336))
+  ([#1336](https://github.com/validatorjs/validator.js/pull/1336))
 - Added DMS support to `isLatLong()`
-  ([#1340](https://github.com/chriso/validator.js/pull/1340))
+  ([#1340](https://github.com/validatorjs/validator.js/pull/1340))
 - Added support for URL-safe base64 validation
-  ([#1277](https://github.com/chriso/validator.js/pull/1277))
+  ([#1277](https://github.com/validatorjs/validator.js/pull/1277))
 - Added support for primitives in `isJSON()`
-  ([#1328](https://github.com/chriso/validator.js/pull/1328))
+  ([#1328](https://github.com/validatorjs/validator.js/pull/1328))
 - Added support for case-insensitive matching to `contains()`
-  ([#1334](https://github.com/chriso/validator.js/pull/1334))
+  ([#1334](https://github.com/validatorjs/validator.js/pull/1334))
 - Support additional cards in `isCreditCard()`
-  ([#1177](https://github.com/chriso/validator.js/pull/1177))
+  ([#1177](https://github.com/validatorjs/validator.js/pull/1177))
 - Support additional currencies in `isCurrency()`
-  ([#1306](https://github.com/chriso/validator.js/pull/1306))
+  ([#1306](https://github.com/validatorjs/validator.js/pull/1306))
 - Fixed `isFQDN()` handling of certain special chars
-  ([#1091](https://github.com/chriso/validator.js/pull/1091))
+  ([#1091](https://github.com/validatorjs/validator.js/pull/1091))
 - Fixed a bug in `isSlug()`
-  ([#1338](https://github.com/chriso/validator.js/pull/1338))
+  ([#1338](https://github.com/validatorjs/validator.js/pull/1338))
 - New and improved locales
-  ([#1112](https://github.com/chriso/validator.js/pull/1112),
-   [#1167](https://github.com/chriso/validator.js/pull/1167),
-   [#1198](https://github.com/chriso/validator.js/pull/1198),
-   [#1199](https://github.com/chriso/validator.js/pull/1199),
-   [#1273](https://github.com/chriso/validator.js/pull/1273),
-   [#1279](https://github.com/chriso/validator.js/pull/1279),
-   [#1281](https://github.com/chriso/validator.js/pull/1281),
-   [#1293](https://github.com/chriso/validator.js/pull/1293),
-   [#1294](https://github.com/chriso/validator.js/pull/1294),
-   [#1311](https://github.com/chriso/validator.js/pull/1311),
-   [#1312](https://github.com/chriso/validator.js/pull/1312),
-   [#1313](https://github.com/chriso/validator.js/pull/1313),
-   [#1314](https://github.com/chriso/validator.js/pull/1314),
-   [#1315](https://github.com/chriso/validator.js/pull/1315),
-   [#1317](https://github.com/chriso/validator.js/pull/1317),
-   [#1322](https://github.com/chriso/validator.js/pull/1322),
-   [#1324](https://github.com/chriso/validator.js/pull/1324),
-   [#1330](https://github.com/chriso/validator.js/pull/1330),
-   [#1337](https://github.com/chriso/validator.js/pull/1337))
+  ([#1112](https://github.com/validatorjs/validator.js/pull/1112),
+   [#1167](https://github.com/validatorjs/validator.js/pull/1167),
+   [#1198](https://github.com/validatorjs/validator.js/pull/1198),
+   [#1199](https://github.com/validatorjs/validator.js/pull/1199),
+   [#1273](https://github.com/validatorjs/validator.js/pull/1273),
+   [#1279](https://github.com/validatorjs/validator.js/pull/1279),
+   [#1281](https://github.com/validatorjs/validator.js/pull/1281),
+   [#1293](https://github.com/validatorjs/validator.js/pull/1293),
+   [#1294](https://github.com/validatorjs/validator.js/pull/1294),
+   [#1311](https://github.com/validatorjs/validator.js/pull/1311),
+   [#1312](https://github.com/validatorjs/validator.js/pull/1312),
+   [#1313](https://github.com/validatorjs/validator.js/pull/1313),
+   [#1314](https://github.com/validatorjs/validator.js/pull/1314),
+   [#1315](https://github.com/validatorjs/validator.js/pull/1315),
+   [#1317](https://github.com/validatorjs/validator.js/pull/1317),
+   [#1322](https://github.com/validatorjs/validator.js/pull/1322),
+   [#1324](https://github.com/validatorjs/validator.js/pull/1324),
+   [#1330](https://github.com/validatorjs/validator.js/pull/1330),
+   [#1337](https://github.com/validatorjs/validator.js/pull/1337))
 
 #### 13.0.0
 
 - Added `isEthereumAddress()` validator
   to validate [Ethereum addresses](https://en.wikipedia.org/wiki/Ethereum#Addresses)
-  ([#1117](https://github.com/chriso/validator.js/pull/1117))
+  ([#1117](https://github.com/validatorjs/validator.js/pull/1117))
 - Added `isBtcAddress()` validator
   to validate [Bitcoin addresses](https://en.bitcoin.it/wiki/Address)
-  ([#1163](https://github.com/chriso/validator.js/pull/1163))
+  ([#1163](https://github.com/validatorjs/validator.js/pull/1163))
 - Added `isIBAN()` validator
   to validate [International Bank Account Numbers](https://en.wikipedia.org/wiki/International_Bank_Account_Number)
-  ([#1243](https://github.com/chriso/validator.js/pull/1243))
+  ([#1243](https://github.com/validatorjs/validator.js/pull/1243))
 - Added `isEAN()` validator
   to validate [International Article Numbers](https://en.wikipedia.org/wiki/International_Article_Number)
-  ([#1244](https://github.com/chriso/validator.js/pull/1244))
+  ([#1244](https://github.com/validatorjs/validator.js/pull/1244))
 - Added `isSemVer()` validator
   to validate [Semantic Version Numbers](https://semver.org)
-  ([#1246](https://github.com/chriso/validator.js/pull/1246))
+  ([#1246](https://github.com/validatorjs/validator.js/pull/1246))
 - Added `isPassportNumber()` validator
-  ([#1250](https://github.com/chriso/validator.js/pull/1250))
+  ([#1250](https://github.com/validatorjs/validator.js/pull/1250))
 - Added `isRgbColor()` validator
-  ([#1141](https://github.com/chriso/validator.js/pull/1141))
+  ([#1141](https://github.com/validatorjs/validator.js/pull/1141))
 - Added `isHSL()` validator
-  ([#1159](https://github.com/chriso/validator.js/pull/1159))
+  ([#1159](https://github.com/validatorjs/validator.js/pull/1159))
 - Added `isLocale()` validator
-  ([#1072](https://github.com/chriso/validator.js/pull/1072))
+  ([#1072](https://github.com/validatorjs/validator.js/pull/1072))
 - Improved the `isIP()` validator
-  ([#1211](https://github.com/chriso/validator.js/pull/1211))
+  ([#1211](https://github.com/validatorjs/validator.js/pull/1211))
 - Improved the `isMACAddress()` validator
-  ([#1267](https://github.com/chriso/validator.js/pull/1267))
+  ([#1267](https://github.com/validatorjs/validator.js/pull/1267))
 - New and improved locales
-  ([#1238](https://github.com/chriso/validator.js/pull/1238),
-   [#1265](https://github.com/chriso/validator.js/pull/1265))
+  ([#1238](https://github.com/validatorjs/validator.js/pull/1238),
+   [#1265](https://github.com/validatorjs/validator.js/pull/1265))
 
 #### 12.2.0
 
 - Support CSS Colors Level 4 spec
-  ([#1233](https://github.com/chriso/validator.js/pull/1233))
+  ([#1233](https://github.com/validatorjs/validator.js/pull/1233))
 - Improve the `toFloat()` sanitizer
-  ([#1227](https://github.com/chriso/validator.js/pull/1227))
+  ([#1227](https://github.com/validatorjs/validator.js/pull/1227))
 - New and improved locales
-  ([#1200](https://github.com/chriso/validator.js/pull/1200),
-   [#1207](https://github.com/chriso/validator.js/pull/1207),
-   [#1213](https://github.com/chriso/validator.js/pull/1213),
-   [#1217](https://github.com/chriso/validator.js/pull/1217),
-   [#1234](https://github.com/chriso/validator.js/pull/1234))
+  ([#1200](https://github.com/validatorjs/validator.js/pull/1200),
+   [#1207](https://github.com/validatorjs/validator.js/pull/1207),
+   [#1213](https://github.com/validatorjs/validator.js/pull/1213),
+   [#1217](https://github.com/validatorjs/validator.js/pull/1217),
+   [#1234](https://github.com/validatorjs/validator.js/pull/1234))
 
 #### 12.1.0
 
 - ES module for webpack tree shaking
-  ([#1015](https://github.com/chriso/validator.js/pull/1015))
+  ([#1015](https://github.com/validatorjs/validator.js/pull/1015))
 - Updated `isIP()` to accept scoped IPv6 addresses
-  ([#1160](https://github.com/chriso/validator.js/pull/1160))
+  ([#1160](https://github.com/validatorjs/validator.js/pull/1160))
 - New and improved locales
-  ([#1162](https://github.com/chriso/validator.js/pull/1162),
-   [#1183](https://github.com/chriso/validator.js/pull/1183),
-   [#1187](https://github.com/chriso/validator.js/pull/1187),
-   [#1191](https://github.com/chriso/validator.js/pull/1191))
+  ([#1162](https://github.com/validatorjs/validator.js/pull/1162),
+   [#1183](https://github.com/validatorjs/validator.js/pull/1183),
+   [#1187](https://github.com/validatorjs/validator.js/pull/1187),
+   [#1191](https://github.com/validatorjs/validator.js/pull/1191))
 
 #### 12.0.0
 
 - Added `isOctal()` validator
-  ([#1153](https://github.com/chriso/validator.js/pull/1153))
+  ([#1153](https://github.com/validatorjs/validator.js/pull/1153))
 - Added `isSlug()` validator
-  ([#1096](https://github.com/chriso/validator.js/pull/1096))
+  ([#1096](https://github.com/validatorjs/validator.js/pull/1096))
 - Added `isBIC()` validator for bank identification codes
-  ([#1071](https://github.com/chriso/validator.js/pull/1071))
+  ([#1071](https://github.com/validatorjs/validator.js/pull/1071))
 - Allow uppercase chars in `isHash()`
-  ([#1062](https://github.com/chriso/validator.js/pull/1062))
+  ([#1062](https://github.com/validatorjs/validator.js/pull/1062))
 - Allow additional prefixes in `isHexadecimal()`
-  ([#1147](https://github.com/chriso/validator.js/pull/1147))
+  ([#1147](https://github.com/validatorjs/validator.js/pull/1147))
 - Allow additional separators in `isMACAddress()`
-  ([#1065](https://github.com/chriso/validator.js/pull/1065))
+  ([#1065](https://github.com/validatorjs/validator.js/pull/1065))
 - Better defaults for `isLength()`
-  ([#1070](https://github.com/chriso/validator.js/pull/1070))
+  ([#1070](https://github.com/validatorjs/validator.js/pull/1070))
 - Bug fixes
-  ([#1074](https://github.com/chriso/validator.js/pull/1074))
+  ([#1074](https://github.com/validatorjs/validator.js/pull/1074))
 - New and improved locales
-  ([#1059](https://github.com/chriso/validator.js/pull/1059),
-   [#1060](https://github.com/chriso/validator.js/pull/1060),
-   [#1069](https://github.com/chriso/validator.js/pull/1069),
-   [#1073](https://github.com/chriso/validator.js/pull/1073),
-   [#1082](https://github.com/chriso/validator.js/pull/1082),
-   [#1092](https://github.com/chriso/validator.js/pull/1092),
-   [#1121](https://github.com/chriso/validator.js/pull/1121),
-   [#1125](https://github.com/chriso/validator.js/pull/1125),
-   [#1132](https://github.com/chriso/validator.js/pull/1132),
-   [#1152](https://github.com/chriso/validator.js/pull/1152),
-   [#1165](https://github.com/chriso/validator.js/pull/1165),
-   [#1166](https://github.com/chriso/validator.js/pull/1166),
-   [#1174](https://github.com/chriso/validator.js/pull/1174))
+  ([#1059](https://github.com/validatorjs/validator.js/pull/1059),
+   [#1060](https://github.com/validatorjs/validator.js/pull/1060),
+   [#1069](https://github.com/validatorjs/validator.js/pull/1069),
+   [#1073](https://github.com/validatorjs/validator.js/pull/1073),
+   [#1082](https://github.com/validatorjs/validator.js/pull/1082),
+   [#1092](https://github.com/validatorjs/validator.js/pull/1092),
+   [#1121](https://github.com/validatorjs/validator.js/pull/1121),
+   [#1125](https://github.com/validatorjs/validator.js/pull/1125),
+   [#1132](https://github.com/validatorjs/validator.js/pull/1132),
+   [#1152](https://github.com/validatorjs/validator.js/pull/1152),
+   [#1165](https://github.com/validatorjs/validator.js/pull/1165),
+   [#1166](https://github.com/validatorjs/validator.js/pull/1166),
+   [#1174](https://github.com/validatorjs/validator.js/pull/1174))
 
 #### 11.1.0
 
 - Code coverage improvements
-  ([#1024](https://github.com/chriso/validator.js/pull/1024))
+  ([#1024](https://github.com/validatorjs/validator.js/pull/1024))
 - New and improved locales
-  ([#1035](https://github.com/chriso/validator.js/pull/1035),
-   [#1040](https://github.com/chriso/validator.js/pull/1040),
-   [#1041](https://github.com/chriso/validator.js/pull/1041),
-   [#1048](https://github.com/chriso/validator.js/pull/1048),
-   [#1049](https://github.com/chriso/validator.js/pull/1049),
-   [#1052](https://github.com/chriso/validator.js/pull/1052),
-   [#1054](https://github.com/chriso/validator.js/pull/1054),
-   [#1055](https://github.com/chriso/validator.js/pull/1055),
-   [#1056](https://github.com/chriso/validator.js/pull/1056),
-   [#1057](https://github.com/chriso/validator.js/pull/1057))
+  ([#1035](https://github.com/validatorjs/validator.js/pull/1035),
+   [#1040](https://github.com/validatorjs/validator.js/pull/1040),
+   [#1041](https://github.com/validatorjs/validator.js/pull/1041),
+   [#1048](https://github.com/validatorjs/validator.js/pull/1048),
+   [#1049](https://github.com/validatorjs/validator.js/pull/1049),
+   [#1052](https://github.com/validatorjs/validator.js/pull/1052),
+   [#1054](https://github.com/validatorjs/validator.js/pull/1054),
+   [#1055](https://github.com/validatorjs/validator.js/pull/1055),
+   [#1056](https://github.com/validatorjs/validator.js/pull/1056),
+   [#1057](https://github.com/validatorjs/validator.js/pull/1057))
 
 #### 11.0.0
 
 - Added a `isBase32()` validator
-  ([#1023](https://github.com/chriso/validator.js/pull/1023))
+  ([#1023](https://github.com/validatorjs/validator.js/pull/1023))
 - Updated `isEmail()` to validate display names according to RFC2822
-  ([#1004](https://github.com/chriso/validator.js/pull/1004))
+  ([#1004](https://github.com/validatorjs/validator.js/pull/1004))
 - Updated `isEmail()` to check total email length
-  ([#1007](https://github.com/chriso/validator.js/pull/1007))
+  ([#1007](https://github.com/validatorjs/validator.js/pull/1007))
 - The internal `toString()` util is no longer exported
-  ([0277eb](https://github.com/chriso/validator.js/commit/0277eb00d245a3479af52adf7d927d4036895650))
+  ([0277eb](https://github.com/validatorjs/validator.js/commit/0277eb00d245a3479af52adf7d927d4036895650))
 - New and improved locales
-  ([#999](https://github.com/chriso/validator.js/pull/999),
-   [#1010](https://github.com/chriso/validator.js/pull/1010),
-   [#1017](https://github.com/chriso/validator.js/pull/1017),
-   [#1022](https://github.com/chriso/validator.js/pull/1022),
-   [#1031](https://github.com/chriso/validator.js/pull/1031),
-   [#1032](https://github.com/chriso/validator.js/pull/1032))
+  ([#999](https://github.com/validatorjs/validator.js/pull/999),
+   [#1010](https://github.com/validatorjs/validator.js/pull/1010),
+   [#1017](https://github.com/validatorjs/validator.js/pull/1017),
+   [#1022](https://github.com/validatorjs/validator.js/pull/1022),
+   [#1031](https://github.com/validatorjs/validator.js/pull/1031),
+   [#1032](https://github.com/validatorjs/validator.js/pull/1032))
 
 #### 10.11.0
 
 - Fix imports like `import .. from "validator/lib/.."`
-  ([#961](https://github.com/chriso/validator.js/pull/961))
+  ([#961](https://github.com/validatorjs/validator.js/pull/961))
 - New locale
-  ([#958](https://github.com/chriso/validator.js/pull/958))
+  ([#958](https://github.com/validatorjs/validator.js/pull/958))
 
 #### 10.10.0
 
 - `isISO8601()` strict mode now works in the browser
-  ([#932](https://github.com/chriso/validator.js/pull/932))
+  ([#932](https://github.com/validatorjs/validator.js/pull/932))
 - New and improved locales
-  ([#931](https://github.com/chriso/validator.js/pull/931),
-   [#933](https://github.com/chriso/validator.js/pull/933),
-   [#947](https://github.com/chriso/validator.js/pull/947),
-   [#950](https://github.com/chriso/validator.js/pull/950))
+  ([#931](https://github.com/validatorjs/validator.js/pull/931),
+   [#933](https://github.com/validatorjs/validator.js/pull/933),
+   [#947](https://github.com/validatorjs/validator.js/pull/947),
+   [#950](https://github.com/validatorjs/validator.js/pull/950))
 
 #### 10.9.0
 
 - Added an option to `isURL()` to reject email-like URLs
-  ([#901](https://github.com/chriso/validator.js/pull/901))
+  ([#901](https://github.com/validatorjs/validator.js/pull/901))
 - Added a `strict` option to `isISO8601()`
-  ([#910](https://github.com/chriso/validator.js/pull/910))
+  ([#910](https://github.com/validatorjs/validator.js/pull/910))
 - Relaxed `isJWT()` signature requirements
-  ([#906](https://github.com/chriso/validator.js/pull/906))
+  ([#906](https://github.com/validatorjs/validator.js/pull/906))
 - New and improved locales
-  ([#899](https://github.com/chriso/validator.js/pull/899),
-   [#904](https://github.com/chriso/validator.js/pull/904),
-   [#913](https://github.com/chriso/validator.js/pull/913),
-   [#916](https://github.com/chriso/validator.js/pull/916),
-   [#925](https://github.com/chriso/validator.js/pull/925),
-   [#928](https://github.com/chriso/validator.js/pull/928))
+  ([#899](https://github.com/validatorjs/validator.js/pull/899),
+   [#904](https://github.com/validatorjs/validator.js/pull/904),
+   [#913](https://github.com/validatorjs/validator.js/pull/913),
+   [#916](https://github.com/validatorjs/validator.js/pull/916),
+   [#925](https://github.com/validatorjs/validator.js/pull/925),
+   [#928](https://github.com/validatorjs/validator.js/pull/928))
 
 #### 10.8.0
 
 - Added `isIdentityCard()`
-  ([#846](https://github.com/chriso/validator.js/pull/846))
+  ([#846](https://github.com/validatorjs/validator.js/pull/846))
 - Better error when validators are passed an invalid type
-  ([#895](https://github.com/chriso/validator.js/pull/895))
+  ([#895](https://github.com/validatorjs/validator.js/pull/895))
 - Locales are now exported
-  ([#890](https://github.com/chriso/validator.js/pull/890),
-   [#892](https://github.com/chriso/validator.js/pull/892))
+  ([#890](https://github.com/validatorjs/validator.js/pull/890),
+   [#892](https://github.com/validatorjs/validator.js/pull/892))
 - New locale
-  ([#896](https://github.com/chriso/validator.js/pull/896))
+  ([#896](https://github.com/validatorjs/validator.js/pull/896))
 
 #### 10.7.1
 
 - Ignore case when checking URL protocol
-  ([#887](https://github.com/chriso/validator.js/issues/887))
+  ([#887](https://github.com/validatorjs/validator.js/issues/887))
 - Locale fix
-  ([#889](https://github.com/chriso/validator.js/pull/889))
+  ([#889](https://github.com/validatorjs/validator.js/pull/889))
 
 #### 10.7.0
 
 - Added `isMagnetURI()` to validate [magnet URIs](https://en.wikipedia.org/wiki/Magnet_URI_scheme)
-  ([#884](https://github.com/chriso/validator.js/pull/884))
+  ([#884](https://github.com/validatorjs/validator.js/pull/884))
 - Added `isJWT()` to validate [JSON web tokens](https://en.wikipedia.org/wiki/JSON_Web_Token)
-  ([#885](https://github.com/chriso/validator.js/pull/885))
+  ([#885](https://github.com/validatorjs/validator.js/pull/885))
 
 #### 10.6.0
 
 - Updated `isMobilePhone()` to match any locale's pattern by default
-  ([#874](https://github.com/chriso/validator.js/pull/874))
+  ([#874](https://github.com/validatorjs/validator.js/pull/874))
 - Added an option to ignore whitespace in `isEmpty()`
-  ([#880](https://github.com/chriso/validator.js/pull/880))
+  ([#880](https://github.com/validatorjs/validator.js/pull/880))
 - New and improved locales
-  ([#878](https://github.com/chriso/validator.js/pull/878),
-   [#879](https://github.com/chriso/validator.js/pull/879))
+  ([#878](https://github.com/validatorjs/validator.js/pull/878),
+   [#879](https://github.com/validatorjs/validator.js/pull/879))
 
 #### 10.5.0
 
 - Disabled domain-specific email validation
-  ([#873](https://github.com/chriso/validator.js/pull/873))
+  ([#873](https://github.com/validatorjs/validator.js/pull/873))
 - Added support for IP hostnames in `isEmail()`
-  ([#845](https://github.com/chriso/validator.js/pull/845))
+  ([#845](https://github.com/validatorjs/validator.js/pull/845))
 - Added a `no_symbols` option to `isNumeric()`
-  ([#848](https://github.com/chriso/validator.js/pull/848))
+  ([#848](https://github.com/validatorjs/validator.js/pull/848))
 - Added a `no_colons` option to `isMACAddress()`
-  ([#849](https://github.com/chriso/validator.js/pull/849))
+  ([#849](https://github.com/validatorjs/validator.js/pull/849))
 - Updated `isURL()` to reject protocol relative URLs unless a flag is set
-  ([#860](https://github.com/chriso/validator.js/issues/860))
+  ([#860](https://github.com/validatorjs/validator.js/issues/860))
 - New and improved locales
-  ([#801](https://github.com/chriso/validator.js/pull/801),
-   [#856](https://github.com/chriso/validator.js/pull/856),
-   [#859](https://github.com/chriso/validator.js/issues/859),
-   [#861](https://github.com/chriso/validator.js/pull/861),
-   [#862](https://github.com/chriso/validator.js/pull/862),
-   [#863](https://github.com/chriso/validator.js/pull/863),
-   [#864](https://github.com/chriso/validator.js/pull/864),
-   [#870](https://github.com/chriso/validator.js/pull/870),
-   [#872](https://github.com/chriso/validator.js/pull/872))
+  ([#801](https://github.com/validatorjs/validator.js/pull/801),
+   [#856](https://github.com/validatorjs/validator.js/pull/856),
+   [#859](https://github.com/validatorjs/validator.js/issues/859),
+   [#861](https://github.com/validatorjs/validator.js/pull/861),
+   [#862](https://github.com/validatorjs/validator.js/pull/862),
+   [#863](https://github.com/validatorjs/validator.js/pull/863),
+   [#864](https://github.com/validatorjs/validator.js/pull/864),
+   [#870](https://github.com/validatorjs/validator.js/pull/870),
+   [#872](https://github.com/validatorjs/validator.js/pull/872))
 
 #### 10.4.0
 
 - Added an `isIPRange()` validator
-  ([#842](https://github.com/chriso/validator.js/pull/842))
+  ([#842](https://github.com/validatorjs/validator.js/pull/842))
 - Accept an array of locales in `isMobilePhone()`
-  ([#742](https://github.com/chriso/validator.js/pull/742))
+  ([#742](https://github.com/validatorjs/validator.js/pull/742))
 - New locale
-  ([#843](https://github.com/chriso/validator.js/pull/843))
+  ([#843](https://github.com/validatorjs/validator.js/pull/843))
 
 #### 10.3.0
 
 - Strict Gmail validation in `isEmail()`
-  ([#832](https://github.com/chriso/validator.js/pull/832))
+  ([#832](https://github.com/validatorjs/validator.js/pull/832))
 - New locales
-  ([#831](https://github.com/chriso/validator.js/pull/831),
-   [#835](https://github.com/chriso/validator.js/pull/835),
-   [#836](https://github.com/chriso/validator.js/pull/836))
+  ([#831](https://github.com/validatorjs/validator.js/pull/831),
+   [#835](https://github.com/validatorjs/validator.js/pull/835),
+   [#836](https://github.com/validatorjs/validator.js/pull/836))
 
 #### 10.2.0
 
 - Export the list of supported locales in `isPostalCode()`
-  ([#830](https://github.com/chriso/validator.js/pull/830))
+  ([#830](https://github.com/validatorjs/validator.js/pull/830))
 
 #### 10.1.0
 
 - Added an `isISO31661Alpha3()` validator
-  ([#809](https://github.com/chriso/validator.js/pull/809))
+  ([#809](https://github.com/validatorjs/validator.js/pull/809))
 
 #### 10.0.0
 
 - Allow floating points in `isNumeric()`
-  ([#810](https://github.com/chriso/validator.js/pull/810))
+  ([#810](https://github.com/validatorjs/validator.js/pull/810))
 - Disallow GMail addresses with multiple consecutive dots, or leading/trailing dots
-  ([#820](https://github.com/chriso/validator.js/pull/820))
+  ([#820](https://github.com/validatorjs/validator.js/pull/820))
 - Added an `isRFC3339()` validator
-  ([#816](https://github.com/chriso/validator.js/pull/816))
+  ([#816](https://github.com/validatorjs/validator.js/pull/816))
 - Reject domain parts longer than 63 octets in `isFQDN()`, `isURL()` and `isEmail()`
-  ([bb3e542](https://github.com/chriso/validator.js/commit/bb3e542))
+  ([bb3e542](https://github.com/validatorjs/validator.js/commit/bb3e542))
 - Added a new Amex prefix to `isCreditCard()`
-  ([#805](https://github.com/chriso/validator.js/pull/805))
+  ([#805](https://github.com/validatorjs/validator.js/pull/805))
 - Fixed `isFloat()` min/max/gt/lt filters when a locale with a comma decimal is used
-  ([2b70821](https://github.com/chriso/validator.js/commit/2b70821))
+  ([2b70821](https://github.com/validatorjs/validator.js/commit/2b70821))
 - Normalize Yandex emails
-  ([#807](https://github.com/chriso/validator.js/pull/807))
+  ([#807](https://github.com/validatorjs/validator.js/pull/807))
 - New locales
-  ([#803](https://github.com/chriso/validator.js/pull/803))
+  ([#803](https://github.com/validatorjs/validator.js/pull/803))
 
 #### 9.4.1
 
 - Patched a [REDOS](https://en.wikipedia.org/wiki/ReDoS) vulnerability in `isDataURI`
 - New and improved locales
-  ([#788](https://github.com/chriso/validator.js/pull/788))
+  ([#788](https://github.com/validatorjs/validator.js/pull/788))
 
 #### 9.4.0
 
 - Added an option to `isMobilePhone` to require a country code
-  ([#769](https://github.com/chriso/validator.js/pull/769))
+  ([#769](https://github.com/validatorjs/validator.js/pull/769))
 - New and improved locales
-  ([#785](https://github.com/chriso/validator.js/pull/785))
+  ([#785](https://github.com/validatorjs/validator.js/pull/785))
 
 #### 9.3.0
 
 - New and improved locales
-  ([#763](https://github.com/chriso/validator.js/pull/763),
-   [#768](https://github.com/chriso/validator.js/pull/768),
-   [#774](https://github.com/chriso/validator.js/pull/774),
-   [#777](https://github.com/chriso/validator.js/pull/777),
-   [#779](https://github.com/chriso/validator.js/pull/779))
+  ([#763](https://github.com/validatorjs/validator.js/pull/763),
+   [#768](https://github.com/validatorjs/validator.js/pull/768),
+   [#774](https://github.com/validatorjs/validator.js/pull/774),
+   [#777](https://github.com/validatorjs/validator.js/pull/777),
+   [#779](https://github.com/validatorjs/validator.js/pull/779))
 
 #### 9.2.0
 
 - Added an `isMimeType()` validator
-  ([#760](https://github.com/chriso/validator.js/pull/760))
+  ([#760](https://github.com/validatorjs/validator.js/pull/760))
 - New and improved locales
-  ([#753](https://github.com/chriso/validator.js/pull/753),
-   [#755](https://github.com/chriso/validator.js/pull/755),
-   [#764](https://github.com/chriso/validator.js/pull/764))
+  ([#753](https://github.com/validatorjs/validator.js/pull/753),
+   [#755](https://github.com/validatorjs/validator.js/pull/755),
+   [#764](https://github.com/validatorjs/validator.js/pull/764))
 
 #### 9.1.2
 
 - Fixed a bug with the `isFloat` validator
-  ([#752](https://github.com/chriso/validator.js/pull/752))
+  ([#752](https://github.com/validatorjs/validator.js/pull/752))
 
 #### 9.1.1
 
 - Locale fixes
-  ([#738](https://github.com/chriso/validator.js/pull/738),
-   [#739](https://github.com/chriso/validator.js/pull/739))
+  ([#738](https://github.com/validatorjs/validator.js/pull/738),
+   [#739](https://github.com/validatorjs/validator.js/pull/739))
 
 #### 9.1.0
 
 - Added an `isISO31661Alpha2()` validator
-  ([#734](https://github.com/chriso/validator.js/pull/734))
+  ([#734](https://github.com/validatorjs/validator.js/pull/734))
 - New locales
-  ([#735](https://github.com/chriso/validator.js/pull/735),
-   [#737](https://github.com/chriso/validator.js/pull/737))
+  ([#735](https://github.com/validatorjs/validator.js/pull/735),
+   [#737](https://github.com/validatorjs/validator.js/pull/737))
 
 #### 9.0.0
 
 - `normalizeEmail()` no longer validates the email address
-  ([#725](https://github.com/chriso/validator.js/pull/725))
+  ([#725](https://github.com/validatorjs/validator.js/pull/725))
 - Added locale-aware validation to `isFloat()` and `isDecimal()`
-  ([#721](https://github.com/chriso/validator.js/pull/721))
+  ([#721](https://github.com/validatorjs/validator.js/pull/721))
 - Added an `isPort()` validator
-  ([#733](https://github.com/chriso/validator.js/pull/733))
+  ([#733](https://github.com/validatorjs/validator.js/pull/733))
 - New locales
-  ([#731](https://github.com/chriso/validator.js/pull/731))
+  ([#731](https://github.com/validatorjs/validator.js/pull/731))
 
 #### 8.2.0
 
 - Added an `isHash()` validator
-  ([#711](https://github.com/chriso/validator.js/pull/711))
+  ([#711](https://github.com/validatorjs/validator.js/pull/711))
 - Control decimal places in `isCurrency()`
-  ([#713](https://github.com/chriso/validator.js/pull/713))
+  ([#713](https://github.com/validatorjs/validator.js/pull/713))
 - New and improved locales
-  ([#700](https://github.com/chriso/validator.js/pull/700),
-   [#701](https://github.com/chriso/validator.js/pull/701),
-   [#714](https://github.com/chriso/validator.js/pull/714),
-   [#715](https://github.com/chriso/validator.js/pull/715),
-   [#718](https://github.com/chriso/validator.js/pull/718))
+  ([#700](https://github.com/validatorjs/validator.js/pull/700),
+   [#701](https://github.com/validatorjs/validator.js/pull/701),
+   [#714](https://github.com/validatorjs/validator.js/pull/714),
+   [#715](https://github.com/validatorjs/validator.js/pull/715),
+   [#718](https://github.com/validatorjs/validator.js/pull/718))
 
 #### 8.1.0
 
 - Fix `require('validator/lib/isIS8601')` calls
-  ([#688](https://github.com/chriso/validator.js/issues/688))
+  ([#688](https://github.com/validatorjs/validator.js/issues/688))
 - Added an `isLatLong()` and `isPostalCode()` validator
-  ([#684](https://github.com/chriso/validator.js/pull/684))
+  ([#684](https://github.com/validatorjs/validator.js/pull/684))
 - Allow comma in email display names
-  ([#692](https://github.com/chriso/validator.js/pull/692))
+  ([#692](https://github.com/validatorjs/validator.js/pull/692))
 - Add missing string to `unescape()`
-  ([#690](https://github.com/chriso/validator.js/pull/690))
+  ([#690](https://github.com/validatorjs/validator.js/pull/690))
 - Fix `isMobilePhone()` with Node <= 6.x
-  ([#681](https://github.com/chriso/validator.js/issues/681))
+  ([#681](https://github.com/validatorjs/validator.js/issues/681))
 - New locales
-  ([#695](https://github.com/chriso/validator.js/pull/695))
+  ([#695](https://github.com/validatorjs/validator.js/pull/695))
 
 #### 8.0.0
 
 - `isURL()` now requires the `require_tld: false` option to validate `localhost`
-  ([#675](https://github.com/chriso/validator.js/issues/675))
+  ([#675](https://github.com/validatorjs/validator.js/issues/675))
 - `isURL()` now rejects URLs that are protocol only
-  ([#642](https://github.com/chriso/validator.js/issues/642))
+  ([#642](https://github.com/validatorjs/validator.js/issues/642))
 - Fixed a bug where `isMobilePhone()` would silently return false if the locale was invalid or unsupported
-  ([#657](https://github.com/chriso/validator.js/issues/657))
+  ([#657](https://github.com/validatorjs/validator.js/issues/657))
 
 #### 7.2.0
 
 - Added an option to validate any phone locale
-  ([#663](https://github.com/chriso/validator.js/pull/663))
+  ([#663](https://github.com/validatorjs/validator.js/pull/663))
 - Fixed a bug in credit card validation
-  ([#672](https://github.com/chriso/validator.js/pull/672))
+  ([#672](https://github.com/validatorjs/validator.js/pull/672))
 - Disallow whitespace, including unicode whitespace, in TLDs
-  ([#677](https://github.com/chriso/validator.js/pull/677))
+  ([#677](https://github.com/validatorjs/validator.js/pull/677))
 - New locales
-  ([#673](https://github.com/chriso/validator.js/pull/673),
-   [#676](https://github.com/chriso/validator.js/pull/676))
+  ([#673](https://github.com/validatorjs/validator.js/pull/673),
+   [#676](https://github.com/validatorjs/validator.js/pull/676))
 
 #### 7.1.0
 
 - Added an `isISRC()` validator for [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code)
-  ([#660](https://github.com/chriso/validator.js/pull/660))
+  ([#660](https://github.com/validatorjs/validator.js/pull/660))
 - Fixed a bug in credit card validation
-  ([#670](https://github.com/chriso/validator.js/pull/670))
+  ([#670](https://github.com/validatorjs/validator.js/pull/670))
 - Reduced the maximum allowed address in `isEmail()` based on
   [RFC3696 errata](http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690)
-  ([#655](https://github.com/chriso/validator.js/issues/655))
+  ([#655](https://github.com/validatorjs/validator.js/issues/655))
 - New locales
-  ([#647](https://github.com/chriso/validator.js/pull/647),
-   [#667](https://github.com/chriso/validator.js/pull/667),
-   [#667](https://github.com/chriso/validator.js/pull/667),
-   [#671](https://github.com/chriso/validator.js/pull/671))
+  ([#647](https://github.com/validatorjs/validator.js/pull/647),
+   [#667](https://github.com/validatorjs/validator.js/pull/667),
+   [#667](https://github.com/validatorjs/validator.js/pull/667),
+   [#671](https://github.com/validatorjs/validator.js/pull/671))
 
 #### 7.0.0
 
@@ -527,290 +527,290 @@
 #### 6.3.0
 
 - Allow values like `-.01` in `isFloat()`
-  ([#618](https://github.com/chriso/validator.js/issues/618))
+  ([#618](https://github.com/validatorjs/validator.js/issues/618))
 - New locales
-  ([#616](https://github.com/chriso/validator.js/pull/616),
-   [#622](https://github.com/chriso/validator.js/pull/622),
-   [#627](https://github.com/chriso/validator.js/pull/627),
-   [#630](https://github.com/chriso/validator.js/pull/630))
+  ([#616](https://github.com/validatorjs/validator.js/pull/616),
+   [#622](https://github.com/validatorjs/validator.js/pull/622),
+   [#627](https://github.com/validatorjs/validator.js/pull/627),
+   [#630](https://github.com/validatorjs/validator.js/pull/630))
 
 #### 6.2.1
 
 - Disallow `<` and `>` in URLs
-  ([#613](https://github.com/chriso/validator.js/issues/613))
+  ([#613](https://github.com/validatorjs/validator.js/issues/613))
 - New locales
-  ([#610](https://github.com/chriso/validator.js/pull/610))
+  ([#610](https://github.com/validatorjs/validator.js/pull/610))
 
 #### 6.2.0
 
 - Added an option to require an email display name
-  ([#607](https://github.com/chriso/validator.js/pull/607))
+  ([#607](https://github.com/validatorjs/validator.js/pull/607))
 - Added support for `lt` and `gt` to `isInt()`
-  ([#588](https://github.com/chriso/validator.js/pull/588))
+  ([#588](https://github.com/validatorjs/validator.js/pull/588))
 - New locales
-  ([#601](https://github.com/chriso/validator.js/pull/601))
+  ([#601](https://github.com/validatorjs/validator.js/pull/601))
 
 #### 6.1.0
 
 - Added support for greater or less than in `isFloat()`
-  ([#544](https://github.com/chriso/validator.js/issues/544))
+  ([#544](https://github.com/validatorjs/validator.js/issues/544))
 - Added support for ISSN validation via `isISSN()`
-  ([#593](https://github.com/chriso/validator.js/pull/593))
+  ([#593](https://github.com/validatorjs/validator.js/pull/593))
 - Fixed a bug in `normalizeEmail()`
-  ([#594](https://github.com/chriso/validator.js/issues/594))
+  ([#594](https://github.com/validatorjs/validator.js/issues/594))
 - New locales
-  ([#585](https://github.com/chriso/validator.js/pull/585))
+  ([#585](https://github.com/validatorjs/validator.js/pull/585))
 
 #### 6.0.0
 
 - Renamed `isNull()` to `isEmpty()`
-  ([#574](https://github.com/chriso/validator.js/issues/574))
+  ([#574](https://github.com/validatorjs/validator.js/issues/574))
 - Backslash is now escaped in `escape()`
-  ([#516](https://github.com/chriso/validator.js/issues/516))
+  ([#516](https://github.com/validatorjs/validator.js/issues/516))
 - Improved `normalizeEmail()`
-  ([#583](https://github.com/chriso/validator.js/pull/583))
+  ([#583](https://github.com/validatorjs/validator.js/pull/583))
 - Allow leading zeroes by default in `isInt()`
-  ([#532](https://github.com/chriso/validator.js/pull/532))
+  ([#532](https://github.com/validatorjs/validator.js/pull/532))
 
 #### 5.7.0
 
 - Added support for IPv6 in `isURL()`
-  ([#564](https://github.com/chriso/validator.js/issues/564))
+  ([#564](https://github.com/validatorjs/validator.js/issues/564))
 - Added support for urls without a host (e.g. `file:///foo.txt`) in `isURL()`
-  ([#563](https://github.com/chriso/validator.js/issues/563))
+  ([#563](https://github.com/validatorjs/validator.js/issues/563))
 - Added support for regular expressions in the `isURL()` host whitelist and blacklist
-  ([#562](https://github.com/chriso/validator.js/issues/562))
+  ([#562](https://github.com/validatorjs/validator.js/issues/562))
 - Added support for MasterCard 2-Series BIN
-  ([#576](https://github.com/chriso/validator.js/pull/576))
+  ([#576](https://github.com/validatorjs/validator.js/pull/576))
 - New locales
-  ([#575](https://github.com/chriso/validator.js/pull/575),
-   [#552](https://github.com/chriso/validator.js/issues/552))
+  ([#575](https://github.com/validatorjs/validator.js/pull/575),
+   [#552](https://github.com/validatorjs/validator.js/issues/552))
 
 #### 5.6.0
 
 - Added an `isMD5()` validator
-  ([#557](https://github.com/chriso/validator.js/pull/557))
+  ([#557](https://github.com/validatorjs/validator.js/pull/557))
 - Fixed an exceptional case in `isDate()`
-  ([#566](https://github.com/chriso/validator.js/pull/566))
+  ([#566](https://github.com/validatorjs/validator.js/pull/566))
 - New locales
-  ([#559](https://github.com/chriso/validator.js/pull/559),
-  [#568](https://github.com/chriso/validator.js/pull/568),
-  [#571](https://github.com/chriso/validator.js/pull/571),
-  [#573](https://github.com/chriso/validator.js/pull/573))
+  ([#559](https://github.com/validatorjs/validator.js/pull/559),
+  [#568](https://github.com/validatorjs/validator.js/pull/568),
+  [#571](https://github.com/validatorjs/validator.js/pull/571),
+  [#573](https://github.com/validatorjs/validator.js/pull/573))
 
 #### 5.5.0
 
 - Fixed a regex denial of service in `trim()` and `rtrim()`
-  ([#556](https://github.com/chriso/validator.js/pull/556))
+  ([#556](https://github.com/validatorjs/validator.js/pull/556))
 - Added an Algerian locale to `isMobilePhone()`
-  ([#540](https://github.com/chriso/validator.js/pull/540))
+  ([#540](https://github.com/validatorjs/validator.js/pull/540))
 - Fixed the Hungarian locale in `isAlpha()` and `isAlphanumeric()`
-  ([#541](https://github.com/chriso/validator.js/pull/541))
+  ([#541](https://github.com/validatorjs/validator.js/pull/541))
 - Added a Polish locale to `isMobilePhone()`
-  ([#545](https://github.com/chriso/validator.js/pull/545))
+  ([#545](https://github.com/validatorjs/validator.js/pull/545))
 
 #### 5.4.0
 
 - Accept Union Pay credit cards in `isCreditCard()`
-  ([#539](https://github.com/chriso/validator.js/pull/539))
+  ([#539](https://github.com/validatorjs/validator.js/pull/539))
 - Added Danish locale to `isMobilePhone()`
-  ([#538](https://github.com/chriso/validator.js/pull/538))
+  ([#538](https://github.com/validatorjs/validator.js/pull/538))
 - Added Hungarian locales to `isAlpha()`, `isAlphanumeric()` and `isMobilePhone()`
-  ([#537](https://github.com/chriso/validator.js/pull/537))
+  ([#537](https://github.com/validatorjs/validator.js/pull/537))
 
 #### 5.3.0
 
 - Added an `allow_leading_zeroes` option to `isInt()`
-  ([#532](https://github.com/chriso/validator.js/pull/532))
+  ([#532](https://github.com/validatorjs/validator.js/pull/532))
 - Adjust Chinese mobile phone validation
-  ([#523](https://github.com/chriso/validator.js/pull/523))
+  ([#523](https://github.com/validatorjs/validator.js/pull/523))
 - Added a Canadian locale to `isMobilePhone()`
-  ([#524](https://github.com/chriso/validator.js/issues/524))
+  ([#524](https://github.com/validatorjs/validator.js/issues/524))
 
 #### 5.2.0
 
 - Added a `isDataURI()` validator
-  ([#521](https://github.com/chriso/validator.js/pull/521))
+  ([#521](https://github.com/validatorjs/validator.js/pull/521))
 - Added Czech locales
-  ([#522](https://github.com/chriso/validator.js/pull/522))
+  ([#522](https://github.com/validatorjs/validator.js/pull/522))
 - Fixed a bug with `isURL()` when protocol was missing and "://" appeared in the query
-  ([#518](https://github.com/chriso/validator.js/issues/518))
+  ([#518](https://github.com/validatorjs/validator.js/issues/518))
 
 #### 5.1.0
 
 - Added a `unescape()` HTML function
-  ([#509](https://github.com/chriso/validator.js/pull/509))
+  ([#509](https://github.com/validatorjs/validator.js/pull/509))
 - Added a Malaysian locale to `isMobilePhone()`
-  ([#507](https://github.com/chriso/validator.js/pull/507))
+  ([#507](https://github.com/validatorjs/validator.js/pull/507))
 - Added Polish locales to `isAlpha()` and `isAlphanumeric()`
-  ([#506](https://github.com/chriso/validator.js/pull/506))
+  ([#506](https://github.com/validatorjs/validator.js/pull/506))
 - Added Turkish locales to `isAlpha()`, `isAlphanumeric()` and `isMobilePhone()`
-  ([#512](https://github.com/chriso/validator.js/pull/512))
+  ([#512](https://github.com/validatorjs/validator.js/pull/512))
 - Allow >1 underscore in hostnames when using `allow_underscores`
-  ([#510](https://github.com/chriso/validator.js/issues/510))
+  ([#510](https://github.com/validatorjs/validator.js/issues/510))
 
 #### 5.0.0
 
 - Migrate to ES6
-  ([#496](https://github.com/chriso/validator.js/pull/496))
+  ([#496](https://github.com/validatorjs/validator.js/pull/496))
 - Break the library up so that individual functions can be imported
-  ([#496](https://github.com/chriso/validator.js/pull/496))
+  ([#496](https://github.com/validatorjs/validator.js/pull/496))
 - Remove auto-coercion of input to a string
-  ([#496](https://github.com/chriso/validator.js/pull/496))
+  ([#496](https://github.com/validatorjs/validator.js/pull/496))
 - Remove the `extend()` function
-  ([#496](https://github.com/chriso/validator.js/pull/496))
+  ([#496](https://github.com/validatorjs/validator.js/pull/496))
 - Added Arabic locales to `isAlpha()` and `isAlphanumeric()`
-  ([#496](https://github.com/chriso/validator.js/pull/496#issuecomment-184781730))
+  ([#496](https://github.com/validatorjs/validator.js/pull/496#issuecomment-184781730))
 - Fix validation of very large base64 strings
-  ([#503](https://github.com/chriso/validator.js/pull/503))
+  ([#503](https://github.com/validatorjs/validator.js/pull/503))
 
 #### 4.9.0
 
 - Added a Russian locale to `isAlpha()` and `isAlphanumeric()`
-  ([#499](https://github.com/chriso/validator.js/pull/499))
+  ([#499](https://github.com/validatorjs/validator.js/pull/499))
 - Remove the restriction on adjacent hyphens in hostnames
-  ([#500](https://github.com/chriso/validator.js/issues/500))
+  ([#500](https://github.com/validatorjs/validator.js/issues/500))
 
 #### 4.8.0
 
 - Added Spanish, French, Portuguese and Dutch support for `isAlpha()` and `isAlphanumeric()`
-  ([#492](https://github.com/chriso/validator.js/pull/492))
+  ([#492](https://github.com/validatorjs/validator.js/pull/492))
 - Added a Brazilian locale to `isMobilePhone()`
-  ([#489](https://github.com/chriso/validator.js/pull/489))
+  ([#489](https://github.com/validatorjs/validator.js/pull/489))
 - Reject IPv4 addresses with invalid zero padding
-  ([#490](https://github.com/chriso/validator.js/pull/490))
+  ([#490](https://github.com/validatorjs/validator.js/pull/490))
 - Fix the client-side version when used with RequireJS
-  ([#494](https://github.com/chriso/validator.js/issues/494))
+  ([#494](https://github.com/validatorjs/validator.js/issues/494))
 
 #### 4.7.1
 
 - Use [node-depd](https://github.com/dougwilson/nodejs-depd) to print deprecation notices
-  ([#487](https://github.com/chriso/validator.js/issues/487))
+  ([#487](https://github.com/validatorjs/validator.js/issues/487))
 
 #### 4.7.0
 
 - Print a deprecation warning if validator input is not a string
-  ([1f67e1e](https://github.com/chriso/validator.js/commit/1f67e1e15198c0ae735151290dc8dc2bf14da254)).
+  ([1f67e1e](https://github.com/validatorjs/validator.js/commit/1f67e1e15198c0ae735151290dc8dc2bf14da254)).
   Note that this will be an error in v5.
 - Added a German locale to `isMobilePhone()`, `isAlpha()` and `isAlphanumeric()`
-  ([#477](https://github.com/chriso/validator.js/pull/477))
+  ([#477](https://github.com/validatorjs/validator.js/pull/477))
 - Added a Finnish locale to `isMobilePhone()`
-  ([#455](https://github.com/chriso/validator.js/pull/455))
+  ([#455](https://github.com/validatorjs/validator.js/pull/455))
 
 #### 4.6.1
 
 - Fix coercion of objects: `Object.toString()` is `[object Object]` not `""`
-  ([a57f3c8](https://github.com/chriso/validator.js/commit/a57f3c843c715fba2664ee22ec80e9e28e88e0a6))
+  ([a57f3c8](https://github.com/validatorjs/validator.js/commit/a57f3c843c715fba2664ee22ec80e9e28e88e0a6))
 
 #### 4.6.0
 
 - Added a Spanish locale to `isMobilePhone()`
-  ([#481](https://github.com/chriso/validator.js/pull/481))
+  ([#481](https://github.com/validatorjs/validator.js/pull/481))
 - Fix string coercion of objects created with `Object.create(null)`
-  ([#484](https://github.com/chriso/validator.js/issues/484))
+  ([#484](https://github.com/validatorjs/validator.js/issues/484))
 
 #### 4.5.2
 
 - Fix a timezone issue with short-form ISO 8601 dates, e.g.
   `validator.isDate('2011-12-21')`
-  ([#480](https://github.com/chriso/validator.js/issues/480))
+  ([#480](https://github.com/validatorjs/validator.js/issues/480))
 
 #### 4.5.1
 
 - Make `isLength()` / `isByteLength()` accept `{min, max}` as options object.
-  ([#474](https://github.com/chriso/validator.js/issues/474))
+  ([#474](https://github.com/validatorjs/validator.js/issues/474))
 
 #### 4.5.0
 
 - Add validation for Indian mobile phone numbers
-  ([#471](https://github.com/chriso/validator.js/pull/471))
+  ([#471](https://github.com/validatorjs/validator.js/pull/471))
 - Tweak Greek and Chinese mobile phone validation
-  ([#467](https://github.com/chriso/validator.js/pull/467),
-   [#468](https://github.com/chriso/validator.js/pull/468))
+  ([#467](https://github.com/validatorjs/validator.js/pull/467),
+   [#468](https://github.com/validatorjs/validator.js/pull/468))
 - Fixed a bug in `isDate()` when validating ISO 8601 dates without a timezone
-  ([#472](https://github.com/chriso/validator.js/issues/472))
+  ([#472](https://github.com/validatorjs/validator.js/issues/472))
 
 #### 4.4.1
 
 - Allow triple hyphens in IDNA hostnames
-  ([#466](https://github.com/chriso/validator.js/issues/466))
+  ([#466](https://github.com/validatorjs/validator.js/issues/466))
 
 #### 4.4.0
 
 - Added `isMACAddress()` validator
-  ([#458](https://github.com/chriso/validator.js/pull/458))
+  ([#458](https://github.com/validatorjs/validator.js/pull/458))
 - Added `isWhitelisted()` validator
-  ([#462](https://github.com/chriso/validator.js/pull/462))
+  ([#462](https://github.com/validatorjs/validator.js/pull/462))
 - Added a New Zealand locale to `isMobilePhone()`
-  ([#452](https://github.com/chriso/validator.js/pull/452))
+  ([#452](https://github.com/validatorjs/validator.js/pull/452))
 - Added options to control GMail address normalization
-  ([#460](https://github.com/chriso/validator.js/pull/460))
+  ([#460](https://github.com/validatorjs/validator.js/pull/460))
 
 #### 4.3.0
 
 - Support Ember CLI module definitions
-  ([#448](https://github.com/chriso/validator.js/pull/448))
+  ([#448](https://github.com/validatorjs/validator.js/pull/448))
 - Added a Vietnam locale to `isMobilePhone()`
-  ([#451](https://github.com/chriso/validator.js/pull/451))
+  ([#451](https://github.com/validatorjs/validator.js/pull/451))
 
 #### 4.2.1
 
 - Fix `isDate()` handling of RFC2822 timezones
-  ([#447](https://github.com/chriso/validator.js/pull/447))
+  ([#447](https://github.com/validatorjs/validator.js/pull/447))
 
 #### 4.2.0
 
 - Fix `isDate()` handling of ISO8601 timezones
-  ([#444](https://github.com/chriso/validator.js/pull/444))
+  ([#444](https://github.com/validatorjs/validator.js/pull/444))
 - Fix the incorrect `isFloat('.') === true`
-  ([#443](https://github.com/chriso/validator.js/pull/443))
+  ([#443](https://github.com/validatorjs/validator.js/pull/443))
 - Added a Norwegian locale to `isMobilePhone()`
-  ([#439](https://github.com/chriso/validator.js/pull/439))
+  ([#439](https://github.com/validatorjs/validator.js/pull/439))
 
 #### 4.1.0
 
 - General `isDate()` improvements
-  ([#431](https://github.com/chriso/validator.js/pull/431))
+  ([#431](https://github.com/validatorjs/validator.js/pull/431))
 - Tests now require node 4.0+
-  ([#438](https://github.com/chriso/validator.js/pull/438))
+  ([#438](https://github.com/validatorjs/validator.js/pull/438))
 
 #### 4.0.6
 
 - Added a Taiwan locale to `isMobilePhone()`
-  ([#432](https://github.com/chriso/validator.js/pull/432))
+  ([#432](https://github.com/validatorjs/validator.js/pull/432))
 - Fixed a bug in `isBefore()` where it would return `null`
-  ([#436](https://github.com/chriso/validator.js/pull/436))
+  ([#436](https://github.com/validatorjs/validator.js/pull/436))
 
 #### 4.0.5
 
 - Fixed a denial of service vulnerability in the `isEmail()` regex
-  ([#152](https://github.com/chriso/validator.js/issues/152#issuecomment-131874928))
+  ([#152](https://github.com/validatorjs/validator.js/issues/152#issuecomment-131874928))
 
 #### 4.0.4
 
 - Reverted the leap year validation in `isDate()` as it introduced some regressions
-  ([#422](https://github.com/chriso/validator.js/issues/422), [#423](https://github.com/chriso/validator.js/issues/423))
+  ([#422](https://github.com/validatorjs/validator.js/issues/422), [#423](https://github.com/validatorjs/validator.js/issues/423))
 
 #### 4.0.3
 
 - Added leap year validation to `isDate()`
-  ([#418](https://github.com/chriso/validator.js/pull/418))
+  ([#418](https://github.com/validatorjs/validator.js/pull/418))
 
 #### 4.0.2
 
 - Fixed `isDecimal()` with an empty string
-  ([#419](https://github.com/chriso/validator.js/issues/419))
+  ([#419](https://github.com/validatorjs/validator.js/issues/419))
 
 #### 4.0.1
 
 - Fixed `isByteLength()` with certain strings
-  ([09f0c6d](https://github.com/chriso/validator.js/commit/09f0c6d2321f0c78af6a7de42e91b63955e4c01e))
+  ([09f0c6d](https://github.com/validatorjs/validator.js/commit/09f0c6d2321f0c78af6a7de42e91b63955e4c01e))
 - Put length restrictions on email parts
-  ([#258](https://github.com/chriso/validator.js/issues/258#issuecomment-127173612))
+  ([#258](https://github.com/validatorjs/validator.js/issues/258#issuecomment-127173612))
 
 #### 4.0.0
 
 - Simplified the `isEmail()` regex and fixed some edge cases
-  ([#258](https://github.com/chriso/validator.js/issues/258#issuecomment-127173612))
+  ([#258](https://github.com/validatorjs/validator.js/issues/258#issuecomment-127173612))
 - Added ISO 8601 date validation via `isISO8601()`
-  ([#373](https://github.com/chriso/validator.js/issues/373))
+  ([#373](https://github.com/validatorjs/validator.js/issues/373))

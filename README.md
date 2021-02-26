@@ -1,8 +1,8 @@
 # validator.js
 
 [![NPM version][npm-image]][npm-url]
-[![Build Status](https://travis-ci.org/validatorjs/validator.js.svg?branch=master)](https://travis-ci.org/validatorjs/validator.js)
-[![codecov](https://codecov.io/gh/validatorjs/validator.js/branch/master/graph/badge.svg)](https://codecov.io/gh/validatorjs/validator.js)
+[![CI][ci-image]][ci-url]
+[![Coverage][codecov-image]][codecov-url]
 [![Downloads][downloads-image]][npm-url]
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
@@ -183,7 +183,7 @@ Sanitizer                              | Description
 
 ### XSS Sanitization
 
-XSS sanitization was removed from the library in [2d5d6999](https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
+XSS sanitization was removed from the library in [2d5d6999](https://github.com/validatorjs/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
 
 For an alternative, have a look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters) or at [DOMPurify](https://github.com/cure53/DOMPurify).
 
@@ -253,8 +253,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [npm-url]: https://npmjs.org/package/validator
 [npm-image]: http://img.shields.io/npm/v/validator.svg
 
-[travis-url]: https://travis-ci.org/chriso/validator.js
-[travis-image]: http://img.shields.io/travis/chriso/validator.js.svg
+[codecov-url]: https://codecov.io/gh/validatorjs/validator.js
+[codecov-image]: https://codecov.io/gh/validatorjs/validator.js/branch/master/graph/badge.svg
+
+[ci-url]: https://github.com/validatorjs/validator.js/actions?query=workflow%3ACI
+[ci-image]: https://github.com/validatorjs/validator.js/workflows/CI/badge.svg?branch=master
 
 [amd]: http://requirejs.org/docs/whyamd.html
 [bower]: http://bower.io/
