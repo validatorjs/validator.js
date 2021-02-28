@@ -6,7 +6,7 @@ export default function validateAll(value, ...validatorFunctions) {
   const isValidatorFunctionsExist = validatorFunctions.length;
 
   if (!isValidatorFunctionsExist) {
-    throw new Error("validator functions can'nt be empty");
+    throw new Error("validator functions can't be empty");
   }
 
   for (let i = 0; i < validatorFunctions.length; i++) {
