@@ -2595,6 +2595,20 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['LY'],
+      valid: [
+        'P79JF34X',
+        'RJ45H4V2',
+      ],
+      invalid: [
+        'P79JF34',
+        'RJ45H4V2C',
+        'RJ4-H4V2',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['MT'],
       valid: [
         '1026564',
@@ -4461,6 +4475,24 @@ describe('Validators', () => {
           '219487710',
           '334705465',
           '336000842',
+        ],
+      },
+      {
+        locale: 'ar-LY',
+        valid: [
+          '119803455876',
+          '120024679875',
+          '219624876201',
+          '220103480657',
+        ],
+        invalid: [
+          '987654320123',
+          '123-456-7890',
+          '012345678912',
+          '1234567890',
+          'AFJBHUYTREWR',
+          'C4V6B1X0M5T6',
+          '9876543210123',
         ],
       },
       {

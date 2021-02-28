@@ -39,6 +39,7 @@ const passportRegexByCountryCode = {
   LT: /^[A-Z0-9]{8}$/, // LITHUANIA
   LU: /^[A-Z0-9]{8}$/, // LUXEMBURG
   LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
+  LY: /^[A-Z0-9]{8}$/, // LIBYA
   MT: /^\d{7}$/, // MALTA
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
   PO: /^[A-Z]{2}\d{7}$/, // POLAND
