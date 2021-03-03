@@ -10032,8 +10032,15 @@ describe('Validators', () => {
   it('should validate slug', () => {
     test({
       validator: 'isSlug',
-      args: ['cs_67CZ'],
-      valid: ['cs-cz', 'cscz'],
+      valid: [
+        'foo',
+        'foo-bar',
+        'foo_bar',
+        'foo-bar-foo',
+        'foo-bar_foo',
+        'foo-bar_foo*75-b4r-**_foo',
+        'foo-bar_foo*75-b4r-**_foo-&&',
+      ],
       invalid: [
         'not-----------slug',
         '@#_$@',
