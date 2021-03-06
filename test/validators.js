@@ -10325,21 +10325,6 @@ describe('Validators', () => {
   it('should be valid license plate', () => {
     test({
       validator: 'isLicensePlate',
-      args: ['pt-BR'],
-      valid: [
-        'ABC1234',
-        'RDW8A21',
-        'MMM2593',
-        'DZA8E23',
-      ],
-      invalid: [
-        '',
-        'ABC23E2',
-        'ZE23E23',
-      ],
-    });
-    test({
-      validator: 'isLicensePlate',
       args: ['pt-PT'],
       valid: [
         'AA-12-34',
