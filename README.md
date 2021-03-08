@@ -131,7 +131,7 @@ Validator                               | Description
 **isJWT(str)**                         | check if the string is valid JWT token.
 **isLatLong(str [, options])**                      | check if the string is a valid latitude-longitude coordinate in the format `lat,long` or `lat, long`.<br/><br/>`options` is an object that defaults to `{ checkDMS: false }`. Pass `checkDMS` as `true` to validate DMS(degrees, minutes, and seconds) latitude-longitude format. 
 **isLength(str [, options])**              | check if the string's length falls in a range.<br/><br/>`options` is an object which defaults to `{min:0, max: undefined}`. Note: this function takes into account surrogate pairs.
-**isLicensePlate(str [, locale])**     | check if string matches the format of a country's license plate.<br/><br/>(locale is one of `['de-DE', 'de-LI', 'pt-PT', 'sq-AL', 'pt-BR', 'mercosur']` or `any`). 
+**isLicensePlate(str [, locale])**     | check if string matches the format of a country's license plate.<br/><br/>(locale is one of `['de-DE', 'de-LI', 'pt-PT', 'sq-AL', 'pt-BR'']` or `any`). 
 **isLocale(str)**                       | check if the string is a locale
 **isLowercase(str)**                    | check if the string is lowercase.
 **isMACAddress(str)**                   | check if the string is a MAC address.<br/><br/>`options` is an object which defaults to `{no_colons: false}`. If `no_colons` is true, the validator will allow MAC addresses without the colons. Also, it allows the use of hyphens, spaces or dots e.g  '01 02 03 04 05 ab', '01-02-03-04-05-ab' or '0102.0304.05ab'.

@@ -10316,34 +10316,6 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
-      args: ['mercosur'],
-      valid: [
-        'AB 123 CD',
-        'ABC 1A23',
-        'ABCD 123',
-        'ABC 1234',
-        'AB-123-CD',
-        'ABC-1A23',
-        'ABCD-123',
-        'ABC-1234',
-        'AB123CD',
-        'ABC1A23',
-        'ABCD123',
-        'ABC1234',
-      ],
-      invalid: [
-        '',
-        'A0A0A0A0',
-        ' A A00 ',
-        '0101PTQ',
-        '01PTQPQ',
-        'A1 A23 CD',
-        'AB1 AA23',
-        'ABCDE 23',
-      ],
-    });
-    test({
-      validator: 'isLicensePlate',
       args: ['any'],
       valid: [
         'FL 1',
