@@ -138,6 +138,19 @@ const validators = {
     }
     return sum % 10 === 0;
   },
+  'ar-LY': (str) => {
+    // Libya National Identity Number NIN is 12 digits, the first digit is either 1 or 2
+    const NIN = /^(1|2)\d{11}$/;
+
+    // sanitize user input
+    const sanitized = str.trim();
+
+    // validate the data structure
+    if (!NIN.test(sanitized)) {
+      return false;
+    }
+    return true;
+  },
   'ar-TN': (str) => {
     const DNI = /^\d{8}$/;
 

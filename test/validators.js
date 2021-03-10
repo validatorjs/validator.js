@@ -719,21 +719,23 @@ describe('Validators', () => {
       invalid: [
         'abc',
         '01:02:03:04:05',
+        '01:02:03:04:05:z0',
         '01:02:03:04::ab',
         '1:2:3:4:5:6',
         'AB:CD:EF:GH:01:02',
         'A9C5 D4 9F EB D3',
         '01-02 03:04 05 ab',
         '0102.03:04.05ab',
+        '900f/dffs/sdea',
       ],
     });
   });
 
-  it('should validate MAC addresses without colons', () => {
+  it('should validate MAC addresses without separator', () => {
     test({
       validator: 'isMACAddress',
       args: [{
-        no_colons: true,
+        no_separators: true,
       }],
       valid: [
         'abababababab',
@@ -1567,6 +1569,45 @@ describe('Validators', () => {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+  });
+
+  it('should validate alphanumeric string with ignored characters', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: '@_- ' }], // ignore [@ space _ -]
+      valid: [
+        'Hello@123',
+        'this is a valid alphaNumeric string',
+        'En-US @ alpha_numeric',
+      ],
+      invalid: [
+        'In*Valid',
+        'hello$123',
+        '{invalid}',
+      ],
+    });
+
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: /[\s/-]/g }], // ignore [space -]
+      valid: [
+        'en-US',
+        'this is a valid alphaNumeric string',
+      ],
+      invalid: [
+        'INVALID$ AlphaNum Str',
+        'hello@123',
+        'abc*123',
+      ],
+    });
+
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: 1234 }], // invalid ignore matcher (ignore should be instance of a String or RegExp)
+      error: [
+        'alpha',
       ],
     });
   });
@@ -2603,6 +2644,20 @@ describe('Validators', () => {
       invalid: [
         'LV01234567',
         '4017173LV',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['LY'],
+      valid: [
+        'P79JF34X',
+        'RJ45H4V2',
+      ],
+      invalid: [
+        'P79JF34',
+        'RJ45H4V2C',
+        'RJ4-H4V2',
       ],
     });
 
@@ -4525,6 +4580,24 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'ar-LY',
+        valid: [
+          '119803455876',
+          '120024679875',
+          '219624876201',
+          '220103480657',
+        ],
+        invalid: [
+          '987654320123',
+          '123-456-7890',
+          '012345678912',
+          '1234567890',
+          'AFJBHUYTREWR',
+          'C4V6B1X0M5T6',
+          '9876543210123',
+        ],
+      },
+      {
         locale: 'ar-TN',
         valid: [
           '09958092',
@@ -4745,6 +4818,9 @@ describe('Validators', () => {
         '9771234567003',
         '9783161484100',
         '73513537',
+        '00012345600012',
+        '10012345678902',
+        '20012345678909',
       ],
       invalid: [
         '5901234123451',
@@ -10061,8 +10137,15 @@ describe('Validators', () => {
   it('should validate slug', () => {
     test({
       validator: 'isSlug',
-      args: ['cs_67CZ'],
-      valid: ['cs-cz', 'cscz'],
+      valid: [
+        'foo',
+        'foo-bar',
+        'foo_bar',
+        'foo-bar-foo',
+        'foo-bar_foo',
+        'foo-bar_foo*75-b4r-**_foo',
+        'foo-bar_foo*75-b4r-**_foo-&&',
+      ],
       invalid: [
         'not-----------slug',
         '@#_$@',
