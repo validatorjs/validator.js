@@ -1,8 +1,8 @@
 # validator.js
 
 [![NPM version][npm-image]][npm-url]
-[![Build Status](https://travis-ci.org/validatorjs/validator.js.svg?branch=master)](https://travis-ci.org/validatorjs/validator.js)
-[![codecov](https://codecov.io/gh/validatorjs/validator.js/branch/master/graph/badge.svg)](https://codecov.io/gh/validatorjs/validator.js)
+[![CI][ci-image]][ci-url]
+[![Coverage][codecov-image]][codecov-url]
 [![Downloads][downloads-image]][npm-url]
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
@@ -14,7 +14,7 @@ A library of string validators and sanitizers.
 **This library validates and sanitizes strings only.**
 
 If you're not sure if your input is a string, coerce it using `input + ''`.
-Passing anything other than a string is an error.
+Passing anything other than a string will result in an error.
 
 ## Installation and Usage
 
@@ -85,7 +85,7 @@ Validator                               | Description
 **equals(str, comparison)**             | check if the string matches the comparison.
 **isAfter(str [, date])**               | check if the string is a date that's after the specified date (defaults to now).
 **isAlpha(str [, locale, options])**    | check if the string contains only letters (a-zA-Z).<br/><br/>Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fa-IR', 'fr-CA', 'fr-FR', 'he', 'hu-HU', 'it-IT', 'ku-IQ', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sl-SI', 'sk-SK', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']`) and defaults to `en-US`. Locale list is `validator.isAlphaLocales`. options is an optional object that can be supplied with the following key(s): ignore which can either be a String or RegExp of characters to be ignored e.g. " -" will ignore spaces and -'s.
-**isAlphanumeric(str [, locale])**      | check if the string contains only letters and numbers.<br/><br/>Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fa-IR', 'fr-CA', 'fr-FR', 'he', 'hu-HU', 'it-IT', 'ku-IQ', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sl-SI', 'sk-SK', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']`) and defaults to `en-US`. Locale list is `validator.isAlphanumericLocales`.
+**isAlphanumeric(str [, locale, options])**      | check if the string contains only letters and numbers (a-zA-Z0-9).<br/><br/>Locale is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fa-IR', 'fr-CA', 'fr-FR', 'he', 'hu-HU', 'it-IT', 'ku-IQ', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sl-SI', 'sk-SK', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']`) and defaults to `en-US`. Locale list is `validator.isAlphanumericLocales`. options is an optional object that can be supplied with the following key(s): ignore which can either be a String or RegExp of characters to be ignored e.g. " -" will ignore spaces and -'s.
 **isAscii(str)**                        | check if the string contains ASCII chars only.
 **isBase32(str)**                       | check if a string is base32 encoded.
 **isBase58(str)**                       | check if a string is base58 encoded.
@@ -114,7 +114,7 @@ Validator                               | Description
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHSL(str)**                          | check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on [CSS Colors Level 4 specification](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).<br/><br/>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: `hsl(200grad+.1%62%/1)`).
 **isIBAN(str)**                         | check if a string is a IBAN (International Bank Account Number).
-**isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['ES', 'IN', 'IR', 'IT', 'NO', 'zh-TW', 'he-IL', 'ar-TN', 'zh-CN']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
+**isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['ES', 'IN', 'IT', 'IR', 'NO', 'zh-TW', 'he-IL', 'ar-LY', 'ar-TN', 'zh-CN']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
 **isIMEI(str [, options]))**                         | check if the string is a valid IMEI number. Imei should be of format `###############` or `##-######-######-#`.<br/><br/>`options` is an object which can contain the keys `allow_hyphens`. Defaults to first format . If allow_hyphens is set to true, the validator will validate the second format.
 **isIn(str, values)**                   | check if the string is in a array of allowed values.
 **isInt(str [, options])**              | check if the string is an integer.<br/><br/>`options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to false will disallow integer values with leading zeroes (e.g. `{ allow_leading_zeroes: false }`). Finally, `options` can contain the keys `gt` and/or `lt` which will enforce integers being greater than or less than, respectively, the value provided (e.g. `{gt: 1, lt: 4}` for a number between 1 and 4).
@@ -135,7 +135,7 @@ Validator                               | Description
 **isLocale(str)**                       | check if the string is a locale
 **isLowercase(str)**                    | check if the string is lowercase.
 **isLuhn(str)**                         | check if the string is a valid [Luhn](https://en.wikipedia.org/wiki/Luhn_algorithm).
-**isMACAddress(str)**                   | check if the string is a MAC address.<br/><br/>`options` is an object which defaults to `{no_colons: false}`. If `no_colons` is true, the validator will allow MAC addresses without the colons. Also, it allows the use of hyphens, spaces or dots e.g  '01 02 03 04 05 ab', '01-02-03-04-05-ab' or '0102.0304.05ab'.
+**isMACAddress(str)**                   | check if the string is a MAC address.<br/><br/>`options` is an object which defaults to `{no_separators: false}`. If `no_separators` is true, the validator will allow MAC addresses without separators. Also, it allows the use of hyphens, spaces or dots e.g  '01 02 03 04 05 ab', '01-02-03-04-05-ab' or '0102.0304.05ab'.
 **isMagnetURI(str)**                      | check if the string is a [magnet uri format](https://en.wikipedia.org/wiki/Magnet_URI_scheme).
 **isMD5(str)**                          | check if the string is a MD5 hash.<br/><br/>Please note that you can also use the `isHash(str, 'md5')` function. Keep in mind that MD5 has some collision weaknesses compared to other algorithms (e.g., SHA).
 **isMimeType(str)**                     | check if the string matches to a valid [MIME type](https://en.wikipedia.org/wiki/Media_type) format
@@ -144,7 +144,7 @@ Validator                               | Description
 **isMultibyte(str)**                    | check if the string contains one or more multibyte chars.
 **isNumeric(str [, options])**                      | check if the string contains only numbers.<br/><br/>`options` is an object which defaults to `{no_symbols: false}` it also has locale as an option. If `no_symbols` is true, the validator will reject numeric strings that feature a symbol (e.g. `+`, `-`, or `.`).<br/><br/>`locale` determine the decimal separator and is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'fr-CA', 'hu-HU', 'it-IT', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']`.
 **isOctal(str)**                        | check if the string is a valid octal number.
-**isPassportNumber(str, countryCode)**    | check if the string is a valid passport number.<br/><br/>(countryCode is one of `[ 'AM', 'AR', 'AT', 'AU', 'BE', 'BG', 'BY', 'CA', 'CH', 'CN', 'CY', 'CZ', 'DE', 'DK', 'DZ', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE' 'IN', 'IR', 'IS', 'IT', 'JP', 'KR', 'LT', 'LU', 'LV', 'MT', 'NL', 'PO', 'PT', 'RO', 'RU', 'SE', 'SL', 'SK', 'TR', 'UA', 'US' ]`.
+**isPassportNumber(str, countryCode)**    | check if the string is a valid passport number.<br/><br/>(countryCode is one of `[ 'AM', 'AR', 'AT', 'AU', 'BE', 'BG', 'BY', 'CA', 'CH', 'CN', 'CY', 'CZ', 'DE', 'DK', 'DZ', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE' 'IN', 'IR', 'IS', 'IT', 'JP', 'KR', 'LT', 'LU', 'LV', 'LY', 'MT', 'NL', 'PO', 'PT', 'RO', 'RU', 'SE', 'SL', 'SK', 'TR', 'UA', 'US' ]`.
 **isPort(str)**                         | check if the string is a valid port number.
 **isPostalCode(str, locale)**           | check if the string is a postal code,<br/><br/>(locale is one of `[ 'AD', 'AT', 'AU', 'AZ', 'BE', 'BG', 'BR', 'BY', 'CA', 'CH', 'CN', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HT', 'HU', 'ID', 'IE' 'IL', 'IN', 'IR', 'IS', 'IT', 'JP', 'KE', 'LI', 'LT', 'LU', 'LV', 'MT', 'MX', 'MY', 'NL', 'NO', 'NP', 'NZ', 'PL', 'PR', 'PT', 'RO', 'RU', 'SA', 'SE', 'SG', 'SI', 'TH', 'TN', 'TW', 'UA', 'US', 'ZA', 'ZM' ]` OR 'any'. If 'any' is used, function will check if any of the locals match. Locale list is `validator.isPostalCodeLocales`.).
 **isRFC3339(str)**                      | check if the string is a valid [RFC 3339](https://tools.ietf.org/html/rfc3339) date.
@@ -184,7 +184,7 @@ Sanitizer                              | Description
 
 ### XSS Sanitization
 
-XSS sanitization was removed from the library in [2d5d6999](https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
+XSS sanitization was removed from the library in [2d5d6999](https://github.com/validatorjs/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).
 
 For an alternative, have a look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters) or at [DOMPurify](https://github.com/cure53/DOMPurify).
 
@@ -254,8 +254,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [npm-url]: https://npmjs.org/package/validator
 [npm-image]: http://img.shields.io/npm/v/validator.svg
 
-[travis-url]: https://travis-ci.org/chriso/validator.js
-[travis-image]: http://img.shields.io/travis/chriso/validator.js.svg
+[codecov-url]: https://codecov.io/gh/validatorjs/validator.js
+[codecov-image]: https://codecov.io/gh/validatorjs/validator.js/branch/master/graph/badge.svg
+
+[ci-url]: https://github.com/validatorjs/validator.js/actions?query=workflow%3ACI
+[ci-image]: https://github.com/validatorjs/validator.js/workflows/CI/badge.svg?branch=master
 
 [amd]: http://requirejs.org/docs/whyamd.html
 [bower]: http://bower.io/
