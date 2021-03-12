@@ -49,6 +49,7 @@ function analyzePassword(password) {
     symbolCount: 0,
   };
   Object.keys(charMap).forEach((char) => {
+    /* istanbul ignore else */
     if (upperCaseRegex.test(char)) {
       analysis.uppercaseCount += charMap[char];
     } else if (lowerCaseRegex.test(char)) {

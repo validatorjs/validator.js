@@ -1573,6 +1573,45 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate alphanumeric string with ignored characters', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: '@_- ' }], // ignore [@ space _ -]
+      valid: [
+        'Hello@123',
+        'this is a valid alphaNumeric string',
+        'En-US @ alpha_numeric',
+      ],
+      invalid: [
+        'In*Valid',
+        'hello$123',
+        '{invalid}',
+      ],
+    });
+
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: /[\s/-]/g }], // ignore [space -]
+      valid: [
+        'en-US',
+        'this is a valid alphaNumeric string',
+      ],
+      invalid: [
+        'INVALID$ AlphaNum Str',
+        'hello@123',
+        'abc*123',
+      ],
+    });
+
+    test({
+      validator: 'isAlphanumeric',
+      args: ['en-US', { ignore: 1234 }], // invalid ignore matcher (ignore should be instance of a String or RegExp)
+      error: [
+        'alpha',
+      ],
+    });
+  });
+
   it('should validate defined english aliases', () => {
     test({
       validator: 'isAlphanumeric',
@@ -2252,6 +2291,18 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['BR'],
+      valid: [
+        'FZ973689',
+        'GH231233',
+      ],
+      invalid: [
+        'ABX29332',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['BY'],
       valid: [
         'MP3899901',
@@ -2630,6 +2681,20 @@ describe('Validators', () => {
         'ABAB01121',
       ],
     });
+    test({
+      validator: 'isPassportNumber',
+      args: ['MY'],
+      valid: [
+        'A00000000',
+        'H12345678',
+        'K43143233',
+      ],
+      invalid: [
+        'A1234567',
+        'C01234567',
+      ],
+    });
+
     test({
       validator: 'isPassportNumber',
       args: ['NL'],
@@ -4727,6 +4792,9 @@ describe('Validators', () => {
         '9771234567003',
         '9783161484100',
         '73513537',
+        '00012345600012',
+        '10012345678902',
+        '20012345678909',
       ],
       invalid: [
         '5901234123451',
@@ -6519,18 +6587,11 @@ describe('Validators', () => {
         valid: [
           '+573003321235',
           '573003321235',
-          '579871235',
           '3003321235',
           '3213321235',
           '3103321235',
-          '3253321235',
-          '3321235',
-          '574321235',
-          '5784321235',
-          '5784321235',
-          '9821235',
+          '3243321235',
           '573011140876',
-          '0698345',
         ],
         invalid: [
           '1234',
@@ -6543,6 +6604,13 @@ describe('Validators', () => {
           '5703013347567',
           '069834567',
           '969834567',
+          '579871235',
+          '574321235',
+          '5784321235',
+          '5784321235',
+          '9821235',
+          '0698345',
+          '3321235',
         ],
       },
       {
@@ -9980,6 +10048,22 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['pt-BR'],
+      valid: [
+        '35161990910',
+        '74407265027',
+        '05423994000172',
+        '11867044000130'],
+      invalid: [
+        '170.691.440-72',
+        '01494282042',
+        '11111111111',
+        '94.592.973/0001-82',
+        '28592361000192',
+        '11111111111111'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['pt-PT'],
       valid: [
         '299999998',
@@ -10087,8 +10171,15 @@ describe('Validators', () => {
   it('should validate slug', () => {
     test({
       validator: 'isSlug',
-      args: ['cs_67CZ'],
-      valid: ['cs-cz', 'cscz'],
+      valid: [
+        'foo',
+        'foo-bar',
+        'foo_bar',
+        'foo-bar-foo',
+        'foo-bar_foo',
+        'foo-bar_foo*75-b4r-**_foo',
+        'foo-bar_foo*75-b4r-**_foo-&&',
+      ],
       invalid: [
         'not-----------slug',
         '@#_$@',
@@ -10379,6 +10470,28 @@ describe('Validators', () => {
         '',
         'AA 0 A',
         'AAA 00 AAA',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
+      args: ['pt-BR'],
+      valid: [
+        'ABC1234',
+        'ABC 1234',
+        'ABC-1234',
+        'ABC1D23',
+        'ABC1K23',
+        'ABC1Z23',
+        'ABC 1D23',
+        'ABC-1D23',
+      ],
+      invalid: [
+        '',
+        'AA 0 A',
+        'AAA 00 AAA',
+        'ABCD123',
+        'AB12345',
+        'AB123DC',
       ],
     });
     test({
