@@ -16,11 +16,10 @@ export default function isLicensePlate(str, locale) {
     return validators[locale](str);
   } else if (locale === 'any') {
     for (const key in validators) {
-      if (validators.hasOwnProperty(key)) {
-        const validator = validators[key];
-        if (validator(str)) {
-          return true;
-        }
+      /* eslint guard-for-in: 0 */
+      const validator = validators[key];
+      if (validator(str)) {
+        return true;
       }
     }
     return false;
