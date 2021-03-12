@@ -1,9 +1,9 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "13.1.17",
+  "version": "13.5.1",
   "sideEffects": false,
-  "homepage": "https://github.com/chriso/validator.js",
+  "homepage": "https://github.com/validatorjs/validator.js",
   "files": [
     "index.js",
     "es",
@@ -25,18 +25,15 @@
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
   "contributors": [
-    {
-      "name": "Anthony Nandaa",
-      "url": "https://github.com/profnandaa"
-    }
+    "Anthony Nandaa (https://github.com/profnandaa)"
   ],
   "main": "index.js",
   "bugs": {
-    "url": "https://github.com/chriso/validator.js/issues"
+    "url": "https://github.com/validatorjs/validator.js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chriso/validator.js.git"
+    "url": "git+https://github.com/validatorjs/validator.js.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -67,7 +64,7 @@
     "build:es": "babel src -d es --env-name=es",
     "build:node": "babel src -d .",
     "build": "npm run build:browser && npm run build:node && npm run build:es",
-    "pretest": "npm run lint && npm run build",
+    "pretest": "npm run build && npm run lint",
     "test": "nyc mocha --require @babel/register --reporter dot",
     "test:ci": "nyc report --reporter=text-lcov"
   },

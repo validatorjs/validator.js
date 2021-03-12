@@ -22,9 +22,10 @@ export default function isDataURI(str) {
     return false;
   }
   for (let i = 0; i < attributes.length; i++) {
-    if (i === attributes.length - 1 && attributes[i].toLowerCase() === 'base64') {
-      // ok
-    } else if (!validAttribute.test(attributes[i])) {
+    if (
+      !(i === attributes.length - 1 && attributes[i].toLowerCase() === 'base64') &&
+      !validAttribute.test(attributes[i])
+    ) {
       return false;
     }
   }
