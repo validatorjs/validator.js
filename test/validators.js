@@ -2291,6 +2291,18 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['BR'],
+      valid: [
+        'FZ973689',
+        'GH231233',
+      ],
+      invalid: [
+        'ABX29332',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['BY'],
       valid: [
         'MP3899901',
@@ -9964,6 +9976,22 @@ describe('Validators', () => {
         '02 070-8036/28',
         '2234567855',
         '02223013623'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['pt-BR'],
+      valid: [
+        '35161990910',
+        '74407265027',
+        '05423994000172',
+        '11867044000130'],
+      invalid: [
+        '170.691.440-72',
+        '01494282042',
+        '11111111111',
+        '94.592.973/0001-82',
+        '28592361000192',
+        '11111111111111'],
     });
     test({
       validator: 'isTaxID',
