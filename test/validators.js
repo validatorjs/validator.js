@@ -10405,6 +10405,28 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
+      args: ['pt-BR'],
+      valid: [
+        'ABC1234',
+        'ABC 1234',
+        'ABC-1234',
+        'ABC1D23',
+        'ABC1K23',
+        'ABC1Z23',
+        'ABC 1D23',
+        'ABC-1D23',
+      ],
+      invalid: [
+        '',
+        'AA 0 A',
+        'AAA 00 AAA',
+        'ABCD123',
+        'AB12345',
+        'AB123DC',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['any'],
       valid: [
         'FL 1',
