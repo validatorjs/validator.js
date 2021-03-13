@@ -13,6 +13,7 @@ const passportRegexByCountryCode = {
   AU: /^[A-Z]\d{7}$/, // AUSTRALIA
   BE: /^[A-Z]{2}\d{6}$/, // BELGIUM
   BG: /^\d{9}$/, // BULGARIA
+  BR: /^[A-Z]{2}\d{6}$/, // BRAZIL
   BY: /^[A-Z]{2}\d{7}$/, // BELARUS
   CA: /^[A-Z]{2}\d{6}$/, // CANADA
   CH: /^[A-Z]\d{7}$/, // SWITZERLAND
@@ -39,7 +40,9 @@ const passportRegexByCountryCode = {
   LT: /^[A-Z0-9]{8}$/, // LITHUANIA
   LU: /^[A-Z0-9]{8}$/, // LUXEMBURG
   LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
+  LY: /^[A-Z0-9]{8}$/, // LIBYA
   MT: /^\d{7}$/, // MALTA
+  MY: /^[AHK]\d{8}$/, // MALAYSIA
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
   PO: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
