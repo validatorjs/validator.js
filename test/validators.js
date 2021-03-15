@@ -9503,6 +9503,17 @@ describe('Validators', () => {
           'ab1234',
         ],
       },
+      {
+        locale: 'KR',
+        valid: [
+          '17008',
+          '339012',
+        ],
+        invalid: [
+          '1412347',
+          'ab1234',
+        ],
+      },
     ];
 
     let allValid = [];
