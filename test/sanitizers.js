@@ -137,6 +137,15 @@ describe('Sanitizers', () => {
       args: [16],
       expect: { ff: 255 },
     });
+
+    test({
+      sanitizer: 'toInt',
+      args: [11],
+      expect: {
+        bb: NaN,
+        aa: 120,
+      },
+    });
   });
 
   it('should convert strings to floats', () => {
