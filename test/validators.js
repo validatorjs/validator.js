@@ -4361,6 +4361,17 @@ describe('Validators', () => {
         '2020-01-06T14:31:00.135Z',
       ],
     });
+    test({
+      validator: 'isDivisibleBy',
+      args: ['2'],
+      valid: ['2', '8'],
+      invalid: ['2.5'],
+    });
+    test({
+      validator: 'isDivisibleBy',
+      args: ['2.5'],
+      invalid: ['2.5'],
+    });
   });
 
   it('should validate credit cards', () => {
