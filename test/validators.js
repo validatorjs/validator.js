@@ -3156,29 +3156,6 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate is luhn', () => {
-    test({
-      validator: 'isLuhn',
-      valid: [
-        '6037991199520440',
-        '5022291047705718',
-        '50-22-2910 47705-718',
-      ],
-      invalid: [
-        'foo',
-        '-',
-        ' ',
-        'foo',
-        '375556917985515999999923',
-        '899999996234917882863852',
-        'prefix6234917882863855',
-        '623491788middle2863855',
-        '6234917882863855suffix',
-        '4716989580001715213',
-      ],
-    });
-  });
-
   it('should validate lowercase strings', () => {
     test({
       validator: 'isLowercase',
