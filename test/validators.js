@@ -8592,6 +8592,25 @@ describe('Validators', () => {
   it('should validate XRP addresses', () => {
     test({
       validator: 'isXRPAddress',
+      valid: [
+        'rAAAAAAAAAAAAAAAAAAAAAAAAA',
+        'rUfkLWGb7UwFgpci24kBpu7eCR',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUG',
+      ],
+      invalid: [
+        'r4zkbgzeQriVB1iFeZj8rTT1',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oInpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oOnpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3olnpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3o+npLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3o/npLxUG',
+        '4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUGr',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUGGGG',
+      ],
+    });
+
+    test({
+      validator: 'isXRPAddress',
       args: [
         {
           classicAddress: false,
