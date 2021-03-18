@@ -3325,6 +3325,15 @@ describe('Validators', () => {
       ],
     });
   });
+  test({
+    validator: 'isInt',
+    args: [{
+      radix: 1,
+    }],
+    error: [
+      '2',
+    ],
+  });
 
   it('should validate floats', () => {
     test({
