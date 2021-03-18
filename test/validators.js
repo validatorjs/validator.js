@@ -1,8 +1,8 @@
 import assert from 'assert';
-import fs from 'fs';
 import { format } from 'util';
-import vm from 'vm';
+import fs from 'fs';
 import validator from '../src/index';
+import vm from 'vm';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
@@ -8585,6 +8585,143 @@ describe('Validators', () => {
         'pp8skudq3x5hzw8ew7vzsw8tn4k8wxsqsv0lt0mf3g',
         '17VZNX1SN5NlKa8UQFxwQbFeFc3iqRYhem',
         'BC1QW508D6QEJXTDG4Y5R3ZARVAYR0C5XW7KV8F3T4',
+      ],
+    });
+  });
+
+  it('should validate XRP addresses', () => {
+    test({
+      validator: 'isXRPAddress',
+      args: [
+        {
+          classicAddress: false,
+        },
+      ],
+      valid: [
+        'a',
+        'xyz',
+      ],
+    });
+
+    test({
+      validator: 'isXRPAddress',
+      args: [
+        {
+          classicAddress: true,
+        },
+      ],
+      valid: [
+        'rAAAAAAAAAAAAAAAAAAAAAAAAA',
+        'rUfkLWGb7UwFgpci24kBpu7eCR',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUG',
+      ],
+      invalid: [
+        'r4zkbgzeQriVB1iFeZj8rTT1',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oInpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oOnpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3olnpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3o+npLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3o/npLxUG',
+        '4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUGr',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUGGGG',
+      ],
+    });
+
+    test({
+      validator: 'isXRPAddress',
+      args: [
+        {
+          xAddress: {
+            test: false,
+          },
+        },
+      ],
+      valid: [
+        'X7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cqZ',
+        'XV5sbjUmgPpvXv4ixFWZ5ptAYZ6PD2gYsjNFQLKYW33DzBm',
+        'XV5sbjUmgPpvXv4ixFWZ5ptAYZ6PD28Sq49uo34VyjnmK5H',
+      ],
+      invalid: [
+        'rAAAAAAAAAAAAAAAAAAAAAAAAA',
+        'rUfkLWGb7UwFgpci24kBpu7eCR',
+        'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUG',
+        'T7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cqZ',
+      ],
+    });
+
+    test({
+      validator: 'isXRPAddress',
+      args: [
+        {
+          xAddress: {
+            test: true,
+          },
+        },
+      ],
+      valid: [
+        'T7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cqZ',
+      ],
+      invalid: [
+        'rAAAAAAAAAAAAAAAAAAAAAAAAA',
+        'rUfkLWGb7UwFgpci24kBpu7eCR',
+        'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUG',
+        'T7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cq',
+        'X7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cqZ',
+      ],
+    });
+
+    test({
+      validator: 'isXRPAddress',
+      args: [
+        {
+          classicAddress: true,
+          xAddress: {
+            test: true,
+          },
+        },
+      ],
+      valid: [
+        'rAAAAAAAAAAAAAAAAAAAAAAAAA',
+        'rUfkLWGb7UwFgpci24kBpu7eCR',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUG',
+        'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59',
+        'T7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cqZ',
+      ],
+      invalid: [
+        'T7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cq',
+        'X7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cqZ',
+      ],
+    });
+
+    test({
+      validator: 'isXRPAddress',
+      args: [
+        {
+          classicAddress: true,
+          xAddress: {
+            test: false,
+          },
+        },
+      ],
+      valid: [
+        'rAAAAAAAAAAAAAAAAAAAAAAAAA',
+        'rUfkLWGb7UwFgpci24kBpu7eCR',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUG',
+        'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59',
+        'X7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cqZ',
+      ],
+      invalid: [
+        'r4zkbgzeQriVB1iFeZj8rTT1',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oInpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oOnpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3olnpLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3o+npLxUG',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3o/npLxUG',
+        '4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUGr',
+        'r4zkbgzeQriVB1iFeZj8rTT1q3oTnpLxUGGGG',
+        'T7AcgcsBL6XDcUb289X4mJ8djcdyKaB5hJDWMArnXr61cq',
       ],
     });
   });
