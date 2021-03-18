@@ -24,8 +24,6 @@ export default function isInt(str, options = {}) {
   }
 
   if (radix !== 10) {
-    /* eslint-disable-next-line */
-    debugger
     re = new RegExp(lz ? `^[+-]?[0-${range}]+$` : `^[+-]?(?:0|(?:[1-${range}][0-${range}]*))$`);
   }
 
