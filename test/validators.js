@@ -3273,6 +3273,19 @@ describe('Validators', () => {
     });
     test({
       validator: 'isInt',
+      args: [{ radix: 8, int: undefined }],
+      valid: [
+        '0',
+        '7',
+        '27',
+      ],
+      invalid: [
+        'a',
+        '8',
+      ],
+    });
+    test({
+      validator: 'isInt',
       args: [{
         min: 10,
         max: 15,

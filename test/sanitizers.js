@@ -127,7 +127,7 @@ describe('Sanitizers', () => {
       expect: {
         3: 3,
         ' 3 ': 3,
-        2.4: 2,
+        2.4: NaN,
         foo: NaN,
       },
     });
