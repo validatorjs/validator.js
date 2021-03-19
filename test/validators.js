@@ -10153,6 +10153,7 @@ describe('Validators', () => {
         'mxH_+2vs&54_+H3P',
         '+&DxJ=X7-4L8jRCD',
         'etV*p%Nr6w&H%FeF',
+        'pa5sworD@',
       ],
       invalid: [
         '',
@@ -10162,7 +10163,6 @@ describe('Validators', () => {
         'passw0rd',
         'password!',
         'PASSWORD!',
-        'pa5sworD@',
         'p€a55worD',
       ],
     });
@@ -10177,7 +10177,7 @@ describe('Validators', () => {
         minUppercase: 1,
         minNumbers: 1,
         minSymbols: 1,
-        extendSymbols: '@€',
+        extendSymbols: '€',
       }],
       valid: [
         'pa5sworD@',
