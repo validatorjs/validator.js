@@ -4391,8 +4391,9 @@ describe('Validators', () => {
     });
     test({
       validator: 'isDivisibleBy',
-      args: ['2.5'],
-      invalid: ['2.5'],
+      args: [2.5],
+      valid: ['2.5'],
+      invalid: ['9'],
     });
   });
 
