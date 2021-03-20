@@ -7,5 +7,5 @@ export default function isDivisibleBy(str, num) {
   if (num.constructor !== Number && !isFloat(num)) {
     return false;
   }
-  return toFloat(str) % parseFloat(num, 10) === 0;
+  return toFloat(str) % parseFloat(num) === 0;
 }
