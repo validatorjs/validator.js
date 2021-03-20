@@ -4395,6 +4395,11 @@ describe('Validators', () => {
       valid: ['2.5'],
       invalid: ['9'],
     });
+    test({
+      validator: 'isDivisibleBy',
+      args: ['x'],
+      invalid: ['2.5'],
+    });
   });
 
   it('should validate credit cards', () => {
