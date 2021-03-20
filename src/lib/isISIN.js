@@ -9,27 +9,44 @@ export default function isISIN(str) {
     return false;
   }
 
-  const checksumStr = str.replace(/[A-Z]/g, character => (parseInt(character, 36)));
-
+  let double = true;
   let sum = 0;
-  let digit;
-  let tmpNum;
-  let shouldDouble = true;
-  for (let i = checksumStr.length - 2; i >= 0; i--) {
-    digit = checksumStr.substring(i, (i + 1));
-    tmpNum = parseInt(digit, 10);
-    if (shouldDouble) {
-      tmpNum *= 2;
-      if (tmpNum >= 10) {
-        sum += tmpNum + 1;
-      } else {
-        sum += tmpNum;
+  // convert values
+  for (let i = str.length - 2; i >= 0; i--) {
+    if (str[i] >= 'A' && str[i] <= 'Z') {
+      const value = str[i].charCodeAt(0) - 55;
+      const lo = value % 10;
+      const hi = Math.trunc(value / 10);
+      // letters have two digits, so handle the low order
+      // and high order digits separately.
+      for (const digit of [lo, hi]) {
+        if (double) {
+          if (digit >= 5) {
+            sum += 1 + ((digit - 5) * 2);
+          } else {
+            sum += digit * 2;
+          }
+        } else {
+          sum += digit;
+        }
+        double = !double;
       }
     } else {
-      sum += tmpNum;
+      const digit = str[i].charCodeAt(0) - '0'.charCodeAt(0);
+      if (double) {
+        if (digit >= 5) {
+          sum += 1 + ((digit - 5) * 2);
+        } else {
+          sum += digit * 2;
+        }
+      } else {
+        sum += digit;
+      }
+      double = !double;
     }
-    shouldDouble = !shouldDouble;
   }
 
-  return parseInt(str.substr(str.length - 1), 10) === (10000 - sum) % 10;
+  const check = (Math.trunc(((sum + 9) / 10)) * 10) - sum;
+
+  return +str[str.length - 1] === check;
 }
