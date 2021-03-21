@@ -2,6 +2,12 @@ import assertString from './util/assertString';
 
 const isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
 
+// this link details how the check digit is calculated:
+// https://www.isin.org/isin-format/. it is a little bit
+// odd in that it works with digits, not numbers. in order
+// to make only one pass through the ISIN characters, the
+// each alpha character is handled as 2 characters within
+// the loop.
 
 export default function isISIN(str) {
   assertString(str);
