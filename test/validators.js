@@ -296,7 +296,7 @@ describe('Validators', () => {
     });
   });
 
-  it('should not validate email addresses with blacklisted chars in  the name', () => {
+  it('should not validate email addresses with blacklisted chars in the name', () => {
     test({
       validator: 'isEmail',
       args: [{ blacklisted_chars: 'abc' }],
@@ -328,19 +328,19 @@ describe('Validators', () => {
       ],
       invalid: [],
     });
+  });
 
-    it('should not validate email addresses with blacklisted chars in  the name', () => {
-      test({
-        validator: 'isEmail',
-        args: [{ domain_denylist: ['gmail.com', 'foo.bar'] }],
-        valid: [
-          'email@foo.gmail.com',
-        ],
-        invalid: [
-          'foo+bar@gmail.com',
-          'email@foo.bar',
-        ],
-      });
+  it('should not validate email addresses with denylisted domains', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ domain_denylist: ['gmail.com', 'foo.bar.com'] }],
+      valid: [
+        'email@foo.gmail.com',
+      ],
+      invalid: [
+        'foo+bar@gmail.com',
+        'email@foo.bar.com',
+      ],
     });
   });
 
