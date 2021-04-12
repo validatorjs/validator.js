@@ -350,6 +350,7 @@ describe('Validators', () => {
         'http://www.foobar.com/~foobar',
         'http://user:pass@www.foobar.com/',
         'http://user:@www.foobar.com/',
+        'http://user@www.foobar.com',
         'http://127.0.0.1/',
         'http://10.0.0.0/',
         'http://189.123.14.13/',
@@ -374,7 +375,6 @@ describe('Validators', () => {
         'http://[::FFFF:129.144.52.38]:80/index.html',
         'http://[2010:836B:4179::836B:4179]',
         'http://example.com/example.json#/foo/bar',
-        'http://user:@www.foobar.com',
         'http://1337.com',
       ],
       invalid: [
@@ -405,6 +405,8 @@ describe('Validators', () => {
         'http://lol: @foobar.com/',
         'http://www.foo_bar.com/',
         'http://www.foobar.com/\t',
+        'http://@foobar.com',
+        'http://:@foobar.com',
         'http://\n@www.foobar.com/',
         '',
         `http://foobar.com/${new Array(2083).join('f')}`,
@@ -416,7 +418,6 @@ describe('Validators', () => {
         '////foobar.com',
         'http:////foobar.com',
         'https://example.com/foo/<script>alert(\'XSS\')</script>/',
-        'myemail@mail.com',
       ],
     });
   });
@@ -664,6 +665,24 @@ describe('Validators', () => {
       invalid: [
         'john@doe.com',
         'john:john@doe.com',
+      ],
+    });
+  });
+
+  it('should accept urls containing authentication information', () => {
+    test({
+      validator: 'isURL',
+      args: [{ disallow_auth: false }],
+      valid: [
+        'user@example.com',
+        'user:@example.com',
+        'user:password@example.com',
+      ],
+      invalid: [
+        'user:user:password@example.com',
+        '@example.com',
+        ':@example.com',
+        ':example.com',
       ],
     });
   });
