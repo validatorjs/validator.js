@@ -120,7 +120,7 @@ Validator                               | Description
 **isIn(str, values)**                   | check if the string is in a array of allowed values.
 **isInt(str [, options])**              | check if the string is an integer.<br/><br/>`options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to false will disallow integer values with leading zeroes (e.g. `{ allow_leading_zeroes: false }`). Finally, `options` can contain the keys `gt` and/or `lt` which will enforce integers being greater than or less than, respectively, the value provided (e.g. `{gt: 1, lt: 4}` for a number between 1 and 4).
 **isIP(str [, version])**               | check if the string is an IP (version 4 or 6).
-**isIPRange(str)**                      | check if the string is an IP Range(version 4 only).
+**isIPRange(str [, version])**          | check if the string is an IP Range (version 4 or 6).
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
 **isISO8601(str)**                      | check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date. <br/>`options` is an object which defaults to `{ strict: false, strictSeparator: false }`. If `strict` is true, date strings with invalid dates like `2009-02-29` will be invalid. If `strictSeparator` is true, date strings with date and time separated by anything other than a T will be invalid.
