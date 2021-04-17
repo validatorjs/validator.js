@@ -41,6 +41,7 @@ const patterns = {
   IT: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
   KE: fiveDigit,
+  KR: /^(\d{5}|\d{6})$/,
   LI: /^(948[5-9]|949[0-7])$/,
   LT: /^LT\-\d{5}$/,
   LU: fourDigit,
