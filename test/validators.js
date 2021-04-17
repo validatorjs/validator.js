@@ -7660,6 +7660,20 @@ describe('Validators', () => {
           'NotANumber',
         ],
       },
+      {
+        locale: 'lv-LV',
+        valid: [
+          '+37121234567',
+          '37121234567',
+        ],
+        invalid: [
+          '+37201234567',
+          '+3754321',
+          '3712123456',
+          '+371212345678',
+          'NotANumber',
+        ],
+      },
     ];
 
     let allValid = [];
