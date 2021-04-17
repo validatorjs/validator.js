@@ -12,7 +12,7 @@ const default_email_options = {
   require_tld: true,
   blacklisted_chars: '',
   ignore_max_length: false,
-  domain_denylist: [],
+  host_blacklist: [],
 };
 
 /* eslint-disable max-len */
@@ -93,7 +93,7 @@ export default function isEmail(str, options) {
   const domain = parts.pop();
   const lower_domain = domain.toLowerCase();
 
-  if (options.domain_denylist.includes(lower_domain)) {
+  if (options.host_blacklist.includes(lower_domain)) {
     return false;
   }
 

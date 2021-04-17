@@ -333,7 +333,7 @@ describe('Validators', () => {
   it('should not validate email addresses with denylisted domains', () => {
     test({
       validator: 'isEmail',
-      args: [{ domain_denylist: ['gmail.com', 'foo.bar.com'] }],
+      args: [{ host_blacklist: ['gmail.com', 'foo.bar.com'] }],
       valid: [
         'email@foo.gmail.com',
       ],
