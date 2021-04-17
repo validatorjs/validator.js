@@ -4845,6 +4845,7 @@ describe('Validators', () => {
         'GB0001411924',
         'DE000WCH8881',
         'PLLWBGD00016',
+        'US0378331005',
       ],
       invalid: [
         'DE000BAY0018',
