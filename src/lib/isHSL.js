@@ -9,7 +9,7 @@ export default function isHSL(str) {
   assertString(str);
 
   // Strip duplicate spaces before calling the validation regex (See  #1598 for more info)
-  let strippedStr = str.replace(/\s+/g, ' ').replace(/\s?(hsla?\(|\)|,)\s?/ig, '$1');
+  const strippedStr = str.replace(/\s+/g, ' ').replace(/\s?(hsla?\(|\)|,)\s?/ig, '$1');
 
   if (strippedStr.indexOf(',') !== -1) {
     return hslComma.test(strippedStr);
