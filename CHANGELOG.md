@@ -1,9 +1,10 @@
-#### 13.6.0
+#### 13.6.1
 
 - **New features**:
   - [#1495](https://github.com/validatorjs/validator.js/pull/1495) `isLicensePlate` @firlus
 
 - **Fixes and Enhancements**:
+  - [#1651](https://github.com/validatorjs/validator.js/pull/1651) fix ReDOS vulnerabilities in `isHSL` and `isEmail` @tux-tn
   - [#1644](https://github.com/validatorjs/validator.js/pull/1644) `isURL`: Allow URLs to have only a username in the userinfo subcomponent @jbuchmann-coosto
   - [#1633](https://github.com/validatorjs/validator.js/pull/1633) `isISIN`: optimization @bmacnaughton
   - [#1632](https://github.com/validatorjs/validator.js/pull/1632) `isIP`: improved pattern for IPv4 and IPv6 @ognjenjevremovic
