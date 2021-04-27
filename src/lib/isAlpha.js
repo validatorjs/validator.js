@@ -17,7 +17,14 @@ export default function isAlpha(_str, locale = 'en-US', options = {}) {
     }
   }
 
-  if (locale in alpha) {
+  if (Array.isArray(locale)) {
+    return locale.some((localeKey) => {
+      if (localeKey in alpha) {
+        return alpha[localeKey].test(str);
+      }
+      return false;
+    });
+  } else if (locale in alpha) {
     return alpha[locale].test(str);
   }
   throw new Error(`Invalid locale '${locale}'`);
