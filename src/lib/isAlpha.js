@@ -18,12 +18,12 @@ export default function isAlpha(_str, locale = 'en-US', options = {}) {
   }
 
   if (Array.isArray(locale)) {
-    return locale.some((localeKey) => {
-      if (localeKey in alpha) {
-        return alpha[localeKey].test(str);
-      }
-      return false;
-    });
+    const regex = locale.map(localeKey => alpha[localeKey])
+      .filter(localeRegex => !!localeRegex)
+      .map(localeRegex => localeRegex.source.replace(/\^|\$/g, ''))
+      .join('|');
+
+    return new RegExp(`^(${regex})+$`, 'i').test(str);
   } else if (locale in alpha) {
     return alpha[locale].test(str);
   }

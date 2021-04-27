@@ -1094,9 +1094,8 @@ describe('Validators', () => {
       validator: 'isAlpha',
       args: [['en-US', 'da-DK', 'sk-SK']],
       valid: [
-        'vaild',
-        'Ære',
-        'ľúbím',
+        'Ærevalid',
+        'mäØrekčeň',
       ],
       invalid: [
         '你好世界',
