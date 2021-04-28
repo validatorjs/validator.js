@@ -1092,7 +1092,7 @@ describe('Validators', () => {
   it('should validate alpha string on multiple locales', () => {
     test({
       validator: 'isAlpha',
-      args: [['en-US', 'da-DK', 'sk-SK']],
+      args: [['en-US', 'da-DK', 'invalid', 'sk-SK']],
       valid: [
         'Ærevalid',
         'mäØrekčeň',
