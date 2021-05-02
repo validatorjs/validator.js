@@ -10728,6 +10728,8 @@ describe('Validators', () => {
       valid: [
         'ABC 123',
         'ABC 12A',
+        'ABC123',
+        'ABC12A',
         'A WORD',
         'WORD',
         'ÅSNA',
@@ -10741,6 +10743,7 @@ describe('Validators', () => {
       invalid: [
         '',
         'IQV 123',
+        'IQV123',
         'ABI 12Q',
         'ÅÄÖ 123',
         'ÅÄÖ 12A',
