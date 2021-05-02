@@ -10,6 +10,8 @@ const validators = {
     /^[A-Z]{2}[- ]?((\d{3}[- ]?(([A-Z]{2})|T))|(R[- ]?\d{3}))$/.test(str),
   'pt-BR': str =>
     /^[A-Z]{3}[ -]?[0-9][A-Z][0-9]{2}|[A-Z]{3}[ -]?[0-9]{4}$/.test(str),
+  'sv-SE': str =>
+    /(^[ABCDEFGHJKLMNOPRSTUWXYZ]{3} [\d]{2}[ABCDEFGHJKLMNOPRSTUWXYZ\d]$)|(^[A-ZÅÄÖ ]{2,7}$)/.test(str),
 };
 
 export default function isLicensePlate(str, locale) {

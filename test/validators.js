@@ -10722,6 +10722,40 @@ describe('Validators', () => {
         'FS AB 1234 A',
       ],
     });
+    test({
+      validator: 'isLicensePlate',
+      args: ['sv-SE'],
+      valid: [
+        'ABC 123',
+        'ABC 12A',
+        'A WORD',
+        'WORD',
+        'ÅSNA',
+        'EN VARG',
+        'CERISE',
+        'AA',
+        'ABCDEFG',
+        'ÅÄÖ',
+        'ÅÄÖ ÅÄÖ',
+      ],
+      invalid: [
+        '',
+        'IQV 123',
+        'ABI 12Q',
+        'ÅÄÖ 123',
+        'ÅÄÖ 12A',
+        'AB1 A23',
+        'AB1 12A',
+        'lower',
+        'abc 123',
+        'abc 12A',
+        'abc 12a',
+        'AbC 12a',
+        'WORDLONGERTHANSEVENCHARACTERS',
+        'A',
+        'ABC-123',
+      ],
+    });
   });
   it('should validate english VAT numbers', () => {
     test({
