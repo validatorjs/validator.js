@@ -336,6 +336,18 @@ describe('Sanitizers', () => {
       },
     });
 
+    // Testing is_custom_email_domain switch, should apply to custom domains rules (same as gmail)
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{ is_custom_email_domain: true }],
+      expect: {
+        'test@me.com': 'test@me.com',
+        'test+1@me.com': 'test@me.com',
+        'test.custom@me.com': 'testcustom@me.com',
+        'testCustom@me.com': 'testcustom@me.com',
+      },
+    });
+
     // Testing *_lowercase
     test({
       sanitizer: 'normalizeEmail',

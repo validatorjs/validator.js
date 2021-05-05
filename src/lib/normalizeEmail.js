@@ -38,6 +38,9 @@ const default_normalize_email_options = {
   icloud_lowercase: true,
   // Removes the subaddress (e.g. "+foo") from the email address
   icloud_remove_subaddress: true,
+
+  // Support custom domains. Will act as gmail domain
+  is_custom_email_domain: false,
 };
 
 // List of domains used by iCloud
@@ -178,7 +181,16 @@ export default function normalizeEmail(email, options) {
   // The domain is always lowercased, as it's case-insensitive per RFC 1035
   parts[1] = parts[1].toLowerCase();
 
-  if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
+  if (options.is_custom_email_domain) {
+    parts[0] = parts[0].split('+')[0];
+    parts[0] = parts[0].replace(/\.+/g, dotsReplacer);
+    if (!parts[0].length) {
+      return false;
+    }
+    if (options.all_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+  } else if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
     // Address is GMail
     if (options.gmail_remove_subaddress) {
       parts[0] = parts[0].split('+')[0];
