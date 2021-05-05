@@ -48,7 +48,7 @@ import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
-import isIBAN, { locales as ibanCountryCodes } from './lib/isIBAN';
+import isIBAN, { locales as isIBANLocales } from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
