@@ -28,86 +28,37 @@ import assertString from './util/assertString';
    where the interface "ne0" belongs to the 1st link, "pvc1.3" belongs
    to the 5th link, and "interface10" belongs to the 10th organization.
  * * */
-const ipv4Maybe = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
-const ipv6Block = /^[0-9A-F]{1,4}$/i;
+const IPv4SegmentFormat = '(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])';
+const IPv4AddressFormat = `(${IPv4SegmentFormat}[.]){3}${IPv4SegmentFormat}`;
+const IPv4AddressRegExp = new RegExp(`^${IPv4AddressFormat}$`);
+
+const IPv6SegmentFormat = '(?:[0-9a-fA-F]{1,4})';
+const IPv6AddressRegExp = new RegExp('^(' +
+  `(?:${IPv6SegmentFormat}:){7}(?:${IPv6SegmentFormat}|:)|` +
+  `(?:${IPv6SegmentFormat}:){6}(?:${IPv4AddressFormat}|:${IPv6SegmentFormat}|:)|` +
+  `(?:${IPv6SegmentFormat}:){5}(?::${IPv4AddressFormat}|(:${IPv6SegmentFormat}){1,2}|:)|` +
+  `(?:${IPv6SegmentFormat}:){4}(?:(:${IPv6SegmentFormat}){0,1}:${IPv4AddressFormat}|(:${IPv6SegmentFormat}){1,3}|:)|` +
+  `(?:${IPv6SegmentFormat}:){3}(?:(:${IPv6SegmentFormat}){0,2}:${IPv4AddressFormat}|(:${IPv6SegmentFormat}){1,4}|:)|` +
+  `(?:${IPv6SegmentFormat}:){2}(?:(:${IPv6SegmentFormat}){0,3}:${IPv4AddressFormat}|(:${IPv6SegmentFormat}){1,5}|:)|` +
+  `(?:${IPv6SegmentFormat}:){1}(?:(:${IPv6SegmentFormat}){0,4}:${IPv4AddressFormat}|(:${IPv6SegmentFormat}){1,6}|:)|` +
+  `(?::((?::${IPv6SegmentFormat}){0,5}:${IPv4AddressFormat}|(?::${IPv6SegmentFormat}){1,7}|:))` +
+  ')(%[0-9a-zA-Z-.:]{1,})?$');
 
 export default function isIP(str, version = '') {
   assertString(str);
   version = String(version);
   if (!version) {
     return isIP(str, 4) || isIP(str, 6);
-  } else if (version === '4') {
-    if (!ipv4Maybe.test(str)) {
+  }
+  if (version === '4') {
+    if (!IPv4AddressRegExp.test(str)) {
       return false;
     }
     const parts = str.split('.').sort((a, b) => a - b);
     return parts[3] <= 255;
-  } else if (version === '6') {
-    let addressAndZone = [str];
-    // ipv6 addresses could have scoped architecture
-    // according to https://tools.ietf.org/html/rfc4007#section-11
-    if (str.includes('%')) {
-      addressAndZone = str.split('%');
-      if (addressAndZone.length !== 2) {
-        // it must be just two parts
-        return false;
-      }
-      if (!addressAndZone[0].includes(':')) {
-        // the first part must be the address
-        return false;
-      }
-
-      if (addressAndZone[1] === '') {
-        // the second part must not be empty
-        return false;
-      }
-    }
-
-    const blocks = addressAndZone[0].split(':');
-    let foundOmissionBlock = false; // marker to indicate ::
-
-    // At least some OS accept the last 32 bits of an IPv6 address
-    // (i.e. 2 of the blocks) in IPv4 notation, and RFC 3493 says
-    // that '::ffff:a.b.c.d' is valid for IPv4-mapped IPv6 addresses,
-    // and '::a.b.c.d' is deprecated, but also valid.
-    const foundIPv4TransitionBlock = isIP(blocks[blocks.length - 1], 4);
-    const expectedNumberOfBlocks = foundIPv4TransitionBlock ? 7 : 8;
-
-    if (blocks.length > expectedNumberOfBlocks) {
-      return false;
-    }
-    // initial or final ::
-    if (str === '::') {
-      return true;
-    } else if (str.substr(0, 2) === '::') {
-      blocks.shift();
-      blocks.shift();
-      foundOmissionBlock = true;
-    } else if (str.substr(str.length - 2) === '::') {
-      blocks.pop();
-      blocks.pop();
-      foundOmissionBlock = true;
-    }
-
-    for (let i = 0; i < blocks.length; ++i) {
-      // test for a :: which can not be at the string start/end
-      // since those cases have been handled above
-      if (blocks[i] === '' && i > 0 && i < blocks.length - 1) {
-        if (foundOmissionBlock) {
-          return false; // multiple :: in address
-        }
-        foundOmissionBlock = true;
-      } else if (foundIPv4TransitionBlock && i === blocks.length - 1) {
-        // it has been checked before that the last
-        // block is a valid IPv4 address
-      } else if (!ipv6Block.test(blocks[i])) {
-        return false;
-      }
-    }
-    if (foundOmissionBlock) {
-      return blocks.length >= 1;
-    }
-    return blocks.length === expectedNumberOfBlocks;
+  }
+  if (version === '6') {
+    return !!IPv6AddressRegExp.test(str);
   }
   return false;
 }

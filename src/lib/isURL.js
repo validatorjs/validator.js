@@ -101,8 +101,11 @@ export default function isURL(url, options) {
     if (options.disallow_auth) {
       return false;
     }
+    if (split[0] === '' || split[0].substr(0, 1) === ':') {
+      return false;
+    }
     auth = split.shift();
-    if (auth.indexOf(':') === -1 || (auth.indexOf(':') >= 0 && auth.split(':').length > 2)) {
+    if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
       return false;
     }
   }

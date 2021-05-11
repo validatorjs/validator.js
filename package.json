@@ -1,9 +1,9 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "13.5.1",
+  "version": "13.6.0",
   "sideEffects": false,
-  "homepage": "https://github.com/chriso/validator.js",
+  "homepage": "https://github.com/validatorjs/validator.js",
   "files": [
     "index.js",
     "es",
@@ -25,18 +25,15 @@
   ],
   "author": "Chris O'Hara <cohara87@gmail.com>",
   "contributors": [
-    {
-      "name": "Anthony Nandaa",
-      "url": "https://github.com/profnandaa"
-    }
+    "Anthony Nandaa (https://github.com/profnandaa)"
   ],
   "main": "index.js",
   "bugs": {
-    "url": "https://github.com/chriso/validator.js/issues"
+    "url": "https://github.com/validatorjs/validator.js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chriso/validator.js.git"
+    "url": "git+https://github.com/validatorjs/validator.js.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -48,7 +45,7 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
-    "mocha": "^5.1.1",
+    "mocha": "^6.2.3",
     "nyc": "^14.1.0",
     "rimraf": "^3.0.0",
     "rollup": "^0.43.0",
