@@ -10293,6 +10293,23 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
+      args: ['cs-CZ'],
+      valid: [
+        'ALA4011',
+        '4A23000',
+        'DICTAT0R',
+        'DIC-TAT0R',
+      ],
+      invalid: [
+        '',
+        'invalidlicenseplate',
+        'LN5758898',
+        'X-|$|-X',
+        'AE0F-OP4',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['any'],
       valid: [
         'FL 1',
