@@ -10694,7 +10694,7 @@ describe('Validators', () => {
         'AE0F-OP4',
       ],
     });
-    
+
     test({
       validator: 'isLicensePlate',
       args: ['pt-BR'],
