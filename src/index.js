@@ -222,7 +222,7 @@ const validator = {
   isDate,
   isLicensePlate,
   isVAT,
-  ibanCountryCodes,
+  isIBANLocales,
 };
 
 export default validator;
