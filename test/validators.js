@@ -2345,6 +2345,22 @@ describe('Validators', () => {
       ],
     });
 
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['ID'],
+      valid: [
+        'C1253473',
+        'B5948378',
+        'A4859472',
+      ],
+      invalid: [
+        'D39481728',
+        'A-3847362',
+        '324132132',
+      ],
+    });
+
     test({
       validator: 'isPassportNumber',
       args: ['AR'],
