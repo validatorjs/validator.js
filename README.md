@@ -160,6 +160,7 @@ Validator                               | Description
 **isVariableWidth(str)**                | check if the string contains a mixture of full and half-width chars.
 **isVAT(str, countryCode)**                | checks that the string is a [valid VAT number](https://en.wikipedia.org/wiki/VAT_identification_number) if validation is available for the given country code matching [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). <br/><br/>Available country codes: `[ 'GB', 'IT' ]`.
 **isWhitelisted(str, chars)**           | checks characters if they appear in the whitelist.
+**isXRPAddress(str, [, options])**      | check if string is valid XRP address. <br/><br/><i>options</i> object is optional. With options object, we can specify format of xrp address (classic and/or xAddress). In case of xAddress, user must also specify if we should check if address is valid on test/dev network, or on main network, because format of xAddress depends on network. <br/><br/>Example:  `{ classicAddress: true, xAddress: { test: false } }`<br/><br/><i>Note: This does not verify checksum of address. This checks only the format of address.</i>
 **matches(str, pattern [, modifiers])** | check if string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
 
 ## Sanitizers

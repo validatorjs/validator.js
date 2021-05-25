@@ -102,6 +102,8 @@ import isMimeType from './lib/isMimeType';
 import isLatLong from './lib/isLatLong';
 import isPostalCode, { locales as isPostalCodeLocales } from './lib/isPostalCode';
 
+import isXRPAddress from './lib/isXRPAddress';
+
 import ltrim from './lib/ltrim';
 import rtrim from './lib/rtrim';
 import trim from './lib/trim';
@@ -222,6 +224,7 @@ const validator = {
   isDate,
   isLicensePlate,
   isVAT,
+  isXRPAddress,
 };
 
 export default validator;
