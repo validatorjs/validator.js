@@ -54,6 +54,6 @@ describe('Exports', () => {
 
   it('should export a list of country codes that implement IBAN', () => {
     assert.ok(ibanCountryCodes instanceof Array);
-    assert.ok(validator.ibanCountryCodes instanceof Array);
+    assert.ok(validator.isIBANLocales instanceof Array);
   });
 });
