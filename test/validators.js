@@ -8870,6 +8870,37 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate booleans with option loose set to true', () => {
+    test({
+      validator: 'isBoolean',
+      args: [
+        { loose: true },
+      ],
+      valid: [
+        'true',
+        'True',
+        'TRUE',
+        'false',
+        'False',
+        'FALSE',
+        '0',
+        '1',
+        'yes',
+        'Yes',
+        'YES',
+        'no',
+        'No',
+        'NO',
+      ],
+      invalid: [
+        '1.0',
+        '0.0',
+        'true ',
+        ' false',
+      ],
+    });
+  });
+
   const validISO8601 = [
     '2009-12T12:34',
     '2009',
