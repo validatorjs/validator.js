@@ -30,6 +30,7 @@ export const alpha = {
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
   fa: /^['آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی']+$/i,
+  bn: /^['ঀঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ়ঽািীুূৃৄেৈোৌ্ৎৗড়ঢ়য়ৠৡৢৣৰৱ৲৳৴৵৶৷৸৹৺৻']+$/,
 };
 
 export const alphanumeric = {
@@ -63,6 +64,7 @@ export const alphanumeric = {
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
   fa: /^['0-9آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی۱۲۳۴۵۶۷۸۹۰']+$/i,
+  bn: /^['ঀঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ়ঽািীুূৃৄেৈোৌ্ৎৗড়ঢ়য়ৠৡৢৣ০১২৩৪৫৬৭৮৯ৰৱ৲৳৴৵৶৷৸৹৺৻']+$/,
 };
 
 export const decimal = {
@@ -81,10 +83,8 @@ for (let locale, i = 0; i < englishLocales.length; i++) {
 }
 
 // Source: http://www.localeplanet.com/java/
-export const arabicLocales = [
-  'AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
-  'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE',
-];
+export const arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
+  'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
 
 for (let locale, i = 0; i < arabicLocales.length; i++) {
   locale = `ar-${arabicLocales[i]}`;
@@ -93,14 +93,21 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
   decimal[locale] = decimal.ar;
 }
 
-export const farsiLocales = [
-  'IR', 'AF',
-];
+export const farsiLocales = ['IR', 'AF'];
 
 for (let locale, i = 0; i < farsiLocales.length; i++) {
   locale = `fa-${farsiLocales[i]}`;
   alphanumeric[locale] = alphanumeric.fa;
   decimal[locale] = decimal.ar;
+}
+
+export const bengaliLocales = ['BD', 'IN'];
+
+for (let locale, i = 0; i < bengaliLocales.length; i++) {
+  locale = `bn-${bengaliLocales[i]}`;
+  alpha[locale] = alpha.bn;
+  alphanumeric[locale] = alphanumeric.bn;
+  decimal[locale] = decimal['en-US'];
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
