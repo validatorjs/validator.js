@@ -10694,6 +10694,9 @@ describe('Validators', () => {
         'Roma 123456',
         'NA98765',
         'MI123',
+        'MI 01D234',
+        'VE0X1234',
+        'ROMA 01234Z',
       ],
       invalid: [
         'AI 123 CD',
@@ -10713,6 +10716,8 @@ describe('Validators', () => {
         'AB 12 CD',
         'A 12345',
         '12345 TO',
+        'TO 1234X5',
+        'MI 01E234',
       ],
     });
     test({
