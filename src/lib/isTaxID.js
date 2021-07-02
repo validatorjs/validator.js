@@ -853,6 +853,93 @@ function plPlCheck(tin) {
 }
 
 /*
+* pt-BR validation function
+* (Cadastro de Pessoas Físicas (CPF, persons)
+* Cadastro Nacional de Pessoas Jurídicas (CNPJ, entities)
+* Both inputs will be validated
+*/
+
+function ptBrCheck(tin) {
+  tin = tin.replace(/[^\d]+/g, '');
+  if (tin === '') return false;
+
+  if (tin.length === 11) {
+    let sum;
+    let ramainder;
+    sum = 0;
+    tin = tin.replace(/[^\d]+/g, '');
+
+    if ( // Reject known invalid CPFs
+      tin === '11111111111' ||
+      tin === '22222222222' ||
+      tin === '33333333333' ||
+      tin === '44444444444' ||
+      tin === '55555555555' ||
+      tin === '66666666666' ||
+      tin === '77777777777' ||
+      tin === '88888888888' ||
+      tin === '99999999999' ||
+      tin === '00000000000'
+    ) return false;
+
+    for (let i = 1; i <= 9; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (11 - i);
+    ramainder = (sum * 10) % 11;
+    if ((ramainder === 10) || (ramainder === 11)) ramainder = 0;
+    if (ramainder !== parseInt(tin.substring(9, 10), 10)) return false;
+    sum = 0;
+
+    for (let i = 1; i <= 10; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (12 - i);
+    ramainder = (sum * 10) % 11;
+    if ((ramainder === 10) || (ramainder === 11)) ramainder = 0;
+    if (ramainder !== parseInt(tin.substring(10, 11), 10)) return false;
+
+    return true;
+  }
+
+  if (tin.length !== 14) { return false; }
+
+  if ( // Reject know invalid CNPJs
+    tin === '00000000000000' ||
+    tin === '11111111111111' ||
+    tin === '22222222222222' ||
+    tin === '33333333333333' ||
+    tin === '44444444444444' ||
+    tin === '55555555555555' ||
+    tin === '66666666666666' ||
+    tin === '77777777777777' ||
+    tin === '88888888888888' ||
+    tin === '99999999999999') { return false; }
+
+  let length = tin.length - 2;
+  let identifiers = tin.substring(0, length);
+  let verificators = tin.substring(length);
+  let sum = 0;
+  let pos = length - 7;
+
+  for (let i = length; i >= 1; i--) {
+    sum += identifiers.charAt(length - i) * pos;
+    pos -= 1;
+    if (pos < 2) { pos = 9; }
+  }
+  let result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+  if (result !== parseInt(verificators.charAt(0), 10)) { return false; }
+
+  length += 1;
+  identifiers = tin.substring(0, length);
+  sum = 0;
+  pos = length - 7;
+  for (let i = length; i >= 1; i--) {
+    sum += identifiers.charAt(length - i) * pos;
+    pos -= 1;
+    if (pos < 2) { pos = 9; }
+  }
+  result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+  if (result !== parseInt(verificators.charAt(1), 10)) { return false; }
+
+  return true;
+}
+
+/*
  * pt-PT validation function
  * (Número de identificação fiscal (NIF), persons/entities)
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
@@ -1039,6 +1126,7 @@ const taxIdFormat = {
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,
   'pl-PL': /^\d{10,11}$/,
+  'pt-BR': /^\d{11,14}$/,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
@@ -1076,6 +1164,7 @@ const taxIdCheck = {
   'mt-MT': mtMtCheck,
   'nl-NL': nlNlCheck,
   'pl-PL': plPlCheck,
+  'pt-BR': ptBrCheck,
   'pt-PT': ptPtCheck,
   'ro-RO': roRoCheck,
   'sk-SK': skSkCheck,

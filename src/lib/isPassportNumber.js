@@ -13,6 +13,7 @@ const passportRegexByCountryCode = {
   AU: /^[A-Z]\d{7}$/, // AUSTRALIA
   BE: /^[A-Z]{2}\d{6}$/, // BELGIUM
   BG: /^\d{9}$/, // BULGARIA
+  BR: /^[A-Z]{2}\d{6}$/, // BRAZIL
   BY: /^[A-Z]{2}\d{7}$/, // BELARUS
   CA: /^[A-Z]{2}\d{6}$/, // CANADA
   CH: /^[A-Z]\d{7}$/, // SWITZERLAND
@@ -32,6 +33,8 @@ const passportRegexByCountryCode = {
   HU: /^[A-Z]{2}(\d{6}|\d{7})$/, // HUNGARY
   IE: /^[A-Z0-9]{2}\d{7}$/, // IRELAND
   IN: /^[A-Z]{1}-?\d{7}$/, // INDIA
+  ID: /^[A-C]\d{7}$/, // INDONESIA
+  IR: /^[A-Z]\d{8}$/, // IRAN
   IS: /^(A)\d{7}$/, // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/, // ITALY
   JP: /^[A-Z]{2}\d{7}$/, // JAPAN
@@ -39,7 +42,10 @@ const passportRegexByCountryCode = {
   LT: /^[A-Z0-9]{8}$/, // LITHUANIA
   LU: /^[A-Z0-9]{8}$/, // LUXEMBURG
   LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
+  LY: /^[A-Z0-9]{8}$/, // LIBYA
   MT: /^\d{7}$/, // MALTA
+  MZ: /^([A-Z]{2}\d{7})|(\d{2}[A-Z]{2}\d{5})$/, // MOZAMBIQUE
+  MY: /^[AHK]\d{8}$/, // MALAYSIA
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
   PO: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL

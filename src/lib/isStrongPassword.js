@@ -4,7 +4,7 @@ import assertString from './util/assertString';
 const upperCaseRegex = /^[A-Z]$/;
 const lowerCaseRegex = /^[a-z]$/;
 const numberRegex = /^[0-9]$/;
-const symbolRegex = /^[-#!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
+const symbolRegex = /^[-#!$@%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
 
 const defaultOptions = {
   minLength: 8,
@@ -49,6 +49,7 @@ function analyzePassword(password) {
     symbolCount: 0,
   };
   Object.keys(charMap).forEach((char) => {
+    /* istanbul ignore else */
     if (upperCaseRegex.test(char)) {
       analysis.uppercaseCount += charMap[char];
     } else if (lowerCaseRegex.test(char)) {
