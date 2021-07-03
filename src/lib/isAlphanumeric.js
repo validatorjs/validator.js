@@ -9,9 +9,9 @@ export default function isAlphanumeric(_str, locale = 'en-US', options = {}) {
 
   if (ignore) {
     if (ignore instanceof RegExp) {
-      str = str.replace(ignore, '');
+      str = str.replace(ignore, 'a');
     } else if (typeof ignore === 'string') {
-      str = str.replace(new RegExp(`[${ignore.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for ignore
+      str = str.replace(new RegExp(`[${ignore.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), 'a'); // escape regex for ignore
     } else {
       throw new Error('ignore should be instance of a String or RegExp');
     }
