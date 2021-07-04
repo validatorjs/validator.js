@@ -8857,6 +8857,8 @@ describe('Validators', () => {
         'tz1X1vL2pE2BK4KzyirPwv87P8Xi3PicB1A8',
         'tz1TCHgBP9Lw1gE8bjAhh473HtjVx8TaYDo4',
         'tz1ckhWrX5AEVd3Y8FK2tczs3uAD3j3idgmu',
+        'tz2FCNBrERXtaTtNX6iimR1UJ5JSDxvdHM93',
+        'tz3WMqdzXqRWXwyvj5Hp2H7QEepaUuS7vd9K',
         'KT1DrJV8vhkdLEj76h1H9Q4irZDqAkMPo1Qf',
         'KT19kgnqC5VWoxktLRdRUERbyUPku9YioE8W',
         'KT1QuofAgnsWffHzLA7D78rxytJruGHDe7XG',
@@ -8864,6 +8866,8 @@ describe('Validators', () => {
       invalid: [
         'tz1X1vL2pE2BK4KzyirPwv87P8Xi3PicB1A',
         'tz1TCHgBP9Lw1gE8bjAhh473HtjVx8TaYDo4c',
+        'TZ1ckhWrX5AEVd3Y8FK2tczs3uAD3j3idgmu',
+        'kt19kgnqC5VWoxktLRdRUERbyUPku9YioE8W',
         'z1ckhWrX5AEVd3Y8FK2tczs3uAD3j3idgmua',
         'tz1X1vL2pE2BK4KzyirPwv87P8Xi3PicB1A_',
         '1NahonrApDqaDbLn8KvK8EfU6omgug2JL6',
