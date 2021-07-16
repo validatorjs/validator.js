@@ -48,7 +48,7 @@
     "mocha": "^6.2.3",
     "nyc": "^14.1.0",
     "rimraf": "^3.0.0",
-    "rollup": "^0.43.0",
+    "rollup": "^2.53.2",
     "rollup-plugin-babel": "^4.0.1",
     "uglify-js": "^3.0.19"
   },
