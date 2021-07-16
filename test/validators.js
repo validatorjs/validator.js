@@ -10698,6 +10698,31 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
+      args: ['cs-CZ'],
+      valid: [
+        'ALA4011',
+        '4A23000',
+        'DICTAT0R',
+        'VETERAN',
+        'AZKVIZ8',
+        '2A45876',
+        'DIC-TAT0R',
+      ],
+      invalid: [
+        '',
+        'invalidlicenseplate',
+        'LN5758898',
+        'X-|$|-X',
+        'AE0F-OP4',
+        'GO0MER',
+        '2AAAAAAAA',
+        'FS AB 1234 E',
+        'GB999 9999 00',
+      ],
+    });
+
+    test({
+      validator: 'isLicensePlate',
       args: ['pt-BR'],
       valid: [
         'ABC1234',
