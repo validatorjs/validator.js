@@ -48,7 +48,7 @@ import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
-import isIBAN from './lib/isIBAN';
+import isIBAN, { locales as ibanLocales } from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
@@ -222,6 +222,7 @@ const validator = {
   isDate,
   isLicensePlate,
   isVAT,
+  ibanLocales,
 };
 
 export default validator;

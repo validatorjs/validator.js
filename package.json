@@ -48,7 +48,7 @@
     "mocha": "^6.2.3",
     "nyc": "^14.1.0",
     "rimraf": "^3.0.0",
-    "rollup": "^0.43.0",
+    "rollup": "^0.47.0",
     "rollup-plugin-babel": "^4.0.1",
     "uglify-js": "^3.0.19"
   },
@@ -65,8 +65,7 @@
     "build:node": "babel src -d .",
     "build": "npm run build:browser && npm run build:node && npm run build:es",
     "pretest": "npm run build && npm run lint",
-    "test": "nyc mocha --require @babel/register --reporter dot",
-    "test:ci": "nyc report --reporter=text-lcov"
+    "test": "nyc --reporter=cobertura --reporter=text-summary mocha --require @babel/register --reporter dot"
   },
   "engines": {
     "node": ">= 0.10"

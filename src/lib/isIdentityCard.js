@@ -117,6 +117,16 @@ const validators = {
     if (k1 !== f[9] || k2 !== f[10]) return false;
     return true;
   },
+  TH: (str) => {
+    if (!str.match(/^[1-8]\d{12}$/)) return false;
+
+    // validate check digit
+    let sum = 0;
+    for (let i = 0; i < 12; i++) {
+      sum += parseInt(str[i], 10) * (13 - i);
+    }
+    return str[12] === ((11 - (sum % 11)) % 10).toString();
+  },
   'he-IL': (str) => {
     const DNI = /^\d{9}$/;
 

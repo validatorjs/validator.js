@@ -860,14 +860,10 @@ function plPlCheck(tin) {
 */
 
 function ptBrCheck(tin) {
-  tin = tin.replace(/[^\d]+/g, '');
-  if (tin === '') return false;
-
   if (tin.length === 11) {
     let sum;
-    let ramainder;
+    let remainder;
     sum = 0;
-    tin = tin.replace(/[^\d]+/g, '');
 
     if ( // Reject known invalid CPFs
       tin === '11111111111' ||
@@ -883,20 +879,18 @@ function ptBrCheck(tin) {
     ) return false;
 
     for (let i = 1; i <= 9; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (11 - i);
-    ramainder = (sum * 10) % 11;
-    if ((ramainder === 10) || (ramainder === 11)) ramainder = 0;
-    if (ramainder !== parseInt(tin.substring(9, 10), 10)) return false;
+    remainder = (sum * 10) % 11;
+    if (remainder === 10) remainder = 0;
+    if (remainder !== parseInt(tin.substring(9, 10), 10)) return false;
     sum = 0;
 
     for (let i = 1; i <= 10; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (12 - i);
-    ramainder = (sum * 10) % 11;
-    if ((ramainder === 10) || (ramainder === 11)) ramainder = 0;
-    if (ramainder !== parseInt(tin.substring(10, 11), 10)) return false;
+    remainder = (sum * 10) % 11;
+    if (remainder === 10) remainder = 0;
+    if (remainder !== parseInt(tin.substring(10, 11), 10)) return false;
 
     return true;
   }
-
-  if (tin.length !== 14) { return false; }
 
   if ( // Reject know invalid CNPJs
     tin === '00000000000000' ||
@@ -1126,7 +1120,7 @@ const taxIdFormat = {
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,
   'pl-PL': /^\d{10,11}$/,
-  'pt-BR': /^\d{11,14}$/,
+  'pt-BR': /(?:^\d{11}$)|(?:^\d{14}$)/,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
