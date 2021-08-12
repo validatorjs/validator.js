@@ -9242,6 +9242,32 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 4217 corrency codes', () => {
+    // from https://en.wikipedia.org/wiki/ISO_4217
+    test({
+      validator: 'isISO4217',
+      valid: [
+        'AED',
+        'AUD',
+        'CUC',
+        'EUR',
+        'GBP',
+        'LYD',
+        'MYR',
+        'SGD',
+        'USD',
+      ],
+      invalid: [
+        '',
+        '$',
+        'US',
+        'AAA',
+        'RWA',
+        'EURO',
+      ],
+    });
+  });
+
   it('should validate whitelisted characters', () => {
     test({
       validator: 'isWhitelisted',
