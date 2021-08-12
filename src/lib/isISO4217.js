@@ -1,7 +1,7 @@
 import assertString from './util/assertString';
 
 // from https://en.wikipedia.org/wiki/ISO_4217
-const validISO4217CurrencyCodes = [
+const validISO4217CurrencyCodes = new Set([
   'AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN',
   'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD',
   'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK',
@@ -28,11 +28,11 @@ const validISO4217CurrencyCodes = [
   'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XOF', 'XPD', 'XPF', 'XPT', 'XSU', 'XTS', 'XUA', 'XXX',
   'YER',
   'ZAR', 'ZMW', 'ZWL',
-];
+]);
 
 export default function isISO4217(str) {
   assertString(str);
-  return validISO4217CurrencyCodes.indexOf(str.toUpperCase()) >= 0;
+  return validISO4217CurrencyCodes.has(str.toUpperCase());
 }
 
 export const CurrencyCodes = validISO4217CurrencyCodes;
