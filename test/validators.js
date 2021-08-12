@@ -9248,6 +9248,7 @@ describe('Validators', () => {
       validator: 'isISO4217',
       valid: [
         'AED',
+        'aed',
         'AUD',
         'CUC',
         'EUR',
@@ -9261,9 +9262,12 @@ describe('Validators', () => {
         '',
         '$',
         'US',
+        'us',
         'AAA',
+        'aaa',
         'RWA',
         'EURO',
+        'euro',
       ],
     });
   });
