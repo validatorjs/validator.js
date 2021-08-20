@@ -120,10 +120,6 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-import isAadharCardNumber from './lib/isAadharCardNumber';
-import isCountryByCode from './lib/isCountryByCode';
-import isValidCountryName from './lib/isValidCountryName';
-
 const version = '13.6.0';
 
 const validator = {
@@ -227,9 +223,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
-  isAadharCardNumber,
-  isCountryByCode,
-  isValidCountryName,
+
 };
 
 export default validator;

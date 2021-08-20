@@ -23,18 +23,8 @@ describe('Minified version', () => {
     assert.strictEqual(min.isEmail('foo'), false);
   });
   it('should validate strings', () => {
-    assert.strictEqual(validator.isAadharCardNumber('820315678934'), true);
-    assert.strictEqual(validator.isAadharCardNumber('63789'), false);
-  });
-  it('should validate strings', () => {
-    assert.strictEqual(validator.isCountryByCode('IN'), 'India');
-    assert.strictEqual(validator.isCountryByCode('HU'), 'Hungary');
-    assert.strictEqual(validator.isCountryByCode('XU'), 'Invalid Countrycode');
-  });
-  it('should validate strings', () => {
-    assert.strictEqual(validator.isValidCountryName('India'), true);
-    assert.strictEqual(validator.isValidCountryName('india'), true);
-    assert.strictEqual(validator.isValidCountryName('str'), false);
+    assert.strictEqual(validator.isIdentityCard('820315678934', 'Aadhar'), true);
+    assert.strictEqual(validator.isIdentityCard('63789', 'Aadhar'), false);
   });
   it('should sanitize strings', () => {
     assert.strictEqual(min.toBoolean('1'), true);
