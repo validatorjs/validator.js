@@ -247,6 +247,7 @@ const isCountry = {
 };
 
 export default function isCountryByCode(countryCode) {
+  countryCode.toUpperCase();
   if (isCountry.hasOwnProperty(countryCode)) {
     return isCountry[countryCode];
   }
