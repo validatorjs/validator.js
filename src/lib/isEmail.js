@@ -110,7 +110,7 @@ export default function isEmail(str, options) {
     const username = user.split('+')[0];
 
     // Dots are not included in gmail length restriction
-    if (!isByteLength(username.replace('.', ''), { min: 6, max: 30 })) {
+    if (!isByteLength(username.replace(/\./g, ''), { min: 6, max: 30 })) {
       return false;
     }
 
