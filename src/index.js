@@ -120,6 +120,8 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
+import isPrimeNumber from './lib/isPrimeNumber';
+
 const version = '13.6.0';
 
 const validator = {
@@ -222,6 +224,7 @@ const validator = {
   isDate,
   isLicensePlate,
   isVAT,
+  isPrimeNumber,
   ibanLocales,
 };
 
