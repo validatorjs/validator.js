@@ -29,6 +29,7 @@ const default_url_options = {
   allow_trailing_dot: false,
   allow_protocol_relative_urls: false,
   allow_fragments: true,
+  allow_query_components: true,
   validate_length: true,
 };
 
@@ -63,6 +64,10 @@ export default function isURL(url, options) {
   }
 
   if (!options.allow_fragments && url.includes('#')) {
+    return false;
+  }
+
+  if (!options.allow_query_components && (url.includes('?') || url.includes('&'))) {
     return false;
   }
 

@@ -547,9 +547,32 @@ describe('Validators', () => {
       args: [{
         allow_fragments: false,
       }],
+      valid: [
+        'http://foobar.com',
+        'foobar.com',
+      ],
       invalid: [
         'http://foobar.com#part',
         'foobar.com#part',
+      ],
+    });
+  });
+
+  it('should not validate URLs with query components when allow query components is false', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        allow_query_components: false,
+      }],
+      valid: [
+        'http://foobar.com',
+        'foobar.com',
+      ],
+      invalid: [
+        'http://foobar.com?foo=bar',
+        'http://foobar.com?foo=bar&bar=foo',
+        'foobar.com?foo=bar',
+        'foobar.com?foo=bar&bar=foo',
       ],
     });
   });
