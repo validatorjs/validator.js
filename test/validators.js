@@ -541,6 +541,19 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate URLs with fragments when allow fragments is false', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        allow_fragments: false,
+      }],
+      invalid: [
+        'http://foobar.com#part',
+        'foobar.com#part',
+      ],
+    });
+  });
+
   it('should not validate protocol relative URLs when require protocol is true', () => {
     test({
       validator: 'isURL',
