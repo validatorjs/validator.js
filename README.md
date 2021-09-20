@@ -7,6 +7,7 @@
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
 [![Gitter](https://badges.gitter.im/validatorjs/community.svg)](https://gitter.im/validatorjs/community)
+[![License](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/alguerocode/validator.js/blob/master/LICENSE)
 
 A library of string validators and sanitizers.
 
