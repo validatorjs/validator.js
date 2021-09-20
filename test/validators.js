@@ -9315,6 +9315,7 @@ describe('Validators', () => {
         'magnet:?xt:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ',
         'magnet:?xt:urn:nonexisting:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
         'magnet:?xt.2=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890123456789ABCD',
       ],
     });
     /* eslint-enable max-len */
