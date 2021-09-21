@@ -94,6 +94,7 @@ Validator                               | Description
 **isBefore(str [, date])**              | check if the string is a date that's before the specified date.
 **isBIC(str)**                          | check if a string is a BIC (Bank Identification Code) or SWIFT code.
 **isBoolean(str [, options])**          | check if a string is a boolean.<br/>`options` is an object which defaults to `{ loose: false }`. If loose is is set to false, the validator will strictly match ['true', 'false', '0', '1']. If loose is set to true, the validator will also match 'yes', 'no', and will match a valid boolean string of any case. (eg: ['true', 'True', 'TRUE']).
+**isBetween(str, min, max)** | check if a string length is between min and max numbers which return true otherwise return false.
 **isBtcAddress(str)**            | check if the string is a valid BTC address.
 **isByteLength(str [, options])**          | check if the string's length (in UTF-8 bytes) falls in a range.<br/><br/>`options` is an object which defaults to `{min:0, max: undefined}`.
 **isCreditCard(str)**                   | check if the string is a credit card.
