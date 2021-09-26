@@ -17,7 +17,7 @@ const passportRegexByCountryCode = {
   BY: /^[A-Z]{2}\d{7}$/, // BELARUS
   CA: /^[A-Z]{2}\d{6}$/, // CANADA
   CH: /^[A-Z]\d{7}$/, // SWITZERLAND
-  CN: /^[GE]\d{8}$/, // CHINA [G=Ordinary, E=Electronic] followed by 8-digits
+  CN: /^G\d{8}$|^E(?![IO])[A-Z0-9]\d{7}$/, // CHINA [G=Ordinary, E=Electronic] followed by 8-digits, or E followed by any UPPERCASE letter (except I and O) followed by 7 digits
   CY: /^[A-Z](\d{6}|\d{8})$/, // CYPRUS
   CZ: /^\d{8}$/, // CZECH REPUBLIC
   DE: /^[CFGHJKLMNPRTVWXYZ0-9]{9}$/, // GERMANY
