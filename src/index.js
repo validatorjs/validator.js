@@ -90,6 +90,7 @@ import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
+import isISO4217 from './lib/isISO4217';
 
 import isBase32 from './lib/isBase32';
 import isBase58 from './lib/isBase58';
@@ -198,6 +199,7 @@ const validator = {
   isRFC3339,
   isISO31661Alpha2,
   isISO31661Alpha3,
+  isISO4217,
   isBase32,
   isBase58,
   isBase64,
