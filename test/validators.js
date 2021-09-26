@@ -70,7 +70,7 @@ describe('Validators', () => {
         'hans@m端ller.com',
         'test|123@m端ller.com',
         'test123+ext@gmail.com',
-        'some.name.midd.leNa.me+extension@GoogleMail.com',
+        'some.name.midd.leNa.me.and.locality+extension@GoogleMail.com',
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
