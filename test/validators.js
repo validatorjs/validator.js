@@ -10702,6 +10702,25 @@ describe('Validators', () => {
         '2020/03-15',
       ],
     });
+    test({
+      validator: 'isDate',
+      args: [{ format: 'MM.DD.YYYY', delimiters: ['.'], strictMode: true }],
+      valid: [
+        '01.15.2020',
+        '02.15.2014',
+        '03.15.2014',
+        '02.29.2020',
+      ],
+      invalid: [
+        '2014-02-15',
+        '2020-02-29',
+        '15-07/2002',
+        new Date(),
+        new Date([2014, 2, 15]),
+        new Date('2014-03-15'),
+        '29.02.2020',
+      ],
+    });
   });
   it('should be valid license plate', () => {
     test({
