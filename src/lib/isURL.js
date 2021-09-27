@@ -28,6 +28,8 @@ const default_url_options = {
   allow_underscores: false,
   allow_trailing_dot: false,
   allow_protocol_relative_urls: false,
+  allow_fragments: true,
+  allow_query_components: true,
   validate_length: true,
 };
 
@@ -58,6 +60,14 @@ export default function isURL(url, options) {
   options = merge(options, default_url_options);
 
   if (options.validate_length && url.length >= 2083) {
+    return false;
+  }
+
+  if (!options.allow_fragments && url.includes('#')) {
+    return false;
+  }
+
+  if (!options.allow_query_components && (url.includes('?') || url.includes('&'))) {
     return false;
   }
 
