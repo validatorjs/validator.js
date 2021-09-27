@@ -22,7 +22,10 @@ describe('Minified version', () => {
     assert.strictEqual(min.isEmail('foo@bar.com'), true);
     assert.strictEqual(min.isEmail('foo'), false);
   });
-
+  it('should validate strings', () => {
+    assert.strictEqual(validator.isIdentityCard('820315678934', 'Aadhar'), true);
+    assert.strictEqual(validator.isIdentityCard('63789', 'Aadhar'), false);
+  });
   it('should sanitize strings', () => {
     assert.strictEqual(min.toBoolean('1'), true);
   });
