@@ -225,6 +225,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+
 };
 
 export default validator;
