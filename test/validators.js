@@ -296,7 +296,7 @@ describe('Validators', () => {
     });
   });
 
-  it('should not validate email addresses with blacklisted chars in  the name', () => {
+  it('should not validate email addresses with blacklisted chars in the name', () => {
     test({
       validator: 'isEmail',
       args: [{ blacklisted_chars: 'abc' }],
@@ -327,6 +327,20 @@ describe('Validators', () => {
         'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@example.com',
       ],
       invalid: [],
+    });
+  });
+
+  it('should not validate email addresses with denylisted domains', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ host_blacklist: ['gmail.com', 'foo.bar.com'] }],
+      valid: [
+        'email@foo.gmail.com',
+      ],
+      invalid: [
+        'foo+bar@gmail.com',
+        'email@foo.bar.com',
+      ],
     });
   });
 
