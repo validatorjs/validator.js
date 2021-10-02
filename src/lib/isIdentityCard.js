@@ -38,7 +38,6 @@ const validators = {
         return true;
       }
 
-      return false;
     }
 
     return false;
