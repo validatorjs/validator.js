@@ -20,16 +20,9 @@ const validators = {
     };
 
     if (str != null && str.length === 11 && isInt(str, { allow_leading_zeroes: true })) {
-      const digits = str.split('');
-      let sum = 0;
-
-      digits.forEach((digit, index) => {
-      // Ignored because handling else is unnecesary
-      /* istanbul ignore else */
-        if (index !== 10) {
-          sum += Number(digit) * weightOfDigits[index + 1];
-        }
-      });
+      const digits = str.split('').slice(0, -1);
+      const sum = digits.reduce((acc, digit, index) =>
+        acc + (Number(digit) * weightOfDigits[index + 1]), 0);
 
       const modulo = sum % 10;
       const lastDigit = Number(str.charAt(str.length - 1));
