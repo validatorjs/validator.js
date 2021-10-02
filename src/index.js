@@ -77,7 +77,6 @@ import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
 import isTaxID from './lib/isTaxID';
-import isPESEL from './lib/isPESEL';
 
 import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 

@@ -36,7 +36,7 @@ const validators = {
 
       // Ignored because handling else is unnecesary
       /* istanbul ignore else */
-      if ((modulo === 0 && lastDigit === 0) || (lastDigit === 10 - modulo)) {
+      if ((modulo === 0 && lastDigit === 0) || lastDigit === 10 - modulo) {
         return true;
       }
     }
