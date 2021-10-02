@@ -1,6 +1,48 @@
 import assertString from './util/assertString';
+import isInt from './isInt';
 
 const validators = {
+  PL: (str) => {
+    assertString(str);
+
+    const weightOfDigits = {
+      1: 1,
+      2: 3,
+      3: 7,
+      4: 9,
+      5: 1,
+      6: 3,
+      7: 7,
+      8: 9,
+      9: 1,
+      10: 3,
+      11: 1,
+    };
+
+    if (str != null && str.length === 11 && isInt(str, { allow_leading_zeroes: true })) {
+      const digits = str.split('');
+      let sum = 0;
+
+      digits.forEach((digit, index) => {
+      // Ignored because handling else is unnecesary
+      /* istanbul ignore else */
+        if (index !== 10) {
+          sum += Number(digit) * weightOfDigits[index + 1];
+        }
+      });
+
+      const modulo = sum % 10;
+      const lastDigit = Number(str.charAt(str.length - 1));
+
+      // Ignored because handling else is unnecesary
+      /* istanbul ignore else */
+      if ((modulo === 0 && lastDigit === 0) || (lastDigit === 10 - modulo)) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  },
   ES: (str) => {
     assertString(str);
 
