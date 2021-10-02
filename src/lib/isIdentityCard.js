@@ -37,8 +37,6 @@ const validators = {
       if ((modulo === 0 && lastDigit === 0) || lastDigit === 10 - modulo) {
         return true;
       }
-
-      return false;
     }
 
     return false;
