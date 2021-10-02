@@ -16,18 +16,13 @@ const validators = {
       8: 9,
       9: 1,
       10: 3,
-      11: 1,
+      11: 0,
     };
 
     if (str != null && str.length === 11 && isInt(str, { allow_leading_zeroes: true })) {
       const digits = str.split('').slice(0, -1);
-      const sum = digits.reduce((acc, digit, index) => {
-        if (index !== 10) {
-          acc += (Number(digit) * weightOfDigits[index + 1]);
-        }
-
-        return acc;
-      }, 0);
+      const sum = digits.reduce((acc, digit, index) =>
+        acc + (Number(digit) * weightOfDigits[index + 1]), 0);
 
       const modulo = sum % 10;
       const lastDigit = Number(str.charAt(str.length - 1));
