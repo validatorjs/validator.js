@@ -34,11 +34,11 @@ const validators = {
       const modulo = sum % 10;
       const lastDigit = Number(str.charAt(str.length - 1));
 
-      // Ignored because handling else is unnecesary
-      /* istanbul ignore else */
       if ((modulo === 0 && lastDigit === 0) || lastDigit === 10 - modulo) {
         return true;
       }
+
+      return false;
     }
 
     return false;

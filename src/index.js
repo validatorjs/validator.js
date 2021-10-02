@@ -142,7 +142,6 @@ const validator = {
   isIBAN,
   isBIC,
   isAlpha,
-  isPESEL,
   isAlphaLocales,
   isAlphanumeric,
   isAlphanumericLocales,
