@@ -40,7 +40,7 @@ const validators = {
         return true;
       }
     }
-    
+
     return false;
   },
   ES: (str) => {
