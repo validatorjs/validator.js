@@ -39,9 +39,9 @@ const validators = {
       if ((modulo === 0 && lastDigit === 0) || (lastDigit === 10 - modulo)) {
         return true;
       }
-    } else {
-      return false;
     }
+    
+    return false;
   },
   ES: (str) => {
     assertString(str);
