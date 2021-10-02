@@ -946,6 +946,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate PESEL', () => {
+    test({
+      validator: 'isPESEL',
+      valid: [
+        '99012229019',
+        '09210215408',
+        '20313034701',
+        '86051575214',
+      ],
+      invalid: [
+        '5',
+        '195',
+        '',
+        '12345678901',
+        '99212229019',
+        '09210215402',
+        '20313534701',
+        '86241579214',
+      ],
+    });
+  });
+
   it('should validate isIPRange', () => {
     test({
       validator: 'isIPRange',
