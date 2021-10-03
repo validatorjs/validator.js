@@ -362,9 +362,6 @@ describe('Validators', () => {
         'https://www.foobar.com/',
         'ftp://www.foobar.com/',
         'http://www.foobar.com/~foobar',
-        'http://user:pass@www.foobar.com/',
-        'http://user:@www.foobar.com/',
-        'http://user@www.foobar.com',
         'http://127.0.0.1/',
         'http://10.0.0.0/',
         'http://189.123.14.13/',
@@ -392,6 +389,9 @@ describe('Validators', () => {
         'http://1337.com',
       ],
       invalid: [
+        'http://user:pass@www.foobar.com/',
+        'http://user:@www.foobar.com/',
+        'http://user@www.foobar.com',
         'http://localhost:3000/',
         '//foobar.com',
         'xyz://foobar.com',
@@ -708,7 +708,6 @@ describe('Validators', () => {
   it('should allow rejecting urls containing authentication information', () => {
     test({
       validator: 'isURL',
-      args: [{ disallow_auth: true }],
       valid: [
         'doe.com',
       ],
@@ -752,7 +751,7 @@ describe('Validators', () => {
   it('should validate URLs with port present', () => {
     test({
       validator: 'isURL',
-      args: [{ require_port: true }],
+      args: [{ require_port: true, disallow_auth: false }],
       valid: [
         'http://user:pass@www.foobar.com:1',
         'http://user:@www.foobar.com:65535',

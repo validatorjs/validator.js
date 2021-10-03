@@ -31,6 +31,7 @@ const default_url_options = {
   allow_fragments: true,
   allow_query_components: true,
   validate_length: true,
+  disallow_auth: true,
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
