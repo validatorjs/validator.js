@@ -1715,6 +1715,32 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate multiple locales', () => {
+    test({
+      validator: 'isAlpha',
+      args: [['en-US', 'ru-RU']],
+      valid: [
+        'ТипцветкаTulip',
+      ],
+      invalid: [
+        'สวัสดี',
+        'ยินดีต้อนรับ เทสเคส',
+      ],
+    });
+  });
+
+  it('should error on no locale specified in array', () => {
+    test({
+      validator: 'isAlpha',
+      args: [[]],
+      error: [
+        'ТипцветкаTulip',
+        'สวัสดี',
+        'ยินดีต้อนรับ เทสเคส',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlpha',
@@ -2288,6 +2314,14 @@ describe('Validators', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['is-NOT'],
+      error: [
+        '1234568960',
+        'abc123',
+      ],
+    });
+    test({
+      validator: 'isAlphanumeric',
+      args: [['is-NOT']],
       error: [
         '1234568960',
         'abc123',
