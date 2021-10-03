@@ -3106,6 +3106,7 @@ describe('Validators', () => {
         '.',
         '0.1a',
         'a',
+        '1.23e4',
         '\n',
       ],
     });
@@ -3375,6 +3376,24 @@ describe('Validators', () => {
         '123',
         '0.01',
         '0,01',
+      ],
+    });
+  });
+
+  it('should validate decimal numbers with exponential', () => {
+    test({
+      validator: 'isDecimal',
+      args: [{ allow_exponential: true }],
+      valid: [
+        '12.3e4',
+        '12.3E4',
+        '1.23e+4',
+        '0.345e-6',
+        '+1.3e-4',
+      ],
+      invalid: [
+        '1.2e',
+        'e-2',
       ],
     });
   });
