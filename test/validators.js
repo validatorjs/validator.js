@@ -11070,4 +11070,30 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate isValidClassName', () => {
+    test({
+      validator: 'isValidClassName',
+      valid: [
+        'fo',
+        'foo',
+        'f9oo',
+        'f-9oo',
+        'f_-9oo',
+        '-foo-bar',
+        '-foo-bar',
+        '_foo_bar',
+        '_Foo-bar-foo',
+        '__Foo-bar-foo',
+        'foo-bar_foo',
+      ],
+      invalid: [
+        'f',
+        '999',
+        '9foo',
+        '--foo',
+        '-9foo',
+      ],
+    });
+  });
 });
