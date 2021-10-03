@@ -26,9 +26,13 @@ export default function isDecimal(str, options) {
     if (!options.allow_exponential) {
       return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
     }
-    const [decimalPart, exponential] = str.split(new RegExp('e', 'i'));
-    return !includes(blacklist, decimalPart.replace(/ /g, '')) && decimalRegExp(options).test(decimalPart) && exponentialRegexp.test(exponential);
+    let exponential = str.split(new RegExp('e', 'i'));
+    if (exponential.length > 1) {
+      let decimalPart = exponential[0];
+      exponential = exponential[1];
+      return !includes(blacklist, decimalPart.replace(/ /g, '')) && decimalRegExp(options).test(decimalPart) && exponentialRegexp.test(exponential);
+    }
+    return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
   }
-
   throw new Error(`Invalid locale '${options.locale}'`);
 }
