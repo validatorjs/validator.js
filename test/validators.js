@@ -1750,6 +1750,14 @@ describe('Validators', () => {
         'ABC',
       ],
     });
+    test({
+      validator: 'isAlpha',
+      args: [['is-NOT']],
+      error: [
+        '1234568960',
+        'abc123',
+      ],
+    });
   });
 
   it('should validate alphanumeric strings', () => {
@@ -2314,14 +2322,6 @@ describe('Validators', () => {
     test({
       validator: 'isAlphanumeric',
       args: ['is-NOT'],
-      error: [
-        '1234568960',
-        'abc123',
-      ],
-    });
-    test({
-      validator: 'isAlphanumeric',
-      args: [['is-NOT']],
       error: [
         '1234568960',
         'abc123',
