@@ -136,7 +136,7 @@ export default function isURL(url, options) {
     }
   }
 
-  if (port_str !== null) {
+  if (port_str !== null && port_str.length > 0) {
     port = parseInt(port_str, 10);
     if (!/^[0-9]+$/.test(port_str) || port <= 0 || port > 65535) {
       return false;

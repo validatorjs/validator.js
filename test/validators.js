@@ -535,6 +535,31 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate URLs with column and no port', () => {
+    test({
+      validator: 'isURL',
+      valid: [
+        'http://example.com:',
+        'ftp://example.com:',
+      ],
+      invalid: [
+        'https://example.com:abc',
+      ],
+    });
+  });
+
+  it('should validate sftp protocol URL containing column and no port', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        protocols: ['sftp'],
+      }],
+      valid: [
+        'sftp://user:pass@terminal.aws.test.nl:/incoming/things.csv',
+      ],
+    });
+  });
+
   it('should validate protocol relative URLs', () => {
     test({
       validator: 'isURL',
