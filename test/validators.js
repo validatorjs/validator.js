@@ -11070,4 +11070,23 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('isPrimeNumber', () => {
+    test({
+      validator: 'isPrimeNumber',
+      valid: [
+        '2',
+        '11',
+        '13',
+        '17',
+      ],
+      invalid: [
+        '10',
+        '12',
+        '100',
+        '500',
+      ],
+    });
+  });
+
 });
