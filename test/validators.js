@@ -71,7 +71,7 @@ describe('Validators', () => {
         'hans@m端ller.com',
         'test|123@m端ller.com',
         'test123+ext@gmail.com',
-        'some.name.midd.leNa.me+extension@GoogleMail.com',
+        'some.name.midd.leNa.me.and.locality+extension@GoogleMail.com',
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
@@ -297,7 +297,7 @@ describe('Validators', () => {
     });
   });
 
-  it('should not validate email addresses with blacklisted chars in  the name', () => {
+  it('should not validate email addresses with blacklisted chars in the name', () => {
     test({
       validator: 'isEmail',
       args: [{ blacklisted_chars: 'abc' }],
@@ -328,6 +328,20 @@ describe('Validators', () => {
         'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@example.com',
       ],
       invalid: [],
+    });
+  });
+
+  it('should not validate email addresses with denylisted domains', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ host_blacklist: ['gmail.com', 'foo.bar.com'] }],
+      valid: [
+        'email@foo.gmail.com',
+      ],
+      invalid: [
+        'foo+bar@gmail.com',
+        'email@foo.bar.com',
+      ],
     });
   });
 
@@ -538,6 +552,42 @@ describe('Validators', () => {
         '/foobar.com',
         '////foobar.com',
         'http:////foobar.com',
+      ],
+    });
+  });
+
+  it('should not validate URLs with fragments when allow fragments is false', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        allow_fragments: false,
+      }],
+      valid: [
+        'http://foobar.com',
+        'foobar.com',
+      ],
+      invalid: [
+        'http://foobar.com#part',
+        'foobar.com#part',
+      ],
+    });
+  });
+
+  it('should not validate URLs with query components when allow query components is false', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        allow_query_components: false,
+      }],
+      valid: [
+        'http://foobar.com',
+        'foobar.com',
+      ],
+      invalid: [
+        'http://foobar.com?foo=bar',
+        'http://foobar.com?foo=bar&bar=foo',
+        'foobar.com?foo=bar',
+        'foobar.com?foo=bar&bar=foo',
       ],
     });
   });
@@ -1628,6 +1678,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Hindi alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['hi-IN'],
+      valid: [
+        'अतअपनाअपनीअपनेअभीअंदरआदिआपइत्यादिइनइनकाइन्हींइन्हेंइन्होंइसइसकाइसकीइसकेइसमेंइसीइसेउनउनकाउनकीउनकेउनकोउन्हींउन्हेंउन्होंउसउसकेउसीउसेएकएवंएसऐसेऔरकईकरकरताकरतेकरनाकरनेकरेंकहतेकहाकाकाफ़ीकिकितनाकिन्हेंकिन्होंकियाकिरकिसकिसीकिसेकीकुछकुलकेकोकोईकौनकौनसागयाघरजबजहाँजाजितनाजिनजिन्हेंजिन्होंजिसजिसेजीधरजैसाजैसेजोतकतबतरहतिनतिन्हेंतिन्होंतिसतिसेतोथाथीथेदबारादियादुसरादूसरेदोद्वाराननकेनहींनानिहायतनीचेनेपरपहलेपूरापेफिरबनीबहीबहुतबादबालाबिलकुलभीभीतरमगरमानोमेमेंयदियहयहाँयहीयायिहयेरखेंरहारहेऱ्वासालिएलियेलेकिनववग़ैरहवर्गवहवहाँवहींवालेवुहवेवोसकतासकतेसबसेसभीसाथसाबुतसाभसारासेसोसंगहीहुआहुईहुएहैहैंहोहोताहोतीहोतेहोनाहोने',
+        'इन्हें',
+      ],
+      invalid: [
+        'अत०२३४५६७८९',
+        'अत 12',
+        ' अत ',
+        'abc1',
+        'abc',
+        '',
+      ],
+    });
+  });
+
   it('should validate persian alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1982,6 +2051,26 @@ describe('Validators', () => {
         'äca ',
         'abcß',
         'föö!!',
+      ],
+    });
+  });
+
+  it('should validate Hindi alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['hi-IN'],
+      valid: [
+        'अतअपनाअपनीअपनेअभीअंदरआदिआपइत्यादिइनइनकाइन्हींइन्हेंइन्होंइसइसकाइसकीइसकेइसमेंइसीइसेउनउनकाउनकीउनकेउनकोउन्हींउन्हेंउन्होंउसउसकेउसीउसेएकएवंएसऐसेऔरकईकरकरताकरतेकरनाकरनेकरेंकहतेकहाकाकाफ़ीकिकितनाकिन्हेंकिन्होंकियाकिरकिसकिसीकिसेकीकुछकुलकेकोकोईकौनकौनसागयाघरजबजहाँजाजितनाजिनजिन्हेंजिन्होंजिसजिसेजीधरजैसाजैसेजोतकतबतरहतिनतिन्हेंतिन्होंतिसतिसेतोथाथीथेदबारादियादुसरादूसरेदोद्वाराननकेनहींनानिहायतनीचेनेपरपहलेपूरापेफिरबनीबहीबहुतबादबालाबिलकुलभीभीतरमगरमानोमेमेंयदियहयहाँयहीयायिहयेरखेंरहारहेऱ्वासालिएलियेलेकिनववग़ैरहवर्गवहवहाँवहींवालेवुहवेवोसकतासकतेसबसेसभीसाथसाबुतसाभसारासेसोसंगहीहुआहुईहुएहैहैंहोहोताहोतीहोतेहोनाहोने०२३४५६७८९',
+        'इन्हें४५६७८९',
+      ],
+      invalid: [
+        'अत ०२३४५६७८९',
+        ' ३४५६७८९',
+        '12 ',
+        ' अत ',
+        'abc1',
+        'abc',
+        '',
       ],
     });
   });
@@ -2476,9 +2565,15 @@ describe('Validators', () => {
       valid: [
         'G25352389',
         'E00160027',
+        'EA1234567',
       ],
       invalid: [
         'K0123456',
+        'E-1234567',
+        'G.1234567',
+        'GA1234567',
+        'EI1234567',
+        'GO1234567',
       ],
     });
 
@@ -4572,6 +4667,8 @@ describe('Validators', () => {
         '4716989580001715211',
         '6396827370876380',
         '5020198842623966',
+        '8171999927660000',
+        '8171999900000000021',
       ],
       invalid: [
         'foo',
@@ -4594,6 +4691,31 @@ describe('Validators', () => {
 
   it('should validate identity cards', () => {
     const fixtures = [
+      {
+        locale: 'PL',
+        valid: [
+          '99012229019',
+          '09210215408',
+          '20313034701',
+          '86051575214',
+          '77334586883',
+          '54007481320',
+          '06566860643',
+          '77552478861',
+        ],
+        invalid: [
+          'aa',
+          '5',
+          '195',
+          '',
+          ' ',
+          '12345678901',
+          '99212229019',
+          '09210215402',
+          '20313534701',
+          '86241579214',
+        ],
+      },
       {
         locale: 'ES',
         valid: [
@@ -7062,6 +7184,19 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'es-VE',
+        valid: [
+          '+582125457765',
+          '+582125458053',
+          '+584125458053',
+        ],
+        invalid: [
+          '+585129934395',
+          '+58212993439',
+          '',
+        ],
+      },
+      {
         locale: 'et-EE',
         valid: [
           '+372 512 34 567',
@@ -7298,9 +7433,9 @@ describe('Validators', () => {
           '0470123456',
           '+32470123456',
           '32470123456',
-          '021234567',
-          '+3221234567',
-          '3221234567',
+          '0421234567',
+          '+32421234567',
+          '32421234567',
         ],
         invalid: [
           '12345',
@@ -7312,6 +7447,9 @@ describe('Validators', () => {
           '0212345678',
           '+320212345678',
           '320212345678',
+          '021234567',
+          '+3221234567',
+          '3221234567',
         ],
       },
       {
@@ -7320,9 +7458,9 @@ describe('Validators', () => {
           '0470123456',
           '+32470123456',
           '32470123456',
-          '021234567',
-          '+3221234567',
-          '3221234567',
+          '0421234567',
+          '+32421234567',
+          '32421234567',
         ],
         invalid: [
           '12345',
@@ -7334,6 +7472,9 @@ describe('Validators', () => {
           '0212345678',
           '+320212345678',
           '320212345678',
+          '021234567',
+          '+3221234567',
+          '3221234567',
         ],
       },
       {
@@ -9247,6 +9388,36 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 4217 corrency codes', () => {
+    // from https://en.wikipedia.org/wiki/ISO_4217
+    test({
+      validator: 'isISO4217',
+      valid: [
+        'AED',
+        'aed',
+        'AUD',
+        'CUC',
+        'EUR',
+        'GBP',
+        'LYD',
+        'MYR',
+        'SGD',
+        'USD',
+      ],
+      invalid: [
+        '',
+        '$',
+        'US',
+        'us',
+        'AAA',
+        'aaa',
+        'RWA',
+        'EURO',
+        'euro',
+      ],
+    });
+  });
+
   it('should validate whitelisted characters', () => {
     test({
       validator: 'isWhitelisted',
@@ -9302,27 +9473,25 @@ describe('Validators', () => {
     test({
       validator: 'isMagnetURI',
       valid: [
-        'magnet:?xt=urn:btih:06E2A9683BF4DA92C73A661AC56F0ECC9C63C5B4&dn=helloword2000&tr=udp://helloworld:1337/announce',
-        'magnet:?xt=urn:btih:3E30322D5BFC7444B7B1D8DD42404B75D0531DFB&dn=world&tr=udp://world.com:1337',
-        'magnet:?xt=urn:btih:4ODKSDJBVMSDSNJVBCBFYFBKNRU875DW8D97DWC6&dn=helloworld&tr=udp://helloworld.com:1337',
-        'magnet:?xt=urn:btih:1GSHJVBDVDVJFYEHKFHEFIO8573898434JBFEGHD&dn=foo&tr=udp://foo.com:1337',
-        'magnet:?xt=urn:btih:MCJDCYUFHEUD6E2752T7UJNEKHSUGEJFGTFHVBJS&dn=bar&tr=udp://bar.com:1337',
-        'magnet:?xt=urn:btih:LAKDHWDHEBFRFVUFJENBYYTEUY837562JH2GEFYH&dn=foobar&tr=udp://foobar.com:1337',
-        'magnet:?xt=urn:btih:MKCJBHCBJDCU725TGEB3Y6RE8EJ2U267UNJFGUID&dn=test&tr=udp://test.com:1337',
-        'magnet:?xt=urn:btih:UHWY2892JNEJ2GTEYOMDNU67E8ICGICYE92JDUGH&dn=baz&tr=udp://baz.com:1337',
-        'magnet:?xt=urn:btih:HS263FG8U3GFIDHWD7829BYFCIXB78XIHG7CWCUG&dn=foz&tr=udp://foz.com:1337',
+        'magnet:?xt.1=urn:sha1:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456&xt.2=urn:sha1:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
+        'magnet:?xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234&dn=helloword2000&tr=udp://helloworld:1337/announce',
+        'magnet:?xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234&dn=foo',
+        'magnet:?xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234&dn=&tr=&nonexisting=hello world',
+        'magnet:?xt=urn:md5:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
+        'magnet:?xt=urn:tree:tiger:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
+        'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
       ],
       invalid: [
-        '',
-        ':?xt=urn:btih:06E2A9683BF4DA92C73A661AC56F0ECC9C63C5B4&dn=helloword2000&tr=udp://helloworld:1337/announce',
-        'magnett:?xt=urn:btih:3E30322D5BFC7444B7B1D8DD42404B75D0531DFB&dn=world&tr=udp://world.com:1337',
-        'xt=urn:btih:4ODKSDJBVMSDSNJVBCBFYFBKNRU875DW8D97DWC6&dn=helloworld&tr=udp://helloworld.com:1337',
-        'magneta:?xt=urn:btih:1GSHJVBDVDVJFYEHKFHEFIO8573898434JBFEGHD&dn=foo&tr=udp://foo.com:1337',
-        'magnet:?xt=uarn:btih:MCJDCYUFHEUD6E2752T7UJNEKHSUGEJFGTFHVBJS&dn=bar&tr=udp://bar.com:1337',
-        'magnet:?xt=urn:btihz&dn=foobar&tr=udp://foobar.com:1337',
-        'magnet:?xat=urn:btih:MKCJBHCBJDCU725TGEB3Y6RE8EJ2U267UNJFGUID&dn=test&tr=udp://test.com:1337',
-        'magnet::?xt=urn:btih:UHWY2892JNEJ2GTEYOMDNU67E8ICGICYE92JDUGH&dn=baz&tr=udp://baz.com:1337',
-        'magnet:?xt:btih:HS263FG8U3GFIDHWD7829BYFCIXB78XIHG7CWCUG&dn=foz&tr=udp://foz.com:1337',
+        ':?xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magneta:?xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?xt=uarn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?xt=urn:btihz',
+        'magnet::?xt=urn:btih:UHWY2892JNEJ2GTEYOMDNU67E8ICGICYE92JDUGH',
+        'magnet:?xt:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        'magnet:?xt:urn:nonexisting:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?xt.2=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890123456789ABCD',
       ],
     });
     /* eslint-enable max-len */
@@ -10677,6 +10846,25 @@ describe('Validators', () => {
         '2019/02/29',
         '2020/04/31',
         '2020/03-15',
+      ],
+    });
+    test({
+      validator: 'isDate',
+      args: [{ format: 'MM.DD.YYYY', delimiters: ['.'], strictMode: true }],
+      valid: [
+        '01.15.2020',
+        '02.15.2014',
+        '03.15.2014',
+        '02.29.2020',
+      ],
+      invalid: [
+        '2014-02-15',
+        '2020-02-29',
+        '15-07/2002',
+        new Date(),
+        new Date([2014, 2, 15]),
+        new Date('2014-03-15'),
+        '29.02.2020',
       ],
     });
   });
