@@ -1,5 +1,4 @@
 import assertString from './util/assertString';
-import hasOption from './util/hasOption';
 
 const int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
 const intLeadingZeroes = /^[-+]?[0-9]+$/;
@@ -10,16 +9,18 @@ export default function isInt(str, options) {
 
   // Get the regex to use for testing, based on whether
   // leading zeroes are allowed or not.
-  let regex = (
-    hasOption(options, 'allow_leading_zeroes') && !options.allow_leading_zeroes ?
+  const regex = (
+    // this strict equality check is required
+    options.allow_leading_zeroes === false ?
       int : intLeadingZeroes
   );
 
   // Check min/max/lt/gt
-  let minCheckPassed = (!hasOption(options, 'min') || str >= options.min);
-  let maxCheckPassed = (!hasOption(options, 'max') || str <= options.max);
-  let ltCheckPassed = (!hasOption(options, 'lt') || str < options.lt);
-  let gtCheckPassed = (!hasOption(options, 'gt') || str > options.gt);
+  // When options.[option] is undefined or null, create an always-true check
+  const minCheckPassed = str >= (options.min ?? -Infinity);
+  const maxCheckPassed = str <= (options.max ?? Infinity);
+  const ltCheckPassed = str < (options.lt ?? Infinity);
+  const gtCheckPassed = str > (options.gt ?? -Infinity);
 
   return regex.test(str) && minCheckPassed && maxCheckPassed && ltCheckPassed && gtCheckPassed;
 }
