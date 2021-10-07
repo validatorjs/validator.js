@@ -1130,38 +1130,6 @@ const taxIdFormat = {
 };
 // taxIdFormat locale aliases
 taxIdFormat.LT = taxIdFormat.EE;
-taxIdFormat['bg-BG'] = taxIdFormat.BG;
-taxIdFormat['cs-CZ'] = taxIdFormat.CZ;
-taxIdFormat['de-AT'] = taxIdFormat.AT;
-taxIdFormat['de-DE'] = taxIdFormat.DE;
-taxIdFormat['dk-DK'] = taxIdFormat.DK;
-taxIdFormat['el-CY'] = taxIdFormat.CY;
-taxIdFormat['el-GR'] = taxIdFormat.GR;
-taxIdFormat['en-GB'] = taxIdFormat.GB;
-taxIdFormat['en-IE'] = taxIdFormat.IE;
-taxIdFormat['en-US'] = taxIdFormat.US;
-taxIdFormat['es-ES'] = taxIdFormat.ES;
-taxIdFormat['et-EE'] = taxIdFormat.EE;
-taxIdFormat['fi-FI'] = taxIdFormat.FI;
-taxIdFormat['fr-BE'] = taxIdFormat.BE;
-taxIdFormat['fr-FR'] = taxIdFormat.FR;
-taxIdFormat['fr-LU'] = taxIdFormat.LU;
-taxIdFormat['hr-HR'] = taxIdFormat.HR;
-taxIdFormat['hu-HU'] = taxIdFormat.HU;
-taxIdFormat['it-IT'] = taxIdFormat.IT;
-taxIdFormat['lb-LU'] = taxIdFormat.LU;
-taxIdFormat['lt-LT'] = taxIdFormat.LT;
-taxIdFormat['lv-LV'] = taxIdFormat.LV;
-taxIdFormat['mt-MT'] = taxIdFormat.MT;
-taxIdFormat['nl-BE'] = taxIdFormat.BE;
-taxIdFormat['nl-NL'] = taxIdFormat.NL;
-taxIdFormat['pl-PL'] = taxIdFormat.PL;
-taxIdFormat['pt-BR'] = taxIdFormat.BR;
-taxIdFormat['pt-PT'] = taxIdFormat.PT;
-taxIdFormat['ro-RO'] = taxIdFormat.RO;
-taxIdFormat['sk-SK'] = taxIdFormat.SK;
-taxIdFormat['sl-SI'] = taxIdFormat.SI;
-taxIdFormat['sv-SE'] = taxIdFormat.SE;
 
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
@@ -1198,37 +1166,6 @@ const taxIdCheck = {
 };
 // taxIdCheck locale aliases
 taxIdCheck.LT = taxIdCheck.EE;
-taxIdCheck['bg-BG'] = taxIdCheck.BG;
-taxIdCheck['cs-CZ'] = taxIdCheck.CZ;
-taxIdCheck['de-AT'] = taxIdCheck.AT;
-taxIdCheck['de-DE'] = taxIdCheck.DE;
-taxIdCheck['dk-DK'] = taxIdCheck.DK;
-taxIdCheck['el-CY'] = taxIdCheck.CY;
-taxIdCheck['el-GR'] = taxIdCheck.GR;
-taxIdCheck['en-IE'] = taxIdCheck.IE;
-taxIdCheck['en-US'] = taxIdCheck.US;
-taxIdCheck['es-ES'] = taxIdCheck.ES;
-taxIdCheck['et-EE'] = taxIdCheck.EE;
-taxIdCheck['fi-FI'] = taxIdCheck.FI;
-taxIdCheck['fr-BE'] = taxIdCheck.BE;
-taxIdCheck['fr-FR'] = taxIdCheck.FR;
-taxIdCheck['fr-LU'] = taxIdCheck.LU;
-taxIdCheck['hr-HR'] = taxIdCheck.HR;
-taxIdCheck['hu-HU'] = taxIdCheck.HU;
-taxIdCheck['it-IT'] = taxIdCheck.IT;
-taxIdCheck['lb-LU'] = taxIdCheck.LU;
-taxIdCheck['lt-LT'] = taxIdCheck.LT;
-taxIdCheck['lv-LV'] = taxIdCheck.LV;
-taxIdCheck['mt-MT'] = taxIdCheck.MT;
-taxIdCheck['nl-BE'] = taxIdCheck.BE;
-taxIdCheck['nl-NL'] = taxIdCheck.NL;
-taxIdCheck['pl-PL'] = taxIdCheck.PL;
-taxIdCheck['pt-BR'] = taxIdCheck.BR;
-taxIdCheck['pt-PT'] = taxIdCheck.PT;
-taxIdCheck['ro-RO'] = taxIdCheck.RO;
-taxIdCheck['sk-SK'] = taxIdCheck.SK;
-taxIdCheck['sl-SI'] = taxIdCheck.SI;
-taxIdCheck['sv-SE'] = taxIdCheck.SE;
 
 // Regexes for locales where characters should be omitted before checking format
 const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;
@@ -1237,11 +1174,9 @@ const sanitizeRegexes = {
   DE: /[\/\\]/g,
   BE: allsymbols,
 };
-// sanitizeRegexes locale aliases
-sanitizeRegexes['de-AT'] = sanitizeRegexes.AT;
-sanitizeRegexes['de-DE'] = sanitizeRegexes.DE;
-sanitizeRegexes['fr-BE'] = sanitizeRegexes.BE;
-sanitizeRegexes['nl-BE'] = sanitizeRegexes.BE;
+
+// Legacy locale aliases
+const legacyIsoLocales = new Set(['bg-BG', 'cs-CZ', 'de-AT', 'de-DE', 'dk-DK', 'el-CY', 'el-GR', 'en-GB', 'en-IE', 'en-US', 'es-ES', 'et-EE', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hr-HR', 'hu-HU', 'it-IT', 'lb-LU', 'lt-LT', 'lv-LV', 'mt-MT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'sk-SK', 'sl-SI', 'sv-SE']);
 
 /*
  * Validator function
@@ -1253,6 +1188,10 @@ export default function isTaxID(str, locale = 'US') {
   assertString(str);
   // Copy TIN to avoid replacement if sanitized
   let strcopy = str.slice(0);
+
+  if (legacyIsoLocales.has(locale)) {
+    locale = locale.substring(3); // strip ISO 639-1 language code if a legacy locale is provided
+  }
 
   if (locale in taxIdFormat) {
     if (locale in sanitizeRegexes) {
