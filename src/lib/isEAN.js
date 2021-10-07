@@ -67,9 +67,13 @@ function calculateCheckDigit(ean) {
  * @param {string} str
  * @return {boolean}
  */
-export default function isEAN(str) {
+export function isEAN(str) {
   assertString(str);
   const actualCheckDigit = Number(str.slice(-1));
 
   return validEanRegex.test(str) && actualCheckDigit === calculateCheckDigit(str);
+}
+
+export function isGTIN(str) {
+  return isEAN(str);
 }
