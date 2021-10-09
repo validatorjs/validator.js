@@ -4,7 +4,11 @@ import includes from './util/includes';
 import { decimal } from './alpha';
 
 function decimalRegExp(options) {
-  const regExp = new RegExp(`^[-+]?([0-9]+)?(\\${decimal[options.locale]}[0-9]{${options.decimal_digits}})${options.force_decimal ? '' : '?'}$`);
+  const integerPartExp = '([0-9]+)';
+  const decimalPartExp = `(\\${decimal[options.locale]}[0-9]{${options.decimal_digits}})`;
+  const exponentialPartExp = '(e(-|\\+)?(0)?[1-9]{1,})';
+  const eitherIntegerPartOrDecimalPartOrBothExp = `(${integerPartExp}|${decimalPartExp}|${integerPartExp}${decimalPartExp})`;
+  const regExp = new RegExp(`^[-+]?((${integerPartExp}?${decimalPartExp}${options.force_decimal ? '' : '?'})|(${eitherIntegerPartOrDecimalPartOrBothExp}${exponentialPartExp}))$`);
   return regExp;
 }
 
