@@ -7947,7 +7947,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale: 'en-AFG',
+        locale: 'fa-AF',
         valid: [
           '+93202105968',
           '+93202105968',
