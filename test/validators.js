@@ -7353,6 +7353,7 @@ describe('Validators', () => {
           '+(703)-572-2920',
           '+237 123 45 67 890'
         ],
+      },
       {
         locale: 'ko-KR',
         valid: [
