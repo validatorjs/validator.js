@@ -9413,6 +9413,37 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 639 Alpha 2 language codes', () => {
+    test({
+      validator: 'isISO639Alpha2',
+      valid: [
+        'cs',
+        'da',
+        'de',
+        'en',
+        'es',
+        'fi',
+        'fr',
+        'nb',
+        'nl',
+        'pl',
+        'pt',
+        'ru',
+      ],
+      invalid: [
+        'ASDF',
+        'cz',
+        'dk',
+        'eng',
+        'jp',
+        'nld',
+        'sp',
+        'xx',
+        'zz',
+      ],
+    });
+  });
+
   it('should validate whitelisted characters', () => {
     test({
       validator: 'isWhitelisted',
