@@ -17,6 +17,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         check-latest: true
+        cache: npm
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Install dependencies
