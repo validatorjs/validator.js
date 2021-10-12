@@ -10608,6 +10608,13 @@ describe('Validators', () => {
         '96-1234567',
       ],
     });
+    test({
+      validator: 'isTaxID',
+      args: ['bg-BG'],
+      valid: [
+        '8001010008',
+      ],
+    });
   });
 
 
