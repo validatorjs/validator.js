@@ -4415,6 +4415,34 @@ describe('Validators', () => {
     });
     test({
       validator: 'isUUID',
+      args: [undefined],
+      valid: [
+        'A117FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A117FBC9-4BED-5078-AF07-9141BA07C9F3',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC94BED3078CF079141BA07C9F3',
+        'A11AAAAA-1111-1111-AAAG-111111111111',
+      ],
+    });
+    test({
+      validator: 'isUUID',
+      args: [null],
+      valid: [
+        'A127FBC9-4BED-3078-CF07-9141BA07C9F3',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A127FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
+        '912859',
+        'A12AAAAA-1111-1111-AAAG-111111111111',
+      ],
+    });
+    test({
+      validator: 'isUUID',
       args: [3],
       valid: [
         'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
