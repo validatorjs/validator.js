@@ -10933,6 +10933,39 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
+      args: ['fi-FI'],
+      valid: [
+        'ABC-123',
+        'ABC 123',
+        'ABC123',
+        'A100',
+        'A 100',
+        'A-100',
+        'C10001',
+        'C 10001',
+        'C-10001',
+        '123-ABC',
+        '123 ABC',
+        '123ABC',
+        '123-A',
+        '123 A',
+        '123A',
+        '199AA',
+        '199 AA',
+        '199-AA',
+      ],
+      invalid: [
+        ' ',
+        'A-1',
+        'A1A-100',
+        '1-A-2',
+        'C1234567',
+        'A B C 1 2 3',
+        'abc-123',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['sq-AL'],
       valid: [
         'AA 000 AA',
