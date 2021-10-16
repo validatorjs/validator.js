@@ -25,5 +25,3 @@ jobs:
       run: npm test
     - name: Send coverage info to Codecov
       uses: codecov/codecov-action@v2
-      with:
-        file: ./coverage/cobertura-coverage.xml
