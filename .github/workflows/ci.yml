@@ -19,8 +19,10 @@ jobs:
         check-latest: true
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm install
     - name: Run tests
-      run: npm cit
+      run: npm test
     - name: Send coverage info to Codecov
       uses: codecov/codecov-action@v2
       with:
