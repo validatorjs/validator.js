@@ -14,10 +14,8 @@ jobs:
         registry-url: https://registry.npmjs.org/
     - name: Checkout Repository
       uses: actions/checkout@v2
-    - name: Install Dependencies
-      run: npm install
     - name: Run Tests
-      run: npm test
+      run: npm cit
     - name: Publish Package to NPM Registry
       run: npm publish
       env:
