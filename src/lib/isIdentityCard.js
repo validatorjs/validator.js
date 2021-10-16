@@ -286,8 +286,9 @@ const validators = {
       const xdata = new Date(yyyy, mm - 1, dd);
       if (xdata > new Date()) {
         return false;
-        // eslint-disable-next-line max-len
-      } else if ((xdata.getFullYear() === yyyy) && (xdata.getMonth() === mm - 1) && (xdata.getDate() === dd)) {
+      }
+      // eslint-disable-next-line max-len
+      if ((xdata.getFullYear() === yyyy) && (xdata.getMonth() === mm - 1) && (xdata.getDate() === dd)) {
         return true;
       }
       return false;
@@ -396,7 +397,8 @@ export default function isIdentityCard(str, locale) {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
-  } else if (locale === 'any') {
+  }
+  if (locale === 'any') {
     for (const key in validators) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
