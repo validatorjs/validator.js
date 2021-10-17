@@ -25,12 +25,12 @@ export default function isFQDN(str, options) {
       return false;
     }
 
-    if (!/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
+    if (!/^([a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
       return false;
     }
 
-    // disallow spaces && special characers
-    if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20\u00A9\uFFFD]/.test(tld)) {
+    // disallow spaces
+    if (/\s/.test(tld)) {
       return false;
     }
   }
