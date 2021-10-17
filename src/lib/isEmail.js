@@ -1,3 +1,4 @@
+import { get } from 'https';
 import assertString from './util/assertString';
 
 import merge from './util/merge';
@@ -5,7 +6,6 @@ import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
 import isIP from './isIP';
 
-const { get } = require('https');
 
 const default_email_options = {
   allow_display_name: false,
@@ -19,27 +19,23 @@ const default_email_options = {
 
 
 function validateMXRecords(domain) {
-  
   const promise = new Promise((resolve, reject) => {
-
-    get(`https://dns.google/resolve?name=${domain}&type=mx`, res => {
+    get(`https://dns.google/resolve?name=${domain}&type=mx`, (res) => {
       const data = [];
-  
-      res.on('data', chunk => {
+
+      res.on('data', (chunk) => {
         data.push(chunk);
       });
-    
+
       res.on('end', () => {
         const resp = JSON.parse(Buffer.concat(data).toString());
-        const answer = 'Answer' in resp && resp.Answer.length ? true : false;
+        const answer = !!('Answer' in resp && resp.Answer.length);
         resolve(answer);
       });
-    }).on('error', err => reject(err.message) );
-
+    }).on('error', err => reject(err.message));
   });
 
   return promise;
-
 }
 
 /* eslint-disable max-len */
@@ -125,7 +121,7 @@ export default async function isEmail(str, options) {
 
   const validMX = await validateMXRecords(lower_domain);
 
-  if(!validMX) return false;
+  if (!validMX) return false;
 
 
   if (options.host_blacklist.includes(lower_domain)) {

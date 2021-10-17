@@ -40,8 +40,13 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.2.2",
     "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
@@ -71,5 +76,8 @@
   "engines": {
     "node": ">= 0.10"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "regenerator-runtime": "^0.13.9"
+  }
 }
