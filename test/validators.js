@@ -7946,6 +7946,20 @@ describe('Validators', () => {
           'NotANumber',
         ],
       },
+      {
+        locale: 'fr-CI',
+        valid: [
+          '+25505907733',
+          '+25501254878',
+        ],
+        invalid: [
+          '+12365',
+          '+225014587',
+          '966554112',
+          '+371212340678',
+          'NotANumber',
+        ],
+      },
     ];
 
     let allValid = [];
