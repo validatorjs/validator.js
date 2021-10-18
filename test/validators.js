@@ -4466,6 +4466,7 @@ describe('Validators', () => {
     });
   });
 
+
   it('should validate a string that is in another string or array', () => {
     test({
       validator: 'isIn',
@@ -4623,6 +4624,14 @@ describe('Validators', () => {
         'SBICKEN13458',
         'SBICKEN',
       ],
+    });
+  });
+
+  it('should validate RTN', () => {
+    test({
+      validator: 'isRTN',
+      valid: ['122105155', '082000549', '011103093'],
+      invalid: ['1232101155', '032000549', '098776', 'invalid'],
     });
   });
 
