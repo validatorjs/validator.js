@@ -7947,7 +7947,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale: 'mm-mmr',
+        locale: 'mm-MMR',
         valid: [
           '+959750202595',
           '09750202595',
