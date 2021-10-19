@@ -8,6 +8,7 @@ import matches from './lib/matches';
 
 import isEmail from './lib/isEmail';
 import isURL from './lib/isURL';
+import isUTC from './lib/isUTC';
 import isMACAddress from './lib/isMACAddress';
 import isIP from './lib/isIP';
 import isIPRange from './lib/isIPRange';
@@ -134,6 +135,7 @@ const validator = {
   matches,
   isEmail,
   isURL,
+  isUTC,
   isMACAddress,
   isIP,
   isIPRange,
