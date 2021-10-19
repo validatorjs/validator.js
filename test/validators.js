@@ -2951,7 +2951,7 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
-      args: ['PO'],
+      args: ['PL'],
       valid: [
         'ZS 0000177',
         'AN 3000011',
