@@ -145,15 +145,15 @@ export default function isURL(url, options) {
     return false;
   }
 
-  if (options.host_whitelist) {
-    return checkHost(host, options.host_whitelist);
-  }
   if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
     return false;
   }
 
   host = host || ipv6;
 
+  if (options.host_whitelist && !checkHost(host, options.host_whitelist)) {
+    return false;
+  }
   if (options.host_blacklist && checkHost(host, options.host_blacklist)) {
     return false;
   }
