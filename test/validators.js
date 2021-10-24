@@ -11015,7 +11015,7 @@ describe('Validators', () => {
       ],
     });
   });
-  it('should validate english VAT numbers', () => {
+  it('should validate VAT numbers', () => {
     test({
       validator: 'isVAT',
       args: ['GB'],
@@ -11045,7 +11045,6 @@ describe('Validators', () => {
         'GBHA499',
       ],
     });
-
     test({
       validator: 'isVAT',
       args: ['IT'],
@@ -11061,7 +11060,21 @@ describe('Validators', () => {
         'IT123456789',
       ],
     });
-
+    test({
+      validator: 'isVAT',
+      args: ['NL'],
+      valid: [
+        'NL123456789B10',
+        '123456789B10',
+      ],
+      invalid: [
+        'NL12345678 910',
+        'NL 123456789101',
+        'NL123456789B1',
+        'GB12345678910',
+        'NL123456789',
+      ],
+    });
     test({
       validator: 'isVAT',
       args: ['invalidCountryCode'],
