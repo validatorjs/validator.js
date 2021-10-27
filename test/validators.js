@@ -364,6 +364,7 @@ describe('Validators', () => {
         'http://www.foobar.com/~foobar',
         'http://user:pass@www.foobar.com/',
         'http://user:@www.foobar.com/',
+        'http://:pass@www.foobar.com/',
         'http://user@www.foobar.com',
         'http://127.0.0.1/',
         'http://10.0.0.0/',

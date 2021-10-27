@@ -111,7 +111,11 @@ export default function isURL(url, options) {
     if (options.disallow_auth) {
       return false;
     }
-    if (split[0] === '' || split[0].substr(0, 1) === ':') {
+    if (split[0] === '') {
+      return false;
+    }
+    const user_password = split[0].split(':');
+    if (user_password[0] === '' && user_password[1] === '') {
       return false;
     }
     auth = split.shift();
