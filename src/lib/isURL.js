@@ -114,8 +114,8 @@ export default function isURL(url, options) {
     if (split[0] === '') {
       return false;
     }
-    const user_password = split[0].split(':');
-    if (user_password[0] === '' && user_password[1] === '') {
+    const [user, password] = split[0].split(':');
+    if (user === '' && password === '') {
       return false;
     }
     auth = split.shift();
