@@ -114,12 +114,12 @@ export default function isURL(url, options) {
     if (split[0] === '') {
       return false;
     }
-    const [user, password] = split[0].split(':');
-    if (user === '' && password === '') {
-      return false;
-    }
     auth = split.shift();
     if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
+      return false;
+    }
+    const [user, password] = auth.split(':');
+    if (user === '' && password === '') {
       return false;
     }
   }
