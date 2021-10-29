@@ -1447,6 +1447,24 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate finnish alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['fi-FI'],
+      valid: [
+        'äiti',
+        'Öljy',
+        'Åke',
+        'testÖ',
+      ],
+      invalid: [
+        'AİıÖöÇçŞşĞğÜüZ',
+        'äöå123',
+        '',
+      ],
+    });
+  });
+
   it('should validate kurdish alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1927,6 +1945,24 @@ describe('Validators', () => {
         '1äca ',
         'ab3cß',
         'Øre',
+      ],
+    });
+  });
+
+  it('should validate finnish alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['fi-FI'],
+      valid: [
+        'äiti124',
+        'ÖLJY1234',
+        '123Åke',
+        '451åå23',
+      ],
+      invalid: [
+        'AİıÖöÇçŞşĞğÜüZ',
+        'foo!!',
+        '',
       ],
     });
   });
