@@ -14,7 +14,7 @@ export default function isLicensePlate(str, locale) {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
-  } if (locale === 'any') {
+  } else if (locale === 'any') {
     for (const key in validators) {
       /* eslint guard-for-in: 0 */
       const validator = validators[key];

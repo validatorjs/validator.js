@@ -48,7 +48,8 @@ function validateDisplayName(display_name) {
     }
 
     // the quotes in display name must start with character symbol \
-    const all_start_with_back_slash = display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
+    const all_start_with_back_slash =
+      display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
     if (!all_start_with_back_slash) {
       return false;
     }

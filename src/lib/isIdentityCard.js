@@ -185,7 +185,7 @@ const validators = {
     const new_nic = /^[1-9]\d{11}$/i;
 
     if (str.length === 10 && old_nic.test(str)) return true;
-    if (str.length === 12 && new_nic.test(str)) return true;
+    else if (str.length === 12 && new_nic.test(str)) return true;
     return false;
   },
   'he-IL': (str) => {
@@ -287,7 +287,7 @@ const validators = {
       if (xdata > new Date()) {
         return false;
         // eslint-disable-next-line max-len
-      } if ((xdata.getFullYear() === yyyy) && (xdata.getMonth() === mm - 1) && (xdata.getDate() === dd)) {
+      } else if ((xdata.getFullYear() === yyyy) && (xdata.getMonth() === mm - 1) && (xdata.getDate() === dd)) {
         return true;
       }
       return false;
@@ -306,6 +306,7 @@ const validators = {
     };
 
     const checkParityBit = idCardNo => getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase();
+
 
     const check15IdCardNo = (idCardNo) => {
       let check = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(idCardNo);
@@ -395,7 +396,7 @@ export default function isIdentityCard(str, locale) {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
-  } if (locale === 'any') {
+  } else if (locale === 'any') {
     for (const key in validators) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
