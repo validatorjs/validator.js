@@ -9,7 +9,7 @@ const defaulContainsOptions = {
 export default function contains(str, elem, options) {
   assertString(str);
   options = merge(options, defaulContainsOptions);
-  return options.ignoreCase ?
-    str.toLowerCase().indexOf(toString(elem).toLowerCase()) >= 0 :
-    str.indexOf(toString(elem)) >= 0;
+  return options.ignoreCase
+    ? str.toLowerCase().indexOf(toString(elem).toLowerCase()) >= 0
+    : str.indexOf(toString(elem)) >= 0;
 }

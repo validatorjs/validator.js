@@ -1,3 +1,5 @@
+/* eslint-disable no-misleading-character-class */
+
 export const alpha = {
   'en-US': /^[A-Z]+$/i,
   'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
@@ -28,6 +30,7 @@ export const alpha = {
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
   'vi-VN': /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
+  // eslint-disable-next-line no-misleading-character-class
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[א-ת]+$/,
   fa: /^['آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی']+$/i,
@@ -73,7 +76,6 @@ export const decimal = {
   'en-US': '.',
   ar: '٫',
 };
-
 
 export const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
