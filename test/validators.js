@@ -1118,6 +1118,18 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate FQDN with wildcard option', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { allow_wildcard: true },
+      ],
+      valid: [
+        '*.example.com',
+        '*.shop.example.com',
+      ],
+    });
+  });
 
   it('should validate alpha strings', () => {
     test({
