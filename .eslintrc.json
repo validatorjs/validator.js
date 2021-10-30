@@ -1,10 +1,9 @@
 {
   "extends": "airbnb-base",
-  "parser": "@babel/eslint-parser",
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
-    "sourceType": "module",
-    "requireConfigFile": false
+    "sourceType": "module"
   },
   "env": {
     "es6": true,
