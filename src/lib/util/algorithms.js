@@ -31,7 +31,7 @@ export function luhnCheck(str) {
       const product = parseInt(str[i], 10) * 2;
       if (product > 9) {
         // sum digits of product and add to checksum
-        checksum += product.toString().split('').map((a) => parseInt(a, 10)).reduce((a, b) => a + b, 0);
+        checksum += product.toString().split('').map(a => parseInt(a, 10)).reduce((a, b) => a + b, 0);
       } else {
         checksum += product;
       }
