@@ -4245,7 +4245,7 @@ describe('Validators', () => {
       args: ['foo', {
         minOccurrences: 2,
       }],
-      valid: ['foofoofoo', '12foo124foo', 'fofooofoooofoooo'],
+      valid: ['foofoofoo', '12foo124foo', 'fofooofoooofoooo', 'foo1foo'],
       invalid: ['foo', 'foobar', 'Fooofoo', 'foofo'],
     });
   });

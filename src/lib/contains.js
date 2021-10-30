@@ -11,7 +11,9 @@ export default function contains(str, elem, options) {
   assertString(str);
   options = merge(options, defaulContainsOptions);
 
-  const regex = new RegExp(toString(elem), `g${options.ignoreCase ? 'i' : ''}`);
+  if (options.ignoreCase) {
+    return str.toLowerCase().split(toString(elem).toLowerCase()).length > options.minOccurrences;
+  }
 
-  return (str.match(regex) || []).length >= options.minOccurrences;
+  return str.split(toString(elem)).length > options.minOccurrences;
 }
