@@ -60,13 +60,6 @@ The library can be loaded either as a standalone script, or through an [AMD][amd
   validator.isEmail('foo@bar.com'); //=> true
 </script>
 ```
-
-The library can also be installed through [bower][bower]
-
-```bash
-$ bower install validator-js
-```
-
 ### CDN
 
 For CDN, you can use [unpkg][unpkg] or [jsDelivr][jsdelivr] and if you need a specific version you can just replace `latest` with the version number.
@@ -293,7 +286,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [ci-image]: https://github.com/validatorjs/validator.js/workflows/CI/badge.svg?branch=master
 
 [amd]: http://requirejs.org/docs/whyamd.html
-[bower]: http://bower.io/
 [unpkg]: http://unpkg.com/
 [jsdelivr]: https://jsdelivr.com/
 [mongoid]: http://docs.mongodb.org/manual/reference/object-id/
