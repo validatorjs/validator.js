@@ -119,6 +119,8 @@ import isSlug from './lib/isSlug';
 import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
+import isValidClassName from './lib/isValidClassName';
+
 import isVAT from './lib/isVAT';
 
 const version = '13.6.0';
@@ -224,6 +226,7 @@ const validator = {
   isDate,
   isLicensePlate,
   isVAT,
+  isValidClassName,
   ibanLocales,
 };
 
