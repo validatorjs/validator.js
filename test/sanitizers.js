@@ -107,6 +107,7 @@ describe('Sanitizers', () => {
       expect: { '\\S01010020100001': '01010020100001' },
     });
 
+
     test({
       sanitizer: 'rtrim',
       args: ['01'],

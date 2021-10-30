@@ -102,8 +102,8 @@ function hasValidIbanFormat(str) {
   const strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
   const isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
 
-  return (isoCountryCode in ibanRegexThroughCountryCode)
-    && ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
+  return (isoCountryCode in ibanRegexThroughCountryCode) &&
+    ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
 }
 
 /**

@@ -74,6 +74,7 @@ export const decimal = {
   ar: '٫',
 };
 
+
 export const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
 for (let locale, i = 0; i < englishLocales.length; i++) {
