@@ -6,6 +6,7 @@ const default_fqdn_options = {
   allow_underscores: false,
   allow_trailing_dot: false,
   allow_numeric_tld: false,
+  allow_wildcard: false,
 };
 
 export default function isFQDN(str, options) {
@@ -16,6 +17,12 @@ export default function isFQDN(str, options) {
   if (options.allow_trailing_dot && str[str.length - 1] === '.') {
     str = str.substring(0, str.length - 1);
   }
+
+  /* Remove the optional wildcard before checking validity */
+  if (options.allow_wildcard === true && str.indexOf('*.') === 0) {
+    str = str.substring(2);
+  }
+
   const parts = str.split('.');
   const tld = parts[parts.length - 1];
 
