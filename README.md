@@ -66,6 +66,12 @@ The library can also be installed through [bower][bower]
 $ bower install validator-js
 ```
 
+CDN
+
+```html
+<script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+```
+
 ## Contributors
 
 [Become a backer](https://opencollective.com/validatorjs#backer)
