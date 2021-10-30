@@ -4838,6 +4838,20 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'FI',
+        valid: [
+          '131052-308T', // People born in 1900s
+          '131052A308T', // People born in 2000s
+          '131052+308T', // People born in 1800s
+          '131052-313Y',
+        ],
+        invalid: [
+          '131052308T',
+          '131052-308T ',
+          '131052-308A',
+        ],
+      },
+      {
         locale: 'IN',
         valid: [
           '298448863364',
