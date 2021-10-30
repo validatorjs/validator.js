@@ -47,7 +47,7 @@ const passportRegexByCountryCode = {
   MZ: /^([A-Z]{2}\d{7})|(\d{2}[A-Z]{2}\d{5})$/, // MOZAMBIQUE
   MY: /^[AHK]\d{8}$/, // MALAYSIA
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
-  PO: /^[A-Z]{2}\d{7}$/, // POLAND
+  PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
   RO: /^\d{8,9}$/, // ROMANIA
   RU: /^\d{2}\d{2}\d{6}$/, // RUSSIAN FEDERATION
