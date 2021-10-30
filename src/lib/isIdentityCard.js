@@ -60,7 +60,7 @@ const validators = {
     }
 
     // validate the control digit
-    const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, (char) => charsValue[char]);
+    const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, char => charsValue[char]);
 
     return sanitized.endsWith(controlDigits[number % 23]);
   },
@@ -278,7 +278,7 @@ const validators = {
 
     const parityBit = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
 
-    const checkAddressCode = (addressCode) => provincesAndCities.includes(addressCode);
+    const checkAddressCode = addressCode => provincesAndCities.includes(addressCode);
 
     const checkBirthDayCode = (birDayCode) => {
       const yyyy = parseInt(birDayCode.substring(0, 4), 10);
@@ -306,7 +306,7 @@ const validators = {
       return parityBit[mod];
     };
 
-    const checkParityBit = (idCardNo) => getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase();
+    const checkParityBit = idCardNo => getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase();
 
     const check15IdCardNo = (idCardNo) => {
       let check = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(idCardNo);
