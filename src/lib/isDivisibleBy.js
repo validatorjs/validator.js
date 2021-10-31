@@ -1,7 +1,11 @@
 import assertString from './util/assertString';
 import toFloat from './toFloat';
+import isFloat from './isFloat';
 
 export default function isDivisibleBy(str, num) {
   assertString(str);
-  return toFloat(str) % parseInt(num, 10) === 0;
+  if (!(typeof num === 'number') && !isFloat(num)) {
+    return false;
+  }
+  return toFloat(str) % parseFloat(num) === 0;
 }

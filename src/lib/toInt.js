@@ -1,6 +1,12 @@
 import assertString from './util/assertString';
+import isInt from './isInt';
 
-export default function toInt(str, radix) {
+export default function toInt(str, radix = 10) {
   assertString(str);
-  return parseInt(str, radix || 10);
+  str = str.trim();
+  const options = { radix, int: undefined };
+  if (!isInt(str, options)) {
+    return NaN;
+  }
+  return options.int;
 }

@@ -127,7 +127,7 @@ describe('Sanitizers', () => {
       expect: {
         3: 3,
         ' 3 ': 3,
-        2.4: 2,
+        2.4: NaN,
         foo: NaN,
       },
     });
@@ -136,6 +136,15 @@ describe('Sanitizers', () => {
       sanitizer: 'toInt',
       args: [16],
       expect: { ff: 255 },
+    });
+
+    test({
+      sanitizer: 'toInt',
+      args: [11],
+      expect: {
+        bb: NaN,
+        aa: 120,
+      },
     });
   });
 

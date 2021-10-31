@@ -3639,6 +3639,19 @@ describe('Validators', () => {
     });
     test({
       validator: 'isInt',
+      args: [{ radix: 8, int: undefined }],
+      valid: [
+        '0',
+        '7',
+        '27',
+      ],
+      invalid: [
+        'a',
+        '8',
+      ],
+    });
+    test({
+      validator: 'isInt',
       args: [{
         min: 10,
         max: 15,
@@ -3677,6 +3690,15 @@ describe('Validators', () => {
         'a',
       ],
     });
+  });
+  test({
+    validator: 'isInt',
+    args: [{
+      radix: 1,
+    }],
+    error: [
+      '2',
+    ],
   });
 
   it('should validate floats', () => {
@@ -4755,6 +4777,23 @@ describe('Validators', () => {
         '',
         '2020-01-06T14:31:00.135Z',
       ],
+    });
+    test({
+      validator: 'isDivisibleBy',
+      args: ['2'],
+      valid: ['2', '8'],
+      invalid: ['2.5'],
+    });
+    test({
+      validator: 'isDivisibleBy',
+      args: [2.5],
+      valid: ['2.5'],
+      invalid: ['9'],
+    });
+    test({
+      validator: 'isDivisibleBy',
+      args: ['x'],
+      invalid: ['2.5'],
     });
   });
 
