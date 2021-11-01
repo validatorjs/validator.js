@@ -11683,4 +11683,22 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should test if value is truthy', () => {
+    test({
+      validator: 'isTruthy',
+      args: ['Yes', 'No', 1, 0, true, false],
+      valid: [true, 'Yes', 1],
+      invalid: [0, false, 'No'],
+    });
+  });
+
+  it('should test if value is falsy', () => {
+    test({
+      validator: 'isFalsy',
+      args: ['Yes', 'No', 1, 0, true, false],
+      valid: [0, false, 'No'],
+      invalid: [true, 'Yes', 1],
+    });
+  });
 });

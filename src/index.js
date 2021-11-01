@@ -114,6 +114,8 @@ import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
+import isTruthy from './lib/isTruthy';
+import isFalsy from './lib/isFalsy';
 
 import isSlug from './lib/isSlug';
 import isLicensePlate from './lib/isLicensePlate';
@@ -225,6 +227,8 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isTruthy,
+  isFalsy,
 };
 
 export default validator;
