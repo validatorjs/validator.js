@@ -5,6 +5,7 @@ import toBoolean from './lib/toBoolean';
 import equals from './lib/equals';
 import contains from './lib/contains';
 import matches from './lib/matches';
+import toCurrencyFormat from './lib/toCurrencyFormat';
 
 import isEmail from './lib/isEmail';
 import isURL from './lib/isURL';
@@ -121,6 +122,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
+
 const version = '13.6.0';
 
 const validator = {
@@ -132,6 +134,7 @@ const validator = {
   equals,
   contains,
   matches,
+  toCurrencyFormat,
   isEmail,
   isURL,
   isMACAddress,
