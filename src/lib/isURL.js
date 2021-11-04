@@ -111,11 +111,15 @@ export default function isURL(url, options) {
     if (options.disallow_auth) {
       return false;
     }
-    if (split[0] === '' || split[0].substr(0, 1) === ':') {
+    if (split[0] === '') {
       return false;
     }
     auth = split.shift();
     if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
+      return false;
+    }
+    const [user, password] = auth.split(':');
+    if (user === '' && password === '') {
       return false;
     }
   }
@@ -136,7 +140,7 @@ export default function isURL(url, options) {
     }
   }
 
-  if (port_str !== null) {
+  if (port_str !== null && port_str.length > 0) {
     port = parseInt(port_str, 10);
     if (!/^[0-9]+$/.test(port_str) || port <= 0 || port > 65535) {
       return false;
