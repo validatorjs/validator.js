@@ -6,7 +6,8 @@
 [![Downloads][downloads-image]][npm-url]
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
-[![Gitter](https://badges.gitter.im/validatorjs/community.svg)](https://gitter.im/validatorjs/community)
+[![Gitter][gitter-image]][gitter-url]
+[![Disclose a vulnerability][huntr-image]][huntr-url]
 
 A library of string validators and sanitizers.
 
@@ -266,6 +267,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [ci-url]: https://github.com/validatorjs/validator.js/actions?query=workflow%3ACI
 [ci-image]: https://github.com/validatorjs/validator.js/workflows/CI/badge.svg?branch=master
+
+[gitter-url]: https://gitter.im/validatorjs/community
+[gitter-image]: https://badges.gitter.im/validatorjs/community.svg
+
+[huntr-url]: https://huntr.dev/bounties/disclose/?target=https://github.com/validatorjs/validator.js
+[huntr-image]: https://cdn.huntr.dev/huntr_security_badge_mono.svg
 
 [amd]: http://requirejs.org/docs/whyamd.html
 [bower]: http://bower.io/
