@@ -63,6 +63,26 @@ const validators = {
 
     return sanitized.endsWith(controlDigits[number % 23]);
   },
+  FI: (str) => {
+    // https://dvv.fi/en/personal-identity-code#:~:text=control%20character%20for%20a-,personal,-identity%20code%20calculated
+    assertString(str);
+
+    if (str.length !== 11) {
+      return false;
+    }
+
+    if (!str.match(/^\d{6}[\-A\+]\d{3}[0-9ABCDEFHJKLMNPRSTUVWXY]{1}$/)) {
+      return false;
+    }
+
+    const checkDigits = '0123456789ABCDEFHJKLMNPRSTUVWXY';
+
+    const idAsNumber = (parseInt(str.slice(0, 6), 10) * 1000) + parseInt(str.slice(7, 10), 10);
+    const remainder = idAsNumber % 31;
+    const checkDigit = checkDigits[remainder];
+
+    return checkDigit === str.slice(10, 11);
+  },
   IN: (str) => {
     const DNI = /^[1-9]\d{3}\s?\d{4}\s?\d{4}$/;
 
@@ -159,6 +179,14 @@ const validators = {
       sum += parseInt(str[i], 10) * (13 - i);
     }
     return str[12] === ((11 - (sum % 11)) % 10).toString();
+  },
+  LK: (str) => {
+    const old_nic = /^[1-9]\d{8}[vx]$/i;
+    const new_nic = /^[1-9]\d{11}$/i;
+
+    if (str.length === 10 && old_nic.test(str)) return true;
+    else if (str.length === 12 && new_nic.test(str)) return true;
+    return false;
   },
   'he-IL': (str) => {
     const DNI = /^\d{9}$/;
