@@ -10,7 +10,7 @@ const macAddress64WithDots = /^([0-9a-fA-F]{4}\.){3}([0-9a-fA-F]{4})$/;
 export default function isMACAddress(str, options) {
   assertString(str);
   if (options?.eui) {
-    String(options.eui);
+    options.eui = String(options.eui);
   }
   /**
    * @deprecated `no_colons` TODO: remove it in the next major
