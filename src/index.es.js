@@ -98,5 +98,5 @@ export { locales as isFloatLocales } from './lib/isFloat';
 export { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
 export { locales as isPostalCodeLocales } from './lib/isPostalCode';
 export { default } from './index';
-export const version = '13.6.0';
+export const version = '13.7.0';
 
