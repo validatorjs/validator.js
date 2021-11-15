@@ -185,7 +185,7 @@ const validators = {
     const new_nic = /^[1-9]\d{11}$/i;
 
     if (str.length === 10 && old_nic.test(str)) return true;
-    else if (str.length === 12 && new_nic.test(str)) return true;
+    if (str.length === 12 && new_nic.test(str)) return true;
     return false;
   },
   'he-IL': (str) => {
