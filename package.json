@@ -41,7 +41,7 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-modules": "^0.1.5",
     "@babel/register": "^7.16.0",
@@ -49,11 +49,11 @@
     "babel-plugin-add-module-exports": "^1.0.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import": "^2.25.3",
     "mocha": "^9.1.3",
     "nyc": "^15.1.0",
     "rimraf": "^3.0.2",
-    "rollup": "^2.58.3",
+    "rollup": "^2.60.0",
     "rollup-plugin-license": "^2.6.0",
     "rollup-plugin-terser": "^7.0.2"
   },
