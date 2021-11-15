@@ -1,9 +1,7 @@
 import assertString from './util/assertString';
 
 /**
- * Check if string is valid EAN:
- * Matches EAN-8/EAN-13/EAN-14 regex
- * Has valid check digit.
+ * Check if an input is a valid Canadian SIN (Social Insurance Number)
  *
  * https://en.wikipedia.org/wiki/Social_Insurance_Number
  * https://www.canada.ca/en/employment-social-development/services/sin.html
