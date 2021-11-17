@@ -26,11 +26,11 @@ import isDate from './isDate';
 // Locale functions
 
 /*
- * bg-BG validation function
+ * BG validation function
  * (Edinen graždanski nomer (EGN/ЕГН), persons only)
  * Checks if birth date (first six digits) is valid and calculates check (last) digit
  */
-function bgBgCheck(tin) {
+function bgCheck(tin) {
   // Extract full year, normalize month and check birth date validity
   let century_year = tin.slice(0, 2);
   let month = parseInt(tin.slice(2, 4), 10);
@@ -61,14 +61,14 @@ function bgBgCheck(tin) {
 }
 
 /*
- * cs-CZ validation function
+ * CZ validation function
  * (Rodné číslo (RČ), persons only)
  * Checks if birth date (first six digits) is valid and divisibility by 11
  * Material not in DG TAXUD document sourced from:
  * -`https://lorenc.info/3MA381/overeni-spravnosti-rodneho-cisla.htm`
  * -`https://www.mvcr.cz/clanek/rady-a-sluzby-dokumenty-rodne-cislo.aspx`
  */
-function csCzCheck(tin) {
+function czCheck(tin) {
   tin = tin.replace(/\W/, '');
 
   // Extract full year from TIN length
@@ -125,21 +125,21 @@ function csCzCheck(tin) {
 }
 
 /*
- * de-AT validation function
+ * AT validation function
  * (Abgabenkontonummer, persons/entities)
  * Verify TIN validity by calling luhnCheck()
  */
-function deAtCheck(tin) {
+function atCheck(tin) {
   return algorithms.luhnCheck(tin);
 }
 
 /*
- * de-DE validation function
+ * DE validation function
  * (Steueridentifikationsnummer (Steuer-IdNr.), persons only)
  * Tests for single duplicate/triplicate value, then calculates ISO 7064 check (last) digit
  * Partial implementation of spec (same result with both algorithms always)
  */
-function deDeCheck(tin) {
+function deCheck(tin) {
   // Split digits into an array for further processing
   const digits = tin.split('').map(a => parseInt(a, 10));
 
@@ -175,12 +175,12 @@ function deDeCheck(tin) {
 }
 
 /*
- * dk-DK validation function
+ * DK validation function
  * (CPR-nummer (personnummer), persons only)
  * Checks if birth date (first six digits) is valid and assigned to century (seventh) digit,
  * and calculates check (last) digit
  */
-function dkDkCheck(tin) {
+function dkCheck(tin) {
   tin = tin.replace(/\W/, '');
 
   // Extract year, check if valid for given century digit and add century
@@ -237,11 +237,11 @@ function dkDkCheck(tin) {
 }
 
 /*
- * el-CY validation function
+ * CY validation function
  * (Arithmos Forologikou Mitroou (AFM/ΑΦΜ), persons only)
  * Verify TIN validity by calculating ASCII value of check (last) character
  */
-function elCyCheck(tin) {
+function cyCheck(tin) {
   // split digits into an array for further processing
   const digits = tin.slice(0, 8).split('').map(a => parseInt(a, 10));
 
@@ -266,13 +266,13 @@ function elCyCheck(tin) {
 }
 
 /*
- * el-GR validation function
+ * GR validation function
  * (Arithmos Forologikou Mitroou (AFM/ΑΦΜ), persons/entities)
  * Verify TIN validity by calculating check (last) digit
  * Algorithm not in DG TAXUD document- sourced from:
  * - `http://epixeirisi.gr/%CE%9A%CE%A1%CE%99%CE%A3%CE%99%CE%9C%CE%91-%CE%98%CE%95%CE%9C%CE%91%CE%A4%CE%91-%CE%A6%CE%9F%CE%A1%CE%9F%CE%9B%CE%9F%CE%93%CE%99%CE%91%CE%A3-%CE%9A%CE%91%CE%99-%CE%9B%CE%9F%CE%93%CE%99%CE%A3%CE%A4%CE%99%CE%9A%CE%97%CE%A3/23791/%CE%91%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82-%CE%A6%CE%BF%CF%81%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CE%BA%CE%BF%CF%8D-%CE%9C%CE%B7%CF%84%CF%81%CF%8E%CE%BF%CF%85`
  */
-function elGrCheck(tin) {
+function grCheck(tin) {
   // split digits into an array for further processing
   const digits = tin.split('').map(a => parseInt(a, 10));
 
@@ -284,17 +284,17 @@ function elGrCheck(tin) {
 }
 
 /*
- * en-GB validation function (should go here if needed)
+ * GB validation function (should go here if needed)
  * (National Insurance Number (NINO) or Unique Taxpayer Reference (UTR),
  * persons/entities respectively)
  */
 
 /*
- * en-IE validation function
+ * IE validation function
  * (Personal Public Service Number (PPS No), persons only)
  * Verify TIN validity by calculating check (second to last) character
  */
-function enIeCheck(tin) {
+function ieCheck(tin) {
   let checksum = algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8);
   if (tin.length === 9 && tin[8] !== 'W') {
     checksum += (tin[8].charCodeAt(0) - 64) * 9;
@@ -308,7 +308,7 @@ function enIeCheck(tin) {
 }
 
 // Valid US IRS campus prefixes
-const enUsCampusPrefix = {
+const usCampusPrefix = {
   andover: ['10', '12'],
   atlanta: ['60', '67'],
   austin: ['50', '53'],
@@ -324,14 +324,14 @@ const enUsCampusPrefix = {
 };
 
 // Return an array of all US IRS campus prefixes
-function enUsGetPrefixes() {
+function usGetPrefixes() {
   const prefixes = [];
 
-  for (const location in enUsCampusPrefix) {
+  for (const location in usCampusPrefix) {
     // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
     // istanbul ignore else
-    if (enUsCampusPrefix.hasOwnProperty(location)) {
-      prefixes.push(...enUsCampusPrefix[location]);
+    if (usCampusPrefix.hasOwnProperty(location)) {
+      prefixes.push(...usCampusPrefix[location]);
     }
   }
 
@@ -339,20 +339,20 @@ function enUsGetPrefixes() {
 }
 
 /*
- * en-US validation function
+ * US validation function
  * Verify that the TIN starts with a valid IRS campus prefix
  */
-function enUsCheck(tin) {
-  return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
+function usCheck(tin) {
+  return usGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
 }
 
 /*
- * es-ES validation function
+ * ES validation function
  * (Documento Nacional de Identidad (DNI)
  * or Número de Identificación de Extranjero (NIE), persons only)
  * Verify TIN validity by calculating check (last) character
  */
-function esEsCheck(tin) {
+function esCheck(tin) {
   // Split characters into an array for further processing
   let chars = tin.toUpperCase().split('');
 
@@ -384,13 +384,13 @@ function esEsCheck(tin) {
 }
 
 /*
- * et-EE validation function
+ * EE validation function
  * (Isikukood (IK), persons only)
  * Checks if birth date (century digit and six following) is valid and calculates check (last) digit
  * Material not in DG TAXUD document sourced from:
  * - `https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/Estonia-TIN.pdf`
  */
-function etEeCheck(tin) {
+function eeCheck(tin) {
   // Extract year and add century
   let full_year = tin.slice(1, 3);
   const century_digit = tin.slice(0, 1);
@@ -441,12 +441,12 @@ function etEeCheck(tin) {
 }
 
 /*
- * fi-FI validation function
+ * FI validation function
  * (Henkilötunnus (HETU), persons only)
  * Checks if birth date (first six digits plus century symbol) is valid
  * and calculates check (last) digit
  */
-function fiFiCheck(tin) {
+function fiCheck(tin) {
   // Extract year and add century
   let full_year = tin.slice(4, 6);
   const century_symbol = tin.slice(6, 7);
@@ -475,11 +475,11 @@ function fiFiCheck(tin) {
 }
 
 /*
- * fr/nl-BE validation function
+ * BE validation function
  * (Numéro national (N.N.), persons only)
  * Checks if birth date (first six digits) is valid and calculates check (last two) digits
  */
-function frBeCheck(tin) {
+function beCheck(tin) {
   // Zero month/day value is acceptable
   if (tin.slice(2, 4) !== '00' || tin.slice(4, 6) !== '00') {
     // Extract date from first six digits of TIN
@@ -499,11 +499,11 @@ function frBeCheck(tin) {
 }
 
 /*
- * fr-FR validation function
+ * FR validation function
  * (Numéro fiscal de référence (numéro SPI), persons only)
  * Verify TIN validity by calculating check (last three) digits
  */
-function frFrCheck(tin) {
+function frCheck(tin) {
   tin = tin.replace(/\s/g, '');
   const checksum = parseInt(tin.slice(0, 10), 10) % 511;
   const checkdigits = parseInt(tin.slice(10, 13), 10);
@@ -511,11 +511,11 @@ function frFrCheck(tin) {
 }
 
 /*
- * fr/lb-LU validation function
+ * LU validation function
  * (numéro d’identification personnelle, persons only)
  * Verify birth date validity and run Luhn and Verhoeff checks
  */
-function frLuCheck(tin) {
+function luCheck(tin) {
   // Extract date and check validity
   const date = `${tin.slice(0, 4)}/${tin.slice(4, 6)}/${tin.slice(6, 8)}`;
   if (!isDate(date, 'YYYY/MM/DD')) { return false; }
@@ -527,20 +527,20 @@ function frLuCheck(tin) {
 }
 
 /*
- * hr-HR validation function
+ * HR validation function
  * (Osobni identifikacijski broj (OIB), persons/entities)
  * Verify TIN validity by calling iso7064Check(digits)
  */
-function hrHrCheck(tin) {
+function hrCheck(tin) {
   return algorithms.iso7064Check(tin);
 }
 
 /*
- * hu-HU validation function
+ * HU validation function
  * (Adóazonosító jel, persons only)
  * Verify TIN validity by calculating check (last) digit
  */
-function huHuCheck(tin) {
+function huCheck(tin) {
   // split digits into an array for further processing
   const digits = tin.split('').map(a => parseInt(a, 10));
 
@@ -552,21 +552,21 @@ function huHuCheck(tin) {
 }
 
 /*
- * lt-LT validation function (should go here if needed)
+ * LT validation function (should go here if needed)
  * (Asmens kodas, persons/entities respectively)
- * Current validation check is alias of etEeCheck- same format applies
+ * Current validation check is alias of eeCheck- same format applies
  */
 
 /*
- * it-IT first/last name validity check
- * Accepts it-IT TIN-encoded names as a three-element character array and checks their validity
+ * IT first/last name validity check
+ * Accepts IT TIN-encoded names as a three-element character array and checks their validity
  * Due to lack of clarity between resources ("Are only Italian consonants used?
  * What happens if a person has X in their name?" etc.) only two test conditions
  * have been implemented:
  * Vowels may only be followed by other vowels or an X character
  * and X characters after vowels may only be followed by other X characters.
  */
-function itItNameCheck(name) {
+function itNameCheck(name) {
   // true at the first occurence of a vowel
   let vowelflag = false;
 
@@ -592,20 +592,20 @@ function itItNameCheck(name) {
 }
 
 /*
- * it-IT validation function
+ * IT validation function
  * (Codice fiscale (TIN-IT), persons only)
  * Verify name, birth date and codice catastale validity
  * and calculate check character.
  * Material not in DG-TAXUD document sourced from:
  * `https://en.wikipedia.org/wiki/Italian_fiscal_code`
  */
-function itItCheck(tin) {
+function itCheck(tin) {
   // Capitalize and split characters into an array for further processing
   const chars = tin.toUpperCase().split('');
 
-  // Check first and last name validity calling itItNameCheck()
-  if (!itItNameCheck(chars.slice(0, 3))) { return false; }
-  if (!itItNameCheck(chars.slice(3, 6))) { return false; }
+  // Check first and last name validity calling itNameCheck()
+  if (!itNameCheck(chars.slice(0, 3))) { return false; }
+  if (!itNameCheck(chars.slice(3, 6))) { return false; }
 
   // Convert letters in number spaces back to numbers if any
   const number_locations = [6, 7, 9, 10, 12, 13, 14];
@@ -710,14 +710,14 @@ function itItCheck(tin) {
 }
 
 /*
- * lv-LV validation function
+ * LV validation function
  * (Personas kods (PK), persons only)
  * Check validity of birth date and calculate check (last) digit
  * Support only for old format numbers (not starting with '32', issued before 2017/07/01)
  * Material not in DG TAXUD document sourced from:
  * `https://boot.ritakafija.lv/forums/index.php?/topic/88314-personas-koda-algoritms-%C4%8Deksumma/`
  */
-function lvLvCheck(tin) {
+function lvCheck(tin) {
   tin = tin.replace(/\W/, '');
   // Extract date from TIN
   const day = tin.slice(0, 2);
@@ -753,11 +753,11 @@ function lvLvCheck(tin) {
 }
 
 /*
- * mt-MT validation function
+ * MT validation function
  * (Identity Card Number or Unique Taxpayer Reference, persons/entities)
  * Verify Identity Card Number structure (no other tests found)
  */
-function mtMtCheck(tin) {
+function mtCheck(tin) {
   if (tin.length !== 9) { // No tests for UTR
     let chars = tin.toUpperCase().split('');
     // Fill with zeros if smaller than proper
@@ -782,22 +782,22 @@ function mtMtCheck(tin) {
 }
 
 /*
- * nl-NL validation function
+ * NL validation function
  * (Burgerservicenummer (BSN) or Rechtspersonen Samenwerkingsverbanden Informatie Nummer (RSIN),
  * persons/entities respectively)
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
-function nlNlCheck(tin) {
+function nlCheck(tin) {
   return algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
 }
 
 /*
- * pl-PL validation function
+ * PL validation function
  * (Powszechny Elektroniczny System Ewidencji Ludności (PESEL)
  * or Numer identyfikacji podatkowej (NIP), persons/entities)
  * Verify TIN validity by validating birth date (PESEL) and calculating check (last) digit
  */
-function plPlCheck(tin) {
+function plCheck(tin) {
   // NIP
   if (tin.length === 10) {
     // Calculate last digit by multiplying with lookup
@@ -853,13 +853,13 @@ function plPlCheck(tin) {
 }
 
 /*
-* pt-BR validation function
+* BR validation function
 * (Cadastro de Pessoas Físicas (CPF, persons)
 * Cadastro Nacional de Pessoas Jurídicas (CNPJ, entities)
 * Both inputs will be validated
 */
 
-function ptBrCheck(tin) {
+function brCheck(tin) {
   if (tin.length === 11) {
     let sum;
     let remainder;
@@ -934,11 +934,11 @@ function ptBrCheck(tin) {
 }
 
 /*
- * pt-PT validation function
+ * PT validation function
  * (Número de identificação fiscal (NIF), persons/entities)
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
-function ptPtCheck(tin) {
+function ptCheck(tin) {
   let checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11);
   if (checksum > 9) { return parseInt(tin[8], 10) === 0; }
   return checksum === parseInt(tin[8], 10);
@@ -952,7 +952,7 @@ function ptPtCheck(tin) {
  * Material not in DG TAXUD document sourced from:
  * `https://en.wikipedia.org/wiki/National_identification_number#Romania`
  */
-function roRoCheck(tin) {
+function roCheck(tin) {
   if (tin.slice(0, 4) !== '9000') { // No test found for this format
     // Extract full year using century digit if possible
     let full_year = tin.slice(1, 3);
@@ -992,13 +992,13 @@ function roRoCheck(tin) {
 }
 
 /*
- * sk-SK validation function
+ * SK validation function
  * (Rodné číslo (RČ) or bezvýznamové identifikačné číslo (BIČ), persons only)
  * Checks validity of pre-1954 birth numbers (rodné číslo) only
  * Due to the introduction of the pseudo-random BIČ it is not possible to test
  * post-1954 birth numbers without knowing whether they are BIČ or RČ beforehand
  */
-function skSkCheck(tin) {
+function skCheck(tin) {
   if (tin.length === 9) {
     tin = tin.replace(/\W/, '');
     if (tin.slice(6) === '000') { return false; } // Three-zero serial not assigned before 1954
@@ -1027,22 +1027,22 @@ function skSkCheck(tin) {
 }
 
 /*
- * sl-SI validation function
+ * SI validation function
  * (Davčna številka, persons/entities)
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
-function slSiCheck(tin) {
+function siCheck(tin) {
   let checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8) % 11);
   if (checksum === 10) { return parseInt(tin[7], 10) === 0; }
   return checksum === parseInt(tin[7], 10);
 }
 
 /*
- * sv-SE validation function
+ * SE validation function
  * (Personnummer or samordningsnummer, persons only)
  * Checks validity of birth date and calls luhnCheck() to validate check (last) digit
  */
-function svSeCheck(tin) {
+function seCheck(tin) {
   // Make copy of TIN and normalize to two-digit year form
   let tin_copy = tin.slice(0);
   if (tin.length > 11) {
@@ -1097,89 +1097,86 @@ function svSeCheck(tin) {
  */
 const taxIdFormat = {
 
-  'bg-BG': /^\d{10}$/,
-  'cs-CZ': /^\d{6}\/{0,1}\d{3,4}$/,
-  'de-AT': /^\d{9}$/,
-  'de-DE': /^[1-9]\d{10}$/,
-  'dk-DK': /^\d{6}-{0,1}\d{4}$/,
-  'el-CY': /^[09]\d{7}[A-Z]$/,
-  'el-GR': /^([0-4]|[7-9])\d{8}$/,
-  'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
-  'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/i,
-  'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
-  'es-ES': /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/i,
-  'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
-  'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
-  'fr-BE': /^\d{11}$/,
-  'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both to official spec and provided example
-  'fr-LU': /^\d{13}$/,
-  'hr-HR': /^\d{11}$/,
-  'hu-HU': /^8\d{9}$/,
-  'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
-  'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
-  'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
-  'nl-NL': /^\d{9}$/,
-  'pl-PL': /^\d{10,11}$/,
-  'pt-BR': /(?:^\d{11}$)|(?:^\d{14}$)/,
-  'pt-PT': /^\d{9}$/,
-  'ro-RO': /^\d{13}$/,
-  'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
-  'sl-SI': /^[1-9]\d{7}$/,
-  'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
+  BG: /^\d{10}$/,
+  CZ: /^\d{6}\/{0,1}\d{3,4}$/,
+  AT: /^\d{9}$/,
+  DE: /^[1-9]\d{10}$/,
+  DK: /^\d{6}-{0,1}\d{4}$/,
+  CY: /^[09]\d{7}[A-Z]$/,
+  GR: /^([0-4]|[7-9])\d{8}$/,
+  GB: /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
+  IE: /^\d{7}[A-W][A-IW]{0,1}$/i,
+  US: /^\d{2}[- ]{0,1}\d{7}$/,
+  ES: /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/i,
+  EE: /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
+  FI: /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
+  BE: /^\d{11}$/,
+  FR: /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both to official spec and provided example
+  LU: /^\d{13}$/,
+  HR: /^\d{11}$/,
+  HU: /^8\d{9}$/,
+  IT: /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
+  LV: /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
+  MT: /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
+  NL: /^\d{9}$/,
+  PL: /^\d{10,11}$/,
+  BR: /(?:^\d{11}$)|(?:^\d{14}$)/,
+  PT: /^\d{9}$/,
+  RO: /^\d{13}$/,
+  SK: /^\d{6}\/{0,1}\d{3,4}$/,
+  SI: /^[1-9]\d{7}$/,
+  SE: /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
 
 };
 // taxIdFormat locale aliases
-taxIdFormat['lb-LU'] = taxIdFormat['fr-LU'];
-taxIdFormat['lt-LT'] = taxIdFormat['et-EE'];
-taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
+taxIdFormat.LT = taxIdFormat.EE;
 
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
 
-  'bg-BG': bgBgCheck,
-  'cs-CZ': csCzCheck,
-  'de-AT': deAtCheck,
-  'de-DE': deDeCheck,
-  'dk-DK': dkDkCheck,
-  'el-CY': elCyCheck,
-  'el-GR': elGrCheck,
-  'en-IE': enIeCheck,
-  'en-US': enUsCheck,
-  'es-ES': esEsCheck,
-  'et-EE': etEeCheck,
-  'fi-FI': fiFiCheck,
-  'fr-BE': frBeCheck,
-  'fr-FR': frFrCheck,
-  'fr-LU': frLuCheck,
-  'hr-HR': hrHrCheck,
-  'hu-HU': huHuCheck,
-  'it-IT': itItCheck,
-  'lv-LV': lvLvCheck,
-  'mt-MT': mtMtCheck,
-  'nl-NL': nlNlCheck,
-  'pl-PL': plPlCheck,
-  'pt-BR': ptBrCheck,
-  'pt-PT': ptPtCheck,
-  'ro-RO': roRoCheck,
-  'sk-SK': skSkCheck,
-  'sl-SI': slSiCheck,
-  'sv-SE': svSeCheck,
+  BG: bgCheck,
+  CZ: czCheck,
+  AT: atCheck,
+  DE: deCheck,
+  DK: dkCheck,
+  CY: cyCheck,
+  GR: grCheck,
+  IE: ieCheck,
+  US: usCheck,
+  ES: esCheck,
+  EE: eeCheck,
+  FI: fiCheck,
+  BE: beCheck,
+  FR: frCheck,
+  LU: luCheck,
+  HR: hrCheck,
+  HU: huCheck,
+  IT: itCheck,
+  LV: lvCheck,
+  MT: mtCheck,
+  NL: nlCheck,
+  PL: plCheck,
+  BR: brCheck,
+  PT: ptCheck,
+  RO: roCheck,
+  SK: skCheck,
+  SI: siCheck,
+  SE: seCheck,
 
 };
 // taxIdCheck locale aliases
-taxIdCheck['lb-LU'] = taxIdCheck['fr-LU'];
-taxIdCheck['lt-LT'] = taxIdCheck['et-EE'];
-taxIdCheck['nl-BE'] = taxIdCheck['fr-BE'];
+taxIdCheck.LT = taxIdCheck.EE;
 
 // Regexes for locales where characters should be omitted before checking format
 const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;
 const sanitizeRegexes = {
-  'de-AT': allsymbols,
-  'de-DE': /[\/\\]/g,
-  'fr-BE': allsymbols,
+  AT: allsymbols,
+  DE: /[\/\\]/g,
+  BE: allsymbols,
 };
-// sanitizeRegexes locale aliases
-sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
+
+// Legacy locale aliases
+const legacyIsoLocales = new Set(['bg-BG', 'cs-CZ', 'de-AT', 'de-DE', 'dk-DK', 'el-CY', 'el-GR', 'en-GB', 'en-IE', 'en-US', 'es-ES', 'et-EE', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hr-HR', 'hu-HU', 'it-IT', 'lb-LU', 'lt-LT', 'lv-LV', 'mt-MT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'sk-SK', 'sl-SI', 'sv-SE']);
 
 /*
  * Validator function
@@ -1187,10 +1184,14 @@ sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
  * for the specified locale.
  * Throw an error exception if the locale is not supported.
  */
-export default function isTaxID(str, locale = 'en-US') {
+export default function isTaxID(str, locale = 'US') {
   assertString(str);
   // Copy TIN to avoid replacement if sanitized
   let strcopy = str.slice(0);
+
+  if (legacyIsoLocales.has(locale)) {
+    locale = locale.substring(3); // strip ISO 639-1 language code if a legacy locale is provided
+  }
 
   if (locale in taxIdFormat) {
     if (locale in sanitizeRegexes) {

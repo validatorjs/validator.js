@@ -10834,7 +10834,7 @@ describe('Validators', () => {
   it('should validate taxID', () => {
     test({
       validator: 'isTaxID',
-      args: ['bg-BG'],
+      args: ['BG'],
       valid: [
         '7501010010',
         '0101010012',
@@ -10850,7 +10850,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['cs-CZ'],
+      args: ['CZ'],
       valid: [
         '530121999',
         '530121/999',
@@ -10872,7 +10872,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['de-AT'],
+      args: ['AT'],
       valid: [
         '931736581',
         '93-173/6581',
@@ -10885,7 +10885,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['de-DE'],
+      args: ['DE'],
       valid: [
         '26954371827',
         '86095742719',
@@ -10903,7 +10903,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['dk-DK'],
+      args: ['DK'],
       valid: [
         '010111-1113',
         '0101110117',
@@ -10923,7 +10923,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['el-CY'],
+      args: ['CY'],
       valid: [
         '00123123T',
         '99652156X'],
@@ -10936,7 +10936,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['el-GR'],
+      args: ['GR'],
       valid: [
         '758426713',
         '032792320',
@@ -10952,7 +10952,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['en-GB'],
+      args: ['GB'],
       valid: [
         '1234567890',
         'AA123456A',
@@ -10973,7 +10973,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['en-IE'],
+      args: ['IE'],
       valid: [
         '1234567T',
         '1234567TW',
@@ -10988,7 +10988,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['en-US'],
+      args: ['US'],
       valid: [
         '01-1234567',
         '01 1234567',
@@ -11010,7 +11010,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['es-ES'],
+      args: ['ES'],
       valid: [
         '00054237A',
         '54237A',
@@ -11026,7 +11026,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['et-EE'],
+      args: ['EE'],
       valid: [
         '10001010080',
         '46304280206',
@@ -11041,7 +11041,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['fi-FI'],
+      args: ['FI'],
       valid: [
         '131052-308T',
         '131002+308W',
@@ -11055,28 +11055,9 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['fr-BE'],
+      args: ['BE'],
       valid: [
-        '00012511119'],
-    });
-    test({
-      validator: 'isTaxID',
-      args: ['fr-FR'],
-      valid: [
-        '30 23 217 600 053',
-        '3023217600053'],
-      invalid: [
-        '30 2 3 217 600 053',
-        '3 023217-600/053',
-        '3023217600052',
-        '3023217500053',
-        '30232176000534',
-        '302321760005'],
-    });
-    test({
-      validator: 'isTaxID',
-      args: ['nl-BE'],
-      valid: [
+        '00012511119',
         '00012511148',
         '00/0125-11148',
         '00000011115'],
@@ -11090,7 +11071,21 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['fr-LU'],
+      args: ['FR'],
+      valid: [
+        '30 23 217 600 053',
+        '3023217600053'],
+      invalid: [
+        '30 2 3 217 600 053',
+        '3 023217-600/053',
+        '3023217600052',
+        '3023217500053',
+        '30232176000534',
+        '302321760005'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['LU'],
       valid: [
         '1893120105732'],
       invalid: [
@@ -11098,17 +11093,12 @@ describe('Validators', () => {
         '18931201057322',
         '1893 12-01057/32',
         '1893120105742',
-        '1893120105733'],
-    });
-    test({
-      validator: 'isTaxID',
-      args: ['lb-LU'],
-      invalid: [
+        '1893120105733',
         '2016023005732'],
     });
     test({
       validator: 'isTaxID',
-      args: ['hr-HR'],
+      args: ['HR'],
       valid: [
         '94577403194'],
       invalid: [
@@ -11120,7 +11110,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['hu-HU'],
+      args: ['HU'],
       valid: [
         '8071592153'],
       invalid: [
@@ -11132,13 +11122,13 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['lt-LT'],
+      args: ['LT'],
       valid: [
         '33309240064'],
     });
     test({
       validator: 'isTaxID',
-      args: ['it-IT'],
+      args: ['IT'],
       valid: [
         'DMLPRY77D15H501F',
         'AXXFAXTTD41H501D'],
@@ -11154,7 +11144,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['lv-LV'],
+      args: ['LV'],
       valid: [
         '01011012344',
         '32579461005',
@@ -11168,7 +11158,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['mt-MT'],
+      args: ['MT'],
       valid: [
         '1234567A',
         '882345608',
@@ -11187,7 +11177,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['nl-NL'],
+      args: ['NL'],
       valid: [
         '174559434'],
       invalid: [
@@ -11197,7 +11187,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['pl-PL'],
+      args: ['PL'],
       valid: [
         '2234567895',
         '02070803628',
@@ -11214,7 +11204,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['pt-BR'],
+      args: ['BR'],
       valid: [
         '35161990910',
         '74407265027',
@@ -11237,7 +11227,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['pt-PT'],
+      args: ['PT'],
       valid: [
         '299999998',
         '299992020'],
@@ -11248,7 +11238,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['ro-RO'],
+      args: ['RO'],
       valid: [
         '8001011234563',
         '9000123456789',
@@ -11266,7 +11256,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['sk-SK'],
+      args: ['SK'],
       valid: [
         '530121999',
         '536221/999',
@@ -11283,7 +11273,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['sl-SI'],
+      args: ['SI'],
       valid: [
         '15012557',
         '15012590'],
@@ -11294,7 +11284,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['sv-SE'],
+      args: ['SE'],
       valid: [
         '640823-3234',
         '640883-3231',
@@ -11324,7 +11314,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
-      args: ['is-NOT'],
+      args: ['ISNOT'],
       error: [
         '01-1234567',
         '01 1234567',
@@ -11336,6 +11326,16 @@ describe('Validators', () => {
         '07-1234567',
         '28-1234567',
         '96-1234567',
+      ],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['bg-BG'],
+      valid: [
+        '8001010008',
+      ],
+      invalid: [
+        '8001010009',
       ],
     });
   });
