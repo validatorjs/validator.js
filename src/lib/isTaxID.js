@@ -60,6 +60,40 @@ function bgBgCheck(tin) {
   return checksum === digits[9];
 }
 
+/**
+ * Check if an input is a valid Canadian SIN (Social Insurance Number)
+ *
+ * The Social Insurance Number (SIN) is a 9 digit number that
+ * you need to work in Canada or to have access to government programs and benefits.
+ *
+ * https://en.wikipedia.org/wiki/Social_Insurance_Number
+ * https://www.canada.ca/en/employment-social-development/services/sin.html
+ * https://www.codercrunch.com/challenge/819302488/sin-validator
+ *
+ * @param {string} tin
+ * @return {boolean}
+ */
+function caCaCheck(tin) {
+  if (!(/^\d{9}$/ui).test(tin)) {
+    return false;
+  }
+
+  const digitsArray = tin.split('');
+  const even = digitsArray
+    .filter((_, idx) => idx % 2)
+    .map(i => Number(i) * 2)
+    .join('')
+    .split('');
+
+  const total = digitsArray
+    .filter((_, idx) => !(idx % 2))
+    .concat(even)
+    .map(i => Number(i))
+    .reduce((acc, cur) => acc + cur);
+
+  return (total % 10 === 0);
+}
+
 /*
  * cs-CZ validation function
  * (Rodné číslo (RČ), persons only)
@@ -1096,8 +1130,8 @@ function svSeCheck(tin) {
  * uppercase and lowercase letters are acceptable.
  */
 const taxIdFormat = {
-
   'bg-BG': /^\d{10}$/,
+  'ca-CA': /^\d{9}$/,
   'cs-CZ': /^\d{6}\/{0,1}\d{3,4}$/,
   'de-AT': /^\d{9}$/,
   'de-DE': /^[1-9]\d{10}$/,
@@ -1135,7 +1169,7 @@ taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
 
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
-
+  'ca-CA': caCaCheck,
   'bg-BG': bgBgCheck,
   'cs-CZ': csCzCheck,
   'de-AT': deAtCheck,
