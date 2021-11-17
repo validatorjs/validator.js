@@ -74,10 +74,6 @@ function bgBgCheck(tin) {
  * @return {boolean}
  */
 function caCaCheck(tin) {
-  if (!(/^\d{9}$/ui).test(tin)) {
-    return false;
-  }
-
   const digitsArray = tin.split('');
   const even = digitsArray
     .filter((_, idx) => idx % 2)
