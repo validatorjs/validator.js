@@ -34,6 +34,7 @@ import isVariableWidth from './lib/isVariableWidth';
 import isMultibyte from './lib/isMultibyte';
 import isSemVer from './lib/isSemVer';
 import isSurrogatePair from './lib/isSurrogatePair';
+import isRTN from './lib/isRTN';
 
 import isInt from './lib/isInt';
 import isFloat, { locales as isFloatLocales } from './lib/isFloat';
@@ -178,6 +179,7 @@ const validator = {
   isLocale,
   isByteLength,
   isUUID,
+  isRTN,
   isMongoId,
   isAfter,
   isBefore,
