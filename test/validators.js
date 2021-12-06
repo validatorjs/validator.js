@@ -10989,6 +10989,7 @@ describe('Validators', () => {
       ],
       invalid: [
         '',
+        '    ',
         'IQV 123',
         'IQV123',
         'ABI 12Q',
