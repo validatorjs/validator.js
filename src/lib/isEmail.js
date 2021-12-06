@@ -12,6 +12,7 @@ const default_email_options = {
   require_tld: true,
   blacklisted_chars: '',
   ignore_max_length: false,
+  host_blacklist: [],
 };
 
 /* eslint-disable max-len */
@@ -92,9 +93,13 @@ export default function isEmail(str, options) {
 
   const parts = str.split('@');
   const domain = parts.pop();
-  let user = parts.join('@');
-
   const lower_domain = domain.toLowerCase();
+
+  if (options.host_blacklist.includes(lower_domain)) {
+    return false;
+  }
+
+  let user = parts.join('@');
 
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
