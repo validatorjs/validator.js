@@ -344,6 +344,36 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate strings contain an email address', () => {
+    test({
+      validator: 'containsEmail',
+      valid: [
+        ':://foo@bar.com//;',
+        '^&*&*x@x.au*&*1',
+        '<><><>hello@@@foo@bar.com.au',
+        '--se=nice0-=+-foo+bar@bar.com=es--',
+        'jojo:hans.m端ller@test.com:lolol:',
+        'hans@m端ller.com',
+        '||||\]test|123@m端ller.com\\\\',
+        '/.vx./z"":"  foo  m端ller "@example.com::::::',
+        '"foo\\@bar"@example.com',
+        `:s:s:s${repeat('a', 64)}@${repeat('a', 63)}.com;;;;;:`,
+        `::::${repeat('a', 64)}@${repeat('a', 63)}.com;;;`,
+        `$$coddd.oe.${repeat('a', 31)}@gmail.comddo\\'ad\\'a\\'do`,
+        '+000000000username@domain.com©',
+        '||foo@bar.co.uk.||',
+        'foo@bar.co.ir',
+      ],
+      invalid: [
+        'invalidemail@ u',
+        'invalid.com:',
+        '@invalid.com::',
+        ';::somename@ｇｍａｉｌ.com:;:',
+        '~~z@co.c~~',
+      ],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',
