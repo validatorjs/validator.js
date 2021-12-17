@@ -798,6 +798,44 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate strings contain a URL', () => {
+    test({
+      validator: 'containsURL',
+      args: [],
+      valid: [
+        'google.com',
+        'YOITSgoogle.com',
+        'google.comYOITS',
+        'definitely a url www.google.com',
+        ':/:??LJLgoogle.comn::?LJS',
+      ],
+      invalid: [
+        'googo',
+        'definitely not a url',
+        'ex@gmail',
+      ],
+    });
+  });
+
+  it('should validate strings contain a URL using deep search', () => {
+    test({
+      validator: 'containsURL',
+      args: [{ deep: true }],
+      valid: [
+        'google.com',
+        'YOITSgoogle.com',
+        'google.comYOITS',
+        'definitely a url www.google.com',
+        ':/:??LJLgoogle.comn::?LJS',
+      ],
+      invalid: [
+        'googo',
+        'definitely not a url',
+        'ex@gmail',
+      ],
+    });
+  });
+
   it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',
