@@ -363,6 +363,9 @@ describe('Validators', () => {
         '+000000000username@domain.com©',
         '||foo@bar.co.uk.||',
         'foo@bar.co.ir',
+        '@@@@v@mail.com@@@',
+        '@@@@hello@@@l@gmail.yo',
+        'YOYOYO:::"foo@bar"@gmail.com:::YOYOYO',
       ],
       invalid: [
         'invalidemail@ u',
@@ -370,6 +373,10 @@ describe('Validators', () => {
         '@invalid.com::',
         ';::somename@ｇｍａｉｌ.com:;:',
         '~~z@co.c~~',
+        '@@@@noEmail@@@@',
+        '@@@@hello@@@...@gmail.yo',
+        ':@gmail:.com',
+        'nothingLikeAEmail',
       ],
     });
   });
