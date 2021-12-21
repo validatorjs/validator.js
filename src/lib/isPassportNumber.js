@@ -17,7 +17,7 @@ const passportRegexByCountryCode = {
   BY: /^[A-Z]{2}\d{7}$/, // BELARUS
   CA: /^[A-Z]{2}\d{6}$/, // CANADA
   CH: /^[A-Z]\d{7}$/, // SWITZERLAND
-  CN: /^[GE]\d{8}$/, // CHINA [G=Ordinary, E=Electronic] followed by 8-digits
+  CN: /^G\d{8}$|^E(?![IO])[A-Z0-9]\d{7}$/, // CHINA [G=Ordinary, E=Electronic] followed by 8-digits, or E followed by any UPPERCASE letter (except I and O) followed by 7 digits
   CY: /^[A-Z](\d{6}|\d{8})$/, // CYPRUS
   CZ: /^\d{8}$/, // CZECH REPUBLIC
   DE: /^[CFGHJKLMNPRTVWXYZ0-9]{9}$/, // GERMANY
@@ -33,6 +33,8 @@ const passportRegexByCountryCode = {
   HU: /^[A-Z]{2}(\d{6}|\d{7})$/, // HUNGARY
   IE: /^[A-Z0-9]{2}\d{7}$/, // IRELAND
   IN: /^[A-Z]{1}-?\d{7}$/, // INDIA
+  ID: /^[A-C]\d{7}$/, // INDONESIA
+  IR: /^[A-Z]\d{8}$/, // IRAN
   IS: /^(A)\d{7}$/, // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/, // ITALY
   JP: /^[A-Z]{2}\d{7}$/, // JAPAN
@@ -42,12 +44,13 @@ const passportRegexByCountryCode = {
   LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
   LY: /^[A-Z0-9]{8}$/, // LIBYA
   MT: /^\d{7}$/, // MALTA
+  MZ: /^([A-Z]{2}\d{7})|(\d{2}[A-Z]{2}\d{5})$/, // MOZAMBIQUE
   MY: /^[AHK]\d{8}$/, // MALAYSIA
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
-  PO: /^[A-Z]{2}\d{7}$/, // POLAND
+  PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
   RO: /^\d{8,9}$/, // ROMANIA
-  RU: /^\d{2}\d{2}\d{6}$/, // RUSSIAN FEDERATION
+  RU: /^\d{9}$/, // RUSSIAN FEDERATION
   SE: /^\d{8}$/, // SWEDEN
   SL: /^(P)[A-Z]\d{7}$/, // SLOVANIA
   SK: /^[0-9A-Z]\d{7}$/, // SLOVAKIA

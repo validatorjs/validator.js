@@ -1,4 +1,137 @@
-#### ~13.5.0~ 13.5.1
+## 13.7.0
+
+### New Features
+
+- [#1706](https://github.com/validatorjs/validator.js/pull/1706) `isISO4217`, currency code validator @jpaya17
+
+### New Features
+
+- [#1706](https://github.com/validatorjs/validator.js/pull/1706) `isISO4217`, currency code validator @jpaya17
+
+### Fixes and Enhancements
+
+- [#1647](https://github.com/validatorjs/validator.js/pull/1647) `isFQDN`: add `allow_wildcard` option @fasenderos
+- [#1654](https://github.com/validatorjs/validator.js/pull/1654) `isRFC3339`: Disallow prepended and appended strings to RFC 3339 date-time @jmacmahon
+- [#1658](https://github.com/validatorjs/validator.js/pull/1658) maintenance: increase code coverage @tux-tn
+- [#1669](https://github.com/validatorjs/validator.js/pull/1669) `IBAN` export list of country codes that implement IBAN @dror-heller @fedeci
+- [#1676](https://github.com/validatorjs/validator.js/pull/1676) `isBoolean`: add `loose` option @brybrophy
+- [#1697](https://github.com/validatorjs/validator.js/pull/1697) maintenance: fix npm installation error @rubiin
+- [#1708](https://github.com/validatorjs/validator.js/pull/1708) `isISO31661Alpha3`: perf @jpaya17
+- [#1711](https://github.com/validatorjs/validator.js/pull/1711) `isDate`: allow users to strictly validate dates with `.` as delimiter @flymans
+- [#1715](https://github.com/validatorjs/validator.js/pull/1715) `isCreditCard`: fix for Union Pay cards @shreyassai123
+- [#1718](https://github.com/validatorjs/validator.js/pull/1718) `isEmail`: replace all dots in GMail length validation @DasDingGehtNicht
+- [#1721](https://github.com/validatorjs/validator.js/pull/1721) `isURL`: add `allow_fragments` and `allow_query_components` @cowboy-bebug
+- [#1724](https://github.com/validatorjs/validator.js/pull/1724) `isISO31661Alpha2`: perf @jpaya17
+- [#1730](https://github.com/validatorjs/validator.js/pull/1730) `isMagnetURI` @tux-tn
+- [#1738](https://github.com/validatorjs/validator.js/pull/1738) `rtrim`: remove regex to prevent ReDOS attack @tux-tn
+- [#1747](https://github.com/validatorjs/validator.js/pull/1747) maintenance: run scripts in parallel for build and clean @sachinraja
+- [#1748](https://github.com/validatorjs/validator.js/pull/1748) `isURL`: higher priority to `whitelist` @deepanshu2506
+- [#1751](https://github.com/validatorjs/validator.js/pull/1751) `isURL`: allow url with colon and no port @MatteoPierro
+- [#1777](https://github.com/validatorjs/validator.js/pull/1777) `isUUID`: fix for `null` version argument @theteladras
+- [#1799](https://github.com/validatorjs/validator.js/pull/1799) `isFQDN`: check more special chars @MatteoPierro
+- [#1833](https://github.com/validatorjs/validator.js/pull/1833) `isURL`: allow URL with an empty user @MiguelSavignano
+- [#1835](https://github.com/validatorjs/validator.js/pull/1835) `unescape`: fixed bug where intermediate string contains escaped @Marcholio
+- [#1836](https://github.com/validatorjs/validator.js/pull/1836) `contains`: can check that string contains seed multiple times @Marcholio
+- [#1844](https://github.com/validatorjs/validator.js/pull/1844) docs: add CDN instructions @luiscobits
+- [#1848](https://github.com/validatorjs/validator.js/pull/1848) `isUUID`: add support for validation of `v1` and `v2` @theteladras
+- [#1941](https://github.com/validatorjs/validator.js/pull/1641) `isEmail`: add `host_blacklist` option @fedeci
+
+### New and Improved Locales
+
+- `isAlpha`, `isAlphanumeric`:
+  - [#1716](https://github.com/validatorjs/validator.js/pull/1716) `hi-IN` @MiKr13
+  - [#1837](https://github.com/validatorjs/validator.js/pull/1837) `fi-FI` @Marcholio
+
+- `isPassportNumber`:
+  - [#1656](https://github.com/validatorjs/validator.js/pull/1656) `ID` @rubiin
+  - [#1714](https://github.com/validatorjs/validator.js/pull/1714) `CN` @anirudhgiri
+  - [#1809](https://github.com/validatorjs/validator.js/pull/1809) `PL` @Ronqn
+  - [#1810](https://github.com/validatorjs/validator.js/pull/1810) `RU` @Theta-Dev
+
+- `isPostalCode`:
+  - [#1788](https://github.com/validatorjs/validator.js/pull/1788) `LK` @nimanthadilz
+
+- `isIdentityCard`:
+  - [#1657](https://github.com/validatorjs/validator.js/pull/1657) `TH` @tithanayut
+  - [#1745](https://github.com/validatorjs/validator.js/pull/1745) `PL` @wiktorwojcik112 @fedeci @tux-tn
+  - [#1786](https://github.com/validatorjs/validator.js/pull/1786) `LK` @nimanthadilz @tux-tn
+  - [#1838](https://github.com/validatorjs/validator.js/pull/1838) `FI` @Marcholio
+
+- `isMobilePhone`:
+  - [#1679](https://github.com/validatorjs/validator.js/pull/1679) `de-DE` @AnnaMariaJansen 
+  - [#1689](https://github.com/validatorjs/validator.js/pull/1689) `vi-VN` @luisrivas
+  - [#1695](https://github.com/validatorjs/validator.js/pull/1695) [#1682](https://github.com/validatorjs/validator.js/pull/1682) `zh-CN` @laulujan @yisibl
+  - [#1734](https://github.com/validatorjs/validator.js/pull/1734) `es-VE` @islasjuanp
+  - [#1746](https://github.com/validatorjs/validator.js/pull/1746) `nl-BE` @divikshrivastava
+  - [#1765](https://github.com/validatorjs/validator.js/pull/1765) `es-CU` @pasagedev
+  - [#1766](https://github.com/validatorjs/validator.js/pull/1766) `es-SV`, @hereje
+  - [#1767](https://github.com/validatorjs/validator.js/pull/1767) `ar-PS`, @brendan-c
+  - [#1769](https://github.com/validatorjs/validator.js/pull/1769) `en-BM` @HackProAIT
+  - [#1770](https://github.com/validatorjs/validator.js/pull/1770) `dz-BT` @lakshayr003
+  - [#1771](https://github.com/validatorjs/validator.js/pull/1771) `en-BW`, @mgndolan
+  - [#1772](https://github.com/validatorjs/validator.js/pull/1772) `fr-CM` @beckettnormington
+  - [#1778](https://github.com/validatorjs/validator.js/pull/1778) `en-PK` @ammad20120 @tux-tn
+  - [#1780](https://github.com/validatorjs/validator.js/pull/1780) `tk-TM`, @Husan-Eshonqulov
+  - [#1784](https://github.com/validatorjs/validator.js/pull/1784) `en-GY`, @mfkrause
+  - [#1785](https://github.com/validatorjs/validator.js/pull/1785) `si-LK` @Madhavi96
+  - [#1797](https://github.com/validatorjs/validator.js/pull/1797) `fr-PF`, @hereje
+  - [#1820](https://github.com/validatorjs/validator.js/pull/1820) `en-KI`, @c-tanner
+  - [#1826](https://github.com/validatorjs/validator.js/pull/1826) `hu-HU` @danielTiringer
+  - [#1834](https://github.com/validatorjs/validator.js/pull/1834) `fr-BF`, `en-NA` @lakshayr003
+  - [#1846](https://github.com/validatorjs/validator.js/pull/1846) `tg-TJ` @mgnss
+
+- `isLicensePlate`:
+  - [#1565](https://github.com/validatorjs/validator.js/pull/1565) `cs-CZ` @filiptronicek
+  - [#1790](https://github.com/validatorjs/validator.js/pull/1790) `fi-FI` @Marcholio
+
+- `isVAT`:
+  - [#1825](https://github.com/validatorjs/validator.js/pull/1825) `NL` @zeno4ever
+
+#### 13.6.1
+
+- **New features**:
+  - [#1495](https://github.com/validatorjs/validator.js/pull/1495) `isLicensePlate` @firlus
+
+- **Fixes and Enhancements**:
+  - [#1651](https://github.com/validatorjs/validator.js/pull/1651) fix ReDOS vulnerabilities in `isHSL` and `isEmail` @tux-tn
+  - [#1644](https://github.com/validatorjs/validator.js/pull/1644) `isURL`: Allow URLs to have only a username in the userinfo subcomponent @jbuchmann-coosto
+  - [#1633](https://github.com/validatorjs/validator.js/pull/1633) `isISIN`: optimization @bmacnaughton
+  - [#1632](https://github.com/validatorjs/validator.js/pull/1632) `isIP`: improved pattern for IPv4 and IPv6 @ognjenjevremovic
+  - [#1625](https://github.com/validatorjs/validator.js/pull/1625) fix `[A-z]` regex range on some validators @bmacnaughton
+  - [#1620](https://github.com/validatorjs/validator.js/pull/1620) fix docs @prahaladbelavadi
+  - [#1616](https://github.com/validatorjs/validator.js/pull/1616) `isMacAddress`: improve regexes and options @fedeci
+  - [#1603](https://github.com/validatorjs/validator.js/pull/1603) fix ReDOS vulnerabilities in `isSlug` and `rtrim` @fedeci
+  - [#1594](https://github.com/validatorjs/validator.js/pull/1594) `isIPRange`: add support for IPv6 @neilime
+  - [#1577](https://github.com/validatorjs/validator.js/pull/1577) `isEAN`: add support for EAN-14 @varsubham @tux-tn
+  - [#1566](https://github.com/validatorjs/validator.js/pull/1566) `isStrongPassword`: add `@` as a valid symbol @stingalleman
+  - [#1548](https://github.com/validatorjs/validator.js/pull/1548) `isBtcAddress`: add base58 @ezkemboi
+  - [#1546](https://github.com/validatorjs/validator.js/pull/1546) `isFQDN`: numeric domain names @tux-tn
+
+- **New and Improved locales**:
+  - `isIdentityCard`, `isPassportNumber`:
+    - [#1595](https://github.com/validatorjs/validator.js/pull/1595) `IR` @mhf-ir @fedeci
+    - [#1583](https://github.com/validatorjs/validator.js/pull/1583) `ar-LY` @asghaier76 @tux-tn
+    - [#1574](https://github.com/validatorjs/validator.js/pull/1574) `MY` @stranger26 @tux-tn
+  - `isMobilePhone`:
+    - [#1642](https://github.com/validatorjs/validator.js/pull/1642) `zh-CN` @Akira0705
+    - [#1638](https://github.com/validatorjs/validator.js/pull/1638) `lv-LV` @AntonLukichev
+    - [#1635](https://github.com/validatorjs/validator.js/pull/1635) `en-GH` @ankorGH
+    - [#1604](https://github.com/validatorjs/validator.js/pull/1604) `mz-MZ` @salmento @tux-tn
+    - [#1575](https://github.com/validatorjs/validator.js/pull/1575) `vi-VN` @kyled7
+    - [#1573](https://github.com/validatorjs/validator.js/pull/1573) `en-SG` @liliwei25
+    - [#1554](https://github.com/validatorjs/validator.js/pull/1554) `de-CH`, `fr-CH`, `it-CH` @dinfekted
+    - [#1541](https://github.com/validatorjs/validator.js/pull/1541) [#1623](https://github.com/validatorjs/validator.js/pull/1623) `es-CO` @ezkemboi @tux-tn
+    - [#1506](https://github.com/validatorjs/validator.js/pull/1506) `ar-OM` @dev-sna
+    - [#1505](https://github.com/validatorjs/validator.js/pull/1505) `pt-AO` @AdilsonFuxe
+  - `isPostalCode`:
+    - [#1628](https://github.com/validatorjs/validator.js/pull/1628) `KR` @greatSumini
+  - `isTaxID`:
+    - [#1613](https://github.com/validatorjs/validator.js/pull/1613) `pt-BR` @mschunke
+    - [#1529](https://github.com/validatorjs/validator.js/pull/1529) `el-GR` @dspinellis
+  - `isVAT`:
+    - [#1536](https://github.com/validatorjs/validator.js/pull/1536) `IT` @fedeci
+
+#### ~~13.5.0~~ 13.5.1
 
 - **New features**:
   - `isVAT` [#1463](https://github.com/validatorjs/validator.js/pull/1463) @ CodingNagger

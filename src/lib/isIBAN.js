@@ -60,6 +60,7 @@ const ibanRegexThroughCountryCode = {
   MR: /^(MR[0-9]{2})\d{23}$/,
   MT: /^(MT[0-9]{2})[A-Z]{4}\d{5}[A-Z0-9]{18}$/,
   MU: /^(MU[0-9]{2})[A-Z]{4}\d{19}[A-Z]{3}$/,
+  MZ: /^(MZ[0-9]{2})\d{21}$/,
   NL: /^(NL[0-9]{2})[A-Z]{4}\d{10}$/,
   NO: /^(NO[0-9]{2})\d{11}$/,
   PK: /^(PK[0-9]{2})[A-Z0-9]{4}\d{16}$/,
@@ -134,3 +135,5 @@ export default function isIBAN(str) {
 
   return hasValidIbanFormat(str) && hasValidIbanChecksum(str);
 }
+
+export const locales = Object.keys(ibanRegexThroughCountryCode);

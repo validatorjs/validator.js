@@ -28,6 +28,8 @@ const default_url_options = {
   allow_underscores: false,
   allow_trailing_dot: false,
   allow_protocol_relative_urls: false,
+  allow_fragments: true,
+  allow_query_components: true,
   validate_length: true,
 };
 
@@ -58,6 +60,14 @@ export default function isURL(url, options) {
   options = merge(options, default_url_options);
 
   if (options.validate_length && url.length >= 2083) {
+    return false;
+  }
+
+  if (!options.allow_fragments && url.includes('#')) {
+    return false;
+  }
+
+  if (!options.allow_query_components && (url.includes('?') || url.includes('&'))) {
     return false;
   }
 
@@ -101,8 +111,15 @@ export default function isURL(url, options) {
     if (options.disallow_auth) {
       return false;
     }
+    if (split[0] === '') {
+      return false;
+    }
     auth = split.shift();
-    if (auth.indexOf(':') === -1 || (auth.indexOf(':') >= 0 && auth.split(':').length > 2)) {
+    if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
+      return false;
+    }
+    const [user, password] = auth.split(':');
+    if (user === '' && password === '') {
       return false;
     }
   }
@@ -123,7 +140,7 @@ export default function isURL(url, options) {
     }
   }
 
-  if (port_str !== null) {
+  if (port_str !== null && port_str.length > 0) {
     port = parseInt(port_str, 10);
     if (!/^[0-9]+$/.test(port_str) || port <= 0 || port > 65535) {
       return false;
@@ -132,15 +149,15 @@ export default function isURL(url, options) {
     return false;
   }
 
+  if (options.host_whitelist) {
+    return checkHost(host, options.host_whitelist);
+  }
   if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
     return false;
   }
 
   host = host || ipv6;
 
-  if (options.host_whitelist && !checkHost(host, options.host_whitelist)) {
-    return false;
-  }
   if (options.host_blacklist && checkHost(host, options.host_blacklist)) {
     return false;
   }

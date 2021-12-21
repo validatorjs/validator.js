@@ -49,7 +49,7 @@ import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
-import isIBAN from './lib/isIBAN';
+import isIBAN, { locales as ibanLocales } from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
@@ -91,6 +91,7 @@ import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
+import isISO4217 from './lib/isISO4217';
 
 import isBase32 from './lib/isBase32';
 import isBase58 from './lib/isBase58';
@@ -121,7 +122,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-const version = '13.5.1';
+const version = '13.7.0';
 
 const validator = {
   version,
@@ -199,6 +200,7 @@ const validator = {
   isRFC3339,
   isISO31661Alpha2,
   isISO31661Alpha3,
+  isISO4217,
   isBase32,
   isBase58,
   isBase64,
@@ -224,6 +226,7 @@ const validator = {
   isTime,
   isLicensePlate,
   isVAT,
+  ibanLocales,
 };
 
 export default validator;
