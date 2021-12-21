@@ -1,7 +1,10 @@
 import merge from './util/merge';
 
 const default_time_options = {
-  hourFormat: 'hour24',
+const default_time_options = {
+  format: 24, // Can be one of  24 or 12
+  allow_seconds: true
+};
   mode: 'default',
 };
 
