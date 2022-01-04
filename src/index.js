@@ -101,6 +101,7 @@ import isMagnetURI from './lib/isMagnetURI';
 import isMimeType from './lib/isMimeType';
 
 import isLatLong from './lib/isLatLong';
+import isValidSIUnit from './lib/isValidSIUnit';
 import isPostalCode, { locales as isPostalCodeLocales } from './lib/isPostalCode';
 
 import ltrim from './lib/ltrim';
@@ -207,6 +208,7 @@ const validator = {
   isMagnetURI,
   isMimeType,
   isLatLong,
+  isValidSIUnit,
   ltrim,
   rtrim,
   trim,
