@@ -58,6 +58,25 @@ function repeat(str, count) {
 }
 
 describe('Validators', () => {
+  it('should validate if a unit is an international unit type', () => {
+    test({
+      validator: 'isValidSIUnit',
+      valid: [
+        'm',
+        's',
+        'W/m²',
+        'rad/s²',
+        'rad/s',
+        'N/m',
+      ],
+      invalid: [
+        'U/m',
+        'r/t',
+        'q/r',
+      ],
+    });
+  });
+
   it('should validate email addresses', () => {
     test({
       validator: 'isEmail',
