@@ -9773,6 +9773,58 @@ describe('Validators', () => {
     });
   });
 
+  const validISO6391 = [
+    'aa',
+    'ab',
+    'ae',
+    'af',
+    'ak',
+    'am',
+    'an',
+    'ar',
+    'as',
+    'av',
+    'ay',
+    'az',
+    'az',
+    'ba',
+    'be',
+    'bg',
+    'bh',
+    'bi',
+    'bm',
+    'bn',
+    'bo',
+    'br',
+    'bs',
+  ];
+
+  const invalidISO6391 = [
+    'ac',
+    'ad',
+    'ag',
+    'ah',
+    'ai',
+    'aj',
+    'al',
+    'pb',
+    'pc',
+    'pd',
+    'pe',
+    'pf',
+    'abc',
+    '123',
+    '',
+  ];
+
+  it('should validate ISO 639-1 language codes', () => {
+    test({
+      validator: 'isISO6391',
+      valid: validISO6391,
+      invalid: invalidISO6391,
+    });
+  });
+
   const validISO8601 = [
     '2009-12T12:34',
     '2009',
