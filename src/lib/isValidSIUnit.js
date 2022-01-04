@@ -1,3 +1,4 @@
+import assertString from './util/assertString';
 // "http://physics.nist.gov/cuu/Units/units.html"
 const units = [
   'kat/m³', 'W/(m²·sr)', 'W/sr', 'Gy/s', 'C/kg', 'J/(mol·K)', 'J/mol',
@@ -10,8 +11,7 @@ const units = [
 
 const unitSet = new Set(units);
 function isValidSIUnit(str) {
-  str = typeof str !== 'string' ? null : str;
-  if (str === null || str === undefined) { return false; }
+  assertString(str);
   return unitSet.has(str);
 }
 export default isValidSIUnit;
