@@ -6,7 +6,7 @@ const units = [
   'J/K', 'W/m²', 'rad/s²', 'rad/s', 'N/m', 'N·m', 'Pa·s', 'kat', 'Sv', 'Gy', 'Bq',
   'lx', 'lm', 'H', 'T', 'Wb', 'S', 'Ω', 'V', 'C', 'W', 'J', 'Pa', 'N', 'Hz', 'sr', 'rad',
   'cd/m²', 'mol/m³', 'A/m', 'A/m²', 'm³/kg', 'kg/m³', 'm⁻¹', 'm/s²', 'm/s', 'm³', 'm²',
-  'cd', 'mol', 'K', 'A', 's', 'kg', 'm',
+  'cd', 'mol', 'K', 'A', 's', 'kg', 'm', 'ohm',
 ];
 
 const unitSet = new Set(units);
