@@ -1,6 +1,8 @@
 import assert from 'assert';
+/* eslint-disable import/no-unresolved, import/extensions */
 import validator from '../validator';
 import min from '../validator.min';
+/* eslint-enable import/no-unresolved, import/extensions */
 
 describe('Minified version', () => {
   it('should export the same things as the server-side version', () => {
@@ -8,7 +10,8 @@ describe('Minified version', () => {
       if ({}.hasOwnProperty.call(validator, key)) {
         assert.strictEqual(
           typeof validator[key],
-          typeof min[key], `Minified version did not export ${key}`
+          typeof min[key],
+          `Minified version did not export ${key}`
         );
       }
     }

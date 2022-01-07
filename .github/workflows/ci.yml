@@ -28,3 +28,18 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         file: ./coverage/cobertura-coverage.xml
+  lint:
+    runs-on: ubuntu-20.04
+    name: Run lint on Node.js 14
+    steps:
+    - name: Setup Node.js 14
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: 14
+        check-latest: true
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm install
+    - name: Run lint
+      run: npm run lint

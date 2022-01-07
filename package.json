@@ -38,13 +38,13 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
+    "@babel/eslint-parser": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "babel-eslint": "^10.0.1",
     "babel-plugin-add-module-exports": "^1.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.11.0",
+    "eslint": "^8.0.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.0.0",
     "mocha": "^6.2.3",
     "npm-run-all": "^4.1.5",
     "nyc": "^14.1.0",
@@ -65,7 +65,7 @@
     "build:es": "babel src -d es --env-name=es",
     "build:node": "babel src -d .",
     "build": "run-p build:*",
-    "pretest": "npm run build && npm run lint",
+    "pretest": "npm run build",
     "test": "nyc --reporter=cobertura --reporter=text-summary mocha --require @babel/register --reporter dot"
   },
   "engines": {
