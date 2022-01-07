@@ -10,8 +10,8 @@ const units = [
 ];
 
 const unitSet = new Set(units);
-function isValidSIUnit(str) {
+function isSIUnit(str) {
   assertString(str);
   return unitSet.has(str);
 }
-export default isValidSIUnit;
+export default isSIUnit;

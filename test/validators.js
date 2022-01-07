@@ -60,7 +60,7 @@ function repeat(str, count) {
 describe('Validators', () => {
   it('should validate if a unit is an international unit type', () => {
     test({
-      validator: 'isValidSIUnit',
+      validator: 'isSIUnit',
       valid: [
         'm',
         's',
