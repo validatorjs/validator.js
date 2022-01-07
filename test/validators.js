@@ -5751,7 +5751,9 @@ describe('Validators', () => {
         'Zm9vYm/y====',
       ],
     });
+  });
 
+  it('should validate base32 strings with crockford alternative', () => {
     test({
       validator: 'isBase32',
       args: [{ crockford: true }],
