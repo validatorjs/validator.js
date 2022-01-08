@@ -129,7 +129,7 @@ Validator                               | Description
 **isIPRange(str [, version])**          | check if the string is an IP Range (version 4 or 6).
 **isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
-**isISO8601(str)**                      | check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date. <br/>`options` is an object which defaults to `{ strict: false, strictSeparator: false }`. If `strict` is true, date strings with invalid dates like `2009-02-29` will be invalid. If `strictSeparator` is true, date strings with date and time separated by anything other than a T will be invalid.
+**isISO8601(str [, options])**          | check if the string is a valid [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date. <br/>`options` is an object which defaults to `{ strict: false, strictSeparator: false }`. If `strict` is true, date strings with invalid dates like `2009-02-29` will be invalid. If `strictSeparator` is true, date strings with date and time separated by anything other than a T will be invalid.
 **isISO31661Alpha2(str)**               | check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
 **isISO31661Alpha3(str)**               | check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
 **isISO4217(str)**                      | check if the string is a valid [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) officially assigned currency code.
@@ -142,7 +142,7 @@ Validator                               | Description
 **isLicensePlate(str [, locale])**     | check if string matches the format of a country's license plate.<br/><br/>(locale is one of `['cs-CZ', 'de-DE', 'de-LI', 'fi-FI', pt-PT', 'sq-AL', 'pt-BR']` or `any`)
 **isLocale(str)**                       | check if the string is a locale
 **isLowercase(str)**                    | check if the string is lowercase.
-**isMACAddress(str)**                   | check if the string is a MAC address.<br/><br/>`options` is an object which defaults to `{no_separators: false}`. If `no_separators` is true, the validator will allow MAC addresses without separators. Also, it allows the use of hyphens, spaces or dots e.g  '01 02 03 04 05 ab', '01-02-03-04-05-ab' or '0102.0304.05ab'.
+**isMACAddress(str [, options])**                   | check if the string is a MAC address.<br/><br/>`options` is an object which defaults to `{no_separators: false}`. If `no_separators` is true, the validator will allow MAC addresses without separators. Also, it allows the use of hyphens, spaces or dots e.g  '01 02 03 04 05 ab', '01-02-03-04-05-ab' or '0102.0304.05ab'. The options also allow a `eui` property to specify if it needs to be validated against EUI-48 or EUI-64. The accepted values of `eui` are: 48, 64.
 **isMagnetURI(str)**                      | check if the string is a [magnet uri format](https://en.wikipedia.org/wiki/Magnet_URI_scheme).
 **isMD5(str)**                          | check if the string is a MD5 hash.<br/><br/>Please note that you can also use the `isHash(str, 'md5')` function. Keep in mind that MD5 has some collision weaknesses compared to other algorithms (e.g., SHA).
 **isMimeType(str)**                     | check if the string matches to a valid [MIME type](https://en.wikipedia.org/wiki/Media_type) format
