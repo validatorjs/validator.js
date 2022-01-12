@@ -46,6 +46,7 @@ const patterns = {
   LT: /^LT\-\d{5}$/,
   LU: fourDigit,
   LV: /^LV\-\d{4}$/,
+  LK: fiveDigit,
   MX: fiveDigit,
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
   MY: fiveDigit,
