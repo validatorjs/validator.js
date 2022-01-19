@@ -6565,7 +6565,8 @@ describe('Validators', () => {
           '+26612345678',
           '',
           '2224512',
-      }
+          ],
+      },
       {
         locale: 'en-BM',
         valid: [
