@@ -10724,8 +10724,7 @@ describe('Validators', () => {
           '41431341',
           '5425425625',
         ],
-      }
-      ,
+      },
       {
         locale: 'LK',
         valid: [
