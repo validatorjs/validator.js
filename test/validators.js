@@ -10711,7 +10711,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale:'TT',
+        locale: 'TT',
         valid:[
           "18684324399",
           "18686735323",
