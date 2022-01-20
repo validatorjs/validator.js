@@ -10711,6 +10711,21 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'TT',
+        valid: [
+          '1868',
+          '18686735323',
+          '18683746374',
+          '18684658594',
+          '18682573822',
+        ],
+        invalid: [
+          'nfvrksvs',
+          '41431341',
+          '5425425625',
+        ],
+      },
+      {
         locale: 'LK',
         valid: [
           '11500',
@@ -10744,6 +10759,7 @@ describe('Validators', () => {
       validator: 'isPostalCode',
       valid: [
         ...allValid,
+        '1868'
         '1234',
         '6900',
         '1292',
