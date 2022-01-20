@@ -65,6 +65,7 @@ const patterns = {
   SI: fourDigit,
   SK: /^\d{3}\s?\d{2}$/,
   TH: fiveDigit,
+  TT: sixDigit,
   TN: fourDigit,
   TW: /^\d{3}(\d{2})?$/,
   UA: fiveDigit,
