@@ -1,4 +1,4 @@
-import assertString from "./util/assertString";
+import assertString from './util/assertString';
 
 /* eslint-disable max-len */
 const phones = {
@@ -137,19 +137,19 @@ const phones = {
 /* eslint-enable max-len */
 
 // aliases
-phones["en-CA"] = phones["en-US"];
-phones["fr-CA"] = phones["en-CA"];
-phones["fr-BE"] = phones["nl-BE"];
-phones["zh-HK"] = phones["en-HK"];
-phones["zh-MO"] = phones["en-MO"];
-phones["ga-IE"] = phones["en-IE"];
-phones["fr-CH"] = phones["de-CH"];
-phones["it-CH"] = phones["fr-CH"];
-phones["hi-IN"] = phones["en-IN"];
+phones['en-CA'] = phones['en-US'];
+phones['fr-CA'] = phones['en-CA'];
+phones['fr-BE'] = phones['nl-BE'];
+phones['zh-HK'] = phones['en-HK'];
+phones['zh-MO'] = phones['en-MO'];
+phones['ga-IE'] = phones['en-IE'];
+phones['fr-CH'] = phones['de-CH'];
+phones['it-CH'] = phones['fr-CH'];
+phones['hi-IN'] = phones['en-IN'];
 
 export default function isMobilePhone(str, locale, options) {
   assertString(str);
-  if (options && options.strictMode && !str.startsWith("+")) {
+  if (options && options.strictMode && !str.startsWith('+')) {
     return false;
   }
   if (Array.isArray(locale)) {
@@ -167,7 +167,7 @@ export default function isMobilePhone(str, locale, options) {
   } else if (locale in phones) {
     return phones[locale].test(str);
     // alias falsey locale as 'any'
-  } else if (!locale || locale === "any") {
+  } else if (!locale || locale === 'any') {
     for (const key in phones) {
       // istanbul ignore else
       if (phones.hasOwnProperty(key)) {
