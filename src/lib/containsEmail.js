@@ -10,10 +10,10 @@ export default function containsEmail(str) {
           return true;
         }
         if (l !== 0) {
-          l = l + 1;
+          l += 1;
         }
         if (r !== str.length) {
-          r = r + 1;
+          r += 1;
         }
       }
     }
