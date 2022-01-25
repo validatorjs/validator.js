@@ -7,6 +7,7 @@ export default function containsEmail(str) {
             let r = i+1;
             while (l != 0 || r != str.length) {
                 if (isEmail(str.substr(l,r)))
+                    return true;
                 if (l != 0)
                     l--;
                 if (r != str.length)
