@@ -4461,6 +4461,14 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate strings contain an email', () => {
+    test({
+      validator: 'containsEmail',
+      valid: ['foo.com', 'a@aol.com', 'h4t@9o-&b@gmail.com', 'g5kS.@gmail.com.au'],
+      invalid: ['foo', 'bar@com', '@gmail.com'],
+    });
+  });
+
   it('should validate strings against a pattern', () => {
     test({
       validator: 'matches',

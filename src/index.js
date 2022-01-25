@@ -4,6 +4,7 @@ import toInt from './lib/toInt';
 import toBoolean from './lib/toBoolean';
 import equals from './lib/equals';
 import contains from './lib/contains';
+import containsEmail from './lib/containsEmail';
 import matches from './lib/matches';
 
 import isEmail from './lib/isEmail';
@@ -131,6 +132,7 @@ const validator = {
   toBoolean,
   equals,
   contains,
+  containsEmail,
   matches,
   isEmail,
   isURL,
