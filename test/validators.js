@@ -10151,7 +10151,7 @@ describe('Validators', () => {
         ' data:text/html,%3Ch1%3EHello%2C%20World!%3C%2Fh1%3E',
         'data:,A%20brief%20note',
         'data:text/html;charset=US-ASCII,%3Ch1%3EHello!%3C%2Fh1%3E',
-        'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,dGVzdC5kb2N4'
+        'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,dGVzdC5kb2N4',
       ],
       invalid: [
         'dataxbase64',
