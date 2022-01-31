@@ -22,6 +22,5 @@ export default function containsEmail(str) {
       }
     }
   }
-  
   return false;
 }
