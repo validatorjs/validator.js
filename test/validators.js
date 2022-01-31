@@ -350,7 +350,7 @@ describe('Validators', () => {
       args: [{ host_whitelist: ['gmail.com', 'foo.bar.com'] }],
       valid: [
         'email@gmail.com',
-        'email@foo.bar.com'',
+        'email@foo.bar.com',
       ],
       invalid: [
         'foo+bar@bar.com',
