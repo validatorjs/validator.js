@@ -56,6 +56,7 @@ import isHash from './lib/isHash';
 import isJWT from './lib/isJWT';
 
 import isJSON from './lib/isJSON';
+import isHTML from './lib/isHTML';
 import isEmpty from './lib/isEmpty';
 
 import isLength from './lib/isLength';
@@ -172,6 +173,7 @@ const validator = {
   isMD5,
   isHash,
   isJWT,
+  isHTML,
   isJSON,
   isEmpty,
   isLength,
