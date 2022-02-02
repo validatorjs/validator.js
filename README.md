@@ -120,6 +120,7 @@ Validator                               | Description
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHSL(str)**                          | check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on [CSS Colors Level 4 specification](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).<br/><br/>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: `hsl(200grad+.1%62%/1)`).
+**isHTML(str)**                         | check if a string is a HTML tag (such as `<div></div>`, ...).
 **isIBAN(str)**                         | check if a string is a IBAN (International Bank Account Number).
 **isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['LK', 'PL', 'ES', 'FI', 'IN', 'IT', 'IR', 'MZ', 'NO', 'TH', 'zh-TW', 'he-IL', 'ar-LY', 'ar-TN', 'zh-CN']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
 **isIMEI(str [, options]))**                         | check if the string is a valid IMEI number. Imei should be of format `###############` or `##-######-######-#`.<br/><br/>`options` is an object which can contain the keys `allow_hyphens`. Defaults to first format . If allow_hyphens is set to true, the validator will validate the second format.
