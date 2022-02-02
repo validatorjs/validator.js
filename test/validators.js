@@ -5508,6 +5508,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate HTML', () => {
+    test({
+      validator: 'isHTML',
+      valid: [
+        '<div></div>',
+        '<span style="background-color: #ffffff;"></span>',
+        '<br>',
+
+      ],
+      invalid: [
+        '<div>>',
+        'div /div',
+        'string',
+        'null',
+        '"nope"',
+        '/div',
+      ],
+    });
+  });
+
   it('should validate JSON', () => {
     test({
       validator: 'isJSON',
