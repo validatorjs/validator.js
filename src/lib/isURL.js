@@ -3,6 +3,7 @@ import assertString from './util/assertString';
 import isFQDN from './isFQDN';
 import isIP from './isIP';
 import merge from './util/merge';
+import checkHost from './util/checkHost';
 
 /*
 options for isURL method
@@ -34,20 +35,6 @@ const default_url_options = {
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
-
-function isRegExp(obj) {
-  return Object.prototype.toString.call(obj) === '[object RegExp]';
-}
-
-function checkHost(host, matches) {
-  for (let i = 0; i < matches.length; i++) {
-    let match = matches[i];
-    if (host === match || (isRegExp(match) && match.test(host))) {
-      return true;
-    }
-  }
-  return false;
-}
 
 export default function isURL(url, options) {
   assertString(url);

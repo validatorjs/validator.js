@@ -1,6 +1,7 @@
 import assertString from './util/assertString';
 
 import merge from './util/merge';
+import checkHost from './util/checkHost';
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
 import isIP from './isIP';
@@ -12,7 +13,6 @@ const default_email_options = {
   require_tld: true,
   blacklisted_chars: '',
   ignore_max_length: false,
-  host_blacklist: [],
 };
 
 /* eslint-disable max-len */
@@ -95,7 +95,15 @@ export default function isEmail(str, options) {
   const domain = parts.pop();
   const lower_domain = domain.toLowerCase();
 
-  if (options.host_blacklist.includes(lower_domain)) {
+  /* eslint-disable max-len */
+  const notIncludedInWhitelist = options.host_whitelist && !checkHost(domain, options.host_whitelist);
+  if (notIncludedInWhitelist) {
+    return false;
+  }
+
+  /* eslint-disable max-len */
+  const isIncludedInBlacklist = options.host_blacklist && checkHost(lower_domain, options.host_blacklist);
+  if (isIncludedInBlacklist) {
     return false;
   }
 

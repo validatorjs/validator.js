@@ -330,16 +330,40 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate email addresses with whitelisted domains', () => {
+    test({
+      validator: 'isEmail',
+      args: [{
+        host_whitelist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'email@bar.com',
+        'email@foo.com',
+        'email@images.foo.com',
+        'email@cdn.foo.com',
+        'email@a.b.c.foo.com',
+      ],
+      invalid: [
+        'email@foobar.com',
+        'email@foo.bar.com',
+        'email@qux.com',
+      ],
+    });
+  });
+
   it('should not validate email addresses with denylisted domains', () => {
     test({
       validator: 'isEmail',
-      args: [{ host_blacklist: ['gmail.com', 'foo.bar.com'] }],
+      args: [{ host_blacklist: ['gmail.com', 'foo.bar.com', /\.foo\.com$/] }],
       valid: [
         'email@foo.gmail.com',
+        'email@foo.com',
       ],
       invalid: [
         'foo+bar@gmail.com',
         'email@foo.bar.com',
+        'email@cdn.foo.com',
+        'email@a.b.c.foo.com',
       ],
     });
   });
