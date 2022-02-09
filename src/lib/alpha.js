@@ -32,6 +32,8 @@ export const alpha = {
   he: /^[א-ת]+$/,
   fa: /^['آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی']+$/i,
   'hi-IN': /^[\u0900-\u0961]+[\u0972-\u097F]*$/i,
+  'ka-IN': /^[\u0C80-\u0CF2]*$/i,
+  'te-IN': /^[\u0C00-\u0C7F]*$/i,
 };
 
 export const alphanumeric = {
@@ -67,6 +69,8 @@ export const alphanumeric = {
   he: /^[0-9א-ת]+$/,
   fa: /^['0-9آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی۱۲۳۴۵۶۷۸۹۰']+$/i,
   'hi-IN': /^[\u0900-\u0963]+[\u0966-\u097F]*$/i,
+  'ka-IN': /^[\u0C80-\u0CF2]*$/i,
+  'te-IN': /^[\u0C00-\u0C7F]*$/i,
 };
 
 export const decimal = {
@@ -111,7 +115,7 @@ for (let locale, i = 0; i < farsiLocales.length; i++) {
 export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
 export const commaDecimal = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-CA', 'fr-FR',
-  'id-ID', 'it-IT', 'ku-IQ', 'hi-IN', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
+  'id-ID', 'it-IT', 'ku-IQ', 'hi-IN', 'ka-IN', 'te-IN', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
   'ru-RU', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
 ];
 
