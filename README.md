@@ -227,6 +227,8 @@ $ npm test
 
 - [chriso](https://github.com/chriso) - **Chris O'Hara** (author)
 - [profnandaa](https://github.com/profnandaa) - **Anthony Nandaa**
+- [ezkemboi](https://github.com/ezkemboi) - **Ezrqn Kemboi**
+- [tux-tn](https://github.com/tux-tn) - **Sarhan Aissi**
 
 ## Reading
 
