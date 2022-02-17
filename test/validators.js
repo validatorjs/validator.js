@@ -8078,8 +8078,6 @@ describe('Validators', () => {
           '310212345678',
         ],
       },
-
-
       {
         locale: 'ro-MD',
         valid: [
@@ -8110,8 +8108,6 @@ describe('Validators', () => {
           '+40210123456',
         ],
       },
-
-
       {
         locale: 'ro-RO',
         valid: [
