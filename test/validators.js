@@ -7986,6 +7986,15 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'ic-IC',
+        valid: [
+          '3546341984',
+        ],
+        invalid: [
+          '+3547 183 4738',
+        ],
+      },
+      {
         locale: 'it-IT',
         valid: [
           '370 3175423',
