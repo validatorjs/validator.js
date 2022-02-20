@@ -11933,4 +11933,34 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate isPalindrome', () => {
+    test({
+      validator: 'isPalindrome',
+      valid: [
+        'AAAAA',
+        '',
+        'repaper',
+        'mom',
+        'NOON',
+        'wow',
+        'racecar',
+      ],
+      invalid: [
+        'HELLO',
+        'TEST',
+        'Could',
+        'My',
+        'ABC',
+        'DEF',
+        'XYZ',
+        'GBGD',
+        'GBHA',
+        'BIG',
+        'SMALL',
+        'HIGH',
+        'GOOD',
+        'SUN',
+      ],
+    });
+  });
 });
