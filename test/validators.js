@@ -4588,6 +4588,39 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate strings by exact length', () => {
+    test({
+      validator: 'isExact',
+      args: [ 2, 3, 4 ],
+      valid: ['abc', 'de', 'abcd'],
+      invalid: ['', 'a'],
+    });
+    test({
+      validator: 'isExact',
+      args: [ 2, 3 ],
+      valid: ['abc', 'de'],
+      invalid: ['', 'a', 'abcd'],
+    });
+    test({
+      validator: 'isExact',
+      args: [ 2, 3 ],
+      valid: ['干𩸽', '𠮷野家'],
+      invalid: ['', '𠀋', '千竈通り'],
+    });
+    test({
+      validator: 'isExact',
+      args: [ 3 ],
+      valid: ['abc'],
+      invalid: ['abcd','de', 'a', ''],
+    });
+    test({
+      validator: 'isExact',
+      args: [0],
+      valid: [''],
+      invalid: ['a', 'ab'],
+    });
+  });
+
   it('should validate strings by byte length', () => {
     test({
       validator: 'isByteLength',
