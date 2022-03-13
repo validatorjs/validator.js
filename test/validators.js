@@ -1291,7 +1291,18 @@ describe('Validators', () => {
       ],
     });
   });
-
+  it('should validate FQDN with required allow_trailing_dot, allow_underscores and allow_numeric_tld options', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { allow_trailing_dot: true, allow_underscores: true, allow_numeric_tld: true },
+      ],
+      valid: [
+        'abc.efg.g1h.',
+        'as1s.sad3s.ssa2d.',
+      ],
+    });
+  });
   it('should validate alpha strings', () => {
     test({
       validator: 'isAlpha',
