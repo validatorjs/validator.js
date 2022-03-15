@@ -4578,46 +4578,25 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
-      args: [{ max: 0 }],
-      valid: [''],
+      args: [{ min: 2, max: 8, exact: [4, 5, 6] }],
+      valid: ['abcd', 'abcde', 'abcdef'],
+      invalid: ['ab', 'abc'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 5, max: 8, exact: [3, 4, 8] }],
+      valid: ['abcdefgh'],
+      invalid: ['abc', 'abcd'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 3, max: 4, exact: [3, 4] }],
+      valid: ['abc', 'abcd', 'abcde'],
       invalid: ['a', 'ab'],
     });
     test({
       validator: 'isLength',
       valid: ['a', '', 'asds'],
-    });
-  });
-
-  it('should validate strings by exact length', () => {
-    test({
-      validator: 'isExact',
-      args: [ 2, 3, 4 ],
-      valid: ['abc', 'de', 'abcd'],
-      invalid: ['', 'a'],
-    });
-    test({
-      validator: 'isExact',
-      args: [ 2, 3 ],
-      valid: ['abc', 'de'],
-      invalid: ['', 'a', 'abcd'],
-    });
-    test({
-      validator: 'isExact',
-      args: [ 2, 3 ],
-      valid: ['干𩸽', '𠮷野家'],
-      invalid: ['', '𠀋', '千竈通り'],
-    });
-    test({
-      validator: 'isExact',
-      args: [ 3 ],
-      valid: ['abc'],
-      invalid: ['abcd','de', 'a', ''],
-    });
-    test({
-      validator: 'isExact',
-      args: [0],
-      valid: [''],
-      invalid: ['a', 'ab'],
     });
   });
 
