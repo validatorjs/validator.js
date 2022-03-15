@@ -60,6 +60,24 @@ The library can be loaded either as a standalone script, or through an [AMD][amd
   validator.isEmail('foo@bar.com'); //=> true
 </script>
 ```
+### Validator class usage
+
+The library has a Validator class that allows you to make chained validations 
+
+```javascript
+var {Validator} = require("validator");
+
+const validator = new Validator("HelloWorld");
+
+validator.isEmail().isAlpha().isEmpty().validate();
+
+```
+This will return an object as like follow
+```javascript
+{valid:true,errors:[{value:"value is not Empty"}]}
+```
+ parameters for the functions are same as the following validators table,however; you don't have to pass the validating (testing) value. 
+ 
 
 The library can also be installed through [bower][bower]
 
