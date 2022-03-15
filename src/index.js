@@ -52,7 +52,8 @@ import isIBAN, { locales as ibanLocales } from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
-import isHash from './lib/isHash';
+import inspectHash from './lib/hash/inspectHash';
+import isHash from './lib/hash/isHash';
 import isJWT from './lib/isJWT';
 
 import isJSON from './lib/isJSON';
@@ -170,6 +171,7 @@ const validator = {
   isHSL,
   isISRC,
   isMD5,
+  inspectHash,
   isHash,
   isJWT,
   isJSON,
