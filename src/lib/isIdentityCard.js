@@ -130,15 +130,15 @@ const validators = {
   },
   IR: (str) => {
     if (!str.match(/^\d{10}$/)) return false;
-    str = (`0000${str}`).substr(str.length - 6);
+    str = (`0000${str}`).slice(str.length - 6);
 
-    if (parseInt(str.substr(3, 6), 10) === 0) return false;
+    if (parseInt(str.slice(3, 9), 10) === 0) return false;
 
-    const lastNumber = parseInt(str.substr(9, 1), 10);
+    const lastNumber = parseInt(str.slice(9, 10), 10);
     let sum = 0;
 
     for (let i = 0; i < 9; i++) {
-      sum += parseInt(str.substr(i, 1), 10) * (10 - i);
+      sum += parseInt(str.slice(i, i + 1), 10) * (10 - i);
     }
 
     sum %= 11;

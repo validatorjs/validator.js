@@ -373,7 +373,7 @@ function enUsGetPrefixes() {
  * Verify that the TIN starts with a valid IRS campus prefix
  */
 function enUsCheck(tin) {
-  return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
+  return enUsGetPrefixes().indexOf(tin.slice(0, 2)) !== -1;
 }
 
 /*
