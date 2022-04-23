@@ -3295,6 +3295,20 @@ describe('Validators', () => {
     });
   });
 
+  test({
+    validator: 'isPassportNumber',
+    args: ['NG'],
+    valid: [
+      'A20394039',
+      'K93039483',
+    ],
+    invalid: [
+      'AK9302839',
+      '903849283',
+      '82J930K90',
+    ],
+  });
+  
   it('should validate decimal numbers', () => {
     test({
       validator: 'isDecimal',
