@@ -46,6 +46,7 @@ const passportRegexByCountryCode = {
   MT: /^\d{7}$/, // MALTA
   MZ: /^([A-Z]{2}\d{7})|(\d{2}[A-Z]{2}\d{5})$/, // MOZAMBIQUE
   MY: /^[AHK]\d{8}$/, // MALAYSIA
+  NG: /^([a-z]|[A-Z]\d{8})$/, // Nigeria  (One Alphabet followed by 8-digits)
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
   PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
