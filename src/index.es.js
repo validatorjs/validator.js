@@ -41,6 +41,7 @@ export { default as isISIN } from './lib/isISIN';
 export { default as isISO31661Alpha2 } from './lib/isISO31661Alpha2';
 export { default as isISO31661Alpha3 } from './lib/isISO31661Alpha3';
 export { default as isISO4217 } from './lib/isISO4217';
+export { default as isISO6391 } from './lib/isISO6391';
 export { default as isISO8601 } from './lib/isISO8601';
 export { default as isISRC } from './lib/isISRC';
 export { default as isISSN } from './lib/isISSN';

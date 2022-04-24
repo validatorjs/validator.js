@@ -41,6 +41,7 @@ import isISIN from './lib/isISIN';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
 import isISO4217 from './lib/isISO4217';
+import isISO6391 from './lib/isISO6391';
 import isISO8601 from './lib/isISO8601';
 import isISRC from './lib/isISRC';
 import isISSN from './lib/isISSN';
@@ -142,6 +143,7 @@ const validator = {
   isISO31661Alpha2,
   isISO31661Alpha3,
   isISO4217,
+  isISO6391,
   isISO8601,
   isISRC,
   isISSN,

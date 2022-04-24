@@ -810,6 +810,14 @@ describe('Validators', () => {
         '01 02 03 04 05 ab',
         '01-02-03-04-05-ab',
         '0102.0304.05ab',
+        'ab:ab:ab:ab:ab:ab:ab:ab',
+        'FF:FF:FF:FF:FF:FF:FF:FF',
+        '01:02:03:04:05:06:07:ab',
+        '01:AB:03:04:05:06:07:08',
+        'A9 C5 D4 9F EB D3 B6 65',
+        '01 02 03 04 05 06 07 ab',
+        '01-02-03-04-05-06-07-ab',
+        '0102.0304.0506.07ab',
       ],
       invalid: [
         'abc',
@@ -822,6 +830,67 @@ describe('Validators', () => {
         '01-02 03:04 05 ab',
         '0102.03:04.05ab',
         '900f/dffs/sdea',
+        '01:02:03:04:05:06:07',
+        '01:02:03:04:05:06:07:z0',
+        '01:02:03:04:05:06::ab',
+        '1:2:3:4:5:6:7:8',
+        'AB:CD:EF:GH:01:02:03:04',
+        'A9C5 D4 9F EB D3 B6 65',
+        '01-02 03:04 05 06 07 ab',
+        '0102.03:04.0506.07ab',
+        '900f/dffs/sdea/54gh',
+      ],
+    });
+    test({
+      validator: 'isMACAddress',
+      args: [{
+        eui: '48',
+      }],
+      valid: [
+        'ab:ab:ab:ab:ab:ab',
+        'FF:FF:FF:FF:FF:FF',
+        '01:02:03:04:05:ab',
+        '01:AB:03:04:05:06',
+        'A9 C5 D4 9F EB D3',
+        '01 02 03 04 05 ab',
+        '01-02-03-04-05-ab',
+        '0102.0304.05ab',
+      ],
+      invalid: [
+        'ab:ab:ab:ab:ab:ab:ab:ab',
+        'FF:FF:FF:FF:FF:FF:FF:FF',
+        '01:02:03:04:05:06:07:ab',
+        '01:AB:03:04:05:06:07:08',
+        'A9 C5 D4 9F EB D3 B6 65',
+        '01 02 03 04 05 06 07 ab',
+        '01-02-03-04-05-06-07-ab',
+        '0102.0304.0506.07ab',
+      ],
+    });
+    test({
+      validator: 'isMACAddress',
+      args: [{
+        eui: '64',
+      }],
+      valid: [
+        'ab:ab:ab:ab:ab:ab:ab:ab',
+        'FF:FF:FF:FF:FF:FF:FF:FF',
+        '01:02:03:04:05:06:07:ab',
+        '01:AB:03:04:05:06:07:08',
+        'A9 C5 D4 9F EB D3 B6 65',
+        '01 02 03 04 05 06 07 ab',
+        '01-02-03-04-05-06-07-ab',
+        '0102.0304.0506.07ab',
+      ],
+      invalid: [
+        'ab:ab:ab:ab:ab:ab',
+        'FF:FF:FF:FF:FF:FF',
+        '01:02:03:04:05:ab',
+        '01:AB:03:04:05:06',
+        'A9 C5 D4 9F EB D3',
+        '01 02 03 04 05 ab',
+        '01-02-03-04-05-ab',
+        '0102.0304.05ab',
       ],
     });
   });
@@ -837,6 +906,10 @@ describe('Validators', () => {
         'FFFFFFFFFFFF',
         '0102030405ab',
         '01AB03040506',
+        'abababababababab',
+        'FFFFFFFFFFFFFFFF',
+        '01020304050607ab',
+        '01AB030405060708',
       ],
       invalid: [
         'abc',
@@ -852,6 +925,56 @@ describe('Validators', () => {
         '01020304ab',
         '123456',
         'ABCDEFGH0102',
+        '01:02:03:04:05:06:07',
+        '01:02:03:04:05:06::ab',
+        '1:2:3:4:5:6:7:8',
+        'AB:CD:EF:GH:01:02:03:04',
+        'ab:ab:ab:ab:ab:ab:ab:ab',
+        'FF:FF:FF:FF:FF:FF:FF:FF',
+        '01:02:03:04:05:06:07:ab',
+        '01:AB:03:04:05:06:07:08',
+        '01020304050607',
+        '010203040506ab',
+        '12345678',
+        'ABCDEFGH01020304',
+      ],
+    });
+    test({
+      validator: 'isMACAddress',
+      args: [{
+        no_separators: true,
+        eui: '48',
+      }],
+      valid: [
+        'abababababab',
+        'FFFFFFFFFFFF',
+        '0102030405ab',
+        '01AB03040506',
+      ],
+      invalid: [
+        'abababababababab',
+        'FFFFFFFFFFFFFFFF',
+        '01020304050607ab',
+        '01AB030405060708',
+      ],
+    });
+    test({
+      validator: 'isMACAddress',
+      args: [{
+        no_separators: true,
+        eui: '64',
+      }],
+      valid: [
+        'abababababababab',
+        'FFFFFFFFFFFFFFFF',
+        '01020304050607ab',
+        '01AB030405060708',
+      ],
+      invalid: [
+        'abababababab',
+        'FFFFFFFFFFFF',
+        '0102030405ab',
+        '01AB03040506',
       ],
     });
   });
@@ -5630,6 +5753,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate base32 strings with crockford alternative', () => {
+    test({
+      validator: 'isBase32',
+      args: [{ crockford: true }],
+      valid: [
+        '91JPRV3F41BPYWKCCGGG',
+        '60',
+        '64',
+        'B5QQA833C5Q20S3F41MQ8',
+      ],
+      invalid: [
+        '91JPRV3F41BUPYWKCCGGG',
+        'B5QQA833C5Q20S3F41MQ8L',
+        '60I',
+        'B5QQA833OULIC5Q20S3F41MQ8',
+      ],
+    });
+  });
+
   it('should validate base58 strings', () => {
     test({
       validator: 'isBase58',
@@ -6207,7 +6349,6 @@ describe('Validators', () => {
         locale: 'de-DE',
         valid: [
           '+4915123456789',
-          '+4930405044550',
           '015123456789',
           '015123456789',
           '015623456789',
@@ -6218,10 +6359,9 @@ describe('Validators', () => {
           '01631234567',
           '01701234567',
           '017612345678',
-          '015345678910',
-          '015412345678',
         ],
         invalid: [
+          '+4930405044550',
           '34412345678',
           '14412345678',
           '16212345678',
@@ -6230,6 +6370,8 @@ describe('Validators', () => {
           '17012345678',
           '+4912345678910',
           '+49015123456789',
+          '015345678910',
+          '015412345678',
         ],
       },
       {
@@ -6425,6 +6567,25 @@ describe('Validators', () => {
           '',
           'Vml2YW11cyBmZXJtZtesting123',
           '0-987123456',
+        ],
+      },
+      {
+        local: 'en-LS',
+        valid: [
+          '+26622123456',
+          '+26628123456',
+          '+26657123456',
+          '+26658123456',
+          '+26659123456',
+          '+26627123456',
+          '+26652123456',
+        ],
+        invalid: [
+          '+26612345678',
+          '',
+          '2664512-21',
+          '+2662212345678',
+          'someString',
         ],
       },
       {
@@ -8338,8 +8499,10 @@ describe('Validators', () => {
           '+994502111111',
           '0505436743',
           '0554328772',
+          '0104328772',
           '0993301022',
           '+994776007139',
+          '+994106007139',
         ],
         invalid: [
           'wrong-number',
@@ -8439,6 +8602,36 @@ describe('Validators', () => {
           '3712123456',
           '+371212345678',
           'NotANumber',
+        ],
+      },
+      {
+        locale: 'my-MM',
+        valid: [
+          '+959750202595',
+          '09750202595',
+          '9750202595',
+          '+959260000966',
+          '09256000323',
+          '09276000323',
+          '09426000323',
+          '09456000323',
+          '09761234567',
+          '09791234567',
+          '09961234567',
+          '09771234567',
+          '09660000234',
+        ],
+        invalid: [
+          '59750202595',
+          '+9597502025',
+          '08943234524',
+          '09950000966',
+          '959240000966',
+          '09246000323',
+          '09466000323',
+          '09951234567',
+          '09801234567',
+          '09650000234',
         ],
       },
       {
@@ -9620,6 +9813,14 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 639-1 language codes', () => {
+    test({
+      validator: 'isISO6391',
+      valid: ['ay', 'az', 'ba', 'be', 'bg'],
+      invalid: ['aj', 'al', 'pe', 'pf', 'abc', '123', ''],
+    });
+  });
+
   const validISO8601 = [
     '2009-12T12:34',
     '2009',
@@ -9998,6 +10199,7 @@ describe('Validators', () => {
         ' data:text/html,%3Ch1%3EHello%2C%20World!%3C%2Fh1%3E',
         'data:,A%20brief%20note',
         'data:text/html;charset=US-ASCII,%3Ch1%3EHello!%3C%2Fh1%3E',
+        'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,dGVzdC5kb2N4',
       ],
       invalid: [
         'dataxbase64',
@@ -10159,6 +10361,23 @@ describe('Validators', () => {
           'A1A 1A1',
           'X0A-0H0',
           'V5K 0A1',
+          'A1C 3S4',
+          'A1C3S4',
+          'a1c 3s4',
+          'V9A 7N2',
+          'B3K 5X5',
+          'K8N 5W6',
+          'K1A 0B1',
+          'B1Z 0B9',
+        ],
+        invalid: [
+          '        ',
+          'invalid value',
+          'a1a1a',
+          'A1A  1A1',
+          'K1A 0D1',
+          'W1A 0B1',
+          'Z1A 0B1',
         ],
       },
       {
@@ -10364,6 +10583,8 @@ describe('Validators', () => {
           '78-399',
           '39-490',
           '38-483',
+          '05-800',
+          '54-060',
         ],
       },
       {
@@ -10422,6 +10643,9 @@ describe('Validators', () => {
           '65000',
           '65080',
           '01000',
+          '51901',
+          '51909',
+          '49125',
         ],
       },
       {
@@ -10796,6 +11020,43 @@ describe('Validators', () => {
         '05-410/0005',
         '658426713',
         '558426713'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-CA'],
+      valid: [
+        '000000000',
+        '521719666',
+        '469317481',
+        '120217450',
+        '480534858',
+        '325268597',
+        '336475660',
+        '744797853',
+        '130692544',
+        '046454286',
+      ],
+      invalid: [
+        '        ',
+        'any value',
+        '012345678',
+        '111111111',
+        '999999999',
+        '657449110',
+        '74 47 978 53',
+        '744 797 853',
+        '744-797-853',
+        '981062432',
+        '267500713',
+        '2675o0713',
+        '70597312',
+        '7058973122',
+        '069437151',
+        '046454281',
+        '146452286',
+        '30x92544',
+        '30692544',
+      ],
     });
     test({
       validator: 'isTaxID',
@@ -11612,6 +11873,44 @@ describe('Validators', () => {
         'FS AB 123',
         'FL 999999',
         'FS AB 1234 A',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
+      args: ['sv-SE'],
+      valid: [
+        'ABC 123',
+        'ABC 12A',
+        'ABC123',
+        'ABC12A',
+        'A WORD',
+        'WORD',
+        'ÅSNA',
+        'EN VARG',
+        'CERISE',
+        'AA',
+        'ABCDEFG',
+        'ÅÄÖ',
+        'ÅÄÖ ÅÄÖ',
+      ],
+      invalid: [
+        '',
+        '    ',
+        'IQV 123',
+        'IQV123',
+        'ABI 12Q',
+        'ÅÄÖ 123',
+        'ÅÄÖ 12A',
+        'AB1 A23',
+        'AB1 12A',
+        'lower',
+        'abc 123',
+        'abc 12A',
+        'abc 12a',
+        'AbC 12a',
+        'WORDLONGERTHANSEVENCHARACTERS',
+        'A',
+        'ABC-123',
       ],
     });
   });
