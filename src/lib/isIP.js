@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import assertString from './util/assertString';
 /**
 11.3.  Examples
