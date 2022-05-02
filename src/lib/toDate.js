@@ -69,7 +69,7 @@ export default function toDate(date, options) {
       
       for (const [dateWord, formatWord] of dateAndFormat) {
         if (dateWord.length !== formatWord.length) {
-          return null;
+          return { success: false, date: null };
         }
         
         dateObj[formatWord.charAt(0)] = dateWord;
