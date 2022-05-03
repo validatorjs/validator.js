@@ -5753,6 +5753,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate base32 strings with crockford alternative', () => {
+    test({
+      validator: 'isBase32',
+      args: [{ crockford: true }],
+      valid: [
+        '91JPRV3F41BPYWKCCGGG',
+        '60',
+        '64',
+        'B5QQA833C5Q20S3F41MQ8',
+      ],
+      invalid: [
+        '91JPRV3F41BUPYWKCCGGG',
+        'B5QQA833C5Q20S3F41MQ8L',
+        '60I',
+        'B5QQA833OULIC5Q20S3F41MQ8',
+      ],
+    });
+  });
+
   it('should validate base58 strings', () => {
     test({
       validator: 'isBase58',
@@ -6548,6 +6567,25 @@ describe('Validators', () => {
           '',
           'Vml2YW11cyBmZXJtZtesting123',
           '0-987123456',
+        ],
+      },
+      {
+        local: 'en-LS',
+        valid: [
+          '+26622123456',
+          '+26628123456',
+          '+26657123456',
+          '+26658123456',
+          '+26659123456',
+          '+26627123456',
+          '+26652123456',
+        ],
+        invalid: [
+          '+26612345678',
+          '',
+          '2664512-21',
+          '+2662212345678',
+          'someString',
         ],
       },
       {
@@ -8461,8 +8499,10 @@ describe('Validators', () => {
           '+994502111111',
           '0505436743',
           '0554328772',
+          '0104328772',
           '0993301022',
           '+994776007139',
+          '+994106007139',
         ],
         invalid: [
           'wrong-number',
@@ -9773,6 +9813,14 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 639-1 language codes', () => {
+    test({
+      validator: 'isISO6391',
+      valid: ['ay', 'az', 'ba', 'be', 'bg'],
+      invalid: ['aj', 'al', 'pe', 'pf', 'abc', '123', ''],
+    });
+  });
+
   const validISO8601 = [
     '2009-12T12:34',
     '2009',
@@ -10151,6 +10199,7 @@ describe('Validators', () => {
         ' data:text/html,%3Ch1%3EHello%2C%20World!%3C%2Fh1%3E',
         'data:,A%20brief%20note',
         'data:text/html;charset=US-ASCII,%3Ch1%3EHello!%3C%2Fh1%3E',
+        'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,dGVzdC5kb2N4',
       ],
       invalid: [
         'dataxbase64',
