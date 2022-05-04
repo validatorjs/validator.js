@@ -5,14 +5,14 @@ export default function isDate(input, options) {
   
   let tryToMakeDate = ToDate.makeDate(input, options);
   
-  if (tryToMakeDate.success == true) {
-    return tryToMakeDate;
+  if (tryToMakeDate != null) {
+    return true;
   }
 
   if (!options.strictMode) {
     return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input);
   }
 
-  return false;
+  return tryToMakeDate != null;
 };
   

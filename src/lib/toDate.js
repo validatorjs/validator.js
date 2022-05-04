@@ -27,8 +27,7 @@ function isValidFormat(format) {
 
 export default function toDate(date, options) {
   assertString(date);
-  let newDate = makeDate(date, options);
-  return newDate.success ? newDate.date : null;
+  return makeDate(date, options);
 }
   
   
@@ -60,7 +59,7 @@ export default function toDate(date, options) {
     }
     if (typeof input === 'string' && isValidFormat(options.format)) {
       // Requires this check so Browser now knows what type `options` is
-      if (typeof options !== typeof default_date_options) { return {success:false, date: null}; };
+      if (typeof options !== typeof default_date_options) { return null; };
       
       const formatDelimiter = options.delimiters.find(delimiter => options.format.indexOf(delimiter) !== -1);
       const dateDelimiter = options.strictMode ? formatDelimiter : options.delimiters.find(delimiter => input.indexOf(delimiter) !== -1);
@@ -69,15 +68,18 @@ export default function toDate(date, options) {
       
       for (const [dateWord, formatWord] of dateAndFormat) {
         if (dateWord.length !== formatWord.length) {
-          return { success: false, date: null };
+          return null;
         }
         
         dateObj[formatWord.charAt(0)] = dateWord;
       }
       
       let returnDate = new Date(`${dateObj.m}/${dateObj.d}/${dateObj.y}`);
-      return {success: returnDate.getDate() === +dateObj.d, date: returnDate };
+      
+      if (returnDate.getDate() === +dateObj.d) {
+        return returnDate;
+      }
     }
     
-    return { success: false, date: null };
+    return null;
   };
