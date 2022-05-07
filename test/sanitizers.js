@@ -138,7 +138,7 @@ describe('Sanitizers', () => {
       expect: { ff: 255 },
     });
   });
-
+  
   it('should convert strings to floats', () => {
     test({
       sanitizer: 'toFloat',

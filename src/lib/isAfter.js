@@ -1,5 +1,5 @@
-import assertString from './util/assertString.js';
-import toDate from './toDate.js';
+import assertString from './util/assertString';
+import toDate from './toDate';
 
 export default function isAfter(str, date = String(new Date())) {
   assertString(str);

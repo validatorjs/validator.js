@@ -1,4 +1,4 @@
-import assertString from './util/assertString.js';
+import assertString from './util/assertString';
 import merge from './util/merge.js';
 
 export const default_date_options = {
