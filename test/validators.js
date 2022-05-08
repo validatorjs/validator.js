@@ -3308,7 +3308,7 @@ describe('Validators', () => {
       '82J930K90',
     ],
   });
-  
+
   it('should validate decimal numbers', () => {
     test({
       validator: 'isDecimal',
