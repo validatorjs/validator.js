@@ -122,6 +122,8 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
+import isEmoji from './lib/isEmoji';
+
 const version = '13.7.0';
 
 const validator = {
@@ -226,6 +228,7 @@ const validator = {
   isDate,
   isLicensePlate,
   isVAT,
+  isEmoji,
   ibanLocales,
 };
 
