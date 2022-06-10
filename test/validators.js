@@ -2868,6 +2868,23 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['EG'],
+      valid: [
+        'A76483643',
+        'A64859956',
+        'A88699483',
+        'A12588334',
+      ],
+      invalid: [
+        'A7366458839',
+        'A6838857',
+        'R68388457',
+        'A4523553T',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['ES'],
       valid: [
         'AF238143',
@@ -3214,6 +3231,23 @@ describe('Validators', () => {
       ],
     });
 
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['SA'],
+      valid: [
+        'A543532',
+        'G353452',
+        'T543345',
+        'K995935',
+      ],
+      invalid: [
+        'G43234',
+        'F9939583',
+        '435625Y',
+      ],
+    });
+
     test({
       validator: 'isPassportNumber',
       args: ['SE'],
@@ -3262,6 +3296,24 @@ describe('Validators', () => {
       invalid: [
         '06764100U',
         '010485371',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['TU'],
+      valid: [
+        'Y647835',
+        'F745673',
+        'W875443',
+        'K764287',
+        'A837466',
+      ],
+      invalid: [
+        'E485934',
+        'U99599',
+        'O4882396',
+        'W8852345',
       ],
     });
 

@@ -24,6 +24,7 @@ const passportRegexByCountryCode = {
   DK: /^\d{9}$/, // DENMARK
   DZ: /^\d{9}$/, // ALGERIA
   EE: /^([A-Z]\d{7}|[A-Z]{2}\d{7})$/, // ESTONIA (K followed by 7-digits), e-passports have 2 UPPERCASE followed by 7 digits
+  EG: /^[Aa]\d{8}$/, // EGYPT (A followed by 8 digits)
   ES: /^[A-Z0-9]{2}([A-Z0-9]?)\d{6}$/, // SPAIN
   FI: /^[A-Z]{2}\d{7}$/, // FINLAND
   FR: /^\d{2}[A-Z]{2}\d{5}$/, // FRANCE
@@ -51,10 +52,12 @@ const passportRegexByCountryCode = {
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
   RO: /^\d{8,9}$/, // ROMANIA
   RU: /^\d{9}$/, // RUSSIAN FEDERATION
+  SA: /^[a-zA-Z]\d{6}$/, // SAUDI ARABIA (Any letter followed by 6 digits)
   SE: /^\d{8}$/, // SWEDEN
   SL: /^(P)[A-Z]\d{7}$/, // SLOVANIA
   SK: /^[0-9A-Z]\d{7}$/, // SLOVAKIA
   TR: /^[A-Z]\d{8}$/, // TURKEY
+  TU: /^[YFWKAyfwka]\d{6}$/, // TUNISIA (Y,F,W,K, or A followed by 6 digits)(Those are the known letters used)
   UA: /^[A-Z]{2}\d{6}$/, // UKRAINE
   US: /^\d{9}$/, // UNITED STATES
 };
