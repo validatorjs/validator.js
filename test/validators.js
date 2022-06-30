@@ -5753,6 +5753,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate base32 strings with crockford alternative', () => {
+    test({
+      validator: 'isBase32',
+      args: [{ crockford: true }],
+      valid: [
+        '91JPRV3F41BPYWKCCGGG',
+        '60',
+        '64',
+        'B5QQA833C5Q20S3F41MQ8',
+      ],
+      invalid: [
+        '91JPRV3F41BUPYWKCCGGG',
+        'B5QQA833C5Q20S3F41MQ8L',
+        '60I',
+        'B5QQA833OULIC5Q20S3F41MQ8',
+      ],
+    });
+  });
+
   it('should validate base58 strings', () => {
     test({
       validator: 'isBase58',
@@ -6457,6 +6476,12 @@ describe('Validators', () => {
           '(22) 999567894',
           '(22) 99956-7894',
           '(11) 94123-4567',
+          '(11) 91431-4567',
+          '+55 (11) 91431-4567',
+          '+55 11 91431-4567',
+          '+551191431-4567',
+          '5511914314567',
+          '5511912345678',
         ],
         invalid: [
           '0819876543',
@@ -6465,12 +6490,12 @@ describe('Validators', () => {
           '5501599623874',
           '+55012962308',
           '+55 015 1234-3214',
-          '+55 11 91431-4567',
-          '+55 (11) 91431-4567',
-          '+551191431-4567',
-          '5511914314567',
-          '5511912345678',
-          '(11) 91431-4567',
+          '+55 11 90431-4567',
+          '+55 (11) 90431-4567',
+          '+551190431-4567',
+          '5511904314567',
+          '5511902345678',
+          '(11) 90431-4567',
         ],
       },
       {
@@ -6548,6 +6573,25 @@ describe('Validators', () => {
           '',
           'Vml2YW11cyBmZXJtZtesting123',
           '0-987123456',
+        ],
+      },
+      {
+        local: 'en-LS',
+        valid: [
+          '+26622123456',
+          '+26628123456',
+          '+26657123456',
+          '+26658123456',
+          '+26659123456',
+          '+26627123456',
+          '+26652123456',
+        ],
+        invalid: [
+          '+26612345678',
+          '',
+          '2664512-21',
+          '+2662212345678',
+          'someString',
         ],
       },
       {
@@ -8461,8 +8505,10 @@ describe('Validators', () => {
           '+994502111111',
           '0505436743',
           '0554328772',
+          '0104328772',
           '0993301022',
           '+994776007139',
+          '+994106007139',
         ],
         invalid: [
           'wrong-number',
@@ -8562,6 +8608,26 @@ describe('Validators', () => {
           '3712123456',
           '+371212345678',
           'NotANumber',
+        ],
+      },
+      {
+        locale: 'mn-MN',
+        valid: [
+          '+97699112222',
+          '97696112222',
+          '97695112222',
+          '01197691112222',
+          '0097688112222',
+          '+97677112222',
+          '+97694112222',
+          '+97681112222',
+        ],
+        invalid: [
+          '+97888112222',
+          '+97977112222',
+          '+97094112222',
+          '+97281112222',
+          '02297681112222',
         ],
       },
       {
@@ -9773,6 +9839,14 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 639-1 language codes', () => {
+    test({
+      validator: 'isISO6391',
+      valid: ['ay', 'az', 'ba', 'be', 'bg'],
+      invalid: ['aj', 'al', 'pe', 'pf', 'abc', '123', ''],
+    });
+  });
+
   const validISO8601 = [
     '2009-12T12:34',
     '2009',
@@ -10151,6 +10225,7 @@ describe('Validators', () => {
         ' data:text/html,%3Ch1%3EHello%2C%20World!%3C%2Fh1%3E',
         'data:,A%20brief%20note',
         'data:text/html;charset=US-ASCII,%3Ch1%3EHello!%3C%2Fh1%3E',
+        'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,dGVzdC5kb2N4',
       ],
       invalid: [
         'dataxbase64',
@@ -10181,6 +10256,8 @@ describe('Validators', () => {
         'magnet:?xt=urn:md5:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
         'magnet:?xt=urn:tree:tiger:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
         'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?tr=udp://helloworld:1337/announce&xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?xt=urn:btmh:1220caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
       ],
       invalid: [
         ':?xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
@@ -10193,6 +10270,8 @@ describe('Validators', () => {
         'magnet:?xt:urn:nonexisting:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
         'magnet:?xt.2=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
         'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890123456789ABCD',
+        'magnet:?xt=urn:btmh:1120caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
+        'magnet:?ttxt=urn:btmh:1220caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
       ],
     });
     /* eslint-enable max-len */
@@ -10744,6 +10823,23 @@ describe('Validators', () => {
           '1234',
           '789389',
           '982',
+        ],
+      },
+      {
+        locale: 'BA',
+        valid: [
+          '76300',
+          '71000',
+          '75412',
+          '76100',
+          '88202',
+          '88313',
+        ],
+        invalid: [
+          '1234',
+          '789389',
+          '98212',
+          '11000',
         ],
       },
     ];
