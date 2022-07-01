@@ -11,6 +11,7 @@ const patterns = {
   AT: fourDigit,
   AU: fourDigit,
   AZ: /^AZ\d{4}$/,
+  BA: /^([7-8]\d{4}$)/,
   BE: fourDigit,
   BG: fourDigit,
   BR: /^\d{5}-\d{3}$/,

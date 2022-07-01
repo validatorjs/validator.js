@@ -6476,6 +6476,12 @@ describe('Validators', () => {
           '(22) 999567894',
           '(22) 99956-7894',
           '(11) 94123-4567',
+          '(11) 91431-4567',
+          '+55 (11) 91431-4567',
+          '+55 11 91431-4567',
+          '+551191431-4567',
+          '5511914314567',
+          '5511912345678',
         ],
         invalid: [
           '0819876543',
@@ -6484,12 +6490,12 @@ describe('Validators', () => {
           '5501599623874',
           '+55012962308',
           '+55 015 1234-3214',
-          '+55 11 91431-4567',
-          '+55 (11) 91431-4567',
-          '+551191431-4567',
-          '5511914314567',
-          '5511912345678',
-          '(11) 91431-4567',
+          '+55 11 90431-4567',
+          '+55 (11) 90431-4567',
+          '+551190431-4567',
+          '5511904314567',
+          '5511902345678',
+          '(11) 90431-4567',
         ],
       },
       {
@@ -8634,6 +8640,26 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'mn-MN',
+        valid: [
+          '+97699112222',
+          '97696112222',
+          '97695112222',
+          '01197691112222',
+          '0097688112222',
+          '+97677112222',
+          '+97694112222',
+          '+97681112222',
+        ],
+        invalid: [
+          '+97888112222',
+          '+97977112222',
+          '+97094112222',
+          '+97281112222',
+          '02297681112222',
+        ],
+      },
+      {
         locale: 'my-MM',
         valid: [
           '+959750202595',
@@ -10259,6 +10285,8 @@ describe('Validators', () => {
         'magnet:?xt=urn:md5:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
         'magnet:?xt=urn:tree:tiger:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
         'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?tr=udp://helloworld:1337/announce&xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?xt=urn:btmh:1220caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
       ],
       invalid: [
         ':?xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
@@ -10271,6 +10299,8 @@ describe('Validators', () => {
         'magnet:?xt:urn:nonexisting:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
         'magnet:?xt.2=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
         'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890123456789ABCD',
+        'magnet:?xt=urn:btmh:1120caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
+        'magnet:?ttxt=urn:btmh:1220caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
       ],
     });
     /* eslint-enable max-len */
@@ -10822,6 +10852,23 @@ describe('Validators', () => {
           '1234',
           '789389',
           '982',
+        ],
+      },
+      {
+        locale: 'BA',
+        valid: [
+          '76300',
+          '71000',
+          '75412',
+          '76100',
+          '88202',
+          '88313',
+        ],
+        invalid: [
+          '1234',
+          '789389',
+          '98212',
+          '11000',
         ],
       },
     ];
