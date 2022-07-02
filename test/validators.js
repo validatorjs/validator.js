@@ -472,6 +472,24 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate postgres URLs without a host', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        protocols: ['postgres'],
+        require_host: false,
+      }],
+      valid: [
+        'postgres://user:pw@/test',
+      ],
+      invalid: [
+        'http://foobar.com',
+        'postgres://',
+      ],
+    });
+  });
+
+
   it('should validate URLs with any protocol', () => {
     test({
       validator: 'isURL',
