@@ -1920,6 +1920,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Sinhala alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['si-LK'],
+      valid: [
+        'චතුර',
+        'කචටදබ',
+        'ඎඏදාෛපසුගො',
+      ],
+      invalid: [
+        'ஆஐअतක',
+        'කචට 12',
+        ' ඎ ',
+        'abc1',
+        'abc',
+        '',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlpha',
@@ -2503,6 +2523,27 @@ describe('Validators', () => {
       invalid: [
         '1.สวัสดี',
         'ยินดีต้อนรับทั้ง 2 คน',
+      ],
+    });
+  });
+
+  it('should validate Sinhala alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['si-LK'],
+      valid: [
+        'චතුර',
+        'කචට12',
+        'ඎඏදාෛපසුගො2',
+        '1234',
+      ],
+      invalid: [
+        'ஆஐअतක',
+        'කචට 12',
+        ' ඎ ',
+        'a1234',
+        'abc',
+        '',
       ],
     });
   });
