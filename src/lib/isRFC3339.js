@@ -14,6 +14,7 @@ const timeSecFrac = /(\.[0-9]+)?/;
 const timeNumOffset = new RegExp(`[-+]${timeHour.source}:${timeMinute.source}`);
 const timeOffset = new RegExp(`([zZ]|${timeNumOffset.source})`);
 
+// eslint-disable-next-line max-len
 const partialTime = new RegExp(`${timeHour.source}:${timeMinute.source}:${timeSecond.source}${timeSecFrac.source}`);
 
 const fullDate = new RegExp(`${dateFullYear.source}-${dateMonth.source}-${dateMDay.source}`);

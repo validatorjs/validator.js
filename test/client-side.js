@@ -15,7 +15,7 @@ describe('Minified version', () => {
   });
 
   it('should be up to date', () => {
-    assert.strictEqual(min.version, validator.version, 'Minified version mismatch. Run `make min`');
+    assert.strictEqual(min.version, validator.version, 'Minified version mismatch.');
   });
 
   it('should validate strings', () => {
