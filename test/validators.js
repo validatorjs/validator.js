@@ -5753,6 +5753,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate base32 strings with crockford alternative', () => {
+    test({
+      validator: 'isBase32',
+      args: [{ crockford: true }],
+      valid: [
+        '91JPRV3F41BPYWKCCGGG',
+        '60',
+        '64',
+        'B5QQA833C5Q20S3F41MQ8',
+      ],
+      invalid: [
+        '91JPRV3F41BUPYWKCCGGG',
+        'B5QQA833C5Q20S3F41MQ8L',
+        '60I',
+        'B5QQA833OULIC5Q20S3F41MQ8',
+      ],
+    });
+  });
+
   it('should validate base58 strings', () => {
     test({
       validator: 'isBase58',
@@ -6457,6 +6476,12 @@ describe('Validators', () => {
           '(22) 999567894',
           '(22) 99956-7894',
           '(11) 94123-4567',
+          '(11) 91431-4567',
+          '+55 (11) 91431-4567',
+          '+55 11 91431-4567',
+          '+551191431-4567',
+          '5511914314567',
+          '5511912345678',
         ],
         invalid: [
           '0819876543',
@@ -6465,12 +6490,12 @@ describe('Validators', () => {
           '5501599623874',
           '+55012962308',
           '+55 015 1234-3214',
-          '+55 11 91431-4567',
-          '+55 (11) 91431-4567',
-          '+551191431-4567',
-          '5511914314567',
-          '5511912345678',
-          '(11) 91431-4567',
+          '+55 11 90431-4567',
+          '+55 (11) 90431-4567',
+          '+551190431-4567',
+          '5511904314567',
+          '5511902345678',
+          '(11) 90431-4567',
         ],
       },
       {
@@ -6548,6 +6573,25 @@ describe('Validators', () => {
           '',
           'Vml2YW11cyBmZXJtZtesting123',
           '0-987123456',
+        ],
+      },
+      {
+        local: 'en-LS',
+        valid: [
+          '+26622123456',
+          '+26628123456',
+          '+26657123456',
+          '+26658123456',
+          '+26659123456',
+          '+26627123456',
+          '+26652123456',
+        ],
+        invalid: [
+          '+26612345678',
+          '',
+          '2664512-21',
+          '+2662212345678',
+          'someString',
         ],
       },
       {
@@ -8079,6 +8123,35 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'nl-AW',
+        valid: [
+          '2975612345',
+          '2976412345',
+          '+2975612345',
+          '+2975912345',
+          '+2976412345',
+          '+2977312345',
+          '+2977412345',
+          '+2979912345',
+        ],
+        invalid: [
+          '12345',
+          '+2972345',
+          '2972345',
+          '06701234567',
+          '012345678',
+          '+2974701234567',
+          '2974701234567',
+          '0297345678',
+          '029734567',
+          '+2971234567',
+          '2971234567',
+          '+297212345678',
+          '297212345678',
+          'number',
+        ],
+      },
+      {
         locale: 'ro-RO',
         valid: [
           '+40740123456',
@@ -8461,8 +8534,10 @@ describe('Validators', () => {
           '+994502111111',
           '0505436743',
           '0554328772',
+          '0104328772',
           '0993301022',
           '+994776007139',
+          '+994106007139',
         ],
         invalid: [
           'wrong-number',
@@ -8562,6 +8637,26 @@ describe('Validators', () => {
           '3712123456',
           '+371212345678',
           'NotANumber',
+        ],
+      },
+      {
+        locale: 'mn-MN',
+        valid: [
+          '+97699112222',
+          '97696112222',
+          '97695112222',
+          '01197691112222',
+          '0097688112222',
+          '+97677112222',
+          '+97694112222',
+          '+97681112222',
+        ],
+        invalid: [
+          '+97888112222',
+          '+97977112222',
+          '+97094112222',
+          '+97281112222',
+          '02297681112222',
         ],
       },
       {
@@ -9773,6 +9868,14 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 639-1 language codes', () => {
+    test({
+      validator: 'isISO6391',
+      valid: ['ay', 'az', 'ba', 'be', 'bg'],
+      invalid: ['aj', 'al', 'pe', 'pf', 'abc', '123', ''],
+    });
+  });
+
   const validISO8601 = [
     '2009-12T12:34',
     '2009',
@@ -10151,6 +10254,7 @@ describe('Validators', () => {
         ' data:text/html,%3Ch1%3EHello%2C%20World!%3C%2Fh1%3E',
         'data:,A%20brief%20note',
         'data:text/html;charset=US-ASCII,%3Ch1%3EHello!%3C%2Fh1%3E',
+        'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,dGVzdC5kb2N4',
       ],
       invalid: [
         'dataxbase64',
@@ -10181,6 +10285,8 @@ describe('Validators', () => {
         'magnet:?xt=urn:md5:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
         'magnet:?xt=urn:tree:tiger:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
         'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?tr=udp://helloworld:1337/announce&xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
+        'magnet:?xt=urn:btmh:1220caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
       ],
       invalid: [
         ':?xt=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
@@ -10193,6 +10299,8 @@ describe('Validators', () => {
         'magnet:?xt:urn:nonexisting:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
         'magnet:?xt.2=urn:btih:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234',
         'magnet:?xt=urn:ed2k:ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890123456789ABCD',
+        'magnet:?xt=urn:btmh:1120caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
+        'magnet:?ttxt=urn:btmh:1220caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
       ],
     });
     /* eslint-enable max-len */
@@ -10312,6 +10420,23 @@ describe('Validators', () => {
           'A1A 1A1',
           'X0A-0H0',
           'V5K 0A1',
+          'A1C 3S4',
+          'A1C3S4',
+          'a1c 3s4',
+          'V9A 7N2',
+          'B3K 5X5',
+          'K8N 5W6',
+          'K1A 0B1',
+          'B1Z 0B9',
+        ],
+        invalid: [
+          '        ',
+          'invalid value',
+          'a1a1a',
+          'A1A  1A1',
+          'K1A 0D1',
+          'W1A 0B1',
+          'Z1A 0B1',
         ],
       },
       {
@@ -10517,6 +10642,8 @@ describe('Validators', () => {
           '78-399',
           '39-490',
           '38-483',
+          '05-800',
+          '54-060',
         ],
       },
       {
@@ -10575,6 +10702,9 @@ describe('Validators', () => {
           '65000',
           '65080',
           '01000',
+          '51901',
+          '51909',
+          '49125',
         ],
       },
       {
@@ -10722,6 +10852,23 @@ describe('Validators', () => {
           '1234',
           '789389',
           '982',
+        ],
+      },
+      {
+        locale: 'BA',
+        valid: [
+          '76300',
+          '71000',
+          '75412',
+          '76100',
+          '88202',
+          '88313',
+        ],
+        invalid: [
+          '1234',
+          '789389',
+          '98212',
+          '11000',
         ],
       },
     ];
@@ -10949,6 +11096,43 @@ describe('Validators', () => {
         '05-410/0005',
         '658426713',
         '558426713'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-CA'],
+      valid: [
+        '000000000',
+        '521719666',
+        '469317481',
+        '120217450',
+        '480534858',
+        '325268597',
+        '336475660',
+        '744797853',
+        '130692544',
+        '046454286',
+      ],
+      invalid: [
+        '        ',
+        'any value',
+        '012345678',
+        '111111111',
+        '999999999',
+        '657449110',
+        '74 47 978 53',
+        '744 797 853',
+        '744-797-853',
+        '981062432',
+        '267500713',
+        '2675o0713',
+        '70597312',
+        '7058973122',
+        '069437151',
+        '046454281',
+        '146452286',
+        '30x92544',
+        '30692544',
+      ],
     });
     test({
       validator: 'isTaxID',
@@ -11872,6 +12056,44 @@ describe('Validators', () => {
         'FS AB 123',
         'FL 999999',
         'FS AB 1234 A',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
+      args: ['sv-SE'],
+      valid: [
+        'ABC 123',
+        'ABC 12A',
+        'ABC123',
+        'ABC12A',
+        'A WORD',
+        'WORD',
+        'ÅSNA',
+        'EN VARG',
+        'CERISE',
+        'AA',
+        'ABCDEFG',
+        'ÅÄÖ',
+        'ÅÄÖ ÅÄÖ',
+      ],
+      invalid: [
+        '',
+        '    ',
+        'IQV 123',
+        'IQV123',
+        'ABI 12Q',
+        'ÅÄÖ 123',
+        'ÅÄÖ 12A',
+        'AB1 A23',
+        'AB1 12A',
+        'lower',
+        'abc 123',
+        'abc 12A',
+        'abc 12a',
+        'AbC 12a',
+        'WORDLONGERTHANSEVENCHARACTERS',
+        'A',
+        'ABC-123',
       ],
     });
   });
