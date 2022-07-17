@@ -152,6 +152,11 @@ export default function isURL(url, options) {
   if (options.host_whitelist) {
     return checkHost(host, options.host_whitelist);
   }
+
+  if (host === '' && !options.require_host) {
+    return true;
+  }
+
   if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
     return false;
   }
