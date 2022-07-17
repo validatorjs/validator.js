@@ -472,6 +472,24 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate postgres URLs without a host', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        protocols: ['postgres'],
+        require_host: false,
+      }],
+      valid: [
+        'postgres://user:pw@/test',
+      ],
+      invalid: [
+        'http://foobar.com',
+        'postgres://',
+      ],
+    });
+  });
+
+
   it('should validate URLs with any protocol', () => {
     test({
       validator: 'isURL',
@@ -1291,7 +1309,18 @@ describe('Validators', () => {
       ],
     });
   });
-
+  it('should validate FQDN with required allow_trailing_dot, allow_underscores and allow_numeric_tld options', () => {
+    test({
+      validator: 'isFQDN',
+      args: [
+        { allow_trailing_dot: true, allow_underscores: true, allow_numeric_tld: true },
+      ],
+      valid: [
+        'abc.efg.g1h.',
+        'as1s.sad3s.ssa2d.',
+      ],
+    });
+  });
   it('should validate alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1920,6 +1949,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Sinhala alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['si-LK'],
+      valid: [
+        'චතුර',
+        'කචටදබ',
+        'ඎඏදාෛපසුගො',
+      ],
+      invalid: [
+        'ஆஐअतක',
+        'කචට 12',
+        ' ඎ ',
+        'abc1',
+        'abc',
+        '',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlpha',
@@ -2503,6 +2552,27 @@ describe('Validators', () => {
       invalid: [
         '1.สวัสดี',
         'ยินดีต้อนรับทั้ง 2 คน',
+      ],
+    });
+  });
+
+  it('should validate Sinhala alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['si-LK'],
+      valid: [
+        'චතුර',
+        'කචට12',
+        'ඎඏදාෛපසුගො2',
+        '1234',
+      ],
+      invalid: [
+        'ஆஐअतක',
+        'කචට 12',
+        ' ඎ ',
+        'a1234',
+        'abc',
+        '',
       ],
     });
   });
@@ -3142,6 +3212,19 @@ describe('Validators', () => {
       invalid: [
         'A1234567',
         'C01234567',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['MX'],
+      valid: [
+        '43986369222',
+        '01234567890',
+      ],
+      invalid: [
+        'ABC34567890',
+        '34567890',
       ],
     });
 
@@ -4927,6 +5010,34 @@ describe('Validators', () => {
         'foo',
         '',
         '2020-01-06T14:31:00.135Z',
+      ],
+    });
+  });
+
+  it('should validate luhn numbers', () => {
+    test({
+      validator: 'isLuhnValid',
+      valid: [
+        '0',
+        '5421',
+        '01234567897',
+        '0123456789012345678906',
+        '0123456789012345678901234567891',
+        '123456789012345678906',
+        '375556917985515',
+        '36050234196908',
+        '4716461583322103',
+        '4716-2210-5188-5662',
+        '4929 7226 5379 7141',
+      ],
+      invalid: [
+        '',
+        '1',
+        '5422',
+        'foo',
+        'prefix6234917882863855',
+        '623491788middle2863855',
+        '6234917882863855suffix',
       ],
     });
   });
@@ -7647,6 +7758,10 @@ describe('Validators', () => {
           '+50489234567',
           '+50488987896',
           '+50497567389',
+          '+50427367389',
+          '+50422357389',
+          '+50431257389',
+          '+50430157389',
         ],
         invalid: [
           '12345',
@@ -8654,6 +8769,26 @@ describe('Validators', () => {
           '+3754321',
           '3712123456',
           '+371212345678',
+          'NotANumber',
+        ],
+      },
+      {
+        locale: 'mg-MG',
+        valid: [
+          '+261204269174',
+          '261204269174',
+          '0204269174',
+          '0209269174',
+          '0374269174',
+          '4269174',
+        ],
+        invalid: [
+          '0261204269174',
+          '+261 20 4 269174',
+          '+261 20 4269174',
+          '020 4269174',
+          '204269174',
+          '0404269174',
           'NotANumber',
         ],
       },
@@ -10749,6 +10884,15 @@ describe('Validators', () => {
           '0449',
           '0984',
           '4144',
+        ],
+      },
+      {
+        locale: 'MG',
+        valid: [
+          '101',
+          '303',
+          '407',
+          '512',
         ],
       },
       {
