@@ -4669,6 +4669,11 @@ describe('Validators', () => {
       validator: 'isLength',
       valid: ['a', '', 'asds'],
     });
+    test({
+      validator: 'isLength',
+      args: [{ max: 8 }],
+      valid: ['👩🦰👩👩👦👦🏳️🌈', '⏩︎⏩︎⏪︎⏪︎⏭︎⏭︎⏮︎⏮︎'],
+    });
   });
 
   it('should validate strings by byte length', () => {
@@ -8012,6 +8017,9 @@ describe('Validators', () => {
           '0457 123 45 67',
           '+358457 123 45 67',
           '+358 50 555 7171',
+          '0501234',
+          '+358501234',
+          '050 1234',
         ],
         invalid: [
           '12345',
@@ -8840,6 +8848,34 @@ describe('Validators', () => {
           '09951234567',
           '09801234567',
           '09650000234',
+        ],
+      },
+      {
+        locale: 'en-PG',
+        valid: [
+          '+67570123456',
+          '67570123456',
+          '+67571123456',
+          '+67572123456',
+          '+67573123456',
+          '+67574123456',
+          '+67575123456',
+          '+67576123456',
+          '+67577123456',
+          '+67578123456',
+          '+67579123456',
+          '+67581123456',
+          '+67588123456',
+        ],
+        invalid: [
+          '',
+          'not a number',
+          '12345',
+          '+675123456789',
+          '+67580123456',
+          '+67569123456',
+          '+67582123456',
+          '+6757012345',
         ],
       },
       {
@@ -11988,6 +12024,16 @@ describe('Validators', () => {
         'FS AB 1234 E',
         'FSAB1234E',
         'FS-AB-1234-E',
+        'FS AB-1234-E',
+        'FSAB1234 E',
+        'FS AB1234E',
+        'LRO AB 123',
+        'LRO-AB-123-E',
+        'LRO-AB-123E',
+        'LRO-AB-123 E',
+        'LRO-AB-123-H',
+        'LRO-AB-123H',
+        'LRO-AB-123 H',
       ],
       invalid: [
         'YY AB 123',
@@ -11995,6 +12041,14 @@ describe('Validators', () => {
         'M ABC 123',
         'M AB 12345',
         'FS AB 1234 A',
+        'LRO-AB-1234',
+        'HRO ABC 123',
+        'HRO ABC 1234',
+        'LDK-AB-1234-E',
+        'ÖHR FA 123D',
+        'MZG-AB-123X',
+        'OBG-ABD-123',
+        'PAF-AB2-123',
       ],
     });
     test({
@@ -12150,6 +12204,20 @@ describe('Validators', () => {
         'A',
         'ABC-123',
       ],
+    });
+    test({
+      validator: 'isLicensePlate',
+      args: ['en-IN'],
+      valid: [
+        'MH 04 AD 0001',
+        'HR26DQ0001',
+        'WB-04-ZU-2001',
+        'KL 18 X 5800',
+        'DL 4 CAF 4856',
+        'KA-41CE-5289',
+        'GJ 04-AD 5822',
+      ],
+      invalid: ['mh04ad0045', 'invalidlicenseplate', '4578', '', 'GJ054GH4785'],
     });
   });
   it('should validate VAT numbers', () => {
