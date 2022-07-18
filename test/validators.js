@@ -12169,6 +12169,20 @@ describe('Validators', () => {
         'ABC-123',
       ],
     });
+    test({
+      validator: 'isLicensePlate',
+      args: ['en-IN'],
+      valid: [
+        'MH 04 AD 0001',
+        'HR26DQ0001',
+        'WB-04-ZU-2001',
+        'KL 18 X 5800',
+        'DL 4 CAF 4856',
+        'KA-41CE-5289',
+        'GJ 04-AD 5822',
+      ],
+      invalid: ['mh04ad0045', 'invalidlicenseplate', '4578', '', 'GJ054GH4785'],
+    });
   });
   it('should validate VAT numbers', () => {
     test({

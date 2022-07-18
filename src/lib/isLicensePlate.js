@@ -15,7 +15,22 @@ const validators = {
     /^[A-Z]{3}[ -]?[0-9][A-Z][0-9]{2}|[A-Z]{3}[ -]?[0-9]{4}$/.test(str),
   'sv-SE': str =>
     /^[A-HJ-PR-UW-Z]{3} ?[\d]{2}[A-HJ-PR-UW-Z1-9]$|(^[A-ZÅÄÖ ]{2,7}$)/.test(str.trim()),
+  'en-IN': str => /^[A-Z]{2}[ -]?[0-9]{1,2}(?:[ -]?[A-Z])(?:[ -]?[A-Z]*)?[ -]?[0-9]{4}$/.test(str),
 };
+
+validators['hi-IN'] = validators['en-IN'];
+validators['gu-IN'] = validators['en-IN'];
+validators['as-IN'] = validators['en-IN'];
+validators['bn-IN'] = validators['en-IN'];
+validators['kn-IN'] = validators['en-IN'];
+validators['ml-IN'] = validators['en-IN'];
+validators['mr-IN'] = validators['en-IN'];
+validators['or-IN'] = validators['en-IN'];
+validators['pa-IN'] = validators['en-IN'];
+validators['sa-IN'] = validators['en-IN'];
+validators['ta-IN'] = validators['en-IN'];
+validators['te-IN'] = validators['en-IN'];
+validators['kok-IN'] = validators['en-IN'];
 
 export default function isLicensePlate(str, locale) {
   assertString(str);
