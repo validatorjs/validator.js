@@ -60,6 +60,36 @@ function bgBgCheck(tin) {
   return checksum === digits[9];
 }
 
+/**
+ * Check if an input is a valid Canadian SIN (Social Insurance Number)
+ *
+ * The Social Insurance Number (SIN) is a 9 digit number that
+ * you need to work in Canada or to have access to government programs and benefits.
+ *
+ * https://en.wikipedia.org/wiki/Social_Insurance_Number
+ * https://www.canada.ca/en/employment-social-development/services/sin.html
+ * https://www.codercrunch.com/challenge/819302488/sin-validator
+ *
+ * @param {string} input
+ * @return {boolean}
+ */
+function isCanadianSIN(input) {
+  const digitsArray = input.split('');
+  const even = digitsArray
+    .filter((_, idx) => idx % 2)
+    .map(i => Number(i) * 2)
+    .join('')
+    .split('');
+
+  const total = digitsArray
+    .filter((_, idx) => !(idx % 2))
+    .concat(even)
+    .map(i => Number(i))
+    .reduce((acc, cur) => acc + cur);
+
+  return (total % 10 === 0);
+}
+
 /*
  * cs-CZ validation function
  * (Rodné číslo (RČ), persons only)
@@ -343,7 +373,7 @@ function enUsGetPrefixes() {
  * Verify that the TIN starts with a valid IRS campus prefix
  */
 function enUsCheck(tin) {
-  return enUsGetPrefixes().indexOf(tin.substr(0, 2)) !== -1;
+  return enUsGetPrefixes().indexOf(tin.slice(0, 2)) !== -1;
 }
 
 /*
@@ -860,14 +890,10 @@ function plPlCheck(tin) {
 */
 
 function ptBrCheck(tin) {
-  tin = tin.replace(/[^\d]+/g, '');
-  if (tin === '') return false;
-
   if (tin.length === 11) {
     let sum;
-    let ramainder;
+    let remainder;
     sum = 0;
-    tin = tin.replace(/[^\d]+/g, '');
 
     if ( // Reject known invalid CPFs
       tin === '11111111111' ||
@@ -883,20 +909,18 @@ function ptBrCheck(tin) {
     ) return false;
 
     for (let i = 1; i <= 9; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (11 - i);
-    ramainder = (sum * 10) % 11;
-    if ((ramainder === 10) || (ramainder === 11)) ramainder = 0;
-    if (ramainder !== parseInt(tin.substring(9, 10), 10)) return false;
+    remainder = (sum * 10) % 11;
+    if (remainder === 10) remainder = 0;
+    if (remainder !== parseInt(tin.substring(9, 10), 10)) return false;
     sum = 0;
 
     for (let i = 1; i <= 10; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (12 - i);
-    ramainder = (sum * 10) % 11;
-    if ((ramainder === 10) || (ramainder === 11)) ramainder = 0;
-    if (ramainder !== parseInt(tin.substring(10, 11), 10)) return false;
+    remainder = (sum * 10) % 11;
+    if (remainder === 10) remainder = 0;
+    if (remainder !== parseInt(tin.substring(10, 11), 10)) return false;
 
     return true;
   }
-
-  if (tin.length !== 14) { return false; }
 
   if ( // Reject know invalid CNPJs
     tin === '00000000000000' ||
@@ -1102,7 +1126,6 @@ function svSeCheck(tin) {
  * uppercase and lowercase letters are acceptable.
  */
 const taxIdFormat = {
-
   'bg-BG': /^\d{10}$/,
   'cs-CZ': /^\d{6}\/{0,1}\d{3,4}$/,
   'de-AT': /^\d{9}$/,
@@ -1110,6 +1133,7 @@ const taxIdFormat = {
   'dk-DK': /^\d{6}-{0,1}\d{4}$/,
   'el-CY': /^[09]\d{7}[A-Z]$/,
   'el-GR': /^([0-4]|[7-9])\d{8}$/,
+  'en-CA': /^\d{9}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
@@ -1126,22 +1150,21 @@ const taxIdFormat = {
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,
   'pl-PL': /^\d{10,11}$/,
-  'pt-BR': /^\d{11,14}$/,
+  'pt-BR': /(?:^\d{11}$)|(?:^\d{14}$)/,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
   'sl-SI': /^[1-9]\d{7}$/,
   'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
-
 };
 // taxIdFormat locale aliases
 taxIdFormat['lb-LU'] = taxIdFormat['fr-LU'];
 taxIdFormat['lt-LT'] = taxIdFormat['et-EE'];
 taxIdFormat['nl-BE'] = taxIdFormat['fr-BE'];
+taxIdFormat['fr-CA'] = taxIdFormat['en-CA'];
 
 // Algorithmic tax id check functions for various locales
 const taxIdCheck = {
-
   'bg-BG': bgBgCheck,
   'cs-CZ': csCzCheck,
   'de-AT': deAtCheck,
@@ -1149,6 +1172,7 @@ const taxIdCheck = {
   'dk-DK': dkDkCheck,
   'el-CY': elCyCheck,
   'el-GR': elGrCheck,
+  'en-CA': isCanadianSIN,
   'en-IE': enIeCheck,
   'en-US': enUsCheck,
   'es-ES': esEsCheck,
@@ -1170,12 +1194,12 @@ const taxIdCheck = {
   'sk-SK': skSkCheck,
   'sl-SI': slSiCheck,
   'sv-SE': svSeCheck,
-
 };
 // taxIdCheck locale aliases
 taxIdCheck['lb-LU'] = taxIdCheck['fr-LU'];
 taxIdCheck['lt-LT'] = taxIdCheck['et-EE'];
 taxIdCheck['nl-BE'] = taxIdCheck['fr-BE'];
+taxIdCheck['fr-CA'] = taxIdCheck['en-CA'];
 
 // Regexes for locales where characters should be omitted before checking format
 const allsymbols = /[-\\\/!@#$%\^&\*\(\)\+\=\[\]]+/g;

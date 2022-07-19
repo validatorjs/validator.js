@@ -6,6 +6,7 @@ const default_fqdn_options = {
   allow_underscores: false,
   allow_trailing_dot: false,
   allow_numeric_tld: false,
+  allow_wildcard: false,
 };
 
 export default function isFQDN(str, options) {
@@ -16,6 +17,12 @@ export default function isFQDN(str, options) {
   if (options.allow_trailing_dot && str[str.length - 1] === '.') {
     str = str.substring(0, str.length - 1);
   }
+
+  /* Remove the optional wildcard before checking validity */
+  if (options.allow_wildcard === true && str.indexOf('*.') === 0) {
+    str = str.substring(2);
+  }
+
   const parts = str.split('.');
   const tld = parts[parts.length - 1];
 
@@ -25,12 +32,12 @@ export default function isFQDN(str, options) {
       return false;
     }
 
-    if (!/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
+    if (!options.allow_numeric_tld && !/^([a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
       return false;
     }
 
-    // disallow spaces && special characers
-    if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20\u00A9\uFFFD]/.test(tld)) {
+    // disallow spaces
+    if (/\s/.test(tld)) {
       return false;
     }
   }

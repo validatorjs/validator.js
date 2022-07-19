@@ -1,8 +1,7 @@
 import assertString from './util/assertString';
-import includes from './util/includes';
 
 // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
-const validISO31661Alpha3CountriesCodes = [
+const validISO31661Alpha3CountriesCodes = new Set([
   'AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND', 'AGO', 'AIA', 'ATA', 'ATG', 'ARG', 'ARM', 'ABW', 'AUS', 'AUT', 'AZE',
   'BHS', 'BHR', 'BGD', 'BRB', 'BLR', 'BEL', 'BLZ', 'BEN', 'BMU', 'BTN', 'BOL', 'BES', 'BIH', 'BWA', 'BVT', 'BRA',
   'IOT', 'BRN', 'BGR', 'BFA', 'BDI', 'KHM', 'CMR', 'CAN', 'CPV', 'CYM', 'CAF', 'TCD', 'CHL', 'CHN', 'CXR', 'CCK',
@@ -19,9 +18,9 @@ const validISO31661Alpha3CountriesCodes = [
   'ESP', 'LKA', 'SDN', 'SUR', 'SJM', 'SWZ', 'SWE', 'CHE', 'SYR', 'TWN', 'TJK', 'TZA', 'THA', 'TLS', 'TGO', 'TKL',
   'TON', 'TTO', 'TUN', 'TUR', 'TKM', 'TCA', 'TUV', 'UGA', 'UKR', 'ARE', 'GBR', 'USA', 'UMI', 'URY', 'UZB', 'VUT',
   'VEN', 'VNM', 'VGB', 'VIR', 'WLF', 'ESH', 'YEM', 'ZMB', 'ZWE',
-];
+]);
 
 export default function isISO31661Alpha3(str) {
   assertString(str);
-  return includes(validISO31661Alpha3CountriesCodes, str.toUpperCase());
+  return validISO31661Alpha3CountriesCodes.has(str.toUpperCase());
 }

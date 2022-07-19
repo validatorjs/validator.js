@@ -12,6 +12,7 @@ const default_email_options = {
   require_tld: true,
   blacklisted_chars: '',
   ignore_max_length: false,
+  host_blacklist: [],
 };
 
 /* eslint-disable max-len */
@@ -76,7 +77,7 @@ export default function isEmail(str, options) {
       // eg. myname <address@gmail.com>
       // the display name is `myname` instead of `myname `, so need to trim the last space
       if (display_name.endsWith(' ')) {
-        display_name = display_name.substr(0, display_name.length - 1);
+        display_name = display_name.slice(0, -1);
       }
 
       if (!validateDisplayName(display_name)) {
@@ -92,9 +93,13 @@ export default function isEmail(str, options) {
 
   const parts = str.split('@');
   const domain = parts.pop();
-  let user = parts.join('@');
-
   const lower_domain = domain.toLowerCase();
+
+  if (options.host_blacklist.includes(lower_domain)) {
+    return false;
+  }
+
+  let user = parts.join('@');
 
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
@@ -110,7 +115,7 @@ export default function isEmail(str, options) {
     const username = user.split('+')[0];
 
     // Dots are not included in gmail length restriction
-    if (!isByteLength(username.replace('.', ''), { min: 6, max: 30 })) {
+    if (!isByteLength(username.replace(/\./g, ''), { min: 6, max: 30 })) {
       return false;
     }
 
@@ -139,7 +144,7 @@ export default function isEmail(str, options) {
         return false;
       }
 
-      let noBracketdomain = domain.substr(1, domain.length - 2);
+      let noBracketdomain = domain.slice(1, -1);
 
       if (noBracketdomain.length === 0 || !isIP(noBracketdomain)) {
         return false;

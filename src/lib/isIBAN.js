@@ -135,3 +135,5 @@ export default function isIBAN(str) {
 
   return hasValidIbanFormat(str) && hasValidIbanChecksum(str);
 }
+
+export const locales = Object.keys(ibanRegexThroughCountryCode);
