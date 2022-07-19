@@ -1424,6 +1424,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Bengali alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['bn-BD'],
+      valid: [
+        'অয়াওর',
+        'ফগফদ্রত',
+        'ফদ্ম্যতভ',
+        'বেরেওভচনভন',
+        'আমারবাসগা',
+      ],
+      invalid: [
+        'দাস২৩৪',
+        '  দ্গফহ্নভ  ',
+        '',
+        '(গফদ)',
+      ],
+    });
+  });
+
   it('should validate czech alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2091,6 +2111,25 @@ describe('Validators', () => {
         ' ',
         '789  ',
         'hello000',
+      ],
+    });
+  });
+
+  it('should validate Bengali alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['bn-BD'],
+      valid: [
+        'দ্গজ্ঞহ্রত্য১২৩',
+        'দ্গগফ৮৯০',
+        'চব৩৬৫ভবচ',
+        '১২৩৪',
+        '৩৪২৩৪দফজ্ঞদফ',
+      ],
+      invalid: [
+        ' ',
+        '১২৩  ',
+        'hel৩২0',
       ],
     });
   });
