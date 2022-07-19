@@ -77,7 +77,7 @@ export default function isEmail(str, options) {
       // eg. myname <address@gmail.com>
       // the display name is `myname` instead of `myname `, so need to trim the last space
       if (display_name.endsWith(' ')) {
-        display_name = display_name.substr(0, display_name.length - 1);
+        display_name = display_name.slice(0, -1);
       }
 
       if (!validateDisplayName(display_name)) {
@@ -144,7 +144,7 @@ export default function isEmail(str, options) {
         return false;
       }
 
-      let noBracketdomain = domain.substr(1, domain.length - 2);
+      let noBracketdomain = domain.slice(1, -1);
 
       if (noBracketdomain.length === 0 || !isIP(noBracketdomain)) {
         return false;
