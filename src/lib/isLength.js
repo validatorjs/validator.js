@@ -12,7 +12,8 @@ export default function isLength(str, options) {
     min = arguments[1] || 0;
     max = arguments[2];
   }
+  const presentationSequences = str.match(/(\uFE0F|\uFE0E)/g) || [];
   const surrogatePairs = str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || [];
-  const len = str.length - surrogatePairs.length;
+  const len = str.length - presentationSequences.length - surrogatePairs.length;
   return len >= min && (typeof max === 'undefined' || len <= max);
 }
