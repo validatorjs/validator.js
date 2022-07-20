@@ -229,6 +229,9 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  allowlist: whitelist,
+  denylist: blacklist,
+  isAllowlisted: isWhitelisted,
 };
 
 export default validator;

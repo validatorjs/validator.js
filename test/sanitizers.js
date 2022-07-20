@@ -236,9 +236,35 @@ describe('Sanitizers', () => {
     });
   });
 
+  it('should sanitize a string based on an allowlist', () => {
+    test({
+      sanitizer: 'allowlist',
+      args: ['abc'],
+      expect: {
+        abcdef: 'abc',
+        aaaaaaaaaabbbbbbbbbb: 'aaaaaaaaaabbbbbbbbbb',
+        a1b2c3: 'abc',
+        '   ': '',
+      },
+    });
+  });
+
   it('should sanitize a string based on a blacklist', () => {
     test({
       sanitizer: 'blacklist',
+      args: ['abc'],
+      expect: {
+        abcdef: 'def',
+        aaaaaaaaaabbbbbbbbbb: '',
+        a1b2c3: '123',
+        '   ': '   ',
+      },
+    });
+  });
+
+  it('should sanitize a string based on a denylist', () => {
+    test({
+      sanitizer: 'denylist',
       args: ['abc'],
       expect: {
         abcdef: 'def',

@@ -13,6 +13,8 @@ const default_email_options = {
   blacklisted_chars: '',
   ignore_max_length: false,
   host_blacklist: [],
+  denylisted_chars: '',
+  host_denylist: [],
 };
 
 /* eslint-disable max-len */
@@ -99,6 +101,10 @@ export default function isEmail(str, options) {
     return false;
   }
 
+  if (options.host_denylist.includes(lower_domain)) {
+    return false;
+  }
+
   let user = parts.join('@');
 
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
@@ -170,6 +176,10 @@ export default function isEmail(str, options) {
   }
   if (options.blacklisted_chars) {
     if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
+  }
+
+  if (options.denylisted_chars) {
+    if (user.search(new RegExp(`[${options.denylisted_chars}]+`, 'g')) !== -1) return false;
   }
 
   return true;
