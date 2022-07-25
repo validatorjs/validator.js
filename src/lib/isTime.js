@@ -1,10 +1,8 @@
 import merge from './util/merge';
 
 const default_time_options = {
-const default_time_options = {
   format: 24, // Can be one of  24 or 12
-  allow_seconds: true
-};
+  allow_seconds: true,
   mode: 'default',
 };
 
