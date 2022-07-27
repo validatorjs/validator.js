@@ -10318,7 +10318,7 @@ describe('Validators', () => {
     });
   });
 
-  const validISO8601 =  [
+  const validISO8601 = [
     '2009-12T12:34',
     '2009',
     '2009-05-19',
