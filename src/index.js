@@ -123,6 +123,8 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
+import stringToUrlType from './lib/stringToUrlType';
+
 const version = '13.7.0';
 
 const validator = {
@@ -229,6 +231,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  stringToUrlType,
 };
 
 export default validator;
