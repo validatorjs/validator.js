@@ -1,4 +1,4 @@
-export default function stringToUrlType(str) {
+export default function strTokebab(str) {
   str = str.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
   let newstr = '';
   let split = str.split(' ');
