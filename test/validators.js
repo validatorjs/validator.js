@@ -1603,6 +1603,32 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Japanese alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['ja-JP'],
+      valid: [
+        'あいうえお',
+        'がぎぐげご',
+        'ぁぃぅぇぉ',
+        'アイウエオ',
+        'ァィゥェ',
+        'ｱｲｳｴｵ',
+        '吾輩は猫である',
+        '臥薪嘗胆',
+        '新世紀エヴァンゲリオン',
+        '天国と地獄',
+        '七人の侍',
+        'シン・ウルトラマン',
+      ],
+      invalid: [
+        'あいう123',
+        'abcあいう',
+        '１９８４',
+      ],
+    });
+  });
+
   it('should validate Vietnamese alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2385,6 +2411,28 @@ describe('Validators', () => {
         'abcßة',
         'föö!!',
         '٤٥٦',
+      ],
+    });
+  });
+
+  it('should validate Japanese alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ja-JP'],
+      valid: [
+        'あいうえお123',
+        '123がぎぐげご',
+        'ぁぃぅぇぉ',
+        'アイウエオ',
+        'ァィゥェ',
+        'ｱｲｳｴｵ',
+        '２０世紀少年',
+        '華氏４５１度',
+      ],
+      invalid: [
+        ' あいう123 ',
+        'abcあいう',
+        '生きろ!!',
       ],
     });
   });
