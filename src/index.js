@@ -28,6 +28,7 @@ import isUppercase from './lib/isUppercase';
 import isIMEI from './lib/isIMEI';
 
 import isAscii from './lib/isAscii';
+import isEmoji from './lib/isEmoji';
 import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
 import isVariableWidth from './lib/isVariableWidth';
@@ -153,6 +154,7 @@ const validator = {
   isLowercase,
   isUppercase,
   isAscii,
+  isEmoji,
   isFullWidth,
   isHalfWidth,
   isVariableWidth,
