@@ -4647,6 +4647,12 @@ describe('Validators', () => {
       valid: ['evnvkn', 'fafesfe', 'abcdef'],
       invalid: ['', 'a', 'ab', 'vjidj', 'abcdefgh'],
     });
+    test({
+      validator: 'isLength',
+      args: [5, 8, { first: 9, second: 10, third: 8 }],
+      valid: ['abcdefgh'],
+      invalid: ['', 'a', 'ab', 'vjidj', 'abcdefghjj', 'hhdjsdv'],
+    });
   });
 
   it('should validate isLocale codes', () => {
