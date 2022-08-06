@@ -37,11 +37,10 @@ export default function isLength(str, options) {
     for (let key in exact) {
       if (len === exact[key]) {
         isPerfect = true;
-        break;
       }
     }
   } else {
-    isPerfect = true;
+    isPerfect = false;
   }
   return isPerfect;
 }
