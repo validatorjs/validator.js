@@ -1403,6 +1403,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate belarusian alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['be-BY'],
+      valid: [
+        'Прывітанне',
+        'Дзякуй',
+        'Дзякуй',
+        'Выдатна',
+        'Прабачце',
+      ],
+      invalid: [
+        'abc1',
+        '  foo  ',
+        'Прывітанне123',
+        '123Дзякуй',
+        '',
+        ' ',
+      ],
+    });
+  });
+
   it('should validate bulgarian alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1739,6 +1761,27 @@ describe('Validators', () => {
         'przyjęły',
         'święty',
         'Pozwól',
+      ],
+      invalid: [
+        '12řiď ',
+        'blé!!',
+        'föö!2!',
+      ],
+    });
+  });
+
+  it('should validate romanian alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['ro-RO'],
+      valid: [
+        'Călătoresc',
+        'astăzi',
+        'frumoasă',
+        'Bună',
+        'Sâmbătă',
+        'Duminică',
+        'mână',
       ],
       invalid: [
         '12řiď ',
@@ -2095,6 +2138,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate belarusian alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['be-BY'],
+      valid: [
+        '123Прывітанне',
+        'Дзякуй123',
+        '1Дзякуй',
+        'Выдатна1',
+        '123Прабачце',
+      ],
+      invalid: [
+        'abc1',
+        '  foo  ',
+        '',
+        ' ',
+        '789  ',
+        'hello000',
+      ],
+    });
+  });
+
   it('should validate bulgarian alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
@@ -2300,6 +2365,27 @@ describe('Validators', () => {
         'ÄBC11',
         'æøå',
         '',
+      ],
+    });
+  });
+
+  it('should validate romanian alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ro-RO'],
+      valid: [
+        '1Călătoresc',
+        'astăzi2',
+        '3frumoasă',
+        'Bună123',
+        '123Sâmbătă',
+        'Duminică',
+        'mână',
+      ],
+      invalid: [
+        ' ',
+        'foo!!',
+        '123!',
       ],
     });
   });
