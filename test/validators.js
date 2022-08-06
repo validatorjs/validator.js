@@ -4631,9 +4631,9 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
-      args: [2, 4, 6],
+      args: [2, 8, 6],
       valid: ['Helloo', 'Laptop'],
-      invalid: ['', 'a', 'ab'],
+      invalid: ['', 'a', 'ab', 'vjidj'],
     });
   });
 
