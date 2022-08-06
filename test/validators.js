@@ -4643,6 +4643,12 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
+      args: [2, 8, '9'],
+      valid: [],
+      invalid: ['a', 'ab', 'vjidj'],
+    });
+    test({
+      validator: 'isLength',
       args: [5, 8, { one: 6, two: 7 }],
       valid: ['evnvkn', 'fafesfe', 'abcdef'],
       invalid: ['', 'a', 'ab', 'vjidj', 'abcdefgh'],
@@ -4749,12 +4755,6 @@ describe('Validators', () => {
     test({
       validator: 'isLength',
       args: [{ max: 0 }],
-      valid: [''],
-      invalid: ['a', 'ab'],
-    });
-    test({
-      validator: 'isLength',
-      args: [{ max: 6, exact: '5' }],
       valid: [''],
       invalid: ['a', 'ab'],
     });
