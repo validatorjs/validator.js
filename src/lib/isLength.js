@@ -40,6 +40,8 @@ export default function isLength(str, options) {
         break;
       }
     }
-  } else { ;}
+  } else { 
+    isPerfect = false;  
+  }
   return isPerfect;
 }
