@@ -4643,7 +4643,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
-      args: [5, 8, {'one': 6, 'two': 7}],
+      args: [5, 8, {one: 6, two: 7}],
       valid: ['evnvkn', 'fafesfe', 'abcdef'],
       invalid: ['', 'a', 'ab', 'vjidj', 'abcdefgh'],
     });
