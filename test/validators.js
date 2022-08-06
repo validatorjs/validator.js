@@ -4730,7 +4730,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
-      args: [{ max: 6, exact: {  } }],
+      args: [{ max: 6, exact: { } }],
       valid: [],
       invalid: ['abcd', 'abcdef', 'vfd', 'ff', '', 'k'],
     });
