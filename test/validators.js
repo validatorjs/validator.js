@@ -4629,6 +4629,12 @@ describe('Validators', () => {
       valid: [''],
       invalid: ['a', 'ab'],
     });
+    test({
+      validator: 'isLength',
+      args: [4],
+      valid: ['ab', 'abcd', 'cd', 'def'],
+      invalid: ['', 'a'],
+    });
   });
 
   it('should validate isLocale codes', () => {
