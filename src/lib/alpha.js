@@ -1,6 +1,7 @@
 export const alpha = {
   'en-US': /^[A-Z]+$/i,
   'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
+  'be-BY': /^[ёа-зй-шы-яЁА-ЗЙ-ШЫІіЎў]+$/i, /* BELARUSIAN */
   'bg-BG': /^[А-Я]+$/i,
   'cs-CZ': /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[A-ZÆØÅ]+$/i,
@@ -18,6 +19,7 @@ export const alpha = {
   'hu-HU': /^[A-ZÁÉÍÓÖŐÚÜŰ]+$/i,
   'pl-PL': /^[A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
   'pt-PT': /^[A-ZÃÁÀÂÄÇÉÊËÍÏÕÓÔÖÚÜ]+$/i,
+  'ro-RO': /^[A-ZĂÂÎȘȚăâîșț]+$/i, /* ROMANIAN */
   'ru-RU': /^[А-ЯЁ]+$/i,
   'kk-KZ': /^[А-ЯЁ\u04D8\u04B0\u0406\u04A2\u0492\u04AE\u049A\u04E8\u04BA]+$/i,
   'sl-SI': /^[A-ZČĆĐŠŽ]+$/i,
@@ -50,6 +52,7 @@ export const alpha = {
 export const alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
   'az-AZ': /^[0-9A-VXYZÇƏĞİıÖŞÜ]+$/i,
+  'be-BY': /^[0-9ёа-зй-шы-яЁА-ЗЙ-ШЫІіЎў]+$/i, /* BELARUSIAN */
   'bg-BG': /^[0-9А-Я]+$/i,
   'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[0-9A-ZÆØÅ]+$/i,
@@ -66,6 +69,7 @@ export const alphanumeric = {
   'nn-NO': /^[0-9A-ZÆØÅ]+$/i,
   'pl-PL': /^[0-9A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
   'pt-PT': /^[0-9A-ZÃÁÀÂÄÇÉÊËÍÏÕÓÔÖÚÜ]+$/i,
+  'ro-RO': /^[0-9A-ZĂÂÎȘȚăâîșț]+$/i, /* ROMANIAN */
   'ru-RU': /^[0-9А-ЯЁ]+$/i,
   'kk-KZ': /^[0-9А-ЯЁ\u04D8\u04B0\u0406\u04A2\u0492\u04AE\u049A\u04E8\u04BA]+$/i,
   'sl-SI': /^[0-9A-ZČĆĐŠŽ]+$/i,
