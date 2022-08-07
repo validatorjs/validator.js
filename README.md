@@ -198,6 +198,15 @@ XSS sanitization was removed from the library in [2d5d6999](https://github.com/v
 
 For an alternative, have a look at Yahoo's [xss-filters library](https://github.com/yahoo/xss-filters) or at [DOMPurify](https://github.com/cure53/DOMPurify).
 
+### Inclusive Language Aliases
+
+For compatability with [eslint-plugin-inclusive-language](https://github.com/muenzpraeger/eslint-plugin-inclusive-language), there are aliases for `blacklist` and `whitelist` as `denylist` and `allowlist` throughout, including these parameters:
+
+- `denylisted_chars`
+- `host_allowlist`
+- `host_denylist`
+- `isAllowlisted`
+
 ## Contributing
 
 In general, we follow the "fork-and-pull" Git workflow.

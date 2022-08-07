@@ -153,6 +153,10 @@ export default function isURL(url, options) {
     return checkHost(host, options.host_whitelist);
   }
 
+  if (options.host_allowlist) {
+    return checkHost(host, options.host_allowlist);
+  }
+
   if (host === '' && !options.require_host) {
     return true;
   }
@@ -164,6 +168,10 @@ export default function isURL(url, options) {
   host = host || ipv6;
 
   if (options.host_blacklist && checkHost(host, options.host_blacklist)) {
+    return false;
+  }
+
+  if (options.host_denylist && checkHost(host, options.host_denylist)) {
     return false;
   }
 

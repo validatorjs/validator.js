@@ -309,6 +309,19 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate email addresses with denylisted chars in the name', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ denylisted_chars: 'abc' }],
+      valid: [
+        'emil@gmail.com',
+      ],
+      invalid: [
+        'email@gmail.com',
+      ],
+    });
+  });
+
 
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
@@ -330,10 +343,24 @@ describe('Validators', () => {
     });
   });
 
-  it('should not validate email addresses with denylisted domains', () => {
+  it('should not validate email addresses with blacklisted domains', () => {
     test({
       validator: 'isEmail',
       args: [{ host_blacklist: ['gmail.com', 'foo.bar.com'] }],
+      valid: [
+        'email@foo.gmail.com',
+      ],
+      invalid: [
+        'foo+bar@gmail.com',
+        'email@foo.bar.com',
+      ],
+    });
+  });
+
+  it('should not validate email addresses with denylisted domains', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ host_denylist: ['gmail.com', 'foo.bar.com'] }],
       valid: [
         'email@foo.gmail.com',
       ],
@@ -689,11 +716,50 @@ describe('Validators', () => {
     });
   });
 
+  it('should let users specify a host allowlist', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        host_allowlist: ['foo.com', 'bar.com'],
+      }],
+      valid: [
+        'http://bar.com/',
+        'http://foo.com/',
+      ],
+      invalid: [
+        'http://foobar.com',
+        'http://foo.bar.com/',
+        'http://qux.com',
+      ],
+    });
+  });
+
   it('should allow regular expressions in the host whitelist', () => {
     test({
       validator: 'isURL',
       args: [{
         host_whitelist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'http://bar.com/',
+        'http://foo.com/',
+        'http://images.foo.com/',
+        'http://cdn.foo.com/',
+        'http://a.b.c.foo.com/',
+      ],
+      invalid: [
+        'http://foobar.com',
+        'http://foo.bar.com/',
+        'http://qux.com',
+      ],
+    });
+  });
+
+  it('should allow regular expressions in the host allowlist', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        host_allowlist: ['bar.com', 'foo.com', /\.foo\.com$/],
       }],
       valid: [
         'http://bar.com/',
@@ -728,11 +794,50 @@ describe('Validators', () => {
     });
   });
 
+  it('should let users specify a host denylist', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        host_denylist: ['foo.com', 'bar.com'],
+      }],
+      valid: [
+        'http://foobar.com',
+        'http://foo.bar.com/',
+        'http://qux.com',
+      ],
+      invalid: [
+        'http://bar.com/',
+        'http://foo.com/',
+      ],
+    });
+  });
+
   it('should allow regular expressions in the host blacklist', () => {
     test({
       validator: 'isURL',
       args: [{
         host_blacklist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'http://foobar.com',
+        'http://foo.bar.com/',
+        'http://qux.com',
+      ],
+      invalid: [
+        'http://bar.com/',
+        'http://foo.com/',
+        'http://images.foo.com/',
+        'http://cdn.foo.com/',
+        'http://a.b.c.foo.com/',
+      ],
+    });
+  });
+
+  it('should allow regular expressions in the host denylist', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        host_denylist: ['bar.com', 'foo.com', /\.foo\.com$/],
       }],
       valid: [
         'http://foobar.com',
@@ -10667,6 +10772,15 @@ describe('Validators', () => {
   it('should validate whitelisted characters', () => {
     test({
       validator: 'isWhitelisted',
+      args: ['abcdefghijklmnopqrstuvwxyz-'],
+      valid: ['foo', 'foobar', 'baz-foo'],
+      invalid: ['foo bar', 'fo.bar', 'türkçe'],
+    });
+  });
+
+  it('should validate allowlisted characters', () => {
+    test({
+      validator: 'isAllowlisted',
       args: ['abcdefghijklmnopqrstuvwxyz-'],
       valid: ['foo', 'foobar', 'baz-foo'],
       invalid: ['foo bar', 'fo.bar', 'türkçe'],
