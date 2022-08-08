@@ -7,7 +7,7 @@ export default function isLength(str, options) {
   let max;
   let exact;
   let result;
-  let isPerfect = false;
+  let isValid = false;
   if (typeof (options) === 'object') {
     min = options.min || 0;
     max = options.max;
@@ -25,22 +25,22 @@ export default function isLength(str, options) {
   if (Array.isArray(exact) === true) {
     for (let oneElem of exact) {
       if (len === oneElem) {
-        isPerfect = true;
+        isValid = true;
         break;
       }
     }
   } else if (typeof exact === 'number') {
     if (len === exact) {
-      isPerfect = true;
+      isValid = true;
     }
   } else if (typeof exact === 'object') {
     for (let key in exact) {
       if (len === exact[key]) {
-        isPerfect = true;
+        isValid = true;
       }
     }
   } else {
-    isPerfect = false;
+    isValid = false;
   }
-  return isPerfect;
+  return isValid;
 }
