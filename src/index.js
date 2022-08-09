@@ -120,12 +120,13 @@ import normalizeEmail from './lib/normalizeEmail';
 import isSlug from './lib/isSlug';
 import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
-
+import isNotOnlySpecial from './lib/isNotOnlySpecial';
 import isVAT from './lib/isVAT';
 
 const version = '13.7.0';
 
 const validator = {
+  isNotOnlySpecial,
   version,
   toDate,
   toFloat,
