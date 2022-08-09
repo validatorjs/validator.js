@@ -171,6 +171,7 @@ Validator                               | Description
 **isVAT(str, countryCode)**             | checks that the string is a [valid VAT number](https://en.wikipedia.org/wiki/VAT_identification_number) if validation is available for the given country code matching [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). <br/><br/>Available country codes: `[ 'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'EL', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'AL', 'MK', 'AU', 'BY', 'CA', 'IS', 'IN', 'ID', 'IL', 'KZ', 'NZ', 'NG', 'NO', 'PH', 'RU', 'SM', 'SA', 'RS', 'CH', 'TR', 'UA', 'GB', 'UZ', 'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'SV', 'GT', 'HN', 'MX', 'NI', 'PA', 'PY', 'PE', 'DO', 'UY', 'VE' ]`.
 **isWhitelisted(str, chars)**           | checks characters if they appear in the whitelist.
 **matches(str, pattern [, modifiers])** | check if string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
+**isNotOnlySpecial(str)**           | checks the string to see if it doesn't only contain special characters.
 
 ## Sanitizers
 
