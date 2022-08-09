@@ -2,5 +2,9 @@ import assertString from './util/assertString';
 
 export default function isNotOnlySpecial(str) {
   assertString(str);
-  return str.match(/^[A-Z#@,]+$/) || false;
+  if(str.match(/^[^A-Z0-9]*$/i)){
+  return false;
+  }
+  else
+  return true;
 }
