@@ -114,7 +114,7 @@ describe('Validators', () => {
         'multiple..dots@gmail.com',
         'wrong()[]",:;<>@@gmail.com',
         '"wrong()[]",:;<>@@gmail.com',
-        'username@domain.com�',
+        'username@domain.com ',
         'username@domain.com©',
       ],
     });
@@ -1240,7 +1240,7 @@ describe('Validators', () => {
         's!ome.com',
         'domain.com/',
         '/more.com',
-        'domain.com�',
+        'domain.com ',
         'domain.co\u00A0m',
         'domain.co\u1680m',
         'domain.co\u2006m',
@@ -13362,6 +13362,27 @@ describe('Validators', () => {
       args: ['invalidCountryCode'],
       error: [
         'GB999 9999 00',
+      ],
+    });
+  });
+  it('should only validate strings that are not just made of special characters', () => {
+    test({
+      validator: 'isNotOnlySpecial',
+      valid: [
+        'AB#',
+        'abx23253$@#',
+        'foo@bar.com.au',
+	  '1213314255',
+	  '*!#&*(!)Abx',
+	  'aksk@100.ghivy.edu.in',      
+	],
+      invalid: [
+        '@!##!@',
+        '^(^^$#@',
+        '!@#!$%@%',
+        '!@$%@!%!',
+        '(&*(*(*&^',
+        '!@#$',
       ],
     });
   });
