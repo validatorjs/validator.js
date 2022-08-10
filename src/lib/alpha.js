@@ -41,7 +41,7 @@ export const alpha = {
 export const alphanumeric = {
   'en-US': /^[0-9A-Z]+$/i,
   'az-AZ': /^[0-9A-VXYZÇƏĞİıÖŞÜ]+$/i,
-  'be-BY': /^[0-9ёа-зй-шы-яЁА-ЗЙ-ШЫІіЎў]+$/i, /* BELARUSIAN */
+  'be-BY': /^[0-9ёа-зй-шы-яЁА-ЗЙ-ШЫІіЎў]+$/i,
   'bg-BG': /^[0-9А-Я]+$/i,
   'cs-CZ': /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+$/i,
   'da-DK': /^[0-9A-ZÆØÅ]+$/i,
