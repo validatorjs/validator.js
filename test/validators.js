@@ -4631,33 +4631,9 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
-      args: [2, 8, 6],
+      args: [2, 8],
       valid: ['Helloo', 'Laptop'],
       invalid: ['', 'a', 'ab', 'vjidj'],
-    });
-    test({
-      validator: 'isLength',
-      args: [2, 8, [6, 7]],
-      valid: ['Helloot', 'Laptopr', 'abcdef'],
-      invalid: ['', 'a', 'ab', 'vjidj'],
-    });
-    test({
-      validator: 'isLength',
-      args: [2, 8, '9'],
-      valid: [],
-      invalid: ['a', 'ab', 'vjidj'],
-    });
-    test({
-      validator: 'isLength',
-      args: [5, 8, { one: 6, two: 7 }],
-      valid: ['evnvkn', 'fafesfe', 'abcdef'],
-      invalid: ['', 'a', 'ab', 'vjidj', 'abcdefgh'],
-    });
-    test({
-      validator: 'isLength',
-      args: [5, 8, { first: 9, second: 10, third: 8 }],
-      valid: ['abcdefgh'],
-      invalid: ['', 'a', 'ab', 'vjidj', 'abcdefghjj', 'hhdjsdv'],
     });
   });
 
@@ -4757,6 +4733,18 @@ describe('Validators', () => {
       args: [{ max: 0 }],
       valid: [''],
       invalid: ['a', 'ab'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 5, max: 10, exact: [6, 8, 9] }],
+      valid: ['helloguy', 'shopping', 'validator', 'length'],
+      invalid: ['abcde', 'abcdefg'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 5, max: 10, exact: { first: 6, second: 8, third: 9} }],
+      valid: ['helloguy', 'shopping', 'validator', 'length'],
+      invalid: ['abcde', 'abcdefg', 'abcdefghij'],
     });
     test({
       validator: 'isLength',

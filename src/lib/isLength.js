@@ -15,7 +15,6 @@ export default function isLength(str, options) {
   } else { // backwards compatibility: isLength(str, min [, max])
     min = arguments[1] || 0;
     max = arguments[2];
-    exact = arguments[3];
   }
   const presentationSequences = str.match(/(\uFE0F|\uFE0E)/g) || [];
   const surrogatePairs = str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || [];
