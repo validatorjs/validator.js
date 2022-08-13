@@ -38,8 +38,6 @@ export default function isLength(str, options) {
         isValid = true;
       }
     }
-  } else {
-    isValid = false;
   }
   return isValid;
 }

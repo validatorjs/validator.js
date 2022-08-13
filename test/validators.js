@@ -4629,12 +4629,6 @@ describe('Validators', () => {
       valid: [''],
       invalid: ['a', 'ab'],
     });
-    test({
-      validator: 'isLength',
-      args: [2, 8],
-      valid: ['Helloo', 'Laptop', 'ab'],
-      invalid: ['', 'a'],
-    });
   });
 
   it('should validate isLocale codes', () => {
@@ -4724,7 +4718,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
-      args: [{ exact: 2 }],
+      args: [{ min: 1, exact: 2 }],
       valid: ['fg', 'ff', 'po'],
       invalid: ['bsa', 'vfvd', '', 'k'],
     });
