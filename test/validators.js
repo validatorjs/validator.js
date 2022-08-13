@@ -4748,6 +4748,12 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
+      args: [{ exact: '9' }],
+      valid: [],
+      invalid: ['a', 'abcd', 'abcdefghijkl'],
+    });
+    test({
+      validator: 'isLength',
       valid: ['a', '', 'asds'],
     });
     test({
