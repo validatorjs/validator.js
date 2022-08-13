@@ -4724,7 +4724,7 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
-      args: [{ min: 5, max: 10, exact: [6, 8, 9] }],
+      args: [{ min: 5, max: 10, exact: [2, 6, 8, 9] }],
       valid: ['helloguy', 'shopping', 'validator', 'length'],
       invalid: ['abcde', 'abcdefg'],
     });
