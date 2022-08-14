@@ -4623,6 +4623,12 @@ describe('Validators', () => {
       valid: ['干𩸽', '𠮷野家'],
       invalid: ['', '𠀋', '千竈通り'],
     });
+    test({
+      validator: 'isLength',
+      args: [0, 0],
+      valid: [''],
+      invalid: ['a', 'ab'],
+    });
   });
 
   it('should validate isLocale codes', () => {
