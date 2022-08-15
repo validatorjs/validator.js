@@ -7,13 +7,15 @@ const rgbaColorPercent = /^rgba\((([0-9]%|[1-9][0-9]%|100%),){3}(0?\.\d|1(\.0)?|
 
 export default function isRgbColor(str, includePercentValues = true) {
   assertString(str);
+  // remove spaces
+  const strippedStr = str.replace(/\s/g, '');
 
   if (!includePercentValues) {
-    return rgbColor.test(str) || rgbaColor.test(str);
+    return rgbColor.test(strippedStr) || rgbaColor.test(strippedStr);
   }
 
-  return rgbColor.test(str) ||
-    rgbaColor.test(str) ||
-    rgbColorPercent.test(str) ||
-    rgbaColorPercent.test(str);
+  return rgbColor.test(strippedStr) ||
+    rgbaColor.test(strippedStr) ||
+    rgbColorPercent.test(strippedStr) ||
+    rgbaColorPercent.test(strippedStr);
 }
