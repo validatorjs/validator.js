@@ -4565,6 +4565,7 @@ describe('Validators', () => {
         'rgba(5%,5%,5%,.3)',
         'rgb( 255,255 ,255)',
         'rgba(255, 255, 255, 0.5)',
+        'rgba(255, 255, 255, 0.5)',
       ],
       invalid: [
         'rgb(0,0,0,)',
@@ -4582,6 +4583,8 @@ describe('Validators', () => {
         'rgba(3%,3%,101%,0.3)',
         'rgb(101%,101%,101%) additional invalid string part',
         'rgba(3%,3%,101%,0.3) additional invalid string part',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
       ],
     });
 
