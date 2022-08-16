@@ -4309,6 +4309,42 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate keyword colors', () => {
+    test({
+      validator: 'isKeywordColor',
+      valid: [
+        'transparent',
+        'currentcolor',
+        'black',
+        'red',
+      ],
+      invalid: [
+        '',
+        'fake',
+      ],
+    });
+  });
+
+  it('should validate all css color formats', () => {
+    test({
+      validator: 'isCssColor',
+      valid: [
+        '#ff0034',
+        '#f00',
+        'rgb(255,255,255)',
+        'hsl(0, 0%, 13%)',
+        'red',
+      ],
+      invalid: [
+        '#ff',
+        'fff0a',
+        'rgb(0,0)',
+        'hsl(0260, 100 %, 100%)',
+        'fake',
+      ],
+    });
+  });
+
   it('should validate ISRC code strings', () => {
     test({
       validator: 'isISRC',
