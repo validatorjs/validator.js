@@ -4585,7 +4585,7 @@ describe('Validators', () => {
         'rgba(3%,3%,101%,0.3) additional invalid string part',
         'r         g    b(   0,         251,       222     )',
         'r         g    ba(   0,         251,       222     )',
-        rg ba(0, 251, 22, 0.5)',
+        'rg ba(0, 251, 22, 0.5)',
       ],
     });
 
