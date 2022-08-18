@@ -6,17 +6,23 @@ const rgbColorPercent = /^rgb\((([0-9]%|[1-9][0-9]%|100%),){2}([0-9]%|[1-9][0-9]
 const rgbaColorPercent = /^rgba\((([0-9]%|[1-9][0-9]%|100%),){3}(0?\.\d|1(\.0)?|0(\.0)?)\)$/;
 const startsWithRgb = /^rgba?/;
 
-export default function isRgbColor(str, includePercentValues = true) {
+export default function isRgbColor(str, includePercentValues = true, strict = true) {
   assertString(str);
   // remove spaces
-  const strippedStr = str.replace(/\s/g, '');
-
-  if (!includePercentValues) {
-    return rgbColor.test(strippedStr) || rgbaColor.test(strippedStr);
+  if (!strict) {
+    // make sure it starts with continous rgba? without spaces before stripping
+    if (!startsWithRgb.test(str)) {
+      return false;
+    }
+    str = str.replace(/\s/g, '');
   }
 
-  return startsWithRgb.test(str) && (rgbColor.test(strippedStr) ||
-    rgbaColor.test(strippedStr) ||
-    rgbColorPercent.test(strippedStr) ||
-    rgbaColorPercent.test(strippedStr));
+  if (!includePercentValues) {
+    return rgbColor.test(str) || rgbaColor.test(str);
+  }
+
+  return rgbColor.test(str) ||
+    rgbaColor.test(str) ||
+    rgbColorPercent.test(str) ||
+    rgbaColorPercent.test(str);
 }
