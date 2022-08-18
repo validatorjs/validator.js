@@ -4511,7 +4511,6 @@ describe('Validators', () => {
       ],
     });
   });
- 
   it('should validate JWS tokens', () => {
     test({
       validator: 'isJWT',
@@ -4536,7 +4535,6 @@ describe('Validators', () => {
       ],
     });
   });
-  
   it('should validate JWE tokens', () => {
     test({
       validator: 'isJWT',
