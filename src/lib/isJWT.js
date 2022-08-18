@@ -7,6 +7,7 @@ export default function isJWT(str, jwe = false) {
   const dotSplit = str.split('.');
   const len = dotSplit.length;
 
+  /*eslint no-lonely-if: "error"*/
   if (!jwe) {
     if (len > 3 || len < 2) {
       return false;
