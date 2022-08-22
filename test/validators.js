@@ -11623,6 +11623,20 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['en-IN'],
+      valid: [
+        'AAAAA1111A',
+        'BBBBB1111B',
+        'CCCCC1111C',
+        'FFFFF1111F'],
+      invalid: [
+        'DDDDD1111D',
+        '1234567890',
+        'ABCDEFGHIJ',
+        'ABCDE1234F'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['en-US'],
       valid: [
         '01-1234567',
