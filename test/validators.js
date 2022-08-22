@@ -11628,7 +11628,8 @@ describe('Validators', () => {
         'AAAAA1111A',
         'BBBBB1111B',
         'CCCCC1111C',
-        'FFFFF1111F'],
+        'FFFFF0001F',
+        'ZZZFZ9999Z'],
       invalid: [
         'DDDDD1111D',
         '1234567890',
