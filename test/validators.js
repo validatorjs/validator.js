@@ -5397,7 +5397,7 @@ describe('Validators', () => {
     });
   });
 
-  
+
   it('should validate identity cards', () => {
     const fixtures = [
       {
