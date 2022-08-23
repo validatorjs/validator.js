@@ -13,6 +13,7 @@ const defaultOptions = {
   minNumbers: 1,
   minSymbols: 1,
   returnScore: false,
+  returnIndividualScores: false,
   pointsPerUnique: 1,
   pointsPerRepeat: 0.5,
   pointsForContainingLower: 10,
@@ -82,12 +83,27 @@ function scorePassword(analysis, scoringOptions) {
   return points;
 }
 
+function individualScoreResults(analysis) {
+  const individualScores = {
+    length: analysis.length,
+    uniqueChars: analysis.uniqueChars,
+    lowercaseCount: analysis.lowercaseCount,
+    uppercaseCount: analysis.uppercaseCount,
+    numberCount: analysis.numberCount,
+    symbolCount: analysis.symbolCount,
+  };
+  return individualScores;
+}
+
 export default function isStrongPassword(str, options = null) {
   assertString(str);
   const analysis = analyzePassword(str);
   options = merge(options || {}, defaultOptions);
   if (options.returnScore) {
     return scorePassword(analysis, options);
+  }
+  if (options.returnIndividualScores) {
+    return individualScoreResults(analysis);
   }
   return analysis.length >= options.minLength
         && analysis.lowercaseCount >= options.minLowercase
