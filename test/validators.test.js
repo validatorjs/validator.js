@@ -13899,7 +13899,8 @@ describe('Validators', () => {
         'DDDDD1111D',
         '1234567890',
         'ABCDEFGHIJ',
-        'ABCDE1234F'],
+        'ABCDE1234F',
+        'AAAAA0000A'],
     });
     test({
       validator: 'isTaxID',
