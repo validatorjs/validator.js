@@ -4660,10 +4660,10 @@ describe('Validators', () => {
       ],
     });
 
-    // test where strict is false
+    // test where include percent is true explciitly
     test({
       validator: 'isRgbColor',
-      args: [true, false],
+      args: [true],
       valid: [
         'rgb(5,5,5)',
         'rgba(5,5,5,.3)',
@@ -4675,12 +4675,12 @@ describe('Validators', () => {
         'rgba(255,255,255,0.1)',
         'rgb(5%,5%,5%)',
         'rgba(5%,5%,5%,.3)',
-        'rgb( 255,255 ,255)',
-        'rgba(255, 255, 255, 0.5)',
-        'rgb(5%, 5%, 5%)',
-        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%,5%,5%)',
+        'rgba(255,255,255,0.5)',
       ],
       invalid: [
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
         'rgb(4,4,5%)',
         'rgba(5%,5%,5%)',
         'r         g    b(   0,         251,       222     )',
