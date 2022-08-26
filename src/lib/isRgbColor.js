@@ -19,9 +19,6 @@ export default function isRgbColor(str, options) {
     if (arguments.length >= 2) {
       includePercentValues = arguments[1];
     }
-    if (arguments.length >= 3) {
-      strict = arguments[2];
-    }
   } else {
     strict = options.strict !== undefined ? options.strict : true;
     includePercentValues = options.includePercentValues !== undefined ?
