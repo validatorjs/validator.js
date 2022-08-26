@@ -4655,6 +4655,7 @@ describe('Validators', () => {
         'rgb(4,4,5%)',
         'rgba(5%,5%,5%)',
         'r         g    b(   0,         251,       222     )',
+        'rgba(255, 255, 255 ,0.2)',
         'r         g    ba(   0,         251,       222     )',
       ],
     });
@@ -4700,10 +4701,37 @@ describe('Validators', () => {
       ],
     });
 
-    // test where strict is false as part of options object
+    // test where percent value and strict are false as part of options object
     test({
       validator: 'isRgbColor',
-      args: [{ includePercentValues: true, strict: false }],
+      args: [{ includePercentValues: false, strict: false }],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+        'rgba(255,255,255,0.2)',
+        'rgba(255, 255, 255 ,0.2)',
+      ],
+      invalid: [
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(5% ,5%, 5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rgb(0,0,)',
+        'rgb()',
+        'rgb(4,4,5%)',
+        'rgb(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%, 101%, 101%)',
+        'rgba(3%,3%,101%,0.3)',
+      ],
+
+    });
+
+    // test where strict is true as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: true, strict: true }],
       valid: [
         'rgb(5,5,5)',
         'rgba(5,5,5,.3)',
@@ -4715,12 +4743,13 @@ describe('Validators', () => {
         'rgba(255,255,255,0.1)',
         'rgb(5%,5%,5%)',
         'rgba(5%,5%,5%,.3)',
+
+      ],
+      invalid: [
         'rgb( 255,255 ,255)',
         'rgba(255, 255, 255, 0.5)',
         'rgb(5%, 5%, 5%)',
         'rgba(255, 255, 255, 0.5)',
-      ],
-      invalid: [
         'rgb(4,4,5%)',
         'rgba(5%,5%,5%)',
         'r         g    b(   0,         251,       222     )',
