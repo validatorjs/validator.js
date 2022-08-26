@@ -7,7 +7,7 @@ const rgbColorPercent = /^rgb\((([0-9]%|[1-9][0-9]%|100%),){2}([0-9]%|[1-9][0-9]
 const rgbaColorPercent = /^rgba\((([0-9]%|[1-9][0-9]%|100%),){3}(0?\.\d|1(\.0)?|0(\.0)?)\)$/;
 const startsWithRgb = /^rgba?/;
 
-export default function isRgbColor(str, options) {
+export default function isRgbColor(str, options = { includePercentValues: true, strict: true} ) {
   assertString(str);
   // remove spaces
   let strict, includePercentValues;
