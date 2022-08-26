@@ -11,13 +11,9 @@ export default function isRgbColor(str, options) {
   assertString(str);
   // remove spaces
   let strict, includePercentValues;
-  if (typeof options === 'object') {
-    strict = options.strict !== undefined ? options.strict : true;
-    includePercentValues = options.includePercentValues !== undefined ?
-      options.includePercentValues : true;
-  } else {
+
+  if (typeof options !== 'object') {
     // backward compaitable behaviour
-    // Defaults
     strict = true;
     includePercentValues = true;
     if (arguments.length >= 2) {
@@ -26,6 +22,10 @@ export default function isRgbColor(str, options) {
     if (arguments.length >= 3) {
       strict = arguments[2];
     }
+  } else {
+    strict = options.strict !== undefined ? options.strict : true;
+    includePercentValues = options.includePercentValues !== undefined ?
+      options.includePercentValues : true;
   }
 
   if (!strict) {
