@@ -4701,10 +4701,10 @@ describe('Validators', () => {
       ],
     });
 
-    // test where percent value and strict are false as part of options object
+    // test where percent value is false and allowSpaces is true as part of options object
     test({
       validator: 'isRgbColor',
-      args: [{ includePercentValues: false, strict: false }],
+      args: [{ includePercentValues: false, allowSpaces: true }],
       valid: [
         'rgb(5,5,5)',
         'rgba(5,5,5,.3)',
@@ -4728,10 +4728,34 @@ describe('Validators', () => {
 
     });
 
-    // test where strict is true as part of options object
+    // test where both are true as part of options object
     test({
       validator: 'isRgbColor',
-      args: [{ includePercentValues: true, strict: true }],
+      args: [{ includePercentValues: true, allowSpaces: true }],
+      valid: [
+        'rgb(  5, 5, 5)',
+        'rgba(5, 5, 5, .3)',
+        'rgb(0, 0, 0)',
+        'rgb(255, 255, 255)',
+        'rgba(0, 0, 0, 0)',
+        'rgba(255, 255, 255, 1)',
+        'rgba(255, 255, 255, .1)',
+        'rgba(255, 255, 255, 0.1)',
+        'rgb(5% ,5% ,5%)',
+        'rgba(5%,5%,5%, .3)',
+      ],
+      invalid: [
+        'r         g    b(   0,         251,       222     )',
+        'rgb(4,4,5%)',
+        'rgb(101%,101%,101%)',
+
+      ],
+    });
+
+    // test where allowSpaces is false as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: true, allowSpaces: false }],
       valid: [
         'rgb(5,5,5)',
         'rgba(5,5,5,.3)',

@@ -9,20 +9,20 @@ const startsWithRgb = /^rgba?/;
 
 export default function isRgbColor(str, options) {
   assertString(str);
-  // default options to true
-  let strict = true;
+  // default options to true for percent and false for spaces
+  let allowSpaces = false;
   let includePercentValues = true;
   if (typeof options !== 'object') {
     if (arguments.length >= 2) {
       includePercentValues = arguments[1];
     }
   } else {
-    strict = options.strict !== undefined ? options.strict : true;
+    allowSpaces = options.allowSpaces !== undefined ? options.allowSpaces : allowSpaces;
     includePercentValues = options.includePercentValues !== undefined ?
-      options.includePercentValues : true;
+      options.includePercentValues : includePercentValues;
   }
 
-  if (!strict) {
+  if (allowSpaces) {
     // make sure it starts with continous rgba? without spaces before stripping
     if (!startsWithRgb.test(str)) {
       return false;
