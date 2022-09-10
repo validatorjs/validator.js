@@ -12472,6 +12472,38 @@ describe('Validators', () => {
       ],
       invalid: ['mh04ad0045', 'invalidlicenseplate', '4578', '', 'GJ054GH4785'],
     });
+    test({
+      validator: 'isLicensePlate',
+      args: ['sr-RS'],
+      valid: [
+        'BG 1234 AZ',
+        'BG 123 AZ',
+        'BG-123-AZ',
+        'NS555DS',
+        'BG123AZ',
+        'VŠ123VŠ',
+        'BG 094 ĆM',
+        'BG-12456',
+        'KŽ 543 AA',
+        'П555333',
+      ],
+      invalid: [
+        '',
+        ' ',
+        'AAA 00 AAA',
+        'AB123DC',
+        'AB-123-VŠ',
+        'BG-123_AZ',
+        'BG_123_AZ',
+        'BG-12-AZ',
+        'BG-12456-AZ',
+        'BG 123 AÜ',
+        'BG-124563',
+        'П2233',
+        'NS-123.AZ',
+        '-KŽ 543 AA-',
+      ],
+    });
   });
   it('should validate VAT numbers', () => {
     test({

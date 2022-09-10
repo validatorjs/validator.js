@@ -16,6 +16,7 @@ const validators = {
   'sv-SE': str =>
     /^[A-HJ-PR-UW-Z]{3} ?[\d]{2}[A-HJ-PR-UW-Z1-9]$|(^[A-ZÅÄÖ ]{2,7}$)/.test(str.trim()),
   'en-IN': str => /^[A-Z]{2}[ -]?[0-9]{1,2}(?:[ -]?[A-Z])(?:[ -]?[A-Z]*)?[ -]?[0-9]{4}$/.test(str),
+  'sr-RS': str => /(^(AL|AR|AC|BG|BO|BP|BT|BĆ|BU|BČ|VA|VB|VL|VP|VR|VS|VŠ|GL|GM|DE|ĐA|ZA|ZR|IN|IC|JA|KA|KV|KG|KŽ|KI|KL|KM|KO|KŠ|LB|LE|LO|LU|NV|NG|NI|NP|NS|PA|PB|PE|PŽ|PZ|PI|PK|PN|PO|PP|PR|PT|RA|RU|SA|SV|SD|SM|SO|SP|ST|SU|TO|TS|TT|ĆU|UB|UE|UR|ČA|ŠA|ŠI)[- ]?\d{3,4}[- ]?[A-ZČĆĐŠŽ]{2}$)|(^П[- ]?\d{3}[- ]?\d{3}$)|(^(AL|AR|AC|BG|BO|BP|BT|BĆ|BU|BČ|VA|VB|VL|VP|VR|VS|VŠ|GL|GM|DE|ĐA|ZA|ZR|IN|IC|JA|KA|KV|KG|KŽ|KI|KL|KM|KO|KŠ|LB|LE|LO|LU|NV|NG|NI|NP|NS|PA|PB|PE|PŽ|PZ|PI|PK|PN|PO|PP|PR|PT|RA|RU|SA|SV|SD|SM|SO|SP|ST|SU|TO|TS|TT|ĆU|UB|UE|UR|ČA|ŠA|ŠI)[- ]?\d{2}[- ]?\d{3}$)/.test(str),
 };
 
 validators['hi-IN'] = validators['en-IN'];
