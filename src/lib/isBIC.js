@@ -9,7 +9,7 @@ export default function isBIC(str) {
 
   // toUpperCase() should be removed when a new major version goes out that changes
   // the regex to [A-Z] (per the spec).
-  if (!CountryCodes.has(str.slice(4, 6).toUpperCase()) && str.slice(4, 6).toUpperCase() !== "XK") {
+  if (!CountryCodes.has(str.slice(4, 6).toUpperCase()) && str.slice(4, 6).toUpperCase() !== 'XK') {
     return false;
   }
 
