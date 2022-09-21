@@ -7,10 +7,10 @@ const isBICReg = /^[A-Za-z]{6}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$/;
 export default function isBIC(str) {
   assertString(str);
 
-  const countryCode = str.slice(4, 6).toUpperCase();
-
   // toUpperCase() should be removed when a new major version goes out that changes
   // the regex to [A-Z] (per the spec).
+  const countryCode = str.slice(4, 6).toUpperCase();
+
   if (!CountryCodes.has(countryCode) && countryCode !== 'XK') {
     return false;
   }
