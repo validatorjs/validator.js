@@ -48,6 +48,7 @@ const passportRegexByCountryCode = {
   MY: /^[AHK]\d{8}$/, // MALAYSIA
   MX: /^\d{10,11}$/, // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
+  PK: /^[A-Z]{2}\d{7}$/, // PAKISTAN
   PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
   RO: /^\d{8,9}$/, // ROMANIA
