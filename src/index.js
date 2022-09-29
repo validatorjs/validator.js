@@ -37,6 +37,7 @@ import isSurrogatePair from './lib/isSurrogatePair';
 
 import isInt from './lib/isInt';
 import isFloat, { locales as isFloatLocales } from './lib/isFloat';
+import isBinary from './lib/isBinary';
 import isDecimal from './lib/isDecimal';
 import isHexadecimal from './lib/isHexadecimal';
 import isOctal from './lib/isOctal';
@@ -163,6 +164,7 @@ const validator = {
   isIMEI,
   isFloat,
   isFloatLocales,
+  isBinary,
   isDecimal,
   isHexadecimal,
   isOctal,
