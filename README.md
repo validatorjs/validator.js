@@ -100,6 +100,7 @@ Validator                               | Description
 **isBase64(str [, options])**          | check if a string is base64 encoded. options is optional and defaults to `{urlSafe: false}`<br/> when `urlSafe` is true it tests the given base64 encoded string is [url safe](https://base64.guru/standards/base64url)
 **isBefore(str [, date])**              | check if the string is a date that's before the specified date.
 **isBIC(str)**                          | check if a string is a BIC (Bank Identification Code) or SWIFT code.
+**isBinary(str)**                       | check if a string is a binary string (contains only 0's and 1's and isn't empty).
 **isBoolean(str [, options])**          | check if a string is a boolean.<br/>`options` is an object which defaults to `{ loose: false }`. If loose is is set to false, the validator will strictly match ['true', 'false', '0', '1']. If loose is set to true, the validator will also match 'yes', 'no', and will match a valid boolean string of any case. (eg: ['true', 'True', 'TRUE']).
 **isBtcAddress(str)**            | check if the string is a valid BTC address.
 **isByteLength(str [, options])**          | check if the string's length (in UTF-8 bytes) falls in a range.<br/><br/>`options` is an object which defaults to `{min:0, max: undefined}`.

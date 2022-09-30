@@ -4197,6 +4197,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate binary strings', () => {
+    test({
+      validator: 'isBinary',
+      valid: [
+        '01110',
+        '0',
+        '1',
+        '000',
+        '111',
+        '1101',
+      ],
+      invalid: [
+        '10111001101102',
+        'b100010111101',
+        '2',
+        '-0',
+        '',
+        '..',
+      ],
+    });
+  });
+
   it('should validate hexadecimal color strings', () => {
     test({
       validator: 'isHexColor',
