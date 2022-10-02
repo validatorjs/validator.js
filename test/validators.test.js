@@ -12659,7 +12659,6 @@ describe('Validators', () => {
         ],
       },
       {
-        // https://www.pakpost.gov.pk/postcodes.php
         locale: 'PK',
         valid: [
           '25000',
