@@ -12659,6 +12659,23 @@ describe('Validators', () => {
         ],
       },
       {
+        // https://www.pakpost.gov.pk/postcodes.php
+        locale: 'PK',
+        valid: [
+          '25000',
+          '44000',
+          '54810',
+          '74200'
+        ],
+        invalid: [
+          '5400',
+          '540000',
+          'NY540',
+          '540CA',
+          '540-0'
+        ],
+      },
+      {
         locale: 'MG',
         valid: [
           '101',
