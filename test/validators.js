@@ -116,6 +116,12 @@ describe('Validators', () => {
         '"wrong()[]",:;<>@@gmail.com',
         'username@domain.com�',
         'username@domain.com©',
+        'invisibleChars@example­.com',
+        'invisible​Space@test.com',
+        // has invisible space character \u200B at the start
+        '​user@domain.com',
+        'invisibleZeroWidth‍Joiner@test.com',
+        'invisible⁡WordJoiner@example.com',
       ],
     });
   });
