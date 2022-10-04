@@ -28,6 +28,7 @@ export default function isDate(input, options) {
     options = merge(options, default_date_options);
   }
   if (typeof input === 'string' && isValidFormat(options.format)) {
+    if (options.strictMode && input.length !== options.format.length) return false;
     const formatDelimiter = options.delimiters
       .find(delimiter => options.format.indexOf(delimiter) !== -1);
     const dateDelimiter = options.strictMode
