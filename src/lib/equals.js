@@ -1,6 +1,9 @@
 import assertString from './util/assertString';
 
-export default function equals(str, comparison) {
+const deafaultOptions = { sensitivity: undefined, locales: undefined };
+export default function equals(str, comparison, options = deafaultOptions) {
   assertString(str);
-  return str === comparison;
+  return (options.sensitivity === undefined) ?
+    (str === comparison) :
+    str.localeCompare(comparison, options.locales, { sensitivity: options.sensitivity }) === 0;
 }
