@@ -123,6 +123,8 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
+import isEmoji from './lib/isEmoji';
+
 const version = '13.7.0';
 
 const validator = {
@@ -141,6 +143,7 @@ const validator = {
   isIPRange,
   isFQDN,
   isBoolean,
+  isEmoji,
   isIBAN,
   isBIC,
   isAlpha,
