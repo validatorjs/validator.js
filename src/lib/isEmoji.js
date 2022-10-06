@@ -10,3 +10,5 @@ function isEmoji(str) {
     return false;
   }
 }
+
+export default isEmoji;
