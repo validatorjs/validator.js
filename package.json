@@ -71,5 +71,8 @@
   "engines": {
     "node": ">= 0.10"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "validator": "^13.7.0"
+  }
 }
