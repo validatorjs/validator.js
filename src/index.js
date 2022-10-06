@@ -123,7 +123,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-import isEmoji from './lib/isEmoji';  
+import isEmoji from './lib/isEmoji';
 
 const version = '13.7.0';
 
