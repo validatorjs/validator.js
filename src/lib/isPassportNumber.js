@@ -10,7 +10,8 @@ const passportRegexByCountryCode = {
   AM: /^[A-Z]{2}\d{7}$/, // ARMENIA
   AR: /^[A-Z]{3}\d{6}$/, // ARGENTINA
   AT: /^[A-Z]\d{7}$/, // AUSTRIA
-  AU: /^[A-Z]\d{7}$/, // AUSTRALIA
+  AU: /^[A-Z]\d{7}$/, // AUSTRALIA,
+  AZ: /^[A-Z]{2,3}\d{7,8}$/, // AZERBAIJAN
   BE: /^[A-Z]{2}\d{6}$/, // BELGIUM
   BG: /^\d{9}$/, // BULGARIA
   BR: /^[A-Z]{2}\d{6}$/, // BRAZIL
