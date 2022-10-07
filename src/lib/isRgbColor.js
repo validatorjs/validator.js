@@ -10,16 +10,16 @@ export default function isRgbColor(str, includePercentValues = true) {
   if (!includePercentValues) {
     return rgbColor.test(str) || rgbaColor.test(str);
   }
-  
-  const spaceCount = (str.split(" ").length - 1);
-  console.log(spaceCount)
-  const commaCount = (str.split(", ").length - 1);
-  console.log(commaCount)
-  const percentageCount = (str.split("%, ").length - 1);
-  console.log(percentageCount)
-  if(spaceCount !== commaCount && spaceCount !== percentageCount){
-      console.log("Please provide valid input like rgb(255,255,255) or rgb(255, 255, 255) or rgba(5%,5%,5%,.3) or rgba(5%, 5%, 5%, .3)")
-      return false;
+
+  const spaceCount = (str.split(' ').length - 1);
+  console.log(spaceCount);
+  const commaCount = (str.split(', ').length - 1);
+  console.log(commaCount);
+  const percentageCount = (str.split('%, ').length - 1);
+  console.log(percentageCount);
+  if (spaceCount !== commaCount && spaceCount !== percentageCount) {
+    console.log('Please provide valid input like rgb(255,255,255) or rgb(255, 255, 255) or rgba(5%,5%,5%,.3) or rgba(5%, 5%, 5%, .3)');
+    return false;
   }
   str = str.replace(/\s/g, '');
 
