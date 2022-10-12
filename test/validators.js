@@ -3282,6 +3282,22 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['PHL'],
+      valid: [
+        'X123456',
+        'XY123456',
+        'XY1234567',
+        'X1234567Y'
+      ],
+      invalid: [
+        'XY12345',
+        'X12345Z',
+        'XY12345Z'
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['PL'],
       valid: [
         'ZS 0000177',
