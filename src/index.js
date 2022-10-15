@@ -122,6 +122,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
+import isCnpj from './lib/isCnpj';
 
 const version = '13.7.0';
 
@@ -229,6 +230,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isCnpj,
 };
 
 export default validator;
