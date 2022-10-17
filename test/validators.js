@@ -344,6 +344,22 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate only email addresses with whitelisted domains', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ host_whitelist: ['gmail.com', 'foo.bar.com'] }],
+      valid: [
+        'email@gmail.com',
+        'test@foo.bar.com',
+      ],
+      invalid: [
+        'foo+bar@test.com',
+        'email@foo.com',
+        'email@bar.com',
+      ],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',
