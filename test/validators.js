@@ -2029,7 +2029,7 @@ describe('Validators', () => {
         '1592년임진왜란',
         '대한민국!',
       ],
-    })
+    });
   });
 
   it('should validate Sinhala alpha strings', () => {
@@ -2693,10 +2693,10 @@ describe('Validators', () => {
         '2022!',
         '2019 코로나시작',
         '1.로렘입숨',
-      ]
-    })
+      ],
+    });
   });
-  
+
   it('should validate Sinhala alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
