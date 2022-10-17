@@ -3376,6 +3376,22 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['TH'],
+      valid: [
+        'A123456',
+        'B1234567',
+        'CD123456',
+        'EF1234567',
+      ],
+      invalid: [
+        '123456',
+        '1234567',
+        '010485371AA',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['TR'],
       valid: [
         'U 06764100',
