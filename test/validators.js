@@ -2011,6 +2011,27 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Korea alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['ko-KR'],
+      valid: [
+        'ㄱ',
+        'ㅑ',
+        'ㄱㄴㄷㅏㅕ',
+        '세종대왕',
+        '나랏말싸미듕귁에달아문자와로서르사맛디아니할쎄',
+      ],
+      invalid: [
+        'abc',
+        '123',
+        '흥선대원군 문호개방',
+        '1592년임진왜란',
+        '대한민국!',
+      ],
+    });
+  });
+
   it('should validate Sinhala alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2655,6 +2676,23 @@ describe('Validators', () => {
       invalid: [
         '1.สวัสดี',
         'ยินดีต้อนรับทั้ง 2 คน',
+      ],
+    });
+  });
+
+  it('should validate Korea alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ko-KR'],
+      valid: [
+        '2002',
+        '훈민정음',
+        '1446년훈민정음반포',
+      ],
+      invalid: [
+        '2022!',
+        '2019 코로나시작',
+        '1.로렘입숨',
       ],
     });
   });
