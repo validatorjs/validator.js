@@ -46,6 +46,7 @@ const passportRegexByCountryCode = {
   MT: /^\d{7}$/, // MALTA
   MZ: /^([A-Z]{2}\d{7})|(\d{2}[A-Z]{2}\d{5})$/, // MOZAMBIQUE
   MY: /^[AHK]\d{8}$/, // MALAYSIA
+  MX: /^\d{10,11}$/, // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
   PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
@@ -54,6 +55,7 @@ const passportRegexByCountryCode = {
   SE: /^\d{8}$/, // SWEDEN
   SL: /^(P)[A-Z]\d{7}$/, // SLOVANIA
   SK: /^[0-9A-Z]\d{7}$/, // SLOVAKIA
+  TH: /^[A-Z]{1,2}\d{6,7}$/, // THAILAND
   TR: /^[A-Z]\d{8}$/, // TURKEY
   UA: /^[A-Z]{2}\d{6}$/, // UKRAINE
   US: /^\d{9}$/, // UNITED STATES
