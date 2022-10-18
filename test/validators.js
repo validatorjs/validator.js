@@ -3,59 +3,9 @@ import fs from 'fs';
 import { format } from 'util';
 import vm from 'vm';
 import validator from '../src/index';
+import { repeat, test } from './testUtils';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
-
-function test(options) {
-  let args = options.args || [];
-  args.unshift(null);
-  if (options.error) {
-    options.error.forEach((error) => {
-      args[0] = error;
-      try {
-        assert.throws(() => validator[options.validator](...args));
-      } catch (err) {
-        let warning = format(
-          'validator.%s(%s) passed but should error',
-          options.validator, args.join(', ')
-        );
-        throw new Error(warning);
-      }
-    });
-  }
-  if (options.valid) {
-    options.valid.forEach((valid) => {
-      args[0] = valid;
-      if (validator[options.validator](...args) !== true) {
-        let warning = format(
-          'validator.%s(%s) failed but should have passed',
-          options.validator, args.join(', ')
-        );
-        throw new Error(warning);
-      }
-    });
-  }
-  if (options.invalid) {
-    options.invalid.forEach((invalid) => {
-      args[0] = invalid;
-      if (validator[options.validator](...args) !== false) {
-        let warning = format(
-          'validator.%s(%s) passed but should have failed',
-          options.validator, args.join(', ')
-        );
-        throw new Error(warning);
-      }
-    });
-  }
-}
-
-function repeat(str, count) {
-  let result = '';
-  for (; count; count--) {
-    result += str;
-  }
-  return result;
-}
 
 describe('Validators', () => {
   it('should validate email addresses', () => {
