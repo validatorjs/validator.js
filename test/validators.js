@@ -3415,7 +3415,25 @@ describe('Validators', () => {
         '7903699371',
       ],
     });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['HK'],
+      valid: [
+        'AS123123A',
+        'HK1967861',
+      ],
+      invalid: [
+        '947294312',
+        'HK19A786C',
+        'A12C312C',
+      ],
+    });
   });
+
+  
+
+  
 
   it('should validate decimal numbers', () => {
     test({
