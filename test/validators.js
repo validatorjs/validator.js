@@ -12032,6 +12032,19 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['en-IN'],
+      valid: [
+        '27AAPFU0939F1ZV',
+        '27AASCS2460H1Z0',
+        '29AAGCB7383J1Z4'],
+      invalid: [
+        '29AA1CB7383J1Z4',
+        '27AASCS2460H120',
+        '27AAPFU093921ZV',
+        ],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['en-US'],
       valid: [
         '01-1234567',
