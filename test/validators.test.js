@@ -3,7 +3,7 @@ import fs from 'fs';
 import { format } from 'util';
 import vm from 'vm';
 import validator from '../src/index';
-import { repeat, test } from './testUtils';
+import { repeat, test } from './test-functions';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 

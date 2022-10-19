@@ -1,4 +1,4 @@
-import { test } from '../testUtils';
+import { test } from '../test-functions';
 
 describe('isAfter', () => {
   it('should validate dates against a start date', () => {
