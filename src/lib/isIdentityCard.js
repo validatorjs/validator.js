@@ -152,6 +152,14 @@ const validators = {
     if (str === 'CA00000AA') return false; // https://it.wikipedia.org/wiki/Carta_d%27identit%C3%A0_elettronica_italiana
     return str.search(/C[A-Z]\d{5}[A-Z]{2}/is) > -1;
   },
+  KR: (str) => {
+    const sanitized = str.trim();
+    if (sanitized.length > 14) {
+      return false;
+    }
+
+    return str.search(/\d{2}([0][1-9]|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}/) > -1;
+  },
   NO: (str) => {
     const sanitized = str.trim();
     if (isNaN(Number(sanitized))) return false;
