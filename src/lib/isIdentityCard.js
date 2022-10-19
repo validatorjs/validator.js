@@ -170,6 +170,11 @@ const validators = {
     if (k1 !== f[9] || k2 !== f[10]) return false;
     return true;
   },
+  SG: (str) => {
+    // https://en.wikipedia.org/wiki/National_Registration_Identity_Card
+    const nric = /^[STFGM]\d{7}[A-Z]$/;
+    return nric.test(str);
+  },
   TH: (str) => {
     if (!str.match(/^[1-8]\d{12}$/)) return false;
 
