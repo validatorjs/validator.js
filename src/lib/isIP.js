@@ -42,7 +42,7 @@ const IPv6AddressRegExp = new RegExp('^(' +
   `(?:${IPv6SegmentFormat}:){2}(?:(:${IPv6SegmentFormat}){0,3}:${IPv4AddressFormat}|(:${IPv6SegmentFormat}){1,5}|:)|` +
   `(?:${IPv6SegmentFormat}:){1}(?:(:${IPv6SegmentFormat}){0,4}:${IPv4AddressFormat}|(:${IPv6SegmentFormat}){1,6}|:)|` +
   `(?::((?::${IPv6SegmentFormat}){0,5}:${IPv4AddressFormat}|(?::${IPv6SegmentFormat}){1,7}|:))` +
-  ')(%[0-9a-zA-Z-.:]{1,})?$');
+  ')(%[0-9a-zA-Z.]{1,})?$');
 
 export default function isIP(str, version = '') {
   assertString(str);
