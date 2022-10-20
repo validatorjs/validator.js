@@ -4672,6 +4672,27 @@ describe('Validators', () => {
     test({
       validator: 'equals', args: ['abc'], valid: ['abc'], invalid: ['Abc', '123'],
     });
+
+    test({
+      validator: 'equals',
+      args: ['abc', { sensitivity: 'variant', locales: 'en' }],
+      valid: ['abc'],
+      invalid: ['Abc', 'ábc', '123'],
+    });
+
+    test({
+      validator: 'equals',
+      args: ['abc', { sensitivity: 'accent', locales: 'en' }],
+      valid: ['Abc', 'abc'],
+      invalid: ['Abcd', 'ábc', '123'],
+    });
+
+    test({
+      validator: 'equals',
+      args: ['abc', { sensitivity: 'base', locales: 'en' }],
+      valid: ['Abc', 'abc', 'ábc'],
+      invalid: ['Abcd', '123'],
+    });
   });
 
   it('should validate strings contain another string', () => {
