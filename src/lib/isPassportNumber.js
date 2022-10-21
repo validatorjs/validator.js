@@ -53,6 +53,7 @@ const passportRegexByCountryCode = {
   RO: /^\d{8,9}$/, // ROMANIA
   RU: /^\d{9}$/, // RUSSIAN FEDERATION
   SE: /^\d{8}$/, // SWEDEN
+  SG: /^[A-Z][0-9]{7}[A-Z]$/, // SINGAPORE
   SL: /^(P)[A-Z]\d{7}$/, // SLOVANIA
   SK: /^[0-9A-Z]\d{7}$/, // SLOVAKIA
   TH: /^[A-Z]{1,2}\d{6,7}$/, // THAILAND
