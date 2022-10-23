@@ -6,7 +6,7 @@ export default function isAfter(str, options) {
 
   // accessing 'arguments' for backwards compatibility: isAfter(str [, date])
   // eslint-disable-next-line prefer-rest-params
-  const date = (typeof options === 'object' ? options.date : arguments[1]) || String(new Date());
+  const date = (typeof options === 'object' ? options.date : arguments[1]) || Date().toString();
 
   const comparison = toDate(date);
   const original = toDate(str);
