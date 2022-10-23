@@ -3,7 +3,7 @@ import fs from 'fs';
 import { format } from 'util';
 import vm from 'vm';
 import validator from '../src/index';
-import { repeat, test } from './testFunctions';
+import { test } from './testFunctions';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
@@ -24,9 +24,9 @@ describe('Validators', () => {
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
-        `${repeat('a', 64)}@${repeat('a', 63)}.com`,
-        `${repeat('a', 64)}@${repeat('a', 63)}.com`,
-        `${repeat('a', 31)}@gmail.com`,
+        `${'a'.repeat(64)}@${'a'.repeat(63)}.com`,
+        `${'a'.repeat(64)}@${'a'.repeat(63)}.com`,
+        `${'a'.repeat(31)}@gmail.com`,
         'test@gmail.com',
         'test.1@gmail.com',
         'test@1337.com',
@@ -40,10 +40,10 @@ describe('Validators', () => {
         'foo@bar.co.uk.',
         'z@co.c',
         'ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com',
-        `${repeat('a', 64)}@${repeat('a', 251)}.com`,
-        `${repeat('a', 65)}@${repeat('a', 250)}.com`,
-        `${repeat('a', 64)}@${repeat('a', 64)}.com`,
-        `${repeat('a', 64)}@${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 63)}.${repeat('a', 58)}.com`,
+        `${'a'.repeat(64)}@${'a'.repeat(251)}.com`,
+        `${'a'.repeat(65)}@${'a'.repeat(250)}.com`,
+        `${'a'.repeat(64)}@${'a'.repeat(64)}.com`,
+        `${'a'.repeat(64)}@${'a'.repeat(63)}.${'a'.repeat(63)}.${'a'.repeat(63)}.${'a'.repeat(58)}.com`,
         'test1@invalid.co m',
         'test2@invalid.co m',
         'test3@invalid.co m',
@@ -78,10 +78,10 @@ describe('Validators', () => {
         'foobar@gmail.com',
         'foo.bar@gmail.com',
         'foo.bar@googlemail.com',
-        `${repeat('a', 30)}@gmail.com`,
+        `${'a'.repeat(30)}@gmail.com`,
       ],
       invalid: [
-        `${repeat('a', 31)}@gmail.com`,
+        `${'a'.repeat(31)}@gmail.com`,
         'test@gmail.com',
         'test.1@gmail.com',
         '.foobar@gmail.com',

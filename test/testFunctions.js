@@ -2,14 +2,6 @@ import assert from 'assert';
 import { format } from 'util';
 import validator from '../src/index';
 
-function repeat(str, count) {
-  let result = '';
-  for (; count; count--) {
-    result += str;
-  }
-  return result;
-}
-
 function test(options) {
   let args = options.args || [];
   args.unshift(null);
@@ -54,6 +46,5 @@ function test(options) {
 }
 
 export default {
-  repeat,
   test,
 };
