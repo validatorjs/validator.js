@@ -1082,6 +1082,8 @@ describe('Validators', () => {
         '2001:db8:0000:1:1:1:1::1',
         '0:0:0:0:0:0:ffff:127.0.0.1',
         '0:0:0:0:ffff:127.0.0.1',
+        'BC:e4d5:c:e7b9::%40i0nccymtl9cwfKo.5vaeXLSGRMe:EDh2qs5wkhnPws5xQKqafjfAMm6wGFCJ.bVFsZfb',
+        '1dC:0DF8:62D:3AC::%KTatXocjaFVioS0RTNQl4mA.V151o0RSy.JIu-D-D8.d3171ZWsSJ7PK4YjkJCRN0F',
       ],
     });
     test({
