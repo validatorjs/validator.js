@@ -11,7 +11,7 @@ function augmentStringWithIgnoredCharacters(str, ignoredCharacters) {
   }
 
   if (typeof ignoredCharacters === 'string') {
-    return str.replace(new RegExp(`[${ignoredCharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for ignore
+    return str.replace(new RegExp(`[${ignoredCharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for 'ignoredCharacters'
   }
 
   throw new Error('ignore should be instance of a String or RegExp');
