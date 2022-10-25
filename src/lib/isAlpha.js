@@ -1,17 +1,17 @@
 import assertString from './util/assertString';
 import { alpha } from './alpha';
 
-function augmentStringWithIgnoredCharacters(str, ignoredCaharacters) {
-  if (!ignoredCaharacters) {
+function augmentStringWithIgnoredCharacters(str, ignoredCharacters) {
+  if (!ignoredCharacters) {
     return str;
   }
 
-  if (ignoredCaharacters instanceof RegExp) {
-    return str.replace(ignoredCaharacters, '');
+  if (ignoredCharacters instanceof RegExp) {
+    return str.replace(ignoredCharacters, '');
   }
 
-  if (typeof ignoredCaharacters === 'string') {
-    return str.replace(new RegExp(`[${ignoredCaharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for ignore
+  if (typeof ignoredCharacters === 'string') {
+    return str.replace(new RegExp(`[${ignoredCharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for ignore
   }
 
   throw new Error('ignore should be instance of a String or RegExp');
