@@ -1,6 +1,6 @@
 import { test } from '../testFunctions';
 
-describe('isAfter', () => {
+describe('isAlpha', () => {
   it('should validate alpha strings with missing `locale` option', () => {
     test({
       validator: 'isAlpha',
