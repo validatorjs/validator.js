@@ -47,7 +47,9 @@ const IPv6AddressRegExp = new RegExp('^(' +
 export default function isIP(str, options = {}) {
   assertString(str);
 
-  const { version = '' } = options;
+  // accessing 'arguments' for backwards compatibility: isAfter(str [, date])
+  // eslint-disable-next-line prefer-rest-params
+  const version = (typeof options === 'object' ? options.version : arguments[1]) || '';
 
   if (!version) {
     return isIP(str, { version: 4 }) || isIP(str, { version: 6 });
