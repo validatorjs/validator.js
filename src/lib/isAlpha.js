@@ -1,7 +1,7 @@
 import assertString from './util/assertString';
 import { alpha } from './alpha';
 
-function augmentStringWithIgnoredCharacters(str, ignoredCharacters) {
+function removeIgnoredCharacters(str, ignoredCharacters) {
   if (!ignoredCharacters) {
     return str;
   }
@@ -21,7 +21,7 @@ export default function isAlpha(_str, options = { locale: 'en-US' }) {
   assertString(_str);
 
   const { ignore, locale } = options;
-  const str = augmentStringWithIgnoredCharacters(_str, ignore);
+  const str = removeIgnoredCharacters(_str, ignore);
 
   if (alpha[locale]) {
     return alpha[locale].test(str);
