@@ -1,7 +1,7 @@
 import { test } from '../testFunctions';
 
 describe('isAlphanumeric', () => {
-  it('should validate alphanumeric strings', () => {
+  it('should validate alphanumeric strings with missing `locale` option', () => {
     test({
       validator: 'isAlphanumeric',
       valid: [
@@ -14,6 +14,21 @@ describe('isAlphanumeric', () => {
         'ÄBC',
         'FÜübar',
         'Jön',
+      ],
+    });
+
+    test({
+      validator: 'isAlphanumeric',
+      args: [{ ignore: '@_- ' }], // ignore [@ space _ -]
+      valid: [
+        'Hello@123',
+        'this is a valid alphaNumeric string',
+        'En-US @ alpha_numeric',
+      ],
+      invalid: [
+        'In*Valid',
+        'hello$123',
+        '{invalid}',
       ],
     });
   });
