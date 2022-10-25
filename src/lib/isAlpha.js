@@ -26,6 +26,7 @@ export default function isAlpha(_str, options = { locale: 'en-US' }) {
   if (alpha[locale]) {
     return alpha[locale].test(str);
   }
+
   throw new Error(`Invalid locale '${locale}'`);
 }
 
