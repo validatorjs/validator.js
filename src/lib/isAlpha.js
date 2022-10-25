@@ -17,10 +17,10 @@ function removeIgnoredCharacters(str, ignoredCharacters) {
   throw new Error('"ignore" should be instance of a String or RegExp');
 }
 
-export default function isAlpha(_str, options = { locale: 'en-US' }) {
+export default function isAlpha(_str, options = {}) {
   assertString(_str);
 
-  const { ignore, locale } = options;
+  const { ignore, locale = 'en-US' } = options;
   const str = removeIgnoredCharacters(_str, ignore);
 
   if (alpha[locale]) {

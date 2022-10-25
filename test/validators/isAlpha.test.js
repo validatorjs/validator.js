@@ -1,7 +1,7 @@
 import { test } from '../testFunctions';
 
 describe('isAfter', () => {
-  it('should validate alpha strings', () => {
+  it('should validate alpha strings with missing `locale` option', () => {
     test({
       validator: 'isAlpha',
       valid: [
@@ -19,9 +19,24 @@ describe('isAfter', () => {
         'Heiß',
       ],
     });
+
+    test({
+      validator: 'isAlpha',
+      args: [{ ignore: '- /' }], // ignore [space-/]
+      valid: [
+        'en-US',
+        'this is a valid alpha string',
+        'us/usa',
+      ],
+      invalid: [
+        '1. this is not a valid alpha string',
+        'this$is also not a valid.alpha string',
+        'this is also not a valid alpha string.',
+      ],
+    });
   });
 
-  it('should validate alpha string with ignored characters', () => {
+  it('should validate alpha strings with ignored characters', () => {
     test({
       validator: 'isAlpha',
       args: [{ locale: 'en-US', ignore: '- /' }], // ignore [space-/]
