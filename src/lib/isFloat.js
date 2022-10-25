@@ -1,10 +1,10 @@
 import assertString from './util/assertString';
-import { decimal } from './alpha';
+import { DECIMAL } from './alpha';
 
 export default function isFloat(str, options) {
   assertString(str);
   options = options || {};
-  const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${options.locale ? decimal[options.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`);
+  const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${options.locale ? DECIMAL[options.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`);
   if (str === '' || str === '.' || str === '-' || str === '+') {
     return false;
   }
@@ -16,4 +16,4 @@ export default function isFloat(str, options) {
     (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
-export const locales = Object.keys(decimal);
+export const locales = Object.keys(DECIMAL);

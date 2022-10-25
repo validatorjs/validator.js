@@ -1,5 +1,5 @@
 import assertString from './util/assertString';
-import { alpha, removeIgnoredCharacters } from './alpha';
+import { ALPHA, removeIgnoredCharacters } from './alpha';
 
 export default function isAlpha(_str, ...args) {
   assertString(_str);
@@ -12,11 +12,11 @@ export default function isAlpha(_str, ...args) {
 
   const str = removeIgnoredCharacters(_str, ignore);
 
-  if (alpha[locale]) {
-    return alpha[locale].test(str);
+  if (ALPHA[locale]) {
+    return ALPHA[locale].test(str);
   }
 
   throw new Error(`Invalid "locale" '${locale}'`);
 }
 
-export const locales = Object.keys(alpha);
+export const locales = Object.keys(ALPHA);

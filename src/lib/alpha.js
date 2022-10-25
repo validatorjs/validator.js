@@ -14,7 +14,7 @@ export function removeIgnoredCharacters(str, ignoredCharacters) {
   throw new Error('"ignore" should be instance of a String or RegExp');
 }
 
-export const alpha = {
+export const ALPHA = {
   'en-US': /^[A-Z]+$/i,
   'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[А-Я]+$/i,
@@ -54,7 +54,7 @@ export const alpha = {
   'si-LK': /^[\u0D80-\u0DFF]+$/,
 };
 
-export const alphanumeric = {
+export const ALPHANUMERIC = {
   'en-US': /^[0-9A-Z]+$/i,
   'az-AZ': /^[0-9A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[0-9А-Я]+$/i,
@@ -93,76 +93,76 @@ export const alphanumeric = {
   'si-LK': /^[0-9\u0D80-\u0DFF]+$/,
 };
 
-export const decimal = {
+export const DECIMAL = {
   'en-US': '.',
   ar: '٫',
 };
 
 
-export const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
+export const ENGLISH_LOCALES = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
-for (let locale, i = 0; i < englishLocales.length; i++) {
-  locale = `en-${englishLocales[i]}`;
-  alpha[locale] = alpha['en-US'];
-  alphanumeric[locale] = alphanumeric['en-US'];
-  decimal[locale] = decimal['en-US'];
+for (let locale, i = 0; i < ENGLISH_LOCALES.length; i++) {
+  locale = `en-${ENGLISH_LOCALES[i]}`;
+  ALPHA[locale] = ALPHA['en-US'];
+  ALPHANUMERIC[locale] = ALPHANUMERIC['en-US'];
+  DECIMAL[locale] = DECIMAL['en-US'];
 }
 
 // Source: http://www.localeplanet.com/java/
-export const arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
+export const ARABIC_LOCALES = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
   'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
 
-for (let locale, i = 0; i < arabicLocales.length; i++) {
-  locale = `ar-${arabicLocales[i]}`;
-  alpha[locale] = alpha.ar;
-  alphanumeric[locale] = alphanumeric.ar;
-  decimal[locale] = decimal.ar;
+for (let locale, i = 0; i < ARABIC_LOCALES.length; i++) {
+  locale = `ar-${ARABIC_LOCALES[i]}`;
+  ALPHA[locale] = ALPHA.ar;
+  ALPHANUMERIC[locale] = ALPHANUMERIC.ar;
+  DECIMAL[locale] = DECIMAL.ar;
 }
 
-export const farsiLocales = ['IR', 'AF'];
+export const FARSI_LOCALES = ['IR', 'AF'];
 
-for (let locale, i = 0; i < farsiLocales.length; i++) {
-  locale = `fa-${farsiLocales[i]}`;
-  alphanumeric[locale] = alphanumeric.fa;
-  decimal[locale] = decimal.ar;
+for (let locale, i = 0; i < FARSI_LOCALES.length; i++) {
+  locale = `fa-${FARSI_LOCALES[i]}`;
+  ALPHANUMERIC[locale] = ALPHANUMERIC.fa;
+  DECIMAL[locale] = DECIMAL.ar;
 }
 
-export const bengaliLocales = ['BD', 'IN'];
+export const BENGALI_LOCALES = ['BD', 'IN'];
 
-for (let locale, i = 0; i < bengaliLocales.length; i++) {
-  locale = `bn-${bengaliLocales[i]}`;
-  alpha[locale] = alpha.bn;
-  alphanumeric[locale] = alphanumeric.bn;
-  decimal[locale] = decimal['en-US'];
+for (let locale, i = 0; i < BENGALI_LOCALES.length; i++) {
+  locale = `bn-${BENGALI_LOCALES[i]}`;
+  ALPHA[locale] = ALPHA.bn;
+  ALPHANUMERIC[locale] = ALPHANUMERIC.bn;
+  DECIMAL[locale] = DECIMAL['en-US'];
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
-export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
-export const commaDecimal = [
+export const DOT_DECIMAL = ['ar-EG', 'ar-LB', 'ar-LY'];
+export const COMMA_DECIMAL = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-CA', 'fr-FR',
   'id-ID', 'it-IT', 'ku-IQ', 'hi-IN', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
   'ru-RU', 'si-LK', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
 ];
 
-for (let i = 0; i < dotDecimal.length; i++) {
-  decimal[dotDecimal[i]] = decimal['en-US'];
+for (let i = 0; i < DOT_DECIMAL.length; i++) {
+  DECIMAL[DOT_DECIMAL[i]] = DECIMAL['en-US'];
 }
 
-for (let i = 0; i < commaDecimal.length; i++) {
-  decimal[commaDecimal[i]] = ',';
+for (let i = 0; i < COMMA_DECIMAL.length; i++) {
+  DECIMAL[COMMA_DECIMAL[i]] = ',';
 }
 
-alpha['fr-CA'] = alpha['fr-FR'];
-alphanumeric['fr-CA'] = alphanumeric['fr-FR'];
+ALPHA['fr-CA'] = ALPHA['fr-FR'];
+ALPHANUMERIC['fr-CA'] = ALPHANUMERIC['fr-FR'];
 
-alpha['pt-BR'] = alpha['pt-PT'];
-alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
-decimal['pt-BR'] = decimal['pt-PT'];
+ALPHA['pt-BR'] = ALPHA['pt-PT'];
+ALPHANUMERIC['pt-BR'] = ALPHANUMERIC['pt-PT'];
+DECIMAL['pt-BR'] = DECIMAL['pt-PT'];
 
 // see #862
-alpha['pl-Pl'] = alpha['pl-PL'];
-alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
-decimal['pl-Pl'] = decimal['pl-PL'];
+ALPHA['pl-Pl'] = ALPHA['pl-PL'];
+ALPHANUMERIC['pl-Pl'] = ALPHANUMERIC['pl-PL'];
+DECIMAL['pl-Pl'] = DECIMAL['pl-PL'];
 
 // see #1455
-alpha['fa-AF'] = alpha.fa;
+ALPHA['fa-AF'] = ALPHA.fa;
