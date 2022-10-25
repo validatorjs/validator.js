@@ -1,21 +1,5 @@
 import assertString from './util/assertString';
-import { alpha } from './alpha';
-
-function removeIgnoredCharacters(str, ignoredCharacters) {
-  if (!ignoredCharacters) {
-    return str;
-  }
-
-  if (ignoredCharacters instanceof RegExp) {
-    return str.replace(ignoredCharacters, '');
-  }
-
-  if (typeof ignoredCharacters === 'string') {
-    return str.replace(new RegExp(`[${ignoredCharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for 'ignoredCharacters'
-  }
-
-  throw new Error('"ignore" should be instance of a String or RegExp');
-}
+import { alpha, removeIgnoredCharacters } from './alpha';
 
 export default function isAlpha(_str, ...args) {
   assertString(_str);
