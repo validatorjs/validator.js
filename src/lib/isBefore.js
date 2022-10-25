@@ -1,11 +1,12 @@
 import assertString from './util/assertString';
+import toDate from './toDate';
 
 export default function isBefore(date, options = {}) {
   assertString(date);
 
   const { comparisonDate = Date().toString() } = options;
-  const comparison = new Date(comparisonDate);
-  const original = new Date(date);
+  const comparison = toDate(comparisonDate);
+  const original = toDate(date);
 
   return !!(original < comparison);
 }
