@@ -10,7 +10,7 @@ function augmentStringWithIgnoredCharacters(str, ignoredCaharacters) {
     return str.replace(ignoredCaharacters, '');
   }
 
-  if (typeof ignore === 'string') {
+  if (typeof ignoredCaharacters === 'string') {
     return str.replace(new RegExp(`[${ignoredCaharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for ignore
   }
 
