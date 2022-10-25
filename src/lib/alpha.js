@@ -99,7 +99,7 @@ export const DECIMAL = {
 };
 
 
-export const ENGLISH_LOCALES = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
+const ENGLISH_LOCALES = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
 for (let locale, i = 0; i < ENGLISH_LOCALES.length; i++) {
   locale = `en-${ENGLISH_LOCALES[i]}`;
@@ -109,7 +109,7 @@ for (let locale, i = 0; i < ENGLISH_LOCALES.length; i++) {
 }
 
 // Source: http://www.localeplanet.com/java/
-export const ARABIC_LOCALES = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
+const ARABIC_LOCALES = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
   'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
 
 for (let locale, i = 0; i < ARABIC_LOCALES.length; i++) {
@@ -119,7 +119,7 @@ for (let locale, i = 0; i < ARABIC_LOCALES.length; i++) {
   DECIMAL[locale] = DECIMAL.ar;
 }
 
-export const FARSI_LOCALES = ['IR', 'AF'];
+const FARSI_LOCALES = ['IR', 'AF'];
 
 for (let locale, i = 0; i < FARSI_LOCALES.length; i++) {
   locale = `fa-${FARSI_LOCALES[i]}`;
@@ -127,7 +127,7 @@ for (let locale, i = 0; i < FARSI_LOCALES.length; i++) {
   DECIMAL[locale] = DECIMAL.ar;
 }
 
-export const BENGALI_LOCALES = ['BD', 'IN'];
+const BENGALI_LOCALES = ['BD', 'IN'];
 
 for (let locale, i = 0; i < BENGALI_LOCALES.length; i++) {
   locale = `bn-${BENGALI_LOCALES[i]}`;
@@ -137,8 +137,8 @@ for (let locale, i = 0; i < BENGALI_LOCALES.length; i++) {
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
-export const DOT_DECIMAL = ['ar-EG', 'ar-LB', 'ar-LY'];
-export const COMMA_DECIMAL = [
+const DOT_DECIMAL = ['ar-EG', 'ar-LB', 'ar-LY'];
+const COMMA_DECIMAL = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-CA', 'fr-FR',
   'id-ID', 'it-IT', 'ku-IQ', 'hi-IN', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
   'ru-RU', 'si-LK', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
