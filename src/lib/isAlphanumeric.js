@@ -1,17 +1,7 @@
-import assertString from './util/assertString';
-import { ALPHANUMERIC, removeIgnoredCharacters } from './alpha';
+import { ALPHANUMERIC, validateAlphanumeric } from './alpha';
 
-export default function isAlphanumeric(_str, options = {}) {
-  assertString(_str);
-
-  const { ignore, locale = 'en-US' } = options;
-  const str = removeIgnoredCharacters(_str, ignore);
-
-  if (ALPHANUMERIC[locale]) {
-    return ALPHANUMERIC[locale].test(str);
-  }
-
-  throw new Error(`Invalid "locale" '${locale}'`);
+export default function isAlphanumeric(_str, options) {
+  return validateAlphanumeric(_str, options);
 }
 
 export const locales = Object.keys(ALPHANUMERIC);

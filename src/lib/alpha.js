@@ -1,18 +1,4 @@
-export function removeIgnoredCharacters(str, ignoredCharacters) {
-  if (!ignoredCharacters) {
-    return str;
-  }
-
-  if (ignoredCharacters instanceof RegExp) {
-    return str.replace(ignoredCharacters, '');
-  }
-
-  if (typeof ignoredCharacters === 'string') {
-    return str.replace(new RegExp(`[${ignoredCharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for 'ignoredCharacters'
-  }
-
-  throw new Error('"ignore" should be instance of a String or RegExp');
-}
+import assertString from './util/assertString';
 
 export const ALPHA = {
   'en-US': /^[A-Z]+$/i,
@@ -166,3 +152,44 @@ DECIMAL['pl-Pl'] = DECIMAL['pl-PL'];
 
 // see #1455
 ALPHA['fa-AF'] = ALPHA.fa;
+
+
+function removeIgnoredCharacters(str, ignoredCharacters) {
+  if (!ignoredCharacters) {
+    return str;
+  }
+
+  if (ignoredCharacters instanceof RegExp) {
+    return str.replace(ignoredCharacters, '');
+  }
+
+  if (typeof ignoredCharacters === 'string') {
+    return str.replace(new RegExp(`[${ignoredCharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for 'ignoredCharacters'
+  }
+
+  throw new Error('"ignore" should be instance of a String or RegExp');
+}
+
+const ALPHA_TYPE_MAP = {
+  alpha: ALPHA,
+  alphanumeric: ALPHANUMERIC,
+};
+
+function validate(typeKey) {
+  return (_str, options = {}) => {
+    assertString(_str);
+
+    const { ignore, locale = 'en-US' } = options;
+    const str = removeIgnoredCharacters(_str, ignore);
+    const alphaType = ALPHA_TYPE_MAP[typeKey];
+
+    if (alphaType[locale]) {
+      return alphaType[locale].test(str);
+    }
+
+    throw new Error(`Invalid "locale" '${locale}'`);
+  };
+}
+
+export const validateAlpha = validate('alpha');
+export const validateAlphanumeric = validate('alphanumeric');
