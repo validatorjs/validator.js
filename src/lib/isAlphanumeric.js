@@ -1,26 +1,17 @@
 import assertString from './util/assertString';
-import { alphanumeric } from './alpha';
+import { alphanumeric, removeIgnoredCharacters } from './alpha';
 
-export default function isAlphanumeric(_str, locale = 'en-US', options = {}) {
+export default function isAlphanumeric(_str, options = {}) {
   assertString(_str);
 
-  let str = _str;
-  const { ignore } = options;
+  const { ignore, locale = 'en-US' } = options;
+  const str = removeIgnoredCharacters(_str, ignore);
 
-  if (ignore) {
-    if (ignore instanceof RegExp) {
-      str = str.replace(ignore, '');
-    } else if (typeof ignore === 'string') {
-      str = str.replace(new RegExp(`[${ignore.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for ignore
-    } else {
-      throw new Error('ignore should be instance of a String or RegExp');
-    }
-  }
-
-  if (locale in alphanumeric) {
+  if (alphanumeric[locale]) {
     return alphanumeric[locale].test(str);
   }
-  throw new Error(`Invalid locale '${locale}'`);
+
+  throw new Error(`Invalid "locale" '${locale}'`);
 }
 
 export const locales = Object.keys(alphanumeric);
