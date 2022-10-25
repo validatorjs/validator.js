@@ -14,7 +14,7 @@ function augmentStringWithIgnoredCharacters(str, ignoredCharacters) {
     return str.replace(new RegExp(`[${ignoredCharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for 'ignoredCharacters'
   }
 
-  throw new Error('ignore should be instance of a String or RegExp');
+  throw new Error('"ignore" should be instance of a String or RegExp');
 }
 
 export default function isAlpha(_str, options = { locale: 'en-US' }) {
@@ -27,7 +27,7 @@ export default function isAlpha(_str, options = { locale: 'en-US' }) {
     return alpha[locale].test(str);
   }
 
-  throw new Error(`Invalid locale '${locale}'`);
+  throw new Error(`Invalid "locale" '${locale}'`);
 }
 
 export const locales = Object.keys(alpha);
