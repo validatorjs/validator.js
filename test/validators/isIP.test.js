@@ -72,6 +72,41 @@ describe('isIP', () => {
         '0:0:0:0:ffff:127.0.0.1',
       ],
     });
+
+    test({
+      validator: 'isIP',
+      args: [{ version: 'invalid version' }],
+      valid: [],
+      invalid: [
+        '127.0.0.1',
+        '0.0.0.0',
+        '255.255.255.255',
+        '1.2.3.4',
+      ],
+    });
+
+    test({
+      validator: 'isIP',
+      args: [{ version: null }],
+      valid: [
+        '127.0.0.1',
+        '0.0.0.0',
+        '255.255.255.255',
+        '1.2.3.4',
+      ],
+    });
+
+    test({
+      validator: 'isIP',
+      args: [{ version: undefined }],
+      valid: [
+        '127.0.0.1',
+        '0.0.0.0',
+        '255.255.255.255',
+        '1.2.3.4',
+      ],
+    });
+
     test({
       validator: 'isIP',
       args: [{ version: 4 }],
@@ -92,6 +127,7 @@ describe('isIP', () => {
         '255.256.255.256',
       ],
     });
+
     test({
       validator: 'isIP',
       args: [{ version: 6 }],
@@ -116,6 +152,7 @@ describe('isIP', () => {
         'fe80%fe80%',
       ],
     });
+
     test({
       validator: 'isIP',
       args: [{ version: 10 }],
