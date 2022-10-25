@@ -23,7 +23,7 @@ export default function isIPRange(str, version = '') {
     return false;
   }
 
-  const isValidIP = isIP(parts[0], { version });
+  const isValidIP = isIP(parts[0], version);
   if (!isValidIP) {
     return false;
   }
@@ -40,7 +40,7 @@ export default function isIPRange(str, version = '') {
       break;
 
     default:
-      expectedSubnet = isIP(parts[0], { version: 6 }) ? v6Subnet : v4Subnet;
+      expectedSubnet = isIP(parts[0], '6') ? v6Subnet : v4Subnet;
   }
 
   return parts[1] <= expectedSubnet && parts[1] >= 0;
