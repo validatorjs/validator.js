@@ -19,9 +19,7 @@ function removeIgnoredCharacters(str, ignoredCharacters) {
 
 export default function isAlpha(_str, ...args) {
   assertString(_str);
-
-  // const { ignore, locale = 'en-US' } = options;
-
+  
   // For backwards compatibility:
   // isAlpha(str [, locale, options])
   // i.e. `options` could be used as argument for the legacy `locale`
