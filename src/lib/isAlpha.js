@@ -1,7 +1,7 @@
 import { ALPHA, validateAlpha } from './alpha';
 
-export default function isAlpha(_str, options) {
-  return validateAlpha(_str, options);
+export default function isAlpha(_str, ...args) {
+  return validateAlpha(_str, ...args);
 }
 
 export const locales = Object.keys(ALPHA);

@@ -1,7 +1,7 @@
 import { ALPHANUMERIC, validateAlphanumeric } from './alpha';
 
-export default function isAlphanumeric(_str, options) {
-  return validateAlphanumeric(_str, options);
+export default function isAlphanumeric(_str, ...args) {
+  return validateAlphanumeric(_str, ...args);
 }
 
 export const locales = Object.keys(ALPHANUMERIC);

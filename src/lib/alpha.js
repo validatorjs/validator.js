@@ -176,10 +176,15 @@ const ALPHA_TYPE_MAP = {
 };
 
 function validate(typeKey) {
-  return (_str, options = {}) => {
+  return (_str, ...args) => {
     assertString(_str);
 
-    const { ignore, locale = 'en-US' } = options;
+    // For backwards compatibility:
+    // isAlpha | isAlphaNumeric (str [, locale, options])
+    // i.e. `options` could be used as argument for the legacy `locale`
+    const locale = (typeof args[0] === 'object' ? args[0].locale : args[0]) || 'en-US';
+    const ignore = (typeof args[0] === 'object' ? args[0].ignore : args[1]?.ignore);
+
     const str = removeIgnoredCharacters(_str, ignore);
     const alphaType = ALPHA_TYPE_MAP[typeKey];
 
