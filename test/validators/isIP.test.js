@@ -1,4 +1,4 @@
-import { test } from '../testFunctions';
+import test from '../testFunctions';
 
 describe('isIP', () => {
   it('should validate IP addresses', () => {
