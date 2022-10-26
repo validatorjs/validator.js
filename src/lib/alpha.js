@@ -196,5 +196,5 @@ function validate(typeKey) {
   };
 }
 
-export const validateAlpha = validate('alpha');
-export const validateAlphanumeric = validate('alphanumeric');
+export const isAlpha = validate('alpha');
+export const isAlphanumeric = validate('alphanumeric');
