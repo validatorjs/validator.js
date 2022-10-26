@@ -7,5 +7,5 @@ export default function isAfter(date, options) {
 
   const comparison = toDate(comparisonDate);
   const original = toDate(date);
-  return !!(original > comparison);
+  return !!(original && comparison && original > comparison);
 }
