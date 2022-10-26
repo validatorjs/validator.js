@@ -180,7 +180,7 @@ function validate(typeKey) {
     assertString(_str);
 
     // For backwards compatibility:
-    // isAlpha | isAlphaNumeric (str [, locale, options])
+    // isAlpha | isAlphaNumeric(str [, locale, options])
     // i.e. `options` could be used as argument for the legacy `locale`
     const locale = (typeof args[0] === 'object' ? args[0].locale : args[0]) || 'en-US';
     const ignore = (typeof args[0] === 'object' ? args[0].ignore : args[1]?.ignore);
