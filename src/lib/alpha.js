@@ -1,3 +1,5 @@
+import assertString from './util/assertString';
+
 export const alpha = {
   'en-US': /^[A-Z]+$/i,
   'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
@@ -83,7 +85,7 @@ export const decimal = {
 };
 
 
-export const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
+const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 
 for (let locale, i = 0; i < englishLocales.length; i++) {
   locale = `en-${englishLocales[i]}`;
@@ -93,7 +95,7 @@ for (let locale, i = 0; i < englishLocales.length; i++) {
 }
 
 // Source: http://www.localeplanet.com/java/
-export const arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
+const arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
   'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
 
 for (let locale, i = 0; i < arabicLocales.length; i++) {
@@ -103,7 +105,7 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
   decimal[locale] = decimal.ar;
 }
 
-export const farsiLocales = ['IR', 'AF'];
+const farsiLocales = ['IR', 'AF'];
 
 for (let locale, i = 0; i < farsiLocales.length; i++) {
   locale = `fa-${farsiLocales[i]}`;
@@ -111,7 +113,7 @@ for (let locale, i = 0; i < farsiLocales.length; i++) {
   decimal[locale] = decimal.ar;
 }
 
-export const bengaliLocales = ['BD', 'IN'];
+const bengaliLocales = ['BD', 'IN'];
 
 for (let locale, i = 0; i < bengaliLocales.length; i++) {
   locale = `bn-${bengaliLocales[i]}`;
@@ -121,8 +123,8 @@ for (let locale, i = 0; i < bengaliLocales.length; i++) {
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
-export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
-export const commaDecimal = [
+const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
+const commaDecimal = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-CA', 'fr-FR',
   'id-ID', 'it-IT', 'ku-IQ', 'hi-IN', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
   'ru-RU', 'si-LK', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
@@ -150,3 +152,49 @@ decimal['pl-Pl'] = decimal['pl-PL'];
 
 // see #1455
 alpha['fa-AF'] = alpha.fa;
+
+
+function removeIgnoredCharacters(str, ignoredCharacters) {
+  if (!ignoredCharacters) {
+    return str;
+  }
+
+  if (ignoredCharacters instanceof RegExp) {
+    return str.replace(ignoredCharacters, '');
+  }
+
+  if (typeof ignoredCharacters === 'string') {
+    return str.replace(new RegExp(`[${ignoredCharacters.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`, 'g'), ''); // escape regex for 'ignoredCharacters'
+  }
+
+  throw new Error('"ignore" should be instance of a String or RegExp');
+}
+
+const ALPHA_TYPE_MAP = {
+  alpha,
+  alphanumeric,
+};
+
+function validate(typeKey) {
+  return (_str, ...args) => {
+    assertString(_str);
+
+    // For backwards compatibility:
+    // isAlpha | isAlphaNumeric(str [, locale, options])
+    // i.e. `options` could be used as argument for the legacy `locale`
+    const locale = (typeof args[0] === 'object' ? args[0].locale : args[0]) || 'en-US';
+    const ignore = (typeof args[0] === 'object' ? args[0].ignore : args[1]?.ignore);
+
+    const str = removeIgnoredCharacters(_str, ignore);
+    const alphaType = ALPHA_TYPE_MAP[typeKey];
+
+    if (alphaType[locale]) {
+      return alphaType[locale].test(str);
+    }
+
+    throw new Error(`Invalid "locale" '${locale}'`);
+  };
+}
+
+export const isAlpha = validate('alpha');
+export const isAlphanumeric = validate('alphanumeric');
