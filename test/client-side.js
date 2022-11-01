@@ -23,6 +23,16 @@ describe('Minified version', () => {
     assert.strictEqual(min.isEmail('foo'), false);
   });
 
+  it('should convert string into kebab case', () => {
+    assert.strictEqual(min.strTokebab('validator js is a best library'), 'validator-js-is-a-best-library');
+  });
+
+  it('should convert http query params to object data', () => {
+    assert.deepStrictEqual(min.queryStrToObject('https://www.example.com/watch?v=oehcVTHRwLE'), { v: 'oehcVTHRwLE' });
+    assert.deepStrictEqual(min.queryStrToObject('?name=validatorjs&popular=yes'), { name: 'validatorjs', popular: 'yes' });
+    assert.deepStrictEqual(min.queryStrToObject('name=validatorjs&popular=yes'), { name: 'validatorjs', popular: 'yes' });
+  });
+
   it('should sanitize strings', () => {
     assert.strictEqual(min.toBoolean('1'), true);
   });

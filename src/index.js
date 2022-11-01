@@ -123,6 +123,9 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
+import strTokebab from './lib/strTokebab';
+import queryStrToObject from './lib/queryStrToObject';
+
 const version = '13.7.0';
 
 const validator = {
@@ -229,6 +232,8 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  strTokebab,
+  queryStrToObject,
 };
 
 export default validator;
