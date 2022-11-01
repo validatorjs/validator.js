@@ -13774,4 +13774,21 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate emoji character', () => {
+    test({
+      validator: 'isEmoji',
+      valid: [
+        '🥺',
+        '🥰',
+        '🫡',
+      ],
+      invalid: [
+        'HAPPY',
+        'TEXT',
+        '1',
+        '2',
+        '🫡🫡',
+      ],
+    });
+  });
 });
