@@ -8,10 +8,13 @@ function decimalRegExp(options) {
   return regExp;
 }
 
+const exponentialRegexp = new RegExp('^[-+]?([0-9]+)$');
+
 const default_decimal_options = {
   force_decimal: false,
   decimal_digits: '1,',
   locale: 'en-US',
+  allow_exponential: false,
 };
 
 const blacklist = ['', '-', '+'];
@@ -20,6 +23,15 @@ export default function isDecimal(str, options) {
   assertString(str);
   options = merge(options, default_decimal_options);
   if (options.locale in decimal) {
+    if (!options.allow_exponential) {
+      return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
+    }
+    let exponential = str.split(new RegExp('e', 'i'));
+    if (exponential.length > 1) {
+      let decimalPart = exponential[0];
+      exponential = exponential[1];
+      return !includes(blacklist, decimalPart.replace(/ /g, '')) && decimalRegExp(options).test(decimalPart) && exponentialRegexp.test(exponential);
+    }
     return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(options).test(str);
   }
   throw new Error(`Invalid locale '${options.locale}'`);
