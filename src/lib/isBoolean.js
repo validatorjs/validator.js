@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import includes from './util/includesArray';
 
 const defaultOptions = { loose: false };
 const strictBooleans = ['true', 'false', '1', '0'];
@@ -8,8 +9,8 @@ export default function isBoolean(str, options = defaultOptions) {
   assertString(str);
 
   if (options.loose) {
-    return looseBooleans.includes(str.toLowerCase());
+    return includes(looseBooleans, str.toLowerCase());
   }
 
-  return strictBooleans.includes(str);
+  return includes(strictBooleans, str);
 }
