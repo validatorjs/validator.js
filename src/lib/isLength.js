@@ -20,3 +20,4 @@ export default function isLength(str, options) {
     return options.discreteLengths.some(discreteLen =>discreteLen === len);
   }
   return isInsideRange;
+}
