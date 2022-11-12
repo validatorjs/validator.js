@@ -20,7 +20,14 @@ export default function isLength(str, options) {
   const surrogatePairs = str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || [];
   const len = str.length - presentationSequences.length - surrogatePairs.length;
   result = len >= min && (typeof max === 'undefined' || len <= max);
-  if (result === false || typeof exact === 'undefined') return result;
+const isInsideRange =
+len >= min && (typeof max === 'undefined' || len <= max);
+
+if (isInsideRange && Array.isArray(options?.discreteLengths)) {
+    return options.discreteLengths.some(discreteLen => discreteLen === len);
+}
+
+return isInsideRange;
   if (Array.isArray(exact) === true) {
     for (let oneElem of exact) {
       if (len === oneElem) {
