@@ -28,23 +28,3 @@ if (isInsideRange && Array.isArray(options?.discreteLengths)) {
 }
 
 return isInsideRange;
-  if (Array.isArray(exact) === true) {
-    for (let oneElem of exact) {
-      if (len === oneElem) {
-        isValid = true;
-        break;
-      }
-    }
-  } else if (typeof exact === 'number') {
-    if (len === exact) {
-      isValid = true;
-    }
-  } else if (typeof exact === 'object') {
-    for (let key in exact) {
-      if (len === exact[key]) {
-        isValid = true;
-      }
-    }
-  }
-  return isValid;
-}
