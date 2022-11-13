@@ -4701,8 +4701,8 @@ describe('Validators', () => {
     test({
       validator: 'isLength',
       args: [{ max: 6, discreteLengths: 5 }],
-      valid: [],
-      invalid: ['abcd', 'abcdef', 'vfd', 'ff', '', 'k', 'hfjdksks'],
+      valid: ['abcd', 'vfd', 'ff', '', 'k'],
+      invalid: ['abcdefgh', 'hfjdksks'],
     });
     test({
       validator: 'isLength',
