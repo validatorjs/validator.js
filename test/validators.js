@@ -4713,8 +4713,8 @@ describe('Validators', () => {
     test({
       validator: 'isLength',
       args: [{ min: 1, discreteLengths: 2 }],
-      valid: [' ', 'hello'],
-      invalid: ['bsa'],
+      valid: [' ', 'hello', 'bsa'],
+      invalid: [''],
     });
     test({
       validator: 'isLength',
