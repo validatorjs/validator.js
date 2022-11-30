@@ -108,7 +108,7 @@ Validator                               | Description
 **isDate(input [, options])**          | Check if the input is a valid date. e.g. [`2002-07-15`, new Date()].<br/><br/> `options` is an object which can contain the keys `format`, `strictMode` and/or `delimiters`<br/><br/>`format` is a string and defaults to `YYYY/MM/DD`.<br/><br/>`strictMode` is a boolean and defaults to `false`. If `strictMode` is set to true, the validator will reject inputs different from `format`.<br/><br/> `delimiters` is an array of allowed date delimiters and defaults to `['/', '-']`.
 **isDecimal(str [, options])**             | check if the string represents a decimal number, such as 0.1, .3, 1.1, 1.00003, 4.0, etc.<br/><br/>`options` is an object which defaults to `{force_decimal: false, decimal_digits: '1,', locale: 'en-US'}`<br/><br/>`locale` determine the decimal separator and is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fa', 'fa-AF', 'fa-IR', 'fr-FR', 'fr-CA', 'hu-HU', 'id-ID', 'it-IT', 'ku-IQ', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pl-Pl', 'pt-BR', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN']`.<br/>**Note:** `decimal_digits` is given as a range like '1,3', a specific value like '3' or min like '1,'.
 **isDivisibleBy(str, number)**          | check if the string is a number that's divisible by another.
-**isEAN(str)**                          | check if the string is an EAN (European Article Number).
+**isEAN(str)**                          | check if the string is an [EAN (European Article Number)][European Article Number].
 **isEmail(str [, options])**            | check if the string is an email.<br/><br/>`options` is an object which defaults to `{ allow_display_name: false, require_display_name: false, allow_utf8_local_part: true, require_tld: true, allow_ip_domain: false, domain_specific_validation: false, blacklisted_chars: '', host_blacklist: [] }`. If `allow_display_name` is set to true, the validator will also match `Display Name <email-address>`. If `require_display_name` is set to true, the validator will reject strings without the format `Display Name <email-address>`. If `allow_utf8_local_part` is set to false, the validator will not allow any non-English UTF8 character in email address' local part. If `require_tld` is set to false, e-mail addresses without having TLD in their domain will also be matched. If `ignore_max_length` is set to true, the validator will not check for the standard max length of an email. If `allow_ip_domain` is set to true, the validator will allow IP addresses in the host part. If `domain_specific_validation` is true, some additional validation will be enabled, e.g. disallowing certain syntactically valid email addresses that are rejected by GMail. If `blacklisted_chars` receives a string, then the validator will reject emails that include any of the characters in the string, in the name part. If `host_blacklist` is set to an array of strings and the part of the email after the `@` symbol matches one of the strings defined in it, the validation fails. If `host_whitelist` is set to an array of strings and the part of the email after the `@` symbol matches none of the strings defined in it, the validation fails. 
 **isEmpty(str [, options])**            | check if the string has a length of zero.<br/><br/>`options` is an object which defaults to `{ ignore_whitespace:false }`.
 **isEthereumAddress(str)**              | check if the string is an [Ethereum][Ethereum] address using basic regex. Does not validate address checksums.
@@ -122,12 +122,12 @@ Validator                               | Description
 **isHSL(str)**                          | check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on [CSS Colors Level 4 specification][CSS Colors Level 4 Specification].<br/><br/>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: `hsl(200grad+.1%62%/1)`).
 **isIBAN(str)**                         | check if a string is a IBAN (International Bank Account Number).
 **isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['LK', 'PL', 'ES', 'FI', 'IN', 'IT', 'IR', 'MZ', 'NO', 'TH', 'zh-TW', 'he-IL', 'ar-LY', 'ar-TN', 'zh-CN', 'zh-HK']` OR `'any'`. If 'any' is used, function will check if any of the locals match.<br/><br/>Defaults to 'any'.
-**isIMEI(str [, options]))**                         | check if the string is a valid IMEI number. Imei should be of format `###############` or `##-######-######-#`.<br/><br/>`options` is an object which can contain the keys `allow_hyphens`. Defaults to first format . If allow_hyphens is set to true, the validator will validate the second format.
+**isIMEI(str [, options]))**                         | check if the string is a valid [IMEI number][IMEI]. IMEI should be of format `###############` or `##-######-######-#`.<br/><br/>`options` is an object which can contain the keys `allow_hyphens`. Defaults to first format . If allow_hyphens is set to true, the validator will validate the second format.
 **isIn(str, values)**                   | check if the string is in a array of allowed values.
 **isInt(str [, options])**              | check if the string is an integer.<br/><br/>`options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to false will disallow integer values with leading zeroes (e.g. `{ allow_leading_zeroes: false }`). Finally, `options` can contain the keys `gt` and/or `lt` which will enforce integers being greater than or less than, respectively, the value provided (e.g. `{gt: 1, lt: 4}` for a number between 1 and 4).
 **isIP(str [, version])**               | check if the string is an IP (version 4 or 6).
 **isIPRange(str [, version])**          | check if the string is an IP Range (version 4 or 6).
-**isISBN(str [, version])**             | check if the string is an ISBN (version 10 or 13).
+**isISBN(str [, version])**             | check if the string is an [ISBN][ISBN] (version 10 or 13).
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
 **isISO6391(str)**                      | check if the string is a valid [ISO 639-1][ISO 639-1] language code.
 **isISO8601(str [, options])**          | check if the string is a valid [ISO 8601][ISO 8601] date. <br/>`options` is an object which defaults to `{ strict: false, strictSeparator: false }`. If `strict` is true, date strings with invalid dates like `2009-02-29` will be invalid. If `strictSeparator` is true, date strings with date and time separated by anything other than a T will be invalid.
@@ -143,7 +143,7 @@ Validator                               | Description
 **isLicensePlate(str [, locale])**     | check if string matches the format of a country's license plate.<br/><br/>(locale is one of `['cs-CZ', 'de-DE', 'de-LI', 'fi-FI', 'pt-BR', 'pt-PT', 'sq-AL', 'sv-SE', 'en-IN', 'hi-IN', 'gu-IN', 'as-IN', 'bn-IN', 'kn-IN', 'ml-IN', 'mr-IN', 'or-IN', 'pa-IN', 'sa-IN', 'ta-IN', 'te-IN', 'kok-IN']` or `any`)
 **isLocale(str)**                       | check if the string is a locale
 **isLowercase(str)**                    | check if the string is lowercase.
-**isLuhnValid(str)**                    | check if the string passes the luhn check.
+**isLuhnValid(str)**                    | check if the string passes the [Luhn check][Luhn Check].
 **isMACAddress(str [, options])**                   | check if the string is a MAC address.<br/><br/>`options` is an object which defaults to `{no_separators: false}`. If `no_separators` is true, the validator will allow MAC addresses without separators. Also, it allows the use of hyphens, spaces or dots e.g  '01 02 03 04 05 ab', '01-02-03-04-05-ab' or '0102.0304.05ab'. The options also allow a `eui` property to specify if it needs to be validated against EUI-48 or EUI-64. The accepted values of `eui` are: 48, 64.
 **isMagnetURI(str)**                      | check if the string is a [Magnet URI format][Magnet URI Format].
 **isMD5(str)**                          | check if the string is a MD5 hash.<br/><br/>Please note that you can also use the `isHash(str, 'md5')` function. Keep in mind that MD5 has some collision weaknesses compared to other algorithms (e.g., SHA).
@@ -284,8 +284,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [Crockford Base32]: http://www.crockford.com/base32.html
 [Base64 URL Safe]: https://base64.guru/standards/base64url
 [Data URI Format]: https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs
+[European Article Number]: https://en.wikipedia.org/wiki/International_Article_Number
 [Ethereum]: https://ethereum.org/
 [CSS Colors Level 4 Specification]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
+[IMEI]: https://en.wikipedia.org/wiki/International_Mobile_Equipment_Identity
+[ISBN]: https://en.wikipedia.org/wiki/ISBN
 [ISIN]: https://en.wikipedia.org/wiki/International_Securities_Identification_Number
 [ISO 639-1]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
@@ -294,6 +297,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
 [ISRC]: https://en.wikipedia.org/wiki/International_Standard_Recording_Code
 [ISSN]: https://en.wikipedia.org/wiki/International_Standard_Serial_Number
+[Luhn Check]: https://en.wikipedia.org/wiki/Luhn_algorithm
 [Magnet URI Format]: https://en.wikipedia.org/wiki/Magnet_URI_scheme
 [MIME Type]: https://en.wikipedia.org/wiki/Media_type
 [mongoid]: http://docs.mongodb.org/manual/reference/object-id/
