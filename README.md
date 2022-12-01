@@ -169,7 +169,7 @@ Validator                               | Description
 **isUUID(str [, version])**             | check if the string is a UUID (version 1, 2, 3, 4 or 5).
 **isVariableWidth(str)**                | check if the string contains a mixture of full and half-width chars.
 **isVAT(str, countryCode)**             | check that the string is a [valid VAT number][VAT Number] if validation is available for the given country code matching [ISO 3166-1 alpha-2][ISO 3166-1 alpha-2]. <br/><br/>`countryCode` is one of `['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'EL', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'AL', 'MK', 'AU', 'BY', 'CA', 'IS', 'IN', 'ID', 'IL', 'KZ', 'NZ', 'NG', 'NO', 'PH', 'RU', 'SM', 'SA', 'RS', 'CH', 'TR', 'UA', 'GB', 'UZ', 'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'SV', 'GT', 'HN', 'MX', 'NI', 'PA', 'PY', 'PE', 'DO', 'UY', 'VE']`.
-**isWhitelisted(str, chars)**           | checks characters if they appear in the whitelist.
+**isWhitelisted(str, chars)**           | check if the string consists only of characters that appear in the whitelist `chars`.
 **matches(str, pattern [, modifiers])** | check if the string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
 
 ## Sanitizers
