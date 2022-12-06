@@ -14,6 +14,7 @@ const cards = {
 const allCards = (() => {
   const tmpCardsArray = [];
   for (const cardProvider in cards) {
+    // istanbul ignore else
     if (cards.hasOwnProperty(cardProvider)) {
       tmpCardsArray.push(cards[cardProvider]);
     }
