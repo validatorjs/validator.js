@@ -7131,6 +7131,7 @@ describe('Validators', () => {
           '+4418970973',
           '',
           '+1441897465',
+          '+1441897465 additional invalid string part',
         ],
       },
       {
