@@ -8,5 +8,5 @@ export default function isBefore(str, options) {
   const comparison = toDate(comparisonDate);
   const original = toDate(str);
 
-  return !!(original < comparison);
+  return !!(original && comparison && original < comparison);
 }
