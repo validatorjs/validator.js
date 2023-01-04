@@ -371,7 +371,7 @@ const validators = {
     if (checkSumVal === 0) checkSumConverted = '0';
     else if (checkSumVal === 1) checkSumConverted = 'A';
     else checkSumConverted = String(11 - checkSumVal);
-    if (checkSumConverted === strArr.at(-1)) return true;
+    if (checkSumConverted === strArr[strArr.length - 1]) return true;
     return false;
   },
   'zh-TW': (str) => {
