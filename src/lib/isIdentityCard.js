@@ -342,6 +342,36 @@ const validators = {
     };
     return checkIdCardNo(str);
   },
+  'zh-HK': (str) => {
+    // sanitize user input
+    str = str.trim();
+
+    // HKID number starts with a letter, followed by 6 digits,
+    // then a checksum contained in square / round brackets or nothing
+    const regexHKID = new RegExp('^[A-Z]([0-9]{6})((\\([0-9A]\\))|(\\[[0-9A]\\])|([0-9A]))$', 'gm');
+
+    // convert the user input to all uppercase and apply regex
+    str = str.toUpperCase();
+    if (!regexHKID.exec(str)) return false;
+
+    // remove any brackets
+    str = str.replace(/\[|\]|\(|\)/g, '');
+
+    const letterVal = str.charCodeAt(0) - 64;
+    let checkSumVal = letterVal * 8;
+    for (let i = 1; i <= 6; i++) {
+      checkSumVal += (str[i] * (8 - i));
+    }
+    checkSumVal %= 11;
+    let checkSumConverted;
+    if (checkSumVal === 0) checkSumConverted = '0';
+    else if (checkSumVal === 1) checkSumConverted = 'A';
+    else if (checkSumVal >= 2 && checkSumVal <= 10) checkSumConverted = String(11 - checkSumVal);
+    else return false;
+
+    if (checkSumConverted === str[7]) return true;
+    return false;
+  },
   'zh-TW': (str) => {
     const ALPHABET_CODES = {
       A: 10,

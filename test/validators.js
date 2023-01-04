@@ -5519,6 +5519,23 @@ describe('Validators', () => {
   it('should validate identity cards', () => {
     const fixtures = [
       {
+        locale: 'zh-HK',
+        valid: [
+          'Z0977986',
+          'W520128(7)',
+          'A494866[4]',
+          'A494866(4)',
+          'Z867821A',
+          'k348609(5)',
+        ],
+        invalid: [
+          'O962472(9)',
+          'M4578601',
+          'X731324[8]',
+          'C503134(5)',
+        ],
+      },
+      {
         locale: 'LK',
         valid: [
           '722222222v',
