@@ -366,8 +366,7 @@ const validators = {
     let checkSumConverted;
     if (checkSumVal === 0) checkSumConverted = '0';
     else if (checkSumVal === 1) checkSumConverted = 'A';
-    else if (checkSumVal >= 2 && checkSumVal <= 10) checkSumConverted = String(11 - checkSumVal);
-    else return false;
+    else checkSumConverted = String(11 - checkSumVal);
 
     if (checkSumConverted === str[7]) return true;
     return false;
