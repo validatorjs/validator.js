@@ -366,6 +366,7 @@ const validators = {
       checkSumVal += (convertedChar * (9 - i));
     }
     checkSumVal %= 11;
+
     let checkSumConverted;
     if (checkSumVal === 0) checkSumConverted = '0';
     else if (checkSumVal === 1) checkSumConverted = 'A';
