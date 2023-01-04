@@ -5521,6 +5521,7 @@ describe('Validators', () => {
       {
         locale: 'zh-HK',
         valid: [
+          'Q803337[0]',
           'Z0977986',
           'W520128(7)',
           'A494866[4]',
