@@ -48,6 +48,7 @@ import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
+import isAbaRouting from './lib/isAbaRouting';
 import isIBAN, { locales as ibanLocales } from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
@@ -141,6 +142,7 @@ const validator = {
   isIPRange,
   isFQDN,
   isBoolean,
+  isAbaRouting,
   isIBAN,
   isBIC,
   isAlpha,
