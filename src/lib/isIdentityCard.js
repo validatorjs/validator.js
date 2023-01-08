@@ -355,14 +355,13 @@ const validators = {
     str = str.toUpperCase();
     if (!regexHKID.exec(str)) return false;
     str = str.replace(/\[|\]|\(|\)/g, '');
-    const strArr = str.split('');
 
-    if (strArr.length === 8) strArr.unshift('3');
+    if (str.length === 8) str = `3${str}`;
     let checkSumVal = 0;
     for (let i = 0; i <= 7; i++) {
       let convertedChar;
-      if (!regexIsDigit.exec(strArr[i])) convertedChar = (strArr[i].charCodeAt(0) - 55) % 11;
-      else convertedChar = strArr[i];
+      if (!regexIsDigit.exec(str[i])) convertedChar = (str[i].charCodeAt(0) - 55) % 11;
+      else convertedChar = str[i];
       checkSumVal += (convertedChar * (9 - i));
     }
     checkSumVal %= 11;
@@ -371,7 +370,7 @@ const validators = {
     if (checkSumVal === 0) checkSumConverted = '0';
     else if (checkSumVal === 1) checkSumConverted = 'A';
     else checkSumConverted = String(11 - checkSumVal);
-    if (checkSumConverted === strArr[strArr.length - 1]) return true;
+    if (checkSumConverted === str[str.length - 1]) return true;
     return false;
   },
   'zh-TW': (str) => {
