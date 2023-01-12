@@ -11837,9 +11837,9 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate containerID', () => {
+  it('should validate ISO6346 shipping containerID', () => {
     test({
-      validator: 'isContainerID',
+      validator: 'isISO6346',
       valid: [
         'HLXU2008419',
         'TGHU7599330',
@@ -11850,6 +11850,7 @@ describe('Validators', () => {
         'EMCU3811879',
         'OOLU8643084',
         'HJCU1922713',
+        'QJRZ123456',
       ],
       invalid: [
         'OOLU1922713',
