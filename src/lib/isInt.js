@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 const int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
 const intLeadingZeroes = /^[-+]?[0-9]+$/;

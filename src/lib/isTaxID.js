@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
-import * as algorithms from './util/algorithms';
-import isDate from './isDate';
+import assertString from './util/assertString.js';
+import * as algorithms from './util/algorithms.js';
+import isDate from './isDate.js';
 
 /**
  * TIN Validation

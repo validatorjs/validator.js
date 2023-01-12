@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import * as algorithms from './util/algorithms';
+import assertString from './util/assertString.js';
+import * as algorithms from './util/algorithms.js';
 
 const PT = (str) => {
   const match = str.match(/^(PT)?(\d{9})$/);

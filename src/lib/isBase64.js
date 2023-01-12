@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import merge from './util/merge';
+import assertString from './util/assertString.js';
+import merge from './util/merge.js';
 
 const notBase64 = /[^A-Z0-9+\/=]/i;
 const urlSafeBase64 = /^[A-Z0-9_\-]*$/i;

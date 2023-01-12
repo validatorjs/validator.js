@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import toDate from './toDate';
+import assertString from './util/assertString.js';
+import toDate from './toDate.js';
 
 export default function isBefore(str, date = String(new Date())) {
   assertString(str);

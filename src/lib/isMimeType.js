@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 /*
   Checks if the provided string matches to a correct Media type format (MIME type)

@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 /* eslint-disable no-control-regex */
 const ascii = /^[\x00-\x7F]+$/;

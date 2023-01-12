@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import merge from './util/merge';
+import assertString from './util/assertString.js';
+import merge from './util/merge.js';
 
 const default_is_empty_options = {
   ignore_whitespace: false,

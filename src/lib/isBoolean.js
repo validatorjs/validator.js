@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 const defaultOptions = { loose: false };
 const strictBooleans = ['true', 'false', '1', '0'];

@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import { CountryCodes } from './isISO31661Alpha2';
+import assertString from './util/assertString.js';
+import { CountryCodes } from './isISO31661Alpha2.js';
 
 // https://en.wikipedia.org/wiki/ISO_9362
 const isBICReg = /^[A-Za-z]{6}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$/;

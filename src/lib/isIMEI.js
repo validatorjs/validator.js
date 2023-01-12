@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 let imeiRegexWithoutHypens = /^[0-9]{15}$/;
 let imeiRegexWithHypens = /^\d{2}-\d{6}-\d{6}-\d{1}$/;

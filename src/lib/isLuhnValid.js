@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 export default function isLuhnValid(str) {
   assertString(str);

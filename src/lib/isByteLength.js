@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 /* eslint-disable prefer-rest-params */
 export default function isByteLength(str, options) {

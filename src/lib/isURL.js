@@ -1,8 +1,8 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
-import isFQDN from './isFQDN';
-import isIP from './isIP';
-import merge from './util/merge';
+import isFQDN from './isFQDN.js';
+import isIP from './isIP.js';
+import merge from './util/merge.js';
 
 /*
 options for isURL method

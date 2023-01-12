@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
-import blacklist from './blacklist';
+import blacklist from './blacklist.js';
 
 export default function stripLow(str, keep_new_lines) {
   assertString(str);

@@ -1,11 +1,11 @@
 import assert from 'assert';
-import validator from '../index';
-import { locales as isPostalCodeLocales } from '../src/lib/isPostalCode';
-import { locales as isAlphaLocales } from '../src/lib/isAlpha';
-import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric';
-import { locales as isMobilePhoneLocales } from '../src/lib/isMobilePhone';
-import { locales as isFloatLocales } from '../src/lib/isFloat';
-import { locales as ibanCountryCodes } from '../src/lib/isIBAN';
+import validator from '../index.js';
+import { locales as isPostalCodeLocales } from '../src/lib/isPostalCode.js';
+import { locales as isAlphaLocales } from '../src/lib/isAlpha.js';
+import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric.js';
+import { locales as isMobilePhoneLocales } from '../src/lib/isMobilePhone.js';
+import { locales as isFloatLocales } from '../src/lib/isFloat.js';
+import { locales as ibanCountryCodes } from '../src/lib/isIBAN.js';
 
 describe('Exports', () => {
   it('should export validators', () => {

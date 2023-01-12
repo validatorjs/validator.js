@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import toString from './util/toString';
+import assertString from './util/assertString.js';
+import toString from './util/toString.js';
 
 export default function isIn(str, options) {
   assertString(str);

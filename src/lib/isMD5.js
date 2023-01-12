@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 const md5 = /^[a-f0-9]{32}$/;
 

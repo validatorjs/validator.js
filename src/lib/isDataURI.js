@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 const validMediaType = /^[a-z]+\/[a-z0-9\-\+\.]+$/i;
 

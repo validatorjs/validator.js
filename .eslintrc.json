@@ -36,6 +36,15 @@
       "allowForLoopAfterthoughts": true
     }],
     "no-prototype-builtins": 0,
-    "no-useless-escape": 0
-  }
+    "no-useless-escape": 0,
+    "node/file-extension-in-import": ["error", "always"]
+  },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "import/extensions": "off"
+      }
+    }
+  ]
 }

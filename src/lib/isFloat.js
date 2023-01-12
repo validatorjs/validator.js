@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import { decimal } from './alpha';
+import assertString from './util/assertString.js';
+import { decimal } from './alpha.js';
 
 export default function isFloat(str, options) {
   assertString(str);

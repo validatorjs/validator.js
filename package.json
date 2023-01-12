@@ -29,6 +29,27 @@
     "Anthony Nandaa (https://github.com/profnandaa)"
   ],
   "main": "index.js",
+  "module": "./es/index.js",
+  "exports": {
+    ".": {
+      "import": "./es/index.js",
+      "require": "./index.js"
+    },
+    "./index.js": {
+      "import": "./es/index.js",
+      "require": "./index.js"
+    },
+    "./es": "./es/index.js",
+    "./es/lib/*": "./es/lib/*.js",
+    "./es/*": "./es/lib/*.js",
+    "./package.json": "./package.json",
+    "./validator.js": "./validator.js",
+    "./validator.min.js": "./validator.min.js",
+    "./*": {
+      "import": "./es/lib/*.js",
+      "require": "./lib/*.js"
+    }
+  },
   "bugs": {
     "url": "https://github.com/validatorjs/validator.js/issues"
   },

@@ -3,7 +3,7 @@
  * Prevent any breaking of functionality
  */
 import assert from 'assert';
-import typeOf from '../src/lib/util/typeOf';
+import typeOf from '../src/lib/util/typeOf.js';
 
 describe('Util', () => {
   it('should validate different typeOf', () => {

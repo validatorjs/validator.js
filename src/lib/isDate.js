@@ -1,4 +1,4 @@
-import merge from './util/merge';
+import merge from './util/merge.js';
 
 const default_date_options = {
   format: 'YYYY/MM/DD',

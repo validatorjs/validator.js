@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-import assertString from './util/assertString';
-import isInt from './isInt';
+import assertString from './util/assertString.js';
+import isInt from './isInt.js';
 
 const validators = {
   PL: (str) => {

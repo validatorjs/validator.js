@@ -1,5 +1,5 @@
-import merge from './util/merge';
-import assertString from './util/assertString';
+import merge from './util/merge.js';
+import assertString from './util/assertString.js';
 
 function currencyRegex(options) {
   let decimal_digits = `\\d{${options.digits_after_decimal[0]}}`;

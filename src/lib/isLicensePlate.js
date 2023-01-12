@@ -1,5 +1,5 @@
 /* eslint-disable implicit-arrow-linebreak */
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 const validators = {
   'cs-CZ': (str) =>

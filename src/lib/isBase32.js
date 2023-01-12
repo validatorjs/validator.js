@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import merge from './util/merge';
+import assertString from './util/assertString.js';
+import merge from './util/merge.js';
 
 const base32 = /^[A-Z2-7]+=*$/;
 const crockfordBase32 = /^[A-HJKMNP-TV-Z0-9]+$/;
