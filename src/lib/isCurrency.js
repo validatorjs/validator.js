@@ -5,8 +5,7 @@ function currencyRegex(options) {
   let decimal_digits = `\\d{${options.digits_after_decimal[0]}}`;
   options.digits_after_decimal.forEach((digit, index) => { if (index !== 0) decimal_digits = `${decimal_digits}|\\d{${digit}}`; });
 
-  const symbol =
-    `(${options.symbol.replace(/\W/, m => `\\${m}`)})${(options.require_symbol ? '' : '?')}`,
+  const symbol = `(${options.symbol.replace(/\W/, (m) => `\\${m}`)})${(options.require_symbol ? '' : '?')}`,
     negative = '-?',
     whole_dollar_amount_without_sep = '[1-9]\\d*',
     whole_dollar_amount_with_sep = `[1-9]\\d{0,2}(\\${options.thousands_separator}\\d{3})*`,
@@ -52,7 +51,6 @@ function currencyRegex(options) {
   // it doesn't start with a space or a negative sign followed by a space
   return new RegExp(`^(?!-? )(?=.*\\d)${pattern}$`);
 }
-
 
 const default_currency_options = {
   symbol: '$',

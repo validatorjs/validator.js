@@ -12,8 +12,8 @@ export default function isRgbColor(str, includePercentValues = true) {
     return rgbColor.test(str) || rgbaColor.test(str);
   }
 
-  return rgbColor.test(str) ||
-    rgbaColor.test(str) ||
-    rgbColorPercent.test(str) ||
-    rgbaColorPercent.test(str);
+  return rgbColor.test(str)
+    || rgbaColor.test(str)
+    || rgbColorPercent.test(str)
+    || rgbaColorPercent.test(str);
 }

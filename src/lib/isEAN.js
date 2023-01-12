@@ -23,7 +23,6 @@ const LENGTH_EAN_8 = 8;
 const LENGTH_EAN_14 = 14;
 const validEanRegex = /^(\d{8}|\d{13}|\d{14})$/;
 
-
 /**
  * Get position weight given:
  * EAN length and digit index/position
