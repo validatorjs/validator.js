@@ -6,10 +6,10 @@ jobs:
   publish:
     runs-on: ubuntu-20.04
     steps:
-    - name: Setup Node.js 14
+    - name: Setup Node.js 18
       uses: actions/setup-node@v2-beta
       with:
-        node-version: 14
+        node-version: 18
         check-latest: true
         registry-url: https://registry.npmjs.org/
     - name: Checkout Repository
