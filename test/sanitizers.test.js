@@ -1,4 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { format } from 'util';
+import { describe, it } from 'vitest';
 import validator from '../src/index.js';
 
 function test(options) {

@@ -1,4 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import assert from 'assert';
+import { describe, it } from 'vitest';
 import validator from '../validator.js';
 import min from '../validator.min.js';
 

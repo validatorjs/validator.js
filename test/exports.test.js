@@ -1,11 +1,16 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import assert from 'assert';
-import validator from '../index.js';
+import { createRequire } from 'module';
+import { describe, it } from 'vitest';
+import validator from '../src/index.js';
 import { locales as isPostalCodeLocales } from '../src/lib/isPostalCode.js';
 import { locales as isAlphaLocales } from '../src/lib/isAlpha.js';
 import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric.js';
 import { locales as isMobilePhoneLocales } from '../src/lib/isMobilePhone.js';
 import { locales as isFloatLocales } from '../src/lib/isFloat.js';
 import { locales as ibanCountryCodes } from '../src/lib/isIBAN.js';
+
+const require = createRequire(import.meta.url);
 
 describe('Exports', () => {
   it('should export validators', () => {

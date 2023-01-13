@@ -1,8 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * All tests that tests any utility.
  * Prevent any breaking of functionality
  */
 import assert from 'assert';
+import { describe, it } from 'vitest';
 import typeOf from '../src/lib/util/typeOf.js';
 
 describe('Util', () => {

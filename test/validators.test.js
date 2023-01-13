@@ -1,10 +1,14 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import assert from 'assert';
 import fs from 'fs';
+import path from 'path';
 import { format } from 'util';
+import { describe, it } from 'vitest';
 import vm from 'vm';
 import validator from '../src/index.js';
 
-let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
+const dirname = path.dirname(new URL(import.meta.url).pathname);
+let validator_js = fs.readFileSync(path.join(dirname, '..', 'validator.js')).toString();
 
 function test(options) {
   let args = options.args || [];
