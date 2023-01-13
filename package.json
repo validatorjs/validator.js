@@ -33,7 +33,8 @@
   "exports": {
     ".": {
       "import": "./es/index.js",
-      "require": "./index.js"
+      "require": "./index.js",
+      "browser": "./validator.min.js"
     },
     "./index.js": {
       "import": "./es/index.js",
@@ -41,11 +42,25 @@
     },
     "./es": "./es/index.js",
     "./es/lib/*": "./es/lib/*.js",
+    "./es/lib/*.js": "./es/lib/*.js",
     "./es/*": "./es/lib/*.js",
+    "./es/*.js": "./es/lib/*.js",
+    "./lib/*": {
+      "import": "./es/lib/*.js",
+      "require": "./lib/*.js"
+    },
+    "./lib/*.js": {
+      "import": "./es/lib/*.js",
+      "require": "./lib/*.js"
+    },
     "./package.json": "./package.json",
     "./validator.js": "./validator.js",
     "./validator.min.js": "./validator.min.js",
     "./*": {
+      "import": "./es/lib/*.js",
+      "require": "./lib/*.js"
+    },
+    "./*.js": {
       "import": "./es/lib/*.js",
       "require": "./lib/*.js"
     }
