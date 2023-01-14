@@ -348,19 +348,19 @@ const validators = {
 
     // HKID number starts with 1 or 2 letters, followed by 6 digits,
     // then a checksum contained in square / round brackets or nothing
-    const regexHKID = new RegExp('^([A-Z]{1,2})([0-9]{6})((\\([0-9A]\\))|(\\[[0-9A]\\])|([0-9A]))$', 'gm');
-    const regexIsDigit = new RegExp('^[0-9]$');
+    const regexHKID = /^[A-Z]{1,2}[0-9]{6}((\([0-9A]\))|(\[[0-9A]\])|([0-9A]))$/;
+    const regexIsDigit = /^[0-9]$/;
 
     // convert the user input to all uppercase and apply regex
     str = str.toUpperCase();
-    if (!regexHKID.exec(str)) return false;
+    if (!regexHKID.test(str)) return false;
     str = str.replace(/\[|\]|\(|\)/g, '');
 
     if (str.length === 8) str = `3${str}`;
     let checkSumVal = 0;
     for (let i = 0; i <= 7; i++) {
       let convertedChar;
-      if (!regexIsDigit.exec(str[i])) convertedChar = (str[i].charCodeAt(0) - 55) % 11;
+      if (!regexIsDigit.test(str[i])) convertedChar = (str[i].charCodeAt(0) - 55) % 11;
       else convertedChar = str[i];
       checkSumVal += (convertedChar * (9 - i));
     }
