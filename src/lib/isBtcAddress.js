@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 // supports Bech32 addresses
 const bech32 = /^(bc1)[a-z0-9]{25,39}$/;

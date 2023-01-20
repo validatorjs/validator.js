@@ -1,9 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * All tests that tests any utility.
  * Prevent any breaking of functionality
  */
 import assert from 'assert';
-import typeOf from '../src/lib/util/typeOf';
+import { describe, it } from 'vitest';
+import typeOf from '../src/lib/util/typeOf.js';
 
 describe('Util', () => {
   it('should validate different typeOf', () => {

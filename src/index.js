@@ -1,127 +1,127 @@
-import toDate from './lib/toDate';
-import toFloat from './lib/toFloat';
-import toInt from './lib/toInt';
-import toBoolean from './lib/toBoolean';
-import equals from './lib/equals';
-import contains from './lib/contains';
-import matches from './lib/matches';
+import toDate from './lib/toDate.js';
+import toFloat from './lib/toFloat.js';
+import toInt from './lib/toInt.js';
+import toBoolean from './lib/toBoolean.js';
+import equals from './lib/equals.js';
+import contains from './lib/contains.js';
+import matches from './lib/matches.js';
 
-import isEmail from './lib/isEmail';
-import isURL from './lib/isURL';
-import isMACAddress from './lib/isMACAddress';
-import isIP from './lib/isIP';
-import isIPRange from './lib/isIPRange';
-import isFQDN from './lib/isFQDN';
-import isDate from './lib/isDate';
+import isEmail from './lib/isEmail.js';
+import isURL from './lib/isURL.js';
+import isMACAddress from './lib/isMACAddress.js';
+import isIP from './lib/isIP.js';
+import isIPRange from './lib/isIPRange.js';
+import isFQDN from './lib/isFQDN.js';
+import isDate from './lib/isDate.js';
 
-import isBoolean from './lib/isBoolean';
-import isLocale from './lib/isLocale';
+import isBoolean from './lib/isBoolean.js';
+import isLocale from './lib/isLocale.js';
 
-import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
-import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
-import isNumeric from './lib/isNumeric';
-import isPassportNumber from './lib/isPassportNumber';
-import isPort from './lib/isPort';
-import isLowercase from './lib/isLowercase';
-import isUppercase from './lib/isUppercase';
+import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha.js';
+import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric.js';
+import isNumeric from './lib/isNumeric.js';
+import isPassportNumber from './lib/isPassportNumber.js';
+import isPort from './lib/isPort.js';
+import isLowercase from './lib/isLowercase.js';
+import isUppercase from './lib/isUppercase.js';
 
-import isIMEI from './lib/isIMEI';
+import isIMEI from './lib/isIMEI.js';
 
-import isAscii from './lib/isAscii';
-import isFullWidth from './lib/isFullWidth';
-import isHalfWidth from './lib/isHalfWidth';
-import isVariableWidth from './lib/isVariableWidth';
-import isMultibyte from './lib/isMultibyte';
-import isSemVer from './lib/isSemVer';
-import isSurrogatePair from './lib/isSurrogatePair';
+import isAscii from './lib/isAscii.js';
+import isFullWidth from './lib/isFullWidth.js';
+import isHalfWidth from './lib/isHalfWidth.js';
+import isVariableWidth from './lib/isVariableWidth.js';
+import isMultibyte from './lib/isMultibyte.js';
+import isSemVer from './lib/isSemVer.js';
+import isSurrogatePair from './lib/isSurrogatePair.js';
 
-import isInt from './lib/isInt';
-import isFloat, { locales as isFloatLocales } from './lib/isFloat';
-import isDecimal from './lib/isDecimal';
-import isHexadecimal from './lib/isHexadecimal';
-import isOctal from './lib/isOctal';
-import isDivisibleBy from './lib/isDivisibleBy';
+import isInt from './lib/isInt.js';
+import isFloat, { locales as isFloatLocales } from './lib/isFloat.js';
+import isDecimal from './lib/isDecimal.js';
+import isHexadecimal from './lib/isHexadecimal.js';
+import isOctal from './lib/isOctal.js';
+import isDivisibleBy from './lib/isDivisibleBy.js';
 
-import isHexColor from './lib/isHexColor';
-import isRgbColor from './lib/isRgbColor';
-import isHSL from './lib/isHSL';
+import isHexColor from './lib/isHexColor.js';
+import isRgbColor from './lib/isRgbColor.js';
+import isHSL from './lib/isHSL.js';
 
-import isISRC from './lib/isISRC';
+import isISRC from './lib/isISRC.js';
 
-import isIBAN, { locales as ibanLocales } from './lib/isIBAN';
-import isBIC from './lib/isBIC';
+import isIBAN, { locales as ibanLocales } from './lib/isIBAN.js';
+import isBIC from './lib/isBIC.js';
 
-import isMD5 from './lib/isMD5';
-import isHash from './lib/isHash';
-import isJWT from './lib/isJWT';
+import isMD5 from './lib/isMD5.js';
+import isHash from './lib/isHash.js';
+import isJWT from './lib/isJWT.js';
 
-import isJSON from './lib/isJSON';
-import isEmpty from './lib/isEmpty';
+import isJSON from './lib/isJSON.js';
+import isEmpty from './lib/isEmpty.js';
 
-import isLength from './lib/isLength';
-import isByteLength from './lib/isByteLength';
+import isLength from './lib/isLength.js';
+import isByteLength from './lib/isByteLength.js';
 
-import isUUID from './lib/isUUID';
-import isMongoId from './lib/isMongoId';
+import isUUID from './lib/isUUID.js';
+import isMongoId from './lib/isMongoId.js';
 
-import isAfter from './lib/isAfter';
-import isBefore from './lib/isBefore';
+import isAfter from './lib/isAfter.js';
+import isBefore from './lib/isBefore.js';
 
-import isIn from './lib/isIn';
+import isIn from './lib/isIn.js';
 
-import isLuhnValid from './lib/isLuhnValid';
-import isCreditCard from './lib/isCreditCard';
-import isIdentityCard from './lib/isIdentityCard';
+import isLuhnValid from './lib/isLuhnValid.js';
+import isCreditCard from './lib/isCreditCard.js';
+import isIdentityCard from './lib/isIdentityCard.js';
 
-import isEAN from './lib/isEAN';
-import isISIN from './lib/isISIN';
-import isISBN from './lib/isISBN';
-import isISSN from './lib/isISSN';
-import isTaxID from './lib/isTaxID';
+import isEAN from './lib/isEAN.js';
+import isISIN from './lib/isISIN.js';
+import isISBN from './lib/isISBN.js';
+import isISSN from './lib/isISSN.js';
+import isTaxID from './lib/isTaxID.js';
 
-import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
+import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone.js';
 
-import isEthereumAddress from './lib/isEthereumAddress';
+import isEthereumAddress from './lib/isEthereumAddress.js';
 
-import isCurrency from './lib/isCurrency';
+import isCurrency from './lib/isCurrency.js';
 
-import isBtcAddress from './lib/isBtcAddress';
+import isBtcAddress from './lib/isBtcAddress.js';
 
-import isISO6391 from './lib/isISO6391';
-import isISO8601 from './lib/isISO8601';
-import isRFC3339 from './lib/isRFC3339';
-import isISO31661Alpha2 from './lib/isISO31661Alpha2';
-import isISO31661Alpha3 from './lib/isISO31661Alpha3';
-import isISO4217 from './lib/isISO4217';
+import isISO6391 from './lib/isISO6391.js';
+import isISO8601 from './lib/isISO8601.js';
+import isRFC3339 from './lib/isRFC3339.js';
+import isISO31661Alpha2 from './lib/isISO31661Alpha2.js';
+import isISO31661Alpha3 from './lib/isISO31661Alpha3.js';
+import isISO4217 from './lib/isISO4217.js';
 
-import isBase32 from './lib/isBase32';
-import isBase58 from './lib/isBase58';
-import isBase64 from './lib/isBase64';
-import isDataURI from './lib/isDataURI';
-import isMagnetURI from './lib/isMagnetURI';
+import isBase32 from './lib/isBase32.js';
+import isBase58 from './lib/isBase58.js';
+import isBase64 from './lib/isBase64.js';
+import isDataURI from './lib/isDataURI.js';
+import isMagnetURI from './lib/isMagnetURI.js';
 
-import isMimeType from './lib/isMimeType';
+import isMimeType from './lib/isMimeType.js';
 
-import isLatLong from './lib/isLatLong';
-import isPostalCode, { locales as isPostalCodeLocales } from './lib/isPostalCode';
+import isLatLong from './lib/isLatLong.js';
+import isPostalCode, { locales as isPostalCodeLocales } from './lib/isPostalCode.js';
 
-import ltrim from './lib/ltrim';
-import rtrim from './lib/rtrim';
-import trim from './lib/trim';
-import escape from './lib/escape';
-import unescape from './lib/unescape';
-import stripLow from './lib/stripLow';
-import whitelist from './lib/whitelist';
-import blacklist from './lib/blacklist';
-import isWhitelisted from './lib/isWhitelisted';
+import ltrim from './lib/ltrim.js';
+import rtrim from './lib/rtrim.js';
+import trim from './lib/trim.js';
+import escape from './lib/escape.js';
+import unescape from './lib/unescape.js';
+import stripLow from './lib/stripLow.js';
+import whitelist from './lib/whitelist.js';
+import blacklist from './lib/blacklist.js';
+import isWhitelisted from './lib/isWhitelisted.js';
 
-import normalizeEmail from './lib/normalizeEmail';
+import normalizeEmail from './lib/normalizeEmail.js';
 
-import isSlug from './lib/isSlug';
-import isLicensePlate from './lib/isLicensePlate';
-import isStrongPassword from './lib/isStrongPassword';
+import isSlug from './lib/isSlug.js';
+import isLicensePlate from './lib/isLicensePlate.js';
+import isStrongPassword from './lib/isStrongPassword.js';
 
-import isVAT from './lib/isVAT';
+import isVAT from './lib/isVAT.js';
 
 const version = '13.7.0';
 

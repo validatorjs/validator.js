@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import { alpha } from './alpha';
+import assertString from './util/assertString.js';
+import { alpha } from './alpha.js';
 
 export default function isAlpha(_str, locale = 'en-US', options = {}) {
   assertString(_str);

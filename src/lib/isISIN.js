@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 const isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
 

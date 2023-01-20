@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import multilineRegexp from './util/multilineRegex';
+import assertString from './util/assertString.js';
+import multilineRegexp from './util/multilineRegex.js';
 
 /**
  * Regular Expression to match

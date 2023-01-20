@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import { decimal } from './alpha';
+import assertString from './util/assertString.js';
+import { decimal } from './alpha.js';
 
 export default function isFloat(str, options) {
   assertString(str);
@@ -9,11 +9,11 @@ export default function isFloat(str, options) {
     return false;
   }
   const value = parseFloat(str.replace(',', '.'));
-  return float.test(str) &&
-    (!options.hasOwnProperty('min') || value >= options.min) &&
-    (!options.hasOwnProperty('max') || value <= options.max) &&
-    (!options.hasOwnProperty('lt') || value < options.lt) &&
-    (!options.hasOwnProperty('gt') || value > options.gt);
+  return float.test(str)
+    && (!options.hasOwnProperty('min') || value >= options.min)
+    && (!options.hasOwnProperty('max') || value <= options.max)
+    && (!options.hasOwnProperty('lt') || value < options.lt)
+    && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
 export const locales = Object.keys(decimal);

@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import merge from './util/merge';
+import assertString from './util/assertString.js';
+import merge from './util/merge.js';
 
 const default_json_options = {
   allow_primitives: false,

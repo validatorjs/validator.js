@@ -1,4 +1,4 @@
-import merge from './util/merge';
+import merge from './util/merge.js';
 
 const default_normalize_email_options = {
   // The following options apply to all email addresses

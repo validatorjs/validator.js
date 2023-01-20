@@ -1,7 +1,7 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
-import { fullWidth } from './isFullWidth';
-import { halfWidth } from './isHalfWidth';
+import { fullWidth } from './isFullWidth.js';
+import { halfWidth } from './isHalfWidth.js';
 
 export default function isVariableWidth(str) {
   assertString(str);

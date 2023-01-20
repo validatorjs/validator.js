@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 const isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/;
 const isbn13Maybe = /^(?:[0-9]{13})$/;

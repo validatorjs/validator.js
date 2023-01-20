@@ -12,7 +12,7 @@
  * Reference: https://www.gtin.info/
  */
 
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 /**
  * Define EAN Lenghts; 8 for EAN-8; 13 for EAN-13; 14 for EAN-14
@@ -22,7 +22,6 @@ import assertString from './util/assertString';
 const LENGTH_EAN_8 = 8;
 const LENGTH_EAN_14 = 14;
 const validEanRegex = /^(\d{8}|\d{13}|\d{14})$/;
-
 
 /**
  * Get position weight given:

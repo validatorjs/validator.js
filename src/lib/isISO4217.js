@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 // from https://en.wikipedia.org/wiki/ISO_4217
 const validISO4217CurrencyCodes = new Set([

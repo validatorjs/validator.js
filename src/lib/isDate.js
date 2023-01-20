@@ -1,4 +1,4 @@
-import merge from './util/merge';
+import merge from './util/merge.js';
 
 const default_date_options = {
   format: 'YYYY/MM/DD',
@@ -29,10 +29,10 @@ export default function isDate(input, options) {
   }
   if (typeof input === 'string' && isValidFormat(options.format)) {
     const formatDelimiter = options.delimiters
-      .find(delimiter => options.format.indexOf(delimiter) !== -1);
+      .find((delimiter) => options.format.indexOf(delimiter) !== -1);
     const dateDelimiter = options.strictMode
       ? formatDelimiter
-      : options.delimiters.find(delimiter => input.indexOf(delimiter) !== -1);
+      : options.delimiters.find((delimiter) => input.indexOf(delimiter) !== -1);
     const dateAndFormat = zip(
       input.split(dateDelimiter),
       options.format.toLowerCase().split(formatDelimiter)

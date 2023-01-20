@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 /* Based on https://tools.ietf.org/html/rfc3339#section-5.6 */
 

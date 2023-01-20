@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import toFloat from './toFloat';
+import assertString from './util/assertString.js';
+import toFloat from './toFloat.js';
 
 export default function isDivisibleBy(str, num) {
   assertString(str);

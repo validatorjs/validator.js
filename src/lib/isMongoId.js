@@ -1,6 +1,6 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
-import isHexadecimal from './isHexadecimal';
+import isHexadecimal from './isHexadecimal.js';
 
 export default function isMongoId(str) {
   assertString(str);

@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { format } from 'util';
-import validator from '../src/index';
+import { describe, it } from 'vitest';
+import validator from '../src/index.js';
 
 function test(options) {
   let args = options.args || [];
@@ -17,7 +19,10 @@ function test(options) {
     if (result !== expected) {
       let warning = format(
         'validator.%s(%s) returned "%s" but should have returned "%s"',
-        options.sanitizer, args.join(', '), result, expected
+        options.sanitizer,
+        args.join(', '),
+        result,
+        expected
       );
 
       throw new Error(warning);
@@ -106,7 +111,6 @@ describe('Sanitizers', () => {
       args: ['\\S'],
       expect: { '\\S01010020100001': '01010020100001' },
     });
-
 
     test({
       sanitizer: 'rtrim',

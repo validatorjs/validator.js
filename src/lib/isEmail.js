@@ -1,9 +1,9 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
-import merge from './util/merge';
-import isByteLength from './isByteLength';
-import isFQDN from './isFQDN';
-import isIP from './isIP';
+import merge from './util/merge.js';
+import isByteLength from './isByteLength.js';
+import isFQDN from './isFQDN.js';
+import isIP from './isIP.js';
 
 const default_email_options = {
   allow_display_name: false,
@@ -49,8 +49,7 @@ function validateDisplayName(display_name) {
     }
 
     // the quotes in display name must start with character symbol \
-    const all_start_with_back_slash =
-      display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
+    const all_start_with_back_slash = display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
     if (!all_start_with_back_slash) {
       return false;
     }
@@ -58,7 +57,6 @@ function validateDisplayName(display_name) {
 
   return true;
 }
-
 
 export default function isEmail(str, options) {
   assertString(str);
@@ -133,8 +131,8 @@ export default function isEmail(str, options) {
   }
 
   if (options.ignore_max_length === false && (
-    !isByteLength(user, { max: 64 }) ||
-    !isByteLength(domain, { max: 254 }))
+    !isByteLength(user, { max: 64 })
+    || !isByteLength(domain, { max: 254 }))
   ) {
     return false;
   }
@@ -159,13 +157,13 @@ export default function isEmail(str, options) {
 
   if (user[0] === '"') {
     user = user.slice(1, user.length - 1);
-    return options.allow_utf8_local_part ?
-      quotedEmailUserUtf8.test(user) :
-      quotedEmailUser.test(user);
+    return options.allow_utf8_local_part
+      ? quotedEmailUserUtf8.test(user)
+      : quotedEmailUser.test(user);
   }
 
-  const pattern = options.allow_utf8_local_part ?
-    emailUserUtf8Part : emailUserPart;
+  const pattern = options.allow_utf8_local_part
+    ? emailUserUtf8Part : emailUserPart;
 
   const user_parts = user.split('.');
   for (let i = 0; i < user_parts.length; i++) {

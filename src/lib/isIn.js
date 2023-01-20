@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
-import toString from './util/toString';
+import assertString from './util/assertString.js';
+import toString from './util/toString.js';
 
 export default function isIn(str, options) {
   assertString(str);
@@ -14,9 +14,9 @@ export default function isIn(str, options) {
       }
     }
     return array.indexOf(str) >= 0;
-  } else if (typeof options === 'object') {
+  } if (typeof options === 'object') {
     return options.hasOwnProperty(str);
-  } else if (options && typeof options.indexOf === 'function') {
+  } if (options && typeof options.indexOf === 'function') {
     return options.indexOf(str) >= 0;
   }
   return false;
