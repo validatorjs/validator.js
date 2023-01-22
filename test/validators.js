@@ -12475,6 +12475,7 @@ describe('Validators', () => {
         'mxH_+2vs&54_+H3P',
         '+&DxJ=X7-4L8jRCD',
         'etV*p%Nr6w&H%FeF',
+        '£3.ndSau_7',
       ],
       invalid: [
         '',
