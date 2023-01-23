@@ -6,9 +6,9 @@ import assertString from './util/assertString';
 const isISO6346Str = /^[A-Z]{3}(U[0-9]{7})|([J,Z][0-9]{6,7})$/;
 const isDigit = /^[0-9]$/;
 
-export default function isISO6346(str) {
+export function isISO6346(str) {
   assertString(str);
-  str = str.trim();
+
   str = str.toUpperCase();
 
   if (!isISO6346Str.test(str)) return false;
@@ -33,3 +33,5 @@ export default function isISO6346(str) {
 
   return true;
 }
+
+export const isFreightContainerID = isISO6346;

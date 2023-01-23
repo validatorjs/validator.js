@@ -87,7 +87,7 @@ import isCurrency from './lib/isCurrency';
 
 import isBtcAddress from './lib/isBtcAddress';
 
-import isISO6346 from './lib/isISO6346';
+import { isISO6346, isFreightContainerID } from './lib/isISO6346';
 import isISO6391 from './lib/isISO6391';
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
@@ -200,6 +200,7 @@ const validator = {
   isCurrency,
   isBtcAddress,
   isISO6346,
+  isFreightContainerID,
   isISO6391,
   isISO8601,
   isRFC3339,
