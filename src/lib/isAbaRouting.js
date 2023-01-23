@@ -7,7 +7,6 @@ const isRoutingReg = /^(?!(1[3-9])|(20)|(3[3-9])|(4[0-9])|(5[0-9])|(60)|(7[3-9])
 
 export default function isAbaRouting(str) {
   assertString(str);
-  str = str.trim();
 
   if (!isRoutingReg.test(str)) return false;
 
