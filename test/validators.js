@@ -116,6 +116,12 @@ describe('Validators', () => {
         '"wrong()[]",:;<>@@gmail.com',
         'username@domain.com�',
         'username@domain.com©',
+        'invisibleChars@example­.com',
+        'invisible​Space@test.com',
+        // has invisible space character \u200B at the start
+        '​user@domain.com',
+        'invisibleZeroWidth‍Joiner@test.com',
+        'invisible⁡WordJoiner@example.com',
       ],
     });
   });
@@ -13938,6 +13944,31 @@ describe('Validators', () => {
       error: [
         'GB999 9999 00',
       ],
+    });
+
+    it('should validate strings with invisible characters', () => {
+      test({
+        validator: 'hasinvisibleChars',
+        invalid: [
+          'abcdefg',
+          'xyz1234',
+          'ABCDEFGXYZW',
+          '/=@.=+)(&^%$',
+          'JBSWY3DP',
+          'JBSWY3DPEA======',
+          'K5SWYY3PNVSSA5DPEBXG6ZA=',
+          'K5SWYY3PNVSSA5DPEBXG6===',
+        ],
+        valid: [
+          'leftToRight‎Mark',
+          'has‍ZeroWidthJoiner',
+          // has invisible space character \u200B at the start
+          '​user',
+          // has U+200B at end of test
+          'test​',
+          'HasZeroWidth‌NonJoiner',
+        ],
+      });
     });
   });
 });

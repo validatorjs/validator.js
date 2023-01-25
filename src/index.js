@@ -123,6 +123,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
+import hasInvisibleChars from './lib/hasInvisibleChars';
 
 const version = '13.7.0';
 
@@ -231,6 +232,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  hasInvisibleChars,
 };
 
 export default validator;

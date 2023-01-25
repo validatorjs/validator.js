@@ -4,6 +4,7 @@ import merge from './util/merge';
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
 import isIP from './isIP';
+import hasInvisibleChars from './hasInvisibleChars';
 
 const default_email_options = {
   allow_display_name: false,
@@ -92,6 +93,9 @@ export default function isEmail(str, options) {
     return false;
   }
 
+  if (hasInvisibleChars(str)) {
+    return false;
+  }
   const parts = str.split('@');
   const domain = parts.pop();
   const lower_domain = domain.toLowerCase();
