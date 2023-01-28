@@ -4,10 +4,6 @@
 
 - [#1706](https://github.com/validatorjs/validator.js/pull/1706) `isISO4217`, currency code validator @jpaya17
 
-### New Features
-
-- [#1706](https://github.com/validatorjs/validator.js/pull/1706) `isISO4217`, currency code validator @jpaya17
-
 ### Fixes and Enhancements
 
 - [#1647](https://github.com/validatorjs/validator.js/pull/1647) `isFQDN`: add `allow_wildcard` option @fasenderos
