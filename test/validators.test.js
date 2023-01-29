@@ -11821,6 +11821,7 @@ describe('Validators', () => {
         'font/woff2',
         'message/http',
         'model/vnd.gtw',
+        'application/media_control+xml',
         'multipart/form-data',
         'multipart/form-data; boundary=something',
         'multipart/form-data; charset=utf-8; boundary=something',
