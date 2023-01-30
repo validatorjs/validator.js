@@ -35,7 +35,7 @@ export default function isISBN(isbn, options) {
     }
 
     if ((checksum % 11) === 0) {
-      return !!sanitizedIsbn;
+      return true;
     }
   } else if (version === '13') {
     if (!possibleIsbn13.test(sanitizedIsbn)) {
@@ -47,7 +47,7 @@ export default function isISBN(isbn, options) {
     }
 
     if (sanitizedIsbn.charAt(12) - ((10 - (checksum % 10)) % 10) === 0) {
-      return !!sanitizedIsbn;
+      return true;
     }
   }
 
