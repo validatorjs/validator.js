@@ -38,4 +38,11 @@ describe('isEmpty', () => {
       ],
     });
   });
+
+  it('should error on non-string input', () => {
+    test({
+      validator: 'isEmpty',
+      error: [undefined, null, [], NaN],
+    });
+  });
 });
