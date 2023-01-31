@@ -5075,6 +5075,7 @@ describe('Validators', () => {
         'SBICKEN1',
         'SBICKENY',
         'SBICKEN1YYP',
+        'SBICXKN1YYP',
       ],
       invalid: [
         'SBIC23NXXX',
@@ -5083,6 +5084,7 @@ describe('Validators', () => {
         'SBICKENXX9',
         'SBICKEN13458',
         'SBICKEN',
+        'SBICXK',
       ],
     });
   });
