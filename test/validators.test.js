@@ -3192,6 +3192,18 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['JM'],
+      valid: [
+        'A0123456',
+      ],
+      invalid: [
+        's0123456',
+        'a01234567',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['JP'],
       valid: [
         'NH1106002',
@@ -3214,6 +3226,31 @@ describe('Validators', () => {
       invalid: [
         'X12345678',
         '012345678',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['KZ'],
+      valid: [
+        'A0123456',
+        'b0123456',
+      ],
+      invalid: [
+        '01234567',
+        'bb0123456',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['LI'],
+      valid: [
+        'a01234',
+        'f01234',
+      ],
+      invalid: [
+        '012345',
       ],
     });
 
@@ -3329,6 +3366,27 @@ describe('Validators', () => {
       invalid: [
         'XTR11013R',
         'XR1001R58A',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['NZ'],
+      valid: [
+        'Lf012345',
+        'La012345',
+        'Ld012345',
+        'Lh012345',
+        'ea012345',
+        'ep012345',
+        'n012345',
+      ],
+      invalid: [
+        'Lp012345',
+        'nd012345',
+        'ed012345',
+        'eh012345',
+        'ef012345',
       ],
     });
 
