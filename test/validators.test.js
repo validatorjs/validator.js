@@ -278,6 +278,15 @@ describe('Validators', () => {
       ],
       invalid: [],
     });
+
+    test({
+      validator: 'isEmail',
+      args: [{ ignore_max_length: true }],
+      valid: [
+        'Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX@Deleted-user-id-19430-Team-5051deleted-user-id-19430-team-5051XXXXXX.com',
+      ],
+      invalid: [],
+    });
   });
 
   it('should not validate email addresses with denylisted domains', () => {
