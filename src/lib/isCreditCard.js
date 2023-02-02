@@ -1,5 +1,5 @@
 import assertString from './util/assertString';
-import isLuhnValid from './isLuhnValid';
+import isLuhnValid from './isLuhnNumber';
 
 const cards = {
   amex: /^3[47][0-9]{13}$/,
