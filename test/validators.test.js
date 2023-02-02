@@ -5215,7 +5215,7 @@ describe('Validators', () => {
 
   it('should validate luhn numbers', () => {
     test({
-      validator: 'isLuhnValid',
+      validator: 'isLuhnNumber',
       valid: [
         '0',
         '5421',
