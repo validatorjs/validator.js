@@ -3331,6 +3331,34 @@ describe('Validators', () => {
         'XR1001R58A',
       ],
     });
+    test({
+      validator: 'isPassportNumber',
+      args: ['PK'],
+      valid: [
+        'QZ1791293',
+        'XR1001458',
+      ],
+      invalid: [
+        'XTR11013R',
+        'XR1001R58A',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['PH'],
+      valid: [
+        'X123456',
+        'XY123456',
+        'XY1234567',
+        'X1234567Y',
+      ],
+      invalid: [
+        'XY12345',
+        'X12345Z',
+        'XY12345Z',
+      ],
+    });
 
     test({
       validator: 'isPassportNumber',
