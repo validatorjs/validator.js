@@ -1136,6 +1136,10 @@ const taxIdFormat = {
   'en-CA': /^\d{9}$/,
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/i,
+  'en-IN': {
+    GSTIN: /^((?!39)(?!00)[0-3][0-9]|97)([A-Z]{3}[ABCFGHLJPT][A-Z](?!0000)[0-9]{4}[A-Z])[1-9A-Z]Z[0-9 A-Z]$/,
+    PAN: /^[A-Z]{3}[ABCFGHLJPT][A-Z](?!0000)[0-9]{4}[A-Z]$/,
+  },
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'es-ES': /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/i,
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
@@ -1211,30 +1215,62 @@ const sanitizeRegexes = {
 // sanitizeRegexes locale aliases
 sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
 
+const multipleTinLocale = {
+  'en-IN': {
+    GSTIN: true,
+    PAN: true,
+  },
+};
+
+const availableOptions = {
+  localeOption: true,
+};
+
+// Validates args of isTaxID function
+function validateArgs(str, locale, options) {
+  try { assertString(str); } catch (err) { throw new Error(`${err.message} for str`); }
+  try { assertString(locale); } catch (err) { throw new Error(`${err.message} for locale`); }
+
+  for (const option in options) {
+    if (!(option in availableOptions)) throw new Error(`'${option}' is not available`);
+  }
+
+  const localeOption = options?.localeOption;
+  if (!(locale in taxIdFormat)) throw new Error(`Invalid locale '${locale}'`);
+
+  if (localeOption || localeOption === '') {
+    try { assertString(localeOption); } catch (err) { throw new Error(`${err.message} for localeOption`); }
+    if (locale in multipleTinLocale) {
+      if (!(localeOption in multipleTinLocale[locale])) throw new Error(`Invalid localeOption '${localeOption}'`);
+    } else {
+      throw new Error(`locale '${locale} do not have localeOption '${localeOption}'`);
+    }
+  }
+}
+
 /*
  * Validator function
  * Return true if the passed string is a valid tax identification number
  * for the specified locale.
  * Throw an error exception if the locale is not supported.
  */
-export default function isTaxID(str, locale = 'en-US') {
-  assertString(str);
+export default function isTaxID(str, locale = 'en-US', options) {
+  validateArgs(str, locale, options);
+  const localeOption = options?.localeOption;
+
   // Copy TIN to avoid replacement if sanitized
   let strcopy = str.slice(0);
-
-  if (locale in taxIdFormat) {
-    if (locale in sanitizeRegexes) {
-      strcopy = strcopy.replace(sanitizeRegexes[locale], '');
-    }
-    if (!taxIdFormat[locale].test(strcopy)) {
-      return false;
-    }
-
-    if (locale in taxIdCheck) {
-      return taxIdCheck[locale](strcopy);
-    }
-    // Fallthrough; not all locales have algorithmic checks
-    return true;
+  if (locale in sanitizeRegexes) {
+    strcopy = strcopy.replace(sanitizeRegexes[locale], '');
   }
-  throw new Error(`Invalid locale '${locale}'`);
+
+  if (locale in multipleTinLocale) {
+    if (!taxIdFormat[locale][localeOption].test(strcopy)) return false;
+  } else {
+    if (!taxIdFormat[locale].test(strcopy)) return false;
+    if (locale in taxIdCheck) return taxIdCheck[locale](strcopy);
+  }
+
+  return true;
 }
+
