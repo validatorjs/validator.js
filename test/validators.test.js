@@ -12156,6 +12156,25 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['en-IN', { localeOption: 'PAN' }],
+      valid: [
+        'MFWAA0001A',
+        'ABPPA2020K',
+        'KLSPK0909Z',
+        'ACSLY4499S'],
+      invalid: [
+        '123PA0001A',
+        'ACSZA2020K',
+        'ACSP19090K',
+        'ACSPA0000K',
+        'ACSYA44999',
+        '',
+        'ACS A4499A',
+        '*#$PA4499J',
+        'ACSLY4499SK'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['en-US'],
       valid: [
         '01-1234567',

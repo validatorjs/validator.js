@@ -1228,6 +1228,8 @@ const availableOptions = {
 
 // Validates args of isTaxID function
 function validateArgs(str, locale, options) {
+  const localeOption = options?.localeOption;
+
   try { assertString(str); } catch (err) { throw new Error(`${err.message} for str`); }
   try { assertString(locale); } catch (err) { throw new Error(`${err.message} for locale`); }
 
@@ -1235,16 +1237,14 @@ function validateArgs(str, locale, options) {
     if (!(option in availableOptions)) throw new Error(`'${option}' is not available`);
   }
 
-  const localeOption = options?.localeOption;
   if (!(locale in taxIdFormat)) throw new Error(`Invalid locale '${locale}'`);
 
-  if (localeOption || localeOption === '') {
+
+  if (locale in multipleTinLocale) {
     try { assertString(localeOption); } catch (err) { throw new Error(`${err.message} for localeOption`); }
-    if (locale in multipleTinLocale) {
-      if (!(localeOption in multipleTinLocale[locale])) throw new Error(`Invalid localeOption '${localeOption}'`);
-    } else {
-      throw new Error(`locale '${locale} do not have localeOption '${localeOption}'`);
-    }
+    if (!(localeOption in multipleTinLocale[locale])) throw new Error(`Invalid localeOption '${localeOption}'`);
+  } else if (localeOption || localeOption === '') {
+    throw new Error(`Invalid localeOption for locale '${locale}'`);
   }
 }
 
@@ -1266,10 +1266,10 @@ export default function isTaxID(str, locale = 'en-US', options) {
 
   if (locale in multipleTinLocale) {
     if (!taxIdFormat[locale][localeOption].test(strcopy)) return false;
-  } else {
-    if (!taxIdFormat[locale].test(strcopy)) return false;
-    if (locale in taxIdCheck) return taxIdCheck[locale](strcopy);
+    return true;
   }
+  if (!taxIdFormat[locale].test(strcopy)) return false;
+  if (locale in taxIdCheck) return taxIdCheck[locale](strcopy);
 
   return true;
 }
