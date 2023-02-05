@@ -2,7 +2,7 @@ import assert from 'assert';
 import { format } from 'util';
 import validator from '../src/index';
 
-function test(options) {
+export default function test(options) {
   const args = options.args || [];
 
   args.unshift(null);
@@ -54,7 +54,3 @@ function test(options) {
     });
   }
 }
-
-export default {
-  test,
-};

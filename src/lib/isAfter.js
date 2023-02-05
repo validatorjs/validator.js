@@ -1,14 +1,11 @@
-import assertString from './util/assertString';
 import toDate from './toDate';
 
-export default function isAfter(str, options) {
-  assertString(str);
+export default function isAfter(date, options) {
+  // For backwards compatibility:
+  // isAfter(str [, date]), i.e. `options` could be used as argument for the legacy `date`
+  const comparisonDate = options?.comparisonDate || options || Date().toString();
 
-  // accessing 'arguments' for backwards compatibility: isAfter(str [, date])
-  // eslint-disable-next-line prefer-rest-params
-  const date = (typeof options === 'object' ? options.date : arguments[1]) || Date().toString();
-
-  const comparison = toDate(date);
-  const original = toDate(str);
+  const comparison = toDate(comparisonDate);
+  const original = toDate(date);
   return !!(original && comparison && original > comparison);
 }
