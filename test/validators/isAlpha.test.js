@@ -1,4 +1,4 @@
-import { test } from '../testFunctions';
+import test from '../testFunctions';
 
 describe('isAlpha', () => {
   it('should validate alpha strings with missing `locale` option', () => {
