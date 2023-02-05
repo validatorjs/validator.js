@@ -34,6 +34,21 @@ describe('isBefore', () => {
       args: [{ comparisonDate: 'invalid date' }],
       invalid: ['invalid date', '1999-12-31'],
     });
+    test({
+      validator: 'isBefore',
+      args: [], // will fall back to the current date
+      valid: ['1999-06-07'],
+    });
+    test({
+      validator: 'isBefore',
+      args: [undefined], // will fall back to the current date
+      valid: ['1999-06-07'],
+    });
+    test({
+      validator: 'isBefore',
+      args: [{ comparisonDate: undefined }], // will fall back to the current date
+      valid: ['1999-06-07'],
+    });
   });
 
   describe('(legacy syntax)', () => {
