@@ -27,6 +27,21 @@ describe('isAfter', () => {
       args: [{ comparisonDate: 'invalid date' }],
       invalid: ['invalid date', '2015-09-17'],
     });
+    test({
+      validator: 'isAfter',
+      args: [], // will fall back to the current date
+      valid: ['2100-08-04', new Date(Date.now() + 86400000).toString()],
+    });
+    test({
+      validator: 'isAfter',
+      args: [undefined], // will fall back to the current date
+      valid: ['2100-08-04', new Date(Date.now() + 86400000).toString()],
+    });
+    test({
+      validator: 'isAfter',
+      args: [{ comparisonDate: undefined }], // will fall back to the current date
+      valid: ['2100-08-04', new Date(Date.now() + 86400000).toString()],
+    });
   });
 
   describe('(legacy syntax)', () => {
