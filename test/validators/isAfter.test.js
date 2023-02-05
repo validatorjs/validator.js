@@ -1,10 +1,10 @@
-import { test } from '../testFunctions';
+import test from '../testFunctions';
 
 describe('isAfter', () => {
   it('should validate dates against a start date', () => {
     test({
       validator: 'isAfter',
-      args: [{ date: '2011-08-03' }],
+      args: [{ comparisonDate: '2011-08-03' }],
       valid: ['2011-08-04', new Date(2011, 8, 10).toString()],
       invalid: ['2010-07-02', '2011-08-03', new Date(0).toString(), 'foo'],
     });
@@ -17,14 +17,14 @@ describe('isAfter', () => {
 
     test({
       validator: 'isAfter',
-      args: [{ date: '2011-08-03' }],
+      args: [{ comparisonDate: '2011-08-03' }],
       valid: ['2015-09-17'],
       invalid: ['invalid date'],
     });
 
     test({
       validator: 'isAfter',
-      args: [{ date: 'invalid date' }],
+      args: [{ comparisonDate: 'invalid date' }],
       invalid: ['invalid date', '2015-09-17'],
     });
   });
