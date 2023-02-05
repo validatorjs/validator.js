@@ -1,4 +1,4 @@
-import { test } from '../testFunctions';
+import test from '../testFunctions';
 
 describe('isBefore', () => {
   it('should validate dates against an end date', () => {
