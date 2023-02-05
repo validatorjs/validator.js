@@ -139,7 +139,10 @@ export default function isEmail(str, options) {
     return false;
   }
 
-  if (!isFQDN(domain, { require_tld: options.require_tld })) {
+  if (!isFQDN(domain, {
+    require_tld: options.require_tld,
+    ignore_max_length: options.ignore_max_length,
+  })) {
     if (!options.allow_ip_domain) {
       return false;
     }

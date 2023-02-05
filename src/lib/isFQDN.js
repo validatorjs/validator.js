@@ -7,6 +7,7 @@ const default_fqdn_options = {
   allow_trailing_dot: false,
   allow_numeric_tld: false,
   allow_wildcard: false,
+  ignore_max_length: false,
 };
 
 export default function isFQDN(str, options) {
@@ -48,7 +49,7 @@ export default function isFQDN(str, options) {
   }
 
   return parts.every((part) => {
-    if (part.length > 63) {
+    if (part.length > 63 && !options.ignore_max_length) {
       return false;
     }
 
