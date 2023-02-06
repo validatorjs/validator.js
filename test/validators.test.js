@@ -11946,6 +11946,7 @@ describe('Validators', () => {
     });
   });
 
+
   it('should validate ISO6346 shipping containerID', () => {
     test({
       validator: 'isISO6346',
