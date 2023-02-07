@@ -70,7 +70,7 @@ import isBefore from './lib/isBefore';
 
 import isIn from './lib/isIn';
 
-import isLuhnValid from './lib/isLuhnValid';
+import isLuhnNumber from './lib/isLuhnNumber';
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
 
@@ -124,7 +124,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-const version = '13.7.0';
+const version = '13.9.0';
 
 const validator = {
   version,
@@ -185,7 +185,7 @@ const validator = {
   isAfter,
   isBefore,
   isIn,
-  isLuhnValid,
+  isLuhnNumber,
   isCreditCard,
   isIdentityCard,
   isEAN,
