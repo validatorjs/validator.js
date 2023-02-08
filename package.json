@@ -1,7 +1,7 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "13.7.0",
+  "version": "13.9.0",
   "sideEffects": false,
   "homepage": "https://github.com/validatorjs/validator.js",
   "files": [
@@ -66,7 +66,7 @@
     "build:node": "babel src -d .",
     "build": "run-p build:*",
     "pretest": "npm run build && npm run lint",
-    "test": "nyc --reporter=cobertura --reporter=text-summary mocha --require @babel/register --reporter dot"
+    "test": "nyc --reporter=cobertura --reporter=text-summary mocha --require @babel/register --reporter dot --recursive"
   },
   "engines": {
     "node": ">= 0.10"

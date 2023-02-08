@@ -13,10 +13,12 @@ import isIP from './lib/isIP';
 import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
 import isDate from './lib/isDate';
+import isTime from './lib/isTime';
 
 import isBoolean from './lib/isBoolean';
 import isLocale from './lib/isLocale';
 
+import isAbaRouting from './lib/isAbaRouting';
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
 import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
@@ -48,7 +50,6 @@ import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
-import isAbaRouting from './lib/isAbaRouting';
 import isIBAN, { locales as ibanLocales } from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
@@ -70,7 +71,7 @@ import isBefore from './lib/isBefore';
 
 import isIn from './lib/isIn';
 
-import isLuhnValid from './lib/isLuhnValid';
+import isLuhnNumber from './lib/isLuhnNumber';
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
 
@@ -88,6 +89,7 @@ import isCurrency from './lib/isCurrency';
 
 import isBtcAddress from './lib/isBtcAddress';
 
+import { isISO6346, isFreightContainerID } from './lib/isISO6346';
 import isISO6391 from './lib/isISO6391';
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
@@ -124,7 +126,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-const version = '13.7.0';
+const version = '13.9.0';
 
 const validator = {
   version,
@@ -142,9 +144,9 @@ const validator = {
   isIPRange,
   isFQDN,
   isBoolean,
-  isAbaRouting,
   isIBAN,
   isBIC,
+  isAbaRouting,
   isAlpha,
   isAlphaLocales,
   isAlphanumeric,
@@ -186,7 +188,7 @@ const validator = {
   isAfter,
   isBefore,
   isIn,
-  isLuhnValid,
+  isLuhnNumber,
   isCreditCard,
   isIdentityCard,
   isEAN,
@@ -200,6 +202,8 @@ const validator = {
   isEthereumAddress,
   isCurrency,
   isBtcAddress,
+  isISO6346,
+  isFreightContainerID,
   isISO6391,
   isISO8601,
   isRFC3339,
@@ -228,6 +232,7 @@ const validator = {
   isStrongPassword,
   isTaxID,
   isDate,
+  isTime,
   isLicensePlate,
   isVAT,
   ibanLocales,
