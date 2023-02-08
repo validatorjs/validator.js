@@ -11946,6 +11946,58 @@ describe('Validators', () => {
     });
   });
 
+
+  it('should validate ISO6346 shipping containerID', () => {
+    test({
+      validator: 'isISO6346',
+      valid: [
+        'HLXU2008419',
+        'TGHU7599330',
+        'ECMU4657496',
+        'MEDU6246078',
+        'YMLU2809976',
+        'MRKU0046221',
+        'EMCU3811879',
+        'OOLU8643084',
+        'HJCU1922713',
+        'QJRZ123456',
+      ],
+      invalid: [
+        'OOLU1922713',
+        'HJCU1922413',
+        'FCUI985619',
+        'ECMJ4657496',
+        'TBJA7176445',
+        'AFFU5962593',
+      ],
+    });
+  });
+  it('should validate ISO6346 shipping containerID', () => {
+    test({
+      validator: 'isFreightContainerID',
+      valid: [
+        'HLXU2008419',
+        'TGHU7599330',
+        'ECMU4657496',
+        'MEDU6246078',
+        'YMLU2809976',
+        'MRKU0046221',
+        'EMCU3811879',
+        'OOLU8643084',
+        'HJCU1922713',
+        'QJRZ123456',
+      ],
+      invalid: [
+        'OOLU1922713',
+        'HJCU1922413',
+        'FCUI985619',
+        'ECMJ4657496',
+        'TBJA7176445',
+        'AFFU5962593',
+      ],
+    });
+  });
+
   // EU-UK valid numbers sourced from https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx or constructed by @tplessas.
   it('should validate taxID', () => {
     test({
