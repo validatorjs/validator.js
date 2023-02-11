@@ -12239,6 +12239,22 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['en-IN'],
+      valid: [
+        'ABCEA0000J',
+        'ZZZAN9999A'],
+      invalid: [
+        ' ABCA0000',
+        'ABCa0000J',
+        'ABCD-00009',
+        'ABCZN00009',
+        'ABCAN000 9',
+        'ABCAN#00 9',
+        'AB[]N000 9',
+        '1BCFN000Z'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['en-US'],
       valid: [
         '01-1234567',
