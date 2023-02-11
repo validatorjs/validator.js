@@ -12241,7 +12241,7 @@ describe('Validators', () => {
       validator: 'isTaxID',
       args: ['en-IN'],
       valid: [
-        'ABCEA0000J',
+        'ABCPA0000J',
         'ZZZAN9999A'],
       invalid: [
         ' ABCA0000',
