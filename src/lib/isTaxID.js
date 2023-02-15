@@ -1240,9 +1240,9 @@ function validateArgs(str, locale, options) {
   if (!(locale in taxIdFormat)) throw new Error(`Invalid locale '${locale}'`);
 
 
-  if (locale in multipleTinLocale) {
+  if (locale in multipleTaxIdLocale) {
     try { assertString(localeOption); } catch (err) { throw new Error(`${err.message} for localeOption`); }
-    if (!(localeOption in multipleTinLocale[locale])) throw new Error(`Invalid localeOption '${localeOption}'`);
+    if (!(localeOption in multipleTaxIdLocale[locale])) throw new Error(`Invalid localeOption '${localeOption}'`);
   } else if (localeOption || localeOption === '') {
     throw new Error(`Invalid localeOption for locale '${locale}'`);
   }
@@ -1264,7 +1264,7 @@ export default function isTaxID(str, locale = 'en-US', options) {
     strcopy = strcopy.replace(sanitizeRegexes[locale], '');
   }
 
-  if (locale in multipleTinLocale) {
+  if (locale in multipleTaxIdLocale) {
     if (!taxIdFormat[locale][localeOption].test(strcopy)) return false;
     return true;
   }
