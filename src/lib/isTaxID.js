@@ -1215,7 +1215,7 @@ const sanitizeRegexes = {
 // sanitizeRegexes locale aliases
 sanitizeRegexes['nl-BE'] = sanitizeRegexes['fr-BE'];
 
-const multipleTinLocale = {
+const multipleTaxIdLocale = {
   'en-IN': {
     GSTIN: true,
     PAN: true,
