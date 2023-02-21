@@ -16,13 +16,8 @@ function parseMailtoQueryString(queryString) {
   for (const q of queryParams) {
     const [key, value] = q.split('=');
 
-    if (!key) {
-      // eslint-disable-next-line no-continue
-      continue;
-    }
-
     // checked for invalid and duplicated query params
-    if (!allowedParams.has(key)) {
+    if (key && !allowedParams.has(key)) {
       isParseFailed = true;
       break;
     }
@@ -31,7 +26,9 @@ function parseMailtoQueryString(queryString) {
       query[key] = value;
     }
 
-    allowedParams.delete(key);
+    if (key) {
+      allowedParams.delete(key);
+    }
   }
 
   return isParseFailed ? false : query;
