@@ -58,17 +58,13 @@ export default function isMailtoURI(url, options) {
 
   return `${to},${query.cc},${query.bcc}`
     .split(',')
-    .reduce((isValid, email) => {
-      if (!isValid) {
-        return isValid;
-      }
-
+    .every((email) => {
       email = trim(email, ' ');
 
       if (email) {
-        isValid = isEmail(email, options);
+        return isEmail(email, options);
       }
 
-      return isValid;
-    }, true);
+      return true;
+    });
 }
