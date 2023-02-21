@@ -46,6 +46,10 @@ export default function isMailtoURI(url, options) {
 
   const [to = '', queryString = ''] = url.replace('mailto:', '').split('?');
 
+  if (!to && !queryString) {
+    return true;
+  }
+
   const query = parseMailtoQueryString(queryString);
 
   if (!query) {
