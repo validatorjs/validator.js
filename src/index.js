@@ -101,6 +101,7 @@ import isBase58 from './lib/isBase58';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
+import isMailtoURI from './lib/isMailtoURI';
 
 import isMimeType from './lib/isMimeType';
 
@@ -213,6 +214,7 @@ const validator = {
   isBase64,
   isDataURI,
   isMagnetURI,
+  isMailtoURI,
   isMimeType,
   isLatLong,
   ltrim,
