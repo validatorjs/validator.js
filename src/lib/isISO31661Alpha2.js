@@ -24,6 +24,7 @@ const validISO31661Alpha2CountriesCodes = new Set([
   'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ',
   'UA', 'UG', 'UM', 'US', 'UY', 'UZ',
   'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU',
+  'XK',
   'WF', 'WS',
   'YE', 'YT',
   'ZA', 'ZM', 'ZW',

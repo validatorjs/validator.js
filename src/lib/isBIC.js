@@ -11,7 +11,7 @@ export default function isBIC(str) {
   // the regex to [A-Z] (per the spec).
   const countryCode = str.slice(4, 6).toUpperCase();
 
-  if (!CountryCodes.has(countryCode) && countryCode !== 'XK') {
+  if (!CountryCodes.has(countryCode)) {
     return false;
   }
 
