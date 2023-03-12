@@ -1,6 +1,9 @@
 import assertString from './util/assertString';
 
-// https://en.wikipedia.org/wiki/National_identification_number
+/**
+ * References:
+ * https://en.wikipedia.org/wiki/National_identification_number -- Wikipedia
+ */
 /* eslint-disable max-len */
 const nationalities = {
   'ar-AE': /^784-\d{4}-\d{7}-\d$/,
@@ -44,12 +47,8 @@ export default function isNationalId(str, locale) {
   assertString(str);
   if (Array.isArray(locale)) {
     return locale.some((key) => {
-      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
-      if (nationalities.hasOwnProperty(key)) {
-        const id = nationalities[key];
-        if (id.test(str)) {
-          return true;
-        }
+      if ((key in nationalities) && nationalities[key].test(str)) {
+        return true;
       }
       return false;
     });
@@ -58,11 +57,8 @@ export default function isNationalId(str, locale) {
     // alias falsey locale as 'any'
   } else if (!locale || locale === 'any') {
     for (const key in nationalities) {
-      if (nationalities.hasOwnProperty(key)) {
-        const id = nationalities[key];
-        if (id.test(str)) {
-          return true;
-        }
+      if (nationalities[key].test(str)) {
+        return true;
       }
     }
     return false;
