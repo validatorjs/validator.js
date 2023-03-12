@@ -14236,7 +14236,6 @@ it('should validate national id', () => {
     args: ['any'],
   });
 
-  // strict mode
   test({
     validator: 'isNationalId',
     valid: [
@@ -14248,8 +14247,32 @@ it('should validate national id', () => {
     ],
     invalid: [
       '374052860344X',
+      '12345-1234567-11',
     ],
     args: ['any'],
+  });
+
+  test({
+    validator: 'isNationalId',
+    valid: [
+      '42201-6974298-9',
+      '0709971045567',
+    ],
+    invalid: [
+      '374052860344X',
+      '12345-1234567-11',
+    ],
+    args: [['en-PK', 'mk-MK']],
+  });
+
+  test({
+    validator: 'isNationalId',
+    valid: [],
+    invalid: [
+      '374052860344X',
+      '12345-1234567-11',
+    ],
+    args: [['en-PK', 'mk-MK']],
   });
 
   // falsey locale defaults to 'any'
