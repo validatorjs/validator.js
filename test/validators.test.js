@@ -14181,3 +14181,114 @@ describe('Validators', () => {
     });
   });
 });
+
+it('should validate national id', () => {
+  let fixtures = [
+    {
+      locale: 'bn-BD',
+      valid: [
+        '19735273950391021',
+        '19876543213457012',
+        '19987654321234567',
+        '20098765432109876',
+      ],
+      invalid: [
+        '1973527395039102A',
+        '1900-000000000000',
+        '2190 000000 00000 ',
+      ],
+    },
+  ];
+
+  let allValid = [];
+
+  fixtures.forEach((fixture) => {
+    // to be used later on for validating 'any' locale
+    if (fixture.valid) allValid = allValid.concat(fixture.valid);
+
+    if (Array.isArray(fixture.locale)) {
+      test({
+        validator: 'isNationalId',
+        valid: fixture.valid,
+        invalid: fixture.invalid,
+        args: [fixture.locale],
+      });
+    } else {
+      test({
+        validator: 'isNationalId',
+        valid: fixture.valid,
+        invalid: fixture.invalid,
+        args: [fixture.locale],
+      });
+    }
+  });
+
+  test({
+    validator: 'isNationalId',
+    valid: allValid,
+    invalid: [
+      '',
+      'asdf',
+      '1',
+      'ASDFGJKLmZXJtZtesting123',
+      'Vml2YW11cyBmZXJtZtesting123',
+    ],
+    args: ['any'],
+  });
+
+  // strict mode
+  test({
+    validator: 'isNationalId',
+    valid: [
+      '19735273950391021',
+      '42201-6974298-9',
+      '4567 8901 2345',
+      'AX1234567890(A)',
+      '1234-5678-9012',
+    ],
+    invalid: [
+      '374052860344X',
+    ],
+    args: ['any'],
+  });
+
+  // falsey locale defaults to 'any'
+  test({
+    validator: 'isNationalId',
+    valid: allValid,
+    invalid: [
+      '',
+      'asdf',
+      '1',
+      'ASDFGJKLmZXJtZtesting123',
+      'Vml2YW11cyBmZXJtZtesting123',
+    ],
+    args: [],
+  });
+});
+
+// de-CH, fr-CH, it-CH
+test({
+  validator: 'isNationalId',
+  valid: [
+    '19735273950391021',
+    '42201-6974298-9',
+    '4567 8901 2345',
+  ],
+  invalid: [
+    '374052860344X',
+  ],
+  args: [],
+});
+
+
+it('should error on invalid locale', () => {
+  test({
+    validator: 'isNationalId',
+    args: [{ locale: ['is-NOT'] }],
+    error: [
+      '43423dfsdf',
+      '012345',
+    ],
+  });
+});

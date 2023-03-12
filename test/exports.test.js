@@ -6,6 +6,7 @@ import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric';
 import { locales as isMobilePhoneLocales } from '../src/lib/isMobilePhone';
 import { locales as isFloatLocales } from '../src/lib/isFloat';
 import { locales as ibanCountryCodes } from '../src/lib/isIBAN';
+import { locales as isNationalIdLocales } from '../src/lib/isNationalId';
 
 describe('Exports', () => {
   it('should export validators', () => {
@@ -55,5 +56,10 @@ describe('Exports', () => {
   it('should export a list of country codes that implement IBAN', () => {
     assert.ok(ibanCountryCodes instanceof Array);
     assert.ok(validator.ibanLocales instanceof Array);
+  });
+
+  it('should export isNationalId\'s supported locales', () => {
+    assert.ok(isNationalIdLocales instanceof Array);
+    assert.ok(validator.isNationalIdLocales instanceof Array);
   });
 });
