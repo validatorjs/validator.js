@@ -107,7 +107,7 @@ import isMimeType from './lib/isMimeType';
 import isLatLong from './lib/isLatLong';
 import isPostalCode, { locales as isPostalCodeLocales } from './lib/isPostalCode';
 
-import isNationalId, { locales as isNationalIdLocales } from './lib/isNationalId';
+import isNationalId, { countryCodes as isNationalIdCountryCodes } from './lib/isNationalId';
 
 import ltrim from './lib/ltrim';
 import rtrim from './lib/rtrim';
@@ -200,7 +200,7 @@ const validator = {
   isPostalCode,
   isPostalCodeLocales,
   isNationalId,
-  isNationalIdLocales,
+  isNationalIdCountryCodes,
   isEthereumAddress,
   isCurrency,
   isBtcAddress,

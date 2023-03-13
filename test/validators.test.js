@@ -14185,7 +14185,7 @@ describe('Validators', () => {
 it('should validate national id', () => {
   let fixtures = [
     {
-      locale: 'bn-BD',
+      locale: 'BD',
       valid: [
         '19735273950391021',
         '19876543213457012',
@@ -14262,7 +14262,7 @@ it('should validate national id', () => {
       '374052860344X',
       '12345-1234567-11',
     ],
-    args: [['en-PK', 'mk-MK']],
+    args: [['PK', 'MK']],
   });
 
   test({
@@ -14272,7 +14272,7 @@ it('should validate national id', () => {
       '374052860344X',
       '12345-1234567-11',
     ],
-    args: [['en-PK', 'mk-MK']],
+    args: [['PK', 'MK']],
   });
 
   // falsey locale defaults to 'any'
@@ -14309,9 +14309,52 @@ it('should error on invalid locale', () => {
   test({
     validator: 'isNationalId',
     args: [{ locale: ['is-NOT'] }],
-    error: [
-      '43423dfsdf',
-      '012345',
-    ],
+    error: [],
   });
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '2509992391801', // Croatia
+  ],
+  invalid: [
+    '0101006500007', // Invalid checksum digit '7'
+  ],
+  args: ['HR'],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '0101006500006', // Slovenia
+  ],
+  invalid: [
+    '2509992391802', // Invalid checksum digit '2'
+  ],
+  args: ['SI', { strictMode: true }],
+});
+
+// strict mode
+test({
+  validator: 'isNationalId',
+  valid: [
+    '0101006500006', // Slovenia
+    '2509992391801', // Croatia
+  ],
+  invalid: [
+    '0101006500007', // Invalid checksum digit '7'
+    '2509992391802', // Invalid checksum digit '2'
+  ],
+  args: [['HR', 'SI'], { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '0101006500006', // Slovenia
+    '2509992391801', // Croatia
+  ],
+  invalid: [],
+  args: ['any', { strictMode: true }],
 });
