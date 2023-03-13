@@ -14304,12 +14304,13 @@ test({
   args: [],
 });
 
-
-it('should error on invalid locale', () => {
+it('should throw an error on invalid countryCode', () => {
   test({
     validator: 'isNationalId',
-    args: [{ locale: ['is-NOT'] }],
-    error: [],
+    args: ['NOT'],
+    error: [
+      'Invalid countryCode',
+    ],
   });
 });
 
@@ -14341,6 +14342,7 @@ test({
   valid: [
     '0101006500006', // Slovenia
     '2509992391801', // Croatia
+    '2509992661801',
   ],
   invalid: [
     '0101006500007', // Invalid checksum digit '7'
@@ -14357,4 +14359,60 @@ test({
   ],
   invalid: [],
   args: ['any', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '8001010008',
+    '7542011030',
+  ],
+  invalid: [
+    '7501120018',
+  ],
+  args: ['BG', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '046 454 286',
+  ],
+  invalid: [
+    '7501120018',
+  ],
+  args: ['CA', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    'HEGG560427MVZRRL04',
+  ],
+  invalid: [
+    '7501120018',
+  ],
+  args: ['MX', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '4444 3333 2222',
+  ],
+  invalid: [
+    '9999 8888 7777',
+  ],
+  args: ['IN', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    'MRTMTT91D08F205J',
+  ],
+  invalid: [
+    'RSSMRA80A01F205K',
+  ],
+  args: ['IT', { strictMode: true }],
 });
