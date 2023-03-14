@@ -2,7 +2,7 @@ import assertString from './util/assertString';
 
 function validateChecksum(str) {
   str = str.replace(/\D/g, '');
-  if (str === '00000000000') {
+  if (/^(\d)\1*$/.test(str)) {
     return false;
   }
   const weights = [3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
@@ -13,7 +13,6 @@ function validateChecksum(str) {
 
 export default function isPIS(str) {
   assertString(str);
-  // ^(?!000\.0000\.000-0)\d{3}\.\d{4}\.\d{3}-\d$
   if (!/^\d{3}\.{0,1}\d{4}\.{0,1}\d{3}-{0,1}\d$/.test(str)) {
     return false;
   }

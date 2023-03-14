@@ -125,6 +125,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 import isPIS from './lib/isPIS';
+import isCPF from './lib/isCPF';
 
 const version = '13.9.0';
 
@@ -154,6 +155,7 @@ const validator = {
   isPassportNumber,
   isPort,
   isPIS,
+  isCPF,
   isLowercase,
   isUppercase,
   isAscii,
