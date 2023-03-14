@@ -124,6 +124,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
+import isPIS from './lib/isPIS';
 
 const version = '13.9.0';
 
@@ -152,6 +153,7 @@ const validator = {
   isNumeric,
   isPassportNumber,
   isPort,
+  isPIS,
   isLowercase,
   isUppercase,
   isAscii,
