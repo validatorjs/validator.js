@@ -13,7 +13,7 @@ function validateChecksum(str) {
 
 export default function isPIS(str) {
   assertString(str);
-  if (!/^\d{3}\.{0,1}\d{4}\.{0,1}\d{3}-{0,1}\d$/.test(str)) {
+  if (!/(?:^\d{3}\.\d{4}\.\d{3}-\d$)|(?:^\d{11}$)/.test(str)) {
     return false;
   }
   return validateChecksum(str);
