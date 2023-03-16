@@ -890,23 +890,13 @@ function plPlCheck(tin) {
 */
 
 function ptBrCheck(tin) {
+  tin = tin.replace(/\D/g, '');
+  // Reject known invalid CPFs & CNPJs
+  if (/^(\d)\1*$/.test(tin)) { return false; }
   if (tin.length === 11) {
     let sum;
     let remainder;
     sum = 0;
-
-    if ( // Reject known invalid CPFs
-      tin === '11111111111' ||
-      tin === '22222222222' ||
-      tin === '33333333333' ||
-      tin === '44444444444' ||
-      tin === '55555555555' ||
-      tin === '66666666666' ||
-      tin === '77777777777' ||
-      tin === '88888888888' ||
-      tin === '99999999999' ||
-      tin === '00000000000'
-    ) return false;
 
     for (let i = 1; i <= 9; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (11 - i);
     remainder = (sum * 10) % 11;
@@ -921,18 +911,6 @@ function ptBrCheck(tin) {
 
     return true;
   }
-
-  if ( // Reject know invalid CNPJs
-    tin === '00000000000000' ||
-    tin === '11111111111111' ||
-    tin === '22222222222222' ||
-    tin === '33333333333333' ||
-    tin === '44444444444444' ||
-    tin === '55555555555555' ||
-    tin === '66666666666666' ||
-    tin === '77777777777777' ||
-    tin === '88888888888888' ||
-    tin === '99999999999999') { return false; }
 
   let length = tin.length - 2;
   let identifiers = tin.substring(0, length);
@@ -1150,7 +1128,7 @@ const taxIdFormat = {
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,
   'pl-PL': /^\d{10,11}$/,
-  'pt-BR': /(?:^\d{11}$)|(?:^\d{14}$)/,
+  'pt-BR': /(?:^\d{3}\.\d{3}\.\d{3}-\d{2}$)|(?:^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$)|(?:^\d{11}$)|(?:^\d{14}$)/,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
