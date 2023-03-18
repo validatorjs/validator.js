@@ -13872,8 +13872,8 @@ describe('Validators', () => {
         'CHE-116281710 MWST',
         'CHE-116281710IVA',
         'CHE116281710TVA',
-        '123456789MWST',
-        '123.456.789TVA',
+        '123456788MWST',
+        '123.456.788TVA',
       ],
       invalid: [
         'CH 123456',
@@ -13886,6 +13886,7 @@ describe('Validators', () => {
         'CH123.456.789TVA',
         'CHE-116.281.710 VAT',
         'CHE-11628.1710 MWST',
+        'CHE-123.456.789 MWST',
       ],
     });
     test({

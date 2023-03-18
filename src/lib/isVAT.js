@@ -69,7 +69,18 @@ export const vatMatchers = {
   SM: str => /^(SM)?\d{5}$/.test(str),
   SA: str => /^(SA)?\d{15}$/.test(str),
   RS: str => /^(RS)?\d{9}$/.test(str),
-  CH: str => /^(CHE[- ]?)?(\d{9}|(\d{3}\.\d{3}\.\d{3})) ?(TVA|MWST|IVA)$/.test(str),
+  CH: (str) => {
+    const hasValidCheckDigit = (digits) => {
+      const lastDigit = digits.pop(); // used as check number
+      const weights = [5, 4, 3, 2, 7, 6, 5, 4]; // as defined in eCH-0097 V5.2.0
+      const calculatedCheckNumber = (11 - (digits.reduce((acc, el, idx) =>
+        acc + (el * weights[idx]), 0) % 11)) % 11;
+
+      return lastDigit === calculatedCheckNumber;
+    };
+
+    return /^(CHE[- ]?)?(\d{9}|(\d{3}\.\d{3}\.\d{3})) ?(TVA|MWST|IVA)?$/.test(str) && hasValidCheckDigit((str.match(/\d/g).map(el => +el)));
+  },
   TR: str => /^(TR)?\d{10}$/.test(str),
   UA: str => /^(UA)?\d{12}$/.test(str),
   GB: str => /^GB((\d{3} \d{4} ([0-8][0-9]|9[0-6]))|(\d{9} \d{3})|(((GD[0-4])|(HA[5-9]))[0-9]{2}))$/.test(str),
