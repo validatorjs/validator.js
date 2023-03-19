@@ -13873,11 +13873,11 @@ describe('Validators', () => {
         'CHE 116 281 710 IVA', // all separators are spaces
         'CHE-191.398.369MWST', // no space before suffix
         'CHE-116281710 MWST', // no number separators
-        'CHE-116281710 MWST', // no number separators and no space before suffix
+        'CHE-116281710MWST', // no number separators and no space before suffix
         'CHE105854263MWST', // no separators
         'CHE-116.285.524', // no suffix (vat abbreviation)
         'CHE116281710', // no suffix and separators
-        '116.281.710 TVA', // no prefix (ISO-3166-1 Alpha-3)
+        '116.281.710 TVA', // no prefix (CHE, ISO-3166-1 Alpha-3)
         '116281710MWST', // no prefix and separators
         '100.218.485', // no prefix and suffix
         '123456788', // no prefix, separators and suffix
