@@ -70,16 +70,18 @@ export const vatMatchers = {
   SA: str => /^(SA)?\d{15}$/.test(str),
   RS: str => /^(RS)?\d{9}$/.test(str),
   CH: (str) => {
-    const hasValidCheckDigit = (digits) => {
+    // @see {@link https://www.ech.ch/de/ech/ech-0097/5.2.0}
+    const hasValidCheckNumber = (digits) => {
       const lastDigit = digits.pop(); // used as check number
-      const weights = [5, 4, 3, 2, 7, 6, 5, 4]; // as defined in eCH-0097 V5.2.0
+      const weights = [5, 4, 3, 2, 7, 6, 5, 4];
       const calculatedCheckNumber = (11 - (digits.reduce((acc, el, idx) =>
         acc + (el * weights[idx]), 0) % 11)) % 11;
 
       return lastDigit === calculatedCheckNumber;
     };
 
-    return /^(CHE[- ]?)?(\d{9}|(\d{3}\.\d{3}\.\d{3})) ?(TVA|MWST|IVA)?$/.test(str) && hasValidCheckDigit((str.match(/\d/g).map(el => +el)));
+    // @see {@link https://www.estv.admin.ch/estv/de/home/mehrwertsteuer/uid/mwst-uid-nummer.html}
+    return /^(CHE[- ]?)?(\d{9}|(\d{3}[\. ]\d{3}[\. ]\d{3})) ?(TVA|MWST|IVA)?$/.test(str) && hasValidCheckNumber((str.match(/\d/g).map(el => +el)));
   },
   TR: str => /^(TR)?\d{10}$/.test(str),
   UA: str => /^(UA)?\d{12}$/.test(str),
