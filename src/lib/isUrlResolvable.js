@@ -1,10 +1,13 @@
 /**
  * isUrlResolvable Function
- * This function takes a URL string as input and checks if the URL 
+ * This function takes a URL string as input and checks if the URL
  * is resolvable by performing a DNS lookup on the hostname.
  * @param {string} passed_url - The URL string to be checked
  * @return {boolean} - Returns true if the URL is resolvable, false otherwise
  */
+//dependencies
+const dns  = require('dns')
+
 const isUrlResolvable = function (passed_url) {
   // Check if passed url has a protocol
   // If not, add 'http://' by default
@@ -21,7 +24,6 @@ const isUrlResolvable = function (passed_url) {
   if (!hostname) {
     return false;
   }
-
   // Attempt to resolve the hostname using DNS lookup
   return new Promise((resolve) => {
     dns.resolve(hostname, (err, records) => {
