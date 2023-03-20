@@ -6,21 +6,21 @@
  * @return {boolean} - Returns true if the URL is resolvable, false otherwise
  */
 //  dependencies
-const dns  = require('dns')
+const dns = require("dns");
 
 const isUrlResolvable = function (passed_url) {
   // Check if passed url has a protocol
   // If not, add 'http://' by default
   const urlWithProtocol =
-    passed_url.startsWith('http://') || passed_url.startsWith('https://')
+    passed_url.startsWith("http://") || passed_url.startsWith("https://")
       ? passed_url
       : `http://${passed_url}`;
 
   // Parse the URL to extract the hostname
-  const parsedUrl=new URL(urlWithProtocol);
+  const parsedUrl = new URL(urlWithProtocol);
 
   // Check that the hostname is valid
-  const hostname=parsedUrl.hostname;
+  const hostname = parsedUrl.hostname;
   if (!hostname) {
     return false;
   }
