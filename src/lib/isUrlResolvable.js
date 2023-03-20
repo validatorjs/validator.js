@@ -9,26 +9,27 @@ const isUrlResolvable = function (passed_url) {
     // Check if passed url has a protocol
     // If not, add 'http://' by default
     const urlWithProtocol = passed_url.startsWith('http://') || passed_url.startsWith('https://') ? passed_url : `http://${passed_url}`;
-
+  
     // Parse the URL to extract the hostname
     const parsedUrl = new URL(urlWithProtocol);
-
+  
     // Check that the hostname is valid
     const hostname = parsedUrl.hostname;
     if (!hostname) {
-        return false;
+      return false;
     }
-
+  
     // Attempt to resolve the hostname using DNS lookup
     return new Promise((resolve) => {
-        dns.resolve(hostname, (err, records) => {
-            if (err) {
-                resolve(false);
-            } else {
-                resolve(true);
-            }
-        });
+      dns.resolve(hostname, (err, records) => {
+        if (err) {
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      });
     });
-};
-
-module.exports = isUrlResolvable;
+  };
+  
+  module.exports = isUrlResolvable;
+  
