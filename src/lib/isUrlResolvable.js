@@ -27,10 +27,10 @@ const isUrlResolvable = function (passed_url) {
   // Attempt to resolve the hostname using DNS lookup
   return new Promise((resolve) => {
     dns.resolve(hostname, (err, records) => {
-      if (err) {
-        resolve(false);
-      } else {
+      if (!err && records) {
         resolve(true);
+      } else {
+        resolve(false);
       }
     });
   });
