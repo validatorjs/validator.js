@@ -6,13 +6,13 @@
  * @return {boolean} - Returns true if the URL is resolvable, false otherwise
  */
 //  dependencies
-const dns = require("dns");
+const dns = require('dns');
 
 const isUrlResolvable = function (passed_url) {
   // Check if passed url has a protocol
   // If not, add 'http://' by default
   const urlWithProtocol =
-    passed_url.startsWith("http://") || passed_url.startsWith("https://")
+    passed_url.startsWith('http://') || passed_url.startsWith('https://')
       ? passed_url
       : `http://${passed_url}`;
 
