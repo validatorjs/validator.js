@@ -13885,10 +13885,10 @@ describe('Validators', () => {
       invalid: [
         'CH-116.281.710 MWST', // invalid prefix (should be CHE)
         'CHE-116.281 MWST', // invalid number of digits (should be 9)
-        'CHE-123.456.789 MWST', // invalid last digits (should match the calculated check-number 8)
-        'CHE-123.356.780 MWST', // invalid check-number (there are no swiss UIDs for the calculated check number 10)
+        'CHE-123.456.789 MWST', // invalid last digit (should match the calculated check-number 8)
+        'CHE-123.356.780 MWST', // invalid check-number (there are no swiss UIDs with the calculated check number 10)
         'CH-116.281.710 VAT', // invalid suffix (should be MWST, IVA or TVA)
-        'CHE-116/281/710 IVA', // invalid number separator (should be dot or space or empty-string)
+        'CHE-116/281/710 IVA', // invalid number separators (should be all dots or all spaces)
       ],
     });
     test({
