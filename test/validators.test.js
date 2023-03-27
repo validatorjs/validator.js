@@ -13891,18 +13891,30 @@ describe('Validators', () => {
       validator: 'isVAT',
       args: ['CH'],
       valid: [
-        'CH123456TVA',
-        '123456TVA',
-        'CH123456789MWST',
-        '123456789MWST',
-        'CH123.456IVA',
-        '123.456IVA',
-        'CH123.456.789TVA',
-        '123.456.789TVA',
+        // strictly valid
+        'CHE-116.281.710 MWST',
+        'CHE-116.281.710 IVA',
+        'CHE-116.281.710 TVA',
+        // loosely valid presentation variants
+        'CHE 116 281 710 IVA', // all separators are spaces
+        'CHE-191.398.369MWST', // no space before suffix
+        'CHE-116281710 MWST', // no number separators
+        'CHE-116281710MWST', // no number separators and no space before suffix
+        'CHE105854263MWST', // no separators
+        'CHE-116.285.524', // no suffix (vat abbreviation)
+        'CHE116281710', // no suffix and separators
+        '116.281.710 TVA', // no prefix (CHE, ISO-3166-1 Alpha-3)
+        '116281710MWST', // no prefix and separators
+        '100.218.485', // no prefix and suffix
+        '123456788', // no prefix, separators and suffix
       ],
       invalid: [
-        'CH 123456',
-        '12345',
+        'CH-116.281.710 MWST', // invalid prefix (should be CHE)
+        'CHE-116.281 MWST', // invalid number of digits (should be 9)
+        'CHE-123.456.789 MWST', // invalid last digit (should match the calculated check-number 8)
+        'CHE-123.356.780 MWST', // invalid check-number (there are no swiss UIDs with the calculated check number 10)
+        'CH-116.281.710 VAT', // invalid suffix (should be MWST, IVA or TVA)
+        'CHE-116/281/710 IVA', // invalid number separators (should be all dots or all spaces)
       ],
     });
     test({
