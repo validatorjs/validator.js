@@ -4817,16 +4817,51 @@ describe('Validators', () => {
         'uz_Latn_UZ',
         'en',
         'gsw',
+        'en-US',
         'es_ES',
+        'es-419',
         'sw_KE',
         'am_ET',
+        'zh-CHS',
         'ca_ES_VALENCIA',
         'en_US_POSIX',
+        'hak-CN',
+        'zh-Hant',
+        'zh-Hans',
+        'sr-Cyrl',
+        'sr-Latn',
+        'zh-cmn-Hans-CN',
+        'cmn-Hans-CN',
+        'zh-yue-HK',
+        'yue-HK',
+        'zh-Hans-CN',
+        'sr-Latn-RS',
+        'sl-rozaj',
+        'sl-rozaj-biske',
+        'sl-nedis',
+        'de-CH-1901',
+        'sl-IT-nedis',
+        'hy-Latn-IT-arevela',
+        'i-enochian',
+        'en-scotland-fonipa',
+        'sl-IT-rozaj-biske-1994',
+        'de-CH-x-phonebk',
+        'az-Arab-x-AZE-derbend',
+        'x-whatever',
+        'qaa-Qaaa-QM-x-southern',
+        'de-Qaaa',
+        'sr-Latn-QM',
+        'sr-Qaaa-RS',
+        'en-US-u-islamcal',
+        'zh-CN-a-myext-x-private',
+        'en-a-myext-b-another',
       ],
       invalid: [
         'lo_POP',
         '12',
         '12_DD',
+        'de-419-DE',
+        'a-DE',
       ],
     });
   });
@@ -7763,6 +7798,32 @@ describe('Validators', () => {
           'definitely not a number',
           '01+68988123456',
           '6898912345',
+        ],
+      },
+      {
+        locale: 'fr-WF',
+        valid: [
+          '+681408500',
+          '+681499387',
+          '+681728590',
+          '+681808542',
+          '+681828540',
+          '+681832014',
+          '408500',
+          '499387',
+          '728590',
+          '808542',
+          '828540',
+          '832014',
+        ],
+        invalid: [
+          '+68189032',
+          '123456789',
+          '+681723845987',
+          '022452389',
+          '+681772345678',
+          '+681700456794',
+
         ],
       },
       {
@@ -13866,18 +13927,30 @@ describe('Validators', () => {
       validator: 'isVAT',
       args: ['CH'],
       valid: [
-        'CH123456TVA',
-        '123456TVA',
-        'CH123456789MWST',
-        '123456789MWST',
-        'CH123.456IVA',
-        '123.456IVA',
-        'CH123.456.789TVA',
-        '123.456.789TVA',
+        // strictly valid
+        'CHE-116.281.710 MWST',
+        'CHE-116.281.710 IVA',
+        'CHE-116.281.710 TVA',
+        // loosely valid presentation variants
+        'CHE 116 281 710 IVA', // all separators are spaces
+        'CHE-191.398.369MWST', // no space before suffix
+        'CHE-116281710 MWST', // no number separators
+        'CHE-116281710MWST', // no number separators and no space before suffix
+        'CHE105854263MWST', // no separators
+        'CHE-116.285.524', // no suffix (vat abbreviation)
+        'CHE116281710', // no suffix and separators
+        '116.281.710 TVA', // no prefix (CHE, ISO-3166-1 Alpha-3)
+        '116281710MWST', // no prefix and separators
+        '100.218.485', // no prefix and suffix
+        '123456788', // no prefix, separators and suffix
       ],
       invalid: [
-        'CH 123456',
-        '12345',
+        'CH-116.281.710 MWST', // invalid prefix (should be CHE)
+        'CHE-116.281 MWST', // invalid number of digits (should be 9)
+        'CHE-123.456.789 MWST', // invalid last digit (should match the calculated check-number 8)
+        'CHE-123.356.780 MWST', // invalid check-number (there are no swiss UIDs with the calculated check number 10)
+        'CH-116.281.710 VAT', // invalid suffix (should be MWST, IVA or TVA)
+        'CHE-116/281/710 IVA', // invalid number separators (should be all dots or all spaces)
       ],
     });
     test({
@@ -14178,6 +14251,57 @@ describe('Validators', () => {
       args: ['invalidCountryCode'],
       error: [
         'GB999 9999 00',
+      ],
+    });
+  });
+  it('should validate mailto URI', () => {
+    test({
+      validator: 'isMailtoURI',
+      valid: [
+        'mailto:?subject=something&cc=valid@mail.com',
+        'mailto:?subject=something&cc=valid@mail.com,another@mail.com,',
+        'mailto:?subject=something&bcc=valid@mail.com',
+        'mailto:?subject=something&bcc=valid@mail.com,another@mail.com',
+        'mailto:?bcc=valid@mail.com,another@mail.com',
+        'mailto:?cc=valid@mail.com,another@mail.com',
+        'mailto:?cc=valid@mail.com',
+        'mailto:?bcc=valid@mail.com',
+        'mailto:?subject=something&body=something else',
+        'mailto:?subject=something&body=something else&cc=hello@mail.com,another@mail.com',
+        'mailto:?subject=something&body=something else&bcc=hello@mail.com,another@mail.com',
+        'mailto:?subject=something&body=something else&cc=something@mail.com&bcc=hello@mail.com,another@mail.com',
+        'mailto:hello@mail.com',
+        'mailto:info@mail.com?',
+        'mailto:hey@mail.com?subject=something',
+        'mailto:info@mail.com?subject=something&cc=valid@mail.com',
+        'mailto:info@mail.com?subject=something&cc=valid@mail.com,another@mail.com,',
+        'mailto:info@mail.com?subject=something&bcc=valid@mail.com',
+        'mailto:info@mail.com?subject=something&bcc=valid@mail.com,another@mail.com',
+        'mailto:info@mail.com?bcc=valid@mail.com,another@mail.com',
+        'mailto:info@mail.com?cc=valid@mail.com,another@mail.com',
+        'mailto:info@mail.com?cc=valid@mail.com',
+        'mailto:info@mail.com?bcc=valid@mail.com&',
+        'mailto:info@mail.com?subject=something&body=something else',
+        'mailto:info@mail.com?subject=something&body=something else&cc=hello@mail.com,another@mail.com',
+        'mailto:info@mail.com?subject=something&body=something else&bcc=hello@mail.com,another@mail.com',
+        'mailto:info@mail.com?subject=something&body=something else&cc=something@mail.com&bcc=hello@mail.com,another@mail.com',
+        'mailto:',
+      ],
+      invalid: [
+        '',
+        'somthing',
+        'valid@gmail.com',
+        'mailto:?subject=okay&subject=444',
+        'mailto:?subject=something&wrong=888',
+        'mailto:somename@ｇｍａｉｌ.com',
+        'mailto:hello@world.com?cc=somename@ｇｍａｉｌ.com',
+        'mailto:hello@world.com?bcc=somename@ｇｍａｉｌ.com',
+        'mailto:hello@world.com?bcc=somename@ｇｍａｉｌ.com&bcc',
+        'mailto:valid@gmail.com?subject=anything&body=nothing&cc=&bcc=&key=',
+        'mailto:hello@world.com?cc=somename',
+        'mailto:somename',
+        'mailto:info@mail.com?subject=something&body=something else&cc=something@mail.com&bcc=hello@mail.com,another@mail.com&',
+        'mailto:?subject=something&body=something else&cc=something@mail.com&bcc=hello@mail.com,another@mail.com&',
       ],
     });
   });
