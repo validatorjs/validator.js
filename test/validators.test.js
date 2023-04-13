@@ -8,6 +8,20 @@ import test from './testFunctions';
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
 describe('Validators', () => {
+  it('should validate JSON web tokens (JWT)', () => {
+    test({
+      validator: 'isJWT',
+      valid: [
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c', 
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzgzYjNlYzMzZWUzOWMwZjY4ODVjYiIsInVzZXJJZCI6ImFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgxNDA2ODI5LCJleHAiOjE2ODE0OTMyMjl9.a6b5feVNetyVaA7sk5YQrJSuvikO7uWIMQaUT7K_1gI', 
+      ],
+      invalid: [
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ', 
+      ],
+    });
+  });
+
   it('should validate email addresses', () => {
     test({
       validator: 'isEmail',
