@@ -14371,4 +14371,17 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate colors with unrecognized format', () => {
+    test({
+      validator: 'isColor',
+      args: [{ format: 'unrecognized' }],
+      valid: [],
+      invalid: [
+        '#fff',
+        'rgb(255,255,255)',
+        'hsl(360,100%,100%)',
+      ],
+    });
+  });
 });
