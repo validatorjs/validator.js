@@ -126,6 +126,8 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
+import isColor from './lib/isColor';
+
 const version = '13.9.0';
 
 const validator = {
@@ -236,6 +238,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isColor,
 };
 
 export default validator;
