@@ -47,7 +47,7 @@ export default function isDate(input, options) {
       dateObj[formatWord.charAt(0)] = dateWord;
     }
 
-    return new Date(`${dateObj.m}/${dateObj.d}/${dateObj.y}`).getDate() === +dateObj.d;
+    return new Date(parseInt(dateObj.y), parseInt(dateObj.m)-1, parseInt(dateObj.d)).getDate() === +dateObj.d;
   }
 
   if (!options.strictMode) {
