@@ -159,7 +159,7 @@ export default function isURL(url, options) {
     return true;
   }
 
-  if(options.allow_localhost && host === 'localhost'){
+  if (options.allow_localhost && host === 'localhost') {
     return true;
   }
 

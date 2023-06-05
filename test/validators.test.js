@@ -791,6 +791,19 @@ describe('Validators', () => {
     });
   });
 
+  it('should allow user to validate URLs with localhost when using allow_localhost option', () => {
+    test({
+      validator: 'isURL',
+      args: [{ allow_localhost: true }],
+      valid: [
+        'http://localhost/api/hello',
+      ],
+      invalid: [
+        'http://localhost1/api/hello',
+      ],
+    });
+  });
+
   it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',
