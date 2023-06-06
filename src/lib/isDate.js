@@ -50,9 +50,15 @@ export default function isDate(input, options) {
     let fullYear = dateObj.y;
 
     if (dateObj.y.length === 2) {
+      const parsedYear = parseInt(dateObj.y, 10);
+
+      if (isNaN(parsedYear)) {
+        return false;
+      }
+
       const currentYearLastTwoDigits = new Date().getFullYear() % 100;
 
-      if (parseInt(dateObj.y, 10) < currentYearLastTwoDigits) {
+      if (parsedYear < currentYearLastTwoDigits) {
         fullYear = `20${dateObj.y}`;
       } else {
         fullYear = `19${dateObj.y}`;
