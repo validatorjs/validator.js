@@ -47,7 +47,19 @@ export default function isDate(input, options) {
       dateObj[formatWord.charAt(0)] = dateWord;
     }
 
-    return new Date(parseInt(dateObj.y), parseInt(dateObj.m)-1, parseInt(dateObj.d)).getDate() === +dateObj.d;
+    let fullYear = dateObj.y;
+
+    if (dateObj.y.length === 2) {
+      const currentYearLastTwoDigits = new Date().getFullYear() % 100;
+
+      if (parseInt(dateObj.y, 10) < currentYearLastTwoDigits) {
+        fullYear = `20${dateObj.y}`;
+      } else {
+        fullYear = `19${dateObj.y}`;
+      }
+    }
+
+    return new Date(`${fullYear}-${dateObj.m}-${dateObj.d}`).getDate() === +dateObj.d;
   }
 
   if (!options.strictMode) {
