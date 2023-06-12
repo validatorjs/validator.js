@@ -1604,6 +1604,27 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate kazakh alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['kk-KZ'],
+      valid: [
+        'Сәлем',
+        'қанағаттандырылмағандықтарыңыздан',
+        'Кешіріңіз',
+        'Өкінішке',
+        'Қайталаңызшы',
+        'ағылшынша',
+        'түсінбедім',
+      ],
+      invalid: [
+        'Кешіріңіз1',
+        '  Кет бар  ',
+        'مرحبا العا',
+      ],
+    });
+  });
+
   it('should validate Vietnamese alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2429,6 +2450,27 @@ describe('Validators', () => {
         ' あいう123 ',
         'abcあいう',
         '生きろ!!',
+      ],
+    });
+  });
+
+  it('should validate kazakh alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['kk-KZ'],
+      valid: [
+        'Сәлем777',
+        '123Бәсе',
+        'солай',
+        'Жиенсу',
+        '90тоқсан',
+        'жалғыз',
+        '570бердім',
+      ],
+      invalid: [
+        ' кешіріңіз ',
+        'abcағылшынша',
+        'мүмкін!!',
       ],
     });
   });
