@@ -47,7 +47,25 @@ export default function isDate(input, options) {
       dateObj[formatWord.charAt(0)] = dateWord;
     }
 
-    return new Date(`${dateObj.m}/${dateObj.d}/${dateObj.y}`).getDate() === +dateObj.d;
+    let fullYear = dateObj.y;
+
+    if (dateObj.y.length === 2) {
+      const parsedYear = parseInt(dateObj.y, 10);
+
+      if (isNaN(parsedYear)) {
+        return false;
+      }
+
+      const currentYearLastTwoDigits = new Date().getFullYear() % 100;
+
+      if (parsedYear < currentYearLastTwoDigits) {
+        fullYear = `20${dateObj.y}`;
+      } else {
+        fullYear = `19${dateObj.y}`;
+      }
+    }
+
+    return new Date(`${fullYear}-${dateObj.m}-${dateObj.d}`).getDate() === +dateObj.d;
   }
 
   if (!options.strictMode) {
