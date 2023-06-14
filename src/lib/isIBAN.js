@@ -87,6 +87,25 @@ const ibanRegexThroughCountryCode = {
 };
 
 /**
+ * Check if the country codes passed are valid using the
+ * ibanRegexThroughCountryCode as a reference
+ *
+ * @param {array} countryCodeArray
+ * @return {boolean}
+ */
+
+function hasOnlyValidCountryCodes(countryCodeArray) {
+  const countryCodeArrayFilteredWithObjectIbanCode = countryCodeArray
+    .filter(countryCode => !(countryCode in ibanRegexThroughCountryCode));
+
+  if (countryCodeArrayFilteredWithObjectIbanCode.length > 0) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
  * Check whether string has correct universal IBAN format
  * The IBAN consists of up to 34 alphanumeric characters, as follows:
  * Country Code using ISO 3166-1 alpha-2, two letters
@@ -95,14 +114,37 @@ const ibanRegexThroughCountryCode = {
  * NOTE: Permitted IBAN characters are: digits [0-9] and the 26 latin alphabetic [A-Z]
  *
  * @param {string} str - string under validation
+ * @param {object} options - object to pass the countries to be either whitelisted or blacklisted
  * @return {boolean}
  */
-function hasValidIbanFormat(str) {
+function hasValidIbanFormat(str, options) {
   // Strip white spaces and hyphens
   const strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
   const isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
 
-  return (isoCountryCode in ibanRegexThroughCountryCode) &&
+  const isoCountryCodeInIbanRegexCodeObject = isoCountryCode in ibanRegexThroughCountryCode;
+
+  if (options.whitelist) {
+    if (!hasOnlyValidCountryCodes(options.whitelist)) {
+      throw new Error('One of the codes passed is invalid');
+    }
+
+    const isoCountryCodeInWhiteList = options.whitelist.includes(isoCountryCode);
+
+    if (!isoCountryCodeInWhiteList) {
+      throw new Error('IBAN code does not belong to one of the countries listed on whitelist!');
+    }
+  }
+
+  if (options.blacklist) {
+    const isoCountryCodeInBlackList = options.blacklist.includes(isoCountryCode);
+
+    if (isoCountryCodeInBlackList) {
+      throw new Error('IBAN code belongs to one of the countries listed on blacklist!');
+    }
+  }
+
+  return (isoCountryCodeInIbanRegexCodeObject) &&
     ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
 }
 
@@ -130,10 +172,10 @@ function hasValidIbanChecksum(str) {
   return remainder === 1;
 }
 
-export default function isIBAN(str) {
+export default function isIBAN(str, options = {}) {
   assertString(str);
 
-  return hasValidIbanFormat(str) && hasValidIbanChecksum(str);
+  return hasValidIbanFormat(str, options) && hasValidIbanChecksum(str);
 }
 
 export const locales = Object.keys(ibanRegexThroughCountryCode);

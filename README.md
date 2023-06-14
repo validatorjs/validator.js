@@ -121,7 +121,7 @@ Validator                               | Description
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHSL(str)**                          | check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on [CSS Colors Level 4 specification][CSS Colors Level 4 Specification].<br/><br/>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: `hsl(200grad+.1%62%/1)`).
-**isIBAN(str)**                         | check if the string is an IBAN (International Bank Account Number).
+**isIBAN(str)**                         | check if the string is an IBAN (International Bank Account Number).<br/><br/>Also allows you to define a whitelist, when you only want to recieve IBAN codes from certain countries or a blacklist, removing some of them from the current list.
 **isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['LK', 'PL', 'ES', 'FI', 'IN', 'IT', 'IR', 'MZ', 'NO', 'TH', 'zh-TW', 'he-IL', 'ar-LY', 'ar-TN', 'zh-CN', 'zh-HK']` OR `'any'`. If 'any' is used, function will check if any of the locales match.<br/><br/>Defaults to 'any'.
 **isIMEI(str [, options]))**                         | check if the string is a valid [IMEI number][IMEI]. IMEI should be of format `###############` or `##-######-######-#`.<br/><br/>`options` is an object which can contain the keys `allow_hyphens`. Defaults to first format. If `allow_hyphens` is set to true, the validator will validate the second format.
 **isIn(str, values)**                   | check if the string is in an array of allowed values.
