@@ -238,4 +238,5 @@ const validator = {
   ibanLocales,
 };
 
-export default validator;
+module.exports = Object.assign({}, validator);
+module.exports.default = validator;
