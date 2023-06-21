@@ -66,6 +66,9 @@ describe('Validators', () => {
         '"wrong()[]",:;<>@@gmail.com',
         'username@domain.com�',
         'username@domain.com©',
+        'nbsp test@test.com',
+        'nbsp_test@te st.com',
+        'nbsp_test@test.co m',
       ],
     });
   });
@@ -117,6 +120,7 @@ describe('Validators', () => {
         'hans.m端ller@test.com',
         'z@co.c',
         'tüst@invalid.com',
+        'nbsp test@test.com',
       ],
     });
   });
