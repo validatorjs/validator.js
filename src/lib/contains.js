@@ -1,7 +1,19 @@
 import assertString from './util/assertString';
 import toString from './util/toString';
+import merge from './util/merge';
 
-export default function contains(str, elem) {
+const defaulContainsOptions = {
+  ignoreCase: false,
+  minOccurrences: 1,
+};
+
+export default function contains(str, elem, options) {
   assertString(str);
-  return str.indexOf(toString(elem)) >= 0;
+  options = merge(options, defaulContainsOptions);
+
+  if (options.ignoreCase) {
+    return str.toLowerCase().split(toString(elem).toLowerCase()).length > options.minOccurrences;
+  }
+
+  return str.split(toString(elem)).length > options.minOccurrences;
 }

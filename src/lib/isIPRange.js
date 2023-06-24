@@ -1,9 +1,11 @@
 import assertString from './util/assertString';
 import isIP from './isIP';
 
-const subnetMaybe = /^\d{1,2}$/;
+const subnetMaybe = /^\d{1,3}$/;
+const v4Subnet = 32;
+const v6Subnet = 128;
 
-export default function isIPRange(str) {
+export default function isIPRange(str, version = '') {
   assertString(str);
   const parts = str.split('/');
 
@@ -21,5 +23,25 @@ export default function isIPRange(str) {
     return false;
   }
 
-  return isIP(parts[0], 4) && parts[1] <= 32 && parts[1] >= 0;
+  const isValidIP = isIP(parts[0], version);
+  if (!isValidIP) {
+    return false;
+  }
+
+  // Define valid subnet according to IP's version
+  let expectedSubnet = null;
+  switch (String(version)) {
+    case '4':
+      expectedSubnet = v4Subnet;
+      break;
+
+    case '6':
+      expectedSubnet = v6Subnet;
+      break;
+
+    default:
+      expectedSubnet = isIP(parts[0], '6') ? v6Subnet : v4Subnet;
+  }
+
+  return parts[1] <= expectedSubnet && parts[1] >= 0;
 }

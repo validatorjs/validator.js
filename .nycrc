@@ -5,9 +5,5 @@
   ],
   "include": [
     "src/**/*.js"
-  ],
-  "exclude": [
-    "validator.js",
-    "lib/**/*.js"
   ]
 }

@@ -12,21 +12,28 @@ import isMACAddress from './lib/isMACAddress';
 import isIP from './lib/isIP';
 import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
+import isDate from './lib/isDate';
+import isTime from './lib/isTime';
 
 import isBoolean from './lib/isBoolean';
+import isLocale from './lib/isLocale';
 
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
 import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
+import isPassportNumber from './lib/isPassportNumber';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
+
+import isIMEI from './lib/isIMEI';
 
 import isAscii from './lib/isAscii';
 import isFullWidth from './lib/isFullWidth';
 import isHalfWidth from './lib/isHalfWidth';
 import isVariableWidth from './lib/isVariableWidth';
 import isMultibyte from './lib/isMultibyte';
+import isSemVer from './lib/isSemVer';
 import isSurrogatePair from './lib/isSurrogatePair';
 
 import isInt from './lib/isInt';
@@ -37,9 +44,12 @@ import isOctal from './lib/isOctal';
 import isDivisibleBy from './lib/isDivisibleBy';
 
 import isHexColor from './lib/isHexColor';
+import isRgbColor from './lib/isRgbColor';
+import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
+import isIBAN, { locales as ibanLocales } from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
@@ -60,26 +70,38 @@ import isBefore from './lib/isBefore';
 
 import isIn from './lib/isIn';
 
+import isLuhnNumber from './lib/isLuhnNumber';
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
 
+import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
+import isTaxID from './lib/isTaxID';
 
-import isMobilePhone, { locales as isMobilePhoneLocales, getLocalPattern as getMobileLocalPattern } from './lib/isMobilePhone';
+import isMobilePhone, { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
+
+import isEthereumAddress from './lib/isEthereumAddress';
 
 import isCurrency from './lib/isCurrency';
 
+import isBtcAddress from './lib/isBtcAddress';
+
+import { isISO6346, isFreightContainerID } from './lib/isISO6346';
+import isISO6391 from './lib/isISO6391';
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
+import isISO4217 from './lib/isISO4217';
 
 import isBase32 from './lib/isBase32';
+import isBase58 from './lib/isBase58';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
+import isMailtoURI from './lib/isMailtoURI';
 
 import isMimeType from './lib/isMimeType';
 
@@ -99,8 +121,12 @@ import isWhitelisted from './lib/isWhitelisted';
 import normalizeEmail from './lib/normalizeEmail';
 
 import isSlug from './lib/isSlug';
+import isLicensePlate from './lib/isLicensePlate';
+import isStrongPassword from './lib/isStrongPassword';
 
-const version = '11.1.0';
+import isVAT from './lib/isVAT';
+
+const version = '13.9.0';
 
 const validator = {
   version,
@@ -118,12 +144,14 @@ const validator = {
   isIPRange,
   isFQDN,
   isBoolean,
+  isIBAN,
   isBIC,
   isAlpha,
   isAlphaLocales,
   isAlphanumeric,
   isAlphanumericLocales,
   isNumeric,
+  isPassportNumber,
   isPort,
   isLowercase,
   isUppercase,
@@ -132,8 +160,10 @@ const validator = {
   isHalfWidth,
   isVariableWidth,
   isMultibyte,
+  isSemVer,
   isSurrogatePair,
   isInt,
+  isIMEI,
   isFloat,
   isFloatLocales,
   isDecimal,
@@ -141,6 +171,8 @@ const validator = {
   isOctal,
   isDivisibleBy,
   isHexColor,
+  isRgbColor,
+  isHSL,
   isISRC,
   isMD5,
   isHash,
@@ -148,31 +180,41 @@ const validator = {
   isJSON,
   isEmpty,
   isLength,
+  isLocale,
   isByteLength,
   isUUID,
   isMongoId,
   isAfter,
   isBefore,
   isIn,
+  isLuhnNumber,
   isCreditCard,
   isIdentityCard,
+  isEAN,
   isISIN,
   isISBN,
   isISSN,
   isMobilePhone,
   isMobilePhoneLocales,
-  getMobileLocalPattern,
   isPostalCode,
   isPostalCodeLocales,
+  isEthereumAddress,
   isCurrency,
+  isBtcAddress,
+  isISO6346,
+  isFreightContainerID,
+  isISO6391,
   isISO8601,
   isRFC3339,
   isISO31661Alpha2,
   isISO31661Alpha3,
+  isISO4217,
   isBase32,
+  isBase58,
   isBase64,
   isDataURI,
   isMagnetURI,
+  isMailtoURI,
   isMimeType,
   isLatLong,
   ltrim,
@@ -187,6 +229,13 @@ const validator = {
   normalizeEmail,
   toString,
   isSlug,
+  isStrongPassword,
+  isTaxID,
+  isDate,
+  isTime,
+  isLicensePlate,
+  isVAT,
+  ibanLocales,
 };
 
 export default validator;

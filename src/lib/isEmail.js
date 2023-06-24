@@ -10,11 +10,15 @@ const default_email_options = {
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
+  blacklisted_chars: '',
+  ignore_max_length: false,
+  host_blacklist: [],
+  host_whitelist: [],
 };
 
 /* eslint-disable max-len */
 /* eslint-disable no-control-regex */
-const splitNameAddress = /^([^\x00-\x1F\x7F-\x9F\cX]+)<(.+)>$/i;
+const splitNameAddress = /^([^\x00-\x1F\x7F-\x9F\cX]+)</i;
 const emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 const gmailUserPart = /^[a-z\d]+$/;
 const quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
@@ -29,9 +33,7 @@ const defaultMaxEmailLength = 254;
  * @param {String} display_name
  */
 function validateDisplayName(display_name) {
-  const trim_quotes = display_name.match(/^"(.+)"$/i);
-  const display_name_without_quotes = trim_quotes ? trim_quotes[1] : display_name;
-
+  const display_name_without_quotes = display_name.replace(/^"(.+)"$/, '$1');
   // display name with only spaces is not valid
   if (!display_name_without_quotes.trim()) {
     return false;
@@ -42,7 +44,7 @@ function validateDisplayName(display_name) {
   if (contains_illegal) {
     // if contains illegal characters,
     // must to be enclosed in double-quotes, otherwise it's not a valid display name
-    if (!trim_quotes) {
+    if (display_name_without_quotes === display_name) {
       return false;
     }
 
@@ -65,14 +67,18 @@ export default function isEmail(str, options) {
   if (options.require_display_name || options.allow_display_name) {
     const display_email = str.match(splitNameAddress);
     if (display_email) {
-      let display_name;
-      [, display_name, str] = display_email;
+      let display_name = display_email[1];
+
+      // Remove display name and angle brackets to get email address
+      // Can be done in the regex but will introduce a ReDOS (See  #1597 for more info)
+      str = str.replace(display_name, '').replace(/(^<|>$)/g, '');
+
       // sometimes need to trim the last space to get the display name
       // because there may be a space between display name and email address
       // eg. myname <address@gmail.com>
       // the display name is `myname` instead of `myname `, so need to trim the last space
       if (display_name.endsWith(' ')) {
-        display_name = display_name.substr(0, display_name.length - 1);
+        display_name = display_name.slice(0, -1);
       }
 
       if (!validateDisplayName(display_name)) {
@@ -88,9 +94,17 @@ export default function isEmail(str, options) {
 
   const parts = str.split('@');
   const domain = parts.pop();
-  let user = parts.join('@');
-
   const lower_domain = domain.toLowerCase();
+
+  if (options.host_blacklist.includes(lower_domain)) {
+    return false;
+  }
+
+  if (options.host_whitelist.length > 0 && !options.host_whitelist.includes(lower_domain)) {
+    return false;
+  }
+
+  let user = parts.join('@');
 
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
@@ -106,7 +120,7 @@ export default function isEmail(str, options) {
     const username = user.split('+')[0];
 
     // Dots are not included in gmail length restriction
-    if (!isByteLength(username.replace('.', ''), { min: 6, max: 30 })) {
+    if (!isByteLength(username.replace(/\./g, ''), { min: 6, max: 30 })) {
       return false;
     }
 
@@ -118,12 +132,17 @@ export default function isEmail(str, options) {
     }
   }
 
-  if (!isByteLength(user, { max: 64 }) ||
-            !isByteLength(domain, { max: 254 })) {
+  if (options.ignore_max_length === false && (
+    !isByteLength(user, { max: 64 }) ||
+    !isByteLength(domain, { max: 254 }))
+  ) {
     return false;
   }
 
-  if (!isFQDN(domain, { require_tld: options.require_tld })) {
+  if (!isFQDN(domain, {
+    require_tld: options.require_tld,
+    ignore_max_length: options.ignore_max_length,
+  })) {
     if (!options.allow_ip_domain) {
       return false;
     }
@@ -133,7 +152,7 @@ export default function isEmail(str, options) {
         return false;
       }
 
-      let noBracketdomain = domain.substr(1, domain.length - 2);
+      let noBracketdomain = domain.slice(1, -1);
 
       if (noBracketdomain.length === 0 || !isIP(noBracketdomain)) {
         return false;
@@ -156,6 +175,9 @@ export default function isEmail(str, options) {
     if (!pattern.test(user_parts[i])) {
       return false;
     }
+  }
+  if (options.blacklisted_chars) {
+    if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
   }
 
   return true;

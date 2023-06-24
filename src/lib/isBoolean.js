@@ -1,6 +1,15 @@
 import assertString from './util/assertString';
 
-export default function isBoolean(str) {
+const defaultOptions = { loose: false };
+const strictBooleans = ['true', 'false', '1', '0'];
+const looseBooleans = [...strictBooleans, 'yes', 'no'];
+
+export default function isBoolean(str, options = defaultOptions) {
   assertString(str);
-  return (['true', 'false', '1', '0'].indexOf(str) >= 0);
+
+  if (options.loose) {
+    return looseBooleans.includes(str.toLowerCase());
+  }
+
+  return strictBooleans.includes(str);
 }

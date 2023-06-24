@@ -1,8 +1,7 @@
 import assertString from './util/assertString';
-import includes from './util/includes';
 
 // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-const validISO31661Alpha2CountriesCodes = [
+const validISO31661Alpha2CountriesCodes = new Set([
   'AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ',
   'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ',
   'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ',
@@ -28,9 +27,11 @@ const validISO31661Alpha2CountriesCodes = [
   'WF', 'WS',
   'YE', 'YT',
   'ZA', 'ZM', 'ZW',
-];
+]);
 
 export default function isISO31661Alpha2(str) {
   assertString(str);
-  return includes(validISO31661Alpha2CountriesCodes, str.toUpperCase());
+  return validISO31661Alpha2CountriesCodes.has(str.toUpperCase());
 }
+
+export const CountryCodes = validISO31661Alpha2CountriesCodes;

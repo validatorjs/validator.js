@@ -232,7 +232,7 @@ export default function normalizeEmail(email, options) {
     if (options.all_lowercase || options.yandex_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
-    parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preffered
+    parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preferred
   } else if (options.all_lowercase) {
     // Any other address
     parts[0] = parts[0].toLowerCase();
