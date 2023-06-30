@@ -69,6 +69,7 @@ describe('Validators', () => {
         'nbsp test@test.com',
         'nbsp_test@te st.com',
         'nbsp_test@test.co m',
+        '\'OR email=username@gmail.com--"@gmail.com',
       ],
     });
   });

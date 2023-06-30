@@ -180,5 +180,9 @@ export default function isEmail(str, options) {
     if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
   }
 
+  // Detect and reject SQL injection attempt
+  if (str.includes("\'OR") || str.includes('--"')) {
+    return false;
+  }
   return true;
 }
