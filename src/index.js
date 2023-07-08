@@ -41,6 +41,7 @@ import isFloat, { locales as isFloatLocales } from './lib/isFloat';
 import isDecimal from './lib/isDecimal';
 import isHexadecimal from './lib/isHexadecimal';
 import isOctal from './lib/isOctal';
+import isInRange from './lib/isInRange';
 import isDivisibleBy from './lib/isDivisibleBy';
 
 import isHexColor from './lib/isHexColor';
@@ -169,6 +170,7 @@ const validator = {
   isDecimal,
   isHexadecimal,
   isOctal,
+  isInRange,
   isDivisibleBy,
   isHexColor,
   isRgbColor,

@@ -5296,6 +5296,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate if number is in range', () => {
+    test({
+      validator: 'isInRange',
+      args: [{ min: 2, max: 5 }],
+      valid: ['2', '5', '3', '4'],
+      invalid: ['1', '6'],
+    });
+    test({
+      validator: 'isInRange',
+      args: [{ min: 200, max: 300 }],
+      valid: ['201', '250', '299'],
+      invalid: ['', 'a', 'abcd', 'ｇｍ', '350', '150'],
+    });
+  });
+
   it('should validate luhn numbers', () => {
     test({
       validator: 'isLuhnNumber',
