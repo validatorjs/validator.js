@@ -194,6 +194,7 @@ Sanitizer                              | Description
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
 **unescape(input)**                    | replace HTML encoded entities with `<`, `>`, `&`, `'`, `"` and `/`.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
+**toCapitalize(input)**                | transform text into capitalize ,transforms first letter of string, letters after white spaces and letters after `.` , `,` , `?` , `!` to uppercase and other letters to lowercase.
 
 ### XSS Sanitization
 

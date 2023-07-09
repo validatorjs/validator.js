@@ -1,5 +1,6 @@
 import toDate from './lib/toDate';
 import toFloat from './lib/toFloat';
+import toCapitalize from './lib/toCapitalize';
 import toInt from './lib/toInt';
 import toBoolean from './lib/toBoolean';
 import equals from './lib/equals';
@@ -132,6 +133,7 @@ const validator = {
   version,
   toDate,
   toFloat,
+  toCapitalize,
   toInt,
   toBoolean,
   equals,
