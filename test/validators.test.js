@@ -263,6 +263,9 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate email address with empty', () =>{
+    expect(validator('', ['required'])).toBeFalsy();
+  })
 
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
