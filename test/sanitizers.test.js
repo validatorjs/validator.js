@@ -158,16 +158,16 @@ describe('Sanitizers', () => {
       sanitizer: 'escape',
       expect: {
         '<script> alert("xss&fun"); </script>':
-            '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;',
+          '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;',
 
         "<script> alert('xss&fun'); </script>":
-            '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;',
+          '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;',
 
         'Backtick: `':
-            'Backtick: &#96;',
+          'Backtick: &#96;',
 
         'Backslash: \\':
-            'Backslash: &#x5C;',
+          'Backslash: &#x5C;',
       },
     });
   });
@@ -177,16 +177,16 @@ describe('Sanitizers', () => {
       sanitizer: 'unescape',
       expect: {
         '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;':
-             '<script> alert("xss&fun"); </script>',
+          '<script> alert("xss&fun"); </script>',
 
         '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;':
-            "<script> alert('xss&fun'); </script>",
+          "<script> alert('xss&fun'); </script>",
 
         'Backtick: &#96;':
-            'Backtick: `',
+          'Backtick: `',
 
         'Escaped string: &amp;lt;':
-            'Escaped string: &lt;',
+          'Escaped string: &lt;',
       },
     });
   });
@@ -245,6 +245,16 @@ describe('Sanitizers', () => {
         aaaaaaaaaabbbbbbbbbb: '',
         a1b2c3: '123',
         '   ': '   ',
+      },
+    });
+  });
+  it('should transform string into capitalize', () => {
+    test({
+      sanitizer: 'toCapitalize',
+      args: ['abc'],
+      expect: {
+        'hello world': 'Hello World',
+        'hello world.hello,hello?hello': 'Hello World.Hello,Hello?Hello',
       },
     });
   });
