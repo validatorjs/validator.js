@@ -126,13 +126,13 @@ function hasValidIbanFormat(str, options) {
 
   if (options.whitelist) {
     if (!hasOnlyValidCountryCodes(options.whitelist)) {
-      throw new Error('One of the codes passed is invalid');
+      return false;
     }
 
     const isoCountryCodeInWhiteList = options.whitelist.includes(isoCountryCode);
 
     if (!isoCountryCodeInWhiteList) {
-      throw new Error('IBAN code does not belong to one of the countries listed on whitelist!');
+      return false;
     }
   }
 
@@ -140,7 +140,7 @@ function hasValidIbanFormat(str, options) {
     const isoCountryCodeInBlackList = options.blacklist.includes(isoCountryCode);
 
     if (isoCountryCodeInBlackList) {
-      throw new Error('IBAN code belongs to one of the countries listed on blacklist!');
+      return false;
     }
   }
 
