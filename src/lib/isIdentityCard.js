@@ -247,7 +247,7 @@ const validators = {
     if (century == 3 && (year > currentYear)) return false;
     if (month < 1 || month > 12) return false;
     if (day < 1 || day > daysInMonth) return false;
-    if (!gov.match(/^0?(?:1[1-9]|2[1-9]|3[1-5]|88|[1-4])$/)) return false;
+    if (!gov.match(/^0?(?:[1-2][1-9]|3[1-5]|[1-4]|88)$/)) return false;
   
     return true;
   },
