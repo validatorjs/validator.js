@@ -234,6 +234,23 @@ const validators = {
     }
     return true;
   },
+  'ar-EG': (str) => {
+    // For reference, see: https://ar.wikipedia.org/w/index.php?oldid=63404691 (AR)
+
+    const matches = str.match(/^(\d)(\d{2})(\d{2})(\d{2})(\d{2})\d{5}$/);
+    const [, century, year, month, day, gov] = matches ?? [];
+    const currentYear = new Date().getFullYear() - 2_000;
+    const daysInMonth = new Date(year, month, 0).getDate();
+  
+    if (!matches) return false;
+    if (!century.match(/2|3/)) return false;
+    if (century == 3 && (year > currentYear)) return false;
+    if (month < 1 || month > 12) return false;
+    if (day < 1 || day > daysInMonth) return false;
+    if (!gov.match(/^0?(?:[1-2][1-9]|3[1-5]|[1-4]|88)$/)) return false;
+  
+    return true;
+  },
   'zh-CN': (str) => {
     const provincesAndCities = [
       '11', // 北京
