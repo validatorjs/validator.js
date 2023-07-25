@@ -235,7 +235,6 @@ const validators = {
     return true;
   },
   'ar-EG': (str) => {
-    assertString(str);
     // For reference, see: https://ar.wikipedia.org/w/index.php?oldid=63404691 (AR)
 
     const matches = str.match(/^(\d)(\d{2})(\d{2})(\d{2})(\d{2})\d{5}$/);
