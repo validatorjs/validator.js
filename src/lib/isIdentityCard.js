@@ -238,7 +238,7 @@ const validators = {
     assertString(str);
     // For reference, see: https://ar.wikipedia.org/w/index.php?oldid=63404691 (AR)
 
-    const matches = str.trim().match(/^(\d)(\d{2})(\d{2})(\d{2})(\d{2})\d{5}$/);
+    const matches = str.match(/^(\d)(\d{2})(\d{2})(\d{2})(\d{2})\d{5}$/);
     const [, century, year, month, day, gov] = matches ?? [];
     const currentYear = new Date().getFullYear() - 2_000;
     const daysInMonth = new Date(year, month, 0).getDate();
