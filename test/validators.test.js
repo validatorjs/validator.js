@@ -14462,4 +14462,84 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate colors', () => {
+    test({
+      validator: 'isColor',
+      valid: [
+        '#fff',
+        '#ffffff',
+        '#ffffff00',
+        'fff',
+        'rgb(255,255,255)',
+        'rgba(255,255,255,0.5)',
+        'hsl(360,100%,100%)',
+        'hsla(360,100%,100%,0.5)',
+      ],
+      invalid: [
+        '#ff f',
+        '#fff fff',
+        'rgb(255,255,255,)',
+        'hsl (360, 100%,)',
+      ],
+    });
+  });
+
+  it('should validate rgb colors', () => {
+    test({
+      validator: 'isColor',
+      args: [{ format: 'rgb' }],
+      valid: [
+        'rgb(255,255,255)',
+        'rgba(255,255,255,0.5)',
+      ],
+      invalid: [
+        '#fff',
+        'hsl(360,100%,100%)',
+      ],
+    });
+  });
+
+  it('should validate hex colors', () => {
+    test({
+      validator: 'isColor',
+      args: [{ format: 'hex' }],
+      valid: [
+        '#ffffff',
+        '#ffffff00',
+      ],
+      invalid: [
+        'rgb(255,255,255)',
+        'hsl(360,100%,100%)',
+      ],
+    });
+  });
+
+  it('should validate hsl colors', () => {
+    test({
+      validator: 'isColor',
+      args: [{ format: 'hsl' }],
+      valid: [
+        'hsl(360,100%,100%)',
+        'hsla(360,100%,100%,0.5)',
+      ],
+      invalid: [
+        '#ffffff',
+        'rgb(255,255,255)',
+      ],
+    });
+  });
+
+  it('should validate colors with unrecognized format', () => {
+    test({
+      validator: 'isColor',
+      args: [{ format: 'unrecognized' }],
+      valid: [],
+      invalid: [
+        '#fff',
+        'rgb(255,255,255)',
+        'hsl(360,100%,100%)',
+      ],
+    });
+  });
 });
