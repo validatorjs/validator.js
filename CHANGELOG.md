@@ -1,3 +1,33 @@
+# 13.11.0
+
+### New Features / Validators
+
+- [#2144](https://github.com/validatorjs/validator.js/pull/2144) `isFreightContainerID`: for shipping containers IDs @songyuew
+- [#2188](https://github.com/validatorjs/validator.js/pull/2188) `isMailtoURI` @uksarkar 
+
+### Fixes, New Locales and Enhancements
+
+- [#2025](https://github.com/validatorjs/validator.js/pull/2025) `isIBAN` add `MA` locale @lroudge
+- [#2117](https://github.com/validatorjs/validator.js/pull/2117) `isCreditCard` refactor @pano9000 
+- [#2189](https://github.com/validatorjs/validator.js/pull/2189) `isLocale` add support for more language tags @kwahome
+- [#2203](https://github.com/validatorjs/validator.js/pull/2203) `isVAT` for `CU` @jimmyorpheus 
+- [#2217](https://github.com/validatorjs/validator.js/pull/2217) `isJWT` @Prathamesh061   
+- [#2222](https://github.com/validatorjs/validator.js/pull/2222) `IsFQDN` test enhancements @aalekhpatel07    
+- [#2226](https://github.com/validatorjs/validator.js/pull/2226) `isAlpha`, `isAlphanumeric` for `kk-KZ` @BekStar7   
+- [#2229](https://github.com/validatorjs/validator.js/pull/2229) `isEmail` support `allow_underscores` @guspower    
+- [#2231](https://github.com/validatorjs/validator.js/pull/2231) `isDate` enhance Date declaration compatibility across multiple environments @CiprianS  
+- [#2235](https://github.com/validatorjs/validator.js/pull/2235) `isIBAN` add white and blacklist options to the isIBAN validator @edilson   
+- [#2237](https://github.com/validatorjs/validator.js/pull/2237) `isEmail` do not allow non-breaking space in user part @jeremy21212121   
+- `isMobilePhone`:
+  - [#2175](https://github.com/validatorjs/validator.js/pull/2175) `so-SO` @ohersi
+  - [#2176](https://github.com/validatorjs/validator.js/pull/2176) `fr-CF` @cheboi
+  - [#2197](https://github.com/validatorjs/validator.js/pull/2197) `es-CU` @klaframboise 
+  - [#2202](https://github.com/validatorjs/validator.js/pull/2202) `pl-PL` @czerwony03 
+  - [#2209](https://github.com/validatorjs/validator.js/pull/2209) `fr-WF` @aidos42 
+  - [#2246](https://github.com/validatorjs/validator.js/pull/2246) `ar-SD` @Hussienma 
+
+
+
 # 13.9.0
 
 ### New Features / Validators
