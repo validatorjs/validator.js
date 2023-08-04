@@ -1,12 +1,13 @@
 import assertString from './util/assertString';
 
-import merge from './util/merge';
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
 import isIP from './isIP';
+import merge from './util/merge';
 
 const default_email_options = {
   allow_display_name: false,
+  allow_underscores: false,
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
@@ -142,6 +143,7 @@ export default function isEmail(str, options) {
   if (!isFQDN(domain, {
     require_tld: options.require_tld,
     ignore_max_length: options.ignore_max_length,
+    allow_underscores: options.allow_underscores,
   })) {
     if (!options.allow_ip_domain) {
       return false;
