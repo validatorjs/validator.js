@@ -806,6 +806,48 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate URLs with required valid file mimes', () => {
+    test({
+      validator: 'isURL',
+      args: [{ require_valid_file_mimes: true }],
+      valid: [
+        'http://test.com/foo.png',
+        'http://test.com/foo/bar.jpg',
+        'http://test.com/example/foo.bar.jpeg',
+        'http://test.com/foo/png.png',
+      ],
+      invalid: [
+        'http://user:pass@www.foobar.com/foo.pdf',
+        'http://user:@www.foobar.com/',
+        'http://127.0.0.1/',
+        'http://10.0.0.0/',
+        'http://189.123.14.13/',
+        'http://duckduckgo.com/?q=%2F',
+        'http://test.com/png/foo.png.ng',
+      ],
+    });
+  });
+
+  it('should let users specify a valid file mimes', () => {
+    test({
+      validator: 'isURL',
+      args: [{ require_valid_file_mimes: true, file_mimes: ['pdf', 'gif', 'pptx'] }],
+      valid: [
+        'http://test.com/foo.pdf',
+        'http://test.com/foo/bar.gif',
+        'http://test.com/example/foo.bar.pptx',
+      ],
+      invalid: [
+        'http://user:pass@www.foobar.com/foo.png',
+        'http://user:@www.foobar.com/',
+        'http://127.0.0.1/',
+        'http://10.0.0.0/',
+        'http://189.123.14.13/',
+        'http://duckduckgo.com/?q=%2F',
+      ],
+    });
+  });
+
   it('should validate MAC addresses', () => {
     test({
       validator: 'isMACAddress',
