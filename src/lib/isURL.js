@@ -20,11 +20,13 @@ validate_length - if set as false isURL will skip string length validation (IE m
 
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
+  file_mimes: ['png', 'jpg', 'jpeg'],
   require_tld: true,
   require_protocol: false,
   require_host: true,
   require_port: false,
   require_valid_protocol: true,
+  require_valid_file_mimes: false,
   allow_underscores: false,
   allow_trailing_dot: false,
   allow_protocol_relative_urls: false,
@@ -71,7 +73,7 @@ export default function isURL(url, options) {
     return false;
   }
 
-  let protocol, auth, host, hostname, port, port_str, split, ipv6;
+  let protocol, auth, host, hostname, port, port_str, split, ipv6, mime;
 
   split = url.split('#');
   url = split.shift();
@@ -164,6 +166,12 @@ export default function isURL(url, options) {
   host = host || ipv6;
 
   if (options.host_blacklist && checkHost(host, options.host_blacklist)) {
+    return false;
+  }
+
+  split = url.split('.');
+  mime = split.pop().toLowerCase();
+  if (options.require_valid_file_mimes && !options.file_mimes.includes(mime)) {
     return false;
   }
 
