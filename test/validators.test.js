@@ -12457,6 +12457,40 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['en-IN', { localeOption: 'GSTIN' }],
+      valid: [
+        '27AAPFU0939F1ZV',
+        '27AASCS2460H1Z0',
+        '29AAGCB7383J1Z4'],
+      invalid: [
+        '',
+        '00AAGCB0000J1Z4',
+        '29AAGCB7383J114',
+        '88AAPFU093921ZV',
+        '**AAGCB7689J1Z4',
+        'S AAGCB7893J1Z4'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-IN', { localeOption: 'PAN' }],
+      valid: [
+        'MFWAA0001A',
+        'ABPPA2020K',
+        'KLSPK0909Z',
+        'ACSLY4499S'],
+      invalid: [
+        '123PA0001A',
+        'ACSZA2020K',
+        'ACSP19090K',
+        'ACSPA0000K',
+        'ACSYA44999',
+        '',
+        'ACS A4499A',
+        '*#$PA4499J',
+        'ACSLY4499SK'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['en-US'],
       valid: [
         '01-1234567',
@@ -12790,6 +12824,42 @@ describe('Validators', () => {
       validator: 'isTaxID',
       valid: [
         '01-1234567'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: [123, { localeOption: 'GSTIN' }],
+      error: [
+        '27AAPFU0939F1ZV'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-IN', { localeOption: 123 }],
+      error: [
+        '27AAPFU0939F1ZV'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-IN', { localeOption: 'is-NOT' }],
+      error: [
+        '27AAPFU0939F1ZV'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-IN', { isNOT: 'is-NOT' }],
+      error: [
+        '27AAPFU0939F1ZV'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-US', { localeOption: 'GSTIN' }],
+      error: [
+        '27AAPFU0939F1ZV'],
+    });
+    test({
+      validator: 'isTaxID',
+      args: ['en-IN', { localeOption: 'GSTIN' }],
+      error: [
+        12345566],
     });
     test({
       validator: 'isTaxID',
