@@ -18,7 +18,7 @@ const options = {
     sortQueryParameters: true
 };
 
-export default function normalizeURL(inputURL, options) {
+export default function normalizeUrl(inputURL, options) {
     try {
 
         const parsedURL = new URL(inputURL);
