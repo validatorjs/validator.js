@@ -1,4 +1,4 @@
-const { URL } = require('url')
+import { URL } from 'url';
 
 // These are the current options provided so far
 // const inputURL= 'https://user:password@example.com:8080/path/to/resource?key1=value1&key2=value2#section-part'
