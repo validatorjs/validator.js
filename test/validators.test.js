@@ -13061,8 +13061,8 @@ describe('Validators', () => {
     test({
       validator: 'isDate',
       valid: [
-        new Date(),
-        '2023-08-04',
+        new Date(2016, 2, 29),
+        '2017-08-04',
       ],
     });
     timezone_mock.unregister();
