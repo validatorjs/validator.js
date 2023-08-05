@@ -1,23 +1,5 @@
 import { URL } from 'url';
 
-// These are the current options provided so far
-// const inputURL= 'https://user:password@example.com:8080/path/to/resource?key1=value1&key2=value2#section-part'
-
-const options = {
-    defaultProtocol: 'https',
-    removeWWW: true,
-    removeAuth: true,
-    removePort: true,
-    removeHash: true,
-    requireHttp: false,
-    requireHttps: true,
-    removeQuery: true,
-    removeTrailingSlash: true,
-    removeDirectoryIndex: ['about.html'],
-    removeEndSlash: true,
-    sortQueryParameters: true
-};
-
 export default function normalizeUrl(inputURL, options) {
     try {
 
