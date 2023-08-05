@@ -65,7 +65,19 @@ export default function isDate(input, options) {
       }
     }
 
-    return new Date(`${fullYear}-${dateObj.m}-${dateObj.d}`).getDate() === +dateObj.d;
+    let month = dateObj.m;
+
+    if (dateObj.m.length === 1) {
+      month = `0${dateObj.m}`;
+    }
+
+    let day = dateObj.d;
+
+    if (dateObj.d.length === 1) {
+      day = `0${dateObj.d}`;
+    }
+
+    return new Date(`${fullYear}-${month}-${day}T00:00:00`).getDate() === +dateObj.d;
   }
 
   if (!options.strictMode) {
