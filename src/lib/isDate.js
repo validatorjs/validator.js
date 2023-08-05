@@ -77,7 +77,7 @@ export default function isDate(input, options) {
       day = `0${dateObj.d}`;
     }
 
-    return new Date(`${fullYear}-${month}-${day}T00:00:00`).getDate() === +dateObj.d;
+    return new Date(`${fullYear}-${month}-${day}T00:00:00.000Z`).getUTCDate() === +dateObj.d;
   }
 
   if (!options.strictMode) {

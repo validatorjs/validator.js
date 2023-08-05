@@ -1,5 +1,6 @@
 import assert from 'assert';
 import fs from 'fs';
+import timezone_mock from 'timezone-mock';
 import { format } from 'util';
 import vm from 'vm';
 import validator from '../src/index';
@@ -13054,6 +13055,17 @@ describe('Validators', () => {
         '29.02.2020',
       ],
     });
+    // emulating Pacific time zone offset & time
+    // which could potentially result in UTC conversion issues
+    timezone_mock.register('US/Pacific');
+    test({
+      validator: 'isDate',
+      valid: [
+        new Date(),
+        '2023-08-04',
+      ],
+    });
+    timezone_mock.unregister();
   });
   it('should validate time', () => {
     test({
