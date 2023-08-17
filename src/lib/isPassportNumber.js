@@ -11,6 +11,7 @@ const passportRegexByCountryCode = {
   AR: /^[A-Z]{3}\d{6}$/, // ARGENTINA
   AT: /^[A-Z]\d{7}$/, // AUSTRIA
   AU: /^[A-Z]\d{7}$/, // AUSTRALIA
+  AZ: /^[A-Z]{2,3}\d{7,8}$/, // AZERBAIJAN
   BE: /^[A-Z]{2}\d{6}$/, // BELGIUM
   BG: /^\d{9}$/, // BULGARIA
   BR: /^[A-Z]{2}\d{6}$/, // BRAZIL
@@ -37,8 +38,11 @@ const passportRegexByCountryCode = {
   IR: /^[A-Z]\d{8}$/, // IRAN
   IS: /^(A)\d{7}$/, // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/, // ITALY
+  JM: /^[Aa]\d{7}$/, // JAMAICA
   JP: /^[A-Z]{2}\d{7}$/, // JAPAN
   KR: /^[MS]\d{8}$/, // SOUTH KOREA, REPUBLIC OF KOREA, [S=PS Passports, M=PM Passports]
+  KZ: /^[a-zA-Z]\d{7}$/, // KAZAKHSTAN
+  LI: /^[a-zA-Z]\d{5}$/, // LIECHTENSTEIN
   LT: /^[A-Z0-9]{8}$/, // LITHUANIA
   LU: /^[A-Z0-9]{8}$/, // LUXEMBURG
   LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
@@ -48,12 +52,15 @@ const passportRegexByCountryCode = {
   MY: /^[AHK]\d{8}$/, // MALAYSIA
   MX: /^\d{10,11}$/, // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
+  NZ: /^([Ll]([Aa]|[Dd]|[Ff]|[Hh])|[Ee]([Aa]|[Pp])|[Nn])\d{6}$/, // NEW ZEALAND
+  PH: /^([A-Z](\d{6}|\d{7}[A-Z]))|([A-Z]{2}(\d{6}|\d{7}))$/, // PHILIPPINES
+  PK: /^[A-Z]{2}\d{7}$/, // PAKISTAN
   PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
   RO: /^\d{8,9}$/, // ROMANIA
   RU: /^\d{9}$/, // RUSSIAN FEDERATION
   SE: /^\d{8}$/, // SWEDEN
-  SL: /^(P)[A-Z]\d{7}$/, // SLOVANIA
+  SL: /^(P)[A-Z]\d{7}$/, // SLOVENIA
   SK: /^[0-9A-Z]\d{7}$/, // SLOVAKIA
   TH: /^[A-Z]{1,2}\d{6,7}$/, // THAILAND
   TR: /^[A-Z]\d{8}$/, // TURKEY
