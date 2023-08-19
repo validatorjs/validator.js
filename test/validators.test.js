@@ -3647,6 +3647,21 @@ describe('Validators', () => {
         '7903699371',
       ],
     });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['ZA'],
+      valid: [
+        'T12345678',
+        'A12345678',
+        'M12345678',
+        'D12345678',
+      ],
+      invalid: [
+        '123456789',
+        'Z12345678',
+      ],
+    });
   });
 
   it('should validate decimal numbers', () => {
