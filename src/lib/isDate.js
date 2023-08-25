@@ -49,7 +49,7 @@ export default function isDate(input, options) {
 
     let fullYear = dateObj.y;
 
-    if (dateObj.y.length === 2) {
+    if (dateObj.y?.length === 2) {
       const parsedYear = parseInt(dateObj.y, 10);
 
       if (isNaN(parsedYear)) {
@@ -67,13 +67,13 @@ export default function isDate(input, options) {
 
     let month = dateObj.m;
 
-    if (dateObj.m.length === 1) {
+    if (dateObj.m?.length === 1) {
       month = `0${dateObj.m}`;
     }
 
     let day = dateObj.d;
 
-    if (dateObj.d.length === 1) {
+    if (dateObj.d?.length === 1) {
       day = `0${dateObj.d}`;
     }
 
