@@ -5,6 +5,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Setup Node.js 14
       uses: actions/setup-node@v2-beta
@@ -19,6 +22,6 @@ jobs:
     - name: Run Tests
       run: npm test
     - name: Publish Package to NPM Registry
-      run: npm publish
+      run: npm publish --provenance
       env:
         NODE_AUTH_TOKEN: ${{secrets.NPM_SECRET}}
