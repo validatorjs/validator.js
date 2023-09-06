@@ -2048,6 +2048,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Irish alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['ga-IE'],
+      valid: [
+        'Éire',
+        'Císte',
+        'Seán',
+        'Réabhlóidithe',
+        'ceiliúradh',
+        'Buachaill',
+      ],
+      invalid: [
+        'Éire1',
+        ' Císte ',
+        '123',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlpha',
@@ -2731,6 +2751,27 @@ describe('Validators', () => {
         'a1234',
         'abc',
         '',
+      ],
+    });
+  });
+
+  it('should validate Irish alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ga-IE'],
+      valid: [
+        'Éire123',
+        '4Císte',
+        'S5eán',
+        'Réabhlóidithe',
+        'ceiliúradh',
+        'Buachaill',
+        '678',
+      ],
+      invalid: [
+        'Éire 1',
+        ' Císte 2 ',
+        '123!',
       ],
     });
   });
