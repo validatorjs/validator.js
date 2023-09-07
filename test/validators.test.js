@@ -2926,11 +2926,11 @@ describe('Validators', () => {
       validator: 'isPassportNumber',
       args: ['AZ'],
       valid: [
-        'AZE16175905',
-        'AA1617595',
+        'A16175905',
+        'A16175954',
       ],
       invalid: [
-        'A12345843',
+        'AA1617595',
       ],
     });
 
