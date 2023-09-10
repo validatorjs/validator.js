@@ -2053,14 +2053,15 @@ describe('Validators', () => {
       validator: 'isAlpha',
       args: ['eo'],
       valid: [
-        'eĥoŝanĝo ĉiuĵaŭde',
-        'EĤOŜANĜO ĈIUĴAŬDE',
+        'eĥoŝanĝoĉiuĵaŭde',
+        'EĤOŜANĜOĈIUĴAŬDE',
         'Esperanto',
-        'Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj',
+        'LaŭLudovikoZamenhofBongustasFreŝaĈeĥaManĝaĵoKunSpicoj',
       ],
       invalid: [
         'qwxyz',
         '1887',
+        'qwxyz 1887',
       ],
     });
   });
@@ -2757,10 +2758,10 @@ describe('Validators', () => {
       validator: 'isAlphanumeric',
       args: ['eo'],
       valid: [
-        'eĥoŝanĝo ĉiuĵaŭde 0123456789',
-        'EĤOŜANĜO ĈIUĴAŬDE 0123456789',
-        'Esperanto 1887',
-        'Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj',
+        'eĥoŝanĝoĉiuĵaŭde0123456789',
+        'EĤOŜANĜOĈIUĴAŬDE0123456789',
+        'Esperanto1887',
+        'LaŭLudovikoZamenhofBongustasFreŝaĈeĥaManĝaĵoKunSpicoj',
       ],
       invalid: [
         'qwxyz',
