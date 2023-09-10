@@ -2048,6 +2048,23 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Esperanto alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['eo'],
+      valid: [
+        'eĥoŝanĝo ĉiuĵaŭde',
+        'EĤOŜANĜO ĈIUĴAŬDE',
+        'Esperanto',
+        'Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj',
+      ],
+      invalid: [
+        'qwxyz',
+        '1887',
+      ],
+    });
+  });
+
   it('should error on invalid locale', () => {
     test({
       validator: 'isAlpha',
@@ -2731,6 +2748,23 @@ describe('Validators', () => {
         'a1234',
         'abc',
         '',
+      ],
+    });
+  });
+
+  it('should validate Esperanto alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['eo'],
+      valid: [
+        'eĥoŝanĝo ĉiuĵaŭde 0123456789',
+        'EĤOŜANĜO ĈIUĴAŬDE 0123456789',
+        'Esperanto 1887',
+        'Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj',
+      ],
+      invalid: [
+        'qwxyz',
+        'qwxyz 123',
       ],
     });
   });
