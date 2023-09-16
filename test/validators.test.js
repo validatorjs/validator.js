@@ -5653,6 +5653,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Maestro provided credit cards', () => {
+    test({
+      validator: 'isCreditCard',
+      args: [{ provider: 'Maestro' }],
+      valid: [
+        '5018010645701606',
+        '5893771408742232',
+        '676138918367463242',
+      ],
+      invalid: [
+        'foo',
+        '6283875070985593',
+      ],
+    });
+  });
 
   it('should validate Union Pay provided credit cards', () => {
     test({
