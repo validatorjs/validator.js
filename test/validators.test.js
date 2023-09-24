@@ -2859,6 +2859,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate pan card number', () => {
+    test({
+      validator: 'isPancard',
+      valid: [
+        'AAAPL1234C',
+        'AABPL1234C',
+        'AABPL1238C',
+      ],
+      invalid: [
+        '',
+        'AAPL1234C',
+        'AAaPL1234C',
+        'AAaPL12346',
+        'AAaPL1234',
+        'AAaPL1234c',
+        'AAaPL12304C',
+        'AAaPL12A4C',
+        'AAaPL124C',
+      ],
+    });
+  });
+
   it('should validate passport number', () => {
     test({
       validator: 'isPassportNumber',

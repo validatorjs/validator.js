@@ -123,6 +123,7 @@ import normalizeEmail from './lib/normalizeEmail';
 import isSlug from './lib/isSlug';
 import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
+import isPancard from './lib/isPancard';
 
 import isVAT from './lib/isVAT';
 
@@ -236,6 +237,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isPancard,
 };
 
 export default validator;
