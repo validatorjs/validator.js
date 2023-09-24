@@ -2863,9 +2863,12 @@ describe('Validators', () => {
     test({
       validator: 'isPancard',
       valid: [
-        'AAAPL1234C'
+        'AAAPL1234C',
+        'AABPL1234C',
+        'AABPL1238C',
       ],
       invalid: [
+        '',
         'AAPL1234C',
         'AAaPL1234C',
         'AAaPL12346',
@@ -2874,9 +2877,9 @@ describe('Validators', () => {
         'AAaPL12304C',
         'AAaPL12A4C',
         'AAaPL124C',
-      ]
-    })
-  })
+      ],
+    });
+  });
 
   it('should validate passport number', () => {
     test({
