@@ -18,10 +18,8 @@ import isTime from './lib/isTime';
 import isBoolean from './lib/isBoolean';
 import isLocale from './lib/isLocale';
 
-import isAlpha from './lib/isAlpha';
-import { locales as isAlphaLocales } from './lib/isAlpha';
-import isAlphanumeric from './lib/isAlphanumeric';
-import { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
+import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
+import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
 import isPassportNumber from './lib/isPassportNumber';
 import isPort from './lib/isPort';
@@ -39,8 +37,7 @@ import isSemVer from './lib/isSemVer';
 import isSurrogatePair from './lib/isSurrogatePair';
 
 import isInt from './lib/isInt';
-import isFloat from './lib/isFloat';
-import { locales as isFloatLocales } from './lib/isFloat';
+import isFloat, { locales as isFloatLocales } from './lib/isFloat';
 import isDecimal from './lib/isDecimal';
 import isHexadecimal from './lib/isHexadecimal';
 import isOctal from './lib/isOctal';
@@ -52,8 +49,7 @@ import isHSL from './lib/isHSL';
 
 import isISRC from './lib/isISRC';
 
-import isIBAN from './lib/isIBAN';
-import { locales as ibanLocales } from './lib/isIBAN';
+import isIBAN, { locales as ibanLocales } from './lib/isIBAN';
 import isBIC from './lib/isBIC';
 
 import isMD5 from './lib/isMD5';
@@ -84,8 +80,9 @@ import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
 import isTaxID from './lib/isTaxID';
 
-import isMobilePhone from './lib/isMobilePhone';
-import { locales as isMobilePhoneLocales } from './lib/isMobilePhone';
+import isMobilePhone, {
+  locales as isMobilePhoneLocales
+} from './lib/isMobilePhone';
 
 import isEthereumAddress from './lib/isEthereumAddress';
 
@@ -111,8 +108,9 @@ import isMailtoURI from './lib/isMailtoURI';
 import isMimeType from './lib/isMimeType';
 
 import isLatLong from './lib/isLatLong';
-import isPostalCode from './lib/isPostalCode';
-import { locales as isPostalCodeLocales } from './lib/isPostalCode';
+import isPostalCode, {
+  locales as isPostalCodeLocales
+} from './lib/isPostalCode';
 
 import ltrim from './lib/ltrim';
 import rtrim from './lib/rtrim';
