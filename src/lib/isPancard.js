@@ -1,7 +1,7 @@
 import assertString from './util/assertString';
 
 /**
- * Check if str is a valid pan card number
+ * Check if str is a valid PAN card number
  *
  * @param {string} str
  * @return {boolean}
