@@ -81,7 +81,7 @@ import isISSN from './lib/isISSN';
 import isTaxID from './lib/isTaxID';
 
 import isMobilePhone, {
-  locales as isMobilePhoneLocales
+  locales as isMobilePhoneLocales,
 } from './lib/isMobilePhone';
 
 import isEthereumAddress from './lib/isEthereumAddress';
@@ -109,7 +109,7 @@ import isMimeType from './lib/isMimeType';
 
 import isLatLong from './lib/isLatLong';
 import isPostalCode, {
-  locales as isPostalCodeLocales
+  locales as isPostalCodeLocales,
 } from './lib/isPostalCode';
 
 import ltrim from './lib/ltrim';
