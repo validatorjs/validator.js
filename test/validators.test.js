@@ -14514,7 +14514,7 @@ describe('Validators', () => {
       ],
     });
   });
-  
+
   it('should validate UPC code', () => {
     test({
       validator: 'isUPC',
@@ -14528,7 +14528,7 @@ describe('Validators', () => {
         '',
         '-1',
         '65536',
-        "12345678901"
+        '12345678901',
       ],
     });
   });
