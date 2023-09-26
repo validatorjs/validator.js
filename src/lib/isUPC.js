@@ -4,5 +4,5 @@ const upcRegex = /^\d{12}$/;
 
 export default function isPUC(str) {
   assertString(str);
-  return upcRegex.test(code);
+  return upcRegex.test(str);
 }
