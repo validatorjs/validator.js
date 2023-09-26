@@ -125,6 +125,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
+import isPUC from './lib/isUPC';
 
 const version = '13.11.0';
 
@@ -220,6 +221,7 @@ const validator = {
   ltrim,
   rtrim,
   trim,
+  isPUC,
   escape,
   unescape,
   stripLow,
@@ -237,5 +239,6 @@ const validator = {
   isVAT,
   ibanLocales,
 };
+
 
 export default validator;
