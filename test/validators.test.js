@@ -14524,7 +14524,7 @@ describe('Validators', () => {
       ],
       invalid: [
         '1',
-        "ABCDEFAS",
+        'ABCDEFAS',
         '65536',
         '12345678901',
       ],
