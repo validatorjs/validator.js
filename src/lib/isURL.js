@@ -14,6 +14,7 @@ require_host - if set as false isURL will not check if host is present in the UR
 require_port - if set as true isURL will check if port is present in the URL
 allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
 validate_length - if set as false isURL will skip string length validation (IE maximum is 2083)
+disallow_auth - if set as true urls containing authentication information will be rejected
 
 */
 
@@ -31,6 +32,7 @@ const default_url_options = {
   allow_fragments: true,
   allow_query_components: true,
   validate_length: true,
+  disallow_auth: false,
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
