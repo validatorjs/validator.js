@@ -62,6 +62,7 @@ import isEmpty from './lib/isEmpty';
 import isLength from './lib/isLength';
 import isByteLength from './lib/isByteLength';
 
+import isULID from './lib/isULID';
 import isUUID from './lib/isUUID';
 import isMongoId from './lib/isMongoId';
 
@@ -182,6 +183,7 @@ const validator = {
   isLength,
   isLocale,
   isByteLength,
+  isULID,
   isUUID,
   isMongoId,
   isAfter,
