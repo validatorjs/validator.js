@@ -43,6 +43,7 @@ describe('Util', () => {
       1,
       'Unknown key found'
     ), true);
+
     assert.throws(() => validateKey(
       {
         a: 1,
@@ -50,6 +51,6 @@ describe('Util', () => {
       },
       'c',
       'Unknown key found'
-    ), new Error('Unknown key found'));
+    ), /Unknown key found/);
   });
 });
