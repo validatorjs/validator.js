@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import validateKey from './util/validateKey';
 
 const lengths = {
   md5: 32,
@@ -16,8 +17,17 @@ const lengths = {
   crc32b: 8,
 };
 
-export default function isHash(str, algorithm) {
+
+export default function isHash(
+  str,
+  algorithm,
+  _validateAlgorithm = true
+) {
   assertString(str);
+  if (_validateAlgorithm) {
+    /* Validate hash algorithm before defining Regular expression for hash check. */
+    validateKey(lengths, algorithm, `Unknown hash algorithm: ${algorithm}`);
+  }
   const hash = new RegExp(`^[a-fA-F0-9]{${lengths[algorithm]}}$`);
   return hash.test(str);
 }
