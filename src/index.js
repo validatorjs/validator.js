@@ -178,6 +178,7 @@ const validator = {
   isMD5,
   isHash,
   isJWT,
+  isJWTExpiration,
   isJSON,
   isEmpty,
   isLength,
