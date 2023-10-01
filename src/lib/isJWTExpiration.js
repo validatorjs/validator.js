@@ -13,7 +13,6 @@ export default function isJWTExpiration(token) {
   
       return false; 
     } catch (error) {
-      console.error("Error parsing JWT payload:", error.message);
       return false; 
     }
   }
