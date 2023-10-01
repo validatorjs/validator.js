@@ -55,6 +55,7 @@ import isBIC from './lib/isBIC';
 import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
 import isJWT from './lib/isJWT';
+import isJWTExpiration from './lib/isJWTExpiration';
 
 import isJSON from './lib/isJSON';
 import isEmpty from './lib/isEmpty';
