@@ -52,5 +52,14 @@ describe('Util', () => {
       'c',
       'Unknown key found'
     ), /Unknown key found/);
+
+    assert.strictEqual(validateKey(
+      {
+        a: undefined,
+        b: 2,
+      },
+      'a',
+      'Unknown key found'
+    ), true);
   });
 });
