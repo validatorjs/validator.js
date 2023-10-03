@@ -15,7 +15,6 @@ const validMonths = {
   12: 'DEC',
 };
 
-
 const verifySecondsAndMinutes = (field) => {
   if (field === '*') {
     return true;
@@ -83,9 +82,10 @@ const verifyHours = (hours) => {
 };
 
 const verifyDaysOfMonth = (dayOfMonth) => {
-  if (dayOfMonth === '*') {
+  if (dayOfMonth === '*' || dayOfMonth === '?') {
     return true;
   }
+
 
   if (dayOfMonth.includes(',')) {
     const dayOfMonthList = dayOfMonth.split(',');
@@ -115,37 +115,26 @@ const verifyDaysOfMonth = (dayOfMonth) => {
   }
 
   if (dayOfMonth.startsWith('L')) {
+    if (dayOfMonth.startsWith('LW')) {
+      if (dayOfMonth.length > 2) {
+        return false;
+      }
+      return true;
+    }
     if (dayOfMonth.length > 1) {
       return false;
     }
     return true;
   }
 
-  if (dayOfMonth.startsWith('L-')) {
-    const daysBefore = dayOfMonth.split('L-')[1];
-    return parseInt(daysBefore, 10) < 32 && parseInt(daysBefore, 10) > 0;
-  }
 
-  if (dayOfMonth.startsWith('LW')) {
-    if (dayOfMonth.length > 2) {
+  if (dayOfMonth.includes('W')) {
+    const day = dayOfMonth.split('W')[0];
+    const dayNumber = parseInt(day, 10);
+    if (dayNumber > 31 || dayNumber < 1) {
       return false;
     }
     return true;
-  }
-
-  if (dayOfMonth.startsWith('LW-')) {
-    const daysBefore = dayOfMonth.split('LW-')[1];
-    return parseInt(daysBefore, 10) < 32 && parseInt(daysBefore, 10) > 0;
-  }
-
-  if (dayOfMonth.startsWith('W')) {
-    const daysBefore = dayOfMonth.split('W')[1];
-    return parseInt(daysBefore, 10) < 32 && parseInt(daysBefore, 10) > 0;
-  }
-
-  if (dayOfMonth.startsWith('W-')) {
-    const daysBefore = dayOfMonth.split('W-')[1];
-    return parseInt(daysBefore, 10) < 32 && parseInt(daysBefore, 10) > 0;
   }
 
 
@@ -198,25 +187,8 @@ const verifyMonths = (month) => {
 };
 
 
-const validDaysOfWeek = {
-  1: 'SUN',
-  2: 'MON',
-  3: 'TUE',
-  4: 'WED',
-  5: 'THU',
-  6: 'FRI',
-  7: 'SAT',
-};
-
-const dayToNumber = (day) => {
-  const dayAbbreviation = day.toUpperCase();
-  const dayNumber = Object.keys(validDaysOfWeek)
-    .find(key => validDaysOfWeek[key] === dayAbbreviation);
-  return dayNumber ? parseInt(dayNumber, 10) : null;
-};
-
 const verifyDaysOfWeek = (day) => {
-  if (day === '*') {
+  if (day === '*' || day === '?') {
     return true;
   }
 
@@ -227,8 +199,8 @@ const verifyDaysOfWeek = (day) => {
 
   if (day.includes('-')) {
     const [start, end] = day.split('-');
-    const startDay = dayToNumber(start);
-    const endDay = dayToNumber(end);
+    const startDay = parseInt(start, 10);
+    const endDay = parseInt(end, 10);
 
     if (!startDay || !endDay || startDay > 7 || endDay > 7 || startDay < 1 || endDay < 1) {
       return false;
@@ -236,10 +208,36 @@ const verifyDaysOfWeek = (day) => {
     return startDay < endDay;
   }
 
-  const numericDay = parseInt(day, 10);
-  return validDaysOfWeek[numericDay] !== undefined || dayToNumber(day) !== null;
-};
+  if (day.includes('/')) {
+    if (day.startsWith('*/')) {
+      const interval = day.split('/')[1];
+      return parseInt(interval, 10) < 8;
+    }
+    const [start, interval] = day.split('/');
 
+    if (parseInt(start, 10) > 7 || parseInt(interval, 10) > 7 ||
+       parseInt(start, 10) < 1 || parseInt(interval, 10) < 1) {
+      return false;
+    }
+  }
+
+  if (day.startsWith('L')) {
+    if (day.length > 1) {
+      return false;
+    }
+    return true;
+  }
+
+  if (day.startsWith('#')) {
+    const [dayOfWeek, weekOfMonth] = day.split('#');
+    if (parseInt(dayOfWeek, 10) > 7 || parseInt(dayOfWeek, 10) < 1) {
+      return false;
+    }
+    return parseInt(weekOfMonth, 10) < 6 && parseInt(weekOfMonth, 10) > 0;
+  }
+
+  return parseInt(day, 10) < 8 && parseInt(day, 10) > 0;
+};
 
 export default function isCron(cron) {
   assertString(cron);
@@ -247,7 +245,6 @@ export default function isCron(cron) {
     cron = cron.replace(/[(]/g, '');
     cron = cron.replace(/[)]/g, '');
   }
-
 
   const cronParts = cron.split(' ');
 
