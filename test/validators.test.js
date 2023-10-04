@@ -4748,7 +4748,6 @@ describe('Validators', () => {
       ],
     });
   });
-  
   it('should check if a JWT token is expired.', () => {
     test({
       validator: 'isJWTExpired',
