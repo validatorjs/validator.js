@@ -10,8 +10,7 @@ export default function isJWTExpiration(token) {
         const currentTimestamp = Math.floor(Date.now() / 1000);
         return payload.exp >= currentTimestamp;
       }
-  
-      return false; 
+      return false
     } catch (error) {
       return false; 
     }
