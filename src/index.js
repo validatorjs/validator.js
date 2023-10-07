@@ -238,7 +238,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
-  isUPIId
+  isUPIId,
 };
 
 export default validator;
