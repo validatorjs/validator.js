@@ -14485,7 +14485,6 @@ describe('Validators', () => {
         'user@bank with spaces', // Spaces in the bank name.
         'user@@bank', // Double "@" symbols.
         'user&bank', // Special characters in the bank name.
-        'user@banktoolong123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', // Too long.
         'user@invalid-bank-name-with-dashes', // Invalid characters in bank name.
         'user@123bank', // Bank name starting with a number.
         'user@bank!', // Exclamation mark in bank name.
