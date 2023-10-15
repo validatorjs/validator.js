@@ -5,9 +5,7 @@ export default function toCamelCase(inputString) {
 
   const words = inputString.split(/[\s\-_]+/);
 
-  words.map((word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  });
+  words.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
 
   return words.join('');
 }
