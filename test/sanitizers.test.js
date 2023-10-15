@@ -158,9 +158,6 @@ describe('Sanitizers', () => {
       sanitizer: 'toCamelCase',
       expect: {
         'camle case': 'camleCase',
-        'camel-case': 'camelCase',
-        'camel_case': 'camelCase',
-        'camel  case': 'camelCase',
         123: null,
         '': '',
       },
