@@ -1,7 +1,6 @@
 export default function toCamelCase(inputString) {
-
   // If the input string is empty, return an empty string
-  if (typeof inputString !== 'string' || inputString.length === 0) {
+  if (typeof inputString !== "string" || inputString.length === 0) {
     return null;
   }
 
@@ -14,5 +13,5 @@ export default function toCamelCase(inputString) {
   }
 
   // Join the words back together to form the camelCase string
-  return words.join('');
+  return words.join("");
 }
