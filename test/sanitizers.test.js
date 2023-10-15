@@ -153,6 +153,20 @@ describe('Sanitizers', () => {
     });
   });
 
+  it('should convert strings to camel case', () => {
+    test({
+      sanitizer: 'toCamelCase',
+      expect: {
+        'camle case': 'camleCase',
+        'camel-case': 'camelCase',
+        'camel_case': 'camelCase',
+        'camel  case': 'camelCase',
+        123: null,
+        '': '',
+      },
+    });
+  });
+
   it('should escape HTML', () => {
     test({
       sanitizer: 'escape',
