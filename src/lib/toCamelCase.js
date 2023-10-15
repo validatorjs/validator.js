@@ -1,8 +1,7 @@
+import assertString from "./util/assertString";
+
 export default function toCamelCase(inputString) {
-  // If the input string is empty, return an empty string
-  if (typeof inputString !== 'string' || inputString.length === 0) {
-    return null;
-  }
+  assertString(inputString);
 
   // Split the input string into words using spaces, hyphens, or underscores as separators
   const words = inputString.split(/[\s\-_]+/);
