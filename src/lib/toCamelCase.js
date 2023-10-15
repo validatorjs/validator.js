@@ -1,4 +1,4 @@
-import assertString from "./util/assertString";
+import assertString from './util/assertString';
 
 export default function toCamelCase(inputString) {
   assertString(inputString);
@@ -9,5 +9,5 @@ export default function toCamelCase(inputString) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   });
 
-  return words.join("");
+  return words.join('');
 }
