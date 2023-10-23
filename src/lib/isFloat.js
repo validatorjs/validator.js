@@ -10,10 +10,10 @@ export default function isFloat(str, options) {
   }
   const value = parseFloat(str.replace(',', '.'));
   return float.test(str) &&
-    (!options.hasOwnProperty('min') || value >= options.min) &&
-    (!options.hasOwnProperty('max') || value <= options.max) &&
-    (!options.hasOwnProperty('lt') || value < options.lt) &&
-    (!options.hasOwnProperty('gt') || value > options.gt);
+    (!options.hasOwnProperty('min') || options.min === undefined || options.min === null || value >= options.min) &&
+    (!options.hasOwnProperty('max') || options.max === undefined || options.max === null || value <= options.max) &&
+    (!options.hasOwnProperty('lt') || options.lt === undefined || options.lt === null || value < options.lt) &&
+    (!options.hasOwnProperty('gt') || options.gt === undefined || options.gt === null || value > options.gt);
 }
 
 export const locales = Object.keys(decimal);

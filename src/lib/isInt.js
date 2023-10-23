@@ -15,10 +15,10 @@ export default function isInt(str, options) {
   );
 
   // Check min/max/lt/gt
-  let minCheckPassed = (!options.hasOwnProperty('min') || str >= options.min);
-  let maxCheckPassed = (!options.hasOwnProperty('max') || str <= options.max);
-  let ltCheckPassed = (!options.hasOwnProperty('lt') || str < options.lt);
-  let gtCheckPassed = (!options.hasOwnProperty('gt') || str > options.gt);
+  let minCheckPassed = (!options.hasOwnProperty('min') || options.min === undefined || options.min === null || str >= options.min);
+  let maxCheckPassed = (!options.hasOwnProperty('max') || options.max === undefined || options.max === null || str <= options.max);
+  let ltCheckPassed = (!options.hasOwnProperty('lt') || options.lt === undefined || options.lt === null || str < options.lt);
+  let gtCheckPassed = (!options.hasOwnProperty('gt') || options.gt === undefined || options.gt === null || str > options.gt);
 
   return regex.test(str) && minCheckPassed && maxCheckPassed && ltCheckPassed && gtCheckPassed;
 }
