@@ -4191,6 +4191,42 @@ describe('Validators', () => {
         'c21',
       ],
     });
+    test({
+      validator: 'isInt',
+      args: [{
+        gt: null,
+        max: null,
+      }],
+      valid: [
+        '1',
+        '886',
+        '84512345',
+      ],
+      invalid: [
+        '10.4',
+        'h',
+        '1.2',
+        '+',
+      ],
+    });
+    test({
+      validator: 'isInt',
+      args: [{
+        lt: null,
+        min: null,
+      }],
+      valid: [
+        '289373466',
+        '55',
+        '989',
+      ],
+      invalid: [
+        ',',
+        '+11212+',
+        'fail',
+        '111987234i',
+      ],
+    });
   });
 
   it('should validate floats', () => {
@@ -4458,6 +4494,47 @@ describe('Validators', () => {
         '-,123',
         '+,123',
         '7866.t',
+      ],
+    });
+    test({
+      validator: 'isFloat',
+      args: [{
+        locale: 'ar',
+        gt: null,
+        max: null,
+      }],
+      valid: [
+        '13324٫',
+        '12321',
+        '444٫83874',
+      ],
+      invalid: [
+        '55.55.55',
+        '1;23',
+        '+-123',
+        '1111111l1',
+        '3.3',
+      ],
+    });
+    test({
+      validator: 'isFloat',
+      args: [{
+        locale: 'ru-RU',
+        lt: null,
+        min: null,
+      }],
+      valid: [
+        '11231554,34343',
+        '11,1',
+        '456',
+        ',311',
+      ],
+      invalid: [
+        'ab565',
+        '-.123',
+        '+.123',
+        '7866.t',
+        '22.3',
       ],
     });
   });
