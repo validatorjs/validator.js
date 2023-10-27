@@ -13558,6 +13558,23 @@ describe('Validators', () => {
       ],
       invalid: ['mh04ad0045', 'invalidlicenseplate', '4578', '', 'GJ054GH4785'],
     });
+    test({
+      validator: 'isLicensePlate',
+      args: ['en-SG'],
+      valid: [
+        'SGX 1234 A',
+        'SGX-1234-A',
+        'SGB1234Z',
+        ''
+      ],
+      invalid: [
+        'sg1234a',
+        'invalidlicenseplate',
+        '4578',
+        '',
+        'GJ054GH4785',
+      ],
+    });
   });
   it('should validate VAT numbers', () => {
     test({
