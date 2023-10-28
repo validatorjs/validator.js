@@ -13565,7 +13565,6 @@ describe('Validators', () => {
         'SGX 1234 A',
         'SGX-1234-A',
         'SGB1234Z',
-        ''
       ],
       invalid: [
         'sg1234a',
