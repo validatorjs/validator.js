@@ -2053,6 +2053,7 @@ describe('Validators', () => {
       validator: 'isAlpha',
       args: ['eo'],
       valid: [
+        'saluton',
         'eĥoŝanĝoĉiuĵaŭde',
         'EĤOŜANĜOĈIUĴAŬDE',
         'Esperanto',
@@ -2758,6 +2759,7 @@ describe('Validators', () => {
       validator: 'isAlphanumeric',
       args: ['eo'],
       valid: [
+        'saluton',
         'eĥoŝanĝoĉiuĵaŭde0123456789',
         'EĤOŜANĜOĈIUĴAŬDE0123456789',
         'Esperanto1887',
@@ -2765,7 +2767,7 @@ describe('Validators', () => {
       ],
       invalid: [
         'qwxyz',
-        'qwxyz 123',
+        'qwxyz 1887',
       ],
     });
   });
