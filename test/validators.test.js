@@ -14498,6 +14498,7 @@ describe('Validators', () => {
       ],
       invalid: [
         '',
+        '?',
         'somthing',
         'valid@gmail.com',
         'mailto:?subject=okay&subject=444',
