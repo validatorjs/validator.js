@@ -1,5 +1,5 @@
 import assertString from './util/assertString';
-import isLuhnValid from './isLuhnValid';
+import isLuhnValid from './isLuhnNumber';
 
 const cards = {
   amex: /^3[47][0-9]{13}$/,
@@ -10,9 +10,17 @@ const cards = {
   unionpay: /^(6[27][0-9]{14}|^(81[0-9]{14,17}))$/,
   visa: /^(?:4[0-9]{12})(?:[0-9]{3,6})?$/,
 };
-/* eslint-disable max-len */
-const allCards = /^(?:4[0-9]{12}(?:[0-9]{3,6})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12,15}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|6[27][0-9]{14}|^(81[0-9]{14,17}))$/;
-/* eslint-enable max-len */
+
+const allCards = (() => {
+  const tmpCardsArray = [];
+  for (const cardProvider in cards) {
+    // istanbul ignore else
+    if (cards.hasOwnProperty(cardProvider)) {
+      tmpCardsArray.push(cards[cardProvider]);
+    }
+  }
+  return tmpCardsArray;
+})();
 
 export default function isCreditCard(card, options = {}) {
   assertString(card);
@@ -26,7 +34,7 @@ export default function isCreditCard(card, options = {}) {
   } else if (provider && !(provider.toLowerCase() in cards)) {
     /* specific provider not in the list */
     throw new Error(`${provider} is not a valid credit card provider.`);
-  } else if (!(allCards.test(sanitized))) {
+  } else if (!allCards.some(cardProvider => cardProvider.test(sanitized))) {
     // no specific provider
     return false;
   }

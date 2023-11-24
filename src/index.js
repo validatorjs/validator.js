@@ -70,7 +70,7 @@ import isBefore from './lib/isBefore';
 
 import isIn from './lib/isIn';
 
-import isLuhnValid from './lib/isLuhnValid';
+import isLuhnNumber from './lib/isLuhnNumber';
 import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
 
@@ -88,6 +88,7 @@ import isCurrency from './lib/isCurrency';
 
 import isBtcAddress from './lib/isBtcAddress';
 
+import { isISO6346, isFreightContainerID } from './lib/isISO6346';
 import isISO6391 from './lib/isISO6391';
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
@@ -100,6 +101,7 @@ import isBase58 from './lib/isBase58';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
+import isMailtoURI from './lib/isMailtoURI';
 
 import isMimeType from './lib/isMimeType';
 
@@ -124,7 +126,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-const version = '13.7.0';
+const version = '13.11.0';
 
 const validator = {
   version,
@@ -185,7 +187,7 @@ const validator = {
   isAfter,
   isBefore,
   isIn,
-  isLuhnValid,
+  isLuhnNumber,
   isCreditCard,
   isIdentityCard,
   isEAN,
@@ -199,6 +201,8 @@ const validator = {
   isEthereumAddress,
   isCurrency,
   isBtcAddress,
+  isISO6346,
+  isFreightContainerID,
   isISO6391,
   isISO8601,
   isRFC3339,
@@ -210,6 +214,7 @@ const validator = {
   isBase64,
   isDataURI,
   isMagnetURI,
+  isMailtoURI,
   isMimeType,
   isLatLong,
   ltrim,
