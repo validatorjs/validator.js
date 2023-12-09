@@ -5021,6 +5021,7 @@ describe('Validators', () => {
         'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
         'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
       invalid: [
         '',
@@ -5038,6 +5039,7 @@ describe('Validators', () => {
       valid: [
         'A117FBC9-4BED-3078-CF07-9141BA07C9F3',
         'A117FBC9-4BED-5078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
       invalid: [
         '',
@@ -5051,6 +5053,7 @@ describe('Validators', () => {
       args: [null],
       valid: [
         'A127FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
       invalid: [
         '',
@@ -5072,6 +5075,7 @@ describe('Validators', () => {
         'AAAAAAAA-1111-2222-AAAG-111111111111',
         'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
     });
     test({
@@ -5087,6 +5091,7 @@ describe('Validators', () => {
         'AAAAAAAA-1111-1111-AAAG-111111111111',
         'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
     });
     test({
@@ -5102,6 +5107,7 @@ describe('Validators', () => {
         'AAAAAAAA-1111-1111-AAAG-111111111111',
         'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
     });
     test({
@@ -5120,6 +5126,7 @@ describe('Validators', () => {
         'AAAAAAAA-1111-1111-AAAG-111111111111',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
         'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
     });
     test({
@@ -5138,6 +5145,7 @@ describe('Validators', () => {
         'AAAAAAAA-1111-1111-AAAG-111111111111',
         '9c858901-8a57-4791-81fe-4c455b099bc9',
         'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
     });
     test({
@@ -5150,6 +5158,26 @@ describe('Validators', () => {
         '987FBC97-4BED-3078-AF07-9141BA07C9F3',
         '987FBC97-4BED-4078-AF07-9141BA07C9F3',
         '987FBC97-4BED-5078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
+      ],
+    });
+    test({
+      validator: 'isUUID',
+      args: [7],
+      valid: [
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '934859',
+        'AAAAAAAA-1111-1111-AAAG-111111111111',
+        'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '713ae7e3-cb32-45f9-adcb-7c4fa86b90c1',
+        '625e63f3-58f5-40b7-83a1-a72ad31acffb',
+        '57b73598-8764-4ad0-a76a-679bb6640eb1',
+        '9c858901-8a57-4791-81fe-4c455b099bc9',
       ],
     });
   });
