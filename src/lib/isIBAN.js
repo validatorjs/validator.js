@@ -1,4 +1,4 @@
-import assertString from './util/assertString.js';
+import assertString from "./util/assertString.js";
 
 /**
  * List of country codes with
@@ -53,6 +53,7 @@ const ibanRegexThroughCountryCode = {
   LT: /^(LT[0-9]{2})\d{16}$/,
   LU: /^(LU[0-9]{2})\d{3}[A-Z0-9]{13}$/,
   LV: /^(LV[0-9]{2})[A-Z]{4}[A-Z0-9]{13}$/,
+  MA: /^(MA[0-9]{26})$/,
   MC: /^(MC[0-9]{2})\d{10}[A-Z0-9]{11}\d{2}$/,
   MD: /^(MD[0-9]{2})[A-Z0-9]{20}$/,
   ME: /^(ME[0-9]{2})\d{18}$/,
@@ -87,6 +88,26 @@ const ibanRegexThroughCountryCode = {
 };
 
 /**
+ * Check if the country codes passed are valid using the
+ * ibanRegexThroughCountryCode as a reference
+ *
+ * @param {array} countryCodeArray
+ * @return {boolean}
+ */
+
+function hasOnlyValidCountryCodes(countryCodeArray) {
+  const countryCodeArrayFilteredWithObjectIbanCode = countryCodeArray.filter(
+    (countryCode) => !(countryCode in ibanRegexThroughCountryCode)
+  );
+
+  if (countryCodeArrayFilteredWithObjectIbanCode.length > 0) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
  * Check whether string has correct universal IBAN format
  * The IBAN consists of up to 34 alphanumeric characters, as follows:
  * Country Code using ISO 3166-1 alpha-2, two letters
@@ -95,45 +116,77 @@ const ibanRegexThroughCountryCode = {
  * NOTE: Permitted IBAN characters are: digits [0-9] and the 26 latin alphabetic [A-Z]
  *
  * @param {string} str - string under validation
+ * @param {object} options - object to pass the countries to be either whitelisted or blacklisted
  * @return {boolean}
  */
-function hasValidIbanFormat(str) {
+function hasValidIbanFormat(str, options) {
   // Strip white spaces and hyphens
-  const strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
+  const strippedStr = str.replace(/[\s\-]+/gi, "").toUpperCase();
   const isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
 
-  return (isoCountryCode in ibanRegexThroughCountryCode)
-    && ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
+  const isoCountryCodeInIbanRegexCodeObject =
+    isoCountryCode in ibanRegexThroughCountryCode;
+
+  if (options.whitelist) {
+    if (!hasOnlyValidCountryCodes(options.whitelist)) {
+      return false;
+    }
+
+    const isoCountryCodeInWhiteList =
+      options.whitelist.includes(isoCountryCode);
+
+    if (!isoCountryCodeInWhiteList) {
+      return false;
+    }
+  }
+
+  if (options.blacklist) {
+    const isoCountryCodeInBlackList =
+      options.blacklist.includes(isoCountryCode);
+
+    if (isoCountryCodeInBlackList) {
+      return false;
+    }
+  }
+
+  return (
+    isoCountryCodeInIbanRegexCodeObject &&
+    ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr)
+  );
 }
 
 /**
-   * Check whether string has valid IBAN Checksum
-   * by performing basic mod-97 operation and
-   * the remainder should equal 1
-   * -- Start by rearranging the IBAN by moving the four initial characters to the end of the string
-   * -- Replace each letter in the string with two digits, A -> 10, B = 11, Z = 35
-   * -- Interpret the string as a decimal integer and
-   * -- compute the remainder on division by 97 (mod 97)
-   * Reference: https://en.wikipedia.org/wiki/International_Bank_Account_Number
-   *
-   * @param {string} str
-   * @return {boolean}
-   */
+ * Check whether string has valid IBAN Checksum
+ * by performing basic mod-97 operation and
+ * the remainder should equal 1
+ * -- Start by rearranging the IBAN by moving the four initial characters to the end of the string
+ * -- Replace each letter in the string with two digits, A -> 10, B = 11, Z = 35
+ * -- Interpret the string as a decimal integer and
+ * -- compute the remainder on division by 97 (mod 97)
+ * Reference: https://en.wikipedia.org/wiki/International_Bank_Account_Number
+ *
+ * @param {string} str
+ * @return {boolean}
+ */
 function hasValidIbanChecksum(str) {
-  const strippedStr = str.replace(/[^A-Z0-9]+/gi, '').toUpperCase(); // Keep only digits and A-Z latin alphabetic
+  const strippedStr = str.replace(/[^A-Z0-9]+/gi, "").toUpperCase(); // Keep only digits and A-Z latin alphabetic
   const rearranged = strippedStr.slice(4) + strippedStr.slice(0, 4);
-  const alphaCapsReplacedWithDigits = rearranged.replace(/[A-Z]/g, (char) => char.charCodeAt(0) - 55);
+  const alphaCapsReplacedWithDigits = rearranged.replace(
+    /[A-Z]/g,
+    (char) => char.charCodeAt(0) - 55
+  );
 
-  const remainder = alphaCapsReplacedWithDigits.match(/\d{1,7}/g)
-    .reduce((acc, value) => Number(acc + value) % 97, '');
+  const remainder = alphaCapsReplacedWithDigits
+    .match(/\d{1,7}/g)
+    .reduce((acc, value) => Number(acc + value) % 97, "");
 
   return remainder === 1;
 }
 
-export default function isIBAN(str) {
+export default function isIBAN(str, options = {}) {
   assertString(str);
 
-  return hasValidIbanFormat(str) && hasValidIbanChecksum(str);
+  return hasValidIbanFormat(str, options) && hasValidIbanChecksum(str);
 }
 
 export const locales = Object.keys(ibanRegexThroughCountryCode);

@@ -1,6 +1,6 @@
 import assertString from './util/assertString.js';
 
-export default function isLuhnValid(str) {
+export default function isLuhnNumber(str) {
   assertString(str);
   const sanitized = str.replace(/[- ]+/g, '');
   let sum = 0;

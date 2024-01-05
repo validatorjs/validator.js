@@ -1,6 +1,6 @@
 import assertString from './util/assertString.js';
 
-const validMediaType = /^[a-z]+\/[a-z0-9\-\+\.]+$/i;
+const validMediaType = /^[a-z]+\/[a-z0-9\-\+\._]+$/i;
 
 const validAttribute = /^[a-z\-]+=[a-z0-9\-]+$/i;
 
