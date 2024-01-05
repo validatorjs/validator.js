@@ -60,12 +60,6 @@ The library can be loaded either as a standalone script, or through an [AMD][amd
 </script>
 ```
 
-The library can also be installed through [bower][bower]
-
-```bash
-$ bower install validator-js
-```
-
 CDN
 
 ```html
@@ -282,7 +276,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [huntr-image]: https://cdn.huntr.dev/huntr_security_badge_mono.svg
 
 [amd]: http://requirejs.org/docs/whyamd.html
-[bower]: http://bower.io/
 
 [Crockford Base32]: http://www.crockford.com/base32.html
 [Base64 URL Safe]: https://base64.guru/standards/base64url
