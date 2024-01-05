@@ -1,4 +1,4 @@
-import test from '../testFunctions';
+import test from '../testFunctions.js';
 
 describe('isISBN', () => {
   it('should validate ISBNs', () => {

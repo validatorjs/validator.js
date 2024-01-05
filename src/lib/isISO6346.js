@@ -1,4 +1,4 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
 // https://en.wikipedia.org/wiki/ISO_6346
 // according to ISO6346 standard, checksum digit is mandatory for freight container but recommended

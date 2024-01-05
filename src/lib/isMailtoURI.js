@@ -1,6 +1,6 @@
-import trim from './trim';
-import isEmail from './isEmail';
-import assertString from './util/assertString';
+import trim from './trim.js';
+import isEmail from './isEmail.js';
+import assertString from './util/assertString.js';
 
 function parseMailtoQueryString(queryString) {
   const allowedParams = new Set(['subject', 'body', 'cc', 'bcc']),

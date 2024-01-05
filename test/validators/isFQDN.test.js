@@ -1,4 +1,4 @@
-import test from '../testFunctions';
+import test from '../testFunctions.js';
 
 describe('isFQDN', () => {
   it('should validate domain names.', () => {
