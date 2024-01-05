@@ -29,7 +29,8 @@ export const alpha = {
   'th-TH': /^[ก-๐\s]+$/i,
   'tr-TR': /^[A-ZÇĞİıÖŞÜ]+$/i,
   'uk-UA': /^[А-ЩЬЮЯЄIЇҐі]+$/i,
-  'vi-VN': /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
+  'vi-VN':
+    /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   'ko-KR': /^[ㄱ-ㅎㅏ-ㅣ가-힣]*$/,
   'ku-IQ': /^[ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
@@ -60,7 +61,8 @@ export const alphanumeric = {
   'pl-PL': /^[0-9A-ZĄĆĘŚŁŃÓŻŹ]+$/i,
   'pt-PT': /^[0-9A-ZÃÁÀÂÄÇÉÊËÍÏÕÓÔÖÚÜ]+$/i,
   'ru-RU': /^[0-9А-ЯЁ]+$/i,
-  'kk-KZ': /^[0-9А-ЯЁ\u04D8\u04B0\u0406\u04A2\u0492\u04AE\u049A\u04E8\u04BA]+$/i,
+  'kk-KZ':
+    /^[0-9А-ЯЁ\u04D8\u04B0\u0406\u04A2\u0492\u04AE\u049A\u04E8\u04BA]+$/i,
   'sl-SI': /^[0-9A-ZČĆĐŠŽ]+$/i,
   'sk-SK': /^[0-9A-ZÁČĎÉÍŇÓŠŤÚÝŽĹŔĽÄÔ]+$/i,
   'sr-RS@latin': /^[0-9A-ZČĆŽŠĐ]+$/i,
@@ -71,7 +73,8 @@ export const alphanumeric = {
   'uk-UA': /^[0-9А-ЩЬЮЯЄIЇҐі]+$/i,
   'ko-KR': /^[0-9ㄱ-ㅎㅏ-ㅣ가-힣]*$/,
   'ku-IQ': /^[٠١٢٣٤٥٦٧٨٩0-9ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنوۆھەیێيطؤثآإأكضصةظذ]+$/i,
-  'vi-VN': /^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
+  'vi-VN':
+    /^[0-9A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴĐÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸ]+$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
   fa: /^['0-9آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی۱۲۳۴۵۶۷۸۹۰']+$/i,
@@ -95,8 +98,25 @@ for (let locale, i = 0; i < englishLocales.length; i++) {
 }
 
 // Source: http://www.localeplanet.com/java/
-export const arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
-  'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'];
+export const arabicLocales = [
+  'AE',
+  'BH',
+  'DZ',
+  'EG',
+  'IQ',
+  'JO',
+  'KW',
+  'LB',
+  'LY',
+  'MA',
+  'QM',
+  'QA',
+  'SA',
+  'SD',
+  'SY',
+  'TN',
+  'YE',
+];
 
 for (let locale, i = 0; i < arabicLocales.length; i++) {
   locale = `ar-${arabicLocales[i]}`;
@@ -125,9 +145,35 @@ for (let locale, i = 0; i < bengaliLocales.length; i++) {
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
 export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
 export const commaDecimal = [
-  'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'es-ES', 'fr-CA', 'fr-FR',
-  'id-ID', 'it-IT', 'ku-IQ', 'hi-IN', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
-  'ru-RU', 'kk-KZ', 'si-LK', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
+  'bg-BG',
+  'cs-CZ',
+  'da-DK',
+  'de-DE',
+  'el-GR',
+  'en-ZM',
+  'es-ES',
+  'fr-CA',
+  'fr-FR',
+  'id-ID',
+  'it-IT',
+  'ku-IQ',
+  'hi-IN',
+  'hu-HU',
+  'nb-NO',
+  'nn-NO',
+  'nl-NL',
+  'pl-PL',
+  'pt-PT',
+  'ru-RU',
+  'kk-KZ',
+  'si-LK',
+  'sl-SI',
+  'sr-RS@latin',
+  'sr-RS',
+  'sv-SE',
+  'tr-TR',
+  'uk-UA',
+  'vi-VN',
 ];
 
 for (let i = 0; i < dotDecimal.length; i++) {

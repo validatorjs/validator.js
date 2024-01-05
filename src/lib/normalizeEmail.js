@@ -41,10 +41,7 @@ const default_normalize_email_options = {
 };
 
 // List of domains used by iCloud
-const icloud_domains = [
-  'icloud.com',
-  'me.com',
-];
+const icloud_domains = ['icloud.com', 'me.com'];
 
 // List of domains used by Outlook.com and its predecessors
 // This list is likely incomplete.
@@ -220,7 +217,10 @@ export default function normalizeEmail(email, options) {
     // Address is Yahoo
     if (options.yahoo_remove_subaddress) {
       let components = parts[0].split('-');
-      parts[0] = (components.length > 1) ? components.slice(0, -1).join('-') : components[0];
+      parts[0] =
+        components.length > 1
+          ? components.slice(0, -1).join('-')
+          : components[0];
     }
     if (!parts[0].length) {
       return false;

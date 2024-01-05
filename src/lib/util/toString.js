@@ -5,7 +5,11 @@ export default function toString(input) {
     } else {
       input = '[object Object]';
     }
-  } else if (input === null || typeof input === 'undefined' || (isNaN(input) && !input.length)) {
+  } else if (
+    input === null ||
+    typeof input === 'undefined' ||
+    (isNaN(input) && !input.length)
+  ) {
     input = '';
   }
   return String(input);

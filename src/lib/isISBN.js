@@ -34,7 +34,7 @@ export default function isISBN(isbn, options) {
       checksum += 10 * sanitizedIsbn.charAt(9);
     }
 
-    if ((checksum % 11) === 0) {
+    if (checksum % 11 === 0) {
       return true;
     }
   } else if (version === '13') {

@@ -4,7 +4,10 @@ export default function rtrim(str, chars) {
   assertString(str);
   if (chars) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
-    const pattern = new RegExp(`[${chars.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}]+$`, 'g');
+    const pattern = new RegExp(
+      `[${chars.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}]+$`,
+      'g',
+    );
     return str.replace(pattern, '');
   }
   // Use a faster and more safe than regex trim method https://blog.stevenlevithan.com/archives/faster-trim-javascript

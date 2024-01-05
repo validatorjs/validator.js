@@ -43,9 +43,13 @@ function bgBgCheck(tin) {
   } else {
     century_year = `19${century_year}`;
   }
-  if (month < 10) { month = `0${month}`; }
+  if (month < 10) {
+    month = `0${month}`;
+  }
   const date = `${century_year}/${month}/${tin.slice(4, 6)}`;
-  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+  if (!isDate(date, 'YYYY/MM/DD')) {
+    return false;
+  }
 
   // split digits into an array for further processing
   const digits = tin.split('').map((a) => parseInt(a, 10));
@@ -87,7 +91,7 @@ function isCanadianSIN(input) {
     .map((i) => Number(i))
     .reduce((acc, cur) => acc + cur);
 
-  return (total % 10 === 0);
+  return total % 10 === 0;
 }
 
 /*
@@ -110,7 +114,9 @@ function csCzCheck(tin) {
       full_year = `19${full_year}`;
     }
   } else {
-    if (tin.slice(6) === '000') { return false; } // Three-zero serial not assigned before 1954
+    if (tin.slice(6) === '000') {
+      return false;
+    } // Three-zero serial not assigned before 1954
     if (full_year < 54) {
       full_year = `19${full_year}`;
     } else {
@@ -129,14 +135,20 @@ function csCzCheck(tin) {
   }
   if (month > 20) {
     // Month-plus-twenty was only introduced in 2004
-    if (parseInt(full_year, 10) < 2004) { return false; }
+    if (parseInt(full_year, 10) < 2004) {
+      return false;
+    }
     month -= 20;
   }
-  if (month < 10) { month = `0${month}`; }
+  if (month < 10) {
+    month = `0${month}`;
+  }
 
   // Check date validity
   const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
-  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+  if (!isDate(date, 'YYYY/MM/DD')) {
+    return false;
+  }
 
   // Verify divisibility by 11
   if (tin.length === 10) {
@@ -145,7 +157,9 @@ function csCzCheck(tin) {
       // check (last) digit equals 0 and modulo of first 9 digits equals 10
       const checkdigit = parseInt(tin.slice(0, 9), 10) % 11;
       if (parseInt(full_year, 10) < 1986 && checkdigit === 10) {
-        if (parseInt(tin.slice(9), 10) !== 0) { return false; }
+        if (parseInt(tin.slice(9), 10) !== 0) {
+          return false;
+        }
       } else {
         return false;
       }
@@ -186,7 +200,9 @@ function deDeCheck(tin) {
 
   // Remove digits with one occurence and test for only one duplicate/triplicate
   occurences = occurences.filter((a) => a.length > 1);
-  if (occurences.length !== 2 && occurences.length !== 3) { return false; }
+  if (occurences.length !== 2 && occurences.length !== 3) {
+    return false;
+  }
 
   // In case of triplicate value only two digits are allowed next to each other
   if (occurences[0].length === 3) {
@@ -247,7 +263,9 @@ function dkDkCheck(tin) {
   }
   // Check date validity
   const date = `${year}/${tin.slice(2, 4)}/${tin.slice(0, 2)}`;
-  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+  if (!isDate(date, 'YYYY/MM/DD')) {
+    return false;
+  }
 
   // Split digits into an array for further processing
   const digits = tin.split('').map((a) => parseInt(a, 10));
@@ -262,7 +280,9 @@ function dkDkCheck(tin) {
     }
   }
   checksum %= 11;
-  if (checksum === 1) { return false; }
+  if (checksum === 1) {
+    return false;
+  }
   return checksum === 0 ? digits[9] === 0 : digits[9] === 11 - checksum;
 }
 
@@ -273,7 +293,10 @@ function dkDkCheck(tin) {
  */
 function elCyCheck(tin) {
   // split digits into an array for further processing
-  const digits = tin.slice(0, 8).split('').map((a) => parseInt(a, 10));
+  const digits = tin
+    .slice(0, 8)
+    .split('')
+    .map((a) => parseInt(a, 10));
 
   let checksum = 0;
   // add digits in even places
@@ -286,7 +309,7 @@ function elCyCheck(tin) {
     if (digits[i] < 2) {
       checksum += 1 - digits[i];
     } else {
-      checksum += (2 * (digits[i] - 2)) + 5;
+      checksum += 2 * (digits[i] - 2) + 5;
       if (digits[i] > 4) {
         checksum += 2;
       }
@@ -308,9 +331,9 @@ function elGrCheck(tin) {
 
   let checksum = 0;
   for (let i = 0; i < 8; i++) {
-    checksum += digits[i] * (2 ** (8 - i));
+    checksum += digits[i] * 2 ** (8 - i);
   }
-  return ((checksum % 11) % 10) === digits[8];
+  return (checksum % 11) % 10 === digits[8];
 }
 
 /*
@@ -325,7 +348,13 @@ function elGrCheck(tin) {
  * Verify TIN validity by calculating check (second to last) character
  */
 function enIeCheck(tin) {
-  let checksum = algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map((a) => parseInt(a, 10)), 8);
+  let checksum = algorithms.reverseMultiplyAndSum(
+    tin
+      .split('')
+      .slice(0, 7)
+      .map((a) => parseInt(a, 10)),
+    8,
+  );
   if (tin.length === 9 && tin[8] !== 'W') {
     checksum += (tin[8].charCodeAt(0) - 64) * 9;
   }
@@ -342,14 +371,72 @@ const enUsCampusPrefix = {
   andover: ['10', '12'],
   atlanta: ['60', '67'],
   austin: ['50', '53'],
-  brookhaven: ['01', '02', '03', '04', '05', '06', '11', '13', '14', '16', '21', '22', '23', '25', '34', '51', '52', '54', '55', '56', '57', '58', '59', '65'],
+  brookhaven: [
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '11',
+    '13',
+    '14',
+    '16',
+    '21',
+    '22',
+    '23',
+    '25',
+    '34',
+    '51',
+    '52',
+    '54',
+    '55',
+    '56',
+    '57',
+    '58',
+    '59',
+    '65',
+  ],
   cincinnati: ['30', '32', '35', '36', '37', '38', '61'],
   fresno: ['15', '24'],
   internet: ['20', '26', '27', '45', '46', '47'],
   kansas: ['40', '44'],
   memphis: ['94', '95'],
   ogden: ['80', '90'],
-  philadelphia: ['33', '39', '41', '42', '43', '46', '48', '62', '63', '64', '66', '68', '71', '72', '73', '74', '75', '76', '77', '81', '82', '83', '84', '85', '86', '87', '88', '91', '92', '93', '98', '99'],
+  philadelphia: [
+    '33',
+    '39',
+    '41',
+    '42',
+    '43',
+    '46',
+    '48',
+    '62',
+    '63',
+    '64',
+    '66',
+    '68',
+    '71',
+    '72',
+    '73',
+    '74',
+    '75',
+    '76',
+    '77',
+    '81',
+    '82',
+    '83',
+    '84',
+    '85',
+    '86',
+    '87',
+    '88',
+    '91',
+    '92',
+    '93',
+    '98',
+    '99',
+  ],
   sba: ['31'],
 };
 
@@ -423,7 +510,7 @@ function esEsCheck(tin) {
       default:
     }
     chars.splice(0, 1, lead_replace);
-  // Fill with zeros if smaller than proper
+    // Fill with zeros if smaller than proper
   } else {
     while (chars.length < 9) {
       chars.unshift(0);
@@ -431,9 +518,33 @@ function esEsCheck(tin) {
   }
 
   // Calculate checksum and check according to lookup
-  const lookup = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+  const lookup = [
+    'T',
+    'R',
+    'W',
+    'A',
+    'G',
+    'M',
+    'Y',
+    'F',
+    'P',
+    'D',
+    'X',
+    'B',
+    'N',
+    'J',
+    'Z',
+    'S',
+    'Q',
+    'V',
+    'H',
+    'L',
+    'C',
+    'K',
+    'E',
+  ];
   chars = chars.join('');
-  let checksum = (parseInt(chars.slice(0, 8), 10) % 23);
+  let checksum = parseInt(chars.slice(0, 8), 10) % 23;
   return chars[8] === lookup[checksum];
 }
 
@@ -463,7 +574,9 @@ function etEeCheck(tin) {
   }
   // Check date validity
   const date = `${full_year}/${tin.slice(3, 5)}/${tin.slice(5, 7)}`;
-  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+  if (!isDate(date, 'YYYY/MM/DD')) {
+    return false;
+  }
 
   // Split digits into an array for further processing
   const digits = tin.split('').map((a) => parseInt(a, 10));
@@ -488,7 +601,9 @@ function etEeCheck(tin) {
         weight = 1;
       }
     }
-    if (checksum % 11 === 10) { return digits[10] === 0; }
+    if (checksum % 11 === 10) {
+      return digits[10] === 0;
+    }
   }
 
   return checksum % 11 === digits[10];
@@ -517,14 +632,40 @@ function fiFiCheck(tin) {
   }
   // Check date validity
   const date = `${full_year}/${tin.slice(2, 4)}/${tin.slice(0, 2)}`;
-  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+  if (!isDate(date, 'YYYY/MM/DD')) {
+    return false;
+  }
 
   // Calculate check character
-  let checksum = parseInt((tin.slice(0, 6) + tin.slice(7, 10)), 10) % 31;
-  if (checksum < 10) { return checksum === parseInt(tin.slice(10), 10); }
+  let checksum = parseInt(tin.slice(0, 6) + tin.slice(7, 10), 10) % 31;
+  if (checksum < 10) {
+    return checksum === parseInt(tin.slice(10), 10);
+  }
 
   checksum -= 10;
-  const letters_lookup = ['A', 'B', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y'];
+  const letters_lookup = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'H',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'P',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+  ];
   return letters_lookup[checksum] === tin.slice(10);
 }
 
@@ -538,7 +679,9 @@ function frBeCheck(tin) {
   if (tin.slice(2, 4) !== '00' || tin.slice(4, 6) !== '00') {
     // Extract date from first six digits of TIN
     const date = `${tin.slice(0, 2)}/${tin.slice(2, 4)}/${tin.slice(4, 6)}`;
-    if (!isDate(date, 'YY/MM/DD')) { return false; }
+    if (!isDate(date, 'YY/MM/DD')) {
+      return false;
+    }
   }
 
   let checksum = 97 - (parseInt(tin.slice(0, 9), 10) % 97);
@@ -572,10 +715,14 @@ function frFrCheck(tin) {
 function frLuCheck(tin) {
   // Extract date and check validity
   const date = `${tin.slice(0, 4)}/${tin.slice(4, 6)}/${tin.slice(6, 8)}`;
-  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+  if (!isDate(date, 'YYYY/MM/DD')) {
+    return false;
+  }
 
   // Run Luhn check
-  if (!algorithms.luhnCheck(tin.slice(0, 12))) { return false; }
+  if (!algorithms.luhnCheck(tin.slice(0, 12))) {
+    return false;
+  }
   // Remove Luhn check digit and run Verhoeff check
   return algorithms.verhoeffCheck(`${tin.slice(0, 11)}${tin[12]}`);
 }
@@ -631,14 +778,18 @@ function itItNameCheck(name) {
   for (let i = 0; i < 3; i++) {
     if (!vowelflag && /[AEIOU]/.test(name[i])) {
       vowelflag = true;
-    } else if (!xflag && vowelflag && (name[i] === 'X')) {
+    } else if (!xflag && vowelflag && name[i] === 'X') {
       xflag = true;
     } else if (i > 0) {
       if (vowelflag && !xflag) {
-        if (!/[AEIOU]/.test(name[i])) { return false; }
+        if (!/[AEIOU]/.test(name[i])) {
+          return false;
+        }
       }
       if (xflag) {
-        if (!/X/.test(name[i])) { return false; }
+        if (!/X/.test(name[i])) {
+          return false;
+        }
       }
     }
   }
@@ -658,8 +809,12 @@ function itItCheck(tin) {
   const chars = tin.toUpperCase().split('');
 
   // Check first and last name validity calling itItNameCheck()
-  if (!itItNameCheck(chars.slice(0, 3))) { return false; }
-  if (!itItNameCheck(chars.slice(3, 6))) { return false; }
+  if (!itItNameCheck(chars.slice(0, 3))) {
+    return false;
+  }
+  if (!itItNameCheck(chars.slice(3, 6))) {
+    return false;
+  }
 
   // Convert letters in number spaces back to numbers if any
   const number_locations = [6, 7, 9, 10, 12, 13, 14];
@@ -699,11 +854,17 @@ function itItCheck(tin) {
   let month = month_replace[chars[8]];
 
   let day = parseInt(chars[9] + chars[10], 10);
-  if (day > 40) { day -= 40; }
-  if (day < 10) { day = `0${day}`; }
+  if (day > 40) {
+    day -= 40;
+  }
+  if (day < 10) {
+    day = `0${day}`;
+  }
 
   const date = `${chars[6]}${chars[7]}/${month}/${day}`;
-  if (!isDate(date, 'YY/MM/DD')) { return false; }
+  if (!isDate(date, 'YY/MM/DD')) {
+    return false;
+  }
 
   // Calculate check character by adding up even and odd characters as numbers
   let checksum = 0;
@@ -715,7 +876,8 @@ function itItCheck(tin) {
     checksum += char_to_int;
   }
 
-  const odd_convert = { // Maps of characters at odd places
+  const odd_convert = {
+    // Maps of characters at odd places
     A: 1,
     B: 0,
     C: 5,
@@ -751,7 +913,7 @@ function itItCheck(tin) {
       char_to_int = odd_convert[chars[i]];
     } else {
       let multiplier = parseInt(chars[i], 10);
-      char_to_int = (2 * multiplier) + 1;
+      char_to_int = 2 * multiplier + 1;
       if (multiplier > 4) {
         char_to_int += 2;
       }
@@ -759,7 +921,9 @@ function itItCheck(tin) {
     checksum += char_to_int;
   }
 
-  if (String.fromCharCode(65 + (checksum % 26)) !== chars[15]) { return false; }
+  if (String.fromCharCode(65 + (checksum % 26)) !== chars[15]) {
+    return false;
+  }
   return true;
 }
 
@@ -775,9 +939,11 @@ function lvLvCheck(tin) {
   tin = tin.replace(/\W/, '');
   // Extract date from TIN
   const day = tin.slice(0, 2);
-  if (day !== '32') { // No date/checksum check if new format
+  if (day !== '32') {
+    // No date/checksum check if new format
     const month = tin.slice(2, 4);
-    if (month !== '00') { // No date check if unknown month
+    if (month !== '00') {
+      // No date check if unknown month
       let full_year = tin.slice(4, 6);
       switch (tin[6]) {
         case '0':
@@ -792,7 +958,9 @@ function lvLvCheck(tin) {
       }
       // Check date validity
       const date = `${full_year}/${tin.slice(2, 4)}/${day}`;
-      if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+      if (!isDate(date, 'YYYY/MM/DD')) {
+        return false;
+      }
     }
 
     // Calculate check digit
@@ -801,7 +969,7 @@ function lvLvCheck(tin) {
     for (let i = 0; i < tin.length - 1; i++) {
       checksum -= parseInt(tin[i], 10) * multip_lookup[i];
     }
-    return (parseInt(tin[10], 10) === checksum % 11);
+    return parseInt(tin[10], 10) === checksum % 11;
   }
   return true;
 }
@@ -812,7 +980,8 @@ function lvLvCheck(tin) {
  * Verify Identity Card Number structure (no other tests found)
  */
 function mtMtCheck(tin) {
-  if (tin.length !== 9) { // No tests for UTR
+  if (tin.length !== 9) {
+    // No tests for UTR
     let chars = tin.toUpperCase().split('');
     // Fill with zeros if smaller than proper
     while (chars.length < 8) {
@@ -822,13 +991,19 @@ function mtMtCheck(tin) {
     switch (tin[7]) {
       case 'A':
       case 'P':
-        if (parseInt(chars[6], 10) === 0) { return false; }
+        if (parseInt(chars[6], 10) === 0) {
+          return false;
+        }
         break;
       default: {
         const first_part = parseInt(chars.join('').slice(0, 5), 10);
-        if (first_part > 32000) { return false; }
+        if (first_part > 32000) {
+          return false;
+        }
         const second_part = parseInt(chars.join('').slice(5, 7), 10);
-        if (first_part === second_part) { return false; }
+        if (first_part === second_part) {
+          return false;
+        }
       }
     }
   }
@@ -842,7 +1017,17 @@ function mtMtCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function nlNlCheck(tin) {
-  return algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map((a) => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
+  return (
+    algorithms.reverseMultiplyAndSum(
+      tin
+        .split('')
+        .slice(0, 8)
+        .map((a) => parseInt(a, 10)),
+      9,
+    ) %
+      11 ===
+    parseInt(tin[8], 10)
+  );
 }
 
 /*
@@ -861,8 +1046,10 @@ function plPlCheck(tin) {
       checksum += parseInt(tin[i], 10) * lookup[i];
     }
     checksum %= 11;
-    if (checksum === 10) { return false; }
-    return (checksum === parseInt(tin[9], 10));
+    if (checksum === 10) {
+      return false;
+    }
+    return checksum === parseInt(tin[9], 10);
   }
 
   // PESEL
@@ -885,10 +1072,14 @@ function plPlCheck(tin) {
     full_year = `19${full_year}`;
   }
   // Add leading zero to month if needed
-  if (month < 10) { month = `0${month}`; }
+  if (month < 10) {
+    month = `0${month}`;
+  }
   // Check date validity
   const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
-  if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+  if (!isDate(date, 'YYYY/MM/DD')) {
+    return false;
+  }
 
   // Calculate last digit by mulitplying with odd one-digit numbers except 5
   let checksum = 0;
@@ -907,11 +1098,11 @@ function plPlCheck(tin) {
 }
 
 /*
-* pt-BR validation function
-* (Cadastro de Pessoas Físicas (CPF, persons)
-* Cadastro Nacional de Pessoas Jurídicas (CNPJ, entities)
-* Both inputs will be validated
-*/
+ * pt-BR validation function
+ * (Cadastro de Pessoas Físicas (CPF, persons)
+ * Cadastro Nacional de Pessoas Jurídicas (CNPJ, entities)
+ * Both inputs will be validated
+ */
 
 function ptBrCheck(tin) {
   if (tin.length === 11) {
@@ -919,26 +1110,30 @@ function ptBrCheck(tin) {
     let remainder;
     sum = 0;
 
-    if ( // Reject known invalid CPFs
-      tin === '11111111111'
-      || tin === '22222222222'
-      || tin === '33333333333'
-      || tin === '44444444444'
-      || tin === '55555555555'
-      || tin === '66666666666'
-      || tin === '77777777777'
-      || tin === '88888888888'
-      || tin === '99999999999'
-      || tin === '00000000000'
-    ) return false;
+    if (
+      // Reject known invalid CPFs
+      tin === '11111111111' ||
+      tin === '22222222222' ||
+      tin === '33333333333' ||
+      tin === '44444444444' ||
+      tin === '55555555555' ||
+      tin === '66666666666' ||
+      tin === '77777777777' ||
+      tin === '88888888888' ||
+      tin === '99999999999' ||
+      tin === '00000000000'
+    )
+      return false;
 
-    for (let i = 1; i <= 9; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (11 - i);
+    for (let i = 1; i <= 9; i++)
+      sum += parseInt(tin.substring(i - 1, i), 10) * (11 - i);
     remainder = (sum * 10) % 11;
     if (remainder === 10) remainder = 0;
     if (remainder !== parseInt(tin.substring(9, 10), 10)) return false;
     sum = 0;
 
-    for (let i = 1; i <= 10; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (12 - i);
+    for (let i = 1; i <= 10; i++)
+      sum += parseInt(tin.substring(i - 1, i), 10) * (12 - i);
     remainder = (sum * 10) % 11;
     if (remainder === 10) remainder = 0;
     if (remainder !== parseInt(tin.substring(10, 11), 10)) return false;
@@ -946,17 +1141,21 @@ function ptBrCheck(tin) {
     return true;
   }
 
-  if ( // Reject know invalid CNPJs
-    tin === '00000000000000'
-    || tin === '11111111111111'
-    || tin === '22222222222222'
-    || tin === '33333333333333'
-    || tin === '44444444444444'
-    || tin === '55555555555555'
-    || tin === '66666666666666'
-    || tin === '77777777777777'
-    || tin === '88888888888888'
-    || tin === '99999999999999') { return false; }
+  if (
+    // Reject know invalid CNPJs
+    tin === '00000000000000' ||
+    tin === '11111111111111' ||
+    tin === '22222222222222' ||
+    tin === '33333333333333' ||
+    tin === '44444444444444' ||
+    tin === '55555555555555' ||
+    tin === '66666666666666' ||
+    tin === '77777777777777' ||
+    tin === '88888888888888' ||
+    tin === '99999999999999'
+  ) {
+    return false;
+  }
 
   let length = tin.length - 2;
   let identifiers = tin.substring(0, length);
@@ -967,10 +1166,14 @@ function ptBrCheck(tin) {
   for (let i = length; i >= 1; i--) {
     sum += identifiers.charAt(length - i) * pos;
     pos -= 1;
-    if (pos < 2) { pos = 9; }
+    if (pos < 2) {
+      pos = 9;
+    }
   }
   let result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
-  if (result !== parseInt(verificators.charAt(0), 10)) { return false; }
+  if (result !== parseInt(verificators.charAt(0), 10)) {
+    return false;
+  }
 
   length += 1;
   identifiers = tin.substring(0, length);
@@ -979,10 +1182,14 @@ function ptBrCheck(tin) {
   for (let i = length; i >= 1; i--) {
     sum += identifiers.charAt(length - i) * pos;
     pos -= 1;
-    if (pos < 2) { pos = 9; }
+    if (pos < 2) {
+      pos = 9;
+    }
   }
   result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
-  if (result !== parseInt(verificators.charAt(1), 10)) { return false; }
+  if (result !== parseInt(verificators.charAt(1), 10)) {
+    return false;
+  }
 
   return true;
 }
@@ -993,8 +1200,19 @@ function ptBrCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function ptPtCheck(tin) {
-  let checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map((a) => parseInt(a, 10)), 9) % 11);
-  if (checksum > 9) { return parseInt(tin[8], 10) === 0; }
+  let checksum =
+    11 -
+    (algorithms.reverseMultiplyAndSum(
+      tin
+        .split('')
+        .slice(0, 8)
+        .map((a) => parseInt(a, 10)),
+      9,
+    ) %
+      11);
+  if (checksum > 9) {
+    return parseInt(tin[8], 10) === 0;
+  }
   return checksum === parseInt(tin[8], 10);
 }
 
@@ -1007,7 +1225,8 @@ function ptPtCheck(tin) {
  * `https://en.wikipedia.org/wiki/National_identification_number#Romania`
  */
 function roRoCheck(tin) {
-  if (tin.slice(0, 4) !== '9000') { // No test found for this format
+  if (tin.slice(0, 4) !== '9000') {
+    // No test found for this format
     // Extract full year using century digit if possible
     let full_year = tin.slice(1, 3);
     switch (tin[0]) {
@@ -1029,8 +1248,12 @@ function roRoCheck(tin) {
     // Check date validity
     const date = `${full_year}/${tin.slice(3, 5)}/${tin.slice(5, 7)}`;
     if (date.length === 8) {
-      if (!isDate(date, 'YY/MM/DD')) { return false; }
-    } else if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+      if (!isDate(date, 'YY/MM/DD')) {
+        return false;
+      }
+    } else if (!isDate(date, 'YYYY/MM/DD')) {
+      return false;
+    }
 
     // Calculate check digit
     const digits = tin.split('').map((a) => parseInt(a, 10));
@@ -1039,7 +1262,9 @@ function roRoCheck(tin) {
     for (let i = 0; i < multipliers.length; i++) {
       checksum += digits[i] * multipliers[i];
     }
-    if (checksum % 11 === 10) { return digits[12] === 1; }
+    if (checksum % 11 === 10) {
+      return digits[12] === 1;
+    }
     return digits[12] === checksum % 11;
   }
   return true;
@@ -1055,11 +1280,15 @@ function roRoCheck(tin) {
 function skSkCheck(tin) {
   if (tin.length === 9) {
     tin = tin.replace(/\W/, '');
-    if (tin.slice(6) === '000') { return false; } // Three-zero serial not assigned before 1954
+    if (tin.slice(6) === '000') {
+      return false;
+    } // Three-zero serial not assigned before 1954
 
     // Extract full year from TIN length
     let full_year = parseInt(tin.slice(0, 2), 10);
-    if (full_year > 53) { return false; }
+    if (full_year > 53) {
+      return false;
+    }
     if (full_year < 10) {
       full_year = `190${full_year}`;
     } else {
@@ -1071,11 +1300,15 @@ function skSkCheck(tin) {
     if (month > 50) {
       month -= 50;
     }
-    if (month < 10) { month = `0${month}`; }
+    if (month < 10) {
+      month = `0${month}`;
+    }
 
     // Check date validity
     const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
-    if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+    if (!isDate(date, 'YYYY/MM/DD')) {
+      return false;
+    }
   }
   return true;
 }
@@ -1086,8 +1319,19 @@ function skSkCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function slSiCheck(tin) {
-  let checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map((a) => parseInt(a, 10)), 8) % 11);
-  if (checksum === 10) { return parseInt(tin[7], 10) === 0; }
+  let checksum =
+    11 -
+    (algorithms.reverseMultiplyAndSum(
+      tin
+        .split('')
+        .slice(0, 7)
+        .map((a) => parseInt(a, 10)),
+      8,
+    ) %
+      11);
+  if (checksum === 10) {
+    return parseInt(tin[7], 10) === 0;
+  }
   return checksum === parseInt(tin[7], 10);
 }
 
@@ -1125,18 +1369,28 @@ function svSeCheck(tin) {
         }
       } else {
         full_year = `${current_century - 1}${full_year}`;
-        if (current_year - parseInt(full_year, 10) < 100) { return false; }
+        if (current_year - parseInt(full_year, 10) < 100) {
+          return false;
+        }
       }
     }
   }
 
   // Normalize day and check date validity
-  if (day > 60) { day -= 60; }
-  if (day < 10) { day = `0${day}`; }
+  if (day > 60) {
+    day -= 60;
+  }
+  if (day < 10) {
+    day = `0${day}`;
+  }
   const date = `${full_year}/${month}/${day}`;
   if (date.length === 8) {
-    if (!isDate(date, 'YY/MM/DD')) { return false; }
-  } else if (!isDate(date, 'YYYY/MM/DD')) { return false; }
+    if (!isDate(date, 'YY/MM/DD')) {
+      return false;
+    }
+  } else if (!isDate(date, 'YYYY/MM/DD')) {
+    return false;
+  }
 
   return algorithms.luhnCheck(tin.replace(/\W/, ''));
 }
@@ -1158,7 +1412,8 @@ const taxIdFormat = {
   'el-CY': /^[09]\d{7}[A-Z]$/,
   'el-GR': /^([0-4]|[7-9])\d{8}$/,
   'en-CA': /^\d{9}$/,
-  'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
+  'en-GB':
+    /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
   'es-AR': /(20|23|24|27|30|33|34)[0-9]{8}[0-9]/,
@@ -1170,7 +1425,8 @@ const taxIdFormat = {
   'fr-LU': /^\d{13}$/,
   'hr-HR': /^\d{11}$/,
   'hu-HU': /^8\d{9}$/,
-  'it-IT': /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
+  'it-IT':
+    /^[A-Z]{6}[L-NP-V0-9]{2}[A-EHLMPRST][L-NP-V0-9]{2}[A-ILMZ][L-NP-V0-9]{3}[A-Z]$/i,
   'lv-LV': /^\d{6}-{0,1}\d{5}$/, // Conforms both to DG TAXUD spec and original research
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,

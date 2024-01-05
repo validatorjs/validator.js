@@ -20,11 +20,13 @@ export function isISO6346(str) {
         let convertedCode;
         const letterCode = str.charCodeAt(i) - 55;
         if (letterCode < 11) convertedCode = letterCode;
-        else if (letterCode >= 11 && letterCode <= 20) convertedCode = 12 + (letterCode % 11);
-        else if (letterCode >= 21 && letterCode <= 30) convertedCode = 23 + (letterCode % 21);
+        else if (letterCode >= 11 && letterCode <= 20)
+          convertedCode = 12 + (letterCode % 11);
+        else if (letterCode >= 21 && letterCode <= 30)
+          convertedCode = 23 + (letterCode % 21);
         else convertedCode = 34 + (letterCode % 31);
-        sum += convertedCode * (2 ** i);
-      } else sum += str[i] * (2 ** i);
+        sum += convertedCode * 2 ** i;
+      } else sum += str[i] * 2 ** i;
     }
 
     const checkSumDigit = sum % 11;

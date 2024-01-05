@@ -81,7 +81,8 @@ export default function isPostalCode(str, locale) {
   assertString(str);
   if (locale in patterns) {
     return patterns[locale].test(str);
-  } if (locale === 'any') {
+  }
+  if (locale === 'any') {
     for (const key in patterns) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else

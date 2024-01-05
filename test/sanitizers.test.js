@@ -22,7 +22,7 @@ function test(options) {
         options.sanitizer,
         args.join(', '),
         result,
-        expected
+        expected,
       );
 
       throw new Error(warning);
@@ -162,16 +162,14 @@ describe('Sanitizers', () => {
       sanitizer: 'escape',
       expect: {
         '<script> alert("xss&fun"); </script>':
-            '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;',
+          '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;',
 
         "<script> alert('xss&fun'); </script>":
-            '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;',
+          '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;',
 
-        'Backtick: `':
-            'Backtick: &#96;',
+        'Backtick: `': 'Backtick: &#96;',
 
-        'Backslash: \\':
-            'Backslash: &#x5C;',
+        'Backslash: \\': 'Backslash: &#x5C;',
       },
     });
   });
@@ -181,16 +179,14 @@ describe('Sanitizers', () => {
       sanitizer: 'unescape',
       expect: {
         '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;':
-             '<script> alert("xss&fun"); </script>',
+          '<script> alert("xss&fun"); </script>',
 
         '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;':
-            "<script> alert('xss&fun'); </script>",
+          "<script> alert('xss&fun'); </script>",
 
-        'Backtick: &#96;':
-            'Backtick: `',
+        'Backtick: &#96;': 'Backtick: `',
 
-        'Escaped string: &amp;lt;':
-            'Escaped string: &lt;',
+        'Escaped string: &amp;lt;': 'Escaped string: &lt;',
       },
     });
   });
@@ -256,15 +252,17 @@ describe('Sanitizers', () => {
   it('should score passwords', () => {
     test({
       sanitizer: 'isStrongPassword',
-      args: [{
-        returnScore: true,
-        pointsPerUnique: 1,
-        pointsPerRepeat: 0.5,
-        pointsForContainingLower: 10,
-        pointsForContainingUpper: 10,
-        pointsForContainingNumber: 10,
-        pointsForContainingSymbol: 10,
-      }],
+      args: [
+        {
+          returnScore: true,
+          pointsPerUnique: 1,
+          pointsPerRepeat: 0.5,
+          pointsForContainingLower: 10,
+          pointsForContainingUpper: 10,
+          pointsForContainingNumber: 10,
+          pointsForContainingSymbol: 10,
+        },
+      ],
       expect: {
         abc: 13,
         abcc: 13.5,
@@ -298,13 +296,18 @@ describe('Sanitizers', () => {
         'some.name@googleMail.com': 'somename@gmail.com',
         'some.name+extension@gmail.com': 'somename@gmail.com',
         'some.Name+extension@GoogleMail.com': 'somename@gmail.com',
-        'some.name.middleName+extension@gmail.com': 'somenamemiddlename@gmail.com',
-        'some.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com',
-        'some.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com',
-        'some.name.midd.leNa.me.+extension@GoogleMail.com': 'somenamemiddlename@gmail.com',
+        'some.name.middleName+extension@gmail.com':
+          'somenamemiddlename@gmail.com',
+        'some.name.middleName+extension@GoogleMail.com':
+          'somenamemiddlename@gmail.com',
+        'some.name.midd.leNa.me.+extension@gmail.com':
+          'somenamemiddlename@gmail.com',
+        'some.name.midd.leNa.me.+extension@GoogleMail.com':
+          'somenamemiddlename@gmail.com',
         'some.name+extension@unknown.com': 'some.name+extension@unknown.com',
         'hans@m端ller.com': 'hans@m端ller.com',
-        'some.name.midd..leNa...me...+extension@GoogleMail.com': 'somenamemidd..lena...me...@gmail.com',
+        'some.name.midd..leNa...me...+extension@GoogleMail.com':
+          'somenamemidd..lena...me...@gmail.com',
         'matthew..example@gmail.com': 'matthew..example@gmail.com',
         '"foo@bar"@baz.com': '"foo@bar"@baz.com',
         'test@ya.ru': 'test@yandex.ru',
@@ -333,8 +336,10 @@ describe('Sanitizers', () => {
         'TEST@me.com': 'test@me.com',
         'TEST@ME.COM': 'test@me.com',
         'SOME.name@GMAIL.com': 'somename@gmail.com',
-        'SOME.name.middleName+extension@GoogleMail.com': 'somenamemiddlename@gmail.com',
-        'SOME.name.midd.leNa.me.+extension@gmail.com': 'somenamemiddlename@gmail.com',
+        'SOME.name.middleName+extension@GoogleMail.com':
+          'somenamemiddlename@gmail.com',
+        'SOME.name.midd.leNa.me.+extension@gmail.com':
+          'somenamemiddlename@gmail.com',
         'SOME.name@gmail.com': 'somename@gmail.com',
         'SOME.name@yahoo.ca': 'some.name@yahoo.ca',
         'SOME.name@outlook.ie': 'some.name@outlook.ie',
@@ -346,14 +351,16 @@ describe('Sanitizers', () => {
     // Testing *_lowercase
     test({
       sanitizer: 'normalizeEmail',
-      args: [{
-        all_lowercase: false,
-        gmail_lowercase: false,
-        icloud_lowercase: false,
-        outlookdotcom_lowercase: false,
-        yahoo_lowercase: false,
-        yandex_lowercase: false,
-      }],
+      args: [
+        {
+          all_lowercase: false,
+          gmail_lowercase: false,
+          icloud_lowercase: false,
+          outlookdotcom_lowercase: false,
+          yahoo_lowercase: false,
+          yandex_lowercase: false,
+        },
+      ],
       expect: {
         'TEST@FOO.COM': 'TEST@foo.com', // all_lowercase
         'ME@gMAil.com': 'ME@gmail.com', // gmail_lowercase
@@ -370,13 +377,15 @@ describe('Sanitizers', () => {
     // Should overwrite all the *_lowercase options
     test({
       sanitizer: 'normalizeEmail',
-      args: [{
-        all_lowercase: true,
-        gmail_lowercase: false, // Overruled
-        icloud_lowercase: false, // Overruled
-        outlookdotcom_lowercase: false, // Overruled
-        yahoo_lowercase: false, // Overruled
-      }],
+      args: [
+        {
+          all_lowercase: true,
+          gmail_lowercase: false, // Overruled
+          icloud_lowercase: false, // Overruled
+          outlookdotcom_lowercase: false, // Overruled
+          yahoo_lowercase: false, // Overruled
+        },
+      ],
       expect: {
         'TEST@FOO.COM': 'test@foo.com', // all_lowercase
         'ME@gMAil.com': 'me@gmail.com', // gmail_lowercase
@@ -391,9 +400,11 @@ describe('Sanitizers', () => {
     // Testing *_remove_dots
     test({
       sanitizer: 'normalizeEmail',
-      args: [{
-        gmail_remove_dots: false,
-      }],
+      args: [
+        {
+          gmail_remove_dots: false,
+        },
+      ],
       expect: {
         'SOME.name@GMAIL.com': 'some.name@gmail.com',
         'SOME.name+me@GMAIL.com': 'some.name@gmail.com',
@@ -403,9 +414,11 @@ describe('Sanitizers', () => {
 
     test({
       sanitizer: 'normalizeEmail',
-      args: [{
-        gmail_remove_dots: true,
-      }],
+      args: [
+        {
+          gmail_remove_dots: true,
+        },
+      ],
       expect: {
         'SOME.name@GMAIL.com': 'somename@gmail.com',
         'SOME.name+me@GMAIL.com': 'somename@gmail.com',
@@ -417,12 +430,14 @@ describe('Sanitizers', () => {
     // Testing *_remove_subaddress
     test({
       sanitizer: 'normalizeEmail',
-      args: [{
-        gmail_remove_subaddress: false,
-        icloud_remove_subaddress: false,
-        outlookdotcom_remove_subaddress: false,
-        yahoo_remove_subaddress: false, // Note Yahoo uses "-"
-      }],
+      args: [
+        {
+          gmail_remove_subaddress: false,
+          icloud_remove_subaddress: false,
+          outlookdotcom_remove_subaddress: false,
+          yahoo_remove_subaddress: false, // Note Yahoo uses "-"
+        },
+      ],
       expect: {
         'foo+bar@unknown.com': 'foo+bar@unknown.com',
         'foo+bar@gmail.com': 'foo+bar@gmail.com', // gmail_remove_subaddress
@@ -437,12 +452,14 @@ describe('Sanitizers', () => {
 
     test({
       sanitizer: 'normalizeEmail',
-      args: [{
-        gmail_remove_subaddress: true,
-        icloud_remove_subaddress: true,
-        outlookdotcom_remove_subaddress: true,
-        yahoo_remove_subaddress: true, // Note Yahoo uses "-"
-      }],
+      args: [
+        {
+          gmail_remove_subaddress: true,
+          icloud_remove_subaddress: true,
+          outlookdotcom_remove_subaddress: true,
+          yahoo_remove_subaddress: true, // Note Yahoo uses "-"
+        },
+      ],
       expect: {
         'foo+bar@unknown.com': 'foo+bar@unknown.com',
         'foo+bar@gmail.com': 'foo@gmail.com', // gmail_remove_subaddress
@@ -458,9 +475,11 @@ describe('Sanitizers', () => {
     // Testing gmail_convert_googlemaildotcom
     test({
       sanitizer: 'normalizeEmail',
-      args: [{
-        gmail_convert_googlemaildotcom: false,
-      }],
+      args: [
+        {
+          gmail_convert_googlemaildotcom: false,
+        },
+      ],
       expect: {
         'SOME.name@GMAIL.com': 'somename@gmail.com',
         'SOME.name+me@GMAIL.com': 'somename@gmail.com',
@@ -473,9 +492,11 @@ describe('Sanitizers', () => {
 
     test({
       sanitizer: 'normalizeEmail',
-      args: [{
-        gmail_convert_googlemaildotcom: true,
-      }],
+      args: [
+        {
+          gmail_convert_googlemaildotcom: true,
+        },
+      ],
       expect: {
         'SOME.name@GMAIL.com': 'somename@gmail.com',
         'SOME.name+me@GMAIL.com': 'somename@gmail.com',

@@ -1,9 +1,9 @@
-import assertString from "./util/assertString.js";
+import assertString from './util/assertString.js';
 
-import isByteLength from "./isByteLength.js";
-import isFQDN from "./isFQDN.js";
-import isIP from "./isIP.js";
-import merge from "./util/merge.js";
+import isByteLength from './isByteLength.js';
+import isFQDN from './isFQDN.js';
+import isIP from './isIP.js';
+import merge from './util/merge.js';
 
 const default_email_options = {
   allow_display_name: false,
@@ -11,7 +11,7 @@ const default_email_options = {
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
-  blacklisted_chars: "",
+  blacklisted_chars: '',
   ignore_max_length: false,
   host_blacklist: [],
   host_whitelist: [],
@@ -37,7 +37,7 @@ const defaultMaxEmailLength = 254;
  * @param {String} display_name
  */
 function validateDisplayName(display_name) {
-  const display_name_without_quotes = display_name.replace(/^"(.+)"$/, "$1");
+  const display_name_without_quotes = display_name.replace(/^"(.+)"$/, '$1');
   // display name with only spaces is not valid
   if (!display_name_without_quotes.trim()) {
     return false;
@@ -75,13 +75,13 @@ export default function isEmail(str, options) {
 
       // Remove display name and angle brackets to get email address
       // Can be done in the regex but will introduce a ReDOS (See  #1597 for more info)
-      str = str.replace(display_name, "").replace(/(^<|>$)/g, "");
+      str = str.replace(display_name, '').replace(/(^<|>$)/g, '');
 
       // sometimes need to trim the last space to get the display name
       // because there may be a space between display name and email address
       // eg. myname <address@gmail.com>
       // the display name is `myname` instead of `myname `, so need to trim the last space
-      if (display_name.endsWith(" ")) {
+      if (display_name.endsWith(' ')) {
         display_name = display_name.slice(0, -1);
       }
 
@@ -96,7 +96,7 @@ export default function isEmail(str, options) {
     return false;
   }
 
-  const parts = str.split("@");
+  const parts = str.split('@');
   const domain = parts.pop();
   const lower_domain = domain.toLowerCase();
 
@@ -111,11 +111,11 @@ export default function isEmail(str, options) {
     return false;
   }
 
-  let user = parts.join("@");
+  let user = parts.join('@');
 
   if (
     options.domain_specific_validation &&
-    (lower_domain === "gmail.com" || lower_domain === "googlemail.com")
+    (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')
   ) {
     /*
       Previously we removed dots for gmail addresses before validating.
@@ -127,14 +127,14 @@ export default function isEmail(str, options) {
     user = user.toLowerCase();
 
     // Removing sub-address from username before gmail validation
-    const username = user.split("+")[0];
+    const username = user.split('+')[0];
 
     // Dots are not included in gmail length restriction
-    if (!isByteLength(username.replace(/\./g, ""), { min: 6, max: 30 })) {
+    if (!isByteLength(username.replace(/\./g, ''), { min: 6, max: 30 })) {
       return false;
     }
 
-    const user_parts = username.split(".");
+    const user_parts = username.split('.');
     for (let i = 0; i < user_parts.length; i++) {
       if (!gmailUserPart.test(user_parts[i])) {
         return false;
@@ -161,7 +161,7 @@ export default function isEmail(str, options) {
     }
 
     if (!isIP(domain)) {
-      if (!domain.startsWith("[") || !domain.endsWith("]")) {
+      if (!domain.startsWith('[') || !domain.endsWith(']')) {
         return false;
       }
 
@@ -184,14 +184,14 @@ export default function isEmail(str, options) {
     ? emailUserUtf8Part
     : emailUserPart;
 
-  const user_parts = user.split(".");
+  const user_parts = user.split('.');
   for (let i = 0; i < user_parts.length; i++) {
     if (!pattern.test(user_parts[i])) {
       return false;
     }
   }
   if (options.blacklisted_chars) {
-    if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, "g")) !== -1)
+    if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1)
       return false;
   }
 

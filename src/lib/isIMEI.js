@@ -39,7 +39,7 @@ export default function isIMEI(str, options) {
       mul -= 1;
     }
   }
-  const chk = ((10 - (sum % 10)) % 10);
+  const chk = (10 - (sum % 10)) % 10;
   if (chk !== parseInt(str.substring(14, 15), 10)) {
     return false;
   }

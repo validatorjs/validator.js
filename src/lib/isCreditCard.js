@@ -1,5 +1,5 @@
-import assertString from "./util/assertString.js";
-import isLuhnValid from "./isLuhnNumber.js";
+import assertString from './util/assertString.js';
+import isLuhnValid from './isLuhnNumber.js';
 
 const cards = {
   amex: /^3[47][0-9]{13}$/,
@@ -26,7 +26,7 @@ const allCards = (() => {
 export default function isCreditCard(card, options = {}) {
   assertString(card);
   const { provider } = options;
-  const sanitized = card.replace(/[- ]+/g, "");
+  const sanitized = card.replace(/[- ]+/g, '');
   if (provider && provider.toLowerCase() in cards) {
     // specific provider in the list
     if (!cards[provider.toLowerCase()].test(sanitized)) {

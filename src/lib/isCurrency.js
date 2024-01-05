@@ -3,17 +3,28 @@ import assertString from './util/assertString.js';
 
 function currencyRegex(options) {
   let decimal_digits = `\\d{${options.digits_after_decimal[0]}}`;
-  options.digits_after_decimal.forEach((digit, index) => { if (index !== 0) decimal_digits = `${decimal_digits}|\\d{${digit}}`; });
+  options.digits_after_decimal.forEach((digit, index) => {
+    if (index !== 0) decimal_digits = `${decimal_digits}|\\d{${digit}}`;
+  });
 
-  const symbol = `(${options.symbol.replace(/\W/, (m) => `\\${m}`)})${(options.require_symbol ? '' : '?')}`,
+  const symbol = `(${options.symbol.replace(/\W/, (m) => `\\${m}`)})${
+      options.require_symbol ? '' : '?'
+    }`,
     negative = '-?',
     whole_dollar_amount_without_sep = '[1-9]\\d*',
     whole_dollar_amount_with_sep = `[1-9]\\d{0,2}(\\${options.thousands_separator}\\d{3})*`,
     valid_whole_dollar_amounts = [
-      '0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
+      '0',
+      whole_dollar_amount_without_sep,
+      whole_dollar_amount_with_sep,
+    ],
     whole_dollar_amount = `(${valid_whole_dollar_amounts.join('|')})?`,
-    decimal_amount = `(\\${options.decimal_separator}(${decimal_digits}))${options.require_decimal ? '' : '?'}`;
-  let pattern = whole_dollar_amount + (options.allow_decimal || options.require_decimal ? decimal_amount : '');
+    decimal_amount = `(\\${options.decimal_separator}(${decimal_digits}))${
+      options.require_decimal ? '' : '?'
+    }`;
+  let pattern =
+    whole_dollar_amount +
+    (options.allow_decimal || options.require_decimal ? decimal_amount : '');
 
   // default is negative sign before symbol, but there are two other options (besides parens)
   if (options.allow_negatives && !options.parens_for_negatives) {
@@ -42,7 +53,12 @@ function currencyRegex(options) {
   if (options.allow_negatives) {
     if (options.parens_for_negatives) {
       pattern = `(\\(${pattern}\\)|${pattern})`;
-    } else if (!(options.negative_sign_before_digits || options.negative_sign_after_digits)) {
+    } else if (
+      !(
+        options.negative_sign_before_digits ||
+        options.negative_sign_after_digits
+      )
+    ) {
       pattern = negative + pattern;
     }
   }

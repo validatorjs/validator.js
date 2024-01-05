@@ -1,6 +1,6 @@
-import assert from "assert";
-import { format } from "util";
-import validator from "../src/index.js";
+import assert from 'assert';
+import { format } from 'util';
+import validator from '../src/index.js';
 
 export default function test(options) {
   const args = options.args || [];
@@ -15,9 +15,9 @@ export default function test(options) {
         assert.throws(() => validator[options.validator](...args));
       } catch (err) {
         const warning = format(
-          "validator.%s(%s) passed but should error",
+          'validator.%s(%s) passed but should error',
           options.validator,
-          args.join(", ")
+          args.join(', '),
         );
 
         throw new Error(warning);
@@ -31,9 +31,9 @@ export default function test(options) {
 
       if (validator[options.validator](...args) !== true) {
         const warning = format(
-          "validator.%s(%s) failed but should have passed",
+          'validator.%s(%s) failed but should have passed',
           options.validator,
-          args.join(", ")
+          args.join(', '),
         );
 
         throw new Error(warning);
@@ -47,9 +47,9 @@ export default function test(options) {
 
       if (validator[options.validator](...args) !== false) {
         const warning = format(
-          "validator.%s(%s) passed but should have failed",
+          'validator.%s(%s) passed but should have failed',
           options.validator,
-          args.join(", ")
+          args.join(', '),
         );
 
         throw new Error(warning);

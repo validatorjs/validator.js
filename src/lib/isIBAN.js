@@ -1,4 +1,4 @@
-import assertString from "./util/assertString.js";
+import assertString from './util/assertString.js';
 
 /**
  * List of country codes with
@@ -97,7 +97,7 @@ const ibanRegexThroughCountryCode = {
 
 function hasOnlyValidCountryCodes(countryCodeArray) {
   const countryCodeArrayFilteredWithObjectIbanCode = countryCodeArray.filter(
-    (countryCode) => !(countryCode in ibanRegexThroughCountryCode)
+    (countryCode) => !(countryCode in ibanRegexThroughCountryCode),
   );
 
   if (countryCodeArrayFilteredWithObjectIbanCode.length > 0) {
@@ -121,7 +121,7 @@ function hasOnlyValidCountryCodes(countryCodeArray) {
  */
 function hasValidIbanFormat(str, options) {
   // Strip white spaces and hyphens
-  const strippedStr = str.replace(/[\s\-]+/gi, "").toUpperCase();
+  const strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
   const isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
 
   const isoCountryCodeInIbanRegexCodeObject =
@@ -169,16 +169,16 @@ function hasValidIbanFormat(str, options) {
  * @return {boolean}
  */
 function hasValidIbanChecksum(str) {
-  const strippedStr = str.replace(/[^A-Z0-9]+/gi, "").toUpperCase(); // Keep only digits and A-Z latin alphabetic
+  const strippedStr = str.replace(/[^A-Z0-9]+/gi, '').toUpperCase(); // Keep only digits and A-Z latin alphabetic
   const rearranged = strippedStr.slice(4) + strippedStr.slice(0, 4);
   const alphaCapsReplacedWithDigits = rearranged.replace(
     /[A-Z]/g,
-    (char) => char.charCodeAt(0) - 55
+    (char) => char.charCodeAt(0) - 55,
   );
 
   const remainder = alphaCapsReplacedWithDigits
     .match(/\d{1,7}/g)
-    .reduce((acc, value) => Number(acc + value) % 97, "");
+    .reduce((acc, value) => Number(acc + value) % 97, '');
 
   return remainder === 1;
 }

@@ -57,17 +57,19 @@ const privateuse = '(x(-[A-Za-z0-9]{1,8})+)';
 // otherwise be considered 'well-formed'. These tags are all valid, but
 // most are deprecated in favor of more modern subtags or subtag combination
 
-const irregular = '((en-GB-oed)|(i-ami)|(i-bnn)|(i-default)|(i-enochian)|' +
-    '(i-hak)|(i-klingon)|(i-lux)|(i-mingo)|(i-navajo)|(i-pwn)|(i-tao)|' +
-    '(i-tay)|(i-tsu)|(sgn-BE-FR)|(sgn-BE-NL)|(sgn-CH-DE))';
+const irregular =
+  '((en-GB-oed)|(i-ami)|(i-bnn)|(i-default)|(i-enochian)|' +
+  '(i-hak)|(i-klingon)|(i-lux)|(i-mingo)|(i-navajo)|(i-pwn)|(i-tao)|' +
+  '(i-tay)|(i-tsu)|(sgn-BE-FR)|(sgn-BE-NL)|(sgn-CH-DE))';
 
 // regular tags match the 'langtag' production, but their subtags are not
 // extended language or variant subtags: their meaning is defined by
 // their registration and all of these are deprecated in favor of a more
 // modern subtag or sequence of subtags
 
-const regular = '((art-lojban)|(cel-gaulish)|(no-bok)|(no-nyn)|(zh-guoyu)|' +
-    '(zh-hakka)|(zh-min)|(zh-min-nan)|(zh-xiang))';
+const regular =
+  '((art-lojban)|(cel-gaulish)|(no-bok)|(no-nyn)|(zh-guoyu)|' +
+  '(zh-hakka)|(zh-min)|(zh-min-nan)|(zh-xiang))';
 
 /*
   = irregular           ; non-redundant tags registered
@@ -103,7 +105,9 @@ const langtag = `${language}(${delimiter}${script})?(${delimiter}${region})?(${d
   Tags for Identifying Languages
   https://www.rfc-editor.org/rfc/rfc5646.html
  */
-const languageTagRegex = new RegExp(`(^${privateuse}$)|(^${grandfathered}$)|(^${langtag}$)`);
+const languageTagRegex = new RegExp(
+  `(^${privateuse}$)|(^${grandfathered}$)|(^${langtag}$)`,
+);
 
 export default function isLocale(str) {
   assertString(str);

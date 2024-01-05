@@ -53,15 +53,13 @@ export default function isMailtoURI(url, options) {
     return false;
   }
 
-  return `${to},${query.cc},${query.bcc}`
-    .split(',')
-    .every((email) => {
-      email = trim(email, ' ');
+  return `${to},${query.cc},${query.bcc}`.split(',').every((email) => {
+    email = trim(email, ' ');
 
-      if (email) {
-        return isEmail(email, options);
-      }
+    if (email) {
+      return isEmail(email, options);
+    }
 
-      return true;
-    });
+    return true;
+  });
 }

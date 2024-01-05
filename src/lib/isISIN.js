@@ -28,7 +28,7 @@ export default function isISIN(str) {
       for (const digit of [lo, hi]) {
         if (double) {
           if (digit >= 5) {
-            sum += 1 + ((digit - 5) * 2);
+            sum += 1 + (digit - 5) * 2;
           } else {
             sum += digit * 2;
           }
@@ -41,7 +41,7 @@ export default function isISIN(str) {
       const digit = str[i].charCodeAt(0) - '0'.charCodeAt(0);
       if (double) {
         if (digit >= 5) {
-          sum += 1 + ((digit - 5) * 2);
+          sum += 1 + (digit - 5) * 2;
         } else {
           sum += digit * 2;
         }
@@ -52,7 +52,7 @@ export default function isISIN(str) {
     }
   }
 
-  const check = (Math.trunc(((sum + 9) / 10)) * 10) - sum;
+  const check = Math.trunc((sum + 9) / 10) * 10 - sum;
 
   return +str[str.length - 1] === check;
 }
