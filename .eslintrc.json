@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "prettier"],
   "parser": "@babel/eslint-parser",
   "plugins": ["node"],
   "parserOptions": {
@@ -22,19 +22,30 @@
     "newline-per-chained-call": 0,
     "prefer-const": 0,
     "linebreak-style": 0,
-    "no-restricted-syntax": [2, "DebuggerStatement", "LabeledStatement", "WithStatement"],
+    "no-restricted-syntax": [
+      2,
+      "DebuggerStatement",
+      "LabeledStatement",
+      "WithStatement"
+    ],
     "no-restricted-globals": 0,
     "prefer-destructuring": 0,
-    "comma-dangle": [2, {
-      "arrays": "always-multiline",
-      "objects": "always-multiline",
-      "imports": "always-multiline",
-      "exports": "always-multiline",
-      "functions": "never"
-    }],
-    "no-plusplus": [2, {
-      "allowForLoopAfterthoughts": true
-    }],
+    "comma-dangle": [
+      2,
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ],
+    "no-plusplus": [
+      2,
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
     "no-prototype-builtins": 0,
     "no-useless-escape": 0,
     "node/file-extension-in-import": ["error", "always"]

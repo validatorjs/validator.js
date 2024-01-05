@@ -83,13 +83,15 @@
     "babel-plugin-add-module-exports": "^1.0.4",
     "eslint": "^8.31.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.27.4",
     "eslint-plugin-node": "^11.1.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "3.1.1",
     "rimraf": "^3.0.2",
     "rollup": "^3.10.0",
-    "vitest": "^0.27.1",
-    "timezone-mock": "^1.3.6"
+    "timezone-mock": "^1.3.6",
+    "vitest": "^0.27.1"
   },
   "scripts": {
     "lint": "eslint src test",
@@ -103,10 +105,11 @@
     "build:node": "babel src -d .",
     "build": "run-p build:*",
     "pretest": "npm run build && npm run lint",
-    "test": "vitest --coverage"
+    "test": "vitest --coverage",
+    "format": "prettier . --write"
   },
   "engines": {
-    "node": ">= 0.10"
+    "node": ">= 14"
   },
   "license": "MIT"
 }
