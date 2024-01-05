@@ -22,7 +22,7 @@ function test(options) {
         options.sanitizer,
         args.join(', '),
         result,
-        expected,
+        expected
       );
 
       throw new Error(warning);

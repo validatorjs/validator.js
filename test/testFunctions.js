@@ -17,7 +17,7 @@ export default function test(options) {
         const warning = format(
           'validator.%s(%s) passed but should error',
           options.validator,
-          args.join(', '),
+          args.join(', ')
         );
 
         throw new Error(warning);
@@ -33,7 +33,7 @@ export default function test(options) {
         const warning = format(
           'validator.%s(%s) failed but should have passed',
           options.validator,
-          args.join(', '),
+          args.join(', ')
         );
 
         throw new Error(warning);
@@ -49,7 +49,7 @@ export default function test(options) {
         const warning = format(
           'validator.%s(%s) passed but should have failed',
           options.validator,
-          args.join(', '),
+          args.join(', ')
         );
 
         throw new Error(warning);

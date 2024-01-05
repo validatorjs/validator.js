@@ -7,7 +7,7 @@ function decimalRegExp(options) {
   const regExp = new RegExp(
     `^[-+]?([0-9]+)?(\\${decimal[options.locale]}[0-9]{${
       options.decimal_digits
-    }})${options.force_decimal ? '' : '?'}$`,
+    }})${options.force_decimal ? '' : '?'}$`
   );
   return regExp;
 }

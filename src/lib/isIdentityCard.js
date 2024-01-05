@@ -28,7 +28,7 @@ const validators = {
       const digits = str.split('').slice(0, -1);
       const sum = digits.reduce(
         (acc, digit, index) => acc + Number(digit) * weightOfDigits[index + 1],
-        0,
+        0
       );
 
       const modulo = sum % 10;
@@ -391,7 +391,7 @@ const validators = {
     const check15IdCardNo = (idCardNo) => {
       let check =
         /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(
-          idCardNo,
+          idCardNo
         );
       if (!check) return false;
       let addressCode = idCardNo.substring(0, 2);
@@ -406,7 +406,7 @@ const validators = {
     const check18IdCardNo = (idCardNo) => {
       let check =
         /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}(\d|x|X)$/.test(
-          idCardNo,
+          idCardNo
         );
       if (!check) return false;
       let addressCode = idCardNo.substring(0, 2);

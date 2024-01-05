@@ -7,7 +7,7 @@ export default function isFloat(str, options) {
   const float = new RegExp(
     `^(?:[-+])?(?:[0-9]+)?(?:\\${
       options.locale ? decimal[options.locale] : '.'
-    }[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`,
+    }[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`
   );
   if (str === '' || str === '.' || str === ',' || str === '-' || str === '+') {
     return false;

@@ -13,6 +13,6 @@ export default function isJWT(str) {
 
   return dotSplit.reduce(
     (acc, currElem) => acc && isBase64(currElem, { urlSafe: true }),
-    true,
+    true
   );
 }

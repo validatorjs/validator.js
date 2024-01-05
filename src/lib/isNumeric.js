@@ -11,6 +11,6 @@ export default function isNumeric(str, options) {
   return new RegExp(
     `^[+-]?([0-9]*[${
       (options || {}).locale ? decimal[options.locale] : '.'
-    }])?[0-9]+$`,
+    }])?[0-9]+$`
   ).test(str);
 }

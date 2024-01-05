@@ -11,7 +11,7 @@ describe('Minified version', () => {
         assert.strictEqual(
           typeof validator[key],
           typeof min[key],
-          `Minified version did not export ${key}`,
+          `Minified version did not export ${key}`
         );
       }
     }
@@ -21,7 +21,7 @@ describe('Minified version', () => {
     assert.strictEqual(
       min.version,
       validator.version,
-      'Minified version mismatch. Run `make min`',
+      'Minified version mismatch. Run `make min`'
     );
   });
 

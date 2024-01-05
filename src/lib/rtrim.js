@@ -6,7 +6,7 @@ export default function rtrim(str, chars) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
     const pattern = new RegExp(
       `[${chars.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}]+$`,
-      'g',
+      'g'
     );
     return str.replace(pattern, '');
   }

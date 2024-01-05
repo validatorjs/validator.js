@@ -52,7 +52,7 @@ describe('Validators', () => {
         `${'a'.repeat(65)}@${'a'.repeat(250)}.com`,
         `${'a'.repeat(64)}@${'a'.repeat(64)}.com`,
         `${'a'.repeat(64)}@${'a'.repeat(63)}.${'a'.repeat(63)}.${'a'.repeat(
-          63,
+          63
         )}.${'a'.repeat(58)}.com`,
         'test1@invalid.co m',
         'test2@invalid.co m',

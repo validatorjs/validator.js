@@ -52,8 +52,7 @@ function calculateCheckDigit(ean) {
     .split('')
     .map(
       (char, index) =>
-        Number(char) *
-        getPositionWeightThroughLengthAndIndex(ean.length, index),
+        Number(char) * getPositionWeightThroughLengthAndIndex(ean.length, index)
     )
     .reduce((acc, partialSum) => acc + partialSum, 0);
 

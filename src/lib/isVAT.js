@@ -17,7 +17,7 @@ const CH = (str) => {
   // @see {@link https://www.estv.admin.ch/estv/de/home/mehrwertsteuer/uid/mwst-uid-nummer.html}
   return (
     /^(CHE[- ]?)?(\d{9}|(\d{3}\.\d{3}\.\d{3})|(\d{3} \d{3} \d{3})) ?(TVA|MWST|IVA)?$/.test(
-      str,
+      str
     ) && hasValidCheckNumber(str.match(/\d/g).map((el) => +el))
   );
 };
@@ -37,7 +37,7 @@ const PT = (str) => {
         .split('')
         .slice(0, 8)
         .map((a) => parseInt(a, 10)),
-      9,
+      9
     ) %
       11);
   if (checksum > 9) {
@@ -72,7 +72,7 @@ export const vatMatchers = {
   NL: (str) => /^(NL)?\d{9}B\d{2}$/.test(str),
   PL: (str) =>
     /^(PL)?(\d{10}|(\d{3}-\d{3}-\d{2}-\d{2})|(\d{3}-\d{2}-\d{2}-\d{3}))$/.test(
-      str,
+      str
     ),
   PT,
   RO: (str) => /^(RO)?\d{2,10}$/.test(str),
@@ -108,7 +108,7 @@ export const vatMatchers = {
   UA: (str) => /^(UA)?\d{12}$/.test(str),
   GB: (str) =>
     /^GB((\d{3} \d{4} ([0-8][0-9]|9[0-6]))|(\d{9} \d{3})|(((GD[0-4])|(HA[5-9]))[0-9]{2}))$/.test(
-      str,
+      str
     ),
   UZ: (str) => /^(UZ)?\d{9}$/.test(str),
 
@@ -119,7 +119,7 @@ export const vatMatchers = {
   BO: (str) => /^(BO)?\d{7}$/.test(str),
   BR: (str) =>
     /^(BR)?((\d{2}.\d{3}.\d{3}\/\d{4}-\d{2})|(\d{3}.\d{3}.\d{3}-\d{2}))$/.test(
-      str,
+      str
     ),
   CL: (str) => /^(CL)?\d{8}-\d{1}$/.test(str),
   CO: (str) => /^(CO)?\d{10}$/.test(str),
@@ -135,7 +135,7 @@ export const vatMatchers = {
   PE: (str) => /^(PE)?\d{11}$/.test(str),
   DO: (str) =>
     /^(DO)?(\d{11}|(\d{3}-\d{7}-\d{1})|[1,4,5]{1}\d{8}|([1,4,5]{1})-\d{2}-\d{5}-\d{1})$/.test(
-      str,
+      str
     ),
   UY: (str) => /^(UY)?\d{12}$/.test(str),
   VE: (str) => /^(VE)?[J,G,V,E]{1}-(\d{9}|(\d{8}-\d{1}))$/.test(str),

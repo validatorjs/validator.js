@@ -97,7 +97,7 @@ const ibanRegexThroughCountryCode = {
 
 function hasOnlyValidCountryCodes(countryCodeArray) {
   const countryCodeArrayFilteredWithObjectIbanCode = countryCodeArray.filter(
-    (countryCode) => !(countryCode in ibanRegexThroughCountryCode),
+    (countryCode) => !(countryCode in ibanRegexThroughCountryCode)
   );
 
   if (countryCodeArrayFilteredWithObjectIbanCode.length > 0) {
@@ -173,7 +173,7 @@ function hasValidIbanChecksum(str) {
   const rearranged = strippedStr.slice(4) + strippedStr.slice(0, 4);
   const alphaCapsReplacedWithDigits = rearranged.replace(
     /[A-Z]/g,
-    (char) => char.charCodeAt(0) - 55,
+    (char) => char.charCodeAt(0) - 55
   );
 
   const remainder = alphaCapsReplacedWithDigits

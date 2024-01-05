@@ -353,7 +353,7 @@ function enIeCheck(tin) {
       .split('')
       .slice(0, 7)
       .map((a) => parseInt(a, 10)),
-    8,
+    8
   );
   if (tin.length === 9 && tin[8] !== 'W') {
     checksum += (tin[8].charCodeAt(0) - 64) * 9;
@@ -1023,7 +1023,7 @@ function nlNlCheck(tin) {
         .split('')
         .slice(0, 8)
         .map((a) => parseInt(a, 10)),
-      9,
+      9
     ) %
       11 ===
     parseInt(tin[8], 10)
@@ -1207,7 +1207,7 @@ function ptPtCheck(tin) {
         .split('')
         .slice(0, 8)
         .map((a) => parseInt(a, 10)),
-      9,
+      9
     ) %
       11);
   if (checksum > 9) {
@@ -1326,7 +1326,7 @@ function slSiCheck(tin) {
         .split('')
         .slice(0, 7)
         .map((a) => parseInt(a, 10)),
-      8,
+      8
     ) %
       11);
   if (checksum === 10) {

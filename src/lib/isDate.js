@@ -8,7 +8,7 @@ const default_date_options = {
 
 function isValidFormat(format) {
   return /(^(y{4}|y{2})[.\/-](m{1,2})[.\/-](d{1,2})$)|(^(m{1,2})[.\/-](d{1,2})[.\/-]((y{4}|y{2})$))|(^(d{1,2})[.\/-](m{1,2})[.\/-]((y{4}|y{2})$))/gi.test(
-    format,
+    format
   );
 }
 
@@ -32,14 +32,14 @@ export default function isDate(input, options) {
   }
   if (typeof input === 'string' && isValidFormat(options.format)) {
     const formatDelimiter = options.delimiters.find(
-      (delimiter) => options.format.indexOf(delimiter) !== -1,
+      (delimiter) => options.format.indexOf(delimiter) !== -1
     );
     const dateDelimiter = options.strictMode
       ? formatDelimiter
       : options.delimiters.find((delimiter) => input.indexOf(delimiter) !== -1);
     const dateAndFormat = zip(
       input.split(dateDelimiter),
-      options.format.toLowerCase().split(formatDelimiter),
+      options.format.toLowerCase().split(formatDelimiter)
     );
     const dateObj = {};
 

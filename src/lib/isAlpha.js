@@ -14,9 +14,9 @@ export default function isAlpha(_str, locale = 'en-US', options = {}) {
       str = str.replace(
         new RegExp(
           `[${ignore.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&')}]`,
-          'g',
+          'g'
         ),
-        '',
+        ''
       ); // escape regex for ignore
     } else {
       throw new Error('ignore should be instance of a String or RegExp');
