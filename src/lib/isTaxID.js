@@ -1153,7 +1153,6 @@ function ukUaCheck(tin) {
   for (let i = 0; i < multipliers.length; i++) {
     checksum += digits[i] * multipliers[i];
   }
-
   return checksum % 11 === 10 ? digits[9] === 0 : digits[9] === checksum % 11;
 }
 
