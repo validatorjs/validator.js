@@ -4033,6 +4033,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate upi strings', () => {
+    test({
+      validator: 'isUPI',
+      valid: [
+        'test@upi',
+        'test@paytm',
+        'test@ybl',
+        'test@okhdfcbank',
+      ],
+      invalid: [
+        'test@',
+        '1224',
+        '@ss2',
+        'test@upi@',
+        'test@123',
+      ],
+    });
+  });
+
   it('should validate integers', () => {
     test({
       validator: 'isInt',
