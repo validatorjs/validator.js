@@ -4048,6 +4048,7 @@ describe('Validators', () => {
         '@ss2',
         'test@upi@',
         'test@123',
+        'test@1upi',
       ],
     });
   });
