@@ -20,7 +20,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Install dependencies
-      run: npm install
+      run:  npm install --legacy-peer-deps
     - name: Run tests
       run: npm test
     - if: matrix.node-version == 14
