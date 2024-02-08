@@ -1,11 +1,6 @@
-export default function assertString(input) {
-  const isString = typeof input === 'string' || input instanceof String;
+const assertString = (input) => {
+  if (!input) throw new TypeError(`Expected a string but received a ${input || 'null'}`);
+  if (input.constructor.name !== 'String') throw new TypeError(`Expected a string but received a ${input.constructor.name}`);
+};
 
-  if (!isString) {
-    let invalidType = typeof input;
-    if (input === null) invalidType = 'null';
-    else if (invalidType === 'object') invalidType = input.constructor.name;
-
-    throw new TypeError(`Expected a string but received a ${invalidType}`);
-  }
-}
+export default assertString;
