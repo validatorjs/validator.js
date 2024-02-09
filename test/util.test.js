@@ -39,6 +39,10 @@ describe('assertString', () => {
   });
 
   it('Should not throw an error if the argument is a string', () => {
+    assert.doesNotThrow(() => { assertString(''); });
+  });
+
+  it('Should not throw an error if the argument is a string', () => {
     assert.doesNotThrow(() => { assertString('testing'); });
   });
 });
