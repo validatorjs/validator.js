@@ -22,27 +22,43 @@ describe('Util', () => {
 });
 
 describe('assertString', () => {
-  it('Should throw an error if no argument is provided', () => {
+  it('Should throw an error if no argument is provided, undefined', () => {
     assert.throws(() => { assertString(); }, TypeError);
   });
 
-  it('Should throw an error if the argument is not a string, number', () => {
-    assert.throws(() => { assertString(123); }, TypeError);
+  it('Should throw an error if argument provided is a null', () => {
+    assert.throws(() => { assertString(null); }, TypeError);
   });
 
-  it('Should throw an error if the argument is not a string, Object', () => {
+  it('Should throw an error if argument provided is a Boolean', () => {
+    assert.throws(() => { assertString(true); }, TypeError);
+  });
+
+  it('Should throw an error if argument provided is a Date', () => {
+    assert.throws(() => { assertString(new Date()); }, TypeError);
+  });
+
+  it('Should throw an error if argument provided is a Number(NaN)', () => {
+    assert.throws(() => { assertString(NaN); }, TypeError);
+  });
+
+  it('Should throw an error if argument provided is a Number', () => {
+    assert.throws(() => { assertString(2024); }, TypeError);
+  });
+
+  it('Should throw an error if argument provided is an Object', () => {
     assert.throws(() => { assertString({}); }, TypeError);
   });
 
-  it('Should throw an error if the argument is not a string, Array', () => {
+  it('Should throw an error if argument provided is an Array', () => {
     assert.throws(() => { assertString([]); }, TypeError);
   });
 
-  it('Should not throw an error if the argument is a string', () => {
+  it('Should not throw an error if the argument is an empty string', () => {
     assert.doesNotThrow(() => { assertString(''); });
   });
 
-  it('Should not throw an error if the argument is a string', () => {
-    assert.doesNotThrow(() => { assertString('testing'); });
+  it('Should not throw an error if the argument is a String', () => {
+    assert.doesNotThrow(() => { assertString('antidisestablishmentarianism'); });
   });
 });
