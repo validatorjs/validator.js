@@ -22,7 +22,7 @@ describe('Util', () => {
 });
 
 describe('assertString', () => {
-  it('Should throw an error if no argument is provided, undefined', () => {
+  it('Should throw an error if argument provided is an undefined', () => {
     assert.throws(() => { assertString(); }, TypeError);
   });
 
