@@ -1,5 +1,6 @@
 import assert from 'assert';
 import fs from 'fs';
+import timezone_mock from 'timezone-mock';
 import { format } from 'util';
 import vm from 'vm';
 import validator from '../src/index';
@@ -36,6 +37,7 @@ describe('Validators', () => {
         'invalid.com',
         '@invalid.com',
         'foo@bar.com.',
+        'foo@_bar.com',
         'somename@ｇｍａｉｌ.com',
         'foo@bar.co.uk.',
         'z@co.c',
@@ -66,6 +68,9 @@ describe('Validators', () => {
         '"wrong()[]",:;<>@@gmail.com',
         'username@domain.com�',
         'username@domain.com©',
+        'nbsp test@test.com',
+        'nbsp_test@te st.com',
+        'nbsp_test@test.co m',
       ],
     });
   });
@@ -89,6 +94,16 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate email addresses with underscores in the domain', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ allow_underscores: true }],
+      valid: [
+        'foobar@my_sarisari_store.typepad.com',
+      ],
+      invalid: [],
+    });
+  });
 
   it('should validate email addresses without UTF8 characters in local part', () => {
     test({
@@ -117,6 +132,7 @@ describe('Validators', () => {
         'hans.m端ller@test.com',
         'z@co.c',
         'tüst@invalid.com',
+        'nbsp test@test.com',
       ],
     });
   });
@@ -1604,6 +1620,27 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate kazakh alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['kk-KZ'],
+      valid: [
+        'Сәлем',
+        'қанағаттандырылмағандықтарыңыздан',
+        'Кешіріңіз',
+        'Өкінішке',
+        'Қайталаңызшы',
+        'ағылшынша',
+        'түсінбедім',
+      ],
+      invalid: [
+        'Кешіріңіз1',
+        '  Кет бар  ',
+        'مرحبا العا',
+      ],
+    });
+  });
+
   it('should validate Vietnamese alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2429,6 +2466,27 @@ describe('Validators', () => {
         ' あいう123 ',
         'abcあいう',
         '生きろ!!',
+      ],
+    });
+  });
+
+  it('should validate kazakh alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['kk-KZ'],
+      valid: [
+        'Сәлем777',
+        '123Бәсе',
+        'солай',
+        'Жиенсу',
+        '90тоқсан',
+        'жалғыз',
+        '570бердім',
+      ],
+      invalid: [
+        ' кешіріңіз ',
+        'abcағылшынша',
+        'мүмкін!!',
       ],
     });
   });
@@ -4674,10 +4732,11 @@ describe('Validators', () => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb3JlbSI6Imlwc3VtIn0.ymiJSsMJXR6tMSr8G9usjQ15_8hKPDv_CArLhxw28MI',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2xvciI6InNpdCIsImFtZXQiOlsibG9yZW0iLCJpcHN1bSJdfQ.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqb2huIjp7ImFnZSI6MjUsImhlaWdodCI6MTg1fSwiamFrZSI6eyJhZ2UiOjMwLCJoZWlnaHQiOjI3MH19.YRLPARDmhGMC3BBk_OhtwwK21PIkVCqQe8ncIRPKo-E',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ', // No signature
       ],
       invalid: [
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTYxNjY1Mzg3Mn0.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tIiwiaWF0IjoxNjE2NjUzODcyLCJleHAiOjE2MTY2NTM4ODJ9.a1jLRQkO5TV5y5ERcaPAiM9Xm2gBdRjKrrCpHkGr_8M',
         '$Zs.ewu.su84',
         'ks64$S/9.dy$§kz.3sd73b',
       ],
@@ -5199,6 +5258,7 @@ describe('Validators', () => {
         'LB92000700000000123123456123',
         'IR200170000000339545727003',
         'MZ97123412341234123412341',
+        'MA64011519000001205000534921',
       ],
       invalid: [
         'XX22YYY1234567890123',
@@ -5206,6 +5266,83 @@ describe('Validators', () => {
         'FR7630006000011234567890189@',
         'FR7630006000011234567890189😅',
         'FR763000600001123456!!🤨7890189@',
+      ],
+    });
+    test({
+      validator: 'isIBAN',
+      args: [{ whitelist: ['DK', 'GB'] }],
+      valid: [
+        'DK5000400440116243',
+        'GB29NWBK60161331926819',
+      ],
+      invalid: [
+        'BE71 0961 2345 6769',
+        'FR76 3000 6000 0112 3456 7890 189',
+        'DE91 1000 0000 0123 4567 89',
+        'GR96 0810 0010 0000 0123 4567 890',
+        'RO09 BCYP 0000 0012 3456 7890',
+        'SA44 2000 0001 2345 6789 1234',
+        'ES79 2100 0813 6101 2345 6789',
+        'XX22YYY1234567890123',
+        'FR14 2004 1010 0505 0001 3',
+        'FR7630006000011234567890189@',
+        'FR7630006000011234567890189😅',
+        'FR763000600001123456!!🤨7890189@',
+      ],
+    });
+    test({
+      validator: 'isIBAN',
+      args: [{ whitelist: ['XX', 'AA'] }],
+      invalid: [
+        'DK5000400440116243',
+        'GB29NWBK60161331926819',
+        'BE71 0961 2345 6769',
+        'FR76 3000 6000 0112 3456 7890 189',
+        'DE91 1000 0000 0123 4567 89',
+        'GR96 0810 0010 0000 0123 4567 890',
+        'RO09 BCYP 0000 0012 3456 7890',
+        'SA44 2000 0001 2345 6789 1234',
+        'ES79 2100 0813 6101 2345 6789',
+        'XX22YYY1234567890123',
+        'FR14 2004 1010 0505 0001 3',
+        'FR7630006000011234567890189@',
+        'FR7630006000011234567890189😅',
+        'FR763000600001123456!!🤨7890189@',
+      ],
+    });
+    test({
+      validator: 'isIBAN',
+      args: [{ blacklist: ['IT'] }],
+      valid: [
+        'SC52BAHL01031234567890123456USD',
+        'LC14BOSL123456789012345678901234',
+        'MT31MALT01100000000000000000123',
+        'SV43ACAT00000000000000123123',
+        'EG800002000156789012345180002',
+        'BE71 0961 2345 6769',
+        'FR76 3000 6000 0112 3456 7890 189',
+        'DE91 1000 0000 0123 4567 89',
+        'GR96 0810 0010 0000 0123 4567 890',
+        'RO09 BCYP 0000 0012 3456 7890',
+        'SA44 2000 0001 2345 6789 1234',
+        'ES79 2100 0813 6101 2345 6789',
+        'CH56 0483 5012 3456 7800 9',
+        'GB98 MIDL 0700 9312 3456 78',
+        'IL170108000000012612345',
+        'JO71CBJO0000000000001234567890',
+        'TR320010009999901234567890',
+        'BR1500000000000010932840814P2',
+        'LB92000700000000123123456123',
+        'IR200170000000339545727003',
+        'MZ97123412341234123412341',
+      ],
+      invalid: [
+        'XX22YYY1234567890123',
+        'FR14 2004 1010 0505 0001 3',
+        'FR7630006000011234567890189@',
+        'FR7630006000011234567890189😅',
+        'FR763000600001123456!!🤨7890189@',
+        'IT60X0542811101000000123456',
       ],
     });
   });
@@ -6813,6 +6950,24 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'ar-SD',
+        valid: [
+          '0128652312',
+          '+249919425113',
+          '249123212345',
+          '0993212345',
+        ],
+        invalid: [
+          '12345',
+          '',
+          '+249972662622',
+          '+24946266262',
+          '+24933221097',
+          '0614152198',
+          '096554',
+        ],
+      },
+      {
         locale: 'ar-TN',
         valid: [
           '23456789',
@@ -7559,6 +7714,25 @@ describe('Validators', () => {
           '+25589032',
           '123456789',
           '+255800723845',
+        ],
+      },
+      {
+        locale: 'en-MW',
+        valid: [
+          '+265994563785',
+          '+265111785436',
+          '+265318596857',
+          '0320008744',
+          '01256258',
+          '0882541896',
+          '+265984563214',
+        ],
+        invalid: [
+          '58563',
+          '+2658256258',
+          '0896328741',
+          '0708574896',
+          '+26570857489635',
         ],
       },
       {
@@ -8618,6 +8792,7 @@ describe('Validators', () => {
           '+48 56 6572724',
           '+48 67 621 5461',
           '48 67 621 5461',
+          '+48 45 621 5461',
         ],
         invalid: [
           '+48  67 621 5461',
@@ -8628,6 +8803,7 @@ describe('Validators', () => {
           '1800-88-8687',
           '+6019-5830837',
           '357562855',
+          '+48 44 621 5461',
         ],
       },
       {
@@ -12345,6 +12521,27 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['es-AR'],
+      valid: [
+        '20271633638',
+        '23274986069',
+        '27333234519',
+        '30678561165',
+        '33693450239',
+        '30534868460',
+        '23111111129',
+        '34557619099'],
+      invalid: [
+        '20-27163363-8',
+        '20.27163363.8',
+        '33693450231',
+        '69345023',
+        '693450233123123',
+        '3369ew50231',
+        '34557619095'],
+    });
+    test({
+      validator: 'isTaxID',
       args: ['es-ES'],
       valid: [
         '00054237A',
@@ -12825,6 +13022,7 @@ describe('Validators', () => {
         '15/7/2002',
         '15-7-2002',
         '15/07-02',
+        '30/04/--',
       ],
     });
     test({
@@ -12839,6 +13037,7 @@ describe('Validators', () => {
         '15/7/02',
         '15-7-02',
         '5/7-02',
+        '3/4/aa',
       ],
     });
     test({
@@ -12918,6 +13117,17 @@ describe('Validators', () => {
         '29.02.2020',
       ],
     });
+    // emulating Pacific time zone offset & time
+    // which could potentially result in UTC conversion issues
+    timezone_mock.register('US/Pacific');
+    test({
+      validator: 'isDate',
+      valid: [
+        new Date(2016, 2, 29),
+        '2017-08-04',
+      ],
+    });
+    timezone_mock.unregister();
   });
   it('should validate time', () => {
     test({
