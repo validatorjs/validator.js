@@ -1,6 +1,6 @@
 import assertString from './util/assertString';
 
-// from https://www.unicode.org/iso15924/iso15924-codes.html  
+// from https://www.unicode.org/iso15924/iso15924-codes.html
 const validISO15924Codes = new Set([
   'Adlm', 'Afak', 'Aghb', 'Ahom', 'Arab', 'Aran', 'Armi', 'Armn', 'Avst',
   'Bali', 'Bamu', 'Bass', 'Batk', 'Beng', 'Bhks', 'Blis', 'Bopo', 'Brah', 'Brai', 'Bugi', 'Buhd',
