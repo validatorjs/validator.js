@@ -152,6 +152,23 @@ const validators = {
     if (str === 'CA00000AA') return false; // https://it.wikipedia.org/wiki/Carta_d%27identit%C3%A0_elettronica_italiana
     return str.search(/C[A-Z]\d{5}[A-Z]{2}/is) > -1;
   },
+  NL: (str) => {
+    if (!/^\d{8,9}$/.test(str)) return false;
+
+    str = `0${str}`.slice(-9);
+
+    let sum = 0;
+
+    for (let i = 0; i < 9; i++) {
+      if (i === 8) {
+        sum += str[i] * -1;
+      } else {
+        sum += str[i] * (9 - i);
+      }
+    }
+
+    return !(sum % 11);
+  },
   NO: (str) => {
     const sanitized = str.trim();
     if (isNaN(Number(sanitized))) return false;
