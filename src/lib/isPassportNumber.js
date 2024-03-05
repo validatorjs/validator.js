@@ -67,6 +67,7 @@ const passportRegexByCountryCode = {
   UA: /^[A-Z]{2}\d{6}$/, // UKRAINE
   US: /^\d{9}$/, // UNITED STATES
   ZA: /^[TAMD]\d{8}$/, // SOUTH AFRICA
+  DO: /^([RD]{2}\d{7})|(\d{11})$/, // DOMINICAN REPUBLIC
 };
 
 /**

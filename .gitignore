@@ -5,6 +5,7 @@ coverage.lcov
 .nyc_output
 package-lock.json
 yarn.lock
+pnpm-lock.yaml
 /es
 /lib
 /index.js
