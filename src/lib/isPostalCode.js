@@ -52,7 +52,7 @@ const patterns = {
   MX: fiveDigit,
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
   MY: fiveDigit,
-  NL: /^\d{4}\s?[a-z]{2}$/i,
+  NL: /^[1-9]\d{3}\s?(?!sa|sd|ss)[a-z]{2}$/i,
   NO: fourDigit,
   NP: /^(10|21|22|32|33|34|44|45|56|57)\d{3}$|^(977)$/i,
   NZ: fourDigit,
