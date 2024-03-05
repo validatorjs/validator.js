@@ -133,6 +133,7 @@ Validator                               | Description
 **isISO6346(str)**                      | check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
 **isISO6391(str)**                      | check if the string is a valid [ISO 639-1][ISO 639-1] language code.
 **isISO8601(str [, options])**          | check if the string is a valid [ISO 8601][ISO 8601] date. <br/>`options` is an object which defaults to `{ strict: false, strictSeparator: false }`. If `strict` is true, date strings with invalid dates like `2009-02-29` will be invalid. If `strictSeparator` is true, date strings with date and time separated by anything other than a T will be invalid.
+**isISO15924(str)**               | check if the string is a valid [ISO 15924][ISO 15924] officially assigned script code.
 **isISO31661Alpha2(str)**               | check if the string is a valid [ISO 3166-1 alpha-2][ISO 3166-1 alpha-2] officially assigned country code.
 **isISO31661Alpha3(str)**               | check if the string is a valid [ISO 3166-1 alpha-3][ISO 3166-1 alpha-3] officially assigned country code.
 **isISO4217(str)**                      | check if the string is a valid [ISO 4217][ISO 4217] officially assigned currency code.
@@ -295,6 +296,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [ISIN]: https://en.wikipedia.org/wiki/International_Securities_Identification_Number
 [ISO 639-1]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
+[ISO 15924]: https://en.wikipedia.org/wiki/ISO_15924
 [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 [ISO 3166-1 alpha-3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
