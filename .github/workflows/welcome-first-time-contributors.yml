@@ -1,0 +1,38 @@
+name: Welcome first time contributors
+
+on:
+  pull_request_target:
+    types:
+      - opened
+  issues:
+    types:
+      - opened
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: |
+          Hello there ${{ github.actor }} 👋
+
+          Welcome to validator.js !!💖🥳
+
+          Thank you and congratulations 🎉 for opening your very first issue in this project.
+
+          In case you want to claim this issue, please comment down below! We will try to get back to you as soon as we can.👀
+
+          👩‍💻 If you have any interesting ideas, just open an issue. We would love to hear you and engage in discussions.
+
+        pr-message: |
+          Hello there ${{ github.actor }} 👋
+
+          Welcome to validator.js !!💖🥳
+
+          Thank you and congratulations 🎉 for opening your first PR on this project.✨
+
+          We will review it soon!
+
+
