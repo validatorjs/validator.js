@@ -55,6 +55,7 @@ import isBIC from './lib/isBIC';
 import isMD5 from './lib/isMD5';
 import isHash from './lib/isHash';
 import isJWT from './lib/isJWT';
+import isJWTExpired from './lib/isJWTExpired';
 
 import isJSON from './lib/isJSON';
 import isEmpty from './lib/isEmpty';
@@ -177,6 +178,7 @@ const validator = {
   isMD5,
   isHash,
   isJWT,
+  isJWTExpired,
   isJSON,
   isEmpty,
   isLength,
