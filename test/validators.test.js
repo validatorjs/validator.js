@@ -13095,6 +13095,26 @@ describe('Validators', () => {
         '29.02.2020',
       ],
     });
+    test({
+      validator: 'isDate',
+      args: [{ format: 'DD/MM/YY' }],
+      valid: [
+        '15-07-02',
+        '15/07/02',
+        '12/11/28',
+      ],
+      invalid: [
+        '7',
+        '4.5',
+        '78',
+        '17',
+        '20',
+        '15/7/2002',
+        '15-7-2002',
+        '15/07-02',
+        '30/04/--',
+      ],
+    });
     // emulating Pacific time zone offset & time
     // which could potentially result in UTC conversion issues
     timezone_mock.register('US/Pacific');
