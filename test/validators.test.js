@@ -33,6 +33,7 @@ describe('Validators', () => {
         'test@1337.com',
       ],
       invalid: [
+        '"invalid@gmail.com',
         'invalidemail@',
         'invalid.com',
         '@invalid.com',
