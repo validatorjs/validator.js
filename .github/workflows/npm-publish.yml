@@ -5,20 +5,23 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      id-token: write
     steps:
-    - name: Setup Node.js 14
-      uses: actions/setup-node@v2-beta
+    - name: Setup Node.js 18
+      uses: actions/setup-node@v3
       with:
-        node-version: 14
+        node-version: 18
         check-latest: true
         registry-url: https://registry.npmjs.org/
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Install Dependencies
       run: npm install
     - name: Run Tests
       run: npm test
     - name: Publish Package to NPM Registry
-      run: npm publish
+      run: npm publish --provenance
       env:
         NODE_AUTH_TOKEN: ${{secrets.NPM_SECRET}}
