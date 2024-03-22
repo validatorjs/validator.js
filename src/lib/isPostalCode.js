@@ -73,6 +73,7 @@ const patterns = {
   US: /^\d{5}(-\d{4})?$/,
   ZA: fourDigit,
   ZM: fiveDigit,
+  SN: fiveDigit,
 };
 
 export const locales = Object.keys(patterns);
