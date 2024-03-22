@@ -2,6 +2,7 @@ import toDate from './lib/toDate';
 import toFloat from './lib/toFloat';
 import toInt from './lib/toInt';
 import toBoolean from './lib/toBoolean';
+import toCamelCase from './lib/toCamelCase';
 import equals from './lib/equals';
 import contains from './lib/contains';
 import matches from './lib/matches';
@@ -228,6 +229,7 @@ const validator = {
   isWhitelisted,
   normalizeEmail,
   toString,
+  toCamelCase,
   isSlug,
   isStrongPassword,
   isTaxID,

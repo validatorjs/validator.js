@@ -189,6 +189,7 @@ Sanitizer                              | Description
 **stripLow(input [, keep_new_lines])** | remove characters with a numerical value < 32 and 127, mostly control characters. If `keep_new_lines` is `true`, newline characters are preserved (`\n` and `\r`, hex `0xA` and `0xD`). Unicode-safe in JavaScript.
 **toBoolean(input [, strict])**        | convert the input string to a boolean. Everything except for `'0'`, `'false'` and `''` returns `true`. In strict mode only `'1'` and `'true'` return `true`.
 **toDate(input)**                      | convert the input string to a date, or `null` if the input is not a date.
+**toCamelCase(input)**                 | convert the input string to camelCase, or `null` if the input is not a string. String will be separated based on spaces, hyphens, or underscores.
 **toFloat(input)**                     | convert the input string to a float, or `NaN` if the input is not a float.
 **toInt(input [, radix])**             | convert the input string to an integer, or `NaN` if the input is not an integer.
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.

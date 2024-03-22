@@ -16,6 +16,7 @@ describe('Exports', () => {
   it('should export sanitizers', () => {
     assert.strictEqual(typeof validator.toBoolean, 'function');
     assert.strictEqual(typeof validator.toFloat, 'function');
+    assert.strictEqual(typeof validator.toCamelCase, 'function');
   });
 
   it('should export the version number', () => {
