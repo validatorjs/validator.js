@@ -11440,6 +11440,7 @@ describe('Validators', () => {
         'MYR',
         'SGD',
         'USD',
+        'SLE',
       ],
       invalid: [
         '',

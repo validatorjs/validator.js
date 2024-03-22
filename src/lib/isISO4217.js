@@ -20,7 +20,7 @@ const validISO4217CurrencyCodes = new Set([
   'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG',
   'QAR',
   'RON', 'RSD', 'RUB', 'RWF',
-  'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'SSP', 'STN', 'SVC', 'SYP', 'SZL',
+  'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLE', 'SLL', 'SOS', 'SRD', 'SSP', 'STN', 'SVC', 'SYP', 'SZL',
   'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS',
   'UAH', 'UGX', 'USD', 'USN', 'UYI', 'UYU', 'UYW', 'UZS',
   'VES', 'VND', 'VUV',
