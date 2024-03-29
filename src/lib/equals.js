@@ -10,7 +10,6 @@ const deafaultOptions = {
 export default function equals(str, comparison, options = deafaultOptions) {
   assertString(str);
 
-  // If sensitivity option is not defined return basic comparison
   return (options.sensitivity === undefined) ?
     (str === comparison) :
     str.localeCompare(comparison, options.locales, { sensitivity: options.sensitivity }) === 0;
