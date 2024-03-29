@@ -1,6 +1,6 @@
 import assertString from './util/assertString';
 
-const deafaultOptions = {
+const defaultOptions = {
   // set the sensitivity mode ''' base | accent | varient '''
   sensitivity: undefined,
   // set local language for ex 'en'
