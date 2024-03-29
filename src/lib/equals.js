@@ -7,7 +7,7 @@ const deafaultOptions = {
   locales: undefined,
 };
 
-export default function equals(str, comparison, options = deafaultOptions) {
+export default function equals(str, comparison, options = defaultOptions) {
   assertString(str);
 
   return (options.sensitivity === undefined) ?
