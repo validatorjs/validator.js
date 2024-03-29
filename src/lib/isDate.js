@@ -49,11 +49,6 @@ export default function isDate(input, options) {
 
     let fullYear = dateObj.y;
 
-    // Check if the year starts with a hyphen
-    if (fullYear.startsWith('-')) {
-      return false; // Hyphen before year is not allowed
-    }
-
     if (dateObj.y.length === 2) {
       const parsedYear = parseInt(dateObj.y, 10);
 
