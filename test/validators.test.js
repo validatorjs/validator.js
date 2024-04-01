@@ -12865,6 +12865,7 @@ describe('Validators', () => {
       ],
       invalid: [
         'not-----------slug',
+        'is.not.a.slug',
         '@#_$@',
         '-not-slug',
         'not-slug-',
