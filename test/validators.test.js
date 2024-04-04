@@ -12855,6 +12855,7 @@ describe('Validators', () => {
     test({
       validator: 'isSlug',
       valid: [
+        'f-f',
         'foo',
         'foo-bar',
         'foo_bar',
