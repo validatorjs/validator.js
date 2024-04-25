@@ -18,6 +18,7 @@ import isTime from './lib/isTime';
 import isBoolean from './lib/isBoolean';
 import isLocale from './lib/isLocale';
 
+import isAbaRouting from './lib/isAbaRouting';
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
 import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
@@ -146,6 +147,7 @@ const validator = {
   isBoolean,
   isIBAN,
   isBIC,
+  isAbaRouting,
   isAlpha,
   isAlphaLocales,
   isAlphanumeric,
