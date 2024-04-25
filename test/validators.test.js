@@ -11925,6 +11925,13 @@ describe('Validators', () => {
           '3950IO',
           '3997 GH',
         ],
+        invalid: [
+          '1234',
+          '0603 JV',
+          '5194SA',
+          '9164 SD',
+          '1841SS',
+        ],
       },
       {
         locale: 'NP',
