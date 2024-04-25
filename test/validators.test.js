@@ -13631,6 +13631,30 @@ describe('Validators', () => {
       ],
       invalid: ['mh04ad0045', 'invalidlicenseplate', '4578', '', 'GJ054GH4785'],
     });
+    test({
+      validator: 'isLicensePlate',
+      args: ['en-PK'],
+      valid: [
+        'P 1789',
+        'RL745',
+        'RIR 5421',
+        'KHI 201',
+        'LB6571',
+        'LHR-786-23',
+        'AJGB 816-10',
+        'LES 7891 06',
+        'IDS 7871',
+        'LEH 4607 15',
+      ],
+      invalid: [
+        'ajgb 816-10',
+        ' 278-37',
+        'ABZ-27',
+        '',
+        'ABC-123-',
+        'D 272',
+      ],
+    });
   });
   it('should validate VAT numbers', () => {
     test({
