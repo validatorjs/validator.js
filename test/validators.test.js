@@ -12958,6 +12958,19 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTaxID',
+      args: ['uk-UA'],
+      valid: [
+        '3006321856',
+        '3003102490',
+        '2164212906'],
+      invalid: [
+        '2565975632',
+        '256597563287',
+        'КС00123456',
+        '2896235845'],
+    });
+    test({
+      validator: 'isTaxID',
       valid: [
         '01-1234567'],
     });
