@@ -11,7 +11,8 @@
     "README.md",
     "LICENCE",
     "validator.js",
-    "validator.min.js"
+    "validator.min.js",
+    "index.d.ts"
   ],
   "keywords": [
     "validator",
