@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [20, 18, 16, 14, 12, 10, 8, 6]
+        node-version: [20, 18]
     name: Run tests on Node.js ${{ matrix.node-version }}
     steps:
     - name: Setup Node.js ${{ matrix.node-version }}
@@ -20,7 +20,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Install dependencies
-      run:  npm install --legacy-peer-deps
+      run:  npm install
     - name: Run tests
       run: npm test
     - if: matrix.node-version == 20
