@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20, 18, 16]
+        node-version: [20, 18]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js ${{ matrix.node-version }}
