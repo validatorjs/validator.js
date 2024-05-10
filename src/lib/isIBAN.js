@@ -24,6 +24,7 @@ const ibanRegexThroughCountryCode = {
   DE: /^(DE[0-9]{2})\d{18}$/,
   DK: /^(DK[0-9]{2})\d{14}$/,
   DO: /^(DO[0-9]{2})[A-Z]{4}\d{20}$/,
+  DZ: /^(DZ\d{24})$/,
   EE: /^(EE[0-9]{2})\d{16}$/,
   EG: /^(EG[0-9]{2})\d{25}$/,
   ES: /^(ES[0-9]{2})\d{20}$/,
@@ -53,6 +54,7 @@ const ibanRegexThroughCountryCode = {
   LT: /^(LT[0-9]{2})\d{16}$/,
   LU: /^(LU[0-9]{2})\d{3}[A-Z0-9]{13}$/,
   LV: /^(LV[0-9]{2})[A-Z]{4}[A-Z0-9]{13}$/,
+  MA: /^(MA[0-9]{26})$/,
   MC: /^(MC[0-9]{2})\d{10}[A-Z0-9]{11}\d{2}$/,
   MD: /^(MD[0-9]{2})[A-Z0-9]{20}$/,
   ME: /^(ME[0-9]{2})\d{18}$/,
@@ -87,6 +89,25 @@ const ibanRegexThroughCountryCode = {
 };
 
 /**
+ * Check if the country codes passed are valid using the
+ * ibanRegexThroughCountryCode as a reference
+ *
+ * @param {array} countryCodeArray
+ * @return {boolean}
+ */
+
+function hasOnlyValidCountryCodes(countryCodeArray) {
+  const countryCodeArrayFilteredWithObjectIbanCode = countryCodeArray
+    .filter(countryCode => !(countryCode in ibanRegexThroughCountryCode));
+
+  if (countryCodeArrayFilteredWithObjectIbanCode.length > 0) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
  * Check whether string has correct universal IBAN format
  * The IBAN consists of up to 34 alphanumeric characters, as follows:
  * Country Code using ISO 3166-1 alpha-2, two letters
@@ -95,14 +116,37 @@ const ibanRegexThroughCountryCode = {
  * NOTE: Permitted IBAN characters are: digits [0-9] and the 26 latin alphabetic [A-Z]
  *
  * @param {string} str - string under validation
+ * @param {object} options - object to pass the countries to be either whitelisted or blacklisted
  * @return {boolean}
  */
-function hasValidIbanFormat(str) {
+function hasValidIbanFormat(str, options) {
   // Strip white spaces and hyphens
   const strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
   const isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
 
-  return (isoCountryCode in ibanRegexThroughCountryCode) &&
+  const isoCountryCodeInIbanRegexCodeObject = isoCountryCode in ibanRegexThroughCountryCode;
+
+  if (options.whitelist) {
+    if (!hasOnlyValidCountryCodes(options.whitelist)) {
+      return false;
+    }
+
+    const isoCountryCodeInWhiteList = options.whitelist.includes(isoCountryCode);
+
+    if (!isoCountryCodeInWhiteList) {
+      return false;
+    }
+  }
+
+  if (options.blacklist) {
+    const isoCountryCodeInBlackList = options.blacklist.includes(isoCountryCode);
+
+    if (isoCountryCodeInBlackList) {
+      return false;
+    }
+  }
+
+  return (isoCountryCodeInIbanRegexCodeObject) &&
     ibanRegexThroughCountryCode[isoCountryCode].test(strippedStr);
 }
 
@@ -130,10 +174,10 @@ function hasValidIbanChecksum(str) {
   return remainder === 1;
 }
 
-export default function isIBAN(str) {
+export default function isIBAN(str, options = {}) {
   assertString(str);
 
-  return hasValidIbanFormat(str) && hasValidIbanChecksum(str);
+  return hasValidIbanFormat(str, options) && hasValidIbanChecksum(str);
 }
 
 export const locales = Object.keys(ibanRegexThroughCountryCode);

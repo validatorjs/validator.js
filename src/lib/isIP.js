@@ -51,14 +51,10 @@ export default function isIP(str, version = '') {
     return isIP(str, 4) || isIP(str, 6);
   }
   if (version === '4') {
-    if (!IPv4AddressRegExp.test(str)) {
-      return false;
-    }
-    const parts = str.split('.').sort((a, b) => a - b);
-    return parts[3] <= 255;
+    return IPv4AddressRegExp.test(str);
   }
   if (version === '6') {
-    return !!IPv6AddressRegExp.test(str);
+    return IPv6AddressRegExp.test(str);
   }
   return false;
 }

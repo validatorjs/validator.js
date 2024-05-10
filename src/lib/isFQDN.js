@@ -7,6 +7,7 @@ const default_fqdn_options = {
   allow_trailing_dot: false,
   allow_numeric_tld: false,
   allow_wildcard: false,
+  ignore_max_length: false,
 };
 
 export default function isFQDN(str, options) {
@@ -32,7 +33,7 @@ export default function isFQDN(str, options) {
       return false;
     }
 
-    if (!/^([a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
+    if (!options.allow_numeric_tld && !/^([a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
       return false;
     }
 
@@ -48,7 +49,7 @@ export default function isFQDN(str, options) {
   }
 
   return parts.every((part) => {
-    if (part.length > 63) {
+    if (part.length > 63 && !options.ignore_max_length) {
       return false;
     }
 

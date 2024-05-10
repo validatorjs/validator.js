@@ -4,7 +4,7 @@ import assertString from './util/assertString';
 const upperCaseRegex = /^[A-Z]$/;
 const lowerCaseRegex = /^[a-z]$/;
 const numberRegex = /^[0-9]$/;
-const symbolRegex = /^[-#!$@%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]$/;
+const symbolRegex = /^[-#!$@£%^&*()_+|~=`{}\[\]:";'<>?,.\/\\ ]$/;
 
 const defaultOptions = {
   minLength: 8,
