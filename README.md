@@ -126,6 +126,7 @@ Validator                               | Description
 **isISO8601(str [, options])**          | check if the string is a valid [ISO 8601][ISO 8601] date. <br/>`options` is an object which defaults to `{ strict: false, strictSeparator: false }`. If `strict` is true, date strings with invalid dates like `2009-02-29` will be invalid. If `strictSeparator` is true, date strings with date and time separated by anything other than a T will be invalid.
 **isISO31661Alpha2(str)**               | check if the string is a valid [ISO 3166-1 alpha-2][ISO 3166-1 alpha-2] officially assigned country code.
 **isISO31661Alpha3(str)**               | check if the string is a valid [ISO 3166-1 alpha-3][ISO 3166-1 alpha-3] officially assigned country code.
+**isISO31661Numeric(str)**              | check if the string is a valid [ISO 3166-1 numeric][ISO 3166-1 numeric] officially assigned country code.
 **isISO4217(str)**                      | check if the string is a valid [ISO 4217][ISO 4217] officially assigned currency code.
 **isISRC(str)**                         | check if the string is an [ISRC][ISRC].
 **isISSN(str [, options])**             | check if the string is an [ISSN][ISSN].<br/><br/>`options` is an object which defaults to `{ case_sensitive: false, require_hyphen: false }`. If `case_sensitive` is true, ISSNs with a lowercase `'x'` as the check digit are rejected.
@@ -261,6 +262,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 [ISO 3166-1 alpha-3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+[ISO 3166-1 numeric]: https://en.wikipedia.org/wiki/ISO_3166-1_numeric
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
 [ISRC]: https://en.wikipedia.org/wiki/International_Standard_Recording_Code
 [ISSN]: https://en.wikipedia.org/wiki/International_Standard_Serial_Number
