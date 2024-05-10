@@ -1,9 +1,7 @@
 import assertString from './util/assertString';
 
-
 let imeiRegexWithoutHypens = /^[0-9]{15}$/;
 let imeiRegexWithHypens = /^\d{2}-\d{6}-\d{6}-\d{1}$/;
-
 
 export default function isIMEI(str, options) {
   assertString(str);
@@ -16,7 +14,6 @@ export default function isIMEI(str, options) {
   if (options.allow_hyphens) {
     imeiRegex = imeiRegexWithHypens;
   }
-
 
   if (!imeiRegex.test(str)) {
     return false;

@@ -9,11 +9,11 @@ export default function isFloat(str, options) {
     return false;
   }
   const value = parseFloat(str.replace(',', '.'));
-  return float.test(str) &&
-    (!options.hasOwnProperty('min') || value >= options.min) &&
-    (!options.hasOwnProperty('max') || value <= options.max) &&
-    (!options.hasOwnProperty('lt') || value < options.lt) &&
-    (!options.hasOwnProperty('gt') || value > options.gt);
+  return float.test(str)
+    && (!options.hasOwnProperty('min') || value >= options.min)
+    && (!options.hasOwnProperty('max') || value <= options.max)
+    && (!options.hasOwnProperty('lt') || value < options.lt)
+    && (!options.hasOwnProperty('gt') || value > options.gt);
 }
 
 export const locales = Object.keys(decimal);

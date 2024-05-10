@@ -275,7 +275,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
       validator: 'isEmail',
@@ -479,7 +478,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate URLs with any protocol', () => {
     test({
@@ -2909,7 +2907,6 @@ describe('Validators', () => {
       ],
     });
 
-
     test({
       validator: 'isPassportNumber',
       args: ['ID'],
@@ -4028,7 +4025,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate imei strings', () => {
     test({
       validator: 'isIMEI',
@@ -4047,7 +4043,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate imei strings with hyphens', () => {
     test({
@@ -4068,7 +4063,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate uppercase strings', () => {
     test({
@@ -5557,7 +5551,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate credit cards without a proper provider', () => {
     test({
       validator: 'isCreditCard',
@@ -5572,7 +5565,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate AmEx provided credit cards', () => {
     test({
@@ -5608,7 +5600,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate Diners Club provided credit cards', () => {
     test({
@@ -5719,7 +5710,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate Mastercard provided credit cards', () => {
     test({
       validator: 'isCreditCard',
@@ -5755,7 +5745,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate Union Pay provided credit cards', () => {
     test({
       validator: 'isCreditCard',
@@ -5789,7 +5778,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate Visa provided credit cards', () => {
     test({
@@ -5825,7 +5813,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate identity cards', () => {
     const fixtures = [
@@ -6636,13 +6623,13 @@ describe('Validators', () => {
         'TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4=',
         'Vml2YW11cyBmZXJtZW50dW0gc2VtcGVyIHBvcnRhLg==',
         'U3VzcGVuZGlzc2UgbGVjdHVzIGxlbw==',
-        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuMPNS1Ufof9EW/M98FNw' +
-        'UAKrwflsqVxaxQjBQnHQmiI7Vac40t8x7pIb8gLGV6wL7sBTJiPovJ0V7y7oc0Ye' +
-        'rhKh0Rm4skP2z/jHwwZICgGzBvA0rH8xlhUiTvcwDCJ0kc+fh35hNt8srZQM4619' +
-        'FTgB66Xmp4EtVyhpQV+t02g6NzK72oZI0vnAvqhpkxLeLiMCyrI416wHm5Tkukhx' +
-        'QmcL2a6hNOyu0ixX/x2kSFXApEnVrJ+/IxGyfyw8kf4N2IZpW5nEP847lpfj0SZZ' +
-        'Fwrd1mnfnDbYohX2zRptLy2ZUn06Qo9pkG5ntvFEPo9bfZeULtjYzIl6K8gJ2uGZ' +
-        'HQIDAQAB',
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuMPNS1Ufof9EW/M98FNw'
+        + 'UAKrwflsqVxaxQjBQnHQmiI7Vac40t8x7pIb8gLGV6wL7sBTJiPovJ0V7y7oc0Ye'
+        + 'rhKh0Rm4skP2z/jHwwZICgGzBvA0rH8xlhUiTvcwDCJ0kc+fh35hNt8srZQM4619'
+        + 'FTgB66Xmp4EtVyhpQV+t02g6NzK72oZI0vnAvqhpkxLeLiMCyrI416wHm5Tkukhx'
+        + 'QmcL2a6hNOyu0ixX/x2kSFXApEnVrJ+/IxGyfyw8kf4N2IZpW5nEP847lpfj0SZZ'
+        + 'Fwrd1mnfnDbYohX2zRptLy2ZUn06Qo9pkG5ntvFEPo9bfZeULtjYzIl6K8gJ2uGZ'
+        + 'HQIDAQAB',
       ],
       invalid: [
         '12345',
@@ -10189,7 +10176,6 @@ describe('Validators', () => {
     args: [],
   });
 
-
   it('should error on invalid locale', () => {
     test({
       validator: 'isMobilePhone',
@@ -11659,7 +11645,6 @@ describe('Validators', () => {
     /* eslint-enable max-len */
   });
 
-
   it('should validate magnetURI', () => {
     /* eslint-disable max-len */
     test({
@@ -11692,7 +11677,6 @@ describe('Validators', () => {
     });
     /* eslint-enable max-len */
   });
-
 
   it('should validate LatLong', () => {
     test({
@@ -12390,7 +12374,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate ISO6346 shipping containerID', () => {
     test({
       validator: 'isISO6346',
@@ -13022,7 +13005,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate slug', () => {
     test({

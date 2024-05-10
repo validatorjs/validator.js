@@ -21,7 +21,8 @@ describe('Exports', () => {
   it('should export the version number', () => {
     /* eslint-disable global-require */
     assert.strictEqual(
-      validator.version, require('../package.json').version,
+      validator.version,
+      require('../package.json').version,
       'Version number mismatch in "package.json" vs. "validator.js"'
     );
     /* eslint-enable global-require */

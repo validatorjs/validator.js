@@ -8,7 +8,8 @@ describe('Minified version', () => {
       if ({}.hasOwnProperty.call(validator, key)) {
         assert.strictEqual(
           typeof validator[key],
-          typeof min[key], `Minified version did not export ${key}`
+          typeof min[key],
+          `Minified version did not export ${key}`
         );
       }
     }

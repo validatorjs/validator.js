@@ -1,3 +1,4 @@
+/* eslint-disable no-misleading-character-class */
 export const alpha = {
   'en-US': /^[A-Z]+$/i,
   'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
@@ -85,7 +86,6 @@ export const decimal = {
   'en-US': '.',
   ar: '٫',
 };
-
 
 export const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM'];
 

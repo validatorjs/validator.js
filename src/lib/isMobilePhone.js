@@ -189,10 +189,10 @@ export default function isMobilePhone(str, locale, options) {
       }
       return false;
     });
-  } else if (locale in phones) {
+  } if (locale in phones) {
     return phones[locale].test(str);
     // alias falsey locale as 'any'
-  } else if (!locale || locale === 'any') {
+  } if (!locale || locale === 'any') {
     for (const key in phones) {
       // istanbul ignore else
       if (phones.hasOwnProperty(key)) {

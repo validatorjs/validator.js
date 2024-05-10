@@ -22,7 +22,7 @@ export default function isBase64(str, options) {
   }
 
   const firstPaddingChar = str.indexOf('=');
-  return firstPaddingChar === -1 ||
-    firstPaddingChar === len - 1 ||
-    (firstPaddingChar === len - 2 && str[len - 1] === '=');
+  return firstPaddingChar === -1
+    || firstPaddingChar === len - 1
+    || (firstPaddingChar === len - 2 && str[len - 1] === '=');
 }
