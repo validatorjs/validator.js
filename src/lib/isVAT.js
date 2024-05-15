@@ -1,6 +1,22 @@
 import assertString from './util/assertString';
 import * as algorithms from './util/algorithms';
 
+const AU = (str) => {
+  const match = str.match(/^(AU)?(\d{11})$/);
+  if (!match) {
+    return false;
+  }
+  // @see {@link https://abr.business.gov.au/Help/AbnFormat}
+  const weights = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+  str = str.replace(/^AU/, '');
+  const ABN = (parseInt(str.slice(0, 1), 10) - 1).toString() + str.slice(1);
+  let total = 0;
+  for (let i = 0; i < 11; i++) {
+    total += weights[i] * ABN.charAt(i);
+  }
+  return (total !== 0 && total % 89 === 0);
+};
+
 const CH = (str) => {
   // @see {@link https://www.ech.ch/de/ech/ech-0097/5.2.0}
   const hasValidCheckNumber = (digits) => {
@@ -68,14 +84,14 @@ export const vatMatchers = {
    */
   AL: str => /^(AL)?\w{9}[A-Z]$/.test(str),
   MK: str => /^(MK)?\d{13}$/.test(str),
-  AU: str => /^(AU)?\d{11}$/.test(str),
+  AU,
   BY: str => /^(УНП )?\d{9}$/.test(str),
   CA: str => /^(CA)?\d{9}$/.test(str),
   IS: str => /^(IS)?\d{5,6}$/.test(str),
   IN: str => /^(IN)?\d{15}$/.test(str),
   ID: str => /^(ID)?(\d{15}|(\d{2}.\d{3}.\d{3}.\d{1}-\d{3}.\d{3}))$/.test(str),
   IL: str => /^(IL)?\d{9}$/.test(str),
-  KZ: str => /^(KZ)?\d{9}$/.test(str),
+  KZ: str => /^(KZ)?\d{12}$/.test(str),
   NZ: str => /^(NZ)?\d{9}$/.test(str),
   NG: str => /^(NG)?(\d{12}|(\d{8}-\d{4}))$/.test(str),
   NO: str => /^(NO)?\d{9}MVA$/.test(str),
