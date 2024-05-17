@@ -71,7 +71,7 @@
     "test": "nyc --reporter=cobertura --reporter=text-summary mocha --require @babel/register --reporter dot --recursive"
   },
   "engines": {
-    "node": ">= 0.10"
+    "node": ">= 18"
   },
   "license": "MIT"
 }
