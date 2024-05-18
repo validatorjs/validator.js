@@ -1141,6 +1141,21 @@ function svSeCheck(tin) {
   return algorithms.luhnCheck(tin.replace(/\W/, ''));
 }
 
+/**
+ * uk-UA validation function
+ * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
+ */
+function ukUaCheck(tin) {
+  // Calculate check digit
+  const digits = tin.split('').map(a => parseInt(a, 10));
+  const multipliers = [-1, 5, 7, 9, 4, 6, 10, 5, 7];
+  let checksum = 0;
+  for (let i = 0; i < multipliers.length; i++) {
+    checksum += digits[i] * multipliers[i];
+  }
+  return checksum % 11 === 10 ? digits[9] === 0 : digits[9] === checksum % 11;
+}
+
 // Locale lookup objects
 
 /*
@@ -1181,6 +1196,7 @@ const taxIdFormat = {
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
   'sl-SI': /^[1-9]\d{7}$/,
   'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
+  'uk-UA': /^\d{10}$/,
 };
 // taxIdFormat locale aliases
 taxIdFormat['lb-LU'] = taxIdFormat['fr-LU'];
@@ -1220,6 +1236,7 @@ const taxIdCheck = {
   'sk-SK': skSkCheck,
   'sl-SI': slSiCheck,
   'sv-SE': svSeCheck,
+  'uk-UA': ukUaCheck,
 };
 // taxIdCheck locale aliases
 taxIdCheck['lb-LU'] = taxIdCheck['fr-LU'];
