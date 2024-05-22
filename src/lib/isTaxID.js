@@ -377,6 +377,30 @@ function enUsCheck(tin) {
 }
 
 /*
+ * es-AR validation function
+ * Clave Única de Identificación Tributaria (CUIT/CUIL)
+ * Sourced from:
+ * - https://servicioscf.afip.gob.ar/publico/abc/ABCpaso2.aspx?id_nivel1=3036&id_nivel2=3040&p=Conceptos%20b%C3%A1sicos
+ * - https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Identificaci%C3%B3n_Tributaria
+ */
+
+function esArCheck(tin) {
+  let accum = 0;
+  let digits = tin.split('');
+  let digit = parseInt(digits.pop(), 10);
+  for (let i = 0; i < digits.length; i++) {
+    accum += digits[9 - i] * (2 + (i % 6));
+  }
+  let verif = 11 - (accum % 11);
+  if (verif === 11) {
+    verif = 0;
+  } else if (verif === 10) {
+    verif = 9;
+  }
+  return digit === verif;
+}
+
+/*
  * es-ES validation function
  * (Documento Nacional de Identidad (DNI)
  * or Número de Identificación de Extranjero (NIE), persons only)
@@ -1117,6 +1141,21 @@ function svSeCheck(tin) {
   return algorithms.luhnCheck(tin.replace(/\W/, ''));
 }
 
+/**
+ * uk-UA validation function
+ * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
+ */
+function ukUaCheck(tin) {
+  // Calculate check digit
+  const digits = tin.split('').map(a => parseInt(a, 10));
+  const multipliers = [-1, 5, 7, 9, 4, 6, 10, 5, 7];
+  let checksum = 0;
+  for (let i = 0; i < multipliers.length; i++) {
+    checksum += digits[i] * multipliers[i];
+  }
+  return checksum % 11 === 10 ? digits[9] === 0 : digits[9] === checksum % 11;
+}
+
 // Locale lookup objects
 
 /*
@@ -1137,6 +1176,7 @@ const taxIdFormat = {
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
+  'es-AR': /(20|23|24|27|30|33|34)[0-9]{8}[0-9]/,
   'es-ES': /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/i,
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
   'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
@@ -1156,6 +1196,7 @@ const taxIdFormat = {
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
   'sl-SI': /^[1-9]\d{7}$/,
   'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
+  'uk-UA': /^\d{10}$/,
 };
 // taxIdFormat locale aliases
 taxIdFormat['lb-LU'] = taxIdFormat['fr-LU'];
@@ -1175,6 +1216,7 @@ const taxIdCheck = {
   'en-CA': isCanadianSIN,
   'en-IE': enIeCheck,
   'en-US': enUsCheck,
+  'es-AR': esArCheck,
   'es-ES': esEsCheck,
   'et-EE': etEeCheck,
   'fi-FI': fiFiCheck,
@@ -1194,6 +1236,7 @@ const taxIdCheck = {
   'sk-SK': skSkCheck,
   'sl-SI': slSiCheck,
   'sv-SE': svSeCheck,
+  'uk-UA': ukUaCheck,
 };
 // taxIdCheck locale aliases
 taxIdCheck['lb-LU'] = taxIdCheck['fr-LU'];
