@@ -171,6 +171,7 @@ phones['zh-MO'] = phones['en-MO'];
 phones['ga-IE'] = phones['en-IE'];
 phones['fr-CH'] = phones['de-CH'];
 phones['it-CH'] = phones['fr-CH'];
+phones['hi-IN'] = phones['en-IN'];
 
 export default function isMobilePhone(str, locale, options) {
   assertString(str);
