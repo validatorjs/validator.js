@@ -11184,6 +11184,7 @@ describe('Validators', () => {
         'TB1PZPELFFRDH9PTPAQNURWX30DLEWQV57RCXFEETP86HSSSK30P4CWS38TR9Y',
       ],
     });
+  });
 
   it('should validate booleans', () => {
     test({
