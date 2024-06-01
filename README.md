@@ -21,7 +21,13 @@ Passing anything other than a string will result in an error.
 
 ### Server-side usage
 
-Install the library with `npm install validator`
+Install the `validator` package as:
+
+```sh
+npm i validator
+yarn add validator
+pnpm i validator
+```
 
 #### No ES6
 
