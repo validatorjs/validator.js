@@ -4,12 +4,16 @@ import merge from './util/merge';
 
 const defaulContainsOptions = {
   ignoreCase: false,
+  minOccurrences: 1,
 };
 
 export default function contains(str, elem, options) {
   assertString(str);
   options = merge(options, defaulContainsOptions);
-  return options.ignoreCase ?
-    str.toLowerCase().indexOf(toString(elem).toLowerCase()) >= 0 :
-    str.indexOf(toString(elem)) >= 0;
+
+  if (options.ignoreCase) {
+    return str.toLowerCase().split(toString(elem).toLowerCase()).length > options.minOccurrences;
+  }
+
+  return str.split(toString(elem)).length > options.minOccurrences;
 }

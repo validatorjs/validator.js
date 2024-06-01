@@ -1,6 +1,39 @@
 import assertString from './util/assertString';
+import isInt from './isInt';
 
 const validators = {
+  PL: (str) => {
+    assertString(str);
+
+    const weightOfDigits = {
+      1: 1,
+      2: 3,
+      3: 7,
+      4: 9,
+      5: 1,
+      6: 3,
+      7: 7,
+      8: 9,
+      9: 1,
+      10: 3,
+      11: 0,
+    };
+
+    if (str != null && str.length === 11 && isInt(str, { allow_leading_zeroes: true })) {
+      const digits = str.split('').slice(0, -1);
+      const sum = digits.reduce((acc, digit, index) =>
+        acc + (Number(digit) * weightOfDigits[index + 1]), 0);
+
+      const modulo = sum % 10;
+      const lastDigit = Number(str.charAt(str.length - 1));
+
+      if ((modulo === 0 && lastDigit === 0) || lastDigit === 10 - modulo) {
+        return true;
+      }
+    }
+
+    return false;
+  },
   ES: (str) => {
     assertString(str);
 
@@ -29,6 +62,26 @@ const validators = {
     const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, char => charsValue[char]);
 
     return sanitized.endsWith(controlDigits[number % 23]);
+  },
+  FI: (str) => {
+    // https://dvv.fi/en/personal-identity-code#:~:text=control%20character%20for%20a-,personal,-identity%20code%20calculated
+    assertString(str);
+
+    if (str.length !== 11) {
+      return false;
+    }
+
+    if (!str.match(/^\d{6}[\-A\+]\d{3}[0-9ABCDEFHJKLMNPRSTUVWXY]{1}$/)) {
+      return false;
+    }
+
+    const checkDigits = '0123456789ABCDEFHJKLMNPRSTUVWXY';
+
+    const idAsNumber = (parseInt(str.slice(0, 6), 10) * 1000) + parseInt(str.slice(7, 10), 10);
+    const remainder = idAsNumber % 31;
+    const checkDigit = checkDigits[remainder];
+
+    return checkDigit === str.slice(10, 11);
   },
   IN: (str) => {
     const DNI = /^[1-9]\d{3}\s?\d{4}\s?\d{4}$/;
@@ -77,15 +130,15 @@ const validators = {
   },
   IR: (str) => {
     if (!str.match(/^\d{10}$/)) return false;
-    str = (`0000${str}`).substr(str.length - 6);
+    str = (`0000${str}`).slice(str.length - 6);
 
-    if (parseInt(str.substr(3, 6), 10) === 0) return false;
+    if (parseInt(str.slice(3, 9), 10) === 0) return false;
 
-    const lastNumber = parseInt(str.substr(9, 1), 10);
+    const lastNumber = parseInt(str.slice(9, 10), 10);
     let sum = 0;
 
     for (let i = 0; i < 9; i++) {
-      sum += parseInt(str.substr(i, 1), 10) * (10 - i);
+      sum += parseInt(str.slice(i, i + 1), 10) * (10 - i);
     }
 
     sum %= 11;
@@ -126,6 +179,14 @@ const validators = {
       sum += parseInt(str[i], 10) * (13 - i);
     }
     return str[12] === ((11 - (sum % 11)) % 10).toString();
+  },
+  LK: (str) => {
+    const old_nic = /^[1-9]\d{8}[vx]$/i;
+    const new_nic = /^[1-9]\d{11}$/i;
+
+    if (str.length === 10 && old_nic.test(str)) return true;
+    else if (str.length === 12 && new_nic.test(str)) return true;
+    return false;
   },
   'he-IL': (str) => {
     const DNI = /^\d{9}$/;
@@ -280,6 +341,37 @@ const validators = {
       return check18IdCardNo(idCardNo);
     };
     return checkIdCardNo(str);
+  },
+  'zh-HK': (str) => {
+    // sanitize user input
+    str = str.trim();
+
+    // HKID number starts with 1 or 2 letters, followed by 6 digits,
+    // then a checksum contained in square / round brackets or nothing
+    const regexHKID = /^[A-Z]{1,2}[0-9]{6}((\([0-9A]\))|(\[[0-9A]\])|([0-9A]))$/;
+    const regexIsDigit = /^[0-9]$/;
+
+    // convert the user input to all uppercase and apply regex
+    str = str.toUpperCase();
+    if (!regexHKID.test(str)) return false;
+    str = str.replace(/\[|\]|\(|\)/g, '');
+
+    if (str.length === 8) str = `3${str}`;
+    let checkSumVal = 0;
+    for (let i = 0; i <= 7; i++) {
+      let convertedChar;
+      if (!regexIsDigit.test(str[i])) convertedChar = (str[i].charCodeAt(0) - 55) % 11;
+      else convertedChar = str[i];
+      checkSumVal += (convertedChar * (9 - i));
+    }
+    checkSumVal %= 11;
+
+    let checkSumConverted;
+    if (checkSumVal === 0) checkSumConverted = '0';
+    else if (checkSumVal === 1) checkSumConverted = 'A';
+    else checkSumConverted = String(11 - checkSumVal);
+    if (checkSumConverted === str[str.length - 1]) return true;
+    return false;
   },
   'zh-TW': (str) => {
     const ALPHABET_CODES = {

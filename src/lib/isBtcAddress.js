@@ -1,14 +1,9 @@
 import assertString from './util/assertString';
 
-// supports Bech32 addresses
-const bech32 = /^(bc1)[a-z0-9]{25,39}$/;
-const base58 = /^(1|3)[A-HJ-NP-Za-km-z1-9]{25,39}$/;
+const bech32 = /^(bc1|tb1|bc1p|tb1p)[ac-hj-np-z02-9]{39,58}$/;
+const base58 = /^(1|2|3|m)[A-HJ-NP-Za-km-z1-9]{25,39}$/;
 
 export default function isBtcAddress(str) {
   assertString(str);
-  // check for bech32
-  if (str.startsWith('bc1')) {
-    return bech32.test(str);
-  }
-  return base58.test(str);
+  return bech32.test(str) || base58.test(str);
 }

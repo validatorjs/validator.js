@@ -11,13 +11,14 @@ const passportRegexByCountryCode = {
   AR: /^[A-Z]{3}\d{6}$/, // ARGENTINA
   AT: /^[A-Z]\d{7}$/, // AUSTRIA
   AU: /^[A-Z]\d{7}$/, // AUSTRALIA
+  AZ: /^[A-Z]{1}\d{8}$/, // AZERBAIJAN
   BE: /^[A-Z]{2}\d{6}$/, // BELGIUM
   BG: /^\d{9}$/, // BULGARIA
   BR: /^[A-Z]{2}\d{6}$/, // BRAZIL
   BY: /^[A-Z]{2}\d{7}$/, // BELARUS
   CA: /^[A-Z]{2}\d{6}$/, // CANADA
   CH: /^[A-Z]\d{7}$/, // SWITZERLAND
-  CN: /^[GE]\d{8}$/, // CHINA [G=Ordinary, E=Electronic] followed by 8-digits
+  CN: /^G\d{8}$|^E(?![IO])[A-Z0-9]\d{7}$/, // CHINA [G=Ordinary, E=Electronic] followed by 8-digits, or E followed by any UPPERCASE letter (except I and O) followed by 7 digits
   CY: /^[A-Z](\d{6}|\d{8})$/, // CYPRUS
   CZ: /^\d{8}$/, // CZECH REPUBLIC
   DE: /^[CFGHJKLMNPRTVWXYZ0-9]{9}$/, // GERMANY
@@ -37,8 +38,11 @@ const passportRegexByCountryCode = {
   IR: /^[A-Z]\d{8}$/, // IRAN
   IS: /^(A)\d{7}$/, // ICELAND
   IT: /^[A-Z0-9]{2}\d{7}$/, // ITALY
+  JM: /^[Aa]\d{7}$/, // JAMAICA
   JP: /^[A-Z]{2}\d{7}$/, // JAPAN
   KR: /^[MS]\d{8}$/, // SOUTH KOREA, REPUBLIC OF KOREA, [S=PS Passports, M=PM Passports]
+  KZ: /^[a-zA-Z]\d{7}$/, // KAZAKHSTAN
+  LI: /^[a-zA-Z]\d{5}$/, // LIECHTENSTEIN
   LT: /^[A-Z0-9]{8}$/, // LITHUANIA
   LU: /^[A-Z0-9]{8}$/, // LUXEMBURG
   LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
@@ -46,17 +50,23 @@ const passportRegexByCountryCode = {
   MT: /^\d{7}$/, // MALTA
   MZ: /^([A-Z]{2}\d{7})|(\d{2}[A-Z]{2}\d{5})$/, // MOZAMBIQUE
   MY: /^[AHK]\d{8}$/, // MALAYSIA
+  MX: /^\d{10,11}$/, // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
-  PO: /^[A-Z]{2}\d{7}$/, // POLAND
+  NZ: /^([Ll]([Aa]|[Dd]|[Ff]|[Hh])|[Ee]([Aa]|[Pp])|[Nn])\d{6}$/, // NEW ZEALAND
+  PH: /^([A-Z](\d{6}|\d{7}[A-Z]))|([A-Z]{2}(\d{6}|\d{7}))$/, // PHILIPPINES
+  PK: /^[A-Z]{2}\d{7}$/, // PAKISTAN
+  PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
   RO: /^\d{8,9}$/, // ROMANIA
-  RU: /^\d{2}\d{2}\d{6}$/, // RUSSIAN FEDERATION
+  RU: /^\d{9}$/, // RUSSIAN FEDERATION
   SE: /^\d{8}$/, // SWEDEN
-  SL: /^(P)[A-Z]\d{7}$/, // SLOVANIA
+  SL: /^(P)[A-Z]\d{7}$/, // SLOVENIA
   SK: /^[0-9A-Z]\d{7}$/, // SLOVAKIA
+  TH: /^[A-Z]{1,2}\d{6,7}$/, // THAILAND
   TR: /^[A-Z]\d{8}$/, // TURKEY
   UA: /^[A-Z]{2}\d{6}$/, // UKRAINE
   US: /^\d{9}$/, // UNITED STATES
+  ZA: /^[TAMD]\d{8}$/, // SOUTH AFRICA
 };
 
 /**

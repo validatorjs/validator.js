@@ -184,6 +184,9 @@ describe('Sanitizers', () => {
 
         'Backtick: &#96;':
             'Backtick: `',
+
+        'Escaped string: &amp;lt;':
+            'Escaped string: &lt;',
       },
     });
   });

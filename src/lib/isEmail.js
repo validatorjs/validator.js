@@ -1,17 +1,20 @@
 import assertString from './util/assertString';
 
-import merge from './util/merge';
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
 import isIP from './isIP';
+import merge from './util/merge';
 
 const default_email_options = {
   allow_display_name: false,
+  allow_underscores: false,
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
   blacklisted_chars: '',
   ignore_max_length: false,
+  host_blacklist: [],
+  host_whitelist: [],
 };
 
 /* eslint-disable max-len */
@@ -20,7 +23,7 @@ const splitNameAddress = /^([^\x00-\x1F\x7F-\x9F\cX]+)</i;
 const emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 const gmailUserPart = /^[a-z\d]+$/;
 const quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
-const emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
+const emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A1-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
 const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
 const defaultMaxEmailLength = 254;
 /* eslint-enable max-len */
@@ -76,7 +79,7 @@ export default function isEmail(str, options) {
       // eg. myname <address@gmail.com>
       // the display name is `myname` instead of `myname `, so need to trim the last space
       if (display_name.endsWith(' ')) {
-        display_name = display_name.substr(0, display_name.length - 1);
+        display_name = display_name.slice(0, -1);
       }
 
       if (!validateDisplayName(display_name)) {
@@ -92,9 +95,17 @@ export default function isEmail(str, options) {
 
   const parts = str.split('@');
   const domain = parts.pop();
-  let user = parts.join('@');
-
   const lower_domain = domain.toLowerCase();
+
+  if (options.host_blacklist.includes(lower_domain)) {
+    return false;
+  }
+
+  if (options.host_whitelist.length > 0 && !options.host_whitelist.includes(lower_domain)) {
+    return false;
+  }
+
+  let user = parts.join('@');
 
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
@@ -110,7 +121,7 @@ export default function isEmail(str, options) {
     const username = user.split('+')[0];
 
     // Dots are not included in gmail length restriction
-    if (!isByteLength(username.replace('.', ''), { min: 6, max: 30 })) {
+    if (!isByteLength(username.replace(/\./g, ''), { min: 6, max: 30 })) {
       return false;
     }
 
@@ -129,7 +140,11 @@ export default function isEmail(str, options) {
     return false;
   }
 
-  if (!isFQDN(domain, { require_tld: options.require_tld })) {
+  if (!isFQDN(domain, {
+    require_tld: options.require_tld,
+    ignore_max_length: options.ignore_max_length,
+    allow_underscores: options.allow_underscores,
+  })) {
     if (!options.allow_ip_domain) {
       return false;
     }
@@ -139,7 +154,7 @@ export default function isEmail(str, options) {
         return false;
       }
 
-      let noBracketdomain = domain.substr(1, domain.length - 2);
+      let noBracketdomain = domain.slice(1, -1);
 
       if (noBracketdomain.length === 0 || !isIP(noBracketdomain)) {
         return false;
