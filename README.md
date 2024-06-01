@@ -197,6 +197,8 @@ For an alternative, have a look at Yahoo's [xss-filters library](https://github.
 
 - [chriso](https://github.com/chriso) - **Chris O'Hara** (author)
 - [profnandaa](https://github.com/profnandaa) - **Anthony Nandaa**
+- [rubiin](https://github.com/rubiin) - **Rubin Bhandari**
+- [wikirik](https://github.com/wikirik) - **Rik Smale**
 - [ezkemboi](https://github.com/ezkemboi) - **Ezrqn Kemboi**
 - [tux-tn](https://github.com/tux-tn) - **Sarhan Aissi**
 
