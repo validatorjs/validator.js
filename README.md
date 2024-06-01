@@ -43,6 +43,9 @@ Or, import only a subset of the library:
 import isEmail from 'validator/lib/isEmail';
 ```
 
+#### Types 
+Starting the latest version of validator.js , the types comes out of box. 
+
 #### Tree-shakeable ES imports
 
 ```javascript
