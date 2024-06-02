@@ -5728,7 +5728,7 @@ describe('Validators', () => {
   it('should validate identity cards', () => {
     const fixtures = [
       {
-        locale: 'ur-PK',
+        locale: 'PK',
         valid: [
           '45504-4185771-3',
           '39915-6182971-9',

@@ -421,7 +421,7 @@ const validators = {
       return sum + (Number(number) * (9 - index));
     }, 0);
   },
-  'ur-PK': (str) => {
+  PK: (str) => {
     // Pakistani National Identity Number CNIC is 13 digits
     const CNIC = /^[1-7][0-9]{4}-[0-9]{7}-[1-9]$/;
 
