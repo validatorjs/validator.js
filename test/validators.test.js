@@ -6410,6 +6410,28 @@ describe('Validators', () => {
     });
   });
 
+
+  it('should validate OpenAI API keys', () => {
+    test({
+      validator: 'isOpenAIKey',
+      valid: [
+        'sk-AbCdEfGhIjKlMnOpQrStUvWxYz0123456789AbCdEfGhIjKl',
+        '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',
+        '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',
+        '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',
+        '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',
+      ],
+      invalid: [
+        'sk-ABCDEFGHIJKLMNOPQRSTUVWXYZ123456', // Not enough variety of characters
+        'api-AbCdEfGhIjKlMnOpQrStUvWxYz0123456789AbCdEfGhIjKlMnOp', // Incorrect prefix
+        'sk-AbCdEfGhIjKlMnOpQrStUvWxYz0123456789', // Fewer characters
+        'sk-AbCdEfGhIjKlMnOpQrStUvWxYz0123456789AbCdEfGhIjKlMnOpQrStUvWxYz', // More characters
+        'sk-AbCdEfGhIjKlMnOpQrStUvWxYz0123456789@#%^&*()', // Special characters
+        '', // Empty string
+      ],
+    });
+  });
+
   it('should validate full-width strings', () => {
     test({
       validator: 'isFullWidth',

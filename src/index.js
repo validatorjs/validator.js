@@ -128,7 +128,9 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-const version = '13.12.0';
+import isOpenAIKey from './lib/isOpenAIKey';
+
+const version = '13.11.0';
 
 const validator = {
   version,
@@ -240,6 +242,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isOpenAIKey,
 };
 
 export default validator;
