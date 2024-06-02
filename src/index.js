@@ -130,7 +130,7 @@ import isVAT from './lib/isVAT';
 
 import isOpenAIKey from './lib/isOpenAIKey';
 
-const version = '13.11.0';
+const version = '13.12.0';
 
 const validator = {
   version,
