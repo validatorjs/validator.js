@@ -9,10 +9,7 @@ export default function isInt(str, options) {
 
   // Get the regex to use for testing, based on whether
   // leading zeroes are allowed or not.
-  let regex = (
-    options.hasOwnProperty('allow_leading_zeroes') && !options.allow_leading_zeroes ?
-      int : intLeadingZeroes
-  );
+  const regex = options.allow_leading_zeroes === false ? int : intLeadingZeroes;
 
   // Check min/max/lt/gt
   let minCheckPassed = (!options.hasOwnProperty('min') || str >= options.min);

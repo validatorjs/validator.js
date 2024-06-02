@@ -1,3 +1,37 @@
+# 13.12.0
+
+### New Features / Validators
+
+- [#2143](https://github.com/validatorjs/validator.js/pull/2143) `isAbaRouting` @songyuew
+
+### Fixes, New Locales and Enhancements
+
+- [#2207](https://github.com/validatorjs/validator.js/pull/2207) `isLicensePlate` add Pakistani `en-PK` locale @anasshakil
+- [#2208](https://github.com/validatorjs/validator.js/issues/2208) `isPort` fix invalid leading zeros @anasshakil
+- [#2224](https://github.com/validatorjs/validator.js/pull/2224) `isTaxID` added Argentina `es-AR` locale @estefrare
+- [#2257](https://github.com/validatorjs/validator.js/pull/2257) `isDate` timezone offset fix @tomaspanek
+- [#2265](https://github.com/validatorjs/validator.js/pull/2265) `isPassportNumber` added `ZA` locale @GMorris-professional
+- `isMobilePhone`:
+  - [#2267](https://github.com/validatorjs/validator.js/pull/2267) added `en-MW` locale @SimranSiddiqui
+  - [#2140](https://github.com/validatorjs/validator.js/pull/2140) fix `am-AM` locale @AlexKrupko
+- [#2271](https://github.com/validatorjs/validator.js/pull/2271) `isPostalAddress` fix `NL` locale @RobinvanderVliet
+- [#2273](https://github.com/validatorjs/validator.js/pull/2273) `isISO4217` add `SLE` currency @urg
+- [#2278](https://github.com/validatorjs/validator.js/pull/2278) `isStrongPassword` fix symbolRegex to include `\` @nandavikas
+- [#2279](https://github.com/validatorjs/validator.js/pull/2279) `isVAT` fixed `KZ` locale @MatthieuLemoine
+- [#2285](https://github.com/validatorjs/validator.js/pull/2285) `isAlpha`, `isAlphanumeric` added `eo` locale @RobinvanderVliet
+- [#2320](https://github.com/validatorjs/validator.js/pull/2320) `isIBAN` add Algeria `DZ` locale @thibault-lr
+- [#2343](https://github.com/validatorjs/validator.js/pull/2343) `isVAT`improve `AU` locale @matthewberryman
+- [#2345](https://github.com/validatorjs/validator.js/pull/2345) `isUUID` add support for v7 @ruscon
+- [#2358](https://github.com/validatorjs/validator.js/pull/2358) `isTaxID` add Ukraine `uk-UA` locale @arttiger
+- [#2381](https://github.com/validatorjs/validator.js/pull/2381) `isDate` disallow hiphen before year @Sumit-tech-joshi
+- **Doc fixes and others:**
+  - [#2276](https://github.com/validatorjs/validator.js/pull/2276) @meyfa
+  - [#2341](https://github.com/validatorjs/validator.js/pull/2341) @WikiRik
+  - [#2364](https://github.com/validatorjs/validator.js/pull/2364) @rubiin
+  - [#2368](https://github.com/validatorjs/validator.js/pull/2368) @ZhulinskiiDanil
+  - [#2371](https://github.com/validatorjs/validator.js/pull/2371) @devmanbud
+  - [#2386](https://github.com/validatorjs/validator.js/pull/2386) @alinaghale88
+
 # 13.11.0
 
 ### New Features / Validators
