@@ -14,6 +14,9 @@ A clear and concise description of what the bug is.
 **Examples**
 If applicable, add screenshots to help explain your problem.
 
+**Reproductions**
+If applicable, provide a reproduction on platforms like [stackblitz](https://stackblitz.com)
+
 **Additional context**
 Validator.js version:
 Node.js version:
