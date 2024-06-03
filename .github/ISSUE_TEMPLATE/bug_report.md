@@ -15,8 +15,7 @@ A clear and concise description of what the bug is.
 If applicable, add screenshots to help explain your problem.
 
 **Reproductions**
-If applicable, provide a reproduction on platforms like [stackblitz](https://stackblitz.com)
-Minimal reproduction should look like this [reproduction](https://stackblitz.com/edit/stackblitz-starters-efhgq9?file=index.js)
+If applicable, provide a reproduction on platforms like [runkit](npm.runkit.com/validator)
 
 **Additional context**
 Validator.js version:
