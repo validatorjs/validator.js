@@ -265,12 +265,15 @@ describe('Validators', () => {
   it('should not validate email addresses with blacklisted chars in the name', () => {
     test({
       validator: 'isEmail',
-      args: [{ blacklisted_chars: 'abc' }],
+      args: [{ blacklisted_chars: 'abc"' }],
       valid: [
         'emil@gmail.com',
       ],
       invalid: [
         'email@gmail.com',
+        '"foobr"@example.com',
+        '" foo m端ller "@example.com',
+        '"foo\@br"@example.com',
       ],
     });
   });
