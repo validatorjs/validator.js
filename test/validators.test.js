@@ -11679,13 +11679,15 @@ describe('Validators', () => {
         'AED',
         'aed',
         'AUD',
-        'CUC',
+        'CUP',
         'EUR',
         'GBP',
         'LYD',
         'MYR',
         'SGD',
+        'SLE',
         'USD',
+        'VED',
         'SLE',
       ],
       invalid: [
@@ -11698,6 +11700,8 @@ describe('Validators', () => {
         'RWA',
         'EURO',
         'euro',
+        'HRK',
+        'CUC',
       ],
     });
   });
