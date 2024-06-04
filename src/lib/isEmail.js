@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import includes from './util/includesArray';
 
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
@@ -97,11 +98,11 @@ export default function isEmail(str, options) {
   const domain = parts.pop();
   const lower_domain = domain.toLowerCase();
 
-  if (options.host_blacklist.includes(lower_domain)) {
+  if (includes(options.host_blacklist, lower_domain)) {
     return false;
   }
 
-  if (options.host_whitelist.length > 0 && !options.host_whitelist.includes(lower_domain)) {
+  if (options.host_whitelist.length > 0 && !includes(options.host_whitelist, lower_domain)) {
     return false;
   }
 
