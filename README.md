@@ -100,7 +100,7 @@ Validator                               | Description
 **isBoolean(str [, options])**          | check if the string is a boolean.<br/>`options` is an object which defaults to `{ loose: false }`. If `loose` is set to false, the validator will strictly match ['true', 'false', '0', '1']. If `loose` is set to true, the validator will also match 'yes', 'no', and will match a valid boolean string of any case. (e.g.: ['true', 'True', 'TRUE']).
 **isBtcAddress(str)**            | check if the string is a valid BTC address.
 **isByteLength(str [, options])**          | check if the string's length (in UTF-8 bytes) falls in a range.<br/><br/>`options` is an object which defaults to `{ min: 0, max: undefined }`.
-**isCreditCard(str [, options])**                   | check if the string is a credit card number.<br/><br/> `options` is an optional object that can be supplied with the following key(s): `provider` is an optional key whose value should be a string, and defines the company issuing the credit card. Valid values include `['amex', 'dinersclub', 'discover', 'jcb', 'mastercard', 'unionpay', 'visa']` or blank will check for any provider. 
+**isCreditCard(str [, options])**                   | check if the string is a credit card number.<br/><br/> `options` is an optional object that can be supplied with the following key(s): `provider` is an optional key whose value should be a string, and defines the company issuing the credit card. Valid values include `['amex', 'dinersclub', 'discover', 'jcb', 'mastercard', 'unionpay', 'visa']` or blank will check for any provider.
 **isCurrency(str [, options])**            | check if the string is a valid currency amount.<br/><br/>`options` is an object which defaults to `{ symbol: '$', require_symbol: false, allow_space_after_symbol: false, symbol_after_digits: false, allow_negatives: true, parens_for_negatives: false, negative_sign_before_digits: false, negative_sign_after_digits: false, allow_negative_sign_placeholder: false, thousands_separator: ',', decimal_separator: '.', allow_decimal: true, require_decimal: false, digits_after_decimal: [2], allow_space_after_digits: false }`.<br/>**Note:** The array `digits_after_decimal` is filled with the exact number of digits allowed not a range, for example a range 1 to 3 will be given as [1, 2, 3].
 **isDataURI(str)**                      | check if the string is a [data uri format][Data URI Format].
 **isDate(str [, options])**          | check if the string is a valid date. e.g. [`2002-07-15`, new Date()].<br/><br/> `options` is an object which can contain the keys `format`, `strictMode` and/or `delimiters`.<br/><br/>`format` is a string and defaults to `YYYY/MM/DD`.<br/><br/>`strictMode` is a boolean and defaults to `false`. If `strictMode` is set to true, the validator will reject strings different from `format`.<br/><br/> `delimiters` is an array of allowed date delimiters and defaults to `['/', '-']`.
@@ -120,7 +120,7 @@ Validator                               | Description
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHSL(str)**                          | check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on [CSS Colors Level 4 specification][CSS Colors Level 4 Specification].<br/><br/>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: `hsl(200grad+.1%62%/1)`).
 **isIBAN(str, [, options])**                  | check if the string is an IBAN (International Bank Account Number).<br/><br/>`options` is an object which accepts two attributes: `whitelist`: where you can restrict IBAN codes you want to receive data from and `blacklist`: where you can remove some of the countries from the current list. For both you can use an array with the following values `['AD','AE','AL','AT','AZ','BA','BE','BG','BH','BR','BY','CH','CR','CY','CZ','DE','DK','DO','EE','EG','ES','FI','FO','FR','GB','GE','GI','GL','GR','GT','HR','HU','IE','IL','IQ','IR','IS','IT','JO','KW','KZ','LB','LC','LI','LT','LU','LV','MC','MD','ME','MK','MR','MT','MU','MZ','NL','NO','PK','PL','PS','PT','QA','RO','RS','SA','SC','SE','SI','SK','SM','SV','TL','TN','TR','UA','VA','VG','XK']`.
-**isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['LK', 'PL', 'ES', 'FI', 'IN', 'IT', 'IR', 'MZ', 'NO', 'TH', 'zh-TW', 'he-IL', 'ar-LY', 'ar-TN', 'zh-CN', 'zh-HK']` OR `'any'`. If 'any' is used, function will check if any of the locales match.<br/><br/>Defaults to 'any'.
+**isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['LK', 'PL', 'ES', 'FI', 'IN', 'IT', 'IR', 'MZ', 'NO', 'TH', 'zh-TW', 'he-IL', 'ar-LY', 'ar-TN', 'zh-CN', 'zh-HK', 'PK']` OR `'any'`. If 'any' is used, function will check if any of the locales match.<br/><br/>Defaults to 'any'.
 **isIMEI(str [, options]))**                         | check if the string is a valid [IMEI number][IMEI]. IMEI should be of format `###############` or `##-######-######-#`.<br/><br/>`options` is an object which can contain the keys `allow_hyphens`. Defaults to first format. If `allow_hyphens` is set to true, the validator will validate the second format.
 **isIn(str, values)**                   | check if the string is in an array of allowed values.
 **isInt(str [, options])**              | check if the string is an integer.<br/><br/>`options` is an object which can contain the keys `min` and/or `max` to check the integer is within boundaries (e.g. `{ min: 10, max: 99 }`). `options` can also contain the key `allow_leading_zeroes`, which when set to false will disallow integer values with leading zeroes (e.g. `{ allow_leading_zeroes: false }`). Finally, `options` can contain the keys `gt` and/or `lt` which will enforce integers being greater than or less than, respectively, the value provided (e.g. `{gt: 1, lt: 4}` for a number between 1 and 4).
@@ -181,7 +181,7 @@ Here is a list of the sanitizers currently available.
 Sanitizer                              | Description
 -------------------------------------- | -------------------------------
 **blacklist(input, chars)**            | remove characters that appear in the blacklist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `blacklist(input, '\\[\\]')`.
-**escape(input)**                      | replace `<`, `>`, `&`, `'`, `"` and `/` with HTML entities.
+**escape(input)**                      | replace `<`, `>`, `&`, `'`, `"`, `` ` ``, `\` and `/` with HTML entities.
 **ltrim(input [, chars])**             | trim characters from the left-side of the input.
 **normalizeEmail(email [, options])**  | canonicalize an email address. (This doesn't validate that the input is an email, if you want to validate the email use isEmail beforehand).<br/><br/>`options` is an object with the following keys and default values:<br/><ul><li>*all_lowercase: true* - Transforms the local part (before the @ symbol) of all email addresses to lowercase. Please note that this may violate RFC 5321, which gives providers the possibility to treat the local part of email addresses in a case sensitive way (although in practice most - yet not all - providers don't). The domain part of the email address is always lowercased, as it is case insensitive per RFC 1035.</li><li>*gmail_lowercase: true* - Gmail addresses are known to be case-insensitive, so this switch allows lowercasing them even when *all_lowercase* is set to false. Please note that when *all_lowercase* is true, Gmail addresses are lowercased regardless of the value of this setting.</li><li>*gmail_remove_dots: true*: Removes dots from the local part of the email address, as Gmail ignores them (e.g. "john.doe" and "johndoe" are considered equal).</li><li>*gmail_remove_subaddress: true*: Normalizes addresses by removing "sub-addresses", which is the part following a "+" sign (e.g. "foo+bar@gmail.com" becomes "foo@gmail.com").</li><li>*gmail_convert_googlemaildotcom: true*: Converts addresses with domain @googlemail.com to @gmail.com, as they're equivalent.</li><li>*outlookdotcom_lowercase: true* - Outlook.com addresses (including Windows Live and Hotmail) are known to be case-insensitive, so this switch allows lowercasing them even when *all_lowercase* is set to false. Please note that when *all_lowercase* is true, Outlook.com addresses are lowercased regardless of the value of this setting.</li><li>*outlookdotcom_remove_subaddress: true*: Normalizes addresses by removing "sub-addresses", which is the part following a "+" sign (e.g. "foo+bar@outlook.com" becomes "foo@outlook.com").</li><li>*yahoo_lowercase: true* - Yahoo Mail addresses are known to be case-insensitive, so this switch allows lowercasing them even when *all_lowercase* is set to false. Please note that when *all_lowercase* is true, Yahoo Mail addresses are lowercased regardless of the value of this setting.</li><li>*yahoo_remove_subaddress: true*: Normalizes addresses by removing "sub-addresses", which is the part following a "-" sign (e.g. "foo-bar@yahoo.com" becomes "foo@yahoo.com").</li><li>*icloud_lowercase: true* - iCloud addresses (including MobileMe) are known to be case-insensitive, so this switch allows lowercasing them even when *all_lowercase* is set to false. Please note that when *all_lowercase* is true, iCloud addresses are lowercased regardless of the value of this setting.</li><li>*icloud_remove_subaddress: true*: Normalizes addresses by removing "sub-addresses", which is the part following a "+" sign (e.g. "foo+bar@icloud.com" becomes "foo@icloud.com").</li></ul>
 **rtrim(input [, chars])**             | trim characters from the right-side of the input.
@@ -191,7 +191,7 @@ Sanitizer                              | Description
 **toFloat(input)**                     | convert the input string to a float, or `NaN` if the input is not a float.
 **toInt(input [, radix])**             | convert the input string to an integer, or `NaN` if the input is not an integer.
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
-**unescape(input)**                    | replace HTML encoded entities with `<`, `>`, `&`, `'`, `"` and `/`.
+**unescape(input)**                    | replace HTML encoded entities with `<`, `>`, `&`, `'`, `"`, `` ` ``, `\` and `/`.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
 
 ### XSS Sanitization
@@ -204,6 +204,8 @@ For an alternative, have a look at Yahoo's [xss-filters library](https://github.
 
 - [chriso](https://github.com/chriso) - **Chris O'Hara** (author)
 - [profnandaa](https://github.com/profnandaa) - **Anthony Nandaa**
+- [rubiin](https://github.com/rubiin) - **Rubin Bhandari**
+- [wikirik](https://github.com/wikirik) - **Rik Smale**
 - [ezkemboi](https://github.com/ezkemboi) - **Ezrqn Kemboi**
 - [tux-tn](https://github.com/tux-tn) - **Sarhan Aissi**
 
@@ -211,30 +213,13 @@ For an alternative, have a look at Yahoo's [xss-filters library](https://github.
 
 Remember, validating can be troublesome sometimes. See [A list of articles about programming assumptions commonly made that aren't true](https://github.com/jameslk/awesome-falsehoods).
 
-## License (MIT)
+## Contributing
 
-```
-Copyright (c) 2018 Chris O'Hara <cohara87@gmail.com>
+We welcome contributions from the community! If you're interested in contributing to this project, please read our [Contribution Guide](CONTRIBUTING.md) to get started.
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+## License
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-```
+This project is licensed under the [MIT](LICENSE). See the [LICENSE](LICENSE) file for details.
 
 [downloads-image]: http://img.shields.io/npm/dm/validator.svg
 

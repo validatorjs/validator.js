@@ -265,12 +265,15 @@ describe('Validators', () => {
   it('should not validate email addresses with blacklisted chars in the name', () => {
     test({
       validator: 'isEmail',
-      args: [{ blacklisted_chars: 'abc' }],
+      args: [{ blacklisted_chars: 'abc"' }],
       valid: [
         'emil@gmail.com',
       ],
       invalid: [
         'email@gmail.com',
+        '"foobr"@example.com',
+        '" foo m端ller "@example.com',
+        '"foo\@br"@example.com',
       ],
     });
   });
@@ -5831,6 +5834,28 @@ describe('Validators', () => {
 
   it('should validate identity cards', () => {
     const fixtures = [
+      {
+        locale: 'PK',
+        valid: [
+          '45504-4185771-3',
+          '39915-6182971-9',
+          '21143-6182971-2',
+          '34543-2323471-1',
+          '72345-2345678-7',
+          '63456-8765432-8',
+          '55672-1234567-5',
+          '21234-9876543-6',
+        ],
+        invalid: [
+          '08000-1234567-5',
+          '74321-87654321-1',
+          '51234-98765-2',
+          '00000-0000000-0',
+          '88888-88888888-0',
+          '99999-9999999-9',
+          '11111',
+        ],
+      },
       {
         locale: 'zh-HK',
         valid: [
@@ -11679,13 +11704,15 @@ describe('Validators', () => {
         'AED',
         'aed',
         'AUD',
-        'CUC',
+        'CUP',
         'EUR',
         'GBP',
         'LYD',
         'MYR',
         'SGD',
+        'SLE',
         'USD',
+        'VED',
         'SLE',
       ],
       invalid: [
@@ -11698,6 +11725,8 @@ describe('Validators', () => {
         'RWA',
         'EURO',
         'euro',
+        'HRK',
+        'CUC',
       ],
     });
   });
