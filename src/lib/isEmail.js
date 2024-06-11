@@ -10,6 +10,7 @@ const default_email_options = {
   allow_underscores: false,
   require_display_name: false,
   allow_utf8_local_part: true,
+  allow_wildcard: false,
   require_tld: true,
   blacklisted_chars: '',
   ignore_max_length: false,
@@ -144,6 +145,7 @@ export default function isEmail(str, options) {
     require_tld: options.require_tld,
     ignore_max_length: options.ignore_max_length,
     allow_underscores: options.allow_underscores,
+    allow_wildcard: options.allow_wildcard,
   })) {
     if (!options.allow_ip_domain) {
       return false;
