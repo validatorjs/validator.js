@@ -14852,3 +14852,238 @@ describe('Validators', () => {
     });
   });
 });
+
+it('should validate national id', () => {
+  let fixtures = [
+    {
+      locale: 'BD',
+      valid: [
+        '19735273950391021',
+        '19876543213457012',
+        '19987654321234567',
+        '20098765432109876',
+      ],
+      invalid: [
+        '1973527395039102A',
+        '1900-000000000000',
+        '2190 000000 00000 ',
+      ],
+    },
+  ];
+
+  let allValid = [];
+
+  fixtures.forEach((fixture) => {
+    // to be used later on for validating 'any' locale
+    if (fixture.valid) allValid = allValid.concat(fixture.valid);
+
+    if (Array.isArray(fixture.locale)) {
+      test({
+        validator: 'isNationalId',
+        valid: fixture.valid,
+        invalid: fixture.invalid,
+        args: [fixture.locale],
+      });
+    } else {
+      test({
+        validator: 'isNationalId',
+        valid: fixture.valid,
+        invalid: fixture.invalid,
+        args: [fixture.locale],
+      });
+    }
+  });
+
+  test({
+    validator: 'isNationalId',
+    valid: allValid,
+    invalid: [
+      '',
+      'asdf',
+      '1',
+      'ASDFGJKLmZXJtZtesting123',
+      'Vml2YW11cyBmZXJtZtesting123',
+    ],
+    args: ['any'],
+  });
+
+  test({
+    validator: 'isNationalId',
+    valid: [
+      '19735273950391021',
+      '42201-6974298-9',
+      '4567 8901 2345',
+      'AX1234567890(A)',
+      '1234-5678-9012',
+    ],
+    invalid: [
+      '374052860344X',
+      '12345-1234567-11',
+    ],
+    args: ['any'],
+  });
+
+  test({
+    validator: 'isNationalId',
+    valid: [
+      '42201-6974298-9',
+      '0709971045567',
+    ],
+    invalid: [
+      '374052860344X',
+      '12345-1234567-11',
+    ],
+    args: [['PK', 'MK']],
+  });
+
+  test({
+    validator: 'isNationalId',
+    valid: [],
+    invalid: [
+      '374052860344X',
+      '12345-1234567-11',
+    ],
+    args: [['PK', 'MK']],
+  });
+
+  // falsey locale defaults to 'any'
+  test({
+    validator: 'isNationalId',
+    valid: allValid,
+    invalid: [
+      '',
+      'asdf',
+      '1',
+      'ASDFGJKLmZXJtZtesting123',
+      'Vml2YW11cyBmZXJtZtesting123',
+    ],
+    args: [],
+  });
+});
+
+// de-CH, fr-CH, it-CH
+test({
+  validator: 'isNationalId',
+  valid: [
+    '19735273950391021',
+    '42201-6974298-9',
+    '4567 8901 2345',
+  ],
+  invalid: [
+    '374052860344X',
+  ],
+  args: [],
+});
+
+it('should throw an error on invalid countryCode', () => {
+  test({
+    validator: 'isNationalId',
+    args: ['NOT'],
+    error: [
+      'Invalid countryCode',
+    ],
+  });
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '2509992391801', // Croatia
+  ],
+  invalid: [
+    '0101006500007', // Invalid checksum digit '7'
+  ],
+  args: ['HR'],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '0101006500006', // Slovenia
+  ],
+  invalid: [
+    '2509992391802', // Invalid checksum digit '2'
+  ],
+  args: ['SI', { strictMode: true }],
+});
+
+// strict mode
+test({
+  validator: 'isNationalId',
+  valid: [
+    '0101006500006', // Slovenia
+    '2509992391801', // Croatia
+    '2509992661801',
+  ],
+  invalid: [
+    '0101006500007', // Invalid checksum digit '7'
+    '2509992391802', // Invalid checksum digit '2'
+  ],
+  args: [['HR', 'SI'], { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '0101006500006', // Slovenia
+    '2509992391801', // Croatia
+  ],
+  invalid: [],
+  args: ['any', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '8001010008',
+    '7542011030',
+  ],
+  invalid: [
+    '7501120018',
+  ],
+  args: ['BG', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '046 454 286',
+  ],
+  invalid: [
+    '7501120018',
+  ],
+  args: ['CA', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    'HEGG560427MVZRRL04',
+  ],
+  invalid: [
+    '7501120018',
+  ],
+  args: ['MX', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    '4444 3333 2222',
+  ],
+  invalid: [
+    '9999 8888 7777',
+  ],
+  args: ['IN', { strictMode: true }],
+});
+
+test({
+  validator: 'isNationalId',
+  valid: [
+    'MRTMTT91D08F205J',
+  ],
+  invalid: [
+    'RSSMRA80A01F205K',
+  ],
+  args: ['IT', { strictMode: true }],
+});
