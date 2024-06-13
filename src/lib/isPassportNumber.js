@@ -30,6 +30,7 @@ const passportRegexByCountryCode = {
   FR: /^\d{2}[A-Z]{2}\d{5}$/, // FRANCE
   GB: /^\d{9}$/, // UNITED KINGDOM
   GR: /^[A-Z]{2}\d{7}$/, // GREECE
+  GN: /^[A-Z]{1}\d{8}$/, // GUINEA
   HR: /^\d{9}$/, // CROATIA
   HU: /^[A-Z]{2}(\d{6}|\d{7})$/, // HUNGARY
   IE: /^[A-Z0-9]{2}\d{7}$/, // IRELAND
