@@ -6,12 +6,12 @@ import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric';
 import { locales as isMobilePhoneLocales } from '../src/lib/isMobilePhone';
 import { locales as isFloatLocales } from '../src/lib/isFloat';
 import { locales as ibanCountryCodes } from '../src/lib/isIBAN';
-import { locales as isPassportNumberLocales } from '../src/lib/isPassportNumber';
+import { locales as passportNumberLocales } from '../src/lib/isPassportNumber';
 
 describe('Exports', () => {
   it('should export isPassportNumbers\'s supported locales', () => {
-    assert.ok(isPassportNumberLocales instanceof Array);
-    assert.ok(validator.isPassportNumberLocales instanceof Array);
+    assert.ok(passportNumberLocales instanceof Array);
+    assert.ok(validator.passportNumberLocales instanceof Array);
   });
 
   it('should export validators', () => {
