@@ -5207,7 +5207,12 @@ describe('Validators', () => {
     test({
       validator: 'isUUID',
       args: [6],
-      valid: [],
+      valid: [
+        '016b25a6-3bbf-64d9-a32d-6571ffe66efc',
+        '016b25a6-3ec4-6a0a-a32e-2964e513bfaa',
+        '016b25a6-4236-6930-a32f-8a030a17f77f',
+        '016b25a6-42eb-6584-a330-59d341f0294a',
+      ],
       invalid: [
         '987FBC97-4BED-1078-AF07-9141BA07C9F3',
         '987FBC97-4BED-2078-AF07-9141BA07C9F3',
