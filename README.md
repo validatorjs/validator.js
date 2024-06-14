@@ -85,7 +85,7 @@ Here is a list of the validators currently available.
 
 Validator                               | Description
 --------------------------------------- | --------------------------------------
-**contains(str, seed [, options])**    | check if the string contains the seed.<br/><br/>`options` is an object that defaults to `{ ignoreCase: false, minOccurrences: 1 }`.<br />Options: <br/> `ignoreCase`: Ignore case when doing comparison, default false.<br/>`minOccurences`: Minimum number of occurrences for the seed in the string. Defaults to 1.
+**contains(str, seed [, options])**    | check if the string contains the seed.<br/><br/>`options` is an object that defaults to `{ ignoreCase: false, minOccurrences: 1 }`.<br />Options: <br/> `ignoreCase`: Ignore case when doing comparison, default false.<br/>`minOccurrences`: Minimum number of occurrences for the seed in the string. Defaults to 1.
 **equals(str, comparison)**             | check if the string matches the comparison.
 **isAbaRouting(str)**               | check if the string is an ABA routing number for US bank account / cheque.
 **isAfter(str [, options])**            | check if the string is a date that is after the specified date.<br/><br/>`options` is an object that defaults to `{ comparisonDate: Date().toString() }`.<br/>**Options:**<br/>`comparisonDate`: Date to compare to. Defaults to `Date().toString()` (now).
