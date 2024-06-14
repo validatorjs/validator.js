@@ -890,7 +890,7 @@ function plPlCheck(tin) {
   const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
   if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
-  // Calculate last digit by multitplying with odd one-digit numbers except 5
+  // Calculate last digit by multiplying with odd one-digit numbers except 5
   let checksum = 0;
   let multiplier = 1;
   for (let i = 0; i < tin.length - 1; i++) {
