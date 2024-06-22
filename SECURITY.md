@@ -8,4 +8,4 @@ In the case of a confirmed security issue, only the current version of validator
 
 **Please don't disclose security-related issues publicly.**
 
-If you discover a vulnerability within validator, please use [huntr.dev disclosure form](https://huntr.dev/bounties/disclose/?target=https://github.com/validatorjs/validator.js). We will try to validate and respond to reports in a reasonable time. if the issue is confirmed, we will create a security advisory and a patch as soon as possible.
+Report the security issue to the Node.js Security Working Group through the [HackerOne program](https://hackerone.com/nodejs-ecosystem) for ecosystem modules on npm, or to [Snyk Security Team](https://snyk.io/vulnerability-disclosure). They will help triage the security issue and work with all involved parties to remediate and release a fix.
