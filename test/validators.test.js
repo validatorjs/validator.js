@@ -13813,6 +13813,7 @@ describe('Validators', () => {
         new Date([2014, 2, 15]),
         new Date('2014-03-15'),
         '29.02.2020',
+        '02.29.2020.20',
       ],
     });
     // emulating Pacific time zone offset & time
