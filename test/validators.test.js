@@ -4736,9 +4736,53 @@ describe('Validators', () => {
         'rgba(3%,3%,101%,0.3)',
         'rgb(101%,101%,101%) additional invalid string part',
         'rgba(3%,3%,101%,0.3) additional invalid string part',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rg ba(0, 251, 22, 0.5)',
+        'rgb( 255,255 ,255)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
       ],
     });
 
+    // test empty options object
+    test({
+      validator: 'isRgbColor',
+      args: [{}],
+      valid: [
+        'rgb(0,0,0)',
+        'rgb(255,255,255)',
+        'rgba(0,0,0,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,.1)',
+        'rgba(255,255,255,0.1)',
+        'rgb(5%,5%,5%)',
+        'rgba(5%,5%,5%,.3)',
+      ],
+      invalid: [
+        'rgb(0,0,0,)',
+        'rgb(0,0,)',
+        'rgb(0,0,256)',
+        'rgb()',
+        'rgba(0,0,0)',
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,.12)',
+        'rgba(255,255,256,0.1)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%,101%,101%)',
+        'rgba(3%,3%,101%,0.3)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rg ba(0, 251, 22, 0.5)',
+        'rgb( 255,255 ,255)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
+      ],
+    });
     // test where includePercentValues is given as false
     test({
       validator: 'isRgbColor',
@@ -4750,6 +4794,159 @@ describe('Validators', () => {
       invalid: [
         'rgb(4,4,5%)',
         'rgba(5%,5%,5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+      ],
+    });
+
+    // test where includePercentValues is given as false as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: false }],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+      ],
+      invalid: [
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'r         g    b(   0,         251,       222     )',
+        'rgba(255, 255, 255 ,0.2)',
+        'r         g    ba(   0,         251,       222     )',
+      ],
+    });
+
+    // test where include percent is true explciitly
+    test({
+      validator: 'isRgbColor',
+      args: [true],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+        'rgb(0,0,0)',
+        'rgb(255,255,255)',
+        'rgba(0,0,0,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,.1)',
+        'rgba(255,255,255,0.1)',
+        'rgb(5%,5%,5%)',
+        'rgba(5%,5%,5%,.3)',
+        'rgb(5%,5%,5%)',
+        'rgba(255,255,255,0.5)',
+      ],
+      invalid: [
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rgb(0,0,0,)',
+        'rgb(0,0,)',
+        'rgb(0,0,256)',
+        'rgb()',
+        'rgba(0,0,0)',
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,.12)',
+        'rgba(255,255,256,0.1)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%,101%,101%)',
+        'rgba(3%,3%,101%,0.3)',
+      ],
+    });
+
+    // test where percent value is false and allowSpaces is true as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: false, allowSpaces: true }],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+        'rgba(255,255,255,0.2)',
+        'rgba(255, 255, 255 ,0.2)',
+      ],
+      invalid: [
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(5% ,5%, 5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rgb(0,0,)',
+        'rgb()',
+        'rgb(4,4,5%)',
+        'rgb(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%, 101%, 101%)',
+        'rgba(3%,3%,101%,0.3)',
+      ],
+
+    });
+
+    // test where both are true as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: true, allowSpaces: true }],
+      valid: [
+        'rgb(  5, 5, 5)',
+        'rgba(5, 5, 5, .3)',
+        'rgb(0, 0, 0)',
+        'rgb(255, 255, 255)',
+        'rgba(0, 0, 0, 0)',
+        'rgba(255, 255, 255, 1)',
+        'rgba(255, 255, 255, .1)',
+        'rgba(255, 255, 255, 0.1)',
+        'rgb(5% ,5% ,5%)',
+        'rgba(5%,5%,5%, .3)',
+      ],
+      invalid: [
+        'r         g    b(   0,         251,       222     )',
+        'rgb(4,4,5%)',
+        'rgb(101%,101%,101%)',
+
+      ],
+    });
+
+    // test where allowSpaces is false as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: true, allowSpaces: false }],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+        'rgb(0,0,0)',
+        'rgb(255,255,255)',
+        'rgba(0,0,0,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,.1)',
+        'rgba(255,255,255,0.1)',
+        'rgb(5%,5%,5%)',
+        'rgba(5%,5%,5%,.3)',
+
+      ],
+      invalid: [
+        'rgb( 255,255 ,255)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rgb(0,0,0,)',
+        'rgb(0,0,)',
+        'rgb(0,0,256)',
+        'rgb()',
+        'rgba(0,0,0)',
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,.12)',
+        'rgba(255,255,256,0.1)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%,101%,101%)',
+        'rgba(3%,3%,101%,0.3)',
       ],
     });
   });
@@ -5250,14 +5447,17 @@ describe('Validators', () => {
     test({
       validator: 'isUUID',
       valid: [
-        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
         'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
       ],
       invalid: [
         '',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
         'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
         'A987FBC94BED3078CF079141BA07C9F3',
         '934859',
@@ -5269,12 +5469,13 @@ describe('Validators', () => {
       validator: 'isUUID',
       args: [undefined],
       valid: [
-        'A117FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
         'A117FBC9-4BED-5078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
       invalid: [
         '',
+        'A117FBC9-4BED-3078-CF07-9141BA07C9F3',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
         'A987FBC94BED3078CF079141BA07C9F3',
         'A11AAAAA-1111-1111-AAAG-111111111111',
@@ -5284,12 +5485,13 @@ describe('Validators', () => {
       validator: 'isUUID',
       args: [null],
       valid: [
-        'A127FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A127FBC9-4BED-3078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
       invalid: [
         '',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A127FBC9-4BED-3078-CF07-9141BA07C9F3',
         'A127FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
         '912859',
         'A12AAAAA-1111-1111-AAAG-111111111111',
@@ -5314,13 +5516,14 @@ describe('Validators', () => {
       validator: 'isUUID',
       args: [2],
       valid: [
-        'A987FBC9-4BED-2078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-2078-AF07-9141BA07C9F3',
       ],
       invalid: [
         '',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
         '11111',
         'AAAAAAAA-1111-1111-AAAG-111111111111',
+        'A987FBC9-4BED-2078-CF07-9141BA07C9F3',
         'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
@@ -5330,10 +5533,11 @@ describe('Validators', () => {
       validator: 'isUUID',
       args: [3],
       valid: [
-        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
       ],
       invalid: [
         '',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
         '934859',
         'AAAAAAAA-1111-1111-AAAG-111111111111',
@@ -5383,7 +5587,9 @@ describe('Validators', () => {
     test({
       validator: 'isUUID',
       args: [6],
-      valid: [],
+      valid: [
+        '1ef29908-cde1-69d0-be16-bfc8518a95f0',
+      ],
       invalid: [
         '987FBC97-4BED-1078-AF07-9141BA07C9F3',
         '987FBC97-4BED-2078-AF07-9141BA07C9F3',
@@ -5391,6 +5597,7 @@ describe('Validators', () => {
         '987FBC97-4BED-4078-AF07-9141BA07C9F3',
         '987FBC97-4BED-5078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
+        '987FBC97-4BED-8078-AF07-9141BA07C9F3',
       ],
     });
     test({
@@ -5406,6 +5613,29 @@ describe('Validators', () => {
         'AAAAAAAA-1111-1111-AAAG-111111111111',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
         'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
+        '713ae7e3-cb32-45f9-adcb-7c4fa86b90c1',
+        '625e63f3-58f5-40b7-83a1-a72ad31acffb',
+        '57b73598-8764-4ad0-a76a-679bb6640eb1',
+        '9c858901-8a57-4791-81fe-4c455b099bc9',
+      ],
+    });
+    test({
+      validator: 'isUUID',
+      args: [8],
+      valid: [
+        '018C544A-D384-8000-BB74-3B1738ABE43C',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '934859',
+        'AAAAAAAA-1111-1111-AAAG-111111111111',
+        'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-7078-AF07-9141BA07C9F3',
         '713ae7e3-cb32-45f9-adcb-7c4fa86b90c1',
         '625e63f3-58f5-40b7-83a1-a72ad31acffb',
         '57b73598-8764-4ad0-a76a-679bb6640eb1',
