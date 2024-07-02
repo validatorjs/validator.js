@@ -8,6 +8,7 @@ const default_fqdn_options = {
   allow_numeric_tld: false,
   allow_wildcard: false,
   ignore_max_length: false,
+  accents: false, // Added this line to include the new option
 };
 
 export default function isFQDN(str, options) {
@@ -33,7 +34,11 @@ export default function isFQDN(str, options) {
       return false;
     }
 
-    if (!options.allow_numeric_tld && !/^([a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
+    const tldPattern = options.accents 
+      ? /^([a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEFÀ-ÿ]{2,}|xn[a-z0-9-]{2,})$/i 
+      : /^([a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{2,}|xn[a-z0-9-]{2,})$/i;
+      
+    if (!options.allow_numeric_tld && !tldPattern.test(tld)) {
       return false;
     }
 
@@ -53,7 +58,11 @@ export default function isFQDN(str, options) {
       return false;
     }
 
-    if (!/^[a-z_\u00a1-\uffff0-9-]+$/i.test(part)) {
+    const partPattern = options.accents 
+      ? /^[a-z_\u00a1-\uffffÀ-ÿ0-9-]+$/i 
+      : /^[a-z_\u00a1-\uffff0-9-]+$/i;
+      
+    if (!partPattern.test(part)) {
       return false;
     }
 
