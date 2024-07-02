@@ -1,5 +1,4 @@
 import assertString from './util/assertString';
-
 import isFQDN from './isFQDN';
 import isIP from './isIP';
 import merge from './util/merge';
@@ -14,9 +13,8 @@ require_host - if set as false isURL will not check if host is present in the UR
 require_port - if set as true isURL will check if port is present in the URL
 allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
 validate_length - if set as false isURL will skip string length validation (IE maximum is 2083)
-
+accents - if set as true isURL will accept URLs with accented characters in the hostname
 */
-
 
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
@@ -31,6 +29,7 @@ const default_url_options = {
   allow_fragments: true,
   allow_query_components: true,
   validate_length: true,
+  accents: false, 
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
@@ -47,6 +46,14 @@ function checkHost(host, matches) {
     }
   }
   return false;
+}
+
+function isValidHostname(hostname, options) {
+  if (options.accents) {
+    // Allow accented characters
+    return /^[a-zA-Z0-9\-\.À-ÿ]+$/.test(hostname);
+  }
+  return isFQDN(hostname, options) || isIP(hostname);
 }
 
 export default function isURL(url, options) {
@@ -157,7 +164,7 @@ export default function isURL(url, options) {
     return true;
   }
 
-  if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
+  if (!isValidHostname(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
     return false;
   }
 
