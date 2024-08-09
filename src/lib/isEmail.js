@@ -1,9 +1,9 @@
-import assertString from './util/assertString';
+import assertString from './util/assertString.js';
 
-import isByteLength from './isByteLength';
-import isFQDN from './isFQDN';
-import isIP from './isIP';
-import merge from './util/merge';
+import isByteLength from './isByteLength.js';
+import isFQDN from './isFQDN.js';
+import isIP from './isIP.js';
+import merge from './util/merge.js';
 
 const default_email_options = {
   allow_display_name: false,
@@ -106,25 +106,25 @@ export default function isEmail(str, options) {
   }
 
   let user = parts.join('@');
-
+  
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
-      Previously we removed dots for gmail addresses before validating.
-      This was removed because it allows `multiple..dots@gmail.com`
-      to be reported as valid, but it is not.
-      Gmail only normalizes single dots, removing them from here is pointless,
-      should be done in normalizeEmail
+    Previously we removed dots for gmail addresses before validating.
+    This was removed because it allows `multiple..dots@gmail.com`
+    to be reported as valid, but it is not.
+    Gmail only normalizes single dots, removing them from here is pointless,
+    should be done in normalizeEmail
     */
-    user = user.toLowerCase();
-
-    // Removing sub-address from username before gmail validation
-    const username = user.split('+')[0];
-
-    // Dots are not included in gmail length restriction
-    if (!isByteLength(username.replace(/\./g, ''), { min: 6, max: 30 })) {
-      return false;
+   user = user.toLowerCase();
+   
+   // Removing sub-address from username before gmail validation
+   const username = user.split('+')[0];
+   
+   // Dots are not included in gmail length restriction
+   if (!isByteLength(username.replace(/\./g, ''), { min: 6, max: 30 })) {
+     return false;
     }
-
+    
     const user_parts = username.split('.');
     for (let i = 0; i < user_parts.length; i++) {
       if (!gmailUserPart.test(user_parts[i])) {
@@ -132,14 +132,14 @@ export default function isEmail(str, options) {
       }
     }
   }
-
+  
   if (options.ignore_max_length === false && (
     !isByteLength(user, { max: 64 }) ||
     !isByteLength(domain, { max: 254 }))
   ) {
     return false;
   }
-
+  
   if (!isFQDN(domain, {
     require_tld: options.require_tld,
     ignore_max_length: options.ignore_max_length,
@@ -148,29 +148,29 @@ export default function isEmail(str, options) {
     if (!options.allow_ip_domain) {
       return false;
     }
-
+    
     if (!isIP(domain)) {
       if (!domain.startsWith('[') || !domain.endsWith(']')) {
         return false;
       }
-
+      
       let noBracketdomain = domain.slice(1, -1);
-
+      
       if (noBracketdomain.length === 0 || !isIP(noBracketdomain)) {
         return false;
       }
     }
   }
-
+  
   if (options.blacklisted_chars) {
     if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
   }
-
-  if (user[0] === '"') {
+  
+  if (user[0] === '"' && user[user.length - 1] === '"') {
     user = user.slice(1, user.length - 1);
     return options.allow_utf8_local_part ?
-      quotedEmailUserUtf8.test(user) :
-      quotedEmailUser.test(user);
+    quotedEmailUserUtf8.test(user) :
+    quotedEmailUser.test(user);
   }
 
   const pattern = options.allow_utf8_local_part ?
