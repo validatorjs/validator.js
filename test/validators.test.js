@@ -4211,6 +4211,78 @@ describe('Validators', () => {
         'a',
       ],
     });
+    test({
+      validator: 'isInt',
+      args: [{
+        min: undefined,
+        max: undefined,
+      }],
+      valid: [
+        '143',
+        '15',
+        '767777575',
+      ],
+      invalid: [
+        '10.4',
+        'bar',
+        '10a',
+        'c44',
+      ],
+    });
+    test({
+      validator: 'isInt',
+      args: [{
+        gt: undefined,
+        lt: undefined,
+      }],
+      valid: [
+        '289373466',
+        '55',
+        '989',
+      ],
+      invalid: [
+        '10.4',
+        'baz',
+        '66a',
+        'c21',
+      ],
+    });
+    test({
+      validator: 'isInt',
+      args: [{
+        gt: null,
+        max: null,
+      }],
+      valid: [
+        '1',
+        '886',
+        '84512345',
+      ],
+      invalid: [
+        '10.4',
+        'h',
+        '1.2',
+        '+',
+      ],
+    });
+    test({
+      validator: 'isInt',
+      args: [{
+        lt: null,
+        min: null,
+      }],
+      valid: [
+        '289373466',
+        '55',
+        '989',
+      ],
+      invalid: [
+        ',',
+        '+11212+',
+        'fail',
+        '111987234i',
+      ],
+    });
   });
 
   it('should validate floats', () => {
@@ -4440,6 +4512,87 @@ describe('Validators', () => {
         'foo',
       ],
     });
+    test({
+      validator: 'isFloat',
+      args: [{
+        min: undefined,
+        max: undefined,
+      }],
+      valid: [
+        '123',
+        '123.',
+        '123.123',
+        '-767.767',
+        '+111.111',
+      ],
+      invalid: [
+        'ab565',
+        '-,123',
+        '+,123',
+        '7866.t',
+        '123,123',
+        '123,',
+      ],
+    });
+    test({
+      validator: 'isFloat',
+      args: [{
+        gt: undefined,
+        lt: undefined,
+      }],
+      valid: [
+        '14.34343',
+        '11.1',
+        '456',
+      ],
+      invalid: [
+        'ab565',
+        '-,123',
+        '+,123',
+        '7866.t',
+      ],
+    });
+    test({
+      validator: 'isFloat',
+      args: [{
+        locale: 'ar',
+        gt: null,
+        max: null,
+      }],
+      valid: [
+        '13324٫',
+        '12321',
+        '444٫83874',
+      ],
+      invalid: [
+        '55.55.55',
+        '1;23',
+        '+-123',
+        '1111111l1',
+        '3.3',
+      ],
+    });
+    test({
+      validator: 'isFloat',
+      args: [{
+        locale: 'ru-RU',
+        lt: null,
+        min: null,
+      }],
+      valid: [
+        '11231554,34343',
+        '11,1',
+        '456',
+        ',311',
+      ],
+      invalid: [
+        'ab565',
+        '-.123',
+        '+.123',
+        '7866.t',
+        '22.3',
+      ],
+    });
   });
 
   it('should validate hexadecimal strings', () => {
@@ -4583,9 +4736,53 @@ describe('Validators', () => {
         'rgba(3%,3%,101%,0.3)',
         'rgb(101%,101%,101%) additional invalid string part',
         'rgba(3%,3%,101%,0.3) additional invalid string part',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rg ba(0, 251, 22, 0.5)',
+        'rgb( 255,255 ,255)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
       ],
     });
 
+    // test empty options object
+    test({
+      validator: 'isRgbColor',
+      args: [{}],
+      valid: [
+        'rgb(0,0,0)',
+        'rgb(255,255,255)',
+        'rgba(0,0,0,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,.1)',
+        'rgba(255,255,255,0.1)',
+        'rgb(5%,5%,5%)',
+        'rgba(5%,5%,5%,.3)',
+      ],
+      invalid: [
+        'rgb(0,0,0,)',
+        'rgb(0,0,)',
+        'rgb(0,0,256)',
+        'rgb()',
+        'rgba(0,0,0)',
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,.12)',
+        'rgba(255,255,256,0.1)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%,101%,101%)',
+        'rgba(3%,3%,101%,0.3)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rg ba(0, 251, 22, 0.5)',
+        'rgb( 255,255 ,255)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
+      ],
+    });
     // test where includePercentValues is given as false
     test({
       validator: 'isRgbColor',
@@ -4597,6 +4794,159 @@ describe('Validators', () => {
       invalid: [
         'rgb(4,4,5%)',
         'rgba(5%,5%,5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+      ],
+    });
+
+    // test where includePercentValues is given as false as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: false }],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+      ],
+      invalid: [
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'r         g    b(   0,         251,       222     )',
+        'rgba(255, 255, 255 ,0.2)',
+        'r         g    ba(   0,         251,       222     )',
+      ],
+    });
+
+    // test where include percent is true explciitly
+    test({
+      validator: 'isRgbColor',
+      args: [true],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+        'rgb(0,0,0)',
+        'rgb(255,255,255)',
+        'rgba(0,0,0,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,.1)',
+        'rgba(255,255,255,0.1)',
+        'rgb(5%,5%,5%)',
+        'rgba(5%,5%,5%,.3)',
+        'rgb(5%,5%,5%)',
+        'rgba(255,255,255,0.5)',
+      ],
+      invalid: [
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rgb(0,0,0,)',
+        'rgb(0,0,)',
+        'rgb(0,0,256)',
+        'rgb()',
+        'rgba(0,0,0)',
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,.12)',
+        'rgba(255,255,256,0.1)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%,101%,101%)',
+        'rgba(3%,3%,101%,0.3)',
+      ],
+    });
+
+    // test where percent value is false and allowSpaces is true as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: false, allowSpaces: true }],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+        'rgba(255,255,255,0.2)',
+        'rgba(255, 255, 255 ,0.2)',
+      ],
+      invalid: [
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(5% ,5%, 5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rgb(0,0,)',
+        'rgb()',
+        'rgb(4,4,5%)',
+        'rgb(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%, 101%, 101%)',
+        'rgba(3%,3%,101%,0.3)',
+      ],
+
+    });
+
+    // test where both are true as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: true, allowSpaces: true }],
+      valid: [
+        'rgb(  5, 5, 5)',
+        'rgba(5, 5, 5, .3)',
+        'rgb(0, 0, 0)',
+        'rgb(255, 255, 255)',
+        'rgba(0, 0, 0, 0)',
+        'rgba(255, 255, 255, 1)',
+        'rgba(255, 255, 255, .1)',
+        'rgba(255, 255, 255, 0.1)',
+        'rgb(5% ,5% ,5%)',
+        'rgba(5%,5%,5%, .3)',
+      ],
+      invalid: [
+        'r         g    b(   0,         251,       222     )',
+        'rgb(4,4,5%)',
+        'rgb(101%,101%,101%)',
+
+      ],
+    });
+
+    // test where allowSpaces is false as part of options object
+    test({
+      validator: 'isRgbColor',
+      args: [{ includePercentValues: true, allowSpaces: false }],
+      valid: [
+        'rgb(5,5,5)',
+        'rgba(5,5,5,.3)',
+        'rgb(0,0,0)',
+        'rgb(255,255,255)',
+        'rgba(0,0,0,0)',
+        'rgba(255,255,255,1)',
+        'rgba(255,255,255,.1)',
+        'rgba(255,255,255,0.1)',
+        'rgb(5%,5%,5%)',
+        'rgba(5%,5%,5%,.3)',
+
+      ],
+      invalid: [
+        'rgb( 255,255 ,255)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(5%, 5%, 5%)',
+        'rgba(255, 255, 255, 0.5)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'r         g    b(   0,         251,       222     )',
+        'r         g    ba(   0,         251,       222     )',
+        'rgb(0,0,0,)',
+        'rgb(0,0,)',
+        'rgb(0,0,256)',
+        'rgb()',
+        'rgba(0,0,0)',
+        'rgba(255,255,255,2)',
+        'rgba(255,255,255,.12)',
+        'rgba(255,255,256,0.1)',
+        'rgb(4,4,5%)',
+        'rgba(5%,5%,5%)',
+        'rgba(3,3,3%,.3)',
+        'rgb(101%,101%,101%)',
+        'rgba(3%,3%,101%,0.3)',
       ],
     });
   });
@@ -5070,18 +5420,44 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ULIDs', () => {
+    test({
+      validator: 'isULID',
+      valid: [
+        '01HBGW8CWQ5Q6DTT7XP89VV4KT',
+        '01HBGW8CWR8MZQMBG6FA2QHMDD',
+        '01HBGW8CWS3MEEK12Y9G7SVW4V',
+        '01hbgw8cws1tq2njavy9amb0wx',
+        '01HBGW8cwS43H4jkQ0A4ZRJ7QV',
+      ],
+      invalid: [
+        '',
+        '01HBGW-CWS3MEEK1#Y9G7SVW4V',
+        '91HBGW8CWS3MEEK12Y9G7SVW4V',
+        '81HBGW8CWS3MEEK12Y9G7SVW4V',
+        '934859',
+        '01HBGW8CWS3MEEK12Y9G7SVW4VXXX',
+        '01UBGW8IWS3MOEK12Y9G7SVW4V',
+        '01HBGW8CuS43H4JKQ0A4ZRJ7QV',
+      ],
+    });
+  });
+
   it('should validate UUIDs', () => {
     test({
       validator: 'isUUID',
       valid: [
-        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
         'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
       ],
       invalid: [
         '',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
         'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
         'A987FBC94BED3078CF079141BA07C9F3',
         '934859',
@@ -5093,12 +5469,13 @@ describe('Validators', () => {
       validator: 'isUUID',
       args: [undefined],
       valid: [
-        'A117FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
         'A117FBC9-4BED-5078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
       invalid: [
         '',
+        'A117FBC9-4BED-3078-CF07-9141BA07C9F3',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
         'A987FBC94BED3078CF079141BA07C9F3',
         'A11AAAAA-1111-1111-AAAG-111111111111',
@@ -5108,12 +5485,13 @@ describe('Validators', () => {
       validator: 'isUUID',
       args: [null],
       valid: [
-        'A127FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A127FBC9-4BED-3078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
       ],
       invalid: [
         '',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A127FBC9-4BED-3078-CF07-9141BA07C9F3',
         'A127FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
         '912859',
         'A12AAAAA-1111-1111-AAAG-111111111111',
@@ -5138,13 +5516,14 @@ describe('Validators', () => {
       validator: 'isUUID',
       args: [2],
       valid: [
-        'A987FBC9-4BED-2078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-2078-AF07-9141BA07C9F3',
       ],
       invalid: [
         '',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
         '11111',
         'AAAAAAAA-1111-1111-AAAG-111111111111',
+        'A987FBC9-4BED-2078-CF07-9141BA07C9F3',
         'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
@@ -5154,10 +5533,11 @@ describe('Validators', () => {
       validator: 'isUUID',
       args: [3],
       valid: [
-        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
       ],
       invalid: [
         '',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
         'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
         '934859',
         'AAAAAAAA-1111-1111-AAAG-111111111111',
@@ -5207,7 +5587,9 @@ describe('Validators', () => {
     test({
       validator: 'isUUID',
       args: [6],
-      valid: [],
+      valid: [
+        '1ef29908-cde1-69d0-be16-bfc8518a95f0',
+      ],
       invalid: [
         '987FBC97-4BED-1078-AF07-9141BA07C9F3',
         '987FBC97-4BED-2078-AF07-9141BA07C9F3',
@@ -5215,6 +5597,7 @@ describe('Validators', () => {
         '987FBC97-4BED-4078-AF07-9141BA07C9F3',
         '987FBC97-4BED-5078-AF07-9141BA07C9F3',
         '018C544A-D384-7000-BB74-3B1738ABE43C',
+        '987FBC97-4BED-8078-AF07-9141BA07C9F3',
       ],
     });
     test({
@@ -5230,6 +5613,29 @@ describe('Validators', () => {
         'AAAAAAAA-1111-1111-AAAG-111111111111',
         'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
         'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
+        '713ae7e3-cb32-45f9-adcb-7c4fa86b90c1',
+        '625e63f3-58f5-40b7-83a1-a72ad31acffb',
+        '57b73598-8764-4ad0-a76a-679bb6640eb1',
+        '9c858901-8a57-4791-81fe-4c455b099bc9',
+      ],
+    });
+    test({
+      validator: 'isUUID',
+      args: [8],
+      valid: [
+        '018C544A-D384-8000-BB74-3B1738ABE43C',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        '934859',
+        'AAAAAAAA-1111-1111-AAAG-111111111111',
+        'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-7078-AF07-9141BA07C9F3',
         '713ae7e3-cb32-45f9-adcb-7c4fa86b90c1',
         '625e63f3-58f5-40b7-83a1-a72ad31acffb',
         '57b73598-8764-4ad0-a76a-679bb6640eb1',
@@ -11956,6 +12362,21 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'CO',
+        valid: [
+          '050034',
+          '110221',
+          '441029',
+          '910001',
+        ],
+        invalid: [
+          '11001',
+          '000000',
+          '109999',
+          '329999',
+        ],
+      },
+      {
         locale: 'ES',
         valid: [
           '01001',
@@ -14827,7 +15248,7 @@ describe('Validators', () => {
       ],
       invalid: [
         '',
-        'somthing',
+        'something',
         'valid@gmail.com',
         'mailto:?subject=okay&subject=444',
         'mailto:?subject=something&wrong=888',
