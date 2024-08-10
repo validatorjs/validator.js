@@ -84,12 +84,16 @@ describe('Validators', () => {
         'foo.bar@gmail.com',
         'foo.bar@googlemail.com',
         `${'a'.repeat(30)}@gmail.com`,
+        '"foobar"@gmail.com',
       ],
       invalid: [
         `${'a'.repeat(31)}@gmail.com`,
         'test@gmail.com',
         'test.1@gmail.com',
         '.foobar@gmail.com',
+        '"foobar@gmail.com',
+        '"foo"bar@gmail.com',
+        'foo"bar"@gmail.com',
       ],
     });
   });
