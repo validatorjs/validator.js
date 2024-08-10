@@ -71,6 +71,9 @@ describe('Validators', () => {
         'nbsp test@test.com',
         'nbsp_test@te st.com',
         'nbsp_test@test.co m',
+        '"foobar@gmail.com',
+        '"foo"bar@gmail.com',
+        'foo"bar"@gmail.com',
       ],
     });
   });
@@ -90,9 +93,6 @@ describe('Validators', () => {
         'test@gmail.com',
         'test.1@gmail.com',
         '.foobar@gmail.com',
-        '"foobar@gmail.com',
-        '"foo"bar@gmail.com',
-        'foo"bar"@gmail.com',
       ],
     });
   });
