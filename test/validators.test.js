@@ -71,6 +71,9 @@ describe('Validators', () => {
         'nbsp test@test.com',
         'nbsp_test@te st.com',
         'nbsp_test@test.co m',
+        '"foobar@gmail.com',
+        '"foo"bar@gmail.com',
+        'foo"bar"@gmail.com',
       ],
     });
   });
@@ -784,6 +787,21 @@ describe('Validators', () => {
         `http://foobar.com/${new Array(2083).join('f')}`,
       ],
       invalid: [],
+    });
+  });
+
+  it('should allow user to configure the maximum URL length', () => {
+    test({
+      validator: 'isURL',
+      args: [{ max_allowed_length: 20 }],
+      valid: [
+        'http://foobar.com/12', // 20 characters
+        'http://foobar.com/',
+      ],
+      invalid: [
+        'http://foobar.com/123', // 21 characters
+        'http://foobar.com/1234567890',
+      ],
     });
   });
 
