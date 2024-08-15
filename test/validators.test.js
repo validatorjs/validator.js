@@ -787,6 +787,21 @@ describe('Validators', () => {
     });
   });
 
+  it('should allow user to configure the maximum URL length', () => {
+    test({
+      validator: 'isURL',
+      args: [{ max_allowed_length: 20 }],
+      valid: [
+        'http://foobar.com/12', // 20 characters
+        'http://foobar.com/',
+      ],
+      invalid: [
+        'http://foobar.com/123', // 21 characters
+        'http://foobar.com/1234567890',
+      ],
+    });
+  });
+
   it('should validate URLs with port present', () => {
     test({
       validator: 'isURL',
