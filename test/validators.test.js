@@ -13822,6 +13822,7 @@ describe('Validators', () => {
         '02.15.2014',
         '03.15.2014',
         '02.29.2020',
+        'abc.def.hij', // temporary fake to trigger error in CI
       ],
       invalid: [
         '2014-02-15',
