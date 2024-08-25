@@ -71,6 +71,9 @@ describe('Validators', () => {
         'nbsp test@test.com',
         'nbsp_test@te st.com',
         'nbsp_test@test.co m',
+        '"foobar@gmail.com',
+        '"foo"bar@gmail.com',
+        'foo"bar"@gmail.com',
       ],
     });
   });
@@ -784,6 +787,21 @@ describe('Validators', () => {
         `http://foobar.com/${new Array(2083).join('f')}`,
       ],
       invalid: [],
+    });
+  });
+
+  it('should allow user to configure the maximum URL length', () => {
+    test({
+      validator: 'isURL',
+      args: [{ max_allowed_length: 20 }],
+      valid: [
+        'http://foobar.com/12', // 20 characters
+        'http://foobar.com/',
+      ],
+      invalid: [
+        'http://foobar.com/123', // 21 characters
+        'http://foobar.com/1234567890',
+      ],
     });
   });
 
@@ -14292,26 +14310,18 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
-      args: ['en-PK'],
+      args: ['en-SG'],
       valid: [
-        'P 1789',
-        'RL745',
-        'RIR 5421',
-        'KHI 201',
-        'LB6571',
-        'LHR-786-23',
-        'AJGB 816-10',
-        'LES 7891 06',
-        'IDS 7871',
-        'LEH 4607 15',
+        'SGX 1234 A',
+        'SGX-1234-A',
+        'SGB1234Z',
       ],
       invalid: [
-        'ajgb 816-10',
-        ' 278-37',
-        'ABZ-27',
+        'sg1234a',
+        'invalidlicenseplate',
+        '4578',
         '',
-        'ABC-123-',
-        'D 272',
+        'GJ054GH4785',
       ],
     });
   });
