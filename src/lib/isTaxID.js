@@ -174,24 +174,24 @@ function deDeCheck(tin) {
   const digits = tin.split('').map(a => parseInt(a, 10));
 
   // Fill array with strings of number positions
-  let occurences = [];
+  let occurrences = [];
   for (let i = 0; i < digits.length - 1; i++) {
-    occurences.push('');
+    occurrences.push('');
     for (let j = 0; j < digits.length - 1; j++) {
       if (digits[i] === digits[j]) {
-        occurences[i] += j;
+        occurrences[i] += j;
       }
     }
   }
 
-  // Remove digits with one occurence and test for only one duplicate/triplicate
-  occurences = occurences.filter(a => a.length > 1);
-  if (occurences.length !== 2 && occurences.length !== 3) { return false; }
+  // Remove digits with one occurrence and test for only one duplicate/triplicate
+  occurrences = occurrences.filter(a => a.length > 1);
+  if (occurrences.length !== 2 && occurrences.length !== 3) { return false; }
 
   // In case of triplicate value only two digits are allowed next to each other
-  if (occurences[0].length === 3) {
-    const trip_locations = occurences[0].split('').map(a => parseInt(a, 10));
-    let recurrent = 0; // Amount of neighbour occurences
+  if (occurrences[0].length === 3) {
+    const trip_locations = occurrences[0].split('').map(a => parseInt(a, 10));
+    let recurrent = 0; // Amount of neighbor occurrences
     for (let i = 0; i < trip_locations.length - 1; i++) {
       if (trip_locations[i] + 1 === trip_locations[i + 1]) {
         recurrent += 1;
@@ -621,10 +621,10 @@ function huHuCheck(tin) {
  * and X characters after vowels may only be followed by other X characters.
  */
 function itItNameCheck(name) {
-  // true at the first occurence of a vowel
+  // true at the first occurrence of a vowel
   let vowelflag = false;
 
-  // true at the first occurence of an X AFTER vowel
+  // true at the first occurrence of an X AFTER vowel
   // (to properly handle last names with X as consonant)
   let xflag = false;
 
@@ -890,7 +890,7 @@ function plPlCheck(tin) {
   const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
   if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
-  // Calculate last digit by mulitplying with odd one-digit numbers except 5
+  // Calculate last digit by multiplying with odd one-digit numbers except 5
   let checksum = 0;
   let multiplier = 1;
   for (let i = 0; i < tin.length - 1; i++) {

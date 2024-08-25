@@ -69,6 +69,8 @@ const passportRegexByCountryCode = {
   ZA: /^[TAMD]\d{8}$/, // SOUTH AFRICA
 };
 
+export const locales = Object.keys(passportRegexByCountryCode);
+
 /**
  * Check if str is a valid passport number
  * relative to provided ISO Country Code.

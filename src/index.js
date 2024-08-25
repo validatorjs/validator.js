@@ -22,7 +22,7 @@ import isAbaRouting from './lib/isAbaRouting';
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
 import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
-import isPassportNumber from './lib/isPassportNumber';
+import isPassportNumber, { locales as passportNumberLocales } from './lib/isPassportNumber';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
@@ -63,6 +63,7 @@ import isEmpty from './lib/isEmpty';
 import isLength from './lib/isLength';
 import isByteLength from './lib/isByteLength';
 
+import isULID from './lib/isULID';
 import isUUID from './lib/isUUID';
 import isMongoId from './lib/isMongoId';
 
@@ -155,6 +156,7 @@ const validator = {
   isAlphanumericLocales,
   isNumeric,
   isPassportNumber,
+  passportNumberLocales,
   isPort,
   isLowercase,
   isUppercase,
@@ -185,6 +187,7 @@ const validator = {
   isLength,
   isLocale,
   isByteLength,
+  isULID,
   isUUID,
   isMongoId,
   isAfter,
