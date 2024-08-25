@@ -51,7 +51,8 @@ import isEmail from 'validator/lib/isEmail';
 ```
 
 #### Types 
-Starting the latest version of validator.js , the types comes out of box. 
+TypeScript type definitions were previously not provided out-of-the-box, but got taken care of by third-parties like `DefinitelyTyped`. 
+This is not required anymore, as type definitions are now part of validator.js
 
 #### Tree-shakeable ES imports
 
