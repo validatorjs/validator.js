@@ -12,7 +12,7 @@ function isValidFormat(format) {
 
 function zip(date, format) {
   const zippedArr = [],
-    len = Math.min(date.length, format.length);
+    len = Math.max(date.length, format.length);
 
   for (let i = 0; i < len; i++) {
     zippedArr.push([date[i], format[i]]);
@@ -40,7 +40,7 @@ export default function isDate(input, options) {
     const dateObj = {};
 
     for (const [dateWord, formatWord] of dateAndFormat) {
-      if (dateWord.length !== formatWord.length) {
+      if (!dateWord || !formatWord || dateWord.length !== formatWord.length) {
         return false;
       }
 
