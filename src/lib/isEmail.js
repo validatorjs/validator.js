@@ -78,6 +78,7 @@ export default function isEmail(str, options) {
 
   let user = parts.join('@');
 
+  // Fixed conflict: using `domain` instead of `lower_domain`
   if (options.domain_specific_validation && (domain === 'gmail.com' || domain === 'googlemail.com')) {
     user = user.toLowerCase();
     const username = user.split('+')[0];
@@ -103,6 +104,7 @@ export default function isEmail(str, options) {
   }
 
   if (user[0] === '"' && user[user.length - 1] === '"') {
+    // Fixed conflict: use slice(1, -1) instead of slice(1, user.length - 1)
     user = user.slice(1, -1);
     return options.allow_utf8_local_part ? quotedEmailUserUtf8.test(user) : quotedEmailUser.test(user);
   }
