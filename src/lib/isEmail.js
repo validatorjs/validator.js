@@ -1,3 +1,4 @@
+/* eslint-disable no-control-regex */
 import assertString from './util/assertString';
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
@@ -16,8 +17,27 @@ const default_email_options = {
   host_whitelist: [],
 };
 
+const defaultMaxEmailLength = 254;
+const splitNameAddress = /^([^\x00-\x1F\x7F-\x9F\cX]+)</i;
+const gmailUserPart = /^[a-z\d]+$/;
+const emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A1-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
+const emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
+
+function validateDisplayName(display_name) {
+  const display_name_without_quotes = display_name.replace(/^"(.+)"$/, '$1');
+  if (!display_name_without_quotes.trim()) {
+    return false;
+  }
+  const contains_illegal = /[\.";<>]/.test(display_name_without_quotes);
+  if (contains_illegal && display_name_without_quotes === display_name) {
+    return false;
+  }
+  const all_start_with_back_slash = display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
+  return all_start_with_back_slash;
+}
+
 const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
-const quotedEmailUser = /^([\s\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i; // stricter pattern
+const quotedEmailUser = /^([\s\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
 
 export default function isEmail(str, options) {
   assertString(str);
@@ -27,7 +47,6 @@ export default function isEmail(str, options) {
     const display_email = str.match(splitNameAddress);
     if (display_email) {
       let display_name = display_email[1];
-
       str = str.replace(display_name, '').replace(/(^<|>$)/g, '');
 
       if (display_name.endsWith(' ')) {
