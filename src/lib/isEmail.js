@@ -17,7 +17,7 @@ const default_email_options = {
 };
 
 const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
-const quotedEmailUser = /^([\s\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i; // stricter pattern
+const quotedEmailUser = /^([\s\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
 
 export default function isEmail(str, options) {
   assertString(str);
@@ -59,7 +59,7 @@ export default function isEmail(str, options) {
 
   let user = parts.join('@');
 
-  if (options.domain_specific_validation && (domain === 'gmail.com' || domain === 'googlemail.com')) {
+  if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     user = user.toLowerCase();
     const username = user.split('+')[0];
     if (!isByteLength(username.replace(/\./g, ''), { min: 6, max: 30 })) {
