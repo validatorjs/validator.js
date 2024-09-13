@@ -11,7 +11,7 @@ const passportRegexByCountryCode = {
   AR: /^[A-Z]{3}\d{6}$/, // ARGENTINA
   AT: /^[A-Z]\d{7}$/, // AUSTRIA
   AU: /^[A-Z]\d{7}$/, // AUSTRALIA
-  AZ: /^[A-Z]{2,3}\d{7,8}$/, // AZERBAIJAN
+  AZ: /^[A-Z]{1}\d{8}$/, // AZERBAIJAN
   BE: /^[A-Z]{2}\d{6}$/, // BELGIUM
   BG: /^\d{9}$/, // BULGARIA
   BR: /^[A-Z]{2}\d{6}$/, // BRAZIL
@@ -66,7 +66,10 @@ const passportRegexByCountryCode = {
   TR: /^[A-Z]\d{8}$/, // TURKEY
   UA: /^[A-Z]{2}\d{6}$/, // UKRAINE
   US: /^\d{9}$/, // UNITED STATES
+  ZA: /^[TAMD]\d{8}$/, // SOUTH AFRICA
 };
+
+export const locales = Object.keys(passportRegexByCountryCode);
 
 /**
  * Check if str is a valid passport number

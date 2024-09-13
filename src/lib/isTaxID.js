@@ -174,24 +174,24 @@ function deDeCheck(tin) {
   const digits = tin.split('').map(a => parseInt(a, 10));
 
   // Fill array with strings of number positions
-  let occurences = [];
+  let occurrences = [];
   for (let i = 0; i < digits.length - 1; i++) {
-    occurences.push('');
+    occurrences.push('');
     for (let j = 0; j < digits.length - 1; j++) {
       if (digits[i] === digits[j]) {
-        occurences[i] += j;
+        occurrences[i] += j;
       }
     }
   }
 
-  // Remove digits with one occurence and test for only one duplicate/triplicate
-  occurences = occurences.filter(a => a.length > 1);
-  if (occurences.length !== 2 && occurences.length !== 3) { return false; }
+  // Remove digits with one occurrence and test for only one duplicate/triplicate
+  occurrences = occurrences.filter(a => a.length > 1);
+  if (occurrences.length !== 2 && occurrences.length !== 3) { return false; }
 
   // In case of triplicate value only two digits are allowed next to each other
-  if (occurences[0].length === 3) {
-    const trip_locations = occurences[0].split('').map(a => parseInt(a, 10));
-    let recurrent = 0; // Amount of neighbour occurences
+  if (occurrences[0].length === 3) {
+    const trip_locations = occurrences[0].split('').map(a => parseInt(a, 10));
+    let recurrent = 0; // Amount of neighbor occurrences
     for (let i = 0; i < trip_locations.length - 1; i++) {
       if (trip_locations[i] + 1 === trip_locations[i + 1]) {
         recurrent += 1;
@@ -374,6 +374,30 @@ function enUsGetPrefixes() {
  */
 function enUsCheck(tin) {
   return enUsGetPrefixes().indexOf(tin.slice(0, 2)) !== -1;
+}
+
+/*
+ * es-AR validation function
+ * Clave Única de Identificación Tributaria (CUIT/CUIL)
+ * Sourced from:
+ * - https://servicioscf.afip.gob.ar/publico/abc/ABCpaso2.aspx?id_nivel1=3036&id_nivel2=3040&p=Conceptos%20b%C3%A1sicos
+ * - https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Identificaci%C3%B3n_Tributaria
+ */
+
+function esArCheck(tin) {
+  let accum = 0;
+  let digits = tin.split('');
+  let digit = parseInt(digits.pop(), 10);
+  for (let i = 0; i < digits.length; i++) {
+    accum += digits[9 - i] * (2 + (i % 6));
+  }
+  let verif = 11 - (accum % 11);
+  if (verif === 11) {
+    verif = 0;
+  } else if (verif === 10) {
+    verif = 9;
+  }
+  return digit === verif;
 }
 
 /*
@@ -597,10 +621,10 @@ function huHuCheck(tin) {
  * and X characters after vowels may only be followed by other X characters.
  */
 function itItNameCheck(name) {
-  // true at the first occurence of a vowel
+  // true at the first occurrence of a vowel
   let vowelflag = false;
 
-  // true at the first occurence of an X AFTER vowel
+  // true at the first occurrence of an X AFTER vowel
   // (to properly handle last names with X as consonant)
   let xflag = false;
 
@@ -866,7 +890,7 @@ function plPlCheck(tin) {
   const date = `${full_year}/${month}/${tin.slice(4, 6)}`;
   if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
-  // Calculate last digit by mulitplying with odd one-digit numbers except 5
+  // Calculate last digit by multiplying with odd one-digit numbers except 5
   let checksum = 0;
   let multiplier = 1;
   for (let i = 0; i < tin.length - 1; i++) {
@@ -1117,6 +1141,21 @@ function svSeCheck(tin) {
   return algorithms.luhnCheck(tin.replace(/\W/, ''));
 }
 
+/**
+ * uk-UA validation function
+ * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
+ */
+function ukUaCheck(tin) {
+  // Calculate check digit
+  const digits = tin.split('').map(a => parseInt(a, 10));
+  const multipliers = [-1, 5, 7, 9, 4, 6, 10, 5, 7];
+  let checksum = 0;
+  for (let i = 0; i < multipliers.length; i++) {
+    checksum += digits[i] * multipliers[i];
+  }
+  return checksum % 11 === 10 ? digits[9] === 0 : digits[9] === checksum % 11;
+}
+
 // Locale lookup objects
 
 /*
@@ -1137,6 +1176,7 @@ const taxIdFormat = {
   'en-GB': /^\d{10}$|^(?!GB|NK|TN|ZZ)(?![DFIQUV])[A-Z](?![DFIQUVO])[A-Z]\d{6}[ABCD ]$/i,
   'en-IE': /^\d{7}[A-W][A-IW]{0,1}$/i,
   'en-US': /^\d{2}[- ]{0,1}\d{7}$/,
+  'es-AR': /(20|23|24|27|30|33|34)[0-9]{8}[0-9]/,
   'es-ES': /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/i,
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
   'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
@@ -1156,6 +1196,7 @@ const taxIdFormat = {
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
   'sl-SI': /^[1-9]\d{7}$/,
   'sv-SE': /^(\d{6}[-+]{0,1}\d{4}|(18|19|20)\d{6}[-+]{0,1}\d{4})$/,
+  'uk-UA': /^\d{10}$/,
 };
 // taxIdFormat locale aliases
 taxIdFormat['lb-LU'] = taxIdFormat['fr-LU'];
@@ -1175,6 +1216,7 @@ const taxIdCheck = {
   'en-CA': isCanadianSIN,
   'en-IE': enIeCheck,
   'en-US': enUsCheck,
+  'es-AR': esArCheck,
   'es-ES': esEsCheck,
   'et-EE': etEeCheck,
   'fi-FI': fiFiCheck,
@@ -1194,6 +1236,7 @@ const taxIdCheck = {
   'sk-SK': skSkCheck,
   'sl-SI': slSiCheck,
   'sv-SE': svSeCheck,
+  'uk-UA': ukUaCheck,
 };
 // taxIdCheck locale aliases
 taxIdCheck['lb-LU'] = taxIdCheck['fr-LU'];
