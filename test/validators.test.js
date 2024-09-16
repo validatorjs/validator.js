@@ -10667,6 +10667,30 @@ describe('Validators', () => {
       args: ['any'],
     });
 
+
+    // strict mode
+    // isMobile fr-CM
+    test({
+      validator: 'isMobilePhone',
+      valid: [
+        // Camtel Fixed
+        '+237222222222',
+        // Mobile
+        '+237698765432',
+        '+237658765432',
+        '+237678765432',
+        '+237677465432',
+      ],
+      invalid: [
+        '254728530234',
+        '0728530234',
+        '+728530234',
+        '766667206',
+        '0766670206',
+      ],
+      args: ['any', { strictMode: true }],
+    });
+
     // strict mode
     test({
       validator: 'isMobilePhone',
