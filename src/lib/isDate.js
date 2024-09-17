@@ -11,8 +11,8 @@ function isValidFormat(format) {
 }
 
 function zip(date, format) {
-  const zippedArr = [],
-    len = Math.max(date.length, format.length);
+  const zippedArr = [];
+  const len = Math.max(date.length, format.length);
 
   for (let i = 0; i < len; i++) {
     zippedArr.push([date[i], format[i]]);
@@ -22,21 +22,35 @@ function zip(date, format) {
 }
 
 export default function isDate(input, options) {
-  if (typeof options === 'string') { // Allow backward compatibility for old format isDate(input [, format])
+  if (typeof options === 'string') {
+    // Allow backward compatibility for old format isDate(input [, format])
     options = merge({ format: options }, default_date_options);
   } else {
     options = merge(options, default_date_options);
   }
+
   if (typeof input === 'string' && isValidFormat(options.format)) {
-    const formatDelimiter = options.delimiters
-      .find(delimiter => options.format.indexOf(delimiter) !== -1);
+    // Ensure the input contains at least one valid delimiter
+    const hasValidDelimiter = options.delimiters.some(delimiter => input.includes(delimiter));
+    if (!hasValidDelimiter) {
+      return false;
+    }
+
+    const formatDelimiter = options.delimiters.find(delimiter => options.format.indexOf(delimiter) !== -1);
     const dateDelimiter = options.strictMode
       ? formatDelimiter
       : options.delimiters.find(delimiter => input.indexOf(delimiter) !== -1);
-    const dateAndFormat = zip(
-      input.split(dateDelimiter),
-      options.format.toLowerCase().split(formatDelimiter)
-    );
+
+    // Split input and format by the delimiters
+    const inputParts = input.split(dateDelimiter);
+    const formatParts = options.format.toLowerCase().split(formatDelimiter);
+
+    // Check if splitting produced the same number of parts
+    if (inputParts.length !== formatParts.length) {
+      return false;
+    }
+
+    const dateAndFormat = zip(inputParts, formatParts);
     const dateObj = {};
 
     for (const [dateWord, formatWord] of dateAndFormat) {
@@ -82,7 +96,9 @@ export default function isDate(input, options) {
       day = `0${dateObj.d}`;
     }
 
-    return new Date(`${fullYear}-${month}-${day}T00:00:00.000Z`).getUTCDate() === +dateObj.d;
+    // Construct a date string in the format YYYY-MM-DD and validate
+    const parsedDate = new Date(`${fullYear}-${month}-${day}T00:00:00.000Z`);
+    return parsedDate.getUTCDate() === +dateObj.d; // Check if the day matches
   }
 
   if (!options.strictMode) {
