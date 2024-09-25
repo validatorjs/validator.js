@@ -15399,5 +15399,22 @@ describe('Validators', () => {
         'mailto:?subject=something&body=something else&cc=something@mail.com&bcc=hello@mail.com,another@mail.com&',
       ],
     });
+    test({
+      validator: 'isPhoneNumber',
+      args: ['en-MX'],
+      valid: [
+        '+521234567890',
+        '+521987654321',
+        '1234567890',  // valid without country code
+        '0987654321',
+      ],
+      invalid: [
+        '123456789',   // too short
+        '12345678901', // too long
+        '+531234567890', // wrong country code
+        '0234567890',  // invalid leading digit
+        '+5212345678901', // too long with country code
+      ],
+    });    
   });
 });
