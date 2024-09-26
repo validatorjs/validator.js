@@ -7221,6 +7221,25 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'en-MX',
+        valid: [
+          '+5215551234567',
+          '5551234567',
+          '+5219991234567',
+          '9991234567',
+        ],
+        invalid: [
+          '12345678',
+          '+52155512345',
+          '12345678901234',
+          '+1234567890',
+          '55512345',
+          'abcd1234567',
+          '',
+          '   ',
+        ],
+      },
+      {
         locale: 'ar-AE',
         valid: [
           '+971502674453',
@@ -15397,23 +15416,6 @@ describe('Validators', () => {
         'mailto:somename',
         'mailto:info@mail.com?subject=something&body=something else&cc=something@mail.com&bcc=hello@mail.com,another@mail.com&',
         'mailto:?subject=something&body=something else&cc=something@mail.com&bcc=hello@mail.com,another@mail.com&',
-      ],
-    });
-    test({
-      validator: 'isPhoneNumber',
-      args: ['en-MX'],
-      valid: [
-        '+521234567890',
-        '+521987654321',
-        '1234567890',
-        '0987654321',
-      ],
-      invalid: [
-        '123456789',
-        '12345678901',
-        '+531234567890',
-        '0234567890',
-        '+5212345678901',
       ],
     });
   });
