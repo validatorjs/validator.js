@@ -15405,15 +15405,15 @@ describe('Validators', () => {
       valid: [
         '+521234567890',
         '+521987654321',
-        '1234567890',  // valid without country code
+        '1234567890',
         '0987654321',
       ],
       invalid: [
-        '123456789',   // too short
-        '12345678901', // too long
-        '+531234567890', // wrong country code
-        '0234567890',  // invalid leading digit
-        '+5212345678901', // too long with country code
+        '123456789',
+        '12345678901',
+        '+531234567890',
+        '0234567890',
+        '+5212345678901',
       ],
     });    
   });
