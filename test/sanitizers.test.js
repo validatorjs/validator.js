@@ -481,5 +481,34 @@ describe('Sanitizers', () => {
         'my.self@foo.com': 'my.self@foo.com',
       },
     });
+
+    // Testing yandex_convert_yandexru
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        yandex_convert_yandexru: false,
+      }],
+      expect: {
+        'test@yandex.kz': 'test@yandex.kz',
+        'test@yandex.ru': 'test@yandex.ru',
+        'test@yandex.ua': 'test@yandex.ua',
+        'test@yandex.com': 'test@yandex.com',
+        'test@yandex.by': 'test@yandex.by',
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        yandex_convert_yandexru: true,
+      }],
+      expect: {
+        'test@yandex.kz': 'test@yandex.ru',
+        'test@yandex.ru': 'test@yandex.ru',
+        'test@yandex.ua': 'test@yandex.ru',
+        'test@yandex.com': 'test@yandex.ru',
+        'test@yandex.by': 'test@yandex.ru',
+      },
+    });
   });
 });

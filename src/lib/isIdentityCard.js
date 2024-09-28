@@ -421,6 +421,16 @@ const validators = {
       return sum + (Number(number) * (9 - index));
     }, 0);
   },
+  PK: (str) => {
+    // Pakistani National Identity Number CNIC is 13 digits
+    const CNIC = /^[1-7][0-9]{4}-[0-9]{7}-[1-9]$/;
+
+    // sanitize user input
+    const sanitized = str.trim();
+
+    // validate the data structure
+    return CNIC.test(sanitized);
+  },
 };
 
 export default function isIdentityCard(str, locale) {
