@@ -18,7 +18,6 @@ function isValidPort(domain) {
   const portMatch = domain.match(/:(\d+)($|;)/);
   if (portMatch) {
     const port = parseInt(portMatch[1], 10);
-    console.log(port);
     return !isNaN(port) && port > 0 && port <= 65535;
   }
   return true;
