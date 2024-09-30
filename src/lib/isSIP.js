@@ -2,16 +2,8 @@ import assertString from './util/assertString';
 
 /* Regular expression to match the SIP URI structure */
 function isValidSipUri(uri) {
-  const sipUriRegex = /^sip:([^:@]+(:[^@]*)?@)?((([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(\d{1,3}\.){3}\d{1,3}|\[[0-9a-fA-F:]+\])(:\d{1,5})?)(;([a-zA-Z0-9-]+=[^;?]+|lr))*?(\?[^#]*)?$/;
-  const sipsUriRegex = /^sips:([^:@]+(:[^@]*)?@)?((([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(\d{1,3}\.){3}\d{1,3}|\[[0-9a-fA-F:]+\])(:\d{1,5})?)(;([a-zA-Z0-9-]+=[^;?]+|lr))*?(\?[^#]*)?$/;
-
-  return sipUriRegex.test(uri) || sipsUriRegex.test(uri);
-}
-
-function isValidScheme(schemeAndUser) {
-  return (
-    schemeAndUser.startsWith('sip:') || schemeAndUser.startsWith('sips:')
-  );
+  const sipUriRegex = /^sips?:([^:@]+(:[^@]*)?@)?((([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(\d{1,3}\.){3}\d{1,3}|\[[0-9a-fA-F:]+\])(:\d{1,5})?)(;([a-zA-Z0-9-]+=[^;?]+|lr))*?(\?[^#]*)?$/;
+  return sipUriRegex.test(uri);
 }
 
 function isValidPort(domain) {
@@ -58,12 +50,6 @@ export default function isSIP(str) {
   // Split the URI into parts (scheme, user, domain)
   const parts = str.split('@');
   const domain = parts.pop();
-  const schemeAndUser = parts.join('@');
-
-  // Check for valid scheme (sip or sips)
-  if (!isValidScheme(schemeAndUser)) {
-    return false;
-  }
 
   // Check if there's a port
   if (!isValidPort(domain)) {
