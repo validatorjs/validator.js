@@ -281,7 +281,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
       validator: 'isEmail',
@@ -338,6 +337,23 @@ describe('Validators', () => {
         'email@foo.com',
         'email@bar.com',
       ],
+    });
+  });
+
+  it('should validate email address with wildcard domain', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ allow_wildcard: true }],
+      valid: [
+        'test@bar.com',
+        'test@foo.bar.com',
+        'test@*.bar.com',
+        '*@bar.com',
+        '*@foo.bar.com',
+        '*@*.bar.com',
+        '*@*.foo.bar.com',
+      ],
+      invalid: [],
     });
   });
 
