@@ -13619,6 +13619,7 @@ describe('Validators', () => {
     test({
       validator: 'isSlug',
       valid: [
+        'f-f',
         'foo',
         'foo-bar',
         'foo_bar',
@@ -13629,6 +13630,7 @@ describe('Validators', () => {
       ],
       invalid: [
         'not-----------slug',
+        'is.not.a.slug',
         '@#_$@',
         '-not-slug',
         'not-slug-',
