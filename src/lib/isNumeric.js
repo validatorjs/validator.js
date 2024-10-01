@@ -13,7 +13,7 @@ export default function isNumeric(str, options = { no_symbols: false }) {
   const decimalSeparator = locale ? decimal[locale] : '.';
 
   // setting the regex depending on the value of no_symbols
-  const regex = no_symbols ? numericNoSymbols : `^[+-]?([0-9]*[${ decimalSeparator }])?[0-9]+([eE][+-]?[0-9]+)?$`;
+  const regex = no_symbols ? numericNoSymbols : `^[+-]?([0-9]*[${decimalSeparator}])?[0-9]+([eE][+-]?[0-9]+)?$`;
 
   return regex.test(str);
 }
