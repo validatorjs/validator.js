@@ -163,7 +163,14 @@ export default function isEmail(str, options) {
   }
 
   if (options.blacklisted_chars) {
+    // Check for blacklisted characters in the raw user part
     if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
+
+    // If the user part is quoted, remove the quotes and recheck
+    if (user[0] === '"' && user[user.length - 1] === '"') {
+      const strippedUser = user.slice(1, user.length - 1);
+      if (strippedUser.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
+    }
   }
 
   if (user[0] === '"' && user[user.length - 1] === '"') {
