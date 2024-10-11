@@ -342,6 +342,37 @@ const validators = {
     };
     return checkIdCardNo(str);
   },
+  'zh-HK': (str) => {
+    // sanitize user input
+    str = str.trim();
+
+    // HKID number starts with 1 or 2 letters, followed by 6 digits,
+    // then a checksum contained in square / round brackets or nothing
+    const regexHKID = /^[A-Z]{1,2}[0-9]{6}((\([0-9A]\))|(\[[0-9A]\])|([0-9A]))$/;
+    const regexIsDigit = /^[0-9]$/;
+
+    // convert the user input to all uppercase and apply regex
+    str = str.toUpperCase();
+    if (!regexHKID.test(str)) return false;
+    str = str.replace(/\[|\]|\(|\)/g, '');
+
+    if (str.length === 8) str = `3${str}`;
+    let checkSumVal = 0;
+    for (let i = 0; i <= 7; i++) {
+      let convertedChar;
+      if (!regexIsDigit.test(str[i])) convertedChar = (str[i].charCodeAt(0) - 55) % 11;
+      else convertedChar = str[i];
+      checkSumVal += (convertedChar * (9 - i));
+    }
+    checkSumVal %= 11;
+
+    let checkSumConverted;
+    if (checkSumVal === 0) checkSumConverted = '0';
+    else if (checkSumVal === 1) checkSumConverted = 'A';
+    else checkSumConverted = String(11 - checkSumVal);
+    if (checkSumConverted === str[str.length - 1]) return true;
+    return false;
+  },
   'zh-TW': (str) => {
     const ALPHABET_CODES = {
       A: 10,
@@ -389,6 +420,16 @@ const validators = {
 
       return sum + (Number(number) * (9 - index));
     }, 0);
+  },
+  PK: (str) => {
+    // Pakistani National Identity Number CNIC is 13 digits
+    const CNIC = /^[1-7][0-9]{4}-[0-9]{7}-[1-9]$/;
+
+    // sanitize user input
+    const sanitized = str.trim();
+
+    // validate the data structure
+    return CNIC.test(sanitized);
   },
 };
 

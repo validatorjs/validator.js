@@ -12,7 +12,7 @@ function isValidFormat(format) {
 
 function zip(date, format) {
   const zippedArr = [],
-    len = Math.min(date.length, format.length);
+    len = Math.max(date.length, format.length);
 
   for (let i = 0; i < len; i++) {
     zippedArr.push([date[i], format[i]]);
@@ -22,7 +22,7 @@ function zip(date, format) {
 }
 
 export default function isDate(input, options) {
-  if (typeof options === 'string') { // Allow backward compatbility for old format isDate(input [, format])
+  if (typeof options === 'string') { // Allow backward compatibility for old format isDate(input [, format])
     options = merge({ format: options }, default_date_options);
   } else {
     options = merge(options, default_date_options);
@@ -40,14 +40,49 @@ export default function isDate(input, options) {
     const dateObj = {};
 
     for (const [dateWord, formatWord] of dateAndFormat) {
-      if (dateWord.length !== formatWord.length) {
+      if (!dateWord || !formatWord || dateWord.length !== formatWord.length) {
         return false;
       }
 
       dateObj[formatWord.charAt(0)] = dateWord;
     }
 
-    return new Date(`${dateObj.m}/${dateObj.d}/${dateObj.y}`).getDate() === +dateObj.d;
+    let fullYear = dateObj.y;
+
+    // Check if the year starts with a hyphen
+    if (fullYear.startsWith('-')) {
+      return false; // Hyphen before year is not allowed
+    }
+
+    if (dateObj.y.length === 2) {
+      const parsedYear = parseInt(dateObj.y, 10);
+
+      if (isNaN(parsedYear)) {
+        return false;
+      }
+
+      const currentYearLastTwoDigits = new Date().getFullYear() % 100;
+
+      if (parsedYear < currentYearLastTwoDigits) {
+        fullYear = `20${dateObj.y}`;
+      } else {
+        fullYear = `19${dateObj.y}`;
+      }
+    }
+
+    let month = dateObj.m;
+
+    if (dateObj.m.length === 1) {
+      month = `0${dateObj.m}`;
+    }
+
+    let day = dateObj.d;
+
+    if (dateObj.d.length === 1) {
+      day = `0${dateObj.d}`;
+    }
+
+    return new Date(`${fullYear}-${month}-${day}T00:00:00.000Z`).getUTCDate() === +dateObj.d;
   }
 
   if (!options.strictMode) {
