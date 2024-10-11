@@ -19,8 +19,8 @@ export default function isLength(str, options) {
   const len = str.length - presentationSequences.length - surrogatePairs.length;
   const isInsideRange = len >= min && (typeof max === 'undefined' || len <= max);
 
-  if (isInsideRange && Array.isArray(options?.discreteLengths)){
-      return options.discreteLengths.some(discreteLen => discreteLen === len);
+  if (isInsideRange && Array.isArray(options?.discreteLengths)) {
+    return options.discreteLengths.some(discreteLen => discreteLen === len);
   }
 
   return isInsideRange;
