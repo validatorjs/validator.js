@@ -7,6 +7,7 @@ const default_fqdn_options = {
   allow_trailing_dot: false,
   allow_numeric_tld: false,
   allow_wildcard: false,
+  allow_idn: true,
   ignore_max_length: false,
 };
 
@@ -68,6 +69,11 @@ export default function isFQDN(str, options) {
     }
 
     if (!options.allow_underscores && /_/.test(part)) {
+      return false;
+    }
+
+    // verify if domain is IDN
+    if (!options.allow_idn && !/^[a-z0-9-_]+$/i.test(part)) {
       return false;
     }
 
