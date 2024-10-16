@@ -139,7 +139,7 @@ Validator                               | Description
 **isJSON(str [, options])**             | check if the string is valid JSON (note: uses JSON.parse).<br/><br/>`options` is an object which defaults to `{ allow_primitives: false }`. If `allow_primitives` is true, the primitives 'true', 'false' and 'null' are accepted as valid JSON values.
 **isJWT(str)**                         | check if the string is valid JWT token.
 **isLatLong(str [, options])**                      | check if the string is a valid latitude-longitude coordinate in the format `lat,long` or `lat, long`.<br/><br/>`options` is an object that defaults to `{ checkDMS: false }`. Pass `checkDMS` as `true` to validate DMS(degrees, minutes, and seconds) latitude-longitude format.
-**isLength(str [, options])**              | check if the string's length falls in a range.<br/><br/>`options` is an object which defaults to `{ min: 0, max: undefined }`. Note: this function takes into account surrogate pairs.
+**isLength(str [, options])**              | check if the string's length falls in a range and equal to any of the integers of the `discreteLengths` array if provided.<br/><br/>`options` is an object which defaults to `{ min: 0, max: undefined, discreteLengths: undefined }`. Note: this function takes into account surrogate pairs.
 **isLicensePlate(str, locale)**     | check if the string matches the format of a country's license plate.<br/><br/>`locale` is one of `['cs-CZ', 'de-DE', 'de-LI', 'en-IN', 'en-SG', 'en-PK', 'es-AR', 'hu-HU', 'pt-BR', 'pt-PT', 'sq-AL', 'sv-SE']` or `'any'`.
 **isLocale(str)**                       | check if the string is a locale.
 **isLowercase(str)**                    | check if the string is lowercase.
