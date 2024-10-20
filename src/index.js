@@ -128,6 +128,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
+import isPalindrome from './lib/isPalindrome';
 
 const version = '13.12.0';
 
@@ -243,6 +244,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isPalindrome,
 };
 
 export default validator;
