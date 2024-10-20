@@ -15459,4 +15459,21 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate Palindromes', () => {
+    test({
+      validator: 'isPalindrome',
+      valid: [
+        'race car',
+        'A man, a plan, a canal. Panama',
+        'never odd or even',
+        'My age is 0, 0 si ega ym',
+        'civic',
+      ],
+      invalid: [
+        'not a palindrome',
+        'nope',
+        'name is alan'
+      ],
+    });
+  });
 });
