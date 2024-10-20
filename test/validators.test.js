@@ -5442,9 +5442,39 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
+      args: [{ max: 6, discreteLengths: 5 }],
+      valid: ['abcd', 'vfd', 'ff', '', 'k'],
+      invalid: ['abcdefgh', 'hfjdksks'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 2, max: 6, discreteLengths: 5 }],
+      valid: ['bsa', 'vfvd', 'ff'],
+      invalid: ['', ' ', 'hfskdunvc'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 1, discreteLengths: 2 }],
+      valid: [' ', 'hello', 'bsa'],
+      invalid: [''],
+    });
+    test({
+      validator: 'isLength',
       args: [{ max: 0 }],
       valid: [''],
       invalid: ['a', 'ab'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 5, max: 10, discreteLengths: [2, 6, 8, 9] }],
+      valid: ['helloguy', 'shopping', 'validator', 'length'],
+      invalid: ['abcde', 'abcdefg'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ discreteLengths: '9' }],
+      valid: ['a', 'abcd', 'abcdefghijkl'],
+      invalid: [],
     });
     test({
       validator: 'isLength',
