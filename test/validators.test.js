@@ -12947,6 +12947,7 @@ describe('Validators', () => {
         '29923-329393-2324',
         '4294924224',
         '13',
+
       ],
       args: ['any'],
     });
@@ -12962,6 +12963,32 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate a valid French postal code 75001', () => {
+    test({
+      validator: 'isPostalCode',
+      args: ['75001', 'FR'], // Valid postal code with locale
+      expected: true,
+    });
+  });
+
+  it('should return false for an invalid French postal code 96000', () => {
+    test({
+      validator: 'isPostalCode',
+      args: ['96000', 'FR'], // Invalid postal code with locale
+      expected: false,
+    });
+  });
+
+  it('should return false for an invalid French postal code 12345', () => {
+    test({
+      validator: 'isPostalCode',
+      args: ['12345', 'FR'], // Another invalid postal code with locale
+      expected: false,
+    });
+  });
+
+
 
   it('should validate MIME types', () => {
     test({
