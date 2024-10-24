@@ -12988,8 +12988,6 @@ describe('Validators', () => {
     });
   });
 
-
-
   it('should validate MIME types', () => {
     test({
       validator: 'isMimeType',
