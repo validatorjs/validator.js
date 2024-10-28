@@ -193,6 +193,7 @@ Sanitizer                              | Description
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
 **unescape(input)**                    | replace HTML encoded entities with `<`, `>`, `&`, `'`, `"`, `` ` ``, `\` and `/`.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
+**analyzePassword(str)**                | Analyzes and returns details about the given string's composition as a password. Returns an object containing the password's length, count of unique characters, and the number of uppercase letters, lowercase letters, numbers, and symbols.
 
 ### XSS Sanitization
 
