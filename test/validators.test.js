@@ -8823,6 +8823,8 @@ describe('Validators', () => {
           '+260966684590',
           '+260976684590',
           '260976684590',
+          '+260779493521',
+          '+260760010936',
         ],
         invalid: [
           '12345',
@@ -8830,6 +8832,7 @@ describe('Validators', () => {
           'Vml2YW11cyBmZXJtZtesting123',
           '010-38238383',
           '966684590',
+          '760010936',
         ],
       },
       {
@@ -13109,6 +13112,55 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO6346 shipping container IDs with checksum digit 10 represented as 0', () => {
+    test({
+      validator: 'isISO6346',
+      valid: [
+        'APZU3789870',
+        'TEMU1002030',
+        'DFSU1704420',
+        'CMAU2221480',
+        'SEGU5060260',
+        'FCIU8939320',
+        'TRHU3495670',
+        'MEDU3871410',
+        'CMAU2184010',
+        'TCLU2265970',
+      ],
+      invalid: [
+        'APZU3789871', // Incorrect check digit
+        'TEMU1002031',
+        'DFSU1704421',
+        'CMAU2221481',
+        'SEGU5060261',
+      ],
+    });
+  });
+  it('should validate ISO6346 shipping container IDs with checksum digit 10 represented as 0', () => {
+    test({
+      validator: 'isFreightContainerID',
+      valid: [
+        'APZU3789870',
+        'TEMU1002030',
+        'DFSU1704420',
+        'CMAU2221480',
+        'SEGU5060260',
+        'FCIU8939320',
+        'TRHU3495670',
+        'MEDU3871410',
+        'CMAU2184010',
+        'TCLU2265970',
+      ],
+      invalid: [
+        'APZU3789871', // Incorrect check digit
+        'TEMU1002031',
+        'DFSU1704421',
+        'CMAU2221481',
+        'SEGU5060261',
+      ],
+    });
+  });
+
   // EU-UK valid numbers sourced from https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx or constructed by @tplessas.
   it('should validate taxID', () => {
     test({
@@ -14044,6 +14096,7 @@ describe('Validators', () => {
         new Date([2014, 2, 15]),
         new Date('2014-03-15'),
         '29.02.2020',
+        '02.29.2020.20',
         '2024-',
         '2024-05',
         '2024-05-',
