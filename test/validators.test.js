@@ -341,6 +341,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should allow regular expressions in the host whitelist', () => {
+    test({
+      validator: 'isEmail',
+      args: [{
+        host_whitelist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'email@bar.com',
+        'email@foo.com',
+        'email@a.b.c.foo.com',
+      ],
+      invalid: [
+        'email@foobar.com',
+        'email@foo.bar.com',
+        'email@qux.com',
+      ],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',
