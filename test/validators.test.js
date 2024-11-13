@@ -325,7 +325,7 @@ describe('Validators', () => {
     });
   });
 
-  it('should allow regular expressions in the host blacklist', () => {
+  it('should allow regular expressions in the host blacklist of isEmail', () => {
     test({
       validator: 'isEmail',
       args: [{
@@ -360,7 +360,7 @@ describe('Validators', () => {
     });
   });
 
-  it('should allow regular expressions in the host whitelist', () => {
+  it('should allow regular expressions in the host whitelist of isEmail', () => {
     test({
       validator: 'isEmail',
       args: [{
