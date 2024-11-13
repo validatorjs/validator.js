@@ -97,8 +97,8 @@ export default function isEmail(str, options) {
   const domain = parts.pop();
   const lower_domain = domain.toLowerCase();
 
-  if (options.host_blacklist.includes(lower_domain)) {
-    return false;
+  if (options.host_blacklist.length > 0) {
+    return !checkHost(lower_domain, options.host_blacklist);
   }
 
   if (options.host_whitelist.length > 0) {
