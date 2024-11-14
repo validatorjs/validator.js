@@ -140,6 +140,29 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate email addresses with non-ASCII domain names if allow_idn is set to false', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ allow_idn: false }],
+      valid: [],
+      invalid: [
+        'ka25maj@gˇmail.com',
+        'i18n@exampلe.com',
+        'i18n@EXАМПЛЕ.com',
+        'i18n@exамple.com',
+        'i18n@éxample.com',
+        'i18n@eßample.com',
+        'i18n@EXΑΜΠΛΕ.com',
+        'i18n@exαmple.com',
+        'i18n@exampłe.com',
+        'i18n@eซample.com',
+        'i18n@例題.com',
+        'i18n@例え.com',
+        'i18n@사례.com',
+      ],
+    });
+  });
+
   it('should validate email addresses with display names', () => {
     test({
       validator: 'isEmail',
@@ -824,6 +847,29 @@ describe('Validators', () => {
         'http://10.0.0.0/',
         'http://189.123.14.13/',
         'http://duckduckgo.com/?q=%2F',
+      ],
+    });
+  });
+
+  it('should not validate URLs with non-ASCII domain names if allow_idn is set to false', () => {
+    test({
+      validator: 'isURL',
+      args: [{ allow_idn: false }],
+      valid: [],
+      invalid: [
+        'gˇmail.com',
+        'exampلe.com',
+        'EXАМПЛЕ.com',
+        'exамple.com',
+        'éxample.com',
+        'eßample.com',
+        'EXΑΜΠΛΕ.com',
+        'exαmple.com',
+        'exampłe.com',
+        'eซample.com',
+        '例題.com',
+        '例え.com',
+        '사례.com',
       ],
     });
   });
