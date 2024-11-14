@@ -5396,9 +5396,39 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
+      args: [{ max: 6, discreteLengths: 5 }],
+      valid: ['abcd', 'vfd', 'ff', '', 'k'],
+      invalid: ['abcdefgh', 'hfjdksks'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 2, max: 6, discreteLengths: 5 }],
+      valid: ['bsa', 'vfvd', 'ff'],
+      invalid: ['', ' ', 'hfskdunvc'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 1, discreteLengths: 2 }],
+      valid: [' ', 'hello', 'bsa'],
+      invalid: [''],
+    });
+    test({
+      validator: 'isLength',
       args: [{ max: 0 }],
       valid: [''],
       invalid: ['a', 'ab'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 5, max: 10, discreteLengths: [2, 6, 8, 9] }],
+      valid: ['helloguy', 'shopping', 'validator', 'length'],
+      invalid: ['abcde', 'abcdefg'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ discreteLengths: '9' }],
+      valid: ['a', 'abcd', 'abcdefghijkl'],
+      invalid: [],
     });
     test({
       validator: 'isLength',
@@ -8023,6 +8053,7 @@ describe('Validators', () => {
           '0502345671',
           '0242345671',
           '0542345671',
+          '0532345671',
           '0272345671',
           '0572345671',
           '0262345671',
@@ -8033,6 +8064,7 @@ describe('Validators', () => {
           '+233502345671',
           '+233242345671',
           '+233542345671',
+          '+233532345671',
           '+233272345671',
           '+233572345671',
           '+233262345671',
@@ -8764,6 +8796,8 @@ describe('Validators', () => {
           '+260966684590',
           '+260976684590',
           '260976684590',
+          '+260779493521',
+          '+260760010936',
         ],
         invalid: [
           '12345',
@@ -8771,6 +8805,7 @@ describe('Validators', () => {
           'Vml2YW11cyBmZXJtZtesting123',
           '010-38238383',
           '966684590',
+          '760010936',
         ],
       },
       {
@@ -12724,6 +12759,9 @@ describe('Validators', () => {
           '39100-000',
           '22040-020',
           '39400-152',
+          '39100000',
+          '22040020',
+          '39400152',
         ],
         invalid: [
           '79800A12',
@@ -13046,6 +13084,55 @@ describe('Validators', () => {
         'ECMJ4657496',
         'TBJA7176445',
         'AFFU5962593',
+      ],
+    });
+  });
+
+  it('should validate ISO6346 shipping container IDs with checksum digit 10 represented as 0', () => {
+    test({
+      validator: 'isISO6346',
+      valid: [
+        'APZU3789870',
+        'TEMU1002030',
+        'DFSU1704420',
+        'CMAU2221480',
+        'SEGU5060260',
+        'FCIU8939320',
+        'TRHU3495670',
+        'MEDU3871410',
+        'CMAU2184010',
+        'TCLU2265970',
+      ],
+      invalid: [
+        'APZU3789871', // Incorrect check digit
+        'TEMU1002031',
+        'DFSU1704421',
+        'CMAU2221481',
+        'SEGU5060261',
+      ],
+    });
+  });
+  it('should validate ISO6346 shipping container IDs with checksum digit 10 represented as 0', () => {
+    test({
+      validator: 'isFreightContainerID',
+      valid: [
+        'APZU3789870',
+        'TEMU1002030',
+        'DFSU1704420',
+        'CMAU2221480',
+        'SEGU5060260',
+        'FCIU8939320',
+        'TRHU3495670',
+        'MEDU3871410',
+        'CMAU2184010',
+        'TCLU2265970',
+      ],
+      invalid: [
+        'APZU3789871', // Incorrect check digit
+        'TEMU1002031',
+        'DFSU1704421',
+        'CMAU2221481',
+        'SEGU5060261',
       ],
     });
   });
@@ -13985,6 +14072,7 @@ describe('Validators', () => {
         new Date([2014, 2, 15]),
         new Date('2014-03-15'),
         '29.02.2020',
+        '02.29.2020.20',
         '2024-',
         '2024-05',
         '2024-05-',
