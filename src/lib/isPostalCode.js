@@ -14,7 +14,7 @@ const patterns = {
   BA: /^([7-8]\d{4}$)/,
   BE: fourDigit,
   BG: fourDigit,
-  BR: /^\d{5}-\d{3}$/,
+  BR: /^\d{5}-?\d{3}$/,
   BY: /^2[1-4]\d{4}$/,
   CA: /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][\s\-]?\d[ABCEGHJ-NPRSTV-Z]\d$/i,
   CH: fourDigit,
