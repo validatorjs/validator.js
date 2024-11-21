@@ -2863,6 +2863,27 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings with scientific notation', () => {
+    test({
+      validator: 'isNumeric',
+      valid: [
+        '2e+21',
+        '-3.5E-8',
+        '3.14e2',
+        '1.23e+10',
+        '-0.001e-5',
+      ],
+      invalid: [
+        'e10',
+        '2e+',
+        '3.14e',
+        'e',
+        '3.14e-',
+        '2E+G',
+      ],
+    });
+  });
+
   it('should validate numeric strings without symbols', () => {
     test({
       validator: 'isNumeric',
