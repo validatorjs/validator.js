@@ -325,6 +325,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should allow regular expressions in the host blacklist of isEmail', () => {
+    test({
+      validator: 'isEmail',
+      args: [{
+        host_blacklist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'email@foobar.com',
+        'email@foo.bar.com',
+        'email@qux.com',
+      ],
+      invalid: [
+        'email@bar.com',
+        'email@foo.com',
+        'email@a.b.c.foo.com',
+      ],
+    });
+  });
+
   it('should validate only email addresses with whitelisted domains', () => {
     test({
       validator: 'isEmail',
@@ -337,6 +356,25 @@ describe('Validators', () => {
         'foo+bar@test.com',
         'email@foo.com',
         'email@bar.com',
+      ],
+    });
+  });
+
+  it('should allow regular expressions in the host whitelist of isEmail', () => {
+    test({
+      validator: 'isEmail',
+      args: [{
+        host_whitelist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'email@bar.com',
+        'email@foo.com',
+        'email@a.b.c.foo.com',
+      ],
+      invalid: [
+        'email@foobar.com',
+        'email@foo.bar.com',
+        'email@qux.com',
       ],
     });
   });
