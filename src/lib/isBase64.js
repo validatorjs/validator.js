@@ -1,28 +1,23 @@
 import assertString from './util/assertString';
 import merge from './util/merge';
 
-const notBase64 = /[^A-Z0-9+\/=]/i;
-const urlSafeBase64 = /^[A-Z0-9_\-]*$/i;
-
-const defaultBase64Options = {
-  urlSafe: false,
-};
+const base64WithPadding = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/;
+const base64WithoutPadding = /^[A-Za-z0-9+/]+$/;
+const base64UrlWithPadding = /^(?:[A-Za-z0-9_-]{4})*(?:[A-Za-z0-9_-]{2}==|[A-Za-z0-9_-]{3}=|[A-Za-z0-9_-]{4})$/;
+const base64UrlWithoutPadding = /^[A-Za-z0-9_-]+$/;
 
 export default function isBase64(str, options) {
   assertString(str);
-  options = merge(options, defaultBase64Options);
-  const len = str.length;
+  options = merge(options, { urlSafe: false, padding: !options?.urlSafe });
 
+  if (str === '') return true;
+
+  let regex;
   if (options.urlSafe) {
-    return urlSafeBase64.test(str);
+    regex = options.padding ? base64UrlWithPadding : base64UrlWithoutPadding;
+  } else {
+    regex = options.padding ? base64WithPadding : base64WithoutPadding;
   }
 
-  if (len % 4 !== 0 || notBase64.test(str)) {
-    return false;
-  }
-
-  const firstPaddingChar = str.indexOf('=');
-  return firstPaddingChar === -1 ||
-    firstPaddingChar === len - 1 ||
-    (firstPaddingChar === len - 2 && str[len - 1] === '=');
+  return (!options.padding || str.length % 4 === 0) && regex.test(str);
 }
