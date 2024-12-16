@@ -5210,7 +5210,31 @@ describe('Validators', () => {
       ],
     });
   });
-
+  it('should check if a JWT token is expired.', () => {
+    test({
+      validator: 'isJWTExpired',
+      valid: [
+        'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTY0MDk4OTJ9.DVvmlQ79X57Yhidb5EBSAbPlvKAb9kEOvV09a_FoyLE',
+        'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6InRlc3QiLCJleHAiOjE2OTkwODgyOTIsImlhdCI6MTY5NjQwOTg5Mn0.QUx9NPCfCyDTZTNPr-69vcynoD1LNjP4pITXJtRDv2g',
+        'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6InRlc3QiLCJleHAiOjE2OTY0MTU0MzksImlhdCI6MTY5NjQxNTQzOX0.tJ6gg8HsY8NEshA1uFNL0Y06S46xsIKUq8CbDDYS3LU',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI',
+      ],
+      invalid: [
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3h9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTYxNjY1Mzg3Mn0.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tIiwiaWF0IjoxNjE2NjUzODcyLCJleHAiOjE2MTY2NTM4ODJ9.a1jLRQkO5TV5y5ERcaPAiM9Xm2gBdRjKrrCpHkGr_8M',
+        '$Zs.ewu.su84',
+        'ks64$S/9.dy$§kz.3sd73b',
+      ],
+      error: [
+        [],
+        {},
+        null,
+        undefined,
+      ],
+    });
+  });
   it('should validate null strings', () => {
     test({
       validator: 'isEmpty',
