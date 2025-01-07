@@ -5,7 +5,7 @@ import { decimal } from './alpha';
 const regExIsFloat = (str, options) => {
   const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${options.locale ? decimal[options.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`);
   return float.test(str);
-}
+};
 
 export default function isFloat(str, options) {
   assertString(str);
@@ -14,7 +14,7 @@ export default function isFloat(str, options) {
     return false;
   }
   const value = parseFloat(str.replace(',', '.'));
-  return (options.locale ? regExIsFloat(str) : (!isNaN(value) || regExIsFloat(str)) ) &&
+  return (options.locale ? regExIsFloat(str) : (!isNaN(value) || regExIsFloat(str))) &&
     (!options.hasOwnProperty('min') || isNullOrUndefined(options.min) || value >= options.min) &&
     (!options.hasOwnProperty('max') || isNullOrUndefined(options.max) || value <= options.max) &&
     (!options.hasOwnProperty('lt') || isNullOrUndefined(options.lt) || value < options.lt) &&
