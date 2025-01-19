@@ -25,9 +25,9 @@ const isValidDate = (str) => {
   const year = match[1];
   const month = match[2];
   const day = match[3];
-  const monthString = month ? `${month}`.padStart(2, '0') : month;
-  const dayString = day ? `${day}`.padStart(2, '0') : day;
-  const yearString = year < 100 ? `${year}`.padStart(4, '0') : year;
+  const monthString = month ? `0${month}`.slice(-2) : month;
+  const dayString = day ? `0${day}`.slice(-2) : day;
+  const yearString = year < 1000 ? `0000${year}`.slice(-4) : year;
 
   // create a date object and compare
   const d = new Date(`${yearString}-${monthString || '01'}-${dayString || '01'}`);
