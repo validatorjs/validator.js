@@ -9,6 +9,7 @@ import assertString from './util/assertString';
 const passportRegexByCountryCode = {
   AM: /^[A-Z]{2}\d{7}$/, // ARMENIA
   AR: /^[A-Z]{3}\d{6}$/, // ARGENTINA
+  AO: /^N\d{7}$/, // ANGOLA
   AT: /^[A-Z]\d{7}$/, // AUSTRIA
   AU: /^[A-Z]\d{7}$/, // AUSTRALIA
   AZ: /^[A-Z]{1}\d{8}$/, // AZERBAIJAN
