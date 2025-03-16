@@ -7207,6 +7207,37 @@ describe('Validators', () => {
       ],
     });
 
+    test({
+      validator: 'isBase64',
+      args: [{ ignorePadding: true }],
+      valid: [
+        '',
+        'dGVzdA==',
+        'dGVzdA',
+        '/u/6+w==',
+        '/u/6+w',
+        'PDw/Pz8+Pg==',
+        'PDw/Pz8+Pg',
+      ],
+      invalid: [
+        ' AA',
+        '(*2^128',
+        '\tAA',
+        '\rAA',
+        '\nAA',
+        'This+is+a/bad+base64Url==',
+        '0K3RgtC_INC30LDQutC_0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
+        'PDw_Pz8-Pg',
+      ],
+      error: [
+        null,
+        undefined,
+        {},
+        [],
+        42,
+      ],
+    });
+
     for (let i = 0, str = '', encoded; i < 1000; i++) {
       str += String.fromCharCode(Math.random() * 26 | 97); // eslint-disable-line no-bitwise
       encoded = Buffer.from(str).toString('base64');

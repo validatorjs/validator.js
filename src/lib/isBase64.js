@@ -17,6 +17,13 @@ export default function isBase64(str, options) {
     return urlSafeBase64.test(str);
   }
 
+  if (options.ignorePadding) {
+    if (str.endsWith('==')) {
+      return !notBase64.test(str) && len % 4 === 0;
+    }
+    return !notBase64.test(str);
+  }
+
   if (len % 4 !== 0 || notBase64.test(str)) {
     return false;
   }
