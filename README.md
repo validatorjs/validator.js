@@ -52,7 +52,7 @@ import isEmail from 'validator/lib/isEmail';
 #### Tree-shakeable ES imports
 
 ```javascript
-import isEmail from 'validator/es/lib/isEmail';
+import isEmail from 'validator/lib/isEmail';
 ```
 
 ### Client-side usage
