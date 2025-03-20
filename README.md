@@ -49,6 +49,11 @@ Or, import only a subset of the library:
 import isEmail from 'validator/lib/isEmail';
 ```
 
+#### Types 
+
+TypeScript type definitions were previously not provided out-of-the-box, but got taken care of by third-parties like `DefinitelyTyped`. 
+This is not required anymore, as type definitions are now part of validator.js
+
 #### Tree-shakeable ES imports
 
 ```javascript
