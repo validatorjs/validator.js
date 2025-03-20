@@ -6638,6 +6638,42 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'ar-EG',
+        valid: [
+          '29808063479279',
+          '25610090330259',
+          '30305172816713',
+          '29206062992585',
+          '27310063498985',
+          '31309068882269',
+        ],
+        invalid: [
+          '283110811455e9',   // alphapet character not allowed
+          '3 804281569399',   // in-between space character not allowed
+          '247050523314+9',   // invalid character (+)
+
+          '0123456789',       // invalid length (<14)
+          '208151304597',     // invalid length (<14)
+          '206498741474912',  // invalid length (>14)
+          '3630835397352198', // invalid length (>14)
+          
+          '48208151304597',   // invalid century (2100-2199)
+          '15112301835506',   // invalid century (1800-1899)
+
+          '39512190487252',   // invalid year (2095)
+
+          '30900272095661',   // invalid month (<1)
+          '26413071398499',   // invalid month (>12)
+
+          '26303001667483',   // invalid day (<1)
+          '32009310222901',   // invalid day (31 in sept. 2020)
+
+          '25401040586693',   // invalid governorate code (05)
+          '32302253605652',   // invalid governorate code (36)
+          '31809209832633',   // invalid governorate code (98)
+        ],
+      },
+      {
         locale: 'zh-CN',
         valid: [
           '235407195106112745',
