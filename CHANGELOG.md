@@ -1,3 +1,57 @@
+# 13.13.0
+
+### New Features / Validators
+
+- [#2399](https://github.com/validatorjs/validator.js/pull/2399) `isISO31661Numeric` @RobinvanderVliet
+- [#2294](https://github.com/validatorjs/validator.js/pull/2294) `isULID` @arafatkn
+- [#2215](https://github.com/validatorjs/validator.js/pull/2215) `isISO15924` @xDivisionByZerox
+
+### Fixes, New Locales and Enhancements
+
+- `isMobilePhone`
+  - [#2395](https://github.com/validatorjs/validator.js/pull/2395) add `es-GT` locale @ignaciosuarezquilis
+  - [#1971](https://github.com/validatorjs/validator.js/pull/1971) improve `en-GB` locale @ihmpavel
+  - [#2359](https://github.com/validatorjs/validator.js/pull/2359) improve `uk-UA` locale @arttiger
+  - [#2350](https://github.com/validatorjs/validator.js/pull/2350) improve `ky-KG` locale @sadraliev
+  - [#2482](https://github.com/validatorjs/validator.js/pull/2482) improve `en-ZM` locale @sonikishan
+  - [#2362](https://github.com/validatorjs/validator.js/pull/2362) improve `en-GH` locale @NanaAb-116
+  - [#2500](https://github.com/validatorjs/validator.js/pull/2500) add `mk-MK` locale @eshward95 
+  - [#2534](https://github.com/validatorjs/validator.js/pull/2534) improve `sq-AL` locale @nichoola
+- [#2406](https://github.com/validatorjs/validator.js/pull/2406) `isBtcAddress` support all address formats and testnets @madoke
+- [#2339](https://github.com/validatorjs/validator.js/pull/2339) `isIBAN` improve `VG` regex @ST-DDT
+- [#2332](https://github.com/validatorjs/validator.js/pull/2332) `isISO4217` update currency codes @cbodtorf
+- [#2291](https://github.com/validatorjs/validator.js/pull/2291) `isIdentityCard` add `PK` locale @Daniyal-Qureshi
+- [#2414](https://github.com/validatorjs/validator.js/pull/2414) `isEmail` fix blacklist_chars @keshavlingala
+- [#2416](https://github.com/validatorjs/validator.js/pull/2416) `isInt`/`isFloat` handle undefined and null values @Daniyal-Qureshi
+- [#2415](https://github.com/validatorjs/validator.js/pull/2415) `isPostalCode` add `CO` locale @jorgevrgs
+- [#2404](https://github.com/validatorjs/validator.js/pull/2404) `isPassportNumber` export `passportNumberLocales` @derekparnell
+- [#2029](https://github.com/validatorjs/validator.js/pull/2029) `isRgbColor` add `allowSpaces` option @a-h-i
+- [#2421](https://github.com/validatorjs/validator.js/pull/2421) `isUUID` require valid variant field and require RFC9562 UUID in version `all` @broofa
+- [#2439](https://github.com/validatorjs/validator.js/pull/2439) `isURL` add `max_allowed_length` option @pinkiesky
+- [#2437](https://github.com/validatorjs/validator.js/pull/2437) `isEmail` reject starting with double quotes @code0emperor
+- [#2333](https://github.com/validatorjs/validator.js/pull/2333) `isLicensePlate` add `en-SG` locale @Sabarinathan07
+- [#2441](https://github.com/validatorjs/validator.js/pull/2441) `normalizeEmail` add `yandex_convert_yandexru` option @AayushGH
+- [#2443](https://github.com/validatorjs/validator.js/pull/2443) `isDate` return false instead of Error in certain cases @pano9000
+- [#2474](https://github.com/validatorjs/validator.js/pull/2474) `isLength` add `discreteLengths` option @Suven-p
+- [#2481](https://github.com/validatorjs/validator.js/pull/2481) `isDate` disallow mismatching length in `strictMode` @sonikishan
+- [#2492](https://github.com/validatorjs/validator.js/pull/2492) `isISO6346` set check digit to 0 if remainder is 10 @joelcuy
+- [#2493](https://github.com/validatorjs/validator.js/pull/2493) `isPostalCode` improve `BR` locale @ticmaisdev
+- [#2494](https://github.com/validatorjs/validator.js/pull/2494) `isEmail` allow regexp in `host_whitelist` and `host_blacklist` @weikangchia
+- [#2518](https://github.com/validatorjs/validator.js/pull/2518) `isIBAN` improve `IE`/`PS` regex @Tarasz57
+- **Doc fixes and others:**
+  - [#2402](https://github.com/validatorjs/validator.js/pull/2402) @BibhushanKarki
+  - [#2394](https://github.com/validatorjs/validator.js/pull/2394) @RobinvanderVliet
+  - [#1732](https://github.com/validatorjs/validator.js/pull/1732) @alguerocode
+  - [#2413](https://github.com/validatorjs/validator.js/pull/2413) @rubiin
+  - [#2408](https://github.com/validatorjs/validator.js/pull/2408) @profnandaa
+  - [#2411](https://github.com/validatorjs/validator.js/pull/2411) @rubiin
+  - [#2325](https://github.com/validatorjs/validator.js/pull/2325) @ovarn
+  - [#2418](https://github.com/validatorjs/validator.js/pull/2418) @ihmpavel
+  - [#2323](https://github.com/validatorjs/validator.js/pull/2323) @ovarn
+  - [#2423](https://github.com/validatorjs/validator.js/pull/2423) @rubiin
+  - [#2409](https://github.com/validatorjs/validator.js/pull/2409) @profnandaa
+  - [#2442](https://github.com/validatorjs/validator.js/pull/2442) @pano9000
+
 # 13.12.0
 
 ### New Features / Validators
