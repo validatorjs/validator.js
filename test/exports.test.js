@@ -6,8 +6,14 @@ import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric';
 import { locales as isMobilePhoneLocales } from '../src/lib/isMobilePhone';
 import { locales as isFloatLocales } from '../src/lib/isFloat';
 import { locales as ibanCountryCodes } from '../src/lib/isIBAN';
+import { locales as passportNumberLocales } from '../src/lib/isPassportNumber';
 
 describe('Exports', () => {
+  it('should export isPassportNumbers\'s supported locales', () => {
+    assert.ok(passportNumberLocales instanceof Array);
+    assert.ok(validator.passportNumberLocales instanceof Array);
+  });
+
   it('should export validators', () => {
     assert.strictEqual(typeof validator.isEmail, 'function');
     assert.strictEqual(typeof validator.isAlpha, 'function');

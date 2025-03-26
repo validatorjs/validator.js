@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import checkHost from './util/checkHost';
 
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
@@ -60,7 +61,6 @@ function validateDisplayName(display_name) {
   return true;
 }
 
-
 export default function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
@@ -97,11 +97,11 @@ export default function isEmail(str, options) {
   const domain = parts.pop();
   const lower_domain = domain.toLowerCase();
 
-  if (options.host_blacklist.includes(lower_domain)) {
+  if (options.host_blacklist.length > 0 && checkHost(lower_domain, options.host_blacklist)) {
     return false;
   }
 
-  if (options.host_whitelist.length > 0 && !options.host_whitelist.includes(lower_domain)) {
+  if (options.host_whitelist.length > 0 && !checkHost(lower_domain, options.host_whitelist)) {
     return false;
   }
 
@@ -109,11 +109,11 @@ export default function isEmail(str, options) {
 
   if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
     /*
-      Previously we removed dots for gmail addresses before validating.
-      This was removed because it allows `multiple..dots@gmail.com`
-      to be reported as valid, but it is not.
-      Gmail only normalizes single dots, removing them from here is pointless,
-      should be done in normalizeEmail
+    Previously we removed dots for gmail addresses before validating.
+    This was removed because it allows `multiple..dots@gmail.com`
+    to be reported as valid, but it is not.
+    Gmail only normalizes single dots, removing them from here is pointless,
+    should be done in normalizeEmail
     */
     user = user.toLowerCase();
 
@@ -162,7 +162,11 @@ export default function isEmail(str, options) {
     }
   }
 
-  if (user[0] === '"') {
+  if (options.blacklisted_chars) {
+    if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
+  }
+
+  if (user[0] === '"' && user[user.length - 1] === '"') {
     user = user.slice(1, user.length - 1);
     return options.allow_utf8_local_part ?
       quotedEmailUserUtf8.test(user) :
@@ -177,9 +181,6 @@ export default function isEmail(str, options) {
     if (!pattern.test(user_parts[i])) {
       return false;
     }
-  }
-  if (options.blacklisted_chars) {
-    if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
   }
 
   return true;

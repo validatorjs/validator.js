@@ -12,7 +12,7 @@ function isValidFormat(format) {
 
 function zip(date, format) {
   const zippedArr = [],
-    len = Math.min(date.length, format.length);
+    len = Math.max(date.length, format.length);
 
   for (let i = 0; i < len; i++) {
     zippedArr.push([date[i], format[i]]);
@@ -22,12 +22,13 @@ function zip(date, format) {
 }
 
 export default function isDate(input, options) {
-  if (typeof options === 'string') { // Allow backward compatbility for old format isDate(input [, format])
+  if (typeof options === 'string') { // Allow backward compatibility for old format isDate(input [, format])
     options = merge({ format: options }, default_date_options);
   } else {
     options = merge(options, default_date_options);
   }
   if (typeof input === 'string' && isValidFormat(options.format)) {
+    if (options.strictMode && input.length !== options.format.length) return false;
     const formatDelimiter = options.delimiters
       .find(delimiter => options.format.indexOf(delimiter) !== -1);
     const dateDelimiter = options.strictMode
@@ -40,7 +41,7 @@ export default function isDate(input, options) {
     const dateObj = {};
 
     for (const [dateWord, formatWord] of dateAndFormat) {
-      if (dateWord.length !== formatWord.length) {
+      if (!dateWord || !formatWord || dateWord.length !== formatWord.length) {
         return false;
       }
 
@@ -48,6 +49,11 @@ export default function isDate(input, options) {
     }
 
     let fullYear = dateObj.y;
+
+    // Check if the year starts with a hyphen
+    if (fullYear.startsWith('-')) {
+      return false; // Hyphen before year is not allowed
+    }
 
     if (dateObj.y.length === 2) {
       const parsedYear = parseInt(dateObj.y, 10);
