@@ -18,10 +18,11 @@ import isTime from './lib/isTime';
 import isBoolean from './lib/isBoolean';
 import isLocale from './lib/isLocale';
 
+import isAbaRouting from './lib/isAbaRouting';
 import isAlpha, { locales as isAlphaLocales } from './lib/isAlpha';
 import isAlphanumeric, { locales as isAlphanumericLocales } from './lib/isAlphanumeric';
 import isNumeric from './lib/isNumeric';
-import isPassportNumber from './lib/isPassportNumber';
+import isPassportNumber, { locales as passportNumberLocales } from './lib/isPassportNumber';
 import isPort from './lib/isPort';
 import isLowercase from './lib/isLowercase';
 import isUppercase from './lib/isUppercase';
@@ -62,6 +63,7 @@ import isEmpty from './lib/isEmpty';
 import isLength from './lib/isLength';
 import isByteLength from './lib/isByteLength';
 
+import isULID from './lib/isULID';
 import isUUID from './lib/isUUID';
 import isMongoId from './lib/isMongoId';
 
@@ -88,11 +90,14 @@ import isCurrency from './lib/isCurrency';
 
 import isBtcAddress from './lib/isBtcAddress';
 
+import { isISO6346, isFreightContainerID } from './lib/isISO6346';
 import isISO6391 from './lib/isISO6391';
 import isISO8601 from './lib/isISO8601';
 import isRFC3339 from './lib/isRFC3339';
+import isISO15924 from './lib/isISO15924';
 import isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import isISO31661Alpha3 from './lib/isISO31661Alpha3';
+import isISO31661Numeric from './lib/isISO31661Numeric';
 import isISO4217 from './lib/isISO4217';
 
 import isBase32 from './lib/isBase32';
@@ -100,6 +105,7 @@ import isBase58 from './lib/isBase58';
 import isBase64 from './lib/isBase64';
 import isDataURI from './lib/isDataURI';
 import isMagnetURI from './lib/isMagnetURI';
+import isMailtoURI from './lib/isMailtoURI';
 
 import isMimeType from './lib/isMimeType';
 
@@ -124,7 +130,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-const version = '13.9.0';
+const version = '13.15.0';
 
 const validator = {
   version,
@@ -144,12 +150,14 @@ const validator = {
   isBoolean,
   isIBAN,
   isBIC,
+  isAbaRouting,
   isAlpha,
   isAlphaLocales,
   isAlphanumeric,
   isAlphanumericLocales,
   isNumeric,
   isPassportNumber,
+  passportNumberLocales,
   isPort,
   isLowercase,
   isUppercase,
@@ -180,6 +188,7 @@ const validator = {
   isLength,
   isLocale,
   isByteLength,
+  isULID,
   isUUID,
   isMongoId,
   isAfter,
@@ -199,17 +208,22 @@ const validator = {
   isEthereumAddress,
   isCurrency,
   isBtcAddress,
+  isISO6346,
+  isFreightContainerID,
   isISO6391,
   isISO8601,
+  isISO15924,
   isRFC3339,
   isISO31661Alpha2,
   isISO31661Alpha3,
+  isISO31661Numeric,
   isISO4217,
   isBase32,
   isBase58,
   isBase64,
   isDataURI,
   isMagnetURI,
+  isMailtoURI,
   isMimeType,
   isLatLong,
   ltrim,
