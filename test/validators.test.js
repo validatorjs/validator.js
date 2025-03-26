@@ -2855,6 +2855,18 @@ describe('Validators', () => {
 
     test({
       validator: 'isPassportNumber',
+      args: ['AO'],
+      valid: [
+        'N4560459',
+      ],
+      invalid: [
+        'N090993420',
+        'N43044347',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
       args: ['AR'],
       valid: [
         'AAC811035',
@@ -10189,7 +10201,7 @@ describe('Validators', () => {
         locale: 'pt-AO',
         valid: [
           '+244911123432',
-          '+244123091232',
+          '+244923819817',
         ],
         invalid: [
           '+2449111234321',
