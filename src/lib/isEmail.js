@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import checkHost from './util/checkHost';
 
 import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
@@ -60,7 +61,6 @@ function validateDisplayName(display_name) {
   return true;
 }
 
-
 export default function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
@@ -97,11 +97,11 @@ export default function isEmail(str, options) {
   const domain = parts.pop();
   const lower_domain = domain.toLowerCase();
 
-  if (options.host_blacklist.includes(lower_domain)) {
+  if (options.host_blacklist.length > 0 && checkHost(lower_domain, options.host_blacklist)) {
     return false;
   }
 
-  if (options.host_whitelist.length > 0 && !options.host_whitelist.includes(lower_domain)) {
+  if (options.host_whitelist.length > 0 && !checkHost(lower_domain, options.host_whitelist)) {
     return false;
   }
 

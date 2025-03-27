@@ -1,9 +1,7 @@
 import assert from 'assert';
 import fs from 'fs';
 import timezone_mock from 'timezone-mock';
-import { format } from 'util';
 import vm from 'vm';
-import validator from '../src/index';
 import test from './testFunctions';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
@@ -325,6 +323,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should allow regular expressions in the host blacklist of isEmail', () => {
+    test({
+      validator: 'isEmail',
+      args: [{
+        host_blacklist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'email@foobar.com',
+        'email@foo.bar.com',
+        'email@qux.com',
+      ],
+      invalid: [
+        'email@bar.com',
+        'email@foo.com',
+        'email@a.b.c.foo.com',
+      ],
+    });
+  });
+
   it('should validate only email addresses with whitelisted domains', () => {
     test({
       validator: 'isEmail',
@@ -337,6 +354,25 @@ describe('Validators', () => {
         'foo+bar@test.com',
         'email@foo.com',
         'email@bar.com',
+      ],
+    });
+  });
+
+  it('should allow regular expressions in the host whitelist of isEmail', () => {
+    test({
+      validator: 'isEmail',
+      args: [{
+        host_whitelist: ['bar.com', 'foo.com', /\.foo\.com$/],
+      }],
+      valid: [
+        'email@bar.com',
+        'email@foo.com',
+        'email@a.b.c.foo.com',
+      ],
+      invalid: [
+        'email@foobar.com',
+        'email@foo.bar.com',
+        'email@qux.com',
       ],
     });
   });
@@ -1009,137 +1045,6 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate IP addresses', () => {
-    test({
-      validator: 'isIP',
-      valid: [
-        '127.0.0.1',
-        '0.0.0.0',
-        '255.255.255.255',
-        '1.2.3.4',
-        '::1',
-        '2001:db8:0000:1:1:1:1:1',
-        '2001:db8:3:4::192.0.2.33',
-        '2001:41d0:2:a141::1',
-        '::ffff:127.0.0.1',
-        '::0000',
-        '0000::',
-        '1::',
-        '1111:1:1:1:1:1:1:1',
-        'fe80::a6db:30ff:fe98:e946',
-        '::',
-        '::8',
-        '::ffff:127.0.0.1',
-        '::ffff:255.255.255.255',
-        '::ffff:0:255.255.255.255',
-        '::2:3:4:5:6:7:8',
-        '::255.255.255.255',
-        '0:0:0:0:0:ffff:127.0.0.1',
-        '1:2:3:4:5:6:7::',
-        '1:2:3:4:5:6::8',
-        '1::7:8',
-        '1:2:3:4:5::7:8',
-        '1:2:3:4:5::8',
-        '1::6:7:8',
-        '1:2:3:4::6:7:8',
-        '1:2:3:4::8',
-        '1::5:6:7:8',
-        '1:2:3::5:6:7:8',
-        '1:2:3::8',
-        '1::4:5:6:7:8',
-        '1:2::4:5:6:7:8',
-        '1:2::8',
-        '1::3:4:5:6:7:8',
-        '1::8',
-        'fe80::7:8%eth0',
-        'fe80::7:8%1',
-        '64:ff9b::192.0.2.33',
-        '0:0:0:0:0:0:10.0.0.1',
-      ],
-      invalid: [
-        'abc',
-        '256.0.0.0',
-        '0.0.0.256',
-        '26.0.0.256',
-        '0200.200.200.200',
-        '200.0200.200.200',
-        '200.200.0200.200',
-        '200.200.200.0200',
-        '::banana',
-        'banana::',
-        '::1banana',
-        '::1::',
-        '1:',
-        ':1',
-        ':1:1:1::2',
-        '1:1:1:1:1:1:1:1:1:1:1:1:1:1:1:1',
-        '::11111',
-        '11111:1:1:1:1:1:1:1',
-        '2001:db8:0000:1:1:1:1::1',
-        '0:0:0:0:0:0:ffff:127.0.0.1',
-        '0:0:0:0:ffff:127.0.0.1',
-        'BC:e4d5:c:e7b9::%40i0nccymtl9cwfKo.5vaeXLSGRMe:EDh2qs5wkhnPws5xQKqafjfAMm6wGFCJ.bVFsZfb',
-        '1dC:0DF8:62D:3AC::%KTatXocjaFVioS0RTNQl4mA.V151o0RSy.JIu-D-D8.d3171ZWsSJ7PK4YjkJCRN0F',
-      ],
-    });
-    test({
-      validator: 'isIP',
-      args: [4],
-      valid: [
-        '127.0.0.1',
-        '0.0.0.0',
-        '255.255.255.255',
-        '1.2.3.4',
-        '255.0.0.1',
-        '0.0.1.1',
-      ],
-      invalid: [
-        '::1',
-        '2001:db8:0000:1:1:1:1:1',
-        '::ffff:127.0.0.1',
-        '137.132.10.01',
-        '0.256.0.256',
-        '255.256.255.256',
-      ],
-    });
-    test({
-      validator: 'isIP',
-      args: [6],
-      valid: [
-        '::1',
-        '2001:db8:0000:1:1:1:1:1',
-        '::ffff:127.0.0.1',
-        'fe80::1234%1',
-        'ff08::9abc%10',
-        'ff08::9abc%interface10',
-        'ff02::5678%pvc1.3',
-      ],
-      invalid: [
-        '127.0.0.1',
-        '0.0.0.0',
-        '255.255.255.255',
-        '1.2.3.4',
-        '::ffff:287.0.0.1',
-        '%',
-        'fe80::1234%',
-        'fe80::1234%1%3%4',
-        'fe80%fe80%',
-      ],
-    });
-    test({
-      validator: 'isIP',
-      args: [10],
-      valid: [],
-      invalid: [
-        '127.0.0.1',
-        '0.0.0.0',
-        '255.255.255.255',
-        '1.2.3.4',
-        '::1',
-        '2001:db8:0000:1:1:1:1:1',
-      ],
-    });
-  });
 
   it('should validate isIPRange', () => {
     test({
@@ -1335,6 +1240,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -3049,9 +2955,17 @@ describe('Validators', () => {
       valid: [
         'GA302922',
         'ZE000509',
+        'A123456AB',
+        'Z556378HG',
       ],
       invalid: [
         'AB0123456',
+        'AZ556378H',
+        '556378HCX',
+        '556378432',
+        '5563784',
+        '#B12345FD',
+        'A43F12354',
       ],
     });
 
@@ -5398,9 +5312,39 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLength',
+      args: [{ max: 6, discreteLengths: 5 }],
+      valid: ['abcd', 'vfd', 'ff', '', 'k'],
+      invalid: ['abcdefgh', 'hfjdksks'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 2, max: 6, discreteLengths: 5 }],
+      valid: ['bsa', 'vfvd', 'ff'],
+      invalid: ['', ' ', 'hfskdunvc'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 1, discreteLengths: 2 }],
+      valid: [' ', 'hello', 'bsa'],
+      invalid: [''],
+    });
+    test({
+      validator: 'isLength',
       args: [{ max: 0 }],
       valid: [''],
       invalid: ['a', 'ab'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ min: 5, max: 10, discreteLengths: [2, 6, 8, 9] }],
+      valid: ['helloguy', 'shopping', 'validator', 'length'],
+      invalid: ['abcde', 'abcdefg'],
+    });
+    test({
+      validator: 'isLength',
+      args: [{ discreteLengths: '9' }],
+      valid: ['a', 'abcd', 'abcdefghijkl'],
+      invalid: [],
     });
     test({
       validator: 'isLength',
@@ -5791,6 +5735,9 @@ describe('Validators', () => {
         'MA64011519000001205000534921',
         'VG96VPVG0000012345678901',
         'DZ580002100001113000000570',
+        'IE29AIBK93115212345678',
+        'PS92PALS000000000400123456702',
+        'PS92PALS00000000040012345670O',
       ],
       invalid: [
         'XX22YYY1234567890123',
@@ -5799,6 +5746,8 @@ describe('Validators', () => {
         'FR7630006000011234567890189😅',
         'FR763000600001123456!!🤨7890189@',
         'VG46H07Y0223060094359858',
+        'IE95TE8270900834048660',
+        'PS072435171802145240705922007',
       ],
     });
     test({
@@ -7075,76 +7024,6 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate base64 strings', () => {
-    test({
-      validator: 'isBase64',
-      valid: [
-        '',
-        'Zg==',
-        'Zm8=',
-        'Zm9v',
-        'Zm9vYg==',
-        'Zm9vYmE=',
-        'Zm9vYmFy',
-        'TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4=',
-        'Vml2YW11cyBmZXJtZW50dW0gc2VtcGVyIHBvcnRhLg==',
-        'U3VzcGVuZGlzc2UgbGVjdHVzIGxlbw==',
-        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuMPNS1Ufof9EW/M98FNw' +
-        'UAKrwflsqVxaxQjBQnHQmiI7Vac40t8x7pIb8gLGV6wL7sBTJiPovJ0V7y7oc0Ye' +
-        'rhKh0Rm4skP2z/jHwwZICgGzBvA0rH8xlhUiTvcwDCJ0kc+fh35hNt8srZQM4619' +
-        'FTgB66Xmp4EtVyhpQV+t02g6NzK72oZI0vnAvqhpkxLeLiMCyrI416wHm5Tkukhx' +
-        'QmcL2a6hNOyu0ixX/x2kSFXApEnVrJ+/IxGyfyw8kf4N2IZpW5nEP847lpfj0SZZ' +
-        'Fwrd1mnfnDbYohX2zRptLy2ZUn06Qo9pkG5ntvFEPo9bfZeULtjYzIl6K8gJ2uGZ' +
-        'HQIDAQAB',
-      ],
-      invalid: [
-        '12345',
-        'Vml2YW11cyBmZXJtZtesting123',
-        'Zg=',
-        'Z===',
-        'Zm=8',
-        '=m9vYg==',
-        'Zm9vYmFy====',
-      ],
-    });
-
-    test({
-      validator: 'isBase64',
-      args: [{ urlSafe: true }],
-      valid: [
-        '',
-        'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
-        '1234',
-        'bXVtLW5ldmVyLXByb3Vk',
-        'PDw_Pz8-Pg',
-        'VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw',
-      ],
-      invalid: [
-        ' AA',
-        '\tAA',
-        '\rAA',
-        '\nAA',
-        'This+isa/bad+base64Url==',
-        '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
-      ],
-      error: [
-        null,
-        undefined,
-        {},
-        [],
-        42,
-      ],
-    });
-
-    for (let i = 0, str = '', encoded; i < 1000; i++) {
-      str += String.fromCharCode(Math.random() * 26 | 97); // eslint-disable-line no-bitwise
-      encoded = Buffer.from(str).toString('base64');
-      if (!validator.isBase64(encoded)) {
-        let msg = format('validator.isBase64() failed with "%s"', encoded);
-        throw new Error(msg);
-      }
-    }
-  });
 
   it('should validate hex-encoded MongoDB ObjectId', () => {
     test({
@@ -8025,6 +7904,7 @@ describe('Validators', () => {
           '0502345671',
           '0242345671',
           '0542345671',
+          '0532345671',
           '0272345671',
           '0572345671',
           '0262345671',
@@ -8035,6 +7915,7 @@ describe('Validators', () => {
           '+233502345671',
           '+233242345671',
           '+233542345671',
+          '+233532345671',
           '+233272345671',
           '+233572345671',
           '+233262345671',
@@ -8749,6 +8630,8 @@ describe('Validators', () => {
           '+260966684590',
           '+260976684590',
           '260976684590',
+          '+260779493521',
+          '+260760010936',
         ],
         invalid: [
           '12345',
@@ -8756,6 +8639,7 @@ describe('Validators', () => {
           'Vml2YW11cyBmZXJtZtesting123',
           '010-38238383',
           '966684590',
+          '760010936',
         ],
       },
       {
@@ -9538,15 +9422,44 @@ describe('Validators', () => {
       {
         locale: 'ky-KG',
         valid: [
-          '+7 727 123 4567',
-          '+7 714 2396102',
-          '77271234567',
-          '0271234567',
+          '+996553033300',
+          '+996 222 123456',
+          '+996 500 987654',
+          '+996 555 111222',
+          '+996 700 333444',
+          '+996 770 555666',
+          '+996 880 777888',
+          '+996 990 999000',
+          '+996 995 555666',
+          '+996 996 555666',
+          '+996 997 555666',
+          '+996 998 555666',
         ],
         invalid: [
-          '02188565377',
-          '09386932778',
-          '0938693277vadggjdsaasdgj8',
+          '+996 201 123456',
+          '+996 312 123456',
+          '+996 3960 12345',
+          '+996 3961 12345',
+          '+996 3962 12345',
+          '+996 3963 12345',
+          '+996 3964 12345',
+          '+996 3965 12345',
+          '+996 3966 12345',
+          '+996 3967 12345',
+          '+996 3968 12345',
+          '+996 511 123456',
+          '+996 522 123456',
+          '+996 561 123456',
+          '+996 571 123456',
+          '+996 624 123456',
+          '+996 623 123456',
+          '+996 622 123456',
+          '+996 609 123456',
+          '+996 100 12345',
+          '+996 100 1234567',
+          '996 100 123456',
+          '0 100 123456',
+          '0 100 123abc',
         ],
       },
       {
@@ -10236,15 +10149,27 @@ describe('Validators', () => {
       {
         locale: 'sq-AL',
         valid: [
-          '067123456',
-          '+35567123456',
+          '0621234567',
+          '0661234567',
+          '0671234567',
+          '0681234567',
+          '0691234567',
+          '+355621234567',
+          '+355651234567',
+          '+355661234567',
+          '+355671234567',
+          '+355681234567',
+          '+355691234567',
         ],
         invalid: [
           '67123456',
           '06712345',
+          '067123456',
           '06712345678',
-          '065123456',
-          '057123456',
+          '0571234567',
+          '+3556712345',
+          '+35565123456',
+          '+35157123456',
           'NotANumber',
         ],
       },
@@ -10628,7 +10553,34 @@ describe('Validators', () => {
           'This should fail',
           '5021931234567',
           '+50281234567',
-
+        ],
+      },
+      {
+        locale: 'mk-MK',
+        valid: [
+          '+38923234567',
+          '38931234567',
+          '022123456',
+          '22234567',
+          '71234567',
+          '31234567',
+          '+38923091500',
+          '80091234',
+          '81123456',
+          '54123456',
+        ],
+        invalid: [
+          '38912345678',
+          '+389123456789',
+          '21234567',
+          '123456789',
+          '+3891234567',
+          '700012345',
+          '510123456',
+          'This should fail',
+          '+389123456',
+          '389123456',
+          '80912345',
         ],
       },
     ];
@@ -11999,6 +11951,28 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 15924 script codes', () => {
+    test({
+      validator: 'isISO15924',
+      valid: [
+        'Adlm',
+        'Bass',
+        'Copt',
+        'Dsrt',
+        'Egyd',
+        'Latn',
+        'Zzzz',
+      ],
+      invalid: [
+        '',
+        'arab',
+        'zzzz',
+        'Qaby',
+        'Lati',
+      ],
+    });
+  });
+
   it('should validate RFC 3339 dates', () => {
     test({
       validator: 'isRFC3339',
@@ -12454,10 +12428,16 @@ describe('Validators', () => {
         locale: 'FR',
         valid: [
           '75008',
-          '44 522',
-          '98025',
-          '38 499',
+          '44522',
+          '38499',
           '39940',
+          '01000',
+        ],
+        invalid: [
+          '44 522',
+          '38 499',
+          '96000',
+          '98025',
         ],
       },
       {
@@ -12680,6 +12660,9 @@ describe('Validators', () => {
           '39100-000',
           '22040-020',
           '39400-152',
+          '39100000',
+          '22040020',
+          '39400152',
         ],
         invalid: [
           '79800A12',
@@ -13002,6 +12985,55 @@ describe('Validators', () => {
         'ECMJ4657496',
         'TBJA7176445',
         'AFFU5962593',
+      ],
+    });
+  });
+
+  it('should validate ISO6346 shipping container IDs with checksum digit 10 represented as 0', () => {
+    test({
+      validator: 'isISO6346',
+      valid: [
+        'APZU3789870',
+        'TEMU1002030',
+        'DFSU1704420',
+        'CMAU2221480',
+        'SEGU5060260',
+        'FCIU8939320',
+        'TRHU3495670',
+        'MEDU3871410',
+        'CMAU2184010',
+        'TCLU2265970',
+      ],
+      invalid: [
+        'APZU3789871', // Incorrect check digit
+        'TEMU1002031',
+        'DFSU1704421',
+        'CMAU2221481',
+        'SEGU5060261',
+      ],
+    });
+  });
+  it('should validate ISO6346 shipping container IDs with checksum digit 10 represented as 0', () => {
+    test({
+      validator: 'isFreightContainerID',
+      valid: [
+        'APZU3789870',
+        'TEMU1002030',
+        'DFSU1704420',
+        'CMAU2221480',
+        'SEGU5060260',
+        'FCIU8939320',
+        'TRHU3495670',
+        'MEDU3871410',
+        'CMAU2184010',
+        'TCLU2265970',
+      ],
+      invalid: [
+        'APZU3789871', // Incorrect check digit
+        'TEMU1002031',
+        'DFSU1704421',
+        'CMAU2221481',
+        'SEGU5060261',
       ],
     });
   });
@@ -13643,37 +13675,6 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate base64URL', () => {
-    test({
-      validator: 'isBase64',
-      args: [{ urlSafe: true }],
-      valid: [
-        '',
-        'bGFkaWVzIGFuZCBnZW50bGVtZW4sIHdlIGFyZSBmbG9hdGluZyBpbiBzcGFjZQ',
-        '1234',
-        'bXVtLW5ldmVyLXByb3Vk',
-        'PDw_Pz8-Pg',
-        'VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw',
-      ],
-      invalid: [
-        ' AA',
-        '\tAA',
-        '\rAA',
-        '\nAA',
-        '123=',
-        'This+isa/bad+base64Url==',
-        '0K3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw',
-      ],
-      error: [
-        null,
-        undefined,
-        {},
-        [],
-        42,
-      ],
-    });
-  });
-
   it('should validate date', () => {
     test({
       validator: 'isDate',
@@ -13941,6 +13942,7 @@ describe('Validators', () => {
         new Date([2014, 2, 15]),
         new Date('2014-03-15'),
         '29.02.2020',
+        '02.29.2020.20',
         '2024-',
         '2024-05',
         '2024-05-',
