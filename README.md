@@ -114,7 +114,7 @@ Validator                               | Description
 **isFreightContainerID(str)**                      | alias for `isISO6346`, check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
 **isFullWidth(str)**                    | check if the string contains any full-width chars.
 **isHalfWidth(str)**                    | check if the string contains any half-width chars.
-**isHash(str, algorithm)**              | check if the string is a hash of type algorithm.<br/><br/>Algorithm is one of `['crc32', 'crc32b', 'md4', 'md5', 'ripemd128', 'ripemd160', 'sha1', 'sha256', 'sha384', 'sha512', 'tiger128', 'tiger160', 'tiger192']`.
+**isHash(str, algorithm, _validateAlgorithm)**              | check if the string is a hash of type algorithm.<br/><br/>Algorithm is one of `['crc32', 'crc32b', 'md4', 'md5', 'ripemd128', 'ripemd160', 'sha1', 'sha256', 'sha384', 'sha512', 'tiger128', 'tiger160', 'tiger192']`<br/><br/>`_validateAlgorithm` is an optional flag to validate algorithm which defaults to `true`.
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
 **isHexColor(str)**                     | check if the string is a hexadecimal color.
 **isHSL(str)**                          | check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on [CSS Colors Level 4 specification][CSS Colors Level 4 Specification].<br/><br/>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: `hsl(200grad+.1%62%/1)`).
