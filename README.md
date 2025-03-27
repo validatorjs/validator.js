@@ -94,7 +94,7 @@ Validator                               | Description
 **isBase32(str [, options])**           | check if the string is base32 encoded. `options` is optional and defaults to `{ crockford: false }`.<br/> When `crockford` is true it tests the given base32 encoded string using [Crockford's base32 alternative][Crockford Base32].
 **isBase58(str)**                       | check if the string is base58 encoded.
 **isBase64(str [, options])**          | check if the string is base64 encoded. `options` is optional and defaults to `{ urlSafe: false, padding: true }`<br/> when `urlSafe` is true default value for `padding` is false and it tests the given base64 encoded string is [url safe][Base64 URL Safe].
-**isBefore(str [, date])**              | check if the string is a date that is before the specified date.
+**isBefore(str [, options])**              | check if the string is a date that is before the specified date.<br/><br/>`options` is an object that defaults to `{ comparisonDate: Date().toString() }`.<br/><br/>**Options:**<br/>`comparisonDate`: Date to compare to. Defaults to `Date().toString()` (now).
 **isBIC(str)**                          | check if the string is a BIC (Bank Identification Code) or SWIFT code.
 **isBoolean(str [, options])**          | check if the string is a boolean.<br/>`options` is an object which defaults to `{ loose: false }`. If `loose` is set to false, the validator will strictly match ['true', 'false', '0', '1']. If `loose` is set to true, the validator will also match 'yes', 'no', and will match a valid boolean string of any case. (e.g.: ['true', 'True', 'TRUE']).
 **isBtcAddress(str)**            | check if the string is a valid BTC address.
