@@ -1045,7 +1045,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate isIPRange', () => {
     test({
       validator: 'isIPRange',
