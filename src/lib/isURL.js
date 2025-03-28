@@ -8,6 +8,7 @@ import merge from './util/merge';
 /*
 options for isURL method
 
+require_tld - If set to false isURL will not check if the URL's host includes a top-level domain
 require_protocol - if set as true isURL will return false if protocol is not present in the URL
 require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option
 protocols - valid protocols can be modified with this option
