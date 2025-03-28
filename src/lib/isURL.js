@@ -72,7 +72,7 @@ export default function isURL(url, options) {
   split = url.split('://');
   if (split.length > 1) {
     protocol = split.shift().toLowerCase();
-    if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
+    if (options.require_valid_protocol && !protocol) {
       return false;
     }
   } else if (options.require_protocol) {
