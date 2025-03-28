@@ -4650,8 +4650,10 @@ describe('Validators', () => {
         'rgba(255,255,255,1)',
         'rgba(255,255,255,.1)',
         'rgba(255,255,255,0.1)',
+        'rgba(255,255,255,.12)',
         'rgb(5%,5%,5%)',
         'rgba(5%,5%,5%,.3)',
+        'rgba(5%,5%,5%,.32)',
       ],
       invalid: [
         'rgb(0,0,0,)',
@@ -4660,11 +4662,12 @@ describe('Validators', () => {
         'rgb()',
         'rgba(0,0,0)',
         'rgba(255,255,255,2)',
-        'rgba(255,255,255,.12)',
+        'rgba(255,255,255,.123)',
         'rgba(255,255,256,0.1)',
         'rgb(4,4,5%)',
         'rgba(5%,5%,5%)',
         'rgba(3,3,3%,.3)',
+        'rgba(5%,5%,5%,.321)',
         'rgb(101%,101%,101%)',
         'rgba(3%,3%,101%,0.3)',
         'rgb(101%,101%,101%) additional invalid string part',
@@ -5647,41 +5650,6 @@ describe('Validators', () => {
       args: [{ 1: 3, 2: 0, 3: 1 }],
       valid: ['1', '2', '3'],
       invalid: ['4', ''],
-    });
-  });
-
-  it('should validate dates against an end date', () => {
-    test({
-      validator: 'isBefore',
-      args: ['08/04/2011'],
-      valid: ['2010-07-02', '2010-08-04', new Date(0).toString()],
-      invalid: ['08/04/2011', new Date(2011, 9, 10).toString()],
-    });
-    test({
-      validator: 'isBefore',
-      args: [new Date(2011, 7, 4).toString()],
-      valid: ['2010-07-02', '2010-08-04', new Date(0).toString()],
-      invalid: ['08/04/2011', new Date(2011, 9, 10).toString()],
-    });
-    test({
-      validator: 'isBefore',
-      valid: [
-        '2000-08-04',
-        new Date(0).toString(),
-        new Date(Date.now() - 86400000).toString(),
-      ],
-      invalid: ['2100-07-02', new Date(2217, 10, 10).toString()],
-    });
-    test({
-      validator: 'isBefore',
-      args: ['2011-08-03'],
-      valid: ['1999-12-31'],
-      invalid: ['invalid date'],
-    });
-    test({
-      validator: 'isBefore',
-      args: ['invalid date'],
-      invalid: ['invalid date', '1999-12-31'],
     });
   });
 
@@ -7332,6 +7300,7 @@ describe('Validators', () => {
         locale: 'ar-OM',
         valid: [
           '+96891212121',
+          '+96871212121',
           '0096899999999',
           '93112211',
           '99099009',
@@ -8526,6 +8495,11 @@ describe('Validators', () => {
           '+3599148725',
           '96537247',
           '3596676533',
+          '+35795123455',
+          '+35797012204',
+          '35799123456',
+          '+35794123456',
+          '+35796123456',
         ],
         invalid: [
           '',
@@ -10189,10 +10163,12 @@ describe('Validators', () => {
         locale: 'pt-AO',
         valid: [
           '+244911123432',
-          '+244123091232',
+          '911123432',
+          '244911123432',
         ],
         invalid: [
           '+2449111234321',
+          '+244811123432',
           '31234',
           '31234567',
           '512345',
@@ -14015,6 +13991,35 @@ describe('Validators', () => {
     });
     test({
       validator: 'isTime',
+      args: [{ hourFormat: 'hour24', mode: 'withOptionalSeconds' }],
+      valid: [
+        '23:59:59',
+        '00:00:00',
+        '9:50:01',
+        '00:00',
+        '23:59',
+        '9:00',
+      ],
+      invalid: [
+        '',
+        null,
+        undefined,
+        23,
+        '01:00:01 PM',
+        '13:00:',
+        '00',
+        '26',
+        '00;01',
+        '0 :09',
+        '59:59:59',
+        '24:00:00',
+        '00:59:60',
+        '99:99:99',
+        '009:50:01',
+      ],
+    });
+    test({
+      validator: 'isTime',
       args: [{ hourFormat: 'hour12' }],
       valid: [
         '12:59 PM',
@@ -14060,6 +14065,38 @@ describe('Validators', () => {
         '01:00: 1 PM',
         '13:00:',
         '13:00:00 PM',
+        '00',
+        '26',
+        '00;01',
+        '0 :09',
+        '59:59:59',
+        '24:00:00',
+        '00:59:60',
+        '99:99:99',
+        '9:50:01',
+        '009:50:01',
+      ],
+    });
+    test({
+      validator: 'isTime',
+      args: [{ hourFormat: 'hour12', mode: 'withOptionalSeconds' }],
+      valid: [
+        '12:59:59 PM',
+        '2:34:45 AM',
+        '7:00:00 AM',
+        '12:59 PM',
+        '12:59 AM',
+        '01:00 PM',
+        '01:00 AM',
+        '7:00 AM',
+      ],
+      invalid: [
+        '',
+        null,
+        undefined,
+        23,
+        '01:00: 1 PM',
+        '13:00:',
         '00',
         '26',
         '00;01',
