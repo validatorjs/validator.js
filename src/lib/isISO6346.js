@@ -27,7 +27,8 @@ export function isISO6346(str) {
       } else sum += str[i] * (2 ** i);
     }
 
-    const checkSumDigit = sum % 11;
+    let checkSumDigit = sum % 11;
+    if (checkSumDigit === 10) checkSumDigit = 0;
     return Number(str[str.length - 1]) === checkSumDigit;
   }
 
