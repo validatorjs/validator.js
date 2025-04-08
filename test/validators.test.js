@@ -5608,6 +5608,81 @@ describe('Validators', () => {
         '9c858901-8a57-4791-81fe-4c455b099bc9',
       ],
     });
+    test({
+      validator: 'isUUID',
+      args: ['nil'],
+      valid: [
+        '00000000-0000-0000-0000-000000000000',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
+        'A987FBC94BED3078CF079141BA07C9F3',
+        '934859',
+        '987FBC9-4BED-3078-CF07A-9141BA07C9F3',
+        'AAAAAAAA-1111-1111-AAAG-111111111111',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
+        'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
+        'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
+        'ffffffff-ffff-ffff-ffff-ffffffffffff',
+        'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF',
+      ],
+    });
+    test({
+      validator: 'isUUID',
+      args: ['max'],
+      valid: [
+        'ffffffff-ffff-ffff-ffff-ffffffffffff',
+        'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
+        'A987FBC94BED3078CF079141BA07C9F3',
+        '934859',
+        '987FBC9-4BED-3078-CF07A-9141BA07C9F3',
+        'AAAAAAAA-1111-1111-AAAG-111111111111',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
+        'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
+        'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
+        '00000000-0000-0000-0000-000000000000',
+      ],
+    });
+    test({
+      validator: 'isUUID',
+      args: ['all'],
+      valid: [
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
+        'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
+        'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
+        '00000000-0000-0000-0000-000000000000',
+        'ffffffff-ffff-ffff-ffff-ffffffffffff',
+        'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
+        'A987FBC94BED3078CF079141BA07C9F3',
+        '934859',
+        '987FBC9-4BED-3078-CF07A-9141BA07C9F3',
+        'AAAAAAAA-1111-1111-AAAG-111111111111',
+      ],
+    });
   });
 
   it('should validate a string that is in another string or array', () => {
