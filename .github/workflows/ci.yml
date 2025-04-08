@@ -25,3 +25,5 @@ jobs:
     - if: matrix.node-version == 22
       name: Send coverage info to Codecov
       uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
