@@ -57,6 +57,8 @@ const patterns = {
   NO: fourDigit,
   NP: /^(10|21|22|32|33|34|44|45|56|57)\d{3}$|^(977)$/i,
   NZ: fourDigit,
+  // https://www.pakpost.gov.pk/postcodes.php
+  PK: fiveDigit,
   PL: /^\d{2}\-\d{3}$/,
   PR: /^00[679]\d{2}([ -]\d{4})?$/,
   PT: /^\d{4}\-\d{3}?$/,
@@ -69,7 +71,7 @@ const patterns = {
   SK: /^\d{3}\s?\d{2}$/,
   TH: fiveDigit,
   TN: fourDigit,
-  TW: /^\d{3}(\d{2})?$/,
+  TW: /^\d{3}(\d{2,3})?$/,
   UA: fiveDigit,
   US: /^\d{5}(-\d{4})?$/,
   ZA: fourDigit,
