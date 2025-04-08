@@ -5683,6 +5683,30 @@ describe('Validators', () => {
         'AAAAAAAA-1111-1111-AAAG-111111111111',
       ],
     });
+    test({
+      validator: 'isUUID',
+      args: ['invalid'],
+      valid: [],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
+        'A987FBC94BED3078CF079141BA07C9F3',
+        '934859',
+        '987FBC9-4BED-3078-CF07A-9141BA07C9F3',
+        'AAAAAAAA-1111-1111-AAAG-111111111111',
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
+        'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
+        'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
+        '00000000-0000-0000-0000-000000000000',
+        'ffffffff-ffff-ffff-ffff-ffffffffffff',
+        'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF',
+      ],
+    });
   });
 
   it('should validate a string that is in another string or array', () => {
