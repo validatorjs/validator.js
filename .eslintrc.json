@@ -1,6 +1,6 @@
 {
   "extends": "airbnb-base",
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
@@ -14,13 +14,6 @@
   "rules": {
     "camelcase": 0,
     "no-param-reassign": 0,
-    "one-var": 0,
-    "one-var-declaration-per-line": 0,
-    "func-names": 0,
-    "no-console": 0,
-    "newline-per-chained-call": 0,
-    "prefer-const": 0,
-    "linebreak-style": 0,
     "no-restricted-syntax": [2, "DebuggerStatement", "LabeledStatement", "WithStatement"],
     "no-restricted-globals": 0,
     "prefer-destructuring": 0,

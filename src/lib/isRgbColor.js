@@ -1,4 +1,3 @@
-/* eslint-disable prefer-rest-params */
 import assertString from './util/assertString';
 
 const rgbColor = /^rgb\((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]),){2}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\)$/;
@@ -14,12 +13,12 @@ export default function isRgbColor(str, options) {
   let includePercentValues = true;
   if (typeof options !== 'object') {
     if (arguments.length >= 2) {
-      includePercentValues = arguments[1];
+      includePercentValues = arguments[1]; // eslint-disable-line prefer-rest-params
     }
   } else {
     allowSpaces = options.allowSpaces !== undefined ? options.allowSpaces : allowSpaces;
-    includePercentValues = options.includePercentValues !== undefined ?
-      options.includePercentValues : includePercentValues;
+    includePercentValues = options.includePercentValues !== undefined
+      ? options.includePercentValues : includePercentValues;
   }
 
   if (allowSpaces) {
@@ -35,8 +34,8 @@ export default function isRgbColor(str, options) {
     return rgbColor.test(str) || rgbaColor.test(str);
   }
 
-  return rgbColor.test(str) ||
-    rgbaColor.test(str) ||
-    rgbColorPercent.test(str) ||
-    rgbaColorPercent.test(str);
+  return rgbColor.test(str)
+    || rgbaColor.test(str)
+    || rgbColorPercent.test(str)
+    || rgbaColorPercent.test(str);
 }

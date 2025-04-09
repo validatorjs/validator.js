@@ -1,9 +1,7 @@
 import assertString from './util/assertString';
 
-
-let imeiRegexWithoutHyphens = /^[0-9]{15}$/;
-let imeiRegexWithHyphens = /^\d{2}-\d{6}-\d{6}-\d{1}$/;
-
+const imeiRegexWithoutHyphens = /^[0-9]{15}$/;
+const imeiRegexWithHyphens = /^\d{2}-\d{6}-\d{6}-\d{1}$/;
 
 export default function isIMEI(str, options) {
   assertString(str);
@@ -17,16 +15,15 @@ export default function isIMEI(str, options) {
     imeiRegex = imeiRegexWithHyphens;
   }
 
-
   if (!imeiRegex.test(str)) {
     return false;
   }
 
   str = str.replace(/-/g, '');
 
-  let sum = 0,
-    mul = 2,
-    l = 14;
+  let sum = 0;
+  let mul = 2;
+  const l = 14;
 
   for (let i = 0; i < l; i++) {
     const digit = str.substring(l - i - 1, l - i);

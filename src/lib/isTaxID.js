@@ -48,7 +48,7 @@ function bgBgCheck(tin) {
   if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
   // split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
+  const digits = tin.split('').map((a) => parseInt(a, 10));
 
   // Calculate checksum by multiplying digits with fixed values
   const multip_lookup = [2, 4, 8, 5, 10, 9, 7, 3, 6];
@@ -77,14 +77,14 @@ function isCanadianSIN(input) {
   const digitsArray = input.split('');
   const even = digitsArray
     .filter((_, idx) => idx % 2)
-    .map(i => Number(i) * 2)
+    .map((i) => Number(i) * 2)
     .join('')
     .split('');
 
   const total = digitsArray
     .filter((_, idx) => !(idx % 2))
     .concat(even)
-    .map(i => Number(i))
+    .map((i) => Number(i))
     .reduce((acc, cur) => acc + cur);
 
   return (total % 10 === 0);
@@ -171,7 +171,7 @@ function deAtCheck(tin) {
  */
 function deDeCheck(tin) {
   // Split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
+  const digits = tin.split('').map((a) => parseInt(a, 10));
 
   // Fill array with strings of number positions
   let occurrences = [];
@@ -185,12 +185,12 @@ function deDeCheck(tin) {
   }
 
   // Remove digits with one occurrence and test for only one duplicate/triplicate
-  occurrences = occurrences.filter(a => a.length > 1);
+  occurrences = occurrences.filter((a) => a.length > 1);
   if (occurrences.length !== 2 && occurrences.length !== 3) { return false; }
 
   // In case of triplicate value only two digits are allowed next to each other
   if (occurrences[0].length === 3) {
-    const trip_locations = occurrences[0].split('').map(a => parseInt(a, 10));
+    const trip_locations = occurrences[0].split('').map((a) => parseInt(a, 10));
     let recurrent = 0; // Amount of neighbor occurrences
     for (let i = 0; i < trip_locations.length - 1; i++) {
       if (trip_locations[i] + 1 === trip_locations[i + 1]) {
@@ -250,7 +250,7 @@ function dkDkCheck(tin) {
   if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
   // Split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
+  const digits = tin.split('').map((a) => parseInt(a, 10));
   let checksum = 0;
   let weight = 4;
   // Multiply by weight and add to checksum
@@ -273,7 +273,7 @@ function dkDkCheck(tin) {
  */
 function elCyCheck(tin) {
   // split digits into an array for further processing
-  const digits = tin.slice(0, 8).split('').map(a => parseInt(a, 10));
+  const digits = tin.slice(0, 8).split('').map((a) => parseInt(a, 10));
 
   let checksum = 0;
   // add digits in even places
@@ -304,7 +304,7 @@ function elCyCheck(tin) {
  */
 function elGrCheck(tin) {
   // split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
+  const digits = tin.split('').map((a) => parseInt(a, 10));
 
   let checksum = 0;
   for (let i = 0; i < 8; i++) {
@@ -325,7 +325,7 @@ function elGrCheck(tin) {
  * Verify TIN validity by calculating check (second to last) character
  */
 function enIeCheck(tin) {
-  let checksum = algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8);
+  let checksum = algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map((a) => parseInt(a, 10)), 8);
   if (tin.length === 9 && tin[8] !== 'W') {
     checksum += (tin[8].charCodeAt(0) - 64) * 9;
   }
@@ -386,8 +386,8 @@ function enUsCheck(tin) {
 
 function esArCheck(tin) {
   let accum = 0;
-  let digits = tin.split('');
-  let digit = parseInt(digits.pop(), 10);
+  const digits = tin.split('');
+  const digit = parseInt(digits.pop(), 10);
   for (let i = 0; i < digits.length; i++) {
     accum += digits[9 - i] * (2 + (i % 6));
   }
@@ -433,7 +433,7 @@ function esEsCheck(tin) {
   // Calculate checksum and check according to lookup
   const lookup = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
   chars = chars.join('');
-  let checksum = (parseInt(chars.slice(0, 8), 10) % 23);
+  const checksum = (parseInt(chars.slice(0, 8), 10) % 23);
   return chars[8] === lookup[checksum];
 }
 
@@ -466,7 +466,7 @@ function etEeCheck(tin) {
   if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
   // Split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
+  const digits = tin.split('').map((a) => parseInt(a, 10));
   let checksum = 0;
   let weight = 1;
   // Multiply by weight and add to checksum
@@ -596,7 +596,7 @@ function hrHrCheck(tin) {
  */
 function huHuCheck(tin) {
   // split digits into an array for further processing
-  const digits = tin.split('').map(a => parseInt(a, 10));
+  const digits = tin.split('').map((a) => parseInt(a, 10));
 
   let checksum = 8;
   for (let i = 1; i < 9; i++) {
@@ -696,7 +696,7 @@ function itItCheck(tin) {
     S: '11',
     T: '12',
   };
-  let month = month_replace[chars[8]];
+  const month = month_replace[chars[8]];
 
   let day = parseInt(chars[9] + chars[10], 10);
   if (day > 40) { day -= 40; }
@@ -750,7 +750,7 @@ function itItCheck(tin) {
     if (chars[i] in odd_convert) {
       char_to_int = odd_convert[chars[i]];
     } else {
-      let multiplier = parseInt(chars[i], 10);
+      const multiplier = parseInt(chars[i], 10);
       char_to_int = (2 * multiplier) + 1;
       if (multiplier > 4) {
         char_to_int += 2;
@@ -813,7 +813,7 @@ function lvLvCheck(tin) {
  */
 function mtMtCheck(tin) {
   if (tin.length !== 9) { // No tests for UTR
-    let chars = tin.toUpperCase().split('');
+    const chars = tin.toUpperCase().split('');
     // Fill with zeros if smaller than proper
     while (chars.length < 8) {
       chars.unshift(0);
@@ -842,7 +842,7 @@ function mtMtCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function nlNlCheck(tin) {
-  return algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
+  return algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map((a) => parseInt(a, 10)), 9) % 11 === parseInt(tin[8], 10);
 }
 
 /*
@@ -920,16 +920,16 @@ function ptBrCheck(tin) {
     sum = 0;
 
     if ( // Reject known invalid CPFs
-      tin === '11111111111' ||
-      tin === '22222222222' ||
-      tin === '33333333333' ||
-      tin === '44444444444' ||
-      tin === '55555555555' ||
-      tin === '66666666666' ||
-      tin === '77777777777' ||
-      tin === '88888888888' ||
-      tin === '99999999999' ||
-      tin === '00000000000'
+      tin === '11111111111'
+      || tin === '22222222222'
+      || tin === '33333333333'
+      || tin === '44444444444'
+      || tin === '55555555555'
+      || tin === '66666666666'
+      || tin === '77777777777'
+      || tin === '88888888888'
+      || tin === '99999999999'
+      || tin === '00000000000'
     ) return false;
 
     for (let i = 1; i <= 9; i++) sum += parseInt(tin.substring(i - 1, i), 10) * (11 - i);
@@ -947,20 +947,20 @@ function ptBrCheck(tin) {
   }
 
   if ( // Reject know invalid CNPJs
-    tin === '00000000000000' ||
-    tin === '11111111111111' ||
-    tin === '22222222222222' ||
-    tin === '33333333333333' ||
-    tin === '44444444444444' ||
-    tin === '55555555555555' ||
-    tin === '66666666666666' ||
-    tin === '77777777777777' ||
-    tin === '88888888888888' ||
-    tin === '99999999999999') { return false; }
+    tin === '00000000000000'
+    || tin === '11111111111111'
+    || tin === '22222222222222'
+    || tin === '33333333333333'
+    || tin === '44444444444444'
+    || tin === '55555555555555'
+    || tin === '66666666666666'
+    || tin === '77777777777777'
+    || tin === '88888888888888'
+    || tin === '99999999999999') { return false; }
 
   let length = tin.length - 2;
   let identifiers = tin.substring(0, length);
-  let verificators = tin.substring(length);
+  const verificators = tin.substring(length);
   let sum = 0;
   let pos = length - 7;
 
@@ -993,7 +993,7 @@ function ptBrCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function ptPtCheck(tin) {
-  let checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map(a => parseInt(a, 10)), 9) % 11);
+  const checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 8).map((a) => parseInt(a, 10)), 9) % 11);
   if (checksum > 9) { return parseInt(tin[8], 10) === 0; }
   return checksum === parseInt(tin[8], 10);
 }
@@ -1033,7 +1033,7 @@ function roRoCheck(tin) {
     } else if (!isDate(date, 'YYYY/MM/DD')) { return false; }
 
     // Calculate check digit
-    const digits = tin.split('').map(a => parseInt(a, 10));
+    const digits = tin.split('').map((a) => parseInt(a, 10));
     const multipliers = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9];
     let checksum = 0;
     for (let i = 0; i < multipliers.length; i++) {
@@ -1086,7 +1086,7 @@ function skSkCheck(tin) {
  * Verify TIN validity by calculating check (last) digit (variant of MOD 11)
  */
 function slSiCheck(tin) {
-  let checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map(a => parseInt(a, 10)), 8) % 11);
+  const checksum = 11 - (algorithms.reverseMultiplyAndSum(tin.split('').slice(0, 7).map((a) => parseInt(a, 10)), 8) % 11);
   if (checksum === 10) { return parseInt(tin[7], 10) === 0; }
   return checksum === parseInt(tin[7], 10);
 }
@@ -1147,7 +1147,7 @@ function svSeCheck(tin) {
  */
 function ukUaCheck(tin) {
   // Calculate check digit
-  const digits = tin.split('').map(a => parseInt(a, 10));
+  const digits = tin.split('').map((a) => parseInt(a, 10));
   const multipliers = [-1, 5, 7, 9, 4, 6, 10, 5, 7];
   let checksum = 0;
   for (let i = 0; i < multipliers.length; i++) {
