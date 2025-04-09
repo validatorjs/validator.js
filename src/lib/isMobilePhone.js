@@ -1,6 +1,5 @@
 import assertString from './util/assertString';
 
-/* eslint-disable max-len */
 const phones = {
   'am-AM': /^(\+?374|0)(33|4[134]|55|77|88|9[13-689])\d{6}$/,
   'ar-AE': /^((\+?971)|0)?5[024568]\d{7}$/,
@@ -162,7 +161,6 @@ const phones = {
   'fa-AF': /^(\+93|0)?(2{1}[0-8]{1}|[3-5]{1}[0-4]{1})(\d{7})$/,
   'mk-MK': /^(\+?389|0)?((?:2[2-9]\d{6}|(?:3[1-4]|4[2-8])\d{6}|500\d{5}|5[2-9]\d{6}|7[0-9][2-9]\d{5}|8[1-9]\d{6}|800\d{5}|8009\d{4}))$/,
 };
-/* eslint-enable max-len */
 
 // aliases
 phones['en-CA'] = phones['en-US'];
@@ -191,10 +189,10 @@ export default function isMobilePhone(str, locale, options) {
       }
       return false;
     });
-  } else if (locale in phones) {
+  } if (locale in phones) {
     return phones[locale].test(str);
     // alias falsey locale as 'any'
-  } else if (!locale || locale === 'any') {
+  } if (!locale || locale === 'any') {
     for (const key in phones) {
       // istanbul ignore else
       if (phones.hasOwnProperty(key)) {

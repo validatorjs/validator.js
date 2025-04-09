@@ -6,7 +6,6 @@ import assert from 'assert';
 import typeOf from '../src/lib/util/typeOf';
 import assertString from '../src/lib/util/assertString';
 
-
 describe('Util', () => {
   it('should validate different typeOf', () => {
     assert.strictEqual(typeOf([]), 'array');

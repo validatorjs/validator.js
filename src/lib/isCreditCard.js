@@ -34,7 +34,7 @@ export default function isCreditCard(card, options = {}) {
   } else if (provider && !(provider.toLowerCase() in cards)) {
     /* specific provider not in the list */
     throw new Error(`${provider} is not a valid credit card provider.`);
-  } else if (!allCards.some(cardProvider => cardProvider.test(sanitized))) {
+  } else if (!allCards.some((cardProvider) => cardProvider.test(sanitized))) {
     // no specific provider
     return false;
   }
