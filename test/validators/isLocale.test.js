@@ -1,0 +1,53 @@
+import test from '../testFunctions';
+
+describe('isLocale', () => {
+  it('should validate isLocale codes', () => {
+    test({
+      validator: 'isLocale',
+      valid: [
+        'uz_Latn_UZ',
+        'en',
+        'gsw',
+        'en-US',
+        'es_ES',
+        'es-419',
+        'sw_KE',
+        'am_ET',
+        'zh-CHS',
+        'ca_ES_VALENCIA',
+        'en_US_POSIX',
+        'hak-CN',
+        'zh-Hant',
+        'zh-Hans',
+        'sr-Cyrl',
+        'sr-Latn',
+        'zh-cmn-Hans-CN',
+        'cmn-Hans-CN',
+        'zh-yue-HK',
+        'yue-HK',
+        'zh-Hans-CN',
+        'sr-Latn-RS',
+        'sl-rozaj',
+        'sl-rozaj-biske',
+        'sl-nedis',
+        'de-CH-1901',
+        'sl-IT-nedis',
+        'hy-Latn-IT-arevela',
+        'i-enochian',
+        'en-scotland-fonipa',
+        'sl-IT-rozaj-biske-1994',
+        'de-CH-x-phonebk',
+        'az-Arab-x-AZE-derbend',
+        'x-whatever',
+        'qaa-Qaaa-QM-x-southern',
+        'de-Qaaa',
+        'sr-Latn-QM',
+        'sr-Qaaa-RS',
+        'en-US-u-islamcal',
+        'zh-CN-a-myext-x-private',
+        'en-a-myext-b-another',
+      ],
+      invalid: ['lo_POP', '12', '12_DD', 'de-419-DE', 'a-DE'],
+    });
+  });
+});
