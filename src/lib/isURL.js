@@ -1,5 +1,6 @@
 import assertString from './util/assertString';
 import checkHost from './util/checkHost';
+import includes from './util/includesString';
 
 import isFQDN from './isFQDN';
 import isIP from './isIP';
@@ -60,11 +61,11 @@ export default function isURL(url, options) {
     return false;
   }
 
-  if (!options.allow_fragments && url.includes('#')) {
+  if (!options.allow_fragments && includes(url, '#')) {
     return false;
   }
 
-  if (!options.allow_query_components && (url.includes('?') || url.includes('&'))) {
+  if (!options.allow_query_components && (includes(url, '?') || includes(url, '&'))) {
     return false;
   }
 
