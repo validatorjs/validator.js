@@ -3,8 +3,8 @@ import isEmail from './isEmail';
 import assertString from './util/assertString';
 
 function parseMailtoQueryString(queryString) {
-  const allowedParams = new Set(['subject', 'body', 'cc', 'bcc']),
-    query = { cc: '', bcc: '' };
+  const allowedParams = new Set(['subject', 'body', 'cc', 'bcc']);
+  const query = { cc: '', bcc: '' };
   let isParseFailed = false;
 
   const queryParams = queryString.split('&');

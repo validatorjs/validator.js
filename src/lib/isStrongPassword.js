@@ -25,9 +25,9 @@ const defaultOptions = {
  * could be moved to util/ ?
 */
 function countChars(str) {
-  let result = {};
+  const result = {};
   Array.from(str).forEach((char) => {
-    let curVal = result[char];
+    const curVal = result[char];
     if (curVal) {
       result[char] += 1;
     } else {
@@ -39,8 +39,8 @@ function countChars(str) {
 
 /* Return information about a password */
 function analyzePassword(password) {
-  let charMap = countChars(password);
-  let analysis = {
+  const charMap = countChars(password);
+  const analysis = {
     length: password.length,
     uniqueChars: Object.keys(charMap).length,
     uppercaseCount: 0,

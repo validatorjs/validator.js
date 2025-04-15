@@ -21,7 +21,6 @@ max_allowed_length - if set isURL will not allow URLs longer than max_allowed_le
   default is 2084 that IE maximum URL length
 */
 
-
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
   require_tld: true,
@@ -62,7 +61,7 @@ export default function isURL(url, options) {
     return false;
   }
 
-  let protocol, auth, host, hostname, port, port_str, split, ipv6;
+  let protocol; let auth; let host; let port; let port_str; let split; let ipv6;
 
   split = url.split('#');
   url = split.shift();
@@ -114,7 +113,7 @@ export default function isURL(url, options) {
       return false;
     }
   }
-  hostname = split.join('@');
+  const hostname = split.join('@');
 
   port_str = null;
   ipv6 = null;

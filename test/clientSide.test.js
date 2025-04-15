@@ -4,11 +4,12 @@ import min from '../validator.min';
 
 describe('Minified version', () => {
   it('should export the same things as the server-side version', () => {
-    for (let key in validator) {
+    for (const key in validator) {
       if ({}.hasOwnProperty.call(validator, key)) {
         assert.strictEqual(
           typeof validator[key],
-          typeof min[key], `Minified version did not export ${key}`
+          typeof min[key],
+          `Minified version did not export ${key}`
         );
       }
     }
