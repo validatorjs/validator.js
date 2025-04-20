@@ -1,6 +1,6 @@
 import merge from './util/merge';
 import assertString from './util/assertString';
-import includes from './util/includes';
+import includes from './util/includesArray';
 import { decimal } from './alpha';
 
 function decimalRegExp(options) {
