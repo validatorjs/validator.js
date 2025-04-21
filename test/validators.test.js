@@ -14302,8 +14302,23 @@ describe('Validators', () => {
       invalid: [
         '',
         'notalicenseplate',
+        'AA-AA-00',
+        '00-AA-AA',
+        'AA-AA-AA',
+        '00-00-00',
+        'AA·AA·00',
+        '00·AA·AA',
+        'AA·AA·AA',
+        '00·00·00',
+        'AA AA 00',
+        '00 AA AA',
+        'AA AA AA',
+        '00 00 00',
         'A1-B2-C3',
+        '1A-2B-3C',
         'ABC-1-EF',
+        'AB-C1D-EF',
+        'AB-C1-DEF',
       ],
     });
     test({
