@@ -1,8 +1,6 @@
 import assertString from './util/assertString';
 
-/* eslint-disable no-control-regex */
-const ascii = /^[\x00-\x7F]+$/;
-/* eslint-enable no-control-regex */
+const ascii = /^[\x00-\x7F]+$/; // eslint-disable-line no-control-regex
 
 export default function isAscii(str) {
   assertString(str);

@@ -22,8 +22,7 @@ const validators = {
 
     if (str != null && str.length === 11 && isInt(str, { allow_leading_zeroes: true })) {
       const digits = str.split('').slice(0, -1);
-      const sum = digits.reduce((acc, digit, index) =>
-        acc + (Number(digit) * weightOfDigits[index + 1]), 0);
+      const sum = digits.reduce((acc, digit, index) => acc + (Number(digit) * weightOfDigits[index + 1]), 0); // eslint-disable-line max-len
 
       const modulo = sum % 10;
       const lastDigit = Number(str.charAt(str.length - 1));
@@ -60,7 +59,7 @@ const validators = {
     }
 
     // validate the control digit
-    const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, char => charsValue[char]);
+    const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, (char) => charsValue[char]);
 
     return sanitized.endsWith(controlDigits[number % 23]);
   },
@@ -121,7 +120,7 @@ const validators = {
       return false;
     }
     let c = 0;
-    let invertedArray = sanitized.replace(/\s/g, '').split('').map(Number).reverse();
+    const invertedArray = sanitized.replace(/\s/g, '').split('').map(Number).reverse();
 
     invertedArray.forEach((val, i) => {
       c = d[c][p[(i % 8)][val]];
@@ -161,10 +160,10 @@ const validators = {
 
     // https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
     const f = sanitized.split('').map(Number);
-    let k1 = (11 - (((3 * f[0]) + (7 * f[1]) + (6 * f[2])
+    const k1 = (11 - (((3 * f[0]) + (7 * f[1]) + (6 * f[2])
       + (1 * f[3]) + (8 * f[4]) + (9 * f[5]) + (4 * f[6])
       + (5 * f[7]) + (2 * f[8])) % 11)) % 11;
-    let k2 = (11 - (((5 * f[0]) + (4 * f[1]) + (3 * f[2])
+    const k2 = (11 - (((5 * f[0]) + (4 * f[1]) + (3 * f[2])
       + (2 * f[3]) + (7 * f[4]) + (6 * f[5]) + (5 * f[6])
       + (4 * f[7]) + (3 * f[8]) + (2 * k1)) % 11)) % 11;
 
@@ -186,7 +185,7 @@ const validators = {
     const new_nic = /^[1-9]\d{11}$/i;
 
     if (str.length === 10 && old_nic.test(str)) return true;
-    else if (str.length === 12 && new_nic.test(str)) return true;
+    if (str.length === 12 && new_nic.test(str)) return true;
     return false;
   },
   'he-IL': (str) => {
@@ -202,8 +201,8 @@ const validators = {
 
     const id = sanitized;
 
-    let sum = 0,
-      incNum;
+    let sum = 0;
+    let incNum;
     for (let i = 0; i < id.length; i++) {
       incNum = Number(id[i]) * ((i % 2) + 1); // Multiply number by 1 or 2
       sum += incNum > 9 ? incNum - 9 : incNum; // Sum the digits up and add to total
@@ -278,7 +277,7 @@ const validators = {
 
     const parityBit = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
 
-    const checkAddressCode = addressCode => includes(provincesAndCities, addressCode);
+    const checkAddressCode = (addressCode) => includes(provincesAndCities, addressCode);
 
     const checkBirthDayCode = (birDayCode) => {
       const yyyy = parseInt(birDayCode.substring(0, 4), 10);
@@ -287,35 +286,33 @@ const validators = {
       const xdata = new Date(yyyy, mm - 1, dd);
       if (xdata > new Date()) {
         return false;
-        // eslint-disable-next-line max-len
-      } else if ((xdata.getFullYear() === yyyy) && (xdata.getMonth() === mm - 1) && (xdata.getDate() === dd)) {
+      } if ((xdata.getFullYear() === yyyy) && (xdata.getMonth() === mm - 1) && (xdata.getDate() === dd)) { // eslint-disable-line max-len
         return true;
       }
       return false;
     };
 
     const getParityBit = (idCardNo) => {
-      let id17 = idCardNo.substring(0, 17);
+      const id17 = idCardNo.substring(0, 17);
 
       let power = 0;
       for (let i = 0; i < 17; i++) {
         power += parseInt(id17.charAt(i), 10) * parseInt(powers[i], 10);
       }
 
-      let mod = power % 11;
+      const mod = power % 11;
       return parityBit[mod];
     };
 
-    const checkParityBit = idCardNo => getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase();
-
+    const checkParityBit = (idCardNo) => getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase(); // eslint-disable-line max-len
 
     const check15IdCardNo = (idCardNo) => {
       let check = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(idCardNo);
       if (!check) return false;
-      let addressCode = idCardNo.substring(0, 2);
+      const addressCode = idCardNo.substring(0, 2);
       check = checkAddressCode(addressCode);
       if (!check) return false;
-      let birDayCode = `19${idCardNo.substring(6, 12)}`;
+      const birDayCode = `19${idCardNo.substring(6, 12)}`;
       check = checkBirthDayCode(birDayCode);
       if (!check) return false;
       return true;
@@ -324,17 +321,17 @@ const validators = {
     const check18IdCardNo = (idCardNo) => {
       let check = /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}(\d|x|X)$/.test(idCardNo);
       if (!check) return false;
-      let addressCode = idCardNo.substring(0, 2);
+      const addressCode = idCardNo.substring(0, 2);
       check = checkAddressCode(addressCode);
       if (!check) return false;
-      let birDayCode = idCardNo.substring(6, 14);
+      const birDayCode = idCardNo.substring(6, 14);
       check = checkBirthDayCode(birDayCode);
       if (!check) return false;
       return checkParityBit(idCardNo);
     };
 
     const checkIdCardNo = (idCardNo) => {
-      let check = /^\d{15}|(\d{17}(\d|x|X))$/.test(idCardNo);
+      const check = /^\d{15}|(\d{17}(\d|x|X))$/.test(idCardNo);
       if (!check) return false;
       if (idCardNo.length === 15) {
         return check15IdCardNo(idCardNo);
@@ -438,7 +435,7 @@ export default function isIdentityCard(str, locale) {
   assertString(str);
   if (locale in validators) {
     return validators[locale](str);
-  } else if (locale === 'any') {
+  } if (locale === 'any') {
     for (const key in validators) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
