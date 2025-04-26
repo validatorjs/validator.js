@@ -469,6 +469,21 @@ describe('Validators', () => {
       ],
     });
   });
+  
+  it('should not validate email-like strings as URLs', () => {
+    test({
+      validator: 'isURL',
+      valid: [],
+      invalid: [
+        'test@email.com',
+        'first.last@domain.co.uk',
+        'user+category@gmail.com',
+        'user_name@example.com',
+        'user-name@domain.org',
+        'john..doe@example.com',
+      ],
+    });
+  });
 
   it('should validate URLs with custom protocols', () => {
     test({

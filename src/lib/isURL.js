@@ -61,6 +61,19 @@ export default function isURL(url, options) {
   if (url.indexOf('mailto:') === 0) {
     return false;
   }
+
+  const isURLHasProtocol = /^([a-z0-9.+-]+:)?\/\//i.test(url);
+
+  if (!isURLHasProtocol) {
+    const emailLikeRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!options || options.disallow_auth !== false) {
+      if (emailLikeRegex.test(url)) {
+        return false;
+      }
+    }
+  }
+
   options = merge(options, default_url_options);
 
   if (options.validate_length && url.length > options.max_allowed_length) {
