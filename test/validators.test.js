@@ -6304,7 +6304,7 @@ describe('Validators', () => {
   });
 
 
-  it.only('should validate identity cards', () => {
+  it('should validate identity cards', () => {
     const fixtures = [
       {
         locale: 'KR',
