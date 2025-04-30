@@ -17,18 +17,18 @@ const validators = {
     // Before 2000 gender digit should be 1,2
     // After 2000 gender digit should be 3,4
     // ex) current time: 2025-01-01 --> 990101-3 can't be exist because it means born in 2099-01-01.
-    const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-    const currentYearDigits = Number(now.slice(2, 4));
-    const yearDigits = Number(str.slice(0, 2));
-    const genderDigit = Number(str.slice(7, 8));
+    // const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+    // const currentYearDigits = Number(now.slice(2, 4));
+    // const yearDigits = Number(str.slice(0, 2));
+    // const genderDigit = Number(str.slice(7, 8));
 
-    if (currentYearDigits < yearDigits) {
-      if (genderDigit === 3 || genderDigit === 4) {
-        return false;
-      }
-    } else if (genderDigit === 1 || genderDigit === 2) {
-      return false;
-    }
+    // if (currentYearDigits < yearDigits) {
+    //   if (genderDigit === 3 || genderDigit === 4) {
+    //     return false;
+    //   }
+    // } else if (genderDigit === 1 || genderDigit === 2) {
+    //   return false;
+    // }
 
     return true;
   },
