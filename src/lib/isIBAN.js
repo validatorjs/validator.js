@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import includes from './util/includesArray';
 
 /**
  * List of country codes with
@@ -131,7 +132,7 @@ function hasValidIbanFormat(str, options) {
       return false;
     }
 
-    const isoCountryCodeInWhiteList = options.whitelist.includes(isoCountryCode);
+    const isoCountryCodeInWhiteList = includes(options.whitelist, isoCountryCode);
 
     if (!isoCountryCodeInWhiteList) {
       return false;
@@ -139,7 +140,7 @@ function hasValidIbanFormat(str, options) {
   }
 
   if (options.blacklist) {
-    const isoCountryCodeInBlackList = options.blacklist.includes(isoCountryCode);
+    const isoCountryCodeInBlackList = includes(options.blacklist, isoCountryCode);
 
     if (isoCountryCodeInBlackList) {
       return false;

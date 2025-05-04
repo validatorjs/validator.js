@@ -17,7 +17,7 @@ const passportRegexByCountryCode = {
   BG: /^\d{9}$/, // BULGARIA
   BR: /^[A-Z]{2}\d{6}$/, // BRAZIL
   BY: /^[A-Z]{2}\d{7}$/, // BELARUS
-  CA: /^[A-Z]{2}\d{6}$/, // CANADA
+  CA: /^[A-Z]{2}\d{6}$|^[A-Z]\d{6}[A-Z]{2}$/, // CANADA
   CH: /^[A-Z]\d{7}$/, // SWITZERLAND
   CN: /^G\d{8}$|^E(?![IO])[A-Z0-9]\d{7}$/, // CHINA [G=Ordinary, E=Electronic] followed by 8-digits, or E followed by any UPPERCASE letter (except I and O) followed by 7 digits
   CY: /^[A-Z](\d{6}|\d{8})$/, // CYPRUS
@@ -66,7 +66,7 @@ const passportRegexByCountryCode = {
   TH: /^[A-Z]{1,2}\d{6,7}$/, // THAILAND
   TR: /^[A-Z]\d{8}$/, // TURKEY
   UA: /^[A-Z]{2}\d{6}$/, // UKRAINE
-  US: /^\d{9}$/, // UNITED STATES
+  US: /^\d{9}$|^[A-Z]\d{8}$/, // UNITED STATES
   ZA: /^[TAMD]\d{8}$/, // SOUTH AFRICA
 };
 
