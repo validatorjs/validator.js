@@ -4,7 +4,7 @@ import timezone_mock from 'timezone-mock';
 import vm from 'vm';
 import test from './testFunctions';
 
-let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
+const validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
 describe('Validators', () => {
   it('should validate email addresses', () => {
@@ -279,7 +279,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
       validator: 'isEmail',
@@ -521,7 +520,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate URLs with any protocol', () => {
     test({
@@ -2837,7 +2835,6 @@ describe('Validators', () => {
       ],
     });
 
-
     test({
       validator: 'isPassportNumber',
       args: ['ID'],
@@ -3968,7 +3965,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate imei strings', () => {
     test({
       validator: 'isIMEI',
@@ -3987,7 +3983,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate imei strings with hyphens', () => {
     test({
@@ -4008,7 +4003,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate uppercase strings', () => {
     test({
@@ -6034,7 +6028,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate credit cards without a proper provider', () => {
     test({
       validator: 'isCreditCard',
@@ -6049,7 +6042,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate AmEx provided credit cards', () => {
     test({
@@ -6085,7 +6077,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate Diners Club provided credit cards', () => {
     test({
@@ -6196,7 +6187,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate Mastercard provided credit cards', () => {
     test({
       validator: 'isCreditCard',
@@ -6232,7 +6222,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate Union Pay provided credit cards', () => {
     test({
       validator: 'isCreditCard',
@@ -6266,7 +6255,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate Visa provided credit cards', () => {
     test({
@@ -6302,7 +6290,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate identity cards', () => {
     const fixtures = [
@@ -7121,7 +7108,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate hex-encoded MongoDB ObjectId', () => {
     test({
       validator: 'isMongoId',
@@ -7138,7 +7124,7 @@ describe('Validators', () => {
   });
 
   it('should define the module using an AMD-compatible loader', () => {
-    let window = {
+    const window = {
       validator: null,
       define(module) {
         window.validator = module();
@@ -7146,20 +7132,20 @@ describe('Validators', () => {
     };
     window.define.amd = true;
 
-    let sandbox = vm.createContext(window);
+    const sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
     assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
   it('should bind validator to the window if no module loaders are available', () => {
-    let window = {};
-    let sandbox = vm.createContext(window);
+    const window = {};
+    const sandbox = vm.createContext(window);
     vm.runInContext(validator_js, sandbox);
     assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
   it('should validate mobile phone number', () => {
-    let fixtures = [
+    const fixtures = [
       {
         locale: 'am-AM',
         valid: [
@@ -10776,7 +10762,6 @@ describe('Validators', () => {
     args: [],
   });
 
-
   it('should error on invalid locale', () => {
     test({
       validator: 'isMobilePhone',
@@ -12253,7 +12238,6 @@ describe('Validators', () => {
   });
 
   it('should validate dataURI', () => {
-    /* eslint-disable max-len */
     test({
       validator: 'isDataURI',
       valid: [
@@ -12284,12 +12268,9 @@ describe('Validators', () => {
         'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
       ],
     });
-    /* eslint-enable max-len */
   });
 
-
   it('should validate magnetURI', () => {
-    /* eslint-disable max-len */
     test({
       validator: 'isMagnetURI',
       valid: [
@@ -12318,9 +12299,7 @@ describe('Validators', () => {
         'magnet:?ttxt=urn:btmh:1220caf1e1c30e81cb361b9ee167c4aa64228a7fa4fa9f6105232b28ad099f3a302e',
       ],
     });
-    /* eslint-enable max-len */
   });
-
 
   it('should validate LatLong', () => {
     test({
@@ -13093,7 +13072,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate ISO6346 shipping containerID', () => {
     test({
       validator: 'isISO6346',
@@ -13774,7 +13752,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate slug', () => {
     test({

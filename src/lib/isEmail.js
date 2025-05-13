@@ -18,17 +18,13 @@ const default_email_options = {
   host_whitelist: [],
 };
 
-/* eslint-disable max-len */
-/* eslint-disable no-control-regex */
-const splitNameAddress = /^([^\x00-\x1F\x7F-\x9F\cX]+)</i;
+const splitNameAddress = /^([^\x00-\x1F\x7F-\x9F\cX]+)</i; // eslint-disable-line no-control-regex
 const emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 const gmailUserPart = /^[a-z\d]+$/;
-const quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
+const quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i; // eslint-disable-line no-control-regex
 const emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A1-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
-const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
+const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i; // eslint-disable-line no-control-regex
 const defaultMaxEmailLength = 254;
-/* eslint-enable max-len */
-/* eslint-enable no-control-regex */
 
 /**
  * Validate display name according to the RFC2822: https://tools.ietf.org/html/rfc2822#appendix-A.1.2
@@ -51,8 +47,7 @@ function validateDisplayName(display_name) {
     }
 
     // the quotes in display name must start with character symbol \
-    const all_start_with_back_slash =
-      display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
+    const all_start_with_back_slash = display_name_without_quotes.split('"').length === display_name_without_quotes.split('\\"').length;
     if (!all_start_with_back_slash) {
       return false;
     }
@@ -134,8 +129,8 @@ export default function isEmail(str, options) {
   }
 
   if (options.ignore_max_length === false && (
-    !isByteLength(user, { max: 64 }) ||
-    !isByteLength(domain, { max: 254 }))
+    !isByteLength(user, { max: 64 })
+    || !isByteLength(domain, { max: 254 }))
   ) {
     return false;
   }
@@ -154,7 +149,7 @@ export default function isEmail(str, options) {
         return false;
       }
 
-      let noBracketdomain = domain.slice(1, -1);
+      const noBracketdomain = domain.slice(1, -1);
 
       if (noBracketdomain.length === 0 || !isIP(noBracketdomain)) {
         return false;
@@ -168,13 +163,13 @@ export default function isEmail(str, options) {
 
   if (user[0] === '"' && user[user.length - 1] === '"') {
     user = user.slice(1, user.length - 1);
-    return options.allow_utf8_local_part ?
-      quotedEmailUserUtf8.test(user) :
-      quotedEmailUser.test(user);
+    return options.allow_utf8_local_part
+      ? quotedEmailUserUtf8.test(user)
+      : quotedEmailUser.test(user);
   }
 
-  const pattern = options.allow_utf8_local_part ?
-    emailUserUtf8Part : emailUserPart;
+  const pattern = options.allow_utf8_local_part
+    ? emailUserUtf8Part : emailUserPart;
 
   const user_parts = user.split('.');
   for (let i = 0; i < user_parts.length; i++) {

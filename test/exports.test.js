@@ -25,12 +25,11 @@ describe('Exports', () => {
   });
 
   it('should export the version number', () => {
-    /* eslint-disable global-require */
     assert.strictEqual(
-      validator.version, require('../package.json').version,
+      validator.version,
+      require('../package.json').version, // eslint-disable-line global-require
       'Version number mismatch in "package.json" vs. "validator.js"'
     );
-    /* eslint-enable global-require */
   });
 
   it('should export isPostalCode\'s supported locales', () => {

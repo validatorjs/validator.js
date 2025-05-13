@@ -1,6 +1,5 @@
 import assertString from './util/assertString';
 
-/* eslint-disable prefer-rest-params */
 export default function isByteLength(str, options) {
   assertString(str);
   let min;
@@ -9,8 +8,8 @@ export default function isByteLength(str, options) {
     min = options.min || 0;
     max = options.max;
   } else { // backwards compatibility: isByteLength(str, min [, max])
-    min = arguments[1];
-    max = arguments[2];
+    min = arguments[1]; // eslint-disable-line prefer-rest-params
+    max = arguments[2]; // eslint-disable-line prefer-rest-params
   }
   const len = encodeURI(str).split(/%..|./).length - 1;
   return len >= min && (typeof max === 'undefined' || len <= max);
