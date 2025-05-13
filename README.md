@@ -174,6 +174,7 @@ Validator                               | Description
 **isVAT(str, countryCode)**             | check if the string is a [valid VAT number][VAT Number] if validation is available for the given country code matching [ISO 3166-1 alpha-2][ISO 3166-1 alpha-2]. <br/><br/>`countryCode` is one of `['AL', 'AR', 'AT', 'AU', 'BE', 'BG', 'BO', 'BR', 'BY', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'EC', 'EE', 'EL', 'ES', 'FI', 'FR', 'GB', 'GT', 'HN', 'HR', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'KZ', 'LT', 'LU', 'LV', 'MK', 'MT', 'MX', 'NG', 'NI', 'NL', 'NO', 'NZ', 'PA', 'PE', 'PH', 'PL', 'PT', 'PY', 'RO', 'RS', 'RU', 'SA', 'SE', 'SI', 'SK', 'SM', 'SV', 'TR', 'UA', 'UY', 'UZ', 'VE']`.
 **isWhitelisted(str, chars)**           | check if the string consists only of characters that appear in the whitelist `chars`.
 **matches(str, pattern [, modifiers])** | check if the string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.
+**isCPF(str)**                          | check if the string follows the rules defined by the Brazilian Federal Revenue Service for CPF verification digit calculation.
 
 ## Sanitizers
 
