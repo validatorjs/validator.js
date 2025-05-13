@@ -5664,6 +5664,33 @@ describe('Validators', () => {
     });
     test({
       validator: 'isUUID',
+      args: ['loose'],
+      valid: [
+        '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-4078-8F07-9141BA07C9F3',
+        'A987FBC9-4BED-5078-AF07-9141BA07C9F3',
+        'A987FBC9-4BED-6078-AF07-9141BA07C9F3',
+        '018C544A-D384-7000-BB74-3B1738ABE43C',
+        'A987FBC9-4BED-8078-AF07-9141BA07C9F3',
+        'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+        'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA',
+        'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee',
+        'EEEEEEEE-EEEE-EEEE-EEEE-EEEEEEEEEEEE',
+        '99999999-9999-9999-9999-999999999999',
+      ],
+      invalid: [
+        '',
+        'xxxA987FBC9-4BED-3078-CF07-9141BA07C9F3',
+        'A987FBC9-4BED-3078-CF07-9141BA07C9F3xxx',
+        'A987FBC94BED3078CF079141BA07C9F3',
+        '987FBC9-4BED-3078-CF07A-9141BA07C9F3',
+        '934859',
+        'AAAAAAAA-1111-1111-AAAG-111111111111',
+      ],
+    });
+    test({
+      validator: 'isUUID',
       args: ['all'],
       valid: [
         '9deb20fe-a6e0-355c-81ea-288b009e4f6d',
