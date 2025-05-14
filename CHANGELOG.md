@@ -1,3 +1,32 @@
+# 13.15.1
+
+### Fixes, New Locales and Enhancements
+
+- `isMobilePhone`
+  - [#2514](https://github.com/validatorjs/validator.js/pull/2514) improve `el-CY` locale @rezk2ll
+  - [#2512](https://github.com/validatorjs/validator.js/pull/2512) improve `pt-AO` locale @renaldodev
+  - [#2502](https://github.com/validatorjs/validator.js/pull/2502) improve `ar-OM` locale @tomcastro
+- [#2089](https://github.com/validatorjs/validator.js/pull/2089) `isIP`: allow usage of option object @pixelbucket-dev
+- [#2526](https://github.com/validatorjs/validator.js/pull/2526) `isPassportNumber`: improve `CA` locale @evanbechtol
+- [#2491](https://github.com/validatorjs/validator.js/pull/2491) `isBase64`: improve validation based on RFC4648 @aseyfpour
+- [#2479](https://github.com/validatorjs/validator.js/pull/2479) `isPostalCode`: improve `FR` locale @Rajput-Balram
+- [#2088](https://github.com/validatorjs/validator.js/pull/2088) `isBefore`: allow usage of option object @pixelbucket-dev
+- [#2346](https://github.com/validatorjs/validator.js/pull/2346) `isRgbColor`: allow second digit in rgba alpha value @controlol
+- [#2453](https://github.com/validatorjs/validator.js/pull/2453) `isIP`: improve IPv6 regex @ShreySinha02
+- [#2052](https://github.com/validatorjs/validator.js/pull/2052) `isPostalCode`: add `PK` locale @mateeni-dev
+- [#2529](https://github.com/validatorjs/validator.js/pull/2529) `isPostalCode`: improve `TW` locale @Crocsx
+- [#2550](https://github.com/validatorjs/validator.js/pull/2550) `isPassportNumber`: improve `US` locale @yitzchak-schechter
+- [#2553](https://github.com/validatorjs/validator.js/pull/2553) `isUUID`: add `loose` option @bc-m
+- [#2551](https://github.com/validatorjs/validator.js/pull/2551) `isPostalCode`: add `BD` locale @tanvirrb
+- [#2555](https://github.com/validatorjs/validator.js/pull/2555) `isLicensePlate`: improve `pt-PT` locale @castrosu
+- **Doc fixes and others:**
+  - [#2372](https://github.com/validatorjs/validator.js/pull/2372) @EmersonRabelo
+  - [#2538](https://github.com/validatorjs/validator.js/pull/2538) @WikiRik
+  - [#2539](https://github.com/validatorjs/validator.js/pull/2539) @WikiRik
+  - [#2540](https://github.com/validatorjs/validator.js/pull/2540) @WikiRik
+  - [#2549](https://github.com/validatorjs/validator.js/pull/2549) @WikiRik
+  - [#2537](https://github.com/validatorjs/validator.js/pull/2537) @sgress454
+
 # 13.15.0
 
 ### New Features / Validators
@@ -15,7 +44,7 @@
   - [#2350](https://github.com/validatorjs/validator.js/pull/2350) improve `ky-KG` locale @sadraliev
   - [#2482](https://github.com/validatorjs/validator.js/pull/2482) improve `en-ZM` locale @sonikishan
   - [#2362](https://github.com/validatorjs/validator.js/pull/2362) improve `en-GH` locale @NanaAb-116
-  - [#2500](https://github.com/validatorjs/validator.js/pull/2500) add `mk-MK` locale @eshward95 
+  - [#2500](https://github.com/validatorjs/validator.js/pull/2500) add `mk-MK` locale @eshward95
   - [#2534](https://github.com/validatorjs/validator.js/pull/2534) improve `sq-AL` locale @nichoola
 - [#2406](https://github.com/validatorjs/validator.js/pull/2406) `isBtcAddress` support all address formats and testnets @madoke
 - [#2339](https://github.com/validatorjs/validator.js/pull/2339) `isIBAN` improve `VG` regex @ST-DDT
@@ -91,30 +120,28 @@
 ### New Features / Validators
 
 - [#2144](https://github.com/validatorjs/validator.js/pull/2144) `isFreightContainerID`: for shipping containers IDs @songyuew
-- [#2188](https://github.com/validatorjs/validator.js/pull/2188) `isMailtoURI` @uksarkar 
+- [#2188](https://github.com/validatorjs/validator.js/pull/2188) `isMailtoURI` @uksarkar
 
 ### Fixes, New Locales and Enhancements
 
 - [#2025](https://github.com/validatorjs/validator.js/pull/2025) `isIBAN` add `MA` locale @lroudge
-- [#2117](https://github.com/validatorjs/validator.js/pull/2117) `isCreditCard` refactor @pano9000 
+- [#2117](https://github.com/validatorjs/validator.js/pull/2117) `isCreditCard` refactor @pano9000
 - [#2189](https://github.com/validatorjs/validator.js/pull/2189) `isLocale` add support for more language tags @kwahome
-- [#2203](https://github.com/validatorjs/validator.js/pull/2203) `isVAT` for `CU` @jimmyorpheus 
-- [#2217](https://github.com/validatorjs/validator.js/pull/2217) `isJWT` @Prathamesh061   
-- [#2222](https://github.com/validatorjs/validator.js/pull/2222) `IsFQDN` test enhancements @aalekhpatel07    
-- [#2226](https://github.com/validatorjs/validator.js/pull/2226) `isAlpha`, `isAlphanumeric` for `kk-KZ` @BekStar7   
-- [#2229](https://github.com/validatorjs/validator.js/pull/2229) `isEmail` support `allow_underscores` @guspower    
-- [#2231](https://github.com/validatorjs/validator.js/pull/2231) `isDate` enhance Date declaration compatibility across multiple environments @CiprianS  
-- [#2235](https://github.com/validatorjs/validator.js/pull/2235) `isIBAN` add white and blacklist options to the isIBAN validator @edilson   
-- [#2237](https://github.com/validatorjs/validator.js/pull/2237) `isEmail` do not allow non-breaking space in user part @jeremy21212121   
+- [#2203](https://github.com/validatorjs/validator.js/pull/2203) `isVAT` for `CU` @jimmyorpheus
+- [#2217](https://github.com/validatorjs/validator.js/pull/2217) `isJWT` @Prathamesh061
+- [#2222](https://github.com/validatorjs/validator.js/pull/2222) `IsFQDN` test enhancements @aalekhpatel07
+- [#2226](https://github.com/validatorjs/validator.js/pull/2226) `isAlpha`, `isAlphanumeric` for `kk-KZ` @BekStar7
+- [#2229](https://github.com/validatorjs/validator.js/pull/2229) `isEmail` support `allow_underscores` @guspower
+- [#2231](https://github.com/validatorjs/validator.js/pull/2231) `isDate` enhance Date declaration compatibility across multiple environments @CiprianS
+- [#2235](https://github.com/validatorjs/validator.js/pull/2235) `isIBAN` add white and blacklist options to the isIBAN validator @edilson
+- [#2237](https://github.com/validatorjs/validator.js/pull/2237) `isEmail` do not allow non-breaking space in user part @jeremy21212121
 - `isMobilePhone`:
   - [#2175](https://github.com/validatorjs/validator.js/pull/2175) `so-SO` @ohersi
   - [#2176](https://github.com/validatorjs/validator.js/pull/2176) `fr-CF` @cheboi
-  - [#2197](https://github.com/validatorjs/validator.js/pull/2197) `es-CU` @klaframboise 
-  - [#2202](https://github.com/validatorjs/validator.js/pull/2202) `pl-PL` @czerwony03 
-  - [#2209](https://github.com/validatorjs/validator.js/pull/2209) `fr-WF` @aidos42 
-  - [#2246](https://github.com/validatorjs/validator.js/pull/2246) `ar-SD` @Hussienma 
-
-
+  - [#2197](https://github.com/validatorjs/validator.js/pull/2197) `es-CU` @klaframboise
+  - [#2202](https://github.com/validatorjs/validator.js/pull/2202) `pl-PL` @czerwony03
+  - [#2209](https://github.com/validatorjs/validator.js/pull/2209) `fr-WF` @aidos42
+  - [#2246](https://github.com/validatorjs/validator.js/pull/2246) `ar-SD` @Hussienma
 
 # 13.9.0
 
@@ -144,6 +171,7 @@
 - [#2020](https://github.com/validatorjs/validator.js/pull/2170) `isFloat`: fix comma(,) passing as float @frederike-ramin
 
 - Documentation fixes:
+
   - [#1860](https://github.com/validatorjs/validator.js/pull/1860) @leonardovillela
   - [#1861](https://github.com/validatorjs/validator.js/pull/1860) @tux-tn
   - [#1957](https://github.com/validatorjs/validator.js/pull/1957) @tfilo
@@ -159,18 +187,22 @@
 ### New and Improved Locales
 
 - `isAlpha`, `isAlphanumeric`:
+
   - [#1678](https://github.com/validatorjs/validator.js/pull/1678) `bn-BD` @rak810
   - [#1996](https://github.com/validatorjs/validator.js/pull/1996) `si-LK` @melkorCBA
   - [#2014](https://github.com/validatorjs/validator.js/pull/2014) `ja-JP` @starcharles
   - [#1995](https://github.com/validatorjs/validator.js/pull/1995) `ko-KR` @Dongkyuuuu
 
 - `isBIC`:
+
   - [#2046](https://github.com/validatorjs/validator.js/pull/2046) `XK` @import-brain
 
 - `isIdentityCard`:
+
   - [#2142](https://github.com/validatorjs/validator.js/pull/2142) `hk-HK` @Dongkyuuuu
 
 - `isMobilePhone`:
+
   - [#1813](https://github.com/validatorjs/validator.js/pull/1813) `my-MM`, @ferdousulhaque
   - [#1868](https://github.com/validatorjs/validator.js/pull/1868) `de-DE`, @thomaschaaf
   - [#1896](https://github.com/validatorjs/validator.js/pull/1896) `en-LS`, @DevilsAutumn
@@ -205,6 +237,7 @@
   - [#2156](https://github.com/validatorjs/validator.js/pull/2156) `ro-RO`, @pano9000
 
 - `isLicensePlate`:
+
   - [#1665](https://github.com/validatorjs/validator.js/pull/1665) `sv-SE`, @elmaxe
   - [#1895](https://github.com/validatorjs/validator.js/pull/1895) `hu-HU`, @szabolcstarnai
   - [#1944](https://github.com/validatorjs/validator.js/pull/1944) `en-NI`, @NishantJS
@@ -213,16 +246,17 @@
   - [#2103](https://github.com/validatorjs/validator.js/pull/2103) `es-AR`, @alvarocastro
 
 - `isPassportNumber`:
+
   - [#1515](https://github.com/validatorjs/validator.js/pull/1515) `JM`,`KZ`,`LI`,`NZ` @JuanFML
   - [#1814](https://github.com/validatorjs/validator.js/pull/1814) `TH` @TonPC64 @braaar
   - [#2061](https://github.com/validatorjs/validator.js/pull/2061) `AZ` @djeks922
   - [#2073](https://github.com/validatorjs/validator.js/pull/2073) `PH`,`PK` @digambar-t7
 
 - `isPostalCode`:
+
   - [#1951](https://github.com/validatorjs/validator.js/pull/1951) `BA`, @matheusnascgomes
   - [#2134](https://github.com/validatorjs/validator.js/pull/2134) `BY`, @pano9000
   - [#2136](https://github.com/validatorjs/validator.js/pull/2136) `IR`, @pano9000
-  
 
 - `isTaxID`:
   - [#1867](https://github.com/validatorjs/validator.js/pull/1867) `en-CA`, @boonya
@@ -265,26 +299,31 @@
 ### New and Improved Locales
 
 - `isAlpha`, `isAlphanumeric`:
+
   - [#1716](https://github.com/validatorjs/validator.js/pull/1716) `hi-IN` @MiKr13
   - [#1837](https://github.com/validatorjs/validator.js/pull/1837) `fi-FI` @Marcholio
 
 - `isPassportNumber`:
+
   - [#1656](https://github.com/validatorjs/validator.js/pull/1656) `ID` @rubiin
   - [#1714](https://github.com/validatorjs/validator.js/pull/1714) `CN` @anirudhgiri
   - [#1809](https://github.com/validatorjs/validator.js/pull/1809) `PL` @Ronqn
   - [#1810](https://github.com/validatorjs/validator.js/pull/1810) `RU` @Theta-Dev
 
 - `isPostalCode`:
+
   - [#1788](https://github.com/validatorjs/validator.js/pull/1788) `LK` @nimanthadilz
 
 - `isIdentityCard`:
+
   - [#1657](https://github.com/validatorjs/validator.js/pull/1657) `TH` @tithanayut
   - [#1745](https://github.com/validatorjs/validator.js/pull/1745) `PL` @wiktorwojcik112 @fedeci @tux-tn
   - [#1786](https://github.com/validatorjs/validator.js/pull/1786) `LK` @nimanthadilz @tux-tn
   - [#1838](https://github.com/validatorjs/validator.js/pull/1838) `FI` @Marcholio
 
 - `isMobilePhone`:
-  - [#1679](https://github.com/validatorjs/validator.js/pull/1679) `de-DE` @AnnaMariaJansen 
+
+  - [#1679](https://github.com/validatorjs/validator.js/pull/1679) `de-DE` @AnnaMariaJansen
   - [#1689](https://github.com/validatorjs/validator.js/pull/1689) `vi-VN` @luisrivas
   - [#1695](https://github.com/validatorjs/validator.js/pull/1695) [#1682](https://github.com/validatorjs/validator.js/pull/1682) `zh-CN` @laulujan @yisibl
   - [#1734](https://github.com/validatorjs/validator.js/pull/1734) `es-VE` @islasjuanp
@@ -307,6 +346,7 @@
   - [#1846](https://github.com/validatorjs/validator.js/pull/1846) `tg-TJ` @mgnss
 
 - `isLicensePlate`:
+
   - [#1565](https://github.com/validatorjs/validator.js/pull/1565) `cs-CZ` @filiptronicek
   - [#1790](https://github.com/validatorjs/validator.js/pull/1790) `fi-FI` @Marcholio
 
@@ -316,9 +356,11 @@
 #### 13.6.1
 
 - **New features**:
+
   - [#1495](https://github.com/validatorjs/validator.js/pull/1495) `isLicensePlate` @firlus
 
 - **Fixes and Enhancements**:
+
   - [#1651](https://github.com/validatorjs/validator.js/pull/1651) fix ReDOS vulnerabilities in `isHSL` and `isEmail` @tux-tn
   - [#1644](https://github.com/validatorjs/validator.js/pull/1644) `isURL`: Allow URLs to have only a username in the userinfo subcomponent @jbuchmann-coosto
   - [#1633](https://github.com/validatorjs/validator.js/pull/1633) `isISIN`: optimization @bmacnaughton
@@ -360,12 +402,14 @@
 #### ~~13.5.0~~ 13.5.1
 
 - **New features**:
+
   - `isVAT` [#1463](https://github.com/validatorjs/validator.js/pull/1463) @ CodingNagger
   - `isTaxID` [#1446](https://github.com/validatorjs/validator.js/pull/1446) @tplessas
   - `isBase58` [#1445](https://github.com/validatorjs/validator.js/pull/1445) @ezkemboi
   - `isStrongPassword` [#1348](https://github.com/validatorjs/validator.js/pull/1348) @door-bell
 
 - **Fixes and Enhancements**:
+
   - [#1486](https://github.com/validatorjs/validator.js/pull/1486) `isISO8601`: add `strictSeparator` @brostone51
   - [#1474](https://github.com/validatorjs/validator.js/pull/1474) `isFQDN`: make more strict @CristhianMotoche
   - [#1469](https://github.com/validatorjs/validator.js/pull/1469) `isFQDN`: `allow_underscore` option @gibson042
@@ -409,10 +453,11 @@
 - **New features**:
   - None
 - **Fixes and chores**:
+
   - [#1425](https://github.com/validatorjs/validator.js/pull/1425) fix validation for _userinfo_ part for `isURL` @heanzyzabala
-  - [#1419](https://github.com/validatorjs/validator.js/pull/1419) fix `isBase32` and `isBase64` to validate empty strings properly @AberDerBart 
-  - [#1408](https://github.com/validatorjs/validator.js/pull/1408) tests for `isTaxId` @dspinellis 
-  - [#1397](https://github.com/validatorjs/validator.js/pull/1397) added `validate_length` option for `isURL` @tomgrossman 
+  - [#1419](https://github.com/validatorjs/validator.js/pull/1419) fix `isBase32` and `isBase64` to validate empty strings properly @AberDerBart
+  - [#1408](https://github.com/validatorjs/validator.js/pull/1408) tests for `isTaxId` @dspinellis
+  - [#1397](https://github.com/validatorjs/validator.js/pull/1397) added `validate_length` option for `isURL` @tomgrossman
   - [#1383](https://github.com/validatorjs/validator.js/pull/1383) [#1428](https://github.com/validatorjs/validator.js/pull/1428) doc typos @0xflotus @timgates42
   - [#1376](https://github.com/validatorjs/validator.js/pull/1376) add missing tests and switch to Coverall @tux-tn
   - [#1373](https://github.com/validatorjs/validator.js/pull/1373) improve code coverage @ezkemboi
@@ -438,7 +483,6 @@
     - [#1394](https://github.com/validatorjs/validator.js/pull/1394) `EG`, `SV` @heanzyzabala
   - `isIdentityCard`:
     - [#1384](https://github.com/validatorjs/validator.js/pull/1384) `IT` @lorenzodb1
-
 
 #### 13.1.1
 
@@ -471,24 +515,24 @@
   ([#1338](https://github.com/validatorjs/validator.js/pull/1338))
 - New and improved locales
   ([#1112](https://github.com/validatorjs/validator.js/pull/1112),
-   [#1167](https://github.com/validatorjs/validator.js/pull/1167),
-   [#1198](https://github.com/validatorjs/validator.js/pull/1198),
-   [#1199](https://github.com/validatorjs/validator.js/pull/1199),
-   [#1273](https://github.com/validatorjs/validator.js/pull/1273),
-   [#1279](https://github.com/validatorjs/validator.js/pull/1279),
-   [#1281](https://github.com/validatorjs/validator.js/pull/1281),
-   [#1293](https://github.com/validatorjs/validator.js/pull/1293),
-   [#1294](https://github.com/validatorjs/validator.js/pull/1294),
-   [#1311](https://github.com/validatorjs/validator.js/pull/1311),
-   [#1312](https://github.com/validatorjs/validator.js/pull/1312),
-   [#1313](https://github.com/validatorjs/validator.js/pull/1313),
-   [#1314](https://github.com/validatorjs/validator.js/pull/1314),
-   [#1315](https://github.com/validatorjs/validator.js/pull/1315),
-   [#1317](https://github.com/validatorjs/validator.js/pull/1317),
-   [#1322](https://github.com/validatorjs/validator.js/pull/1322),
-   [#1324](https://github.com/validatorjs/validator.js/pull/1324),
-   [#1330](https://github.com/validatorjs/validator.js/pull/1330),
-   [#1337](https://github.com/validatorjs/validator.js/pull/1337))
+  [#1167](https://github.com/validatorjs/validator.js/pull/1167),
+  [#1198](https://github.com/validatorjs/validator.js/pull/1198),
+  [#1199](https://github.com/validatorjs/validator.js/pull/1199),
+  [#1273](https://github.com/validatorjs/validator.js/pull/1273),
+  [#1279](https://github.com/validatorjs/validator.js/pull/1279),
+  [#1281](https://github.com/validatorjs/validator.js/pull/1281),
+  [#1293](https://github.com/validatorjs/validator.js/pull/1293),
+  [#1294](https://github.com/validatorjs/validator.js/pull/1294),
+  [#1311](https://github.com/validatorjs/validator.js/pull/1311),
+  [#1312](https://github.com/validatorjs/validator.js/pull/1312),
+  [#1313](https://github.com/validatorjs/validator.js/pull/1313),
+  [#1314](https://github.com/validatorjs/validator.js/pull/1314),
+  [#1315](https://github.com/validatorjs/validator.js/pull/1315),
+  [#1317](https://github.com/validatorjs/validator.js/pull/1317),
+  [#1322](https://github.com/validatorjs/validator.js/pull/1322),
+  [#1324](https://github.com/validatorjs/validator.js/pull/1324),
+  [#1330](https://github.com/validatorjs/validator.js/pull/1330),
+  [#1337](https://github.com/validatorjs/validator.js/pull/1337))
 
 #### 13.0.0
 
@@ -521,7 +565,7 @@
   ([#1267](https://github.com/validatorjs/validator.js/pull/1267))
 - New and improved locales
   ([#1238](https://github.com/validatorjs/validator.js/pull/1238),
-   [#1265](https://github.com/validatorjs/validator.js/pull/1265))
+  [#1265](https://github.com/validatorjs/validator.js/pull/1265))
 
 #### 12.2.0
 
@@ -531,10 +575,10 @@
   ([#1227](https://github.com/validatorjs/validator.js/pull/1227))
 - New and improved locales
   ([#1200](https://github.com/validatorjs/validator.js/pull/1200),
-   [#1207](https://github.com/validatorjs/validator.js/pull/1207),
-   [#1213](https://github.com/validatorjs/validator.js/pull/1213),
-   [#1217](https://github.com/validatorjs/validator.js/pull/1217),
-   [#1234](https://github.com/validatorjs/validator.js/pull/1234))
+  [#1207](https://github.com/validatorjs/validator.js/pull/1207),
+  [#1213](https://github.com/validatorjs/validator.js/pull/1213),
+  [#1217](https://github.com/validatorjs/validator.js/pull/1217),
+  [#1234](https://github.com/validatorjs/validator.js/pull/1234))
 
 #### 12.1.0
 
@@ -544,9 +588,9 @@
   ([#1160](https://github.com/validatorjs/validator.js/pull/1160))
 - New and improved locales
   ([#1162](https://github.com/validatorjs/validator.js/pull/1162),
-   [#1183](https://github.com/validatorjs/validator.js/pull/1183),
-   [#1187](https://github.com/validatorjs/validator.js/pull/1187),
-   [#1191](https://github.com/validatorjs/validator.js/pull/1191))
+  [#1183](https://github.com/validatorjs/validator.js/pull/1183),
+  [#1187](https://github.com/validatorjs/validator.js/pull/1187),
+  [#1191](https://github.com/validatorjs/validator.js/pull/1191))
 
 #### 12.0.0
 
@@ -568,18 +612,18 @@
   ([#1074](https://github.com/validatorjs/validator.js/pull/1074))
 - New and improved locales
   ([#1059](https://github.com/validatorjs/validator.js/pull/1059),
-   [#1060](https://github.com/validatorjs/validator.js/pull/1060),
-   [#1069](https://github.com/validatorjs/validator.js/pull/1069),
-   [#1073](https://github.com/validatorjs/validator.js/pull/1073),
-   [#1082](https://github.com/validatorjs/validator.js/pull/1082),
-   [#1092](https://github.com/validatorjs/validator.js/pull/1092),
-   [#1121](https://github.com/validatorjs/validator.js/pull/1121),
-   [#1125](https://github.com/validatorjs/validator.js/pull/1125),
-   [#1132](https://github.com/validatorjs/validator.js/pull/1132),
-   [#1152](https://github.com/validatorjs/validator.js/pull/1152),
-   [#1165](https://github.com/validatorjs/validator.js/pull/1165),
-   [#1166](https://github.com/validatorjs/validator.js/pull/1166),
-   [#1174](https://github.com/validatorjs/validator.js/pull/1174))
+  [#1060](https://github.com/validatorjs/validator.js/pull/1060),
+  [#1069](https://github.com/validatorjs/validator.js/pull/1069),
+  [#1073](https://github.com/validatorjs/validator.js/pull/1073),
+  [#1082](https://github.com/validatorjs/validator.js/pull/1082),
+  [#1092](https://github.com/validatorjs/validator.js/pull/1092),
+  [#1121](https://github.com/validatorjs/validator.js/pull/1121),
+  [#1125](https://github.com/validatorjs/validator.js/pull/1125),
+  [#1132](https://github.com/validatorjs/validator.js/pull/1132),
+  [#1152](https://github.com/validatorjs/validator.js/pull/1152),
+  [#1165](https://github.com/validatorjs/validator.js/pull/1165),
+  [#1166](https://github.com/validatorjs/validator.js/pull/1166),
+  [#1174](https://github.com/validatorjs/validator.js/pull/1174))
 
 #### 11.1.0
 
@@ -587,15 +631,15 @@
   ([#1024](https://github.com/validatorjs/validator.js/pull/1024))
 - New and improved locales
   ([#1035](https://github.com/validatorjs/validator.js/pull/1035),
-   [#1040](https://github.com/validatorjs/validator.js/pull/1040),
-   [#1041](https://github.com/validatorjs/validator.js/pull/1041),
-   [#1048](https://github.com/validatorjs/validator.js/pull/1048),
-   [#1049](https://github.com/validatorjs/validator.js/pull/1049),
-   [#1052](https://github.com/validatorjs/validator.js/pull/1052),
-   [#1054](https://github.com/validatorjs/validator.js/pull/1054),
-   [#1055](https://github.com/validatorjs/validator.js/pull/1055),
-   [#1056](https://github.com/validatorjs/validator.js/pull/1056),
-   [#1057](https://github.com/validatorjs/validator.js/pull/1057))
+  [#1040](https://github.com/validatorjs/validator.js/pull/1040),
+  [#1041](https://github.com/validatorjs/validator.js/pull/1041),
+  [#1048](https://github.com/validatorjs/validator.js/pull/1048),
+  [#1049](https://github.com/validatorjs/validator.js/pull/1049),
+  [#1052](https://github.com/validatorjs/validator.js/pull/1052),
+  [#1054](https://github.com/validatorjs/validator.js/pull/1054),
+  [#1055](https://github.com/validatorjs/validator.js/pull/1055),
+  [#1056](https://github.com/validatorjs/validator.js/pull/1056),
+  [#1057](https://github.com/validatorjs/validator.js/pull/1057))
 
 #### 11.0.0
 
@@ -609,11 +653,11 @@
   ([0277eb](https://github.com/validatorjs/validator.js/commit/0277eb00d245a3479af52adf7d927d4036895650))
 - New and improved locales
   ([#999](https://github.com/validatorjs/validator.js/pull/999),
-   [#1010](https://github.com/validatorjs/validator.js/pull/1010),
-   [#1017](https://github.com/validatorjs/validator.js/pull/1017),
-   [#1022](https://github.com/validatorjs/validator.js/pull/1022),
-   [#1031](https://github.com/validatorjs/validator.js/pull/1031),
-   [#1032](https://github.com/validatorjs/validator.js/pull/1032))
+  [#1010](https://github.com/validatorjs/validator.js/pull/1010),
+  [#1017](https://github.com/validatorjs/validator.js/pull/1017),
+  [#1022](https://github.com/validatorjs/validator.js/pull/1022),
+  [#1031](https://github.com/validatorjs/validator.js/pull/1031),
+  [#1032](https://github.com/validatorjs/validator.js/pull/1032))
 
 #### 10.11.0
 
@@ -628,9 +672,9 @@
   ([#932](https://github.com/validatorjs/validator.js/pull/932))
 - New and improved locales
   ([#931](https://github.com/validatorjs/validator.js/pull/931),
-   [#933](https://github.com/validatorjs/validator.js/pull/933),
-   [#947](https://github.com/validatorjs/validator.js/pull/947),
-   [#950](https://github.com/validatorjs/validator.js/pull/950))
+  [#933](https://github.com/validatorjs/validator.js/pull/933),
+  [#947](https://github.com/validatorjs/validator.js/pull/947),
+  [#950](https://github.com/validatorjs/validator.js/pull/950))
 
 #### 10.9.0
 
@@ -642,11 +686,11 @@
   ([#906](https://github.com/validatorjs/validator.js/pull/906))
 - New and improved locales
   ([#899](https://github.com/validatorjs/validator.js/pull/899),
-   [#904](https://github.com/validatorjs/validator.js/pull/904),
-   [#913](https://github.com/validatorjs/validator.js/pull/913),
-   [#916](https://github.com/validatorjs/validator.js/pull/916),
-   [#925](https://github.com/validatorjs/validator.js/pull/925),
-   [#928](https://github.com/validatorjs/validator.js/pull/928))
+  [#904](https://github.com/validatorjs/validator.js/pull/904),
+  [#913](https://github.com/validatorjs/validator.js/pull/913),
+  [#916](https://github.com/validatorjs/validator.js/pull/916),
+  [#925](https://github.com/validatorjs/validator.js/pull/925),
+  [#928](https://github.com/validatorjs/validator.js/pull/928))
 
 #### 10.8.0
 
@@ -656,7 +700,7 @@
   ([#895](https://github.com/validatorjs/validator.js/pull/895))
 - Locales are now exported
   ([#890](https://github.com/validatorjs/validator.js/pull/890),
-   [#892](https://github.com/validatorjs/validator.js/pull/892))
+  [#892](https://github.com/validatorjs/validator.js/pull/892))
 - New locale
   ([#896](https://github.com/validatorjs/validator.js/pull/896))
 
@@ -682,7 +726,7 @@
   ([#880](https://github.com/validatorjs/validator.js/pull/880))
 - New and improved locales
   ([#878](https://github.com/validatorjs/validator.js/pull/878),
-   [#879](https://github.com/validatorjs/validator.js/pull/879))
+  [#879](https://github.com/validatorjs/validator.js/pull/879))
 
 #### 10.5.0
 
@@ -698,14 +742,14 @@
   ([#860](https://github.com/validatorjs/validator.js/issues/860))
 - New and improved locales
   ([#801](https://github.com/validatorjs/validator.js/pull/801),
-   [#856](https://github.com/validatorjs/validator.js/pull/856),
-   [#859](https://github.com/validatorjs/validator.js/issues/859),
-   [#861](https://github.com/validatorjs/validator.js/pull/861),
-   [#862](https://github.com/validatorjs/validator.js/pull/862),
-   [#863](https://github.com/validatorjs/validator.js/pull/863),
-   [#864](https://github.com/validatorjs/validator.js/pull/864),
-   [#870](https://github.com/validatorjs/validator.js/pull/870),
-   [#872](https://github.com/validatorjs/validator.js/pull/872))
+  [#856](https://github.com/validatorjs/validator.js/pull/856),
+  [#859](https://github.com/validatorjs/validator.js/issues/859),
+  [#861](https://github.com/validatorjs/validator.js/pull/861),
+  [#862](https://github.com/validatorjs/validator.js/pull/862),
+  [#863](https://github.com/validatorjs/validator.js/pull/863),
+  [#864](https://github.com/validatorjs/validator.js/pull/864),
+  [#870](https://github.com/validatorjs/validator.js/pull/870),
+  [#872](https://github.com/validatorjs/validator.js/pull/872))
 
 #### 10.4.0
 
@@ -722,8 +766,8 @@
   ([#832](https://github.com/validatorjs/validator.js/pull/832))
 - New locales
   ([#831](https://github.com/validatorjs/validator.js/pull/831),
-   [#835](https://github.com/validatorjs/validator.js/pull/835),
-   [#836](https://github.com/validatorjs/validator.js/pull/836))
+  [#835](https://github.com/validatorjs/validator.js/pull/835),
+  [#836](https://github.com/validatorjs/validator.js/pull/836))
 
 #### 10.2.0
 
@@ -771,10 +815,10 @@
 
 - New and improved locales
   ([#763](https://github.com/validatorjs/validator.js/pull/763),
-   [#768](https://github.com/validatorjs/validator.js/pull/768),
-   [#774](https://github.com/validatorjs/validator.js/pull/774),
-   [#777](https://github.com/validatorjs/validator.js/pull/777),
-   [#779](https://github.com/validatorjs/validator.js/pull/779))
+  [#768](https://github.com/validatorjs/validator.js/pull/768),
+  [#774](https://github.com/validatorjs/validator.js/pull/774),
+  [#777](https://github.com/validatorjs/validator.js/pull/777),
+  [#779](https://github.com/validatorjs/validator.js/pull/779))
 
 #### 9.2.0
 
@@ -782,8 +826,8 @@
   ([#760](https://github.com/validatorjs/validator.js/pull/760))
 - New and improved locales
   ([#753](https://github.com/validatorjs/validator.js/pull/753),
-   [#755](https://github.com/validatorjs/validator.js/pull/755),
-   [#764](https://github.com/validatorjs/validator.js/pull/764))
+  [#755](https://github.com/validatorjs/validator.js/pull/755),
+  [#764](https://github.com/validatorjs/validator.js/pull/764))
 
 #### 9.1.2
 
@@ -794,7 +838,7 @@
 
 - Locale fixes
   ([#738](https://github.com/validatorjs/validator.js/pull/738),
-   [#739](https://github.com/validatorjs/validator.js/pull/739))
+  [#739](https://github.com/validatorjs/validator.js/pull/739))
 
 #### 9.1.0
 
@@ -802,7 +846,7 @@
   ([#734](https://github.com/validatorjs/validator.js/pull/734))
 - New locales
   ([#735](https://github.com/validatorjs/validator.js/pull/735),
-   [#737](https://github.com/validatorjs/validator.js/pull/737))
+  [#737](https://github.com/validatorjs/validator.js/pull/737))
 
 #### 9.0.0
 
@@ -823,10 +867,10 @@
   ([#713](https://github.com/validatorjs/validator.js/pull/713))
 - New and improved locales
   ([#700](https://github.com/validatorjs/validator.js/pull/700),
-   [#701](https://github.com/validatorjs/validator.js/pull/701),
-   [#714](https://github.com/validatorjs/validator.js/pull/714),
-   [#715](https://github.com/validatorjs/validator.js/pull/715),
-   [#718](https://github.com/validatorjs/validator.js/pull/718))
+  [#701](https://github.com/validatorjs/validator.js/pull/701),
+  [#714](https://github.com/validatorjs/validator.js/pull/714),
+  [#715](https://github.com/validatorjs/validator.js/pull/715),
+  [#718](https://github.com/validatorjs/validator.js/pull/718))
 
 #### 8.1.0
 
@@ -862,7 +906,7 @@
   ([#677](https://github.com/validatorjs/validator.js/pull/677))
 - New locales
   ([#673](https://github.com/validatorjs/validator.js/pull/673),
-   [#676](https://github.com/validatorjs/validator.js/pull/676))
+  [#676](https://github.com/validatorjs/validator.js/pull/676))
 
 #### 7.1.0
 
@@ -875,9 +919,9 @@
   ([#655](https://github.com/validatorjs/validator.js/issues/655))
 - New locales
   ([#647](https://github.com/validatorjs/validator.js/pull/647),
-   [#667](https://github.com/validatorjs/validator.js/pull/667),
-   [#667](https://github.com/validatorjs/validator.js/pull/667),
-   [#671](https://github.com/validatorjs/validator.js/pull/671))
+  [#667](https://github.com/validatorjs/validator.js/pull/667),
+  [#667](https://github.com/validatorjs/validator.js/pull/667),
+  [#671](https://github.com/validatorjs/validator.js/pull/671))
 
 #### 7.0.0
 
@@ -889,9 +933,9 @@
   ([#618](https://github.com/validatorjs/validator.js/issues/618))
 - New locales
   ([#616](https://github.com/validatorjs/validator.js/pull/616),
-   [#622](https://github.com/validatorjs/validator.js/pull/622),
-   [#627](https://github.com/validatorjs/validator.js/pull/627),
-   [#630](https://github.com/validatorjs/validator.js/pull/630))
+  [#622](https://github.com/validatorjs/validator.js/pull/622),
+  [#627](https://github.com/validatorjs/validator.js/pull/627),
+  [#630](https://github.com/validatorjs/validator.js/pull/630))
 
 #### 6.2.1
 
@@ -943,7 +987,7 @@
   ([#576](https://github.com/validatorjs/validator.js/pull/576))
 - New locales
   ([#575](https://github.com/validatorjs/validator.js/pull/575),
-   [#552](https://github.com/validatorjs/validator.js/issues/552))
+  [#552](https://github.com/validatorjs/validator.js/issues/552))
 
 #### 5.6.0
 
@@ -1085,7 +1129,7 @@
   ([#471](https://github.com/validatorjs/validator.js/pull/471))
 - Tweak Greek and Chinese mobile phone validation
   ([#467](https://github.com/validatorjs/validator.js/pull/467),
-   [#468](https://github.com/validatorjs/validator.js/pull/468))
+  [#468](https://github.com/validatorjs/validator.js/pull/468))
 - Fixed a bug in `isDate()` when validating ISO 8601 dates without a timezone
   ([#472](https://github.com/validatorjs/validator.js/issues/472))
 
