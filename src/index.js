@@ -130,7 +130,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
-const version = '13.15.1';
+const version = '13.15.15';
 
 const validator = {
   version,
