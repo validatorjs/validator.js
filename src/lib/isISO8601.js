@@ -2,43 +2,87 @@ import assertString from './util/assertString';
 
 /* eslint-disable max-len */
 // from http://goo.gl/0ejHHW
-const iso8601 = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
-// same as above, except with a strict 'T' separator between date and time
-const iso8601StrictSeparator = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
-/* eslint-enable max-len */
-const isValidDate = (str) => {
-  // str must have passed the ISO8601 check
-  // this check is meant to catch invalid dates
-  // like 2009-02-31
-  // first check for ordinal dates
-  const ordinalMatch = str.match(/^(\d{4})-?(\d{3})([ T]{1}\.*|$)/);
+function isLeapYear(year) {
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+}
+
+function has53Week(year) {
+  const d = new Date(Date.UTC(year, 11, 31)); // Dec 31st
+  const UTCday = d.getUTCDay();
+  // ISO weeks: week starts on Monday (1), ends Sunday (7)
+  // Dec 31 must be Thursday (4) or it's a leap year ending on Wednesday (3)
+  return UTCday === 4 || (UTCday === 3 && isLeapYear(year));
+}
+
+function lastDayofYear(year) {
+  const dec31 = new Date(year, 11, 31);
+  const lastDay = dec31.getDay();
+  return lastDay === 0 ? 7 : lastDay;
+}
+
+const isValidIso8601 = (str) => {
+  const iso8601 = /^(?:\d{4}(?:-\d{2}(?:-\d{2})?|-\d{3}|-W\d{2}(?:-\d)?)?)(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+\-]\d{2}:\d{2}|[+\-]\d{4}|[+\-]\d{2})?)?$/;
+  //  this above regex check iso8601 format along with correct milisecond and second variation and T if time exist
+  //  it rejects basic format(20251231) , only accepts date with extended format(2025-12-31).
+  // future Bug: it doesnot validate astronomical year, change the regex and fix its working if it's needed
+  const checkIso8601Format = iso8601.test(str);
+  if (!checkIso8601Format) {
+    return false;
+  }
+
+  //  need to check for ordinary dates
+  const ordinalMatch = str.match(/^(\d{4})-?(\d{3})([T]{1}\.*|$)/);
   if (ordinalMatch) {
     const oYear = Number(ordinalMatch[1]);
     const oDay = Number(ordinalMatch[2]);
     // if is leap year
-    if ((oYear % 4 === 0 && oYear % 100 !== 0) || oYear % 400 === 0) return oDay <= 366;
+    if (isLeapYear(oYear)) return oDay <= 366;
     return oDay <= 365;
   }
-  const match = str.match(/(\d{4})-?(\d{0,2})-?(\d*)/).map(Number);
-  const year = match[1];
-  const month = match[2];
-  const day = match[3];
-  const monthString = month ? `0${month}`.slice(-2) : month;
-  const dayString = day ? `0${day}`.slice(-2) : day;
 
-  // create a date object and compare
-  const d = new Date(`${year}-${monthString || '01'}-${dayString || '01'}`);
-  if (month && day) {
-    return d.getUTCFullYear() === year
-      && (d.getUTCMonth() + 1) === month
-      && d.getUTCDate() === day;
+  //  need to check for dates with week, dates with week and day
+  const WeekMatch = str.match(/^(\d{4})-W(\d{2})(?:-(\d))?$/);
+  if (WeekMatch) {
+    const [, yearStr, weekStr, dayStr] = WeekMatch;
+    const year = Number(yearStr);
+    const week = parseInt(weekStr, 10);
+    const day = dayStr ? parseInt(dayStr, 10) : null;
+    // check if week is in correct range
+    if (week < 1 || week > (has53Week(year) ? 53 : 52)) return false;
+    // check if week is last week of year it means 53 or 52, does it ends in between the last day
+    // check if day exist if it does it is in correct range
+    if (day != null) {
+      const maxValidDay = week === 53 || week === 52 ? lastDayofYear(year) : 7;
+      if (day < 1 || day > maxValidDay) return false;
+    }
+    return true;
   }
+
+  //  check for correct values in iso8601 format
+  if (isNaN(Date.parse(str))) {
+    return false;
+  }
+
+  // Final date check for correct range of date if it has month and day
+  // for edge cases like feb 30 is parsed in date.parse so it should be checked manually so date.parse check for out of 31 days and rest is passed through it
+  const dateMatch = str.match(/(\d{4})-?(\d{0,2})-?(\d*)/).map(Number);
+  const year = dateMatch[1];
+  const month = dateMatch[2];
+  const day = dateMatch[3];
+  // check for valid month and day
+  if (month && day) {
+    const d = new Date(Date.UTC(year, month - 1, day));
+    return (
+      d.getUTCFullYear() === year &&
+      d.getUTCMonth() + 1 === month &&
+      d.getUTCDate() === day
+    );
+  }
+
   return true;
 };
 
-export default function isISO8601(str, options = {}) {
+export default function isISO8601(str) {
   assertString(str);
-  const check = options.strictSeparator ? iso8601StrictSeparator.test(str) : iso8601.test(str);
-  if (check && options.strict) return isValidDate(str);
-  return check;
+  return isValidIso8601(str);
 }
