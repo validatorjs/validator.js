@@ -72,5 +72,8 @@
   "engines": {
     "node": ">= 0.10"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "graphql": "^16.11.0"
+  }
 }

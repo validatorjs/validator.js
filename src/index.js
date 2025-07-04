@@ -129,7 +129,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
-import isValidGraphQLQuery from "./lib/isValidGraphQLQuery";
+import isValidGraphQLQuery from './lib/isValidGraphQLQuery';
 
 const version = '13.15.15';
 
