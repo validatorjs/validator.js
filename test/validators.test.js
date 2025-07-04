@@ -15652,4 +15652,24 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate graphQL', () => {
+    test({
+      validator: 'isValidGraphQLQuery',
+      valid: [
+        'query StudentName {\n' +
+        '    student {\n' +
+        '      name\n' +
+        '    }\n' +
+        '  }',
+      ],
+      invalid: [
+        'query StudentName {\n'
+        + '    student {\n'
+        + '      name\n'
+        + '  }',
+        'null',
+        '2432',
+      ],
+    });
+  });
 });
