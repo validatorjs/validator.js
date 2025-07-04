@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
 import { parse } from 'graphql';
+import assertString from './util/assertString';
 
 export default function isValidGraphQLQuery(input) {
   assertString(input);
