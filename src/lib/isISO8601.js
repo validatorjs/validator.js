@@ -7,17 +7,8 @@ function isLeapYear(year) {
 }
 
 function has53Week(year) {
-  const d = new Date(Date.UTC(year, 11, 31)); // Dec 31st
-  const UTCday = d.getUTCDay();
-  // ISO weeks: week starts on Monday (1), ends Sunday (7)
-  // Dec 31 must be Thursday (4) or it's a leap year ending on Wednesday (3)
-  return UTCday === 4 || (UTCday === 3 && isLeapYear(year));
-}
-
-function lastDayofYear(year) {
-  const dec31 = new Date(year, 11, 31);
-  const lastDay = dec31.getDay();
-  return lastDay === 0 ? 7 : lastDay;
+  const jan1 = new Date(Date.UTC(year, 0, 1)).getUTCDay();
+  return (jan1 === 4) || (isLeapYear(year) && jan1 === 3);
 }
 
 const isValidIso8601 = (str) => {
@@ -30,17 +21,20 @@ const isValidIso8601 = (str) => {
     return false;
   }
 
+  // Not checking time for ordinary dates and dates with weeks as its uncommon, but can be added in future as it is valid format.
   //  need to check for ordinary dates
   const ordinalMatch = str.match(/^(\d{4})-?(\d{3})([T]{1}\.*|$)/);
   if (ordinalMatch) {
     const oYear = Number(ordinalMatch[1]);
     const oDay = Number(ordinalMatch[2]);
+    if (oDay < 1) return false;
     // if is leap year
     if (isLeapYear(oYear)) return oDay <= 366;
     return oDay <= 365;
   }
 
   //  need to check for dates with week, dates with week and day
+  // only week match - issue if dates are with time weekmatch cannot reject it it will check only week part and return it, which i need to solve, same case for ordinal dates.
   const WeekMatch = str.match(/^(\d{4})-W(\d{2})(?:-(\d))?$/);
   if (WeekMatch) {
     const [, yearStr, weekStr, dayStr] = WeekMatch;
@@ -52,8 +46,7 @@ const isValidIso8601 = (str) => {
     // check if week is last week of year it means 53 or 52, does it ends in between the last day
     // check if day exist if it does it is in correct range
     if (day != null) {
-      const maxValidDay = week === 53 || week === 52 ? lastDayofYear(year) : 7;
-      if (day < 1 || day > maxValidDay) return false;
+      if (day < 1 || day > 7) return false;
     }
     return true;
   }
