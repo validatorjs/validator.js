@@ -85,15 +85,7 @@ export default function isPassportNumber(str, countryCode) {
   const normalizedStr = str.replace(/\s/g, '').toUpperCase();
 
   if (countryCode === 'any') {
-    for (const key in passportRegexByCountryCode) {
-      if (passportRegexByCountryCode.hasOwnProperty(key)) {
-        const regex = passportRegexByCountryCode[key];
-        if (regex.test(normalizedStr)) {
-          return true;
-        }
-      }
-    }
-    return false;
+    return Object.values(passportRegexByCountryCode).some(regex => regex.test(normalizedStr));
   }
 
   return (countryCode.toUpperCase() in passportRegexByCountryCode) &&
