@@ -10,14 +10,11 @@ import assertString from './util/assertString';
  */
 export default function whitelist(str, chars) {
   assertString(str);
-
   if (typeof chars !== 'string') {
     throw new Error('`chars` must be a string');
   }
-
   // Escape special characters for use in regex
   const escapedChars = chars.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-  
   // Keep only characters in `chars` from `str`
   return str.replace(new RegExp(`[^${escapedChars}]+`, 'g'), '');
 }
