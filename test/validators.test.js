@@ -1902,6 +1902,100 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate Tamil alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['ta-IN'],
+      valid: [
+        'அஆஇஈஉஊஎஏஐஒஓஔகஙசஞடணதநபமயரலவழளறனஶஜஷஸஹ',
+        'தமிழ்',
+      ],
+      invalid: [
+        'தமிழ்123',
+        'தமிழ் ',
+        'தமிழ்.',
+        'abc',
+        '',
+      ],
+    });
+  });
+  it('should validate Telugu alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['te-IN'],
+      valid: [
+        'అఆఇఈఉఊఋఌఎఏఐఒఓఔకఖగఘఙచఛజఝఞటఠడఢణతథదధనపఫబభమయరలవశషసహ',
+        'తెలుగు',
+      ],
+      invalid: ['తెలుగు123', 'తెలుగు.', 'abc', ''],
+    });
+  });
+  it('should validate Kannada alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['kn-IN'],
+      valid: [
+        'ಅಆಇಈಉಊಋಎಏಐಒಓಔಕಖಗಘಙಚಛಜಝಞಟಠಡಢಣತಥದಧನಪಫಬಭಮಯರಲವಶಷಸಹಳ',
+        'ಕನ್ನಡ',
+      ],
+      invalid: ['ಕನ್ನಡ123', 'ಕನ್ನಡ.', 'abc', ''],
+    });
+  });
+  it('should validate Malayalam alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['ml-IN'],
+      valid: [
+        'അആഇഈഉഊഋഎഏഐഒഓഔകഖഗഘങചഛജഝഞടഠഡഢണതഥദധനപഫബഭമയരലവശഷസഹള',
+        'മലയാളം',
+      ],
+      invalid: ['മലയാളം123', 'മലയാളം.', 'abc', ''],
+    });
+  });
+  it('should validate Gujarati alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['gu-IN'],
+      valid: [
+        'અઆઇઈઉઊઋએઐઓઔકખગઘચછજઝટઠડઢણતથદધનપફબભમયરલવશષસહળ',
+        'ગુજરાતી',
+      ],
+      invalid: ['ગુજરાતી123', 'ગુજરાતી.', 'abc', ''],
+    });
+  });
+  it('should validate Punjabi alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['pa-IN'],
+      valid: [
+        'ਅਆਇਈਉਊਏਐਓਔਕਖਗਘਙਚਛਜਝਞਟਠਡਢਣਤਥਦਧਨਪਫਬਭਮਯਰਲਵਸ਼ਸਹ',
+        'ਪੰਜਾਬੀ',
+      ],
+      invalid: ['ਪੰਜਾਬੀ123', 'ਪੰਜਾਬੀ.', 'abc', ''],
+    });
+  });
+  it('should validate Odia alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['or-IN'],
+      valid: [
+        'ଅଆଇଈଉଊଋଌଏଐଓଔକଖଗଘଙଚଛଜଝଞଟଠଡଢଣତଥଦଧନପଫବଭମଯରଲଶଷସହଳ',
+        'ଓଡ଼ିଆ',
+      ],
+      invalid: ['ଓଡ଼ିଆ123', 'ଓଡ଼ିଆ.', 'abc', ''],
+    });
+  });
+  it('should validate Bengali alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['bn-IN'],
+      valid: [
+        'অআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ',
+        'বাংলা',
+      ],
+      invalid: ['বাংলা123', 'বাংলা.', 'abc', ''],
+    });
+  });
   it('should validate persian alpha strings', () => {
     test({
       validator: 'isAlpha',
