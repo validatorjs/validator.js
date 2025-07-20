@@ -38,6 +38,13 @@ export const alpha = {
   eo: /^[ABCĈD-GĜHĤIJĴK-PRSŜTUŬVZ]+$/i,
   'hi-IN': /^[\u0900-\u0961]+[\u0972-\u097F]*$/i,
   'si-LK': /^[\u0D80-\u0DFF]+$/,
+  'ta-IN': /^[\u0B80-\u0BFF]+$/i,
+  'te-IN': /^[\u0C00-\u0C7F]+$/i,
+  'kn-IN': /^[\u0C80-\u0CFF]+$/i,
+  'ml-IN': /^[\u0D00-\u0D7F]+$/i,
+  'gu-IN': /^[\u0A80-\u0AFF]+$/i,
+  'pa-IN': /^[\u0A00-\u0A7F]+$/i,
+  'or-IN': /^[\u0B00-\u0B7F]+$/i,
 };
 
 export const alphanumeric = {
@@ -79,6 +86,13 @@ export const alphanumeric = {
   eo: /^[0-9ABCĈD-GĜHĤIJĴK-PRSŜTUŬVZ]+$/i,
   'hi-IN': /^[\u0900-\u0963]+[\u0966-\u097F]*$/i,
   'si-LK': /^[0-9\u0D80-\u0DFF]+$/,
+  'ta-IN': /^[0-9\u0B80-\u0BFF]+$/i,
+  'te-IN': /^[0-9\u0C00-\u0C7F]+$/i,
+  'kn-IN': /^[0-9\u0C80-\u0CFF]+$/i,
+  'ml-IN': /^[0-9\u0D00-\u0D7F]+$/i,
+  'gu-IN': /^[0-9\u0A80-\u0AFF]+$/i,
+  'pa-IN': /^[0-9\u0A00-\u0A7F]+$/i,
+  'or-IN': /^[0-9\u0B00-\u0B7F]+$/i,
 };
 
 export const decimal = {
@@ -113,6 +127,13 @@ for (let locale, i = 0; i < farsiLocales.length; i++) {
   locale = `fa-${farsiLocales[i]}`;
   alphanumeric[locale] = alphanumeric.fa;
   decimal[locale] = decimal.ar;
+}
+
+export const indicLocales = ['ta-IN', 'te-IN', 'kn-IN', 'ml-IN', 'gu-IN', 'pa-IN', 'or-IN'];
+
+for (let i = 0; i < indicLocales.length; i++) {
+  const locale = indicLocales[i];
+  decimal[locale] = '.';
 }
 
 export const bengaliLocales = ['BD', 'IN'];
