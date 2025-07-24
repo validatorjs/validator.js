@@ -7140,8 +7140,15 @@ describe('Validators', () => {
   it('should define the module using an AMD-compatible loader', () => {
     let window = {
       validator: null,
-      define(module) {
-        window.validator = module();
+      define(deps, factory) {
+        // Handle AMD define with dependencies
+        if (Array.isArray(deps) && typeof factory === 'function') {
+          // Mock the graphql dependency as null/undefined since it's optional
+          window.validator = factory(null);
+        } else if (typeof deps === 'function') {
+          // Handle define without dependencies
+          window.validator = deps();
+        }
       },
     };
     window.define.amd = true;
