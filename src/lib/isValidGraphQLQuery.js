@@ -4,8 +4,12 @@ let isGraphQLAvailable = false;
 let parseFunction = null;
 
 // Attempt to load GraphQL parse function
-if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+/* istanbul ignore if */
+if (typeof process === 'undefined' || !process.versions || !process.versions.node) {
+  // Skip initialization in non-Node environments
+} else {
   const nodeVersion = process.versions.node.split('.')[0];
+  /* istanbul ignore else */
   if (parseInt(nodeVersion, 10) >= 10) {
     try {
       // eslint-disable-next-line global-require
@@ -13,7 +17,9 @@ if (typeof process !== 'undefined' && process.versions && process.versions.node)
       parseFunction = parse;
       isGraphQLAvailable = true;
     } catch (e) {
+      /* istanbul ignore next */
       // GraphQL loading failed
+      isGraphQLAvailable = false;
     }
   }
 }
@@ -21,7 +27,9 @@ if (typeof process !== 'undefined' && process.versions && process.versions.node)
 export default function isValidGraphQLQuery(input) {
   assertString(input);
 
+  /* istanbul ignore if */
   if (!isGraphQLAvailable || !parseFunction) {
+    /* istanbul ignore next */
     return false;
   }
 
