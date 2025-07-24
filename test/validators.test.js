@@ -15660,6 +15660,13 @@ describe('Validators', () => {
     });
   });
   it('should validate graphQL', () => {
+    // Skip test on Node.js < 10 due to graphql module incompatibility
+    const nodeVersion = parseInt(process.version.match(/^v(\d+)/)[1], 10);
+    if (nodeVersion < 10) {
+      console.log('    ⚠️  Skipping GraphQL test on Node.js', process.version);
+      return;
+    }
+
     test({
       validator: 'isValidGraphQLQuery',
       valid: [
