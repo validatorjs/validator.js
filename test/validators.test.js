@@ -2012,7 +2012,6 @@ describe('Validators', () => {
       ],
     });
   });
-
   it('should validate Thai alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2028,7 +2027,6 @@ describe('Validators', () => {
       ],
     });
   });
-
   it('should validate Korea alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2790,6 +2788,118 @@ describe('Validators', () => {
       invalid: [
         'qwxyz',
         'qwxyz 1887',
+      ],
+    });
+  });
+  it('should validate Tamil alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ta-IN'],
+      valid: [
+        'தமிழ்',
+        'தமிழ்123',
+        'அஆஇஈ123',
+      ],
+      invalid: [
+        'தமிழ் ',
+        'தமிழ்.',
+        'abc',
+        '',
+      ],
+    });
+  });
+
+  it('should validate Telugu alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['te-IN'],
+      valid: [
+        'తెలుగు',
+        'తెలుగు123',
+        'అఆఇఈ123',
+      ],
+      invalid: ['తెలుగు.', 'abc', ''],
+    });
+  });
+
+  it('should validate Kannada alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['kn-IN'],
+      valid: [
+        'ಕನ್ನಡ',
+        'ಕನ್ನಡ123',
+        'ಅಆಇಈ123',
+      ],
+      invalid: ['ಕನ್ನಡ.', 'abc', ''],
+    });
+  });
+
+  it('should validate Malayalam alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['ml-IN'],
+      valid: [
+        'മലയാളം',
+        'മലയാളം123',
+        'അആഇഈ123',
+      ],
+      invalid: ['മലയാളം.', 'abc', ''],
+    });
+  });
+
+  it('should validate Gujarati alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['gu-IN'],
+      valid: [
+        'ગુજરાતી',
+        'ગુજરાતી123',
+        'અઆઇઈ123',
+      ],
+      invalid: ['ગુજરાતી.', 'abc', ''],
+    });
+  });
+
+  it('should validate Punjabi alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['pa-IN'],
+      valid: [
+        'ਪੰਜਾਬੀ',
+        'ਪੰਜਾਬੀ123',
+        'ਅਆਇਈ123',
+      ],
+      invalid: ['ਪੰਜਾਬੀ.', 'abc', ''],
+    });
+  });
+
+  it('should validate Odia alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['or-IN'],
+      valid: [
+        'ଓଡ଼ିଆ',
+        'ଓଡ଼ିଆ123',
+        'ଅଆଇଈ123',
+      ],
+      invalid: ['ଓଡ଼ିଆ.', 'abc', ''],
+    });
+  });
+
+  it('should validate Bengali alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['bn-IN'],
+      valid: [
+        'বাংলা',
+        'বাংলা১২৩',
+        'অআইঈ১২৩',
+      ],
+      invalid: [
+        'বাংলা.',
+        'abc',
+        '',
       ],
     });
   });

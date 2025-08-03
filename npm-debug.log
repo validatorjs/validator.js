@@ -1,0 +1,86 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   'C:\\nvm4w\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\avado\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'npm'
+1 verbose cli ]
+2 info using npm@3.10.10
+3 info using node@v24.4.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData npm
+8 silly fetchNamedPackageData npm
+9 silly mapToRegistry name npm
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'npm',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'npm',
+12 silly mapToRegistry   name: 'npm',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag'
+12 silly mapToRegistry }
+13 silly mapToRegistry uri https://registry.npmjs.org/npm
+14 verbose request uri https://registry.npmjs.org/npm
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 1:37:10 pm
+17 verbose request id c512d41192cd9281
+18 verbose etag W/"a6c4f93c9e0859636f1f60cc3246d225"
+19 verbose lastModified Wed, 25 Jun 2025 20:11:21 GMT
+20 http request GET https://registry.npmjs.org/npm
+21 http 304 https://registry.npmjs.org/npm
+22 verbose headers {
+22 verbose headers   date: 'Sun, 20 Jul 2025 08:07:09 GMT',
+22 verbose headers   connection: 'keep-alive',
+22 verbose headers   'cf-ray': '9620f69b9b88cc07-BOM',
+22 verbose headers   'cf-cache-status': 'HIT',
+22 verbose headers   'access-control-allow-origin': '*',
+22 verbose headers   age: '83',
+22 verbose headers   'cache-control': 'public, max-age=300',
+22 verbose headers   etag: '"a6c4f93c9e0859636f1f60cc3246d225"',
+22 verbose headers   'last-modified': 'Wed, 25 Jun 2025 20:11:21 GMT',
+22 verbose headers   vary: 'Accept-Encoding',
+22 verbose headers   'set-cookie': [
+22 verbose headers     '_cfuvid=iWWrIi.xpOElCpVzSMUHw2AFLxwuno1mQ63wOQT1AgM-1752998829424-0.0.1.1-604800000; path=/; domain=.npmjs.org; HttpOnly; Secure; SameSite=None'
+22 verbose headers   ],
+22 verbose headers   server: 'cloudflare'
+22 verbose headers }
+23 silly get cb [
+23 silly get   304,
+23 silly get   {
+23 silly get     date: 'Sun, 20 Jul 2025 08:07:09 GMT',
+23 silly get     connection: 'keep-alive',
+23 silly get     'cf-ray': '9620f69b9b88cc07-BOM',
+23 silly get     'cf-cache-status': 'HIT',
+23 silly get     'access-control-allow-origin': '*',
+23 silly get     age: '83',
+23 silly get     'cache-control': 'public, max-age=300',
+23 silly get     etag: '"a6c4f93c9e0859636f1f60cc3246d225"',
+23 silly get     'last-modified': 'Wed, 25 Jun 2025 20:11:21 GMT',
+23 silly get     vary: 'Accept-Encoding',
+23 silly get     'set-cookie': [
+23 silly get       '_cfuvid=iWWrIi.xpOElCpVzSMUHw2AFLxwuno1mQ63wOQT1AgM-1752998829424-0.0.1.1-604800000; path=/; domain=.npmjs.org; HttpOnly; Secure; SameSite=None'
+23 silly get     ],
+23 silly get     server: 'cloudflare'
+23 silly get   }
+23 silly get ]
+24 verbose etag https://registry.npmjs.org/npm from cache
+25 verbose get saving npm to C:\Users\avado\AppData\Roaming\npm-cache\registry.npmjs.org\npm\.cache.json
+26 verbose correctMkdir C:\Users\avado\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+27 verbose stack TypeError: cb.apply is not a function
+27 verbose stack     at C:\Users\avado\AppData\Roaming\npm\node_modules\npm\node_modules\graceful-fs\polyfills.js:267:18
+27 verbose stack     at FSReqCallback.oncomplete (node:fs:191:5)
+28 verbose cwd D:\PROJECTS\CONTRIBUTIONS\VALIDATOR JS\validator.js
+29 error Windows_NT 10.0.26100
+30 error argv "C:\\nvm4w\\nodejs\\node.exe" "C:\\Users\\avado\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "npm"
+31 error node v24.4.1
+32 error npm  v3.10.10
+33 error cb.apply is not a function
+34 error If you need help, you may report this error at:
+34 error     <https://github.com/npm/npm/issues>
+35 verbose exit [ 1, true ]
