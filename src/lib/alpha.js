@@ -45,7 +45,6 @@ export const alpha = {
   'gu-IN': /^[\u0A80-\u0AFF]+$/i,
   'pa-IN': /^[\u0A00-\u0A7F]+$/i,
   'or-IN': /^[\u0B00-\u0B7F]+$/i,
-  'bn-IN': /^[\u0980-\u09FF]+$/i,
 };
 
 export const alphanumeric = {
@@ -83,7 +82,7 @@ export const alphanumeric = {
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]+$/,
   he: /^[0-9א-ת]+$/,
   fa: /^['0-9آاءأؤئبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهةی۱۲۳۴۵۶۷۸۹۰']+$/i,
-  bn: /^['ঀঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ়ঽািীুূৃৄেৈোৌ্ৎৗড়ঢ়য়ৠৡৢৣ০১২৩৪৫৬৭৮৯ৰৱ৲৳৴৵৶৷৸৹৺৻.']+$/,
+  bn: /^['ঀঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ়ঽািীুূৃৄেৈোৌ্ৎৗড়ঢ়য়ৠৡৢৣ০১২৩৪৫৬৭৮৯ৰৱ৲৳৴৵৶৷৸৹৺৻']+$/,
   eo: /^[0-9ABCĈD-GĜHĤIJĴK-PRSŜTUŬVZ]+$/i,
   'hi-IN': /^[\u0900-\u0963]+[\u0966-\u097F]*$/i,
   'si-LK': /^[0-9\u0D80-\u0DFF]+$/,
@@ -94,7 +93,6 @@ export const alphanumeric = {
   'gu-IN': /^[0-9\u0A80-\u0AFF.]+$/i,
   'pa-IN': /^[0-9\u0A00-\u0A7F.]+$/i,
   'or-IN': /^[0-9\u0B00-\u0B7F.]+$/i,
-  'bn-IN': /^[0-9\u0980-\u09FF.]+$/i,
 };
 
 export const decimal = {
@@ -142,14 +140,12 @@ for (let locale, i = 0; i < bengaliLocales.length; i++) {
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
 export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
-// sorted
 export const commaDecimal = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'eo', 'es-ES', 'fr-CA', 'fr-FR',
   'gu-IN', 'hi-IN', 'hu-HU', 'id-ID', 'it-IT', 'kk-KZ', 'kn-IN', 'ku-IQ', 'ml-IN', 'nb-NO',
   'nl-NL', 'nn-NO', 'or-IN', 'pa-IN', 'pl-PL', 'pt-PT', 'ru-RU', 'si-LK', 'sl-SI', 'sr-RS',
   'sr-RS@latin', 'sv-SE', 'ta-IN', 'te-IN', 'tr-TR', 'uk-UA', 'vi-VN',
 ];
-
 
 for (let i = 0; i < dotDecimal.length; i++) {
   decimal[dotDecimal[i]] = decimal['en-US'];

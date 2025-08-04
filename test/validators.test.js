@@ -2012,6 +2012,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate Thai alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2027,6 +2028,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate Korea alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2934,9 +2936,9 @@ describe('Validators', () => {
         'বাংলা১২৩',
         'অআইঈ১২৩',
         '১২৩৪৫৬৭৮৯০',
-        'বাংলা.১২৩',
-        '১২৩.৪৫',
-        'বাংলা.',
+        'বাংলা১২৩',
+        '১২৩৪৫',
+        'বাংলা',
       ],
       invalid: [
         'abc',
