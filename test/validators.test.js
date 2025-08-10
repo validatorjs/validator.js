@@ -9995,7 +9995,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale: 'ro-MD',
+        locale: 'md-MD',
         valid: [
           '+37360375781',
           '+37361945673',

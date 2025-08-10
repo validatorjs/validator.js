@@ -212,7 +212,7 @@
   - [#1922](https://github.com/validatorjs/validator.js/pull/1922) `ir-IR`, @ArashST79
   - [#1924](https://github.com/validatorjs/validator.js/pull/1924) `ky-KG`, @arsalanfiroozi
   - [#1925](https://github.com/validatorjs/validator.js/pull/1925) `ar-YE`, `ar-EH`, `fa-AF`, @Mustafiz04
-  - [#1932](https://github.com/validatorjs/validator.js/pull/1932) `ro-MD`, @mik7up
+  - [#1932](https://github.com/validatorjs/validator.js/pull/1932) `md-MD`, @mik7up
   - [#1940](https://github.com/validatorjs/validator.js/pull/1940) `ar-YE`, `en-BS`, @savannahvaith
   - [#1952](https://github.com/validatorjs/validator.js/pull/1952) `ka-GE`, @avkvak
   - [#1964](https://github.com/validatorjs/validator.js/pull/1964) [#1951](https://github.com/validatorjs/validator.js/pull/1951) `pt-BR`, @jhcaiafa @matheusnascgomes
