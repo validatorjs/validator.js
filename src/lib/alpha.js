@@ -38,6 +38,13 @@ export const alpha = {
   eo: /^[ABCĈD-GĜHĤIJĴK-PRSŜTUŬVZ]+$/i,
   'hi-IN': /^[\u0900-\u0961]+[\u0972-\u097F]*$/i,
   'si-LK': /^[\u0D80-\u0DFF]+$/,
+  'ta-IN': /^[\u0B80-\u0BFF]+$/i,
+  'te-IN': /^[\u0C00-\u0C7F]+$/i,
+  'kn-IN': /^[\u0C80-\u0CFF]+$/i,
+  'ml-IN': /^[\u0D00-\u0D7F]+$/i,
+  'gu-IN': /^[\u0A80-\u0AFF]+$/i,
+  'pa-IN': /^[\u0A00-\u0A7F]+$/i,
+  'or-IN': /^[\u0B00-\u0B7F]+$/i,
 };
 
 export const alphanumeric = {
@@ -79,6 +86,13 @@ export const alphanumeric = {
   eo: /^[0-9ABCĈD-GĜHĤIJĴK-PRSŜTUŬVZ]+$/i,
   'hi-IN': /^[\u0900-\u0963]+[\u0966-\u097F]*$/i,
   'si-LK': /^[0-9\u0D80-\u0DFF]+$/,
+  'ta-IN': /^[0-9\u0B80-\u0BFF.]+$/i,
+  'te-IN': /^[0-9\u0C00-\u0C7F.]+$/i,
+  'kn-IN': /^[0-9\u0C80-\u0CFF.]+$/i,
+  'ml-IN': /^[0-9\u0D00-\u0D7F.]+$/i,
+  'gu-IN': /^[0-9\u0A80-\u0AFF.]+$/i,
+  'pa-IN': /^[0-9\u0A00-\u0A7F.]+$/i,
+  'or-IN': /^[0-9\u0B00-\u0B7F.]+$/i,
 };
 
 export const decimal = {
@@ -128,8 +142,9 @@ for (let locale, i = 0; i < bengaliLocales.length; i++) {
 export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY'];
 export const commaDecimal = [
   'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-ZM', 'eo', 'es-ES', 'fr-CA', 'fr-FR',
-  'id-ID', 'it-IT', 'ku-IQ', 'hi-IN', 'hu-HU', 'nb-NO', 'nn-NO', 'nl-NL', 'pl-PL', 'pt-PT',
-  'ru-RU', 'kk-KZ', 'si-LK', 'sl-SI', 'sr-RS@latin', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
+  'gu-IN', 'hi-IN', 'hu-HU', 'id-ID', 'it-IT', 'kk-KZ', 'kn-IN', 'ku-IQ', 'ml-IN', 'nb-NO',
+  'nl-NL', 'nn-NO', 'or-IN', 'pa-IN', 'pl-PL', 'pt-PT', 'ru-RU', 'si-LK', 'sl-SI', 'sr-RS',
+  'sr-RS@latin', 'sv-SE', 'ta-IN', 'te-IN', 'tr-TR', 'uk-UA', 'vi-VN',
 ];
 
 for (let i = 0; i < dotDecimal.length; i++) {
