@@ -1,3 +1,14 @@
+# 13.15.19
+
+### Fixes, New Locales and Enhancements
+
+- [#2556](https://github.com/validatorjs/validator.js/pull/2556) `isMobilePhone`: add `ar-QA` locale @WardKhaddour
+- [#2576](https://github.com/validatorjs/validator.js/pull/2576) `isAlpha`/`isAlphanuneric`: add Indic locales (`ta-IN`, `te-IN`, `kn-IN`, `ml-IN`, `gu-IN`, `pa-IN`, `or-IN`) @avadootharajesh
+- [#2574](https://github.com/validatorjs/validator.js/pull/2574) `isBase64`: improve padding regex @KrayzeeKev
+- [#2584](https://github.com/validatorjs/validator.js/pull/2584) `isVAT`: improve `FR` locale @iamAmer
+- **Doc fixes and others:**
+  - [#2563](https://github.com/validatorjs/validator.js/pull/2563) @stoneLeaf
+
 # 13.15.15
 
 ### Fixes, New Locales and Enhancements
