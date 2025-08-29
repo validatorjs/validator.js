@@ -2,9 +2,9 @@ import assert from 'assert';
 import fs from 'fs';
 import timezone_mock from 'timezone-mock';
 import vm from 'vm';
-import test from './testFunctions';
+import test from './testFunctions.js';
 
-let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
+let validator_js = fs.readFileSync(new URL('../validator.js', import.meta.url)).toString();
 
 describe('Validators', () => {
   it('should validate email addresses', () => {
