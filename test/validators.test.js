@@ -8111,7 +8111,7 @@ describe('Validators', () => {
         ],
       },
       {
-        local: 'en-LS',
+        locale: 'en-LS',
         valid: [
           '+26622123456',
           '+26628123456',
