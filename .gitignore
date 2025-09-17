@@ -8,6 +8,7 @@ yarn.lock
 /es
 /lib
 /index.js
+/esm.js
 validator.js
 validator.min.js
 
