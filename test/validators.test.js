@@ -11033,6 +11033,22 @@ describe('Validators', () => {
     args: [],
   });
 
+  // fr-CI (Ivory Coast - French)
+  test({
+    validator: 'isMobilePhone',
+    args: ['fr-CI'],
+    valid: [
+      '+2250512345678',
+      '+2250712345678',
+      '0512345678',
+      '0712345678',
+    ],
+    invalid: [
+      '12345',
+      '+2259912345678',
+      'abcdefghij',
+    ],
+  });
 
   it('should error on invalid locale', () => {
     test({
