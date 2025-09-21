@@ -101,11 +101,7 @@ function hasOnlyValidCountryCodes(countryCodeArray) {
   const countryCodeArrayFilteredWithObjectIbanCode = countryCodeArray
     .filter(countryCode => !(countryCode in ibanRegexThroughCountryCode));
 
-  if (countryCodeArrayFilteredWithObjectIbanCode.length > 0) {
-    return false;
-  }
-
-  return true;
+  return countryCodeArrayFilteredWithObjectIbanCode.length === 0;
 }
 
 /**
