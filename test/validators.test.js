@@ -15678,8 +15678,9 @@ describe('Validators', () => {
       validator: 'isVAT',
       args: ['CO'],
       valid: [
-        'CO1234567890',
-        '1234567890',
+        'CO1234567896',
+        '1234567896',
+        '8001972684', // e.g. DIAN NIT 800.197.268-4
       ],
       invalid: [
         'CO 1234567890',

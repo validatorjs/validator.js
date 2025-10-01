@@ -1,5 +1,5 @@
-import assertString from './util/assertString';
 import * as algorithms from './util/algorithms';
+import assertString from './util/assertString';
 
 const AU = (str) => {
   const match = str.match(/^(AU)?(\d{11})$/);
@@ -15,6 +15,22 @@ const AU = (str) => {
     total += weights[i] * ABN.charAt(i);
   }
   return (total !== 0 && total % 89 === 0);
+};
+
+const CO = (str) => {
+  // @see {@link https://es.wikipedia.org/wiki/N%C3%BAmero_de_Identificaci%C3%B3n_Tributaria_(Colombia)}
+  const hasValidCheckNumber = (digits) => {
+    const weights = [41, 37, 29, 23, 19, 17, 13, 7, 3];
+    const lastDigit = digits.pop(); // used as check number
+
+    const mod = digits.reduce((acc, el, idx) => acc + (el * weights[idx]), 0) % 11;
+
+    const calculatedCheckNumber = mod < 2 ? mod : 11 - mod;
+
+    return calculatedCheckNumber === lastDigit;
+  };
+
+  return /^(CO)?\d{10}$/.test(str) && hasValidCheckNumber((str.match(/\d/g).map(el => +el)));
 };
 
 const CH = (str) => {
@@ -113,7 +129,7 @@ export const vatMatchers = {
   BO: str => /^(BO)?\d{7}$/.test(str),
   BR: str => /^(BR)?((\d{2}.\d{3}.\d{3}\/\d{4}-\d{2})|(\d{3}.\d{3}.\d{3}-\d{2}))$/.test(str),
   CL: str => /^(CL)?\d{8}-\d{1}$/.test(str),
-  CO: str => /^(CO)?\d{10}$/.test(str),
+  CO,
   CR: str => /^(CR)?\d{9,12}$/.test(str),
   EC: str => /^(EC)?\d{13}$/.test(str),
   SV: str => /^(SV)?\d{4}-\d{6}-\d{3}-\d{1}$/.test(str),
