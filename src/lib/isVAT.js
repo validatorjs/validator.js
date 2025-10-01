@@ -1,5 +1,5 @@
-import * as algorithms from './util/algorithms';
 import assertString from './util/assertString';
+import * as algorithms from './util/algorithms';
 
 const AU = (str) => {
   const match = str.match(/^(AU)?(\d{11})$/);
