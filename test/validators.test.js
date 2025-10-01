@@ -15911,4 +15911,49 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate Twitter handles', () => {
+    test({
+      validator: 'isTwitterHandle',
+      valid: [
+        '@twitter',
+        '@github',
+        '@validatorjs',
+        '@user123',
+        '@test_user',
+        '@a',
+        '@123456789012345', // 15 characters
+        'twitter', // without @ symbol
+        'github',
+        'validatorjs',
+        'user123',
+        'test_user',
+        'a',
+        '123456789012345',
+        'a_b_c_d_e_f_g_h',
+        'USER123', // case insensitive
+        'Test_User',
+      ],
+      invalid: [
+        '@1234567890123456', // 16 characters (too long)
+        '@user-name', // hyphen not allowed
+        '@user name', // space not allowed
+        '@user.name', // dot not allowed
+        '@user@name', // @ not allowed in middle
+        '@user+name', // plus not allowed
+        '@user#name', // hash not allowed
+        '@user$name', // dollar not allowed
+        '@', // empty handle
+        '', // empty string
+        '@@twitter', // double @
+        '@user!', // exclamation not allowed
+        '@user?', // question mark not allowed
+        '@user*', // asterisk not allowed
+        '@user%', // percent not allowed
+        'user-name', // hyphen not allowed even without @
+        'user name', // space not allowed even without @
+        'user.name', // dot not allowed even without @
+        '1234567890123456', // 16 characters (too long) without @
+      ],
+    });
+  });
 });

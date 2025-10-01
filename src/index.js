@@ -127,6 +127,7 @@ import normalizeEmail from './lib/normalizeEmail';
 import isSlug from './lib/isSlug';
 import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
+import isTwitterHandle from './lib/isTwitterHandle';
 
 import isVAT from './lib/isVAT';
 
@@ -240,6 +241,7 @@ const validator = {
   isSlug,
   isStrongPassword,
   isTaxID,
+  isTwitterHandle,
   isDate,
   isTime,
   isLicensePlate,
@@ -248,3 +250,4 @@ const validator = {
 };
 
 export default validator;
+export { default as isTwitterHandle } from './lib/isTwitterHandle';
