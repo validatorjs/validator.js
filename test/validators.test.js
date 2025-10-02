@@ -6559,6 +6559,28 @@ describe('Validators', () => {
   it('should validate identity cards', () => {
     const fixtures = [
       {
+        locale: 'km-KH',
+        valid: [
+          '+85512345678',
+          '+855123456789',
+          '+85598765432',
+          '+85519876543',
+          '85512345678',
+          '855123456789',
+          '85598765432',
+          '85519876543',
+        ],
+        invalid: [
+          '+85502345678', // starts with 0 after country code
+          '+8551234567',  // too short
+          '+8551234567890', // too long
+          '12345678', // missing country code
+          '+855abcdefgh', // letters
+          '',
+          '+855',
+        ],
+      },
+      {
         locale: 'PK',
         valid: [
           '45504-4185771-3',
