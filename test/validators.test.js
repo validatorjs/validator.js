@@ -6571,11 +6571,11 @@ describe('Validators', () => {
           '85519876543',
         ],
         invalid: [
-          '+85502345678', // starts with 0 after country code
-          '+8551234567',  // too short
-          '+8551234567890', // too long
-          '12345678', // missing country code
-          '+855abcdefgh', // letters
+          '+85502345678',
+          '+8551234567', 
+          '+8551234567890',
+          '12345678',
+          '+855abcdefgh',
           '',
           '+855',
         ],
