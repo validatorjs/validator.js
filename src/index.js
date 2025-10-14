@@ -130,7 +130,7 @@ import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 // Import all polyfills for backward compatibility
-import './lib/compatibility';
+import './lib/compatibility/objectEntries';
 
 const version = '13.15.15';
 
