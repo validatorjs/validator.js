@@ -89,6 +89,18 @@ const ibanRegexThroughCountryCode = {
   XK: /^(XK[0-9]{2})\d{16}$/,
 };
 
+
+/**
+ * Normalize an IBAN string.
+ *
+ * If `strip` is true, removes characters matching `pattern` (by default, any
+ * non-alphanumeric). Converts the resulting string to uppercase.
+ *
+ * @param {string} str - IBAN string to normalize.
+ * @param {boolean} strip - Whether to remove characters matching `pattern`.
+ * @param {RegExp} pattern=/[^A-Z0-9]+/gi - Pattern used when stripping.
+ * @return {string} Normalized (uppercase) IBAN string.
+ */
 function normalizeIbanString(str, strip, pattern = /[^A-Z0-9]+/gi) {
   return (strip ? str.replace(pattern, '') : str).toUpperCase();
 }
@@ -121,7 +133,11 @@ function hasOnlyValidCountryCodes(countryCodeArray) {
  * NOTE: Permitted IBAN characters are: digits [0-9] and the 26 latin alphabetic [A-Z]
  *
  * @param {string} str - string under validation
- * @param {object} options - object to pass the countries to be either whitelisted or blacklisted
+ * @param {boolean} options.strip - If truthy, whitespace and hyphens are removed before validation.
+ * @param {string[]} options.whitelist - Optional set of allowed ISO country codes
+ * (e.g., ["DE","GB","CH"]). If present, IBANs for other countries are rejected.
+ * @param {string[]} options.blacklist - Optional set of disallowed ISO country codes
+ * (e.g., ["DE","GB","CH"]). If present, IBANs for these countries are rejected.
  * @return {boolean}
  */
 function hasValidIbanFormat(str, options) {
@@ -166,6 +182,7 @@ function hasValidIbanFormat(str, options) {
    * Reference: https://en.wikipedia.org/wiki/International_Bank_Account_Number
    *
    * @param {string} str
+   * @param {boolean} strip - Whether to strip the string of non-alphanumeric characters
    * @return {boolean}
    */
 function hasValidIbanChecksum(str, strip) {
