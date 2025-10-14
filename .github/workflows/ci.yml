@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install
       - name: Build
         run: npm run build
       - name: Upload build artifacts
@@ -35,7 +35,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        node-version: [22, 20, 18, 16, 14, 12, 10, 8, 6]
+        node-version: [22, 20, 18, 16, 14, 12, 10, 8]
     name: Run tests on Node.js ${{ matrix.node-version }}
     steps:
       - name: Setup Node.js ${{ matrix.node-version }}
@@ -49,7 +49,7 @@ jobs:
         with:
           name: build-artifacts
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install
       - name: Run tests
         run: npm run test:ci
       - if: matrix.node-version == 22
