@@ -34,7 +34,6 @@ max_allowed_length - if set, isURL will not allow URLs longer than the specified
 
 */
 
-
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
   require_tld: true,
@@ -71,7 +70,10 @@ export default function isURL(url, options) {
     return false;
   }
 
-  if (!options.allow_query_components && (includes(url, '?') || includes(url, '&'))) {
+  if (
+    !options.allow_query_components &&
+    (includes(url, '?') || includes(url, '&'))
+  ) {
     return false;
   }
 
@@ -83,21 +85,33 @@ export default function isURL(url, options) {
   split = url.split('?');
   url = split.shift();
 
-  split = url.split('://');
-  if (split.length > 1) {
-    protocol = split.shift().toLowerCase();
-    if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
-      return false;
+  // Replaced the 'split("://")' logic with a regex to match the protocol.
+  // This correctly identifies schemes like `javascript:` which don't use `//`.
+  const protocol_match = url.match(/^([a-z][a-z0-9+\-.]*):/i);
+  const hadExplicitProtocol = !!protocol_match;
+
+  if (protocol_match) {
+    protocol = protocol_match[1].toLowerCase();
+    if (
+      options.require_valid_protocol &&
+      options.protocols.indexOf(protocol) === -1
+    ) {
+      return false; // The identified protocol is not in the allowed list.
     }
+    url = url.substring(protocol_match[0].length); // Remove the protocol from the URL string.
   } else if (options.require_protocol) {
-    return false;
-  } else if (url.slice(0, 2) === '//') {
-    if (!options.allow_protocol_relative_urls) {
+    return false; // A protocol was required but not found.
+  }
+
+  // Handle leading '//' only as protocol-relative when there was NO explicit protocol.
+  // If there was an explicit protocol, '//' is the normal separator
+  // and should be stripped unconditionally.
+  if (url.slice(0, 2) === '//') {
+    if (!hadExplicitProtocol && !options.allow_protocol_relative_urls) {
       return false;
     }
-    split[0] = url.slice(2);
+    url = url.slice(2); // Remove the '//' from the URL string.
   }
-  url = split.join('://');
 
   if (url === '') {
     return false;
