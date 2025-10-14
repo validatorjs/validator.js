@@ -1,3 +1,6 @@
+// Import all polyfills for backward compatibility
+import './lib/compatibility/objectEntries';
+
 import toDate from './lib/toDate';
 import toFloat from './lib/toFloat';
 import toInt from './lib/toInt';
@@ -129,8 +132,6 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
-// Import all polyfills for backward compatibility
-import './lib/compatibility/objectEntries';
 
 const version = '13.15.15';
 
