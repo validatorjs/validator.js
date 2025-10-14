@@ -89,6 +89,10 @@ const ibanRegexThroughCountryCode = {
   XK: /^(XK[0-9]{2})\d{16}$/,
 };
 
+function normalizeIbanString(str, strip, pattern = /[^A-Z0-9]+/gi) {
+  return (strip ? str.replace(pattern, '') : str).toUpperCase();
+}
+
 /**
  * Check if the country codes passed are valid using the
  * ibanRegexThroughCountryCode as a reference
@@ -122,7 +126,7 @@ function hasOnlyValidCountryCodes(countryCodeArray) {
  */
 function hasValidIbanFormat(str, options) {
   // Strip white spaces and hyphens
-  const strippedStr = str.replace(/[\s\-]+/gi, '').toUpperCase();
+  const strippedStr = normalizeIbanString(str, options.strip, /[\s\-]+/gi);
   const isoCountryCode = strippedStr.slice(0, 2).toUpperCase();
 
   const isoCountryCodeInIbanRegexCodeObject = isoCountryCode in ibanRegexThroughCountryCode;
@@ -164,8 +168,8 @@ function hasValidIbanFormat(str, options) {
    * @param {string} str
    * @return {boolean}
    */
-function hasValidIbanChecksum(str) {
-  const strippedStr = str.replace(/[^A-Z0-9]+/gi, '').toUpperCase(); // Keep only digits and A-Z latin alphabetic
+function hasValidIbanChecksum(str, strip) {
+  const strippedStr = normalizeIbanString(str, strip, /[^A-Z0-9]+/gi);
   const rearranged = strippedStr.slice(4) + strippedStr.slice(0, 4);
   const alphaCapsReplacedWithDigits = rearranged.replace(/[A-Z]/g, char => char.charCodeAt(0) - 55);
 
@@ -176,9 +180,12 @@ function hasValidIbanChecksum(str) {
 }
 
 export default function isIBAN(str, options = {}) {
+  const optionsWithDefaults = { strip: true, ...options };
+
   assertString(str);
 
-  return hasValidIbanFormat(str, options) && hasValidIbanChecksum(str);
+  return hasValidIbanFormat(str, optionsWithDefaults)
+    && hasValidIbanChecksum(str, optionsWithDefaults.strip);
 }
 
 export const locales = Object.keys(ibanRegexThroughCountryCode);
