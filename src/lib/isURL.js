@@ -1,6 +1,7 @@
 import assertString from './util/assertString';
 import checkHost from './util/checkHost';
 import includes from './util/includesString';
+import includesArray from './util/includesArray';
 
 import isFQDN from './isFQDN';
 import isIP from './isIP';
@@ -63,8 +64,8 @@ export default function isURL(url, options) {
   // Convert full-width Unicode to ASCII and check for dangerous protocols
   const normalizedUrl = url.replace(/[\uFF00-\uFFEF]/g, (char) => {
     const code = char.charCodeAt(0);
-    if (code >= 0xFF01 && code <= 0xFF5E) {
-      return String.fromCharCode(code - 0xFEE0);
+    if (code >= 0xff01 && code <= 0xff5e) {
+      return String.fromCharCode(code - 0xfee0);
     }
     return char;
   });
@@ -72,10 +73,14 @@ export default function isURL(url, options) {
   /* eslint-disable no-script-url */
   const dangerousProtocolPrefixes = ['javascript:', 'data:', 'vbscript:'];
   /* eslint-enable no-script-url */
-  if (dangerousProtocolPrefixes.some(protocol =>
-    normalizedUrl.toLowerCase().startsWith(protocol))) {
+  if (
+    dangerousProtocolPrefixes.some(
+      (protocol) => normalizedUrl.toLowerCase().indexOf(protocol) === 0
+    )
+  ) {
     return false;
-  } options = merge(options, default_url_options);
+  }
+  options = merge(options, default_url_options);
 
   if (options.validate_length && url.length > options.max_allowed_length) {
     return false;
@@ -99,14 +104,14 @@ export default function isURL(url, options) {
   // Check for multiple slashes like ////foobar.com or http:////foobar.com
   // But allow file:/// which is a valid file URL pattern
   if (
-    url.startsWith('///') ||
-    (originalUrl.match(/:\/\/\/\/+/) && !originalUrl.startsWith('file:///'))
+    url.indexOf('///') === 0 ||
+    (originalUrl.match(/:\/\/\/\/+/) && originalUrl.indexOf('file:///') !== 0)
   ) {
     return false;
   }
 
   // Check for protocol-relative URLs (must start with exactly //)
-  if (url.startsWith('//') && !url.startsWith('///')) {
+  if (url.indexOf('//') === 0 && url.indexOf('///') !== 0) {
     if (!options.allow_protocol_relative_urls) {
       return false;
     }
@@ -115,7 +120,7 @@ export default function isURL(url, options) {
     url = `http:${url}`; // Temporarily add protocol for parsing
   } else if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(url)) {
     // Only check for auth-like patterns if there's no :// in the URL (not a real protocol)
-    if (!originalUrl.includes('://')) {
+    if (!includes(originalUrl, '://')) {
       // Special case: check if this looks like auth info rather than a protocol
       // Pattern: word:something@domain (but not common protocols)
       const authLikeMatch = originalUrl.match(/^([^:/@]+):([^@]*@[^/]+)/);
@@ -123,19 +128,24 @@ export default function isURL(url, options) {
         const possibleProtocol = authLikeMatch[1].toLowerCase();
 
         // Normalize Unicode full-width characters to ASCII for security check
-        const normalizedProtocol = possibleProtocol.replace(/[\uFF00-\uFFEF]/g, (char) => {
-          const code = char.charCodeAt(0);
-          // Convert full-width ASCII to regular ASCII
-          if (code >= 0xFF01 && code <= 0xFF5E) {
-            return String.fromCharCode(code - 0xFEE0);
+        const normalizedProtocol = possibleProtocol.replace(
+          /[\uFF00-\uFFEF]/g,
+          (char) => {
+            const code = char.charCodeAt(0);
+            // Convert full-width ASCII to regular ASCII
+            if (code >= 0xff01 && code <= 0xff5e) {
+              return String.fromCharCode(code - 0xfee0);
+            }
+            return char;
           }
-          return char;
-        });
+        );
 
         const knownDangerousProtocols = ['javascript', 'data', 'vbscript'];
 
-        if (!knownDangerousProtocols.includes(possibleProtocol) &&
-            !knownDangerousProtocols.includes(normalizedProtocol)) {
+        if (
+          !includesArray(knownDangerousProtocols, possibleProtocol) &&
+          !includesArray(knownDangerousProtocols, normalizedProtocol)
+        ) {
           // This looks like auth info, treat as no protocol
           hasProtocol = false; // Important: mark as no protocol since we're adding one
           url = `http://${url}`;
@@ -152,7 +162,7 @@ export default function isURL(url, options) {
     }
   } else {
     // Single slash should not be treated as protocol-relative
-    if (url.startsWith('/') && !url.startsWith('//')) {
+    if (url.indexOf('/') === 0 && url.indexOf('//') !== 0) {
       return false;
     }
 
@@ -195,7 +205,7 @@ export default function isURL(url, options) {
   if (
     hasProtocol &&
     options.require_valid_protocol &&
-    !options.protocols.includes(protocol)
+    !includesArray(options.protocols, protocol)
   ) {
     return false;
   }
@@ -211,7 +221,7 @@ export default function isURL(url, options) {
   if (
     !parsedUrl.hostname &&
     hasProtocol &&
-    originalUrl.endsWith('://') &&
+    originalUrl.indexOf('://') === originalUrl.length - 3 &&
     (!parsedUrl.pathname || parsedUrl.pathname === '/')
   ) {
     return false;
@@ -268,7 +278,7 @@ export default function isURL(url, options) {
   if (
     parsedUrl.username === '' &&
     parsedUrl.password === '' &&
-    originalUrl.includes('@') &&
+    includes(originalUrl, '@') &&
     !originalUrl.match(/^[^:]+:@/)
   ) {
     return false;
@@ -276,7 +286,7 @@ export default function isURL(url, options) {
 
   // Security check: Reject URLs where username looks like a domain (phishing protection)
   // e.g., http://evil-site.com@example.com should be rejected
-  if (parsedUrl.username && parsedUrl.username.includes('.')) {
+  if (parsedUrl.username && includes(parsedUrl.username, '.')) {
     // Check if username looks like a domain (has common TLD patterns)
     const usernamePattern = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (usernamePattern.test(parsedUrl.username)) {
@@ -287,14 +297,18 @@ export default function isURL(url, options) {
   let hostname = parsedUrl.hostname;
 
   // Special handling for URLs with empty hostnames but paths (like postgres://user:pw@/test)
-  if (!hostname && originalUrl.includes('@/') && hasProtocol) {
+  if (!hostname && includes(originalUrl, '@/') && hasProtocol) {
     // This is likely a database URL with empty hostname but a path
     return !options.require_host;
   }
 
   // Handle IPv6 addresses
   let isIPv6 = false;
-  if (hostname && hostname.startsWith('[') && hostname.endsWith(']')) {
+  if (
+    hostname &&
+    hostname.indexOf('[') === 0 &&
+    hostname.indexOf(']') === hostname.length - 1
+  ) {
     const ipv6Address = hostname.slice(1, -1);
     if (!isIP(ipv6Address, 6)) {
       return false;
