@@ -5,8 +5,34 @@ on:
   pull_request:
     branches: [master]
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build on Node.js 22
+    steps:
+    - name: Setup Node.js 22
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install dependencies
+      run: npm install
+    - name: Build
+      run: npm run build
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+        path: |
+          index.js
+          lib/
+          es/
+          validator.js
+          validator.min.js
+        retention-days: 1
   test:
     runs-on: ubuntu-latest
+    needs: build
     strategy:
       matrix:
         node-version: [22, 20, 18, 16, 14, 12, 10, 8]
@@ -21,7 +47,7 @@ jobs:
     - name: Install dependencies
       run: npm install --legacy-peer-deps
     - name: Run tests
-      run: npm test
+      run: npm test:ci
     - if: matrix.node-version == 22
       name: Send coverage info to Codecov
       uses: codecov/codecov-action@v5
