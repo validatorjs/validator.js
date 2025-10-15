@@ -782,6 +782,25 @@ describe('Validators', () => {
     });
   });
 
+  it('GHSA-9965-vmph-33xx vulnerability - protocol delimiter parsing difference', () => {
+    const DOMAIN_WHITELIST = ['example.com'];
+
+    test({
+      validator: 'isURL',
+      args: [{
+        protocols: ['https'],
+        host_whitelist: DOMAIN_WHITELIST,
+        require_host: false,
+      }],
+      valid: [
+        // TODO: the expected result is **INVALID**.
+        // eslint-disable-next-line no-script-url
+        "javascript:alert(1);a=';@example.com/alert(1)",
+      ],
+      invalid: [],
+    });
+  });
+
   it('should allow rejecting urls containing authentication information', () => {
     test({
       validator: 'isURL',
