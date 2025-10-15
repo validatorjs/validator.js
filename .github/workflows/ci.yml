@@ -47,7 +47,7 @@ jobs:
     - name: Install dependencies
       run: npm install --legacy-peer-deps
     - name: Run tests
-      run: npm test:ci
+      run: npm run test:ci
     - if: matrix.node-version == 22
       name: Send coverage info to Codecov
       uses: codecov/codecov-action@v5
