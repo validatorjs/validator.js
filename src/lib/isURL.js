@@ -74,9 +74,7 @@ export default function isURL(url, options) {
   const dangerousProtocolPrefixes = ['javascript:', 'data:', 'vbscript:'];
   /* eslint-enable no-script-url */
   if (
-    dangerousProtocolPrefixes.some(
-      (protocol) => normalizedUrl.toLowerCase().indexOf(protocol) === 0
-    )
+    dangerousProtocolPrefixes.some(protocol => normalizedUrl.toLowerCase().indexOf(protocol) === 0)
   ) {
     return false;
   }
