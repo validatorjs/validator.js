@@ -34,7 +34,6 @@ max_allowed_length - if set, isURL will not allow URLs longer than the specified
 
 */
 
-
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
   require_tld: true,
@@ -76,6 +75,7 @@ export default function isURL(url, options) {
   }
 
   let protocol, auth, host, hostname, port, port_str, split, ipv6;
+  let has_protocol = false;
 
   split = url.split('#');
   url = split.shift();
@@ -85,6 +85,7 @@ export default function isURL(url, options) {
 
   split = url.split('://');
   if (split.length > 1) {
+    has_protocol = true;
     protocol = split.shift().toLowerCase();
     if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
       return false;
@@ -95,6 +96,7 @@ export default function isURL(url, options) {
     if (!options.allow_protocol_relative_urls) {
       return false;
     }
+    has_protocol = true;
     split[0] = url.slice(2);
   }
   url = split.join('://');
@@ -119,6 +121,9 @@ export default function isURL(url, options) {
       return false;
     }
     auth = split.shift();
+    if (!has_protocol && auth.indexOf(':') !== -1) {
+      return false;
+    }
     if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
       return false;
     }
