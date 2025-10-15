@@ -424,6 +424,12 @@ describe('Validators', () => {
         'http://[2010:836B:4179::836B:4179]',
         'http://example.com/example.json#/foo/bar',
         'http://1337.com',
+        // TODO: those should not be marked as valid URLs; CVE-2025-56200
+        /* eslint-disable no-script-url */
+        'javascript:%61%6c%65%72%74%28%31%29@example.com',
+        'http://evil-site.com@example.com/',
+        'ｊａｖａｓｃｒｉｐｔ:alert(1)@example.com',
+        /* eslint-enable no-script-url */
       ],
       invalid: [
         'http://localhost:3000/',
@@ -466,6 +472,18 @@ describe('Validators', () => {
         '////foobar.com',
         'http:////foobar.com',
         'https://example.com/foo/<script>alert(\'XSS\')</script>/',
+        // the following tests are because of CVE-2025-56200
+        /* eslint-disable no-script-url */
+        "javascript:alert(1);a=';@example.com/alert(1)'",
+        'JaVaScRiPt:alert(1)@example.com',
+        'javascript:/* comment */alert(1)@example.com',
+        'javascript:var a=1; alert(a);@example.com',
+        'javascript:alert(1)@user@example.com',
+        'javascript:alert(1)@example.com?q=safe',
+        'data:text/html,<script>alert(1)</script>@example.com',
+        'vbscript:msgbox("XSS")@example.com',
+        '//evil-site.com/path@example.com',
+        /* eslint-enable no-script-url */
       ],
     });
   });
@@ -792,12 +810,11 @@ describe('Validators', () => {
         host_whitelist: DOMAIN_WHITELIST,
         require_host: false,
       }],
-      valid: [
-        // TODO: the expected result is **INVALID**.
+      valid: [],
+      invalid: [
         // eslint-disable-next-line no-script-url
         "javascript:alert(1);a=';@example.com/alert(1)",
       ],
-      invalid: [],
     });
   });
 
