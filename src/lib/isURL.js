@@ -92,10 +92,16 @@ export default function isURL(url, options) {
     protocol = protocolMatch[1].toLowerCase();
     const remainder = protocolMatch[2];
 
-    // Check if this is actually a protocol or just authentication (e.g., user:@example.com)
-    // If remainder starts with @ (and optionally has // later), it's likely authentication
-    // Examples: user:@example.com, user:pass@example.com
-    const isLikelyAuth = remainder.match(/^@|^[^/]*@/);
+    // First, check for known dangerous protocols that should never be treated as auth
+    const dangerousProtocols = ['javascript', 'data', 'vbscript', 'file', 'about'];
+    const isDangerous = dangerousProtocols.indexOf(protocol) !== -1;
+
+    // Check if this might be authentication instead of a protocol (e.g., user:@example.com)
+    // Only consider it auth if it's NOT a dangerous protocol
+    const isLikelyAuth = !isDangerous && (
+      remainder.match(/^@/) ||
+      (remainder.match(/^[a-zA-Z0-9.\-_]*@/) && protocol.length <= 20 && /^[a-zA-Z0-9.\-_]+$/.test(protocol))
+    );
 
     if (isLikelyAuth && !remainder.startsWith('//')) {
       // This looks like authentication, not a protocol
