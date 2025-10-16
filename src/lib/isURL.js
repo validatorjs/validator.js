@@ -92,29 +92,42 @@ export default function isURL(url, options) {
     protocol = protocolMatch[1].toLowerCase();
     const remainder = protocolMatch[2];
 
-    // Validate protocol against whitelist
-    if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
-      return false;
-    }
+    // Check if this is actually a protocol or just authentication (e.g., user:@example.com)
+    // If remainder starts with @ (and optionally has // later), it's likely authentication
+    // Examples: user:@example.com, user:pass@example.com
+    const isLikelyAuth = remainder.match(/^@|^[^/]*@/);
 
-    // RFC 3986 defines authority-based URIs as having '//' after the colon
-    // Examples: http://host, ftp://host, file:///path
-    // Non-authority URIs don't have '//' after the protocol
-    // Examples: javascript:code, data:text/html, mailto:email, tel:number
-
-    if (remainder.startsWith('//')) {
-      // Authority-based URI - this is expected for http, https, ftp, etc.
-      url = remainder.substring(2);
+    if (isLikelyAuth && !remainder.startsWith('//')) {
+      // This looks like authentication, not a protocol
+      // Reset and continue without protocol parsing
+      protocol = undefined;
     } else {
-      // Non-authority URI detected (e.g., javascript:, data:, mailto:)
-      // These should be rejected for security unless explicitly allowed
-      // Even if a protocol like 'data' is in the allowed protocols list,
-      // it should still be rejected because data: URIs don't have a host to validate
-      return false;
+      // Validate protocol against whitelist
+      if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
+        return false;
+      }
+
+      // RFC 3986 defines authority-based URIs as having '//' after the colon
+      // Examples: http://host, ftp://host, file:///path
+      // Non-authority URIs don't have '//' after the protocol
+      // Examples: javascript:code, data:text/html, mailto:email, tel:number
+
+      if (remainder.startsWith('//')) {
+        // Authority-based URI - this is expected for http, https, ftp, etc.
+        url = remainder.substring(2);
+      } else {
+        // Non-authority URI detected (e.g., javascript:, data:, mailto:)
+        // These should be rejected for security unless explicitly allowed
+        // Even if a protocol like 'data' is in the allowed protocols list,
+        // it should still be rejected because data: URIs don't have a host to validate
+        return false;
+      }
     }
-  } else if (options.require_protocol) {
+  }
+
+  if (!protocol && options.require_protocol) {
     return false;
-  } else if (url.slice(0, 2) === '//') {
+  } else if (!protocol && url.slice(0, 2) === '//') {
     if (!options.allow_protocol_relative_urls) {
       return false;
     }
