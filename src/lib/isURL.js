@@ -95,7 +95,16 @@ export default function isURL(url, options) {
     if (!options.allow_protocol_relative_urls) {
       return false;
     }
-    split[0] = url.slice(2);
+
+    // Block credentials in protocol-relative URLs, maar check alléén de authority
+    const pr = url.slice(2);
+    const firstSlash = pr.indexOf('/');
+    const authority = firstSlash === -1 ? pr : pr.slice(0, firstSlash);
+    if (authority.indexOf('@') !== -1) {
+      return false;
+    }
+
+    split[0] = pr;
   }
   url = split.join('://');
 
