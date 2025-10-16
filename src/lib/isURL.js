@@ -83,10 +83,33 @@ export default function isURL(url, options) {
   split = url.split('?');
   url = split.shift();
 
-  split = url.split('://');
-  if (split.length > 1) {
-    protocol = split.shift().toLowerCase();
+  // RFC 3986 compliant protocol parsing
+  // Protocol (scheme) is defined as: scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
+  // and is separated from the rest of the URI by a single colon ":"
+  const protocolMatch = url.match(/^([a-zA-Z][a-zA-Z0-9+.\-]*):(.*)$/);
+
+  if (protocolMatch) {
+    protocol = protocolMatch[1].toLowerCase();
+    const remainder = protocolMatch[2];
+
+    // Validate protocol against whitelist
     if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
+      return false;
+    }
+
+    // RFC 3986 defines authority-based URIs as having '//' after the colon
+    // Examples: http://host, ftp://host, file:///path
+    // Non-authority URIs don't have '//' after the protocol
+    // Examples: javascript:code, data:text/html, mailto:email, tel:number
+
+    if (remainder.startsWith('//')) {
+      // Authority-based URI - this is expected for http, https, ftp, etc.
+      url = remainder.substring(2);
+    } else {
+      // Non-authority URI detected (e.g., javascript:, data:, mailto:)
+      // These should be rejected for security unless explicitly allowed
+      // Even if a protocol like 'data' is in the allowed protocols list,
+      // it should still be rejected because data: URIs don't have a host to validate
       return false;
     }
   } else if (options.require_protocol) {
@@ -95,9 +118,8 @@ export default function isURL(url, options) {
     if (!options.allow_protocol_relative_urls) {
       return false;
     }
-    split[0] = url.slice(2);
+    url = url.slice(2);
   }
-  url = split.join('://');
 
   if (url === '') {
     return false;
