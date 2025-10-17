@@ -14551,6 +14551,27 @@ describe('Validators', () => {
   it('should be valid license plate', () => {
     test({
       validator: 'isLicensePlate',
+      args: ['el-GR'],
+      valid: [
+        'ABE1234',
+        'ABE 1234',
+        'ABE-1234',
+      ],
+      invalid: [
+        '',
+        'notalicenseplate',
+        'AB 1234',
+        'A 1234',
+        'ABCD 1234',
+        'ABE123',
+        'ABE 123',
+        'ABE-123',
+        'ABC 1234',
+        'ABC-1234',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['es-AR'],
       valid: [
         'AB 123 CD',
