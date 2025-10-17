@@ -14556,11 +14556,11 @@ describe('Validators', () => {
         'ABE1234',
         'ABE 1234',
         'ABE-1234',
+        'AB 1234',
       ],
       invalid: [
         '',
         'notalicenseplate',
-        'AB 1234',
         'A 1234',
         'ABCD 1234',
         'ABE123',
