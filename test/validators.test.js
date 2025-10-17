@@ -496,9 +496,11 @@ describe('Validators', () => {
       }],
       valid: [
         'rtmp://foobar.com',
+        'rtmp:foobar.com',
       ],
       invalid: [
         'http://foobar.com',
+        'tel:+15551234567',
       ],
     });
   });
@@ -718,6 +720,21 @@ describe('Validators', () => {
         'http://localhost/',
         'foobar.com',
         'foobar',
+      ],
+    });
+  });
+
+  it('should validate authentication strings if a protocol is not required', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        require_protocol: false,
+      }],
+      valid: [
+        'user:pw@foobar.com/',
+      ],
+      invalid: [
+        'user:pw,@foobar.com/',
       ],
     });
   });
