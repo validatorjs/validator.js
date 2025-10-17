@@ -14556,7 +14556,11 @@ describe('Validators', () => {
         'ABE1234',
         'ABE 1234',
         'ABE-1234',
+        'POI 0001',
+        'KZT-7890',
+        'XYZ5678',
         'AB 1234',
+        'TY0101',
       ],
       invalid: [
         '',
