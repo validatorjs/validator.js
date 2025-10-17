@@ -739,6 +739,46 @@ describe('Validators', () => {
     });
   });
 
+  it('should reject authentication strings if a protocol is required', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        require_protocol: true,
+      }],
+      valid: [
+        'http://user:pw@foobar.com/',
+        'https://user:password@example.com',
+        'ftp://admin:pass@ftp.example.com/',
+      ],
+      invalid: [
+        'user:pw@foobar.com/',
+        'user:password@example.com',
+        'admin:pass@ftp.example.com/',
+      ],
+    });
+  });
+
+  it('should reject invalid protocols when require_valid_protocol is enabled', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        require_valid_protocol: true,
+        protocols: ['http', 'https', 'ftp'],
+      }],
+      valid: [
+        'http://example.com',
+        'https://example.com',
+        'ftp://example.com',
+      ],
+      invalid: [
+        // eslint-disable-next-line no-script-url
+        'javascript:alert(1);@example.com',
+        'data:text/html,<script>alert(1)</script>@example.com',
+        'file:///etc/passwd@example.com',
+      ],
+    });
+  });
+
   it('should let users specify a host whitelist', () => {
     test({
       validator: 'isURL',
