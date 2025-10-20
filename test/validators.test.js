@@ -553,6 +553,9 @@ describe('Validators', () => {
         'rtmp://foobar.com',
         'http://foobar.com',
         'test://foobar.com',
+        // Dangerous! This allows to mark malicious URLs as a valid URL (CVE-2025-56200)
+        // eslint-disable-next-line no-script-url
+        'javascript:alert(1);@example.com',
       ],
       invalid: [
         'mailto:test@example.com',
