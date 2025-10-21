@@ -58,7 +58,9 @@ export default function isURL(url, options) {
   if (!url || /[\s<>]/.test(url)) {
     return false;
   }
-  if (url.indexOf('mailto:') === 0) {
+  const lowerUrl = url.trim().toLowerCase();
+  const dangerousSchemes = ['javascript:', 'data:', 'vbscript:', 'file:', 'blob:', 'mailto:'];
+  if (dangerousSchemes.some(scheme => lowerUrl.startsWith(scheme))) {
     return false;
   }
   options = merge(options, default_url_options);
