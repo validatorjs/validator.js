@@ -5,6 +5,7 @@
   "sideEffects": false,
   "homepage": "https://github.com/validatorjs/validator.js",
   "files": [
+    "src",
     "index.js",
     "es",
     "lib",
@@ -28,6 +29,7 @@
     "Anthony Nandaa (https://github.com/profnandaa)"
   ],
   "main": "index.js",
+  "module": "src/esm.js",
   "bugs": {
     "url": "https://github.com/validatorjs/validator.js/issues"
   },
