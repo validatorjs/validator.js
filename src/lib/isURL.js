@@ -49,6 +49,7 @@ const default_url_options = {
   allow_query_components: true,
   validate_length: true,
   max_allowed_length: 2084,
+  allow_unsafe_protocol: true,
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
@@ -58,10 +59,12 @@ export default function isURL(url, options) {
   if (!url || /[\s<>]/.test(url)) {
     return false;
   }
-  const lowerUrl = url.trim().toLowerCase();
-  const dangerousSchemes = ['javascript:', 'data:', 'vbscript:', 'file:', 'blob:', 'mailto:'];
-  if (dangerousSchemes.some(scheme => lowerUrl.startsWith(scheme))) {
-    return false;
+  if (!options.allow_unsafe_protocol) {
+    const lowerUrl = url.trim().toLowerCase();
+    const dangerousSchemes = ['javascript:', 'data:', 'vbscript:', 'file:', 'blob:', 'mailto:'];
+    if (dangerousSchemes.some(scheme => lowerUrl.startsWith(scheme))) {
+      return false;
+    }
   }
   options = merge(options, default_url_options);
 
