@@ -162,6 +162,36 @@ const phones = {
   'ar-EH': /^(\+?212|0)[\s\-]?(5288|5289)[\s\-]?\d{5}$/,
   'fa-AF': /^(\+93|0)?(2{1}[0-8]{1}|[3-5]{1}[0-4]{1})(\d{7})$/,
   'mk-MK': /^(\+?389|0)?((?:2[2-9]\d{6}|(?:3[1-4]|4[2-8])\d{6}|500\d{5}|5[2-9]\d{6}|7[0-9][2-9]\d{5}|8[1-9]\d{6}|800\d{5}|8009\d{4}))$/,
+  'en-AS': /^(\+?1|0)684\d{7}$/, // American Samoa
+  'aq-AQ': /^(\+?672|0)?\d{8}$/, // Antarctica (limited coverage)
+  'en-BB': /^(\+?1|0)246\d{7}$/, // Barbados
+  'en-BZ': /^(\+?501|0)?[67]\d{6}$/, // Belize
+  'nl-BQ': /^(\+?599|0)?[79]\d{6}$/, // Bonaire, Sint Eustatius and Saba
+  'no-BV': /^(\+?47|0)?\d{8}$/, // Bouvet Island (uses Norway's system)
+  'en-IO': /^(\+?246|0)?\d{7}$/, // British Indian Ocean Territory
+  'ms-BN': /^(\+?673|0)?[1-9]\d{6}$/, // Brunei Darussalam
+  'rn-BI': /^(\+?257|0)?[67]\d{7}$/, // Burundi
+  'pt-CV': /^(\+?238|0)?[59]\d{6}$/, // Cabo Verde
+  'km-KH': /^(\+?855|0)?[1-9]\d{7}$/, // Cambodia
+  'en-KY': /^(\+?1|0)345\d{7}$/, // Cayman Islands
+  'ar-TD': /^(\+?235|0)?[1-9]\d{7}$/, // Chad
+  'en-CX': /^(\+?61|0)?4\d{8}$/, // Christmas Island (uses Australia's system)
+  'en-CC': /^(\+?61|0)?4\d{8}$/, // Cocos (Keeling) Islands (uses Australia's system)
+  'ar-KM': /^(\+?269|0)?[3-7]\d{6}$/, // Comoros
+  'fr-CG': /^(\+?242|0)?[1-9]\d{8}$/, // Congo
+  'en-CK': /^(\+?682|0)?[2-9]\d{4}$/, // Cook Islands
+  'hr-HR': /^(\+?385|0)?[1-9]\d{8}$/, // Croatia
+  'nl-CW': /^(\+?599|0)?[69]\d{6}$/, // Curaçao
+  'fr-CI': /^(\+?225|0)?[0-9]\d{9}$/, // Côte d'Ivoire
+  'ar-DJ': /^(\+?253|0)?[1-9]\d{7}$/, // Djibouti
+  'en-DM': /^(\+?1|0)767\d{7}$/, // Dominica
+  'es-GQ': /^(\+?240|0)?[1-9]\d{8}$/, // Equatorial Guinea
+  'ti-ER': /^(\+?291|0)?[1-9]\d{6}$/, // Eritrea
+  'en-SZ': /^(\+?268|0)?[1-9]\d{7}$/, // Eswatini
+  'am-ET': /^(\+?251|0)?[1-9]\d{8}$/, // Ethiopia
+  'en-FK': /^(\+?500|0)?[1-9]\d{4}$/, // Falkland Islands (Malvinas)
+  'fr-TF': /^(\+?262|0)?[1-9]\d{8}$/, // French Southern Territories
+  'fr-GA': /^(\+?241|0)?[1-9]\d{7}$/, // Gabon
 };
 /* eslint-enable max-len */
 
@@ -174,6 +204,21 @@ phones['zh-MO'] = phones['en-MO'];
 phones['ga-IE'] = phones['en-IE'];
 phones['fr-CH'] = phones['de-CH'];
 phones['it-CH'] = phones['fr-CH'];
+
+// Additional aliases for new countries
+phones['en-CI'] = phones['fr-CI']; // Côte d'Ivoire (alternative code)
+phones['en-CV'] = phones['pt-CV']; // Cabo Verde (alternative code)
+phones['en-KH'] = phones['km-KH']; // Cambodia (alternative code)
+phones['en-TD'] = phones['ar-TD']; // Chad (alternative code)
+phones['en-KM'] = phones['ar-KM']; // Comoros (alternative code)
+phones['en-CG'] = phones['fr-CG']; // Congo (alternative code)
+phones['en-DJ'] = phones['ar-DJ']; // Djibouti (alternative code)
+phones['en-GQ'] = phones['es-GQ']; // Equatorial Guinea (alternative code)
+phones['en-ER'] = phones['ti-ER']; // Eritrea (alternative code)
+phones['en-ET'] = phones['am-ET']; // Ethiopia (alternative code)
+phones['en-GA'] = phones['fr-GA']; // Gabon (alternative code)
+phones['en-BI'] = phones['rn-BI']; // Burundi (alternative code)
+phones['en-BN'] = phones['ms-BN']; // Brunei Darussalam (alternative code)
 
 export default function isMobilePhone(str, locale, options) {
   assertString(str);
