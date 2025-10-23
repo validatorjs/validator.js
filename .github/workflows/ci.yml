@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [22, 20, 18, 16, 14, 12, 10, 8, 6]
+        node-version: [22, 20, 18, 16, 14, 12, 10, 8]
     name: Run tests on Node.js ${{ matrix.node-version }}
     steps:
     - name: Setup Node.js ${{ matrix.node-version }}
