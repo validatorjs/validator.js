@@ -16007,4 +16007,19 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should validate emojis', () => {
+    test({
+      validator: 'isEmoji',
+      valid: [
+        '🎉',
+        '❤️',
+        '🍔',
+      ],
+      invalid: [
+        'abc',
+        '123',
+        '#000000',
+      ],
+    });
+  });
 });
