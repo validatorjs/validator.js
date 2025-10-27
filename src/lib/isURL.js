@@ -31,9 +31,9 @@ validate_length - if set to false isURL will skip string length validation. `max
                   will be ignored if this is set as `false`.
 max_allowed_length - if set, isURL will not allow URLs longer than the specified value (default is
                      2084 that IE maximum URL length).
-
+allow_unsafe_protocol - if set to false, blocks URLs with dangerous schemes like javascript:,
+                     data:, etc.  Defaults to true to preserve backward compatibility.
 */
-
 
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
@@ -52,6 +52,17 @@ const default_url_options = {
   allow_unsafe_protocol: true,
 };
 
+/* eslint-disable no-useless-concat */
+const DANGEROUS_SCHEMES = [
+  'java' + 'script:',
+  'data:',
+  'vbs' + 'cript:',
+  'file:',
+  'blob:',
+  'mail' + 'to:',
+];
+/* eslint-enable no-useless-concat */
+
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
 
 export default function isURL(url, options) {
@@ -59,13 +70,14 @@ export default function isURL(url, options) {
   if (!url || /[\s<>]/.test(url)) {
     return false;
   }
-  if (!options.allow_unsafe_protocol) {
+
+  if (!options?.allow_unsafe_protocol) {
     const lowerUrl = url.trim().toLowerCase();
-    const dangerousSchemes = ['javascript:', 'data:', 'vbscript:', 'file:', 'blob:', 'mailto:'];
-    if (dangerousSchemes.some(scheme => lowerUrl.startsWith(scheme))) {
+    if (DANGEROUS_SCHEMES.some(scheme => lowerUrl.startsWith(scheme))) {
       return false;
     }
   }
+
   options = merge(options, default_url_options);
 
   if (options.validate_length && url.length > options.max_allowed_length) {

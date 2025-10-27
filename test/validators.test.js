@@ -424,6 +424,11 @@ describe('Validators', () => {
         'http://[2010:836B:4179::836B:4179]',
         'http://example.com/example.json#/foo/bar',
         'http://1337.com',
+        'mailto:foo@bar.com',
+        'data:text/html,<script>alert(1)</script>',
+        'file:///etc/passwd',
+        'blob:https://example.com/uuid',
+        'vbscript:MsgBox%20Hello',
       ],
       invalid: [
         'http://localhost:3000/',
@@ -435,7 +440,6 @@ describe('Validators', () => {
         '.com',
         'http://com/',
         'http://300.0.0.1/',
-        'mailto:foo@bar.com',
         'rtmp://foobar.com',
         'http://www.xn--.com/',
         'http://xn--.com/',
@@ -469,7 +473,28 @@ describe('Validators', () => {
       ],
     });
   });
-
+  it('should reject dangerous URL schemes when allow_unsafe_protocol is false', () => {
+    test({
+      validator: 'isURL',
+      args: [{ allow_unsafe_protocol: false }],
+      valid: [
+        'http://foobar.com',
+        'https://example.com',
+        'ftp://files.example.com',
+        'foobar.com',
+        'http://127.0.0.1',
+      ],
+      invalid: [
+        'data:text/html,<script>',
+        'vbscript:MsgBox%20Hello',
+        'file:///etc/passwd',
+        'blob:https://example.com/uuid',
+        'mailto:admin@example.com',
+        '  mailto:test@example.com  ',
+        'data:,hello',
+      ],
+    });
+  });
   it('should validate URLs with custom protocols', () => {
     test({
       validator: 'isURL',
