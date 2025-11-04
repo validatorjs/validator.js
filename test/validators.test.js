@@ -488,6 +488,62 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate URLs without protocol', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        require_tld: false,
+        require_valid_protocol: false,
+      }],
+      valid: [
+        'localhost',
+        'localhost:3000',
+        'service-name:8080',
+        'https://localhost',
+        'http://localhost:3000',
+        'http://service-name:8080',
+        'user:password@localhost',
+        'user:pass@service-name:8080',
+      ],
+      invalid: [],
+    });
+
+    // Test with require_protocol: true - should reject hostnames with ports but no protocol
+    test({
+      validator: 'isURL',
+      args: [{
+        require_tld: false,
+        require_protocol: true,
+        require_valid_protocol: false,
+      }],
+      valid: [
+        'http://localhost:3000',
+        'https://service-name:8080',
+        'custom://localhost',
+      ],
+      invalid: [
+        'localhost:3000',
+        'service-name:8080',
+        'user:password@localhost',
+      ],
+    });
+
+    // Test non-numeric patterns after colon (should be treated as protocols)
+    test({
+      validator: 'isURL',
+      args: [{
+        require_tld: false,
+        require_valid_protocol: false,
+        protocols: ['custom', 'myscheme'],
+      }],
+      valid: [
+        'custom:something',
+        'myscheme:data',
+      ],
+      invalid: [],
+    });
+  });
+
   it('should validate URLs with custom protocols', () => {
     test({
       validator: 'isURL',

@@ -142,11 +142,24 @@ export default function isURL(url, options) {
           }
         }
       } else {
-        // No @ symbol, this is definitely a protocol
-        url = cleanUpProtocol(potential_protocol);
+        // No @ symbol found. Check if this could be a port number instead of a protocol.
+        // If what's after the colon is numeric (or starts with a digit and contains only
+        // valid port characters until a path separator), it's likely hostname:port, not a protocol.
+        const looks_like_port = /^[0-9]/.test(after_colon);
 
-        if (url === false) {
-          return false;
+        if (looks_like_port) {
+          // This looks like hostname:port, not a protocol
+          if (options.require_protocol) {
+            return false;
+          }
+          // Don't consume anything; let it be parsed as hostname:port
+        } else {
+          // This is definitely a protocol
+          url = cleanUpProtocol(potential_protocol);
+
+          if (url === false) {
+            return false;
+          }
         }
       }
     } else {
