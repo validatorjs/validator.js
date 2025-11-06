@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-In the case of a confirmed security issue, only the current version of validator is guaranteed to be patched.
+In the case of a confirmed security issue, only the current version of the validator is guaranteed to be patched.
 
 ## Reporting a Vulnerability
 
