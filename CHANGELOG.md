@@ -1,3 +1,12 @@
+# 13.15.22
+
+### Fixes, New Locales and Enhancements
+
+- [#2622](https://github.com/validatorjs/validator.js/pull/2622) `isURL`: fix regression with hostnames with ports @mbtools
+- [#2616](https://github.com/validatorjs/validator.js/pull/2616) `isLength`: improve handling Unicode variation selectors @koral--
+- **Doc fixes and others:**
+  - [#2621](https://github.com/validatorjs/validator.js/pull/2621) @mbtools
+
 # 13.15.20
 
 ### Fixes, New Locales and Enhancements
