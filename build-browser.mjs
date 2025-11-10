@@ -9,7 +9,13 @@ rollup({
   input: 'src/index.js',
   plugins: [
     babel({
-      presets: [[babelPresetEnv, { modules: false }]],
+      presets: [[babelPresetEnv, { 
+        modules: false,
+        targets: {
+          node: '0.10',
+          ie: '11'
+        }
+      }]],
       babelHelpers: 'bundled',
       babelrc: false,
     }),
