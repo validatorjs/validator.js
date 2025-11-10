@@ -1,3 +1,11 @@
+# 13.15.23
+
+### Fixes, New Locales and Enhancements
+
+- **Doc fixes and others:**
+  - [#2631](https://github.com/validatorjs/validator.js/pull/2631) @WikiRik
+
+
 # 13.15.22
 
 ### Fixes, New Locales and Enhancements

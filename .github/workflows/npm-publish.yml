@@ -9,10 +9,10 @@ jobs:
       contents: read
       id-token: write
     steps:
-    - name: Setup Node.js 22
-      uses: actions/setup-node@v4
+    - name: Setup Node.js 24
+      uses: actions/setup-node@v5
       with:
-        node-version: 22
+        node-version: 24
         registry-url: https://registry.npmjs.org/
     - name: Checkout Repository
       uses: actions/checkout@v4
@@ -21,6 +21,4 @@ jobs:
     - name: Run Tests
       run: npm test
     - name: Publish Package to NPM Registry
-      run: npm publish --provenance
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.NPM_SECRET}}
+      run: npm publish
