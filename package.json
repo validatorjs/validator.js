@@ -67,10 +67,13 @@
     "build:node": "babel src -d .",
     "build": "run-p build:*",
     "pretest": "npm run build && npm run lint",
-    "test": "nyc --reporter=cobertura --reporter=text-summary mocha --require @babel/register --reporter dot --recursive"
+    "test": "nyc --reporter=cobertura --reporter=text-summary mocha --require @babel/register --require ./test/setup.js --reporter dot --recursive"
   },
   "engines": {
     "node": ">= 0.10"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "graphql": "^16.11.0"
+  }
 }
