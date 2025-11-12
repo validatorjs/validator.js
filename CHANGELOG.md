@@ -1,3 +1,33 @@
+# 13.15.23
+
+### Fixes, New Locales and Enhancements
+
+- **Doc fixes and others:**
+  - [#2631](https://github.com/validatorjs/validator.js/pull/2631) @WikiRik
+
+
+# 13.15.22
+
+### Fixes, New Locales and Enhancements
+
+- [#2622](https://github.com/validatorjs/validator.js/pull/2622) `isURL`: fix regression with hostnames with ports @mbtools
+- [#2616](https://github.com/validatorjs/validator.js/pull/2616) `isLength`: improve handling Unicode variation selectors @koral--
+- **Doc fixes and others:**
+  - [#2621](https://github.com/validatorjs/validator.js/pull/2621) @mbtools
+
+# 13.15.20
+
+### Fixes, New Locales and Enhancements
+
+- [#2556](https://github.com/validatorjs/validator.js/pull/2556) `isMobilePhone`: add `ar-QA` locale @WardKhaddour
+- [#2576](https://github.com/validatorjs/validator.js/pull/2576) `isAlpha`/`isAlphanuneric`: add Indic locales (`ta-IN`, `te-IN`, `kn-IN`, `ml-IN`, `gu-IN`, `pa-IN`, `or-IN`) @avadootharajesh
+- [#2574](https://github.com/validatorjs/validator.js/pull/2574) `isBase64`: improve padding regex @KrayzeeKev
+- [#2584](https://github.com/validatorjs/validator.js/pull/2584) `isVAT`: improve `FR` locale @iamAmer
+- [#2608](https://github.com/validatorjs/validator.js/pull/2608) `isURL`: improve protocol detection. Resolves CVE-2025-56200 @theofidry
+- **Doc fixes and others:**
+  - [#2563](https://github.com/validatorjs/validator.js/pull/2563) @stoneLeaf
+  - [#2581](https://github.com/validatorjs/validator.js/pull/2581) @camillobruni
+
 # 13.15.15
 
 ### Fixes, New Locales and Enhancements
