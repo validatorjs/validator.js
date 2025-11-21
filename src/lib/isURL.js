@@ -117,8 +117,8 @@ export default function isURL(url, options) {
     if (!starts_with_slashes) {
       const first_slash_position = after_colon.indexOf('/');
       const before_slash = first_slash_position === -1
-          ? after_colon
-          : after_colon.substring(0, first_slash_position);
+        ? after_colon
+        : after_colon.substring(0, first_slash_position);
       const at_position = before_slash.indexOf('@');
 
       if (at_position !== -1) {
