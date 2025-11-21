@@ -117,8 +117,8 @@ export default function isURL(url, options) {
     if (!starts_with_slashes) {
       const first_slash_position = after_colon.indexOf('/');
       const before_slash = first_slash_position === -1
-        ? after_colon
-        : after_colon.substring(0, first_slash_position);
+          ? after_colon
+          : after_colon.substring(0, first_slash_position);
       const at_position = before_slash.indexOf('@');
 
       if (at_position !== -1) {
@@ -126,7 +126,12 @@ export default function isURL(url, options) {
         const valid_auth_regex = /^[a-zA-Z0-9\-_.%:]*$/;
         const is_valid_auth = valid_auth_regex.test(before_at);
 
-        if (is_valid_auth) {
+        // Check if this contains URL-encoded content that could be malicious
+        // For example: javascript:%61%6c%65%72%74%28%31%29@example.com
+        // The encoded part decodes to: alert(1)
+        const has_encoded_content = /%[0-9a-fA-F]{2}/.test(before_at);
+
+        if (is_valid_auth && !has_encoded_content) {
           // This looks like authentication (e.g., user:password@host), not a protocol
           if (options.require_protocol) {
             return false;
@@ -135,6 +140,7 @@ export default function isURL(url, options) {
           // Don't consume the colon; let the auth parsing handle it later
         } else {
           // This looks like a malicious protocol (e.g., javascript:alert();@host)
+          // or URL-encoded protocol handler (e.g., javascript:%61%6c%65%72%74%28%31%29@host)
           url = cleanUpProtocol(potential_protocol);
 
           if (url === false) {
