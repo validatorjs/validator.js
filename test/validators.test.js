@@ -426,7 +426,6 @@ describe('Validators', () => {
         'http://1337.com',
         // TODO: those probably should not be marked as valid URLs; CVE-2025-56200
         /* eslint-disable no-script-url */
-        'javascript:%61%6c%65%72%74%28%31%29@example.com',
         'http://evil-site.com@example.com/',
         'ｊａｖａｓｃｒｉｐｔ:alert(1)@example.com',
         /* eslint-enable no-script-url */
@@ -480,6 +479,8 @@ describe('Validators', () => {
         'javascript:var a=1; alert(a);@example.com',
         'javascript:alert(1)@user@example.com',
         'javascript:alert(1)@example.com?q=safe',
+        'javascript:%61%6c%65%72%74%28%31%29@example.com',
+        'javascript:%22@a.com#";alert(origin)//',
         'data:text/html,<script>alert(1)</script>@example.com',
         'vbscript:msgbox("XSS")@example.com',
         '//evil-site.com/path@example.com',
