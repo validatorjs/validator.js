@@ -52,6 +52,7 @@ const passportRegexByCountryCode = {
   MY: /^[AHK]\d{8}$/, // MALAYSIA
   MX: /^\d{10,11}$/, // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
+  NO: /^(C|K|FG|FH|FJ|FL|FK)[A-Z0-9]+/, // NORWAY
   NZ: /^([Ll]([Aa]|[Dd]|[Ff]|[Hh])|[Ee]([Aa]|[Pp])|[Nn])\d{6}$/, // NEW ZEALAND
   PH: /^([A-Z](\d{6}|\d{7}[A-Z]))|([A-Z]{2}(\d{6}|\d{7}))$/, // PHILIPPINES
   PK: /^[A-Z]{2}\d{7}$/, // PAKISTAN
