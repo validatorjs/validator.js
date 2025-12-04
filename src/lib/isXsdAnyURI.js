@@ -115,7 +115,6 @@ function isValidAuthority(authority, options) {
       port = remainder.slice(1);
     }
 
-    host = '';
     hasHost = true;
   } else {
     const firstColon = hostPort.indexOf(':');
