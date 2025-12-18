@@ -1,10 +1,19 @@
+# 13.15.26
+
+### Fixes, New Locales and Enhancements
+
+- [#2535](https://github.com/validatorjs/validator.js/pull/2535) `isHexColor`: add `require_hashtag` option @Numbers0689
+- [#2633](https://github.com/validatorjs/validator.js/pull/2633) `isURL`: handle possible bypass with URL-encoded content @WikiRik
+- [#2634](https://github.com/validatorjs/validator.js/pull/2634) `isIBAN`: improve `IR` locale @ds1371dani
+- **Doc fixes and others:**
+  - [#2640](https://github.com/validatorjs/validator.js/pull/2640) @WikiRik
+
 # 13.15.23
 
 ### Fixes, New Locales and Enhancements
 
 - **Doc fixes and others:**
   - [#2631](https://github.com/validatorjs/validator.js/pull/2631) @WikiRik
-
 
 # 13.15.22
 
