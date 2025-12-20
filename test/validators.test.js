@@ -3805,11 +3805,13 @@ describe('Validators', () => {
       validator: 'isPassportNumber',
       args: ['MX'],
       valid: [
-        '43986369222',
-        '01234567890',
+        'G98639222',
+        'N23457890',
       ],
       invalid: [
         'ABC34567890',
+        '43986369222',
+        'N234578909',
         '34567890',
       ],
     });
