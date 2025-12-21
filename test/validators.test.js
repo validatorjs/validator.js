@@ -13994,10 +13994,16 @@ describe('Validators', () => {
       validator: 'isTaxID',
       args: ['pt-BR'],
       valid: [
+        // CPF (persons)
         '35161990910',
         '74407265027',
+        // CNPJ numeric (legacy format)
         '05423994000172',
-        '11867044000130'],
+        '11867044000130',
+        // CNPJ alphanumeric (new format starting July 2026)
+        '12ABC34501DE35', // Example from official SERPRO documentation
+        '12abc34501de35', // Lowercase should also work
+      ],
       invalid: [
         'ABCDEFGH',
         '170.691.440-72',
@@ -14011,6 +14017,12 @@ describe('Validators', () => {
         '111111111111112',
         '61938188550993',
         '82168365502729',
+        // Invalid alphanumeric CNPJs
+        '12ABC34501DE00', // Wrong check digits
+        '12ABC34501DE99', // Wrong check digits
+        'AAAAAAAAAAAAAA', // All same characters
+        '00000000000000', // All zeros
+        '12.ABC.345/01DE-35', // Formatted (not accepted)
       ],
     });
     test({
