@@ -4046,6 +4046,19 @@ describe('Validators', () => {
         'Z12345678',
       ],
     });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['DO'],
+      valid: [
+        'RD1234567',
+        'RD3234107',
+      ],
+      invalid: [
+        'SD1234567',
+        'RH0254567',
+      ],
+    });
   });
 
   it('should validate decimal numbers', () => {
