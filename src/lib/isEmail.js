@@ -12,7 +12,7 @@ const default_email_options = {
   require_display_name: false,
   allow_utf8_local_part: true,
   require_tld: true,
-  check_zero_width: false,
+  allow_zero_width: true,
   blacklisted_chars: '',
   ignore_max_length: false,
   host_blacklist: [],
@@ -109,7 +109,7 @@ export default function isEmail(str, options) {
 
   let user = parts.join('@');
 
-  if (options.check_zero_width) {
+  if (!options.allow_zero_width) {
     if (zeroWidthChars.test(user) || zeroWidthChars.test(domain)) {
       return false;
     }
