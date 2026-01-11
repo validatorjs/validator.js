@@ -158,16 +158,16 @@ describe('Sanitizers', () => {
       sanitizer: 'escape',
       expect: {
         '<script> alert("xss&fun"); </script>':
-            '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;',
+          '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;',
 
         "<script> alert('xss&fun'); </script>":
-            '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;',
+          '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;',
 
         'Backtick: `':
-            'Backtick: &#96;',
+          'Backtick: &#96;',
 
         'Backslash: \\':
-            'Backslash: &#x5C;',
+          'Backslash: &#x5C;',
       },
     });
   });
@@ -177,16 +177,16 @@ describe('Sanitizers', () => {
       sanitizer: 'unescape',
       expect: {
         '&lt;script&gt; alert(&quot;xss&amp;fun&quot;); &lt;&#x2F;script&gt;':
-             '<script> alert("xss&fun"); </script>',
+          '<script> alert("xss&fun"); </script>',
 
         '&lt;script&gt; alert(&#x27;xss&amp;fun&#x27;); &lt;&#x2F;script&gt;':
-            "<script> alert('xss&fun'); </script>",
+          "<script> alert('xss&fun'); </script>",
 
         'Backtick: &#96;':
-            'Backtick: `',
+          'Backtick: `',
 
         'Escaped string: &amp;lt;':
-            'Escaped string: &lt;',
+          'Escaped string: &lt;',
       },
     });
   });
@@ -313,6 +313,7 @@ describe('Sanitizers', () => {
         '@icloud.com': false,
         '@outlook.com': false,
         '@yahoo.com': false,
+        '@yandex.ru': false,
       },
     });
 
@@ -508,6 +509,223 @@ describe('Sanitizers', () => {
         'test@yandex.ua': 'test@yandex.ru',
         'test@yandex.com': 'test@yandex.ru',
         'test@yandex.by': 'test@yandex.ru',
+      },
+    });
+
+    // Testing yandex_remove_subaddress
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        yandex_remove_subaddress: true,
+      }],
+      expect: {
+        'test+foo@yandex.ru': 'test@yandex.ru',
+        'test+bar@ya.ru': 'test@yandex.ru',
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        yandex_remove_subaddress: false,
+      }],
+      expect: {
+        'test+foo@yandex.ru': 'test+foo@yandex.ru',
+        'test+bar@ya.ru': 'test+bar@yandex.ru',
+      },
+    });
+
+    // Testing new Yahoo domains (cox.net, sbcglobal.net)
+    test({
+      sanitizer: 'normalizeEmail',
+      expect: {
+        'foo-bar@cox.net': 'foo@cox.net',
+        'foo-bar@sbcglobal.net': 'foo@sbcglobal.net',
+        'FOO@cox.net': 'foo@cox.net',
+      },
+    });
+
+    // Testing Comcast normalization
+    test({
+      sanitizer: 'normalizeEmail',
+      expect: {
+        'test@comcast.com': 'test@comcast.com',
+        'test@comcast.net': 'test@comcast.net',
+        'test+foo@comcast.com': 'test@comcast.com',
+        'TEST@comcast.COM': 'test@comcast.com',
+        '@comcast.com': false,
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        all_lowercase: false,
+        comcast_remove_subaddress: false,
+        comcast_lowercase: false,
+      }],
+      expect: {
+        'test+foo@comcast.com': 'test+foo@comcast.com',
+        'TEST@comcast.com': 'TEST@comcast.com',
+      },
+    });
+
+    // Testing FastMail normalization
+    test({
+      sanitizer: 'normalizeEmail',
+      expect: {
+        'test@fastmail.com': 'test@fastmail.com',
+        'test@fastmail.fm': 'test@fastmail.fm',
+        'test@sent.com': 'test@sent.com',
+        'test+foo@fastmail.com': 'test@fastmail.com',
+        'some.name@fastmail.com': 'somename@fastmail.com',
+        'some.name+foo@fastmail.com': 'somename@fastmail.com',
+        'TEST@fastmail.COM': 'test@fastmail.com',
+        '@fastmail.com': false,
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        all_lowercase: false,
+        fastmail_remove_subaddress: false,
+        fastmail_remove_dots: false,
+        fastmail_lowercase: false,
+      }],
+      expect: {
+        'test+foo@fastmail.com': 'test+foo@fastmail.com',
+        'some.name@fastmail.com': 'some.name@fastmail.com',
+        'TEST@fastmail.com': 'TEST@fastmail.com',
+      },
+    });
+
+    // Testing GMX normalization (uses - for subaddress like Yahoo)
+    test({
+      sanitizer: 'normalizeEmail',
+      expect: {
+        'test@gmx.com': 'test@gmx.com',
+        'test@gmx.de': 'test@gmx.de',
+        'test@gmx.net': 'test@gmx.net',
+        'test-foo@gmx.com': 'test@gmx.com',
+        'test-foo-bar@gmx.com': 'test-foo@gmx.com',
+        'TEST@gmx.COM': 'test@gmx.com',
+        '@gmx.com': false,
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        all_lowercase: false,
+        gmx_remove_subaddress: false,
+        gmx_lowercase: false,
+      }],
+      expect: {
+        'test-foo@gmx.com': 'test-foo@gmx.com',
+        'TEST@gmx.com': 'TEST@gmx.com',
+      },
+    });
+
+    // Testing Mailfence normalization
+    test({
+      sanitizer: 'normalizeEmail',
+      expect: {
+        'test@mailfence.com': 'test@mailfence.com',
+        'test+foo@mailfence.com': 'test@mailfence.com',
+        'TEST@mailfence.COM': 'test@mailfence.com',
+        '@mailfence.com': false,
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        all_lowercase: false,
+        mailfence_remove_subaddress: false,
+        mailfence_lowercase: false,
+      }],
+      expect: {
+        'test+foo@mailfence.com': 'test+foo@mailfence.com',
+        'TEST@mailfence.com': 'TEST@mailfence.com',
+      },
+    });
+
+    // Testing Proton normalization
+    test({
+      sanitizer: 'normalizeEmail',
+      expect: {
+        'test@proton.me': 'test@proton.me',
+        'test@protonmail.com': 'test@protonmail.com',
+        'test+foo@proton.me': 'test@proton.me',
+        'test+foo@protonmail.com': 'test@protonmail.com',
+        'TEST@proton.ME': 'test@proton.me',
+        '@proton.me': false,
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        all_lowercase: false,
+        proton_remove_subaddress: false,
+        proton_lowercase: false,
+      }],
+      expect: {
+        'test+foo@proton.me': 'test+foo@proton.me',
+        'TEST@proton.me': 'TEST@proton.me',
+      },
+    });
+
+    // Testing Skiff normalization
+    test({
+      sanitizer: 'normalizeEmail',
+      expect: {
+        'test@skiff.com': 'test@skiff.com',
+        'test+foo@skiff.com': 'test@skiff.com',
+        'some.name@skiff.com': 'somename@skiff.com',
+        'some.name+foo@skiff.com': 'somename@skiff.com',
+        'TEST@skiff.COM': 'test@skiff.com',
+        '@skiff.com': false,
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        all_lowercase: false,
+        skiff_remove_subaddress: false,
+        skiff_remove_dots: false,
+        skiff_lowercase: false,
+      }],
+      expect: {
+        'test+foo@skiff.com': 'test+foo@skiff.com',
+        'some.name@skiff.com': 'some.name@skiff.com',
+        'TEST@skiff.com': 'TEST@skiff.com',
+      },
+    });
+
+    // Testing Zoho normalization
+    test({
+      sanitizer: 'normalizeEmail',
+      expect: {
+        'test@zohomail.com': 'test@zohomail.com',
+        'test+foo@zohomail.com': 'test@zohomail.com',
+        'TEST@zohomail.COM': 'test@zohomail.com',
+        '@zohomail.com': false,
+      },
+    });
+
+    test({
+      sanitizer: 'normalizeEmail',
+      args: [{
+        all_lowercase: false,
+        zoho_remove_subaddress: false,
+        zoho_lowercase: false,
+      }],
+      expect: {
+        'test+foo@zohomail.com': 'test+foo@zohomail.com',
+        'TEST@zohomail.com': 'TEST@zohomail.com',
       },
     });
   });
