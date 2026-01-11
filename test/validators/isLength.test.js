@@ -141,4 +141,31 @@ describe('isLength', () => {
       valid: ['👩🦰👩👩👦👦🏳️🌈', '⏩︎⏩︎⏪︎⏪︎⏭︎⏭︎⏮︎⏮︎'],
     });
   });
+
+  it('should return true if string exactly match min/max bounds', () => {
+    test({
+      validator: 'isLength',
+      args: [{ min: 3, max: 3 }],
+      valid: ['abc', 'def'],
+      invalid: ['abcd', 'efgh'],
+    });
+  });
+
+  it('should count emojis as single character', () => {
+    test({
+      validator: 'isLength',
+      args: [{ min: 1, max: 1 }],
+      valid: ['🚀', '🍕', 'A'],
+      invalid: ['🚀🚀', ''],
+    });
+  });
+
+  it('should only allow strings with specific lengths from a list', () => {
+    test({
+      validator: 'isLength',
+      args: [{ discreteLengths: [2, 5] }],
+      valid: ['to', 'hello'],
+      invalid: ['a', 'cat', 'lengthy'],
+    });
+  });
 });
