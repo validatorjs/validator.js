@@ -23,7 +23,7 @@ export default function isRgbColor(str, options) {
   }
 
   if (allowSpaces) {
-    // make sure it starts with continous rgba? without spaces before stripping
+    // make sure it starts with continuous rgba? without spaces before stripping
     if (!startsWithRgb.test(str)) {
       return false;
     }
