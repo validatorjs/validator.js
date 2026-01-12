@@ -1,6 +1,7 @@
 import assertString from './util/assertString';
 
-const isISO6391Set = new Set([
+// from https://en.wikipedia.org/wiki/ISO_639-1
+const validISO6391LanguageCodes = new Set([
   'aa', 'ab', 'ae', 'af', 'ak', 'am', 'an', 'ar', 'as', 'av', 'ay', 'az', 'az',
   'ba', 'be', 'bg', 'bh', 'bi', 'bm', 'bn', 'bo', 'br', 'bs',
   'ca', 'ce', 'ch', 'co', 'cr', 'cs', 'cu', 'cv', 'cy',
@@ -31,5 +32,7 @@ const isISO6391Set = new Set([
 
 export default function isISO6391(str) {
   assertString(str);
-  return isISO6391Set.has(str);
+  return validISO6391LanguageCodes.has(str);
 }
+
+export const LanguageCodes = validISO6391LanguageCodes;
