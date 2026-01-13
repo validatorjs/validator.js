@@ -16010,4 +16010,20 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should reject email addresses with special characters', () => {
+    test({
+      validator: 'isEmail',
+      valid: [
+        'valid.email@example.com',
+        'another_valid.email@example.co.uk',
+        'user12345@example.com',
+        'firstname.lastname@example.com',
+        'email-with-hyphens@example.com',
+      ],
+      invalid: [
+        'te¸st@test.com', // Special character "¸"
+      ],
+    });
+  });
+  
 });
