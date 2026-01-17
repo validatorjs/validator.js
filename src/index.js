@@ -129,6 +129,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
+import isNanoID from './lib/isNanoID';
 
 const version = '13.15.26';
 
@@ -245,6 +246,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isNanoID,
 };
 
 export default validator;
