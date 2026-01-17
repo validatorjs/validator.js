@@ -3,6 +3,35 @@ import includes from './util/includesArray';
 import isInt from './isInt';
 
 const validators = {
+  KR: function KR(str) {
+    // {birthday 6 digits} + '-' + {gender 1 digit} + {random 6 digits}
+    const birthdayRegex = /([0-9][0-9])(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])/;
+    const genderRegex = /([1-4])/;
+    const randomRegex = /(\d{6})/;
+    const totalRegex = new RegExp(`^${birthdayRegex.source}-${genderRegex.source}${randomRegex.source}$`);
+
+    if (!totalRegex.test(str)) {
+      return false;
+    }
+
+    // Before 2000 gender digit should be 1,2
+    // After 2000 gender digit should be 3,4
+    // ex) current time: 2025-01-01 --> 990101-3 can't be exist because it means born in 2099-01-01.
+    // const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+    // const currentYearDigits = Number(now.slice(2, 4));
+    // const yearDigits = Number(str.slice(0, 2));
+    // const genderDigit = Number(str.slice(7, 8));
+
+    // if (currentYearDigits < yearDigits) {
+    //   if (genderDigit === 3 || genderDigit === 4) {
+    //     return false;
+    //   }
+    // } else if (genderDigit === 1 || genderDigit === 2) {
+    //   return false;
+    // }
+
+    return true;
+  },
   PL: (str) => {
     assertString(str);
 
