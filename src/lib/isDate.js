@@ -4,16 +4,24 @@ const default_date_options = {
   format: 'YYYY/MM/DD',
   delimiters: ['/', '-'],
   strictMode: false,
+  allowDelimiterless: false,
 };
 
-function isValidFormat(format) {
+function isValidFormat(format, allowDelimiterless) {
   // Formats with delimiters
   const withDelimiters = /(^(y{4}|y{2})[\.\/-](m{1,2})[\.\/-](d{1,2})$)|(^(m{1,2})[\.\/-](d{1,2})[\.\/-]((y{4}|y{2})$))|(^(d{1,2})[\.\/-](m{1,2})[\.\/-]((y{4}|y{2})$))/gi;
 
-  // Formats without delimiters (e.g., YYYYMMDD, YYMMDD, MMDDYYYY, DDMMYYYY)
-  const withoutDelimiters = /^(y{4}|y{2})(m{2})(d{2})$|^(m{2})(d{2})(y{4}|y{2})$|^(d{2})(m{2})(y{4}|y{2})$/gi;
+  if (withDelimiters.test(format)) {
+    return true;
+  }
 
-  return withDelimiters.test(format) || withoutDelimiters.test(format);
+  // Formats without delimiters (e.g., YYYYMMDD, YYMMDD)
+  if (allowDelimiterless) {
+    const withoutDelimiters = /^(y{4}|y{2})(m{2})(d{2})$/gi;
+    return withoutDelimiters.test(format);
+  }
+
+  return false;
 }
 
 function zip(date, format) {
@@ -33,7 +41,7 @@ function hasNoDelimiter(format, delimiters) {
 
 function parseDelimiterlessFormat(format) {
   // Extract component positions from format like
-  // YYYYMMDD, YYMMDD, MMDDYYYY, DDMMYYYY
+  // YYYYMMDD, YYMMDD (ISO 8601 compliant)
   const lowerFormat = format.toLowerCase();
   const components = [];
   let pos = 0;
@@ -81,7 +89,7 @@ export default function isDate(input, options) {
   }
 
   // Handle non-string input
-  if (typeof input !== 'string' || !isValidFormat(options.format)) {
+  if (typeof input !== 'string' || !isValidFormat(options.format, options.allowDelimiterless)) {
     if (!options.strictMode) {
       return (
         Object.prototype.toString.call(input) === '[object Date]' &&

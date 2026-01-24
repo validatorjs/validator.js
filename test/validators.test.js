@@ -14470,7 +14470,7 @@ describe('Validators', () => {
     // Test delimiter-less format YYYYMMDD
     test({
       validator: 'isDate',
-      args: [{ format: 'YYYYMMDD' }],
+      args: [{ format: 'YYYYMMDD', allowDelimiterless: true }],
       valid: [
         '20200229', // leap year
         '20200115',
@@ -14496,7 +14496,7 @@ describe('Validators', () => {
     // Test delimiter-less format YYMMDD (two-digit year)
     test({
       validator: 'isDate',
-      args: [{ format: 'YYMMDD' }],
+      args: [{ format: 'YYMMDD', allowDelimiterless: true }],
       valid: [
         '200229', // 2020 leap year
         '140215',
@@ -14512,52 +14512,6 @@ describe('Validators', () => {
         'abcdef',
         '20ab29',
         '-200229',
-      ],
-    });
-    // Test delimiter-less format MMDDYYYY
-    test({
-      validator: 'isDate',
-      args: [{ format: 'MMDDYYYY' }],
-      valid: [
-        '02292020', // leap year
-        '01152020',
-        '02152014',
-        '12311999',
-        '01012000',
-      ],
-      invalid: [
-        '2020-02-29',
-        '02/29/2020',
-        '02302020', // invalid date
-        '02292019', // non-leap year
-        '04312020', // invalid date
-        '0229202', // too short
-        '022920200', // too long
-        '',
-        'abcdefgh',
-      ],
-    });
-    // Test delimiter-less format DDMMYYYY
-    test({
-      validator: 'isDate',
-      args: [{ format: 'DDMMYYYY' }],
-      valid: [
-        '29022020', // leap year
-        '15012020',
-        '15022014',
-        '31121999',
-        '01012000',
-      ],
-      invalid: [
-        '2020-02-29',
-        '29/02/2020',
-        '30022020', // invalid date
-        '29022019', // non-leap year
-        '31042020', // invalid date
-        '2902202', // too short
-        '290220200', // too long
-        '',
-        'abcdefgh',
       ],
     });
     // emulating Pacific time zone offset & time
