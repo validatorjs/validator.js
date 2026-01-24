@@ -14467,6 +14467,64 @@ describe('Validators', () => {
         'abc.04.05.2024',
       ],
     });
+    // Test delimiter-less format YYYYMMDD
+    test({
+      validator: 'isDate',
+      args: [{ format: 'YYYYMMDD', allowDelimiterless: true }],
+      valid: [
+        '20200229', // leap year
+        '20200115',
+        '20140215',
+        '20140315',
+        '19991231',
+        '20000101',
+      ],
+      invalid: [
+        '2020-02-29',
+        '2020/02/29',
+        '20200230', // invalid date
+        '20190229', // non-leap year
+        '20200431', // invalid date
+        '2020229', // too short
+        '202002290', // too long
+        '',
+        'abcdefgh',
+        '2020ab29',
+        '-20200229',
+      ],
+    });
+    // Test delimiter-less format YYMMDD (two-digit year)
+    test({
+      validator: 'isDate',
+      args: [{ format: 'YYMMDD', allowDelimiterless: true }],
+      valid: [
+        '200229', // 2020 leap year
+        '140215',
+        '991231',
+        '000101',
+      ],
+      invalid: [
+        '20200229',
+        '2020-02-29',
+        '20229', // too short
+        '2002290', // too long
+        '',
+        'abcdef',
+        '20ab29',
+        '-200229',
+      ],
+    });
+    // Test that delimiter-less formats are rejected without allowDelimiterless option
+    test({
+      validator: 'isDate',
+      args: [{ format: 'YYYYMMDD' }],
+      valid: [],
+      invalid: [
+        '20200229',
+        '20020715',
+        '19991231',
+      ],
+    });
     // emulating Pacific time zone offset & time
     // which could potentially result in UTC conversion issues
     timezone_mock.register('US/Pacific');
