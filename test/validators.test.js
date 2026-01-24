@@ -14514,6 +14514,17 @@ describe('Validators', () => {
         '-200229',
       ],
     });
+    // Test that delimiter-less formats are rejected without allowDelimiterless option
+    test({
+      validator: 'isDate',
+      args: [{ format: 'YYYYMMDD' }],
+      valid: [],
+      invalid: [
+        '20200229',
+        '20020715',
+        '19991231',
+      ],
+    });
     // emulating Pacific time zone offset & time
     // which could potentially result in UTC conversion issues
     timezone_mock.register('US/Pacific');
