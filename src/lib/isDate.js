@@ -63,11 +63,10 @@ function extractDatePartsWithoutDelimiter(input, format) {
   const dateObj = {};
 
   for (const comp of components) {
-    const value = input.substring(comp.start, comp.start + comp.length);
-    if (value.length !== comp.length) {
-      return null; // Input too short
-    }
-    dateObj[comp.type] = value;
+    dateObj[comp.type] = input.substring(
+      comp.start,
+      comp.start + comp.length
+    );
   }
 
   return dateObj;
@@ -105,9 +104,6 @@ export default function isDate(input, options) {
       return false;
     }
     dateObj = extractDatePartsWithoutDelimiter(input, options.format);
-    if (!dateObj) {
-      return false;
-    }
   } else {
     // Original delimiter-based parsing
     const formatDelimiter = options.delimiters
