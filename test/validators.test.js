@@ -2,6 +2,7 @@ import assert from 'assert';
 import fs from 'fs';
 import timezone_mock from 'timezone-mock';
 import vm from 'vm';
+import validator from '../index';
 import test from './testFunctions';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
@@ -5041,6 +5042,8 @@ describe('Validators', () => {
         '',
       ],
     });
+    const validColors = ['#ff0034', '#CCCCCC'].filter(validator.isHexColor);
+    assert.strictEqual(validColors.length, 2);
   });
 
   it('should validate HSL color strings', () => {

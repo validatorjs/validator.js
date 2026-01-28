@@ -10,11 +10,6 @@ const default_is_hexcolor_options = {
 
 export default function isHexColor(str, options) {
   assertString(str);
-
-  if (typeof options !== 'object' || options === null) {
-    options = {};
-  }
-
   options = merge(options, default_is_hexcolor_options);
 
   const hexcolor_regex = options.require_hashtag
