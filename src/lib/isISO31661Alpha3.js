@@ -20,7 +20,16 @@ const validISO31661Alpha3CountriesCodes = new Set([
   'VEN', 'VNM', 'VGB', 'VIR', 'WLF', 'ESH', 'YEM', 'ZMB', 'ZWE',
 ]);
 
-export default function isISO31661Alpha3(str) {
+const alpha3CountryCode = /^[a-zA-Z]{3}$/;
+
+export default function isISO31661Alpha3(str, options = {}) {
+  const { userAssignedCodes } = options;
+  (userAssignedCodes || []).forEach((code) => {
+    if (alpha3CountryCode.test(code)) {
+      validISO31661Alpha3CountriesCodes.add(code.toUpperCase());
+    }
+  });
+
   assertString(str);
   return validISO31661Alpha3CountriesCodes.has(str.toUpperCase());
 }

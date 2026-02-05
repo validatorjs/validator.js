@@ -29,7 +29,16 @@ const validISO31661Alpha2CountriesCodes = new Set([
   'ZA', 'ZM', 'ZW',
 ]);
 
-export default function isISO31661Alpha2(str) {
+const alpha2CountryCode = /^[a-zA-Z]{2}$/;
+
+export default function isISO31661Alpha2(str, options = {}) {
+  const { userAssignedCodes } = options;
+  (userAssignedCodes || []).forEach((code) => {
+    if (alpha2CountryCode.test(code)) {
+      validISO31661Alpha2CountriesCodes.add(code.toUpperCase());
+    }
+  });
+
   assertString(str);
   return validISO31661Alpha2CountriesCodes.has(str.toUpperCase());
 }
