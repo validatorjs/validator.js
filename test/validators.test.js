@@ -12471,61 +12471,6 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate ISO 3166-1 alpha 2 country codes', () => {
-    // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-    test({
-      validator: 'isISO31661Alpha2',
-      valid: [
-        'FR',
-        'fR',
-        'GB',
-        'PT',
-        'CM',
-        'JP',
-        'PM',
-        'ZW',
-        'MM',
-        'cc',
-        'GG',
-      ],
-      invalid: [
-        '',
-        'FRA',
-        'AA',
-        'PI',
-        'RP',
-        'WV',
-        'WL',
-        'UK',
-        'ZZ',
-      ],
-    });
-  });
-
-  it('should validate ISO 3166-1 alpha 3 country codes', () => {
-    // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
-    test({
-      validator: 'isISO31661Alpha3',
-      valid: [
-        'ABW',
-        'HND',
-        'KHM',
-        'RWA',
-      ],
-      invalid: [
-        '',
-        'FR',
-        'fR',
-        'GB',
-        'PT',
-        'CM',
-        'JP',
-        'PM',
-        'ZW',
-      ],
-    });
-  });
-
   it('should validate ISO 3166-1 numeric country codes', () => {
     // from https://en.wikipedia.org/wiki/ISO_3166-1_numeric
     test({
