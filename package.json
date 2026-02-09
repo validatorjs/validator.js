@@ -1,7 +1,7 @@
 {
   "name": "validator",
   "description": "String validation and sanitization",
-  "version": "13.12.0",
+  "version": "13.15.26",
   "sideEffects": false,
   "homepage": "https://github.com/validatorjs/validator.js",
   "files": [
@@ -9,7 +9,7 @@
     "es",
     "lib",
     "README.md",
-    "LICENCE",
+    "LICENSE",
     "validator.js",
     "validator.min.js"
   ],

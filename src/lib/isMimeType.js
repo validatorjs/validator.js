@@ -4,18 +4,18 @@ import assertString from './util/assertString';
   Checks if the provided string matches to a correct Media type format (MIME type)
 
   This function only checks is the string format follows the
-  etablished rules by the according RFC specifications.
+  established rules by the according RFC specifications.
   This function supports 'charset' in textual media types
   (https://tools.ietf.org/html/rfc6657).
 
   This function does not check against all the media types listed
   by the IANA (https://www.iana.org/assignments/media-types/media-types.xhtml)
   because of lightness purposes : it would require to include
-  all these MIME types in this librairy, which would weigh it
+  all these MIME types in this library, which would weigh it
   significantly. This kind of effort maybe is not worth for the use that
-  this function has in this entire librairy.
+  this function has in this entire library.
 
-  More informations in the RFC specifications :
+  More information in the RFC specifications :
   - https://tools.ietf.org/html/rfc2045
   - https://tools.ietf.org/html/rfc2046
   - https://tools.ietf.org/html/rfc7231#section-3.1.1.1

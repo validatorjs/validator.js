@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import includes from './util/includesArray';
 
 /**
  * List of country codes with
@@ -39,10 +40,10 @@ const ibanRegexThroughCountryCode = {
   GT: /^(GT[0-9]{2})[A-Z0-9]{4}[A-Z0-9]{20}$/,
   HR: /^(HR[0-9]{2})\d{17}$/,
   HU: /^(HU[0-9]{2})\d{24}$/,
-  IE: /^(IE[0-9]{2})[A-Z0-9]{4}\d{14}$/,
+  IE: /^(IE[0-9]{2})[A-Z]{4}\d{14}$/,
   IL: /^(IL[0-9]{2})\d{19}$/,
   IQ: /^(IQ[0-9]{2})[A-Z]{4}\d{15}$/,
-  IR: /^(IR[0-9]{2})0\d{2}0\d{18}$/,
+  IR: /^(IR[0-9]{2})\d{22}$/,
   IS: /^(IS[0-9]{2})\d{22}$/,
   IT: /^(IT[0-9]{2})[A-Z]{1}\d{10}[A-Z0-9]{12}$/,
   JO: /^(JO[0-9]{2})[A-Z]{4}\d{22}$/,
@@ -67,7 +68,7 @@ const ibanRegexThroughCountryCode = {
   NO: /^(NO[0-9]{2})\d{11}$/,
   PK: /^(PK[0-9]{2})[A-Z0-9]{4}\d{16}$/,
   PL: /^(PL[0-9]{2})\d{24}$/,
-  PS: /^(PS[0-9]{2})[A-Z0-9]{4}\d{21}$/,
+  PS: /^(PS[0-9]{2})[A-Z]{4}[A-Z0-9]{21}$/,
   PT: /^(PT[0-9]{2})\d{21}$/,
   QA: /^(QA[0-9]{2})[A-Z]{4}[A-Z0-9]{21}$/,
   RO: /^(RO[0-9]{2})[A-Z]{4}[A-Z0-9]{16}$/,
@@ -131,7 +132,7 @@ function hasValidIbanFormat(str, options) {
       return false;
     }
 
-    const isoCountryCodeInWhiteList = options.whitelist.includes(isoCountryCode);
+    const isoCountryCodeInWhiteList = includes(options.whitelist, isoCountryCode);
 
     if (!isoCountryCodeInWhiteList) {
       return false;
@@ -139,7 +140,7 @@ function hasValidIbanFormat(str, options) {
   }
 
   if (options.blacklist) {
-    const isoCountryCodeInBlackList = options.blacklist.includes(isoCountryCode);
+    const isoCountryCodeInBlackList = includes(options.blacklist, isoCountryCode);
 
     if (isoCountryCodeInBlackList) {
       return false;

@@ -32,6 +32,8 @@ const default_normalize_email_options = {
   // The following conversions are specific to Yandex
   // Lowercases the local part of the Yandex address (known to be case-insensitive)
   yandex_lowercase: true,
+  // all yandex domains are equal, this explicitly sets the domain to 'yandex.ru'
+  yandex_convert_yandexru: true,
 
   // The following conversions are specific to iCloud
   // Lowercases the local part of the iCloud address (known to be case-insensitive)
@@ -232,7 +234,7 @@ export default function normalizeEmail(email, options) {
     if (options.all_lowercase || options.yandex_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
-    parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preferred
+    parts[1] = options.yandex_convert_yandexru ? 'yandex.ru' : parts[1];
   } else if (options.all_lowercase) {
     // Any other address
     parts[0] = parts[0].toLowerCase();

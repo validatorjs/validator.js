@@ -15,9 +15,9 @@
 import assertString from './util/assertString';
 
 /**
- * Define EAN Lenghts; 8 for EAN-8; 13 for EAN-13; 14 for EAN-14
+ * Define EAN Lengths; 8 for EAN-8; 13 for EAN-13; 14 for EAN-14
  * and Regular Expression for valid EANs (EAN-8, EAN-13, EAN-14),
- * with exact numberic matching of 8 or 13 or 14 digits [0-9]
+ * with exact numeric matching of 8 or 13 or 14 digits [0-9]
  */
 const LENGTH_EAN_8 = 8;
 const LENGTH_EAN_14 = 14;

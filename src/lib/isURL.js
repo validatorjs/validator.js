@@ -1,4 +1,6 @@
 import assertString from './util/assertString';
+import checkHost from './util/checkHost';
+import includes from './util/includesString';
 
 import isFQDN from './isFQDN';
 import isIP from './isIP';
@@ -7,13 +9,28 @@ import merge from './util/merge';
 /*
 options for isURL method
 
-require_protocol - if set as true isURL will return false if protocol is not present in the URL
-require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option
-protocols - valid protocols can be modified with this option
-require_host - if set as false isURL will not check if host is present in the URL
-require_port - if set as true isURL will check if port is present in the URL
-allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
-validate_length - if set as false isURL will skip string length validation (IE maximum is 2083)
+protocols - valid protocols can be modified with this option.
+require_tld - If set to false isURL will not check if the URL's host includes a top-level domain.
+require_protocol - if set to true isURL will return false if protocol is not present in the URL.
+require_host - if set to false isURL will not check if host is present in the URL.
+require_port - if set to true isURL will check if port is present in the URL.
+require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option.
+allow_underscores - if set to true, the validator will allow underscores in the URL.
+host_whitelist - if set to an array of strings or regexp, and the domain matches none of the strings
+                 defined in it, the validation fails.
+host_blacklist - if set to an array of strings or regexp, and the domain matches any of the strings
+                 defined in it, the validation fails.
+allow_trailing_dot - if set to true, the validator will allow the domain to end with
+                     a `.` character.
+allow_protocol_relative_urls - if set to true protocol relative URLs will be allowed.
+allow_fragments - if set to false isURL will return false if fragments are present.
+allow_query_components - if set to false isURL will return false if query components are present.
+disallow_auth - if set to true, the validator will fail if the URL contains an authentication
+                component, e.g. `http://username:password@example.com`
+validate_length - if set to false isURL will skip string length validation. `max_allowed_length`
+                  will be ignored if this is set as `false`.
+max_allowed_length - if set, isURL will not allow URLs longer than the specified value (default is
+                     2084 that IE maximum URL length).
 
 */
 
@@ -31,23 +48,10 @@ const default_url_options = {
   allow_fragments: true,
   allow_query_components: true,
   validate_length: true,
+  max_allowed_length: 2084,
 };
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::([0-9]+))?$/;
-
-function isRegExp(obj) {
-  return Object.prototype.toString.call(obj) === '[object RegExp]';
-}
-
-function checkHost(host, matches) {
-  for (let i = 0; i < matches.length; i++) {
-    let match = matches[i];
-    if (host === match || (isRegExp(match) && match.test(host))) {
-      return true;
-    }
-  }
-  return false;
-}
 
 export default function isURL(url, options) {
   assertString(url);
@@ -59,15 +63,15 @@ export default function isURL(url, options) {
   }
   options = merge(options, default_url_options);
 
-  if (options.validate_length && url.length >= 2083) {
+  if (options.validate_length && url.length > options.max_allowed_length) {
     return false;
   }
 
-  if (!options.allow_fragments && url.includes('#')) {
+  if (!options.allow_fragments && includes(url, '#')) {
     return false;
   }
 
-  if (!options.allow_query_components && (url.includes('?') || url.includes('&'))) {
+  if (!options.allow_query_components && (includes(url, '?') || includes(url, '&'))) {
     return false;
   }
 
@@ -79,21 +83,113 @@ export default function isURL(url, options) {
   split = url.split('?');
   url = split.shift();
 
-  split = url.split('://');
-  if (split.length > 1) {
-    protocol = split.shift().toLowerCase();
+  // Replaced the 'split("://")' logic with a regex to match the protocol.
+  // This correctly identifies schemes like `javascript:` which don't use `//`.
+  // However, we need to be careful not to confuse authentication credentials (user:password@host)
+  // with protocols. A colon before an @ symbol might be part of auth, not a protocol separator.
+  const protocol_match = url.match(/^([a-z][a-z0-9+\-.]*):/i);
+  let had_explicit_protocol = false;
+
+  const cleanUpProtocol = (potential_protocol) => {
+    had_explicit_protocol = true;
+    protocol = potential_protocol.toLowerCase();
+
     if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
+      // The identified protocol is not in the allowed list.
       return false;
+    }
+
+    // Remove the protocol from the URL string.
+    return url.substring(protocol_match[0].length);
+  };
+
+  if (protocol_match) {
+    const potential_protocol = protocol_match[1];
+    const after_colon = url.substring(protocol_match[0].length);
+
+    // Check if what follows looks like authentication credentials (user:password@host)
+    // rather than a protocol. This happens when:
+    // 1. There's no `//` after the colon (protocols like `http://` have this)
+    // 2. There's an `@` symbol before any `/`
+    // 3. The part before `@` contains only valid auth characters (alphanumeric, -, _, ., %, :)
+    const starts_with_slashes = after_colon.slice(0, 2) === '//';
+
+    if (!starts_with_slashes) {
+      const first_slash_position = after_colon.indexOf('/');
+      const before_slash = first_slash_position === -1
+        ? after_colon
+        : after_colon.substring(0, first_slash_position);
+      const at_position = before_slash.indexOf('@');
+
+      if (at_position !== -1) {
+        const before_at = before_slash.substring(0, at_position);
+        const valid_auth_regex = /^[a-zA-Z0-9\-_.%:]*$/;
+        const is_valid_auth = valid_auth_regex.test(before_at);
+
+        // Check if this contains URL-encoded content that could be malicious
+        // For example: javascript:%61%6c%65%72%74%28%31%29@example.com
+        // The encoded part decodes to: alert(1)
+        const has_encoded_content = /%[0-9a-fA-F]{2}/.test(before_at);
+
+        if (is_valid_auth && !has_encoded_content) {
+          // This looks like authentication (e.g., user:password@host), not a protocol
+          if (options.require_protocol) {
+            return false;
+          }
+
+          // Don't consume the colon; let the auth parsing handle it later
+        } else {
+          // This looks like a malicious protocol (e.g., javascript:alert();@host)
+          // or URL-encoded protocol handler (e.g., javascript:%61%6c%65%72%74%28%31%29@host)
+          url = cleanUpProtocol(potential_protocol);
+
+          if (url === false) {
+            return false;
+          }
+        }
+      } else {
+        // No @ symbol found. Check if this could be a port number instead of a protocol.
+        // If what's after the colon is numeric (or starts with a digit and contains only
+        // valid port characters until a path separator), it's likely hostname:port, not a protocol.
+        const looks_like_port = /^[0-9]/.test(after_colon);
+
+        if (looks_like_port) {
+          // This looks like hostname:port, not a protocol
+          if (options.require_protocol) {
+            return false;
+          }
+          // Don't consume anything; let it be parsed as hostname:port
+        } else {
+          // This is definitely a protocol
+          url = cleanUpProtocol(potential_protocol);
+
+          if (url === false) {
+            return false;
+          }
+        }
+      }
+    } else {
+      // Starts with '//', this is definitely a protocol like http://
+      url = cleanUpProtocol(potential_protocol);
+
+      if (url === false) {
+        return false;
+      }
     }
   } else if (options.require_protocol) {
     return false;
-  } else if (url.slice(0, 2) === '//') {
-    if (!options.allow_protocol_relative_urls) {
+  }
+
+  // Handle leading '//' only as protocol-relative when there was NO explicit protocol.
+  // If there was an explicit protocol, '//' is the normal separator
+  // and should be stripped unconditionally.
+  if (url.slice(0, 2) === '//') {
+    if (!had_explicit_protocol && !options.allow_protocol_relative_urls) {
       return false;
     }
-    split[0] = url.slice(2);
+
+    url = url.slice(2);
   }
-  url = split.join('://');
 
   if (url === '') {
     return false;
