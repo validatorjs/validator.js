@@ -10641,7 +10641,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale: 'ci-CI',
+        locale: 'fr-IC',
         valid: [
           '+2250101234567',
           '0101234567',
