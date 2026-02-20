@@ -9917,7 +9917,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale: 'la-LA',
+        locale: 'lo-LA',
         valid: [
           '+8562012345678',
           '02012345678',
