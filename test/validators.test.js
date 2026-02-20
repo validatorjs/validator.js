@@ -9674,7 +9674,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale: 'et-ET',
+        locale: 'am-ET',
         valid: [
           '+251912345678',
           '0912345678',
