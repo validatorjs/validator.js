@@ -10,8 +10,9 @@ function currencyRegex(options) {
     negative = '-?',
     whole_dollar_amount_without_sep = '[1-9]\\d*',
     whole_dollar_amount_with_sep = `[1-9]\\d{0,2}(\\${options.thousands_separator}\\d{3})*`,
-    valid_whole_dollar_amounts = [
-      '0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
+    valid_whole_dollar_amounts = options.require_thousands_separator
+      ? ['0', '[1-9]\\d{0,2}', whole_dollar_amount_with_sep]
+      : ['0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
     whole_dollar_amount = `(${valid_whole_dollar_amounts.join('|')})?`,
     decimal_amount = `(\\${options.decimal_separator}(${decimal_digits}))${options.require_decimal ? '' : '?'}`;
   let pattern = whole_dollar_amount + (options.allow_decimal || options.require_decimal ? decimal_amount : '');
@@ -70,6 +71,7 @@ const default_currency_options = {
   require_decimal: false,
   digits_after_decimal: [2],
   allow_space_after_digits: false,
+  require_thousands_separator: false,
 };
 
 export default function isCurrency(str, options) {

@@ -12069,6 +12069,83 @@ describe('Validators', () => {
         '$R 1.400,00',
       ],
     });
+
+    // require_thousands_separator option (issue #912)
+    test({
+      validator: 'isCurrency',
+      args: [
+        {
+          require_thousands_separator: true,
+        },
+      ],
+      valid: [
+        '$10,123.45',
+        '-$10,123.45',
+        '$1,234.56',
+        '1,234.56',
+        '$1,234,567.89',
+        '1,234,567.89',
+        '$100.00',
+        '100.00',
+        '$10.00',
+        '10.00',
+        '$1.00',
+        '1.00',
+        '$0.50',
+        '0.50',
+        '.50',
+        '$.50',
+        '0',
+        '$0',
+        '999',
+        '$999',
+        '999.99',
+        '$999.99',
+      ],
+      invalid: [
+        '1234.56',
+        '$1234.56',
+        '1234',
+        '$1234',
+        '10000',
+        '$10000',
+        '1234567.89',
+        '$1234567.89',
+        '10000.00',
+        '$10000.00',
+      ],
+    });
+
+    // require_thousands_separator with different separator
+    test({
+      validator: 'isCurrency',
+      args: [
+        {
+          require_thousands_separator: true,
+          thousands_separator: '.',
+          decimal_separator: ',',
+          symbol: '€',
+          symbol_after_digits: true,
+        },
+      ],
+      valid: [
+        '10.123,45€',
+        '1.234,56€',
+        '1.234.567,89€',
+        '100,00€',
+        '10,00€',
+        '1,00€',
+        '0,50€',
+        '999€',
+        '999,99€',
+      ],
+      invalid: [
+        '1234,56€',
+        '1234€',
+        '10000€',
+        '1234567,89€',
+      ],
+    });
   });
 
   it('should validate Ethereum addresses', () => {
