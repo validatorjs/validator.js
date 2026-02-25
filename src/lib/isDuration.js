@@ -46,8 +46,9 @@ const AllDurationUnits = new Set(BaseDurationUnits.flatMap(unit => [
 export default function isDuration(value) {
   assertString(value);
 
-  // using the same number regex used in the `ms` package
-  const match = value.match(/^(?<nbr>-?(?:\d+)?\.?\d+)(?:\s?(?<unit>[a-zA-Z]+))?$/);
+  // Match number (integer or decimal) optionally followed by a unit
+  // Supports: "1", "1.5", ".5", "-1", "-1.5", "-.5", "1h", "1.5 hours", etc.
+  const match = value.match(/^(?<nbr>-?(?:\d+(?:\.\d+)?|\.\d+))(?:\s?(?<unit>[a-zA-Z]+))?$/);
 
   if (!match || !match.groups) {
     return false;
