@@ -48,13 +48,14 @@ export default function isDuration(value) {
 
   // Match number (integer or decimal) optionally followed by a unit
   // Supports: "1", "1.5", ".5", "-1", "-1.5", "-.5", "1h", "1.5 hours", etc.
-  const match = value.match(/^(?<nbr>-?(?:\d+(?:\.\d+)?|\.\d+))(?:\s?(?<unit>[a-zA-Z]+))?$/);
+  // Using indexed capture groups for Node.js <10 compatibility
+  const match = value.match(/^(-?(?:\d+(?:\.\d+)?|\.\d+))(?:\s?([a-zA-Z]+))?$/);
 
-  if (!match || !match.groups) {
+  if (!match) {
     return false;
   }
 
-  const { unit } = match.groups;
+  const unit = match[2];
 
   return unit === undefined || AllDurationUnits.has(unit);
 }
