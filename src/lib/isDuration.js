@@ -34,9 +34,9 @@ const BaseDurationUnits = [
   'Ms',
 ];
 
-const AllDurationUnits = new Set(BaseDurationUnits.flatMap(unit => [
-  unit, unit.toUpperCase(), unit.toLowerCase(),
-]));
+
+const AllDurationUnits = new Set(BaseDurationUnits.map(unit => [unit,
+  unit.toUpperCase(), unit.toLowerCase()]).flat());
 
 /**
  * Checks if the string is a valid duration.
