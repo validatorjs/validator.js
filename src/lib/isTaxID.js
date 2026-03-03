@@ -907,12 +907,14 @@ function plPlCheck(tin) {
 }
 
 /*
-* pt-BR validation function
-* (Cadastro de Pessoas Físicas (CPF, persons)
-* Cadastro Nacional de Pessoas Jurídicas (CNPJ, entities)
-* Both inputs will be validated.
-* CNPJ supports both numeric (legacy) and alphanumeric format (starting July 2026).
-*/
+ * pt-BR validation function
+ * (Cadastro de Pessoas Físicas (CPF, persons)
+ * Cadastro Nacional de Pessoas Jurídicas (CNPJ, entities)
+ * Both inputs will be validated.
+ * CPF accepts formatted (XXX.XXX.XXX-XX) and unformatted input;
+ * formatting is stripped before validation.
+ * CNPJ supports both numeric (legacy) and alphanumeric format (starting July 2026).
+ */
 
 /**
  * Convert a CNPJ character to its numeric value for check digit calculation.
