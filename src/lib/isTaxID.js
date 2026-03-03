@@ -966,6 +966,9 @@ function validateCnpj(cnpj) {
 }
 
 function ptBrCheck(tin) {
+  // Strip CPF formatting (XXX.XXX.XXX-XX)
+  tin = tin.replace(/[.\-/]/g, '');
+
   if (tin.length === 11) {
     let sum;
     let remainder;
@@ -1205,7 +1208,7 @@ const taxIdFormat = {
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,
   'pl-PL': /^\d{10,11}$/,
-  'pt-BR': /(?:^\d{11}$)|(?:^[A-Z0-9]{12}\d{2}$)/i,
+  'pt-BR': /(?:^\d{3}\.\d{3}\.\d{3}-\d{2}$)|(?:^\d{11}$)|(?:^[A-Z0-9]{12}\d{2}$)/i,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
