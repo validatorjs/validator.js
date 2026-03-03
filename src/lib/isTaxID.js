@@ -910,8 +910,60 @@ function plPlCheck(tin) {
 * pt-BR validation function
 * (Cadastro de Pessoas Físicas (CPF, persons)
 * Cadastro Nacional de Pessoas Jurídicas (CNPJ, entities)
-* Both inputs will be validated
+* Both inputs will be validated.
+* CNPJ supports both numeric (legacy) and alphanumeric format (starting July 2026).
 */
+
+/**
+ * Convert a CNPJ character to its numeric value for check digit calculation.
+ * Numbers 0-9 map to values 0-9, letters A-Z map to values 17-42.
+ * This is done by subtracting 48 from the ASCII code.
+ */
+function cnpjCharToValue(char) {
+  return char.charCodeAt(0) - 48;
+}
+
+/**
+ * Validate CNPJ (both numeric and alphanumeric formats).
+ * Algorithm: module 11 with weights 2-9 from right to left.
+ */
+function validateCnpj(cnpj) {
+  // Get the 12 identifier characters and 2 check digits
+  const identifiers = cnpj.substring(0, 12).toUpperCase();
+  const checkDigits = cnpj.substring(12);
+
+  // Reject CNPJs with all same characters (e.g., '00000000000000', 'AAAAAAAAAAAAAA')
+  if (/^(.)\1+$/.test(cnpj.toUpperCase())) {
+    return false;
+  }
+
+  // Calculate first check digit
+  let sum = 0;
+  let weight = 5;
+  for (let i = 0; i < 12; i++) {
+    sum += cnpjCharToValue(identifiers.charAt(i)) * weight;
+    weight = weight === 2 ? 9 : weight - 1;
+  }
+  let remainder = sum % 11;
+  let firstDV = remainder < 2 ? 0 : 11 - remainder;
+
+  if (firstDV !== parseInt(checkDigits.charAt(0), 10)) {
+    return false;
+  }
+
+  // Calculate second check digit (includes first check digit)
+  sum = 0;
+  weight = 6;
+  for (let i = 0; i < 12; i++) {
+    sum += cnpjCharToValue(identifiers.charAt(i)) * weight;
+    weight = weight === 2 ? 9 : weight - 1;
+  }
+  sum += firstDV * 2;
+  remainder = sum % 11;
+  let secondDV = remainder < 2 ? 0 : 11 - remainder;
+
+  return secondDV === parseInt(checkDigits.charAt(1), 10);
+}
 
 function ptBrCheck(tin) {
   if (tin.length === 11) {
@@ -946,45 +998,8 @@ function ptBrCheck(tin) {
     return true;
   }
 
-  if ( // Reject know invalid CNPJs
-    tin === '00000000000000' ||
-    tin === '11111111111111' ||
-    tin === '22222222222222' ||
-    tin === '33333333333333' ||
-    tin === '44444444444444' ||
-    tin === '55555555555555' ||
-    tin === '66666666666666' ||
-    tin === '77777777777777' ||
-    tin === '88888888888888' ||
-    tin === '99999999999999') { return false; }
-
-  let length = tin.length - 2;
-  let identifiers = tin.substring(0, length);
-  let verificators = tin.substring(length);
-  let sum = 0;
-  let pos = length - 7;
-
-  for (let i = length; i >= 1; i--) {
-    sum += identifiers.charAt(length - i) * pos;
-    pos -= 1;
-    if (pos < 2) { pos = 9; }
-  }
-  let result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
-  if (result !== parseInt(verificators.charAt(0), 10)) { return false; }
-
-  length += 1;
-  identifiers = tin.substring(0, length);
-  sum = 0;
-  pos = length - 7;
-  for (let i = length; i >= 1; i--) {
-    sum += identifiers.charAt(length - i) * pos;
-    pos -= 1;
-    if (pos < 2) { pos = 9; }
-  }
-  result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
-  if (result !== parseInt(verificators.charAt(1), 10)) { return false; }
-
-  return true;
+  // CNPJ validation (supports both numeric and alphanumeric formats)
+  return validateCnpj(tin);
 }
 
 /*
@@ -1190,7 +1205,7 @@ const taxIdFormat = {
   'mt-MT': /^\d{3,7}[APMGLHBZ]$|^([1-8])\1\d{7}$/i,
   'nl-NL': /^\d{9}$/,
   'pl-PL': /^\d{10,11}$/,
-  'pt-BR': /(?:^\d{11}$)|(?:^\d{14}$)/,
+  'pt-BR': /(?:^\d{11}$)|(?:^[A-Z0-9]{12}\d{2}$)/i,
   'pt-PT': /^\d{9}$/,
   'ro-RO': /^\d{13}$/,
   'sk-SK': /^\d{6}\/{0,1}\d{3,4}$/,
