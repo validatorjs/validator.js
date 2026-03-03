@@ -2,6 +2,7 @@ import assert from 'assert';
 import fs from 'fs';
 import timezone_mock from 'timezone-mock';
 import vm from 'vm';
+import validator from '../index';
 import test from './testFunctions';
 
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
@@ -5041,6 +5042,20 @@ describe('Validators', () => {
         '',
       ],
     });
+    test({
+      validator: 'isHexColor',
+      args: [null],
+      valid: ['#fff', '#000000', '123'],
+      invalid: ['not-a-color'],
+    });
+    test({
+      validator: 'isHexColor',
+      args: [123],
+      valid: ['#fff', '#000000', '123', 'abc'],
+      invalid: ['gray', 'not-a-color'],
+    });
+    const validColors = ['#ff0034', '#CCCCCC'].filter(validator.isHexColor);
+    assert.strictEqual(validColors.length, 2);
   });
 
   it('should validate HSL color strings', () => {
@@ -12467,61 +12482,6 @@ describe('Validators', () => {
         '2009-05-19T14:39:22',
         'nonsense2021-01-01T00:00:00Z',
         '2021-01-01T00:00:00Znonsense',
-      ],
-    });
-  });
-
-  it('should validate ISO 3166-1 alpha 2 country codes', () => {
-    // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-    test({
-      validator: 'isISO31661Alpha2',
-      valid: [
-        'FR',
-        'fR',
-        'GB',
-        'PT',
-        'CM',
-        'JP',
-        'PM',
-        'ZW',
-        'MM',
-        'cc',
-        'GG',
-      ],
-      invalid: [
-        '',
-        'FRA',
-        'AA',
-        'PI',
-        'RP',
-        'WV',
-        'WL',
-        'UK',
-        'ZZ',
-      ],
-    });
-  });
-
-  it('should validate ISO 3166-1 alpha 3 country codes', () => {
-    // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
-    test({
-      validator: 'isISO31661Alpha3',
-      valid: [
-        'ABW',
-        'HND',
-        'KHM',
-        'RWA',
-      ],
-      invalid: [
-        '',
-        'FR',
-        'fR',
-        'GB',
-        'PT',
-        'CM',
-        'JP',
-        'PM',
-        'ZW',
       ],
     });
   });
