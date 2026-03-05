@@ -10578,7 +10578,7 @@ describe('Validators', () => {
         ],
       },
       {
-        locale: 'dj-DJ',
+        locale: 'fr-DJ',
         valid: [
           '77123456',
           '75123456',
