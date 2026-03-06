@@ -235,6 +235,20 @@ const validators = {
     }
     return true;
   },
+  'ht-HT': (str) => {
+    // Haiti National Identity Card (CIN - Carte d'Identité Nationale)
+    // Format: 1 letter followed by 10 digits (11 characters total)
+    const CIN = /^[A-Za-z]\d{10}$/;
+
+    // sanitize user input
+    const sanitized = str.trim().toUpperCase();
+
+    // validate the data structure
+    if (!CIN.test(sanitized)) {
+      return false;
+    }
+    return true;
+  },
   'zh-CN': (str) => {
     const provincesAndCities = [
       '11', // 北京
