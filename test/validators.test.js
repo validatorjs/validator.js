@@ -135,6 +135,8 @@ describe('Validators', () => {
         'z@co.c',
         'tüst@invalid.com',
         'nbsp test@test.com',
+        '"tüst"@example.com',
+        '"m端ller"@example.com',
       ],
     });
   });
