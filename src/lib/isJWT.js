@@ -2,6 +2,7 @@ import assertString from './util/assertString';
 import isBase64 from './isBase64';
 
 function decodeBase64Url(b64) {
+  /* istanbul ignore else */
   if (typeof Buffer !== 'undefined') {
     /* istanbul ignore else */
     if (typeof Buffer.from === 'function') {
