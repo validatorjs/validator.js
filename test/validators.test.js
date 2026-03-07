@@ -5558,6 +5558,8 @@ describe('Validators', () => {
         'Zm9v.eyJiYXIiOiJiYXoifQ.',
         'W10=.eyJiYXIiOiJiYXoifQ.',
         'eyJmb28iOiJiYXIifQ.W10=.',
+        'bnVsbA.eyJiYXIiOiJiYXoifQ.',
+        'WzFd.eyJiYXIiOiJiYXoifQ.',
       ],
       error: [
         [],
