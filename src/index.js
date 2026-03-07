@@ -14,6 +14,7 @@ import isIPRange from './lib/isIPRange';
 import isFQDN from './lib/isFQDN';
 import isDate from './lib/isDate';
 import isTime from './lib/isTime';
+import isDuration from './lib/isDuration';
 
 import isBoolean from './lib/isBoolean';
 import isLocale from './lib/isLocale';
@@ -245,6 +246,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isDuration,
 };
 
 export default validator;
