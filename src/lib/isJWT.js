@@ -45,7 +45,7 @@ function tryDecodeJSON(segment) {
     if (typeof parsed !== 'object') return false;
     if (parsed === null) return false;
     if (Array.isArray(parsed)) return false;
-    return true;
+    return parsed;
   } catch (e) {
     return false;
   }
@@ -62,9 +62,13 @@ export default function isJWT(str) {
   const payload = dotSplit[1];
   const signature = dotSplit[2];
 
-  if (!tryDecodeJSON(header)) return false;
+  const decodedHeader = tryDecodeJSON(header);
+  if (!decodedHeader) return false;
   if (!tryDecodeJSON(payload)) return false;
   if (!isBase64(signature, { urlSafe: true })) return false;
+
+  // Empty signature only allowed for unsecured JWTs (alg: none)
+  if (signature === '' && decodedHeader.alg !== 'none') return false;
 
   return true;
 }

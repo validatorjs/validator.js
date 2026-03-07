@@ -5563,6 +5563,7 @@ describe('Validators', () => {
         'WzFd.eyJiYXIiOiJiYXoifQ.',
         'ImhlbGxvIg.eyJiYXIiOiJiYXoifQ.',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.invalid$sig',
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.',
       ],
       error: [
         [],
