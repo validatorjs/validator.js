@@ -62,13 +62,9 @@ export default function isJWT(str) {
   const payload = dotSplit[1];
   const signature = dotSplit[2];
 
-  const decodedHeader = tryDecodeJSON(header);
-  if (!decodedHeader) return false;
+  if (!tryDecodeJSON(header)) return false;
   if (!tryDecodeJSON(payload)) return false;
   if (!isBase64(signature, { urlSafe: true })) return false;
-
-  // Empty signature only allowed for unsecured JWTs (alg: none)
-  if (signature === '' && decodedHeader.alg !== 'none') return false;
 
   return true;
 }
