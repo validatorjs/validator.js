@@ -1,7 +1,6 @@
 import assertString from './util/assertString';
 import isBase64 from './isBase64';
 
-/* istanbul ignore next */
 function decodeBase64Url(b64) {
   if (typeof Buffer !== 'undefined') {
     if (typeof Buffer.from === 'function') {
@@ -10,6 +9,7 @@ function decodeBase64Url(b64) {
     // eslint-disable-next-line no-buffer-constructor
     return new Buffer(b64, 'base64').toString('utf8');
   }
+  /* istanbul ignore next */
   if (typeof atob === 'function') {
     const binary = atob(b64);
     if (typeof TextDecoder !== 'undefined') {
@@ -21,11 +21,13 @@ function decodeBase64Url(b64) {
     }
     let encoded = '';
     for (let i = 0; i < binary.length; i += 1) {
-      const code = binary.charCodeAt(i).toString(16).padStart(2, '0');
+      const hex = binary.charCodeAt(i).toString(16);
+      const code = hex.length === 1 ? `0${hex}` : hex;
       encoded += `%${code}`;
     }
     return decodeURIComponent(encoded);
   }
+  /* istanbul ignore next */
   return b64;
 }
 
