@@ -32,7 +32,6 @@ export default function isBase64(str, options) {
     if (paddingCount > 2) return false;
 
     const dataLen = len - paddingCount;
-    if (dataLen === 0) return false;
 
     for (let i = 0; i < dataLen; i++) {
       if (!isValidBase64Char(str.charCodeAt(i), options.urlSafe)) return false;
