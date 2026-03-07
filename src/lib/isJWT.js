@@ -9,7 +9,10 @@ function tryDecodeJSON(segment) {
     while (b64.length % 4) b64 += '=';
     const decoded = Buffer.from(b64, 'base64').toString('utf8');
     const parsed = JSON.parse(decoded);
-    return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed);
+    if (typeof parsed !== 'object') return false;
+    if (parsed === null) return false;
+    if (Array.isArray(parsed)) return false;
+    return true;
   } catch (e) {
     return false;
   }
