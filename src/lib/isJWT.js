@@ -3,9 +3,11 @@ import isBase64 from './isBase64';
 
 function decodeBase64Url(b64) {
   if (typeof Buffer !== 'undefined') {
+    /* istanbul ignore else */
     if (typeof Buffer.from === 'function') {
       return Buffer.from(b64, 'base64').toString('utf8');
     }
+    /* istanbul ignore next */
     // eslint-disable-next-line no-buffer-constructor
     return new Buffer(b64, 'base64').toString('utf8');
   }
