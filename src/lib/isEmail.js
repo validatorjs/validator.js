@@ -168,6 +168,14 @@ export default function isEmail(str, options) {
 
   if (user[0] === '"' && user[user.length - 1] === '"') {
     user = user.slice(1, user.length - 1);
+
+    if (
+      !options.allow_utf8_local_part &&
+    Buffer.byteLength(user, 'utf8') !== user.length
+    ) {
+      return false;
+    }
+
     return options.allow_utf8_local_part ?
       quotedEmailUserUtf8.test(user) :
       quotedEmailUser.test(user);
