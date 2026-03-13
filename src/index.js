@@ -77,6 +77,7 @@ import isCreditCard from './lib/isCreditCard';
 import isIdentityCard from './lib/isIdentityCard';
 
 import isEAN from './lib/isEAN';
+import isUPC from './lib/isUPC';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
 import isISSN from './lib/isISSN';
@@ -198,6 +199,7 @@ const validator = {
   isCreditCard,
   isIdentityCard,
   isEAN,
+  isUPC,
   isISIN,
   isISBN,
   isISSN,
