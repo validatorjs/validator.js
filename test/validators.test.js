@@ -5537,6 +5537,14 @@ describe('Validators', () => {
         '.babelrc.cjs', // empty string and non-JSON
         '..', // empty parts
         '.t.', // empty header and signature
+        // Issue #2511: Valid JSON but not an object (array, null, primitive types)
+        'WyJhIiwiYiJd.eyJzdWIiOiIxMjM0In0.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8', // array as header
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.WyJhIiwiYiJd.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8', // array as payload
+        'bnVsbA.eyJzdWIiOiIxMjM0In0.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8', // null as header
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.bnVsbA.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8', // null as payload
+        'ImhlbGxvIg.eyJzdWIiOiIxMjM0In0.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8', // string as header
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MTIz.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8', // number as payload
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dHJ1ZQ.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8', // boolean as payload
       ],
       error: [
         [],
@@ -5545,6 +5553,47 @@ describe('Validators', () => {
         undefined,
       ],
     });
+  });
+
+  it('should validate JWT tokens using Buffer fallback (when atob is unavailable)', () => {
+    // Test the Buffer.from() fallback path in isValidJSONObject by temporarily removing atob
+    const originalAtob = global.atob;
+    global.atob = undefined;
+
+    try {
+      test({
+        validator: 'isJWT',
+        valid: [
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI',
+        ],
+        invalid: [
+          'foo.bar.baz', // Invalid JSON when decoded
+        ],
+      });
+    } finally {
+      global.atob = originalAtob;
+    }
+  });
+
+  it('should reject JWT tokens when no decoder is available (neither atob nor Buffer)', () => {
+    // Test the fallback return false path when both atob and Buffer are unavailable
+    const originalAtob = global.atob;
+    const originalBuffer = global.Buffer;
+    global.atob = undefined;
+    global.Buffer = undefined;
+
+    try {
+      test({
+        validator: 'isJWT',
+        invalid: [
+          // Valid Base64 JWT structure but should fail since no decoder available
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI',
+        ],
+      });
+    } finally {
+      global.atob = originalAtob;
+      global.Buffer = originalBuffer;
+    }
   });
 
   it('should validate null strings', () => {
