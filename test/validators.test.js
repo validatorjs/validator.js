@@ -7238,6 +7238,29 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate JSON with any value', () => {
+    test({
+      validator: 'isJSON',
+      args: [{ allow_any_value: true }],
+      valid: [
+        '{ "key": "value" }',
+        '{}',
+        'null',
+        'false',
+        'true',
+        '"RFC8259"',
+        '42',
+      ],
+      invalid: [
+        '{ key: "value" }',
+        '{ \'key\': \'value\' }',
+        '{ "key": value }',
+        '01234',
+        "'nope'",
+      ],
+    });
+  });
+
   it('should validate multibyte strings', () => {
     test({
       validator: 'isMultibyte',
