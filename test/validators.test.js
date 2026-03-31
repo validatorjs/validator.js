@@ -14210,7 +14210,7 @@ describe('Validators', () => {
         'foo-bar_foo*75-b4r-**_foo',
         'foo-bar_foo*75-b4r-**_foo-&&',
         'Foo-Bar',
-        'a:b'
+        'a:b',
       ],
     });
   });
