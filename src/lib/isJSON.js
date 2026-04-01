@@ -13,7 +13,7 @@ export default function isJSON(str, options) {
     options = merge(options, default_json_options);
     const obj = JSON.parse(str);
 
-    // Strict RFC validation anything that parse is JSON
+    // When allow_any_value is true, accept anything that JSON.parse successfully parses
     if (options.allow_any_value) {
       return true;
     }
