@@ -7250,6 +7250,7 @@ describe('Validators', () => {
         'true',
         '"RFC8259"',
         '42',
+        '0',
       ],
       invalid: [
         '{ key: "value" }',
