@@ -155,6 +155,7 @@ const validators = {
   },
   NL: (str) => {
     if (!/^\d{8,9}$/.test(str)) return false;
+    if (/^0+$/.test(str)) return false;
 
     str = `0${str}`.slice(-9);
 
