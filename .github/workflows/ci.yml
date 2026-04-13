@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [22, 20, 18, 16, 14, 12, 10, 8]
+        node-version: [24, 22, 20, 18, 16, 14, 12, 10, 8]
     name: Run tests on Node.js ${{ matrix.node-version }}
     steps:
     - name: Setup Node.js ${{ matrix.node-version }}
@@ -22,7 +22,7 @@ jobs:
       run: npm install --legacy-peer-deps
     - name: Run tests
       run: npm test
-    - if: matrix.node-version == 22
+    - if: matrix.node-version == 24
       name: Send coverage info to Codecov
       uses: codecov/codecov-action@v5
       with:
