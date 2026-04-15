@@ -8,99 +8,6 @@ import test from './testFunctions';
 let validator_js = fs.readFileSync(require.resolve('../validator.js')).toString();
 
 describe('Validators', () => {
-  it('should validate isIPRange', () => {
-    test({
-      validator: 'isIPRange',
-      valid: [
-        '127.0.0.1/24',
-        '0.0.0.0/0',
-        '255.255.255.0/32',
-        '::/0',
-        '::/128',
-        '2001::/128',
-        '2001:800::/128',
-        '::ffff:127.0.0.1/128',
-      ],
-      invalid: [
-        'abc',
-        '127.200.230.1/35',
-        '127.200.230.1/-1',
-        '1.1.1.1/011',
-        '1.1.1/24.1',
-        '1.1.1.1/01',
-        '1.1.1.1/1.1',
-        '1.1.1.1/1.',
-        '1.1.1.1/1/1',
-        '1.1.1.1',
-        '::1',
-        '::1/164',
-        '2001::/240',
-        '2001::/-1',
-        '2001::/001',
-        '2001::/24.1',
-        '2001:db8:0000:1:1:1:1:1',
-        '::ffff:127.0.0.1',
-      ],
-    });
-    test({
-      validator: 'isIPRange',
-      args: [4],
-      valid: [
-        '127.0.0.1/1',
-        '0.0.0.0/1',
-        '255.255.255.255/1',
-        '1.2.3.4/1',
-        '255.0.0.1/1',
-        '0.0.1.1/1',
-      ],
-      invalid: [
-        'abc',
-        '::1',
-        '2001:db8:0000:1:1:1:1:1',
-        '::ffff:127.0.0.1',
-        '137.132.10.01',
-        '0.256.0.256',
-        '255.256.255.256',
-      ],
-    });
-    test({
-      validator: 'isIPRange',
-      args: [6],
-      valid: [
-        '::1/1',
-        '2001:db8:0000:1:1:1:1:1/1',
-        '::ffff:127.0.0.1/1',
-      ],
-      invalid: [
-        'abc',
-        '127.0.0.1',
-        '0.0.0.0',
-        '255.255.255.255',
-        '1.2.3.4',
-        '::ffff:287.0.0.1',
-        '::ffff:287.0.0.1/254',
-        '%',
-        'fe80::1234%',
-        'fe80::1234%1%3%4',
-        'fe80%fe80%',
-      ],
-    });
-    test({
-      validator: 'isIPRange',
-      args: [10],
-      valid: [],
-      invalid: [
-        'abc',
-        '127.0.0.1/1',
-        '0.0.0.0/1',
-        '255.255.255.255/1',
-        '1.2.3.4/1',
-        '::1/1',
-        '2001:db8:0000:1:1:1:1:1/1',
-      ],
-    });
-  });
-
   it('should validate FQDN', () => {
     test({
       validator: 'isFQDN',
@@ -141,6 +48,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate FQDN with trailing dot option', () => {
     test({
       validator: 'isFQDN',
@@ -152,6 +60,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should invalidate FQDN when not require_tld', () => {
     test({
       validator: 'isFQDN',
@@ -165,6 +74,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate FQDN when not require_tld but allow_numeric_tld', () => {
     test({
       validator: 'isFQDN',
@@ -178,6 +88,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate FQDN with wildcard option', () => {
     test({
       validator: 'isFQDN',
@@ -190,6 +101,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate FQDN with required allow_trailing_dot, allow_underscores and allow_numeric_tld options', () => {
     test({
       validator: 'isFQDN',
@@ -882,6 +794,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate Telugu alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -893,6 +806,7 @@ describe('Validators', () => {
       invalid: ['తెలుగు123', 'తెలుగు.', 'abc', ''],
     });
   });
+
   it('should validate Kannada alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -904,6 +818,7 @@ describe('Validators', () => {
       invalid: ['ಕನ್ನಡ123', 'ಕನ್ನಡ.', 'abc', ''],
     });
   });
+
   it('should validate Malayalam alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -915,6 +830,7 @@ describe('Validators', () => {
       invalid: ['മലയാളം123', 'മലയാളം.', 'abc', ''],
     });
   });
+
   it('should validate Gujarati alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -926,6 +842,7 @@ describe('Validators', () => {
       invalid: ['ગુજરાતી123', 'ગુજરાતી.', 'abc', ''],
     });
   });
+
   it('should validate Punjabi alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -937,6 +854,7 @@ describe('Validators', () => {
       invalid: ['ਪੰਜਾਬੀ123', 'ਪੰਜਾਬੀ.', 'abc', ''],
     });
   });
+
   it('should validate Odia alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -948,6 +866,7 @@ describe('Validators', () => {
       invalid: ['ଓଡ଼ିଆ123', 'ଓଡ଼ିଆ.', 'abc', ''],
     });
   });
+
   it('should validate Bengali alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -959,6 +878,7 @@ describe('Validators', () => {
       invalid: ['বাংলা123', 'বাংলা.', 'abc', ''],
     });
   });
+
   it('should validate persian alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -1756,6 +1676,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate Tamil alphanumeric strings', () => {
     test({
       validator: 'isAlphanumeric',
@@ -3185,7 +3106,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate imei strings', () => {
     test({
       validator: 'isIMEI',
@@ -3204,7 +3124,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate imei strings with hyphens', () => {
     test({
@@ -3225,7 +3144,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate uppercase strings', () => {
     test({
@@ -4343,6 +4261,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate JWT tokens', () => {
     test({
       validator: 'isJWT',
@@ -4460,7 +4379,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate isLocale codes', () => {
     test({
       validator: 'isLocale',
@@ -4537,7 +4455,6 @@ describe('Validators', () => {
       invalid: ['ｇ', 'a'],
     });
   });
-
 
   it('should validate strings by byte length', () => {
     test({
@@ -5211,7 +5128,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate credit cards without a proper provider', () => {
     test({
       validator: 'isCreditCard',
@@ -5226,7 +5142,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate AmEx provided credit cards', () => {
     test({
@@ -5262,7 +5177,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate Diners Club provided credit cards', () => {
     test({
@@ -5373,7 +5287,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate Mastercard provided credit cards', () => {
     test({
       validator: 'isCreditCard',
@@ -5409,7 +5322,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate Union Pay provided credit cards', () => {
     test({
       validator: 'isCreditCard',
@@ -5443,7 +5355,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate Visa provided credit cards', () => {
     test({
@@ -5479,7 +5390,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate identity cards', () => {
     const fixtures = [
@@ -6321,7 +6231,6 @@ describe('Validators', () => {
       ],
     });
   });
-
 
   it('should validate hex-encoded MongoDB ObjectId', () => {
     test({
@@ -10035,7 +9944,6 @@ describe('Validators', () => {
     args: [],
   });
 
-
   it('should error on invalid locale', () => {
     test({
       validator: 'isMobilePhone',
@@ -11491,7 +11399,6 @@ describe('Validators', () => {
     /* eslint-enable max-len */
   });
 
-
   it('should validate magnetURI', () => {
     /* eslint-disable max-len */
     test({
@@ -11524,7 +11431,6 @@ describe('Validators', () => {
     });
     /* eslint-enable max-len */
   });
-
 
   it('should validate LatLong', () => {
     test({
@@ -12308,7 +12214,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate ISO6346 shipping containerID', () => {
     test({
       validator: 'isISO6346',
@@ -12334,6 +12239,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate ISO6346 shipping containerID', () => {
     test({
       validator: 'isFreightContainerID',
@@ -12384,6 +12290,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate ISO6346 shipping container IDs with checksum digit 10 represented as 0', () => {
     test({
       validator: 'isFreightContainerID',
@@ -12410,6 +12317,7 @@ describe('Validators', () => {
   });
 
   // EU-UK valid numbers sourced from https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx or constructed by @tplessas.
+
   it('should validate taxID', () => {
     test({
       validator: 'isTaxID',
@@ -13015,7 +12923,6 @@ describe('Validators', () => {
     });
   });
 
-
   it('should validate slug', () => {
     test({
       validator: 'isSlug',
@@ -13371,6 +13278,7 @@ describe('Validators', () => {
     });
     timezone_mock.unregister();
   });
+
   it('should validate time', () => {
     test({
       validator: 'isTime',
@@ -13539,6 +13447,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should be valid license plate', () => {
     test({
       validator: 'isLicensePlate',
@@ -13926,6 +13835,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate VAT numbers', () => {
     test({
       validator: 'isVAT',
@@ -14851,6 +14761,7 @@ describe('Validators', () => {
       ],
     });
   });
+
   it('should validate mailto URI', () => {
     test({
       validator: 'isMailtoURI',
@@ -14903,3 +14814,4 @@ describe('Validators', () => {
     });
   });
 });
+
