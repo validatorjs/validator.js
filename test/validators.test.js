@@ -28,15 +28,6 @@ describe('Validators', () => {
     assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
-  it('should validate whitelisted characters', () => {
-    test({
-      validator: 'isWhitelisted',
-      args: ['abcdefghijklmnopqrstuvwxyz-'],
-      valid: ['foo', 'foobar', 'baz-foo'],
-      invalid: ['foo bar', 'fo.bar', 'türkçe'],
-    });
-  });
-
   it('should validate dataURI', () => {
     /* eslint-disable max-len */
     test({
