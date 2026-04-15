@@ -8,19 +8,41 @@ function stringifyArgs(argsArr) {
 
 export default function test(options) {
   const args = options.args || [];
+  const method = options.validator || options.sanitizer;
 
   args.unshift(null);
+
+  if (options.expect) {
+    Object.keys(options.expect).forEach((input) => {
+      args[0] = input;
+      let result = validator[method](...args);
+      let expected = options.expect[input];
+
+      if (isNaN(result) && !result.length && isNaN(expected)) {
+        return;
+      }
+
+      if (result !== expected) {
+        const warning = format(
+          'validator.%s(%s) returned "%s" but should have returned "%s"',
+          method, stringifyArgs(args), result, expected
+        );
+
+        throw new Error(warning);
+      }
+    });
+  }
 
   if (options.error) {
     options.error.forEach((error) => {
       args[0] = error;
 
       try {
-        assert.throws(() => validator[options.validator](...args));
+        assert.throws(() => validator[method](...args));
       } catch (err) {
         const warning = format(
           'validator.%s(%s) passed but should error',
-          options.validator, stringifyArgs(args)
+          method, stringifyArgs(args)
         );
 
         throw new Error(warning);
@@ -32,10 +54,10 @@ export default function test(options) {
     options.valid.forEach((valid) => {
       args[0] = valid;
 
-      if (validator[options.validator](...args) !== true) {
+      if (validator[method](...args) !== true) {
         const warning = format(
           'validator.%s(%s) failed but should have passed',
-          options.validator, stringifyArgs(args)
+          method, stringifyArgs(args)
         );
 
         throw new Error(warning);
@@ -47,10 +69,10 @@ export default function test(options) {
     options.invalid.forEach((invalid) => {
       args[0] = invalid;
 
-      if (validator[options.validator](...args) !== false) {
+      if (validator[method](...args) !== false) {
         const warning = format(
           'validator.%s(%s) passed but should have failed',
-          options.validator, stringifyArgs(args)
+          method, stringifyArgs(args)
         );
 
         throw new Error(warning);
