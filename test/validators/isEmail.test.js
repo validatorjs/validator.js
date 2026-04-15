@@ -369,4 +369,11 @@ describe('isEmail', () => {
       ],
     });
   });
+
+  it('should reject emails containing unpaired UTF-16 surrogates without throwing', () => {
+    test({
+      validator: 'isEmail',
+      invalid: ['\uD800@example.com', '\uDC00@example.com'],
+    });
+  });
 });
