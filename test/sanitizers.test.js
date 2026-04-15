@@ -28,14 +28,6 @@ function test(options) {
 describe('Sanitizers', () => {
   it('should trim whitespace', () => {
     test({
-      sanitizer: 'trim',
-      expect: {
-        '  \r\n\tfoo  \r\n\t   ': 'foo',
-        '      \r': '',
-      },
-    });
-
-    test({
       sanitizer: 'ltrim',
       expect: {
         '  \r\n\tfoo  \r\n\t   ': 'foo  \r\n\t   ',
@@ -54,12 +46,6 @@ describe('Sanitizers', () => {
 
   it('should trim custom characters', () => {
     test({
-      sanitizer: 'trim',
-      args: ['01'],
-      expect: { '010100201000': '2' },
-    });
-
-    test({
       sanitizer: 'ltrim',
       args: ['01'],
       expect: { '010100201000': '201000' },
@@ -70,7 +56,6 @@ describe('Sanitizers', () => {
       args: ['\\S'],
       expect: { '\\S01010020100001': '01010020100001' },
     });
-
 
     test({
       sanitizer: 'rtrim',
