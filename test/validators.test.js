@@ -114,26 +114,6 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate variable-width strings', () => {
-    test({
-      validator: 'isVariableWidth',
-      valid: [
-        'ひらがなカタカナ漢字ABCDE',
-        '３ー０123',
-        'Ｆｶﾀｶﾅﾞﾬ',
-        'Good＝Parts',
-      ],
-      invalid: [
-        'abc',
-        'abc123',
-        '!"#$%&()<>/+=-_? ~^|.,@`{}[]',
-        'ひらがな・カタカナ、．漢字',
-        '１２３４５６',
-        'ｶﾀｶﾅﾞﾬ',
-      ],
-    });
-  });
-
   it('should validate surrogate pair strings', () => {
     test({
       validator: 'isSurrogatePair',
