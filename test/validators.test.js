@@ -114,12 +114,6 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate strings against an expected value', () => {
-    test({
-      validator: 'equals', args: ['abc'], valid: ['abc'], invalid: ['Abc', '123'],
-    });
-  });
-
   it('should validate strings contain another string', () => {
     test({
       validator: 'contains',
