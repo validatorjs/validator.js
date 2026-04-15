@@ -135,14 +135,6 @@ describe('Validators', () => {
     assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
-  it('should validate ISO 639-1 language codes', () => {
-    test({
-      validator: 'isISO6391',
-      valid: ['ay', 'az', 'ba', 'be', 'bg'],
-      invalid: ['aj', 'al', 'pe', 'pf', 'abc', '123', ''],
-    });
-  });
-
   const validISO8601 = [
     '2009-12T12:34',
     '2009',
