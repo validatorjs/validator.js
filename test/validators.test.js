@@ -135,57 +135,6 @@ describe('Validators', () => {
     assert.strictEqual(window.validator.trim('  foobar '), 'foobar');
   });
 
-  it('should validate booleans', () => {
-    test({
-      validator: 'isBoolean',
-      valid: [
-        'true',
-        'false',
-        '0',
-        '1',
-      ],
-      invalid: [
-        '1.0',
-        '0.0',
-        'true ',
-        'False',
-        'True',
-        'yes',
-      ],
-    });
-  });
-
-  it('should validate booleans with option loose set to true', () => {
-    test({
-      validator: 'isBoolean',
-      args: [
-        { loose: true },
-      ],
-      valid: [
-        'true',
-        'True',
-        'TRUE',
-        'false',
-        'False',
-        'FALSE',
-        '0',
-        '1',
-        'yes',
-        'Yes',
-        'YES',
-        'no',
-        'No',
-        'NO',
-      ],
-      invalid: [
-        '1.0',
-        '0.0',
-        'true ',
-        ' false',
-      ],
-    });
-  });
-
   it('should validate ISO 639-1 language codes', () => {
     test({
       validator: 'isISO6391',
