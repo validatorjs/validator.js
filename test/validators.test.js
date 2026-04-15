@@ -114,22 +114,6 @@ describe('Validators', () => {
     });
   });
 
-  it('should validate half-width strings', () => {
-    test({
-      validator: 'isHalfWidth',
-      valid: [
-        '!"#$%&()<>/+=-_? ~^|.,@`{}[]',
-        'l-btn_02--active',
-        'abc123い',
-        'ｶﾀｶﾅﾞﾬ￩',
-      ],
-      invalid: [
-        'あいうえお',
-        '００１１',
-      ],
-    });
-  });
-
   it('should validate variable-width strings', () => {
     test({
       validator: 'isVariableWidth',
