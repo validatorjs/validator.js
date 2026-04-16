@@ -74,4 +74,8 @@ describe('assertString', () => {
     // eslint-disable-next-line no-new-wrappers
     assert.doesNotThrow(() => { assertString(new String('antidisestablishmentarianism')); });
   });
+
+  it('Should use typeof as fallback in error message when input has no constructor name', () => {
+    assert.throws(() => { assertString(Object.create(null)); }, /^TypeError: Expected a string but received a object$/);
+  });
 });
