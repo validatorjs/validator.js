@@ -10,6 +10,16 @@ export default function test(options) {
   const args = options.args || [];
   const method = options.validator || options.sanitizer;
 
+  if (!method) {
+    throw new Error('test() requires either "validator" or "sanitizer" option');
+  }
+
+  if (typeof validator[method] !== 'function') {
+    throw new Error(format(
+      'test() received invalid validator/sanitizer "%s"; expected a function name exported by validator',
+      method
+    ));
+  }
   args.unshift(null);
 
   if (options.expect) {
