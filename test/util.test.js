@@ -55,22 +55,23 @@ describe('assertString', () => {
   });
 
   it('Should throw an error if argument provided is an Object pretending to be a \'string\'', () => {
-    assert.throws(() => { assertString({constructor: {name: "string"}}); }, TypeError);
+    assert.throws(() => { assertString({ constructor: { name: 'string' } }); }, TypeError);
   });
 
   it('Should throw an error if argument provided is an Object pretending to be a \'String\'', () => {
-    assert.throws(() => { assertString({constructor: {name: "String"}}); }, TypeError);
+    assert.throws(() => { assertString({ constructor: { name: 'String' } }); }, TypeError);
   });
 
   it('Should not throw an error if the argument is an empty string', () => {
     assert.doesNotThrow(() => { assertString(''); });
   });
-  
+
   it('Should not throw an error if the argument is a String', () => {
     assert.doesNotThrow(() => { assertString('antidisestablishmentarianism'); });
   });
 
   it('Should not throw an error if the argument is a boxed string', () => {
+    // eslint-disable-next-line no-new-wrappers
     assert.doesNotThrow(() => { assertString(new String('antidisestablishmentarianism')); });
   });
 });
