@@ -1,3 +1,39 @@
+# 13.15.35
+
+### Fixes, New Locales and Enhancements
+
+- [#2663](https://github.com/validatorjs/validator.js/pull/2663) `isISO31661Alpha2`/`isISO31661Alpha3`: add support for Kosovo (`XK` / `XXK`) @johanpoirier-d4
+- [#2661](https://github.com/validatorjs/validator.js/pull/2661) `isHexColor`: ignore non-object options @yuna0831
+- `isTaxID`
+  - [#2644](https://github.com/validatorjs/validator.js/pull/2644) improve `pt-BR` locale by adding support for alphanumeric CNPJ format @easedu
+  - [#2675](https://github.com/validatorjs/validator.js/pull/2675) improve `pt-BR` locale by adding support for formatted CPF values @easedu
+- [#2643](https://github.com/validatorjs/validator.js/pull/2643) `isPassportNumber`: improve `MX` locale @jesroffrouk
+- [#2676](https://github.com/validatorjs/validator.js/pull/2676) `isMobilePhone`: add `fr-DJ` locale @Kartikeya-guthub
+- [#2682](https://github.com/validatorjs/validator.js/pull/2682) `isPostalCode`: add `MC` locale @moogblob
+- [#2690](https://github.com/validatorjs/validator.js/pull/2690) `isJSON`: allow any valid JSON value to pass @relu91
+- [#2693](https://github.com/validatorjs/validator.js/pull/2693) `isSlug`: restrict allowed characters to valid slug charset @Shrawak
+- **Doc fixes and others:**
+  - [#2658](https://github.com/validatorjs/validator.js/pull/2658) @Manaskarthik28
+  - [#2592](https://github.com/validatorjs/validator.js/pull/2592) @noritaka1166
+  - [#2591](https://github.com/validatorjs/validator.js/pull/2591) @noritaka1166
+
+# 13.15.26
+
+### Fixes, New Locales and Enhancements
+
+- [#2535](https://github.com/validatorjs/validator.js/pull/2535) `isHexColor`: add `require_hashtag` option @Numbers0689
+- [#2633](https://github.com/validatorjs/validator.js/pull/2633) `isURL`: handle possible bypass with URL-encoded content @WikiRik
+- [#2634](https://github.com/validatorjs/validator.js/pull/2634) `isIBAN`: improve `IR` locale @ds1371dani
+- **Doc fixes and others:**
+  - [#2640](https://github.com/validatorjs/validator.js/pull/2640) @WikiRik
+
+# 13.15.23
+
+### Fixes, New Locales and Enhancements
+
+- **Doc fixes and others:**
+  - [#2631](https://github.com/validatorjs/validator.js/pull/2631) @WikiRik
+
 # 13.15.22
 
 ### Fixes, New Locales and Enhancements

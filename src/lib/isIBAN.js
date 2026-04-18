@@ -43,7 +43,7 @@ const ibanRegexThroughCountryCode = {
   IE: /^(IE[0-9]{2})[A-Z]{4}\d{14}$/,
   IL: /^(IL[0-9]{2})\d{19}$/,
   IQ: /^(IQ[0-9]{2})[A-Z]{4}\d{15}$/,
-  IR: /^(IR[0-9]{2})0\d{2}0\d{18}$/,
+  IR: /^(IR[0-9]{2})\d{22}$/,
   IS: /^(IS[0-9]{2})\d{22}$/,
   IT: /^(IT[0-9]{2})[A-Z]{1}\d{10}[A-Z0-9]{12}$/,
   JO: /^(JO[0-9]{2})[A-Z]{4}\d{22}$/,
@@ -101,11 +101,7 @@ function hasOnlyValidCountryCodes(countryCodeArray) {
   const countryCodeArrayFilteredWithObjectIbanCode = countryCodeArray
     .filter(countryCode => !(countryCode in ibanRegexThroughCountryCode));
 
-  if (countryCodeArrayFilteredWithObjectIbanCode.length > 0) {
-    return false;
-  }
-
-  return true;
+  return countryCodeArrayFilteredWithObjectIbanCode.length === 0;
 }
 
 /**

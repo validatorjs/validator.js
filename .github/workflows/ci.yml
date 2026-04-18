@@ -38,25 +38,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [22, 20, 18, 16, 14, 12, 10, 8]
+        node-version: [24, 22, 20, 18, 16, 14, 12, 10, 8]
     name: Run tests on Node.js ${{ matrix.node-version }}
     steps:
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifacts
-      - name: Install dependencies
-        run: npm install
-      - name: Run tests
-        run: npm run test:ci
-      - if: matrix.node-version == 22
-        name: Send coverage info to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install dependencies
+      run: npm install --legacy-peer-deps
+    - name: Run tests
+      run: npm test
+    - if: matrix.node-version == 24
+      name: Send coverage info to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}

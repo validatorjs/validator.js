@@ -50,6 +50,7 @@ const patterns = {
   LU: fourDigit,
   LV: /^LV\-\d{4}$/,
   LK: fiveDigit,
+  MC: /^980\d{2}$/,
   MG: threeDigit,
   MX: fiveDigit,
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
