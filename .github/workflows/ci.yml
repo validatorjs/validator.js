@@ -5,7 +5,36 @@ on:
   pull_request:
     branches: [master]
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build on Node.js 22
+    steps:
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Lint
+        run: npm run lint
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            index.js
+            lib/
+            es/
+            validator.js
+            validator.min.js
+          retention-days: 1
+
   test:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
