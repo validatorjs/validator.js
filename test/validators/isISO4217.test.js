@@ -1,7 +1,7 @@
 import test from '../testFunctions';
 
 describe('isISO4217', () => {
-  it('should validate ISO 4217 corrency codes', () => {
+  it('should validate ISO 4217 currency codes', () => {
     // from https://en.wikipedia.org/wiki/ISO_4217
     test({
       validator: 'isISO4217',

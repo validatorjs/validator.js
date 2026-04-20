@@ -119,7 +119,7 @@ describe('isRgbColor', () => {
       ],
     });
 
-    // test where include percent is true explciitly
+    // test where include percent is true explicitly
     test({
       validator: 'isRgbColor',
       args: [true],
