@@ -5,6 +5,7 @@
 import assert from 'assert';
 import typeOf from '../src/lib/util/typeOf';
 import assertString from '../src/lib/util/assertString';
+import merge from '../src/lib/util/merge';
 
 
 describe('Util', () => {
@@ -60,5 +61,11 @@ describe('assertString', () => {
 
   it('Should not throw an error if the argument is a String', () => {
     assert.doesNotThrow(() => { assertString('antidisestablishmentarianism'); });
+  });
+});
+
+describe('merge', () => {
+  it('should use the default object when obj is omitted', () => {
+    assert.deepStrictEqual(merge(undefined, { foo: 'bar' }), { foo: 'bar' });
   });
 });
