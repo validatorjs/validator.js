@@ -1,5 +1,4 @@
 # validator.js
-# Changes made - 1707074
 [![NPM version][npm-image]][npm-url]
 [![CI][ci-image]][ci-url]
 [![Coverage][codecov-image]][codecov-url]
