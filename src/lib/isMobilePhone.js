@@ -102,6 +102,7 @@ const phones = {
   'fr-BJ': /^(\+229)\d{8}$/,
   'fr-CD': /^(\+?243|0)?(8|9)\d{8}$/,
   'fr-CM': /^(\+?237)6[0-9]{8}$/,
+  'fr-DJ': /^(?:\+253)?77[6-8]\d{5}$/,
   'fr-FR': /^(\+?33|0)[67]\d{8}$/,
   'fr-GF': /^(\+?594|0|00594)[67]\d{8}$/,
   'fr-GP': /^(\+?590|0|00590)[67]\d{8}$/,
@@ -174,6 +175,7 @@ phones['zh-MO'] = phones['en-MO'];
 phones['ga-IE'] = phones['en-IE'];
 phones['fr-CH'] = phones['de-CH'];
 phones['it-CH'] = phones['fr-CH'];
+phones['en-CM'] = phones['fr-CM'];
 
 export default function isMobilePhone(str, locale, options) {
   assertString(str);

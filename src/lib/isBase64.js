@@ -1,9 +1,9 @@
 import assertString from './util/assertString';
 import merge from './util/merge';
 
-const base64WithPadding = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/;
+const base64WithPadding = /^[A-Za-z0-9+/]+={0,2}$/;
 const base64WithoutPadding = /^[A-Za-z0-9+/]+$/;
-const base64UrlWithPadding = /^(?:[A-Za-z0-9_-]{4})*(?:[A-Za-z0-9_-]{2}==|[A-Za-z0-9_-]{3}=|[A-Za-z0-9_-]{4})$/;
+const base64UrlWithPadding = /^[A-Za-z0-9_-]+={0,2}$/;
 const base64UrlWithoutPadding = /^[A-Za-z0-9_-]+$/;
 
 export default function isBase64(str, options) {
@@ -11,6 +11,8 @@ export default function isBase64(str, options) {
   options = merge(options, { urlSafe: false, padding: !options?.urlSafe });
 
   if (str === '') return true;
+
+  if (options.padding && str.length % 4 !== 0) return false;
 
   let regex;
   if (options.urlSafe) {
