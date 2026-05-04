@@ -2,22 +2,22 @@ import validator from '../../src/index';
 
 describe('isPAN', () => {
   it('valid PAN', () => {
-    if (!isPAN('ABCDE1234F')) throw new Error();
+    validator.isPAN('ABCDE1234F').should.equal(true);
   });
 
   it('invalid length', () => {
-    if (isPAN('ABCDE123F')) throw new Error();
+    validator.isPAN('ABCDE123F').should.equal(false);
   });
 
   it('lowercase should fail', () => {
-    if (isPAN('abcde1234f')) throw new Error();
+    validator.isPAN('abcde1234f').should.equal(false);
   });
 
   it('wrong format', () => {
-    if (isPAN('1234ABCDE1')) throw new Error();
+    validator.isPAN('1234ABCDE1').should.equal(false);
   });
 
   it('empty string', () => {
-    if (isPAN('')) throw new Error();
+    validator.isPAN('').should.equal(false);
   });
 });
