@@ -129,7 +129,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
-
+export { default as isPAN } from './lib/isPAN';
 const version = '13.15.35';
 
 const validator = {
