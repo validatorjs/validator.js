@@ -1,4 +1,4 @@
-import isPAN from '../src/lib/isPAN';
+import validator from '../../src/index';
 
 describe('isPAN', () => {
   it('valid PAN', () => {

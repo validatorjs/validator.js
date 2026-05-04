@@ -245,6 +245,7 @@ const validator = {
   isTime,
   isLicensePlate,
   isVAT,
+  isPAN,
   ibanLocales,
 };
 
