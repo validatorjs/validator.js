@@ -46,14 +46,16 @@ import validator from 'validator';
 Or, import only a subset of the library:
 
 ```javascript
-import isEmail from 'validator/lib/isEmail';
+import isEmail from 'validator/lib/isEmail.js';
 ```
 
 #### Tree-shakeable ES imports
 
 ```javascript
-import isEmail from 'validator/es/lib/isEmail';
+import isEmail from 'validator/es/lib/isEmail.js';
 ```
+
+When using native Node.js ESM, include the `.js` file extension in import specifiers.
 
 ### Client-side usage
 
