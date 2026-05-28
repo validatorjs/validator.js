@@ -1,18 +1,20 @@
 import assertString from './util/assertString';
 import isBase64 from './isBase64';
 
-var getGlobal = function() {
+function getGlobalScope() {
   if (typeof global !== 'undefined') return global;
   if (typeof self !== 'undefined') return self;
   if (typeof window !== 'undefined') return window;
   return {};
-}();
+}
 
 function isBase64EncodedJSON(base64Str) {
-  var standardBase64 = base64Str.replace(/-/g, '+').replace(/_/g, '/');
+  // Convert URL-safe base64 to standard base64
+  const standardBase64 = base64Str.replace(/-/g, '+').replace(/_/g, '/');
   try {
-    var decoded = typeof getGlobal.atob === 'function'
-      ? getGlobal.atob(standardBase64)
+    const scope = getGlobalScope();
+    const decoded = typeof scope.atob === 'function'
+      ? scope.atob(standardBase64)
       : Buffer.from(standardBase64, 'base64').toString('binary');
     try {
       JSON.parse(decoded);
@@ -28,22 +30,21 @@ function isBase64EncodedJSON(base64Str) {
 export default function isJWT(str) {
   assertString(str);
 
-  var dotSplit = str.split('.');
-  var len = dotSplit.length;
+  const dotSplit = str.split('.');
+  const len = dotSplit.length;
 
   if (len !== 3) {
     return false;
   }
 
-  var header = dotSplit[0];
-  var payload = dotSplit[1];
-  var signature = dotSplit[2];
+  const [header, payload, signature] = dotSplit;
 
-  if (!isBase64(header, { urlSafe: true }) ||
-      !isBase64(payload, { urlSafe: true }) ||
-      !isBase64(signature, { urlSafe: true })) {
+  if (!isBase64(header, { urlSafe: true })
+      || !isBase64(payload, { urlSafe: true })
+      || !isBase64(signature, { urlSafe: true })) {
     return false;
   }
 
+  // header and payload must be valid JSON when decoded
   return isBase64EncodedJSON(header) && isBase64EncodedJSON(payload);
 }
