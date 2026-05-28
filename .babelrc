@@ -1,0 +1,24 @@
+{
+    "env": {
+        "es": {
+            "presets": [
+                ["@babel/preset-env", {
+                    "modules": false
+                }]
+            ]
+        },
+        "development": {
+            "presets": [
+                ["@babel/preset-env", { "targets": { "node": "0.10" } }]
+            ],
+            "plugins": [
+                [
+                    "add-module-exports",
+                    {
+                        "addDefaultProperty": true
+                    }
+                ]
+            ]
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.DS_Store
+node_modules
+coverage
+coverage.lcov
+.nyc_output
+package-lock.json
+yarn.lock
+/es
+/lib
+/index.js
+validator.js
+validator.min.js
+

@@ -1,0 +1,40 @@
+{
+  "extends": "airbnb-base",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "camelcase": 0,
+    "no-param-reassign": 0,
+    "one-var": 0,
+    "one-var-declaration-per-line": 0,
+    "func-names": 0,
+    "no-console": 0,
+    "newline-per-chained-call": 0,
+    "prefer-const": 0,
+    "linebreak-style": 0,
+    "no-restricted-syntax": [2, "DebuggerStatement", "LabeledStatement", "WithStatement"],
+    "no-restricted-globals": 0,
+    "prefer-destructuring": 0,
+    "comma-dangle": [2, {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }],
+    "no-plusplus": [2, {
+      "allowForLoopAfterthoughts": true
+    }],
+    "no-prototype-builtins": 0,
+    "no-useless-escape": 0
+  }
+}
