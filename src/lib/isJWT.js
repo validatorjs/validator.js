@@ -11,10 +11,10 @@ function isBase64EncodedJSON(base64Str) {
     try {
       JSON.parse(decoded);
       return true;
-    } catch {
+    } catch (_err) {
       return false;
     }
-  } catch {
+  } catch (_err) {
     return false;
   }
 }
