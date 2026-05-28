@@ -5549,6 +5549,10 @@ describe('Validators', () => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTYxNjY1Mzg3Mn0.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tIiwiaWF0IjoxNjE2NjUzODcyLCJleHAiOjE2MTY2NTM4ODJ9.a1jLRQkO5TV5y5ERcaPAiM9Xm2gBdRjKrrCpHkGr_8M',
         '$Zs.ewu.su84',
         'ks64$S/9.dy$§kz.3sd73b',
+        // non-JSON header (valid base64 URL-safe but not valid JSON when decoded)
+        'ZmFrZSBoZWFkZXI.eyJzdWIiOiIxMjM0NTY3ODkwIn0.ZmFrZXNpZw',
+        // non-JSON payload (valid base64 URL-safe but not valid JSON)
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.bm9uLWpzb24tcGF5bG9hZA.sig',
       ],
       error: [
         [],
