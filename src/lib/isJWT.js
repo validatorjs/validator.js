@@ -1,12 +1,21 @@
 import assertString from './util/assertString';
 import isBase64 from './isBase64';
 
+function getGlobalScope() {
+  if (typeof globalThis !== 'undefined') return globalThis;
+  if (typeof self !== 'undefined') return self;
+  if (typeof window !== 'undefined') return window;
+  if (typeof global !== 'undefined') return global;
+  return {};
+}
+
 function isBase64EncodedJSON(base64Str) {
   // Convert URL-safe base64 to standard base64
   const standardBase64 = base64Str.replace(/-/g, '+').replace(/_/g, '/');
   try {
-    const decoded = typeof globalThis.atob === 'function'
-      ? globalThis.atob(standardBase64)
+    const scope = getGlobalScope();
+    const decoded = typeof scope.atob === 'function'
+      ? scope.atob(standardBase64)
       : Buffer.from(standardBase64, 'base64').toString('binary');
     try {
       JSON.parse(decoded);
