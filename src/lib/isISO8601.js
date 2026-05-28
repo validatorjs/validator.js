@@ -27,7 +27,9 @@ const isValidDate = (str) => {
   const dayString = day ? `0${day}`.slice(-2) : day;
 
   // create a date object and compare
-  const d = new Date(`${year}-${monthString || '01'}-${dayString || '01'}`);
+  // pad year to 4 digits to avoid Date() parsing ambiguity for years < 1000
+  const yearString = `${year}`.padStart(4, '0');
+  const d = new Date(`${yearString}-${monthString || '01'}-${dayString || '01'}`);
   if (month && day) {
     return d.getUTCFullYear() === year
       && (d.getUTCMonth() + 1) === month
