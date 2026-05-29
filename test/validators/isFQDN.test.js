@@ -22,5 +22,18 @@ describe('isFQDN', () => {
       invalid: [
       ],
     });
+    test({
+      validator: 'isFQDN',
+      args: [{ require_tld: false }],
+      valid: [
+        'google.com',
+        'localhost',
+        '192',
+        '10',
+      ],
+      invalid: [
+        '',
+      ],
+    });
   });
 });

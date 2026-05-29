@@ -43,8 +43,8 @@ export default function isFQDN(str, options) {
     }
   }
 
-  // reject numeric TLDs
-  if (!options.allow_numeric_tld && /^\d+$/.test(tld)) {
+  // reject numeric TLDs (only when a TLD is actually required)
+  if (options.require_tld && !options.allow_numeric_tld && /^\d+$/.test(tld)) {
     return false;
   }
 
