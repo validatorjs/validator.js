@@ -50,6 +50,7 @@ const patterns = {
   LU: fourDigit,
   LV: /^LV\-\d{4}$/,
   LK: fiveDigit,
+  MA: fiveDigit,
   MC: /^980\d{2}$/,
   MG: threeDigit,
   MX: fiveDigit,
@@ -61,6 +62,7 @@ const patterns = {
   NZ: fourDigit,
   // https://www.pakpost.gov.pk/postcodes.php
   PK: fiveDigit,
+  PH: fourDigit,
   PL: /^\d{2}\-\d{3}$/,
   PR: /^00[679]\d{2}([ -]\d{4})?$/,
   PT: /^\d{4}\-\d{3}?$/,
@@ -73,9 +75,11 @@ const patterns = {
   SK: /^\d{3}\s?\d{2}$/,
   TH: fiveDigit,
   TN: fourDigit,
+  TR: fiveDigit,
   TW: /^\d{3}(\d{2,3})?$/,
   UA: fiveDigit,
   US: /^\d{5}(-\d{4})?$/,
+  VN: fiveDigit,
   ZA: fourDigit,
   ZM: fiveDigit,
 };
