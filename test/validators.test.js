@@ -5757,6 +5757,22 @@ describe('Validators', () => {
     });
   });
 
+  it('should not throw on unpaired surrogates', () => {
+    // encodeURI() throws a URIError on unpaired surrogates; isByteLength must
+    // count them (as the U+FFFD replacement character, 3 bytes) rather than crash.
+    test({
+      validator: 'isByteLength',
+      args: [{ min: 0, max: 3 }],
+      valid: ['\uD835', '\uDC00', '\uDFFF'],
+      invalid: ['\uD835\uDB00'],
+    });
+    // isEmail() runs the local part through isByteLength, so it inherited the crash.
+    test({
+      validator: 'isEmail',
+      invalid: ['\uD835', 'foo\uD835@bar.com'],
+    });
+  });
+
   it('should validate ULIDs', () => {
     test({
       validator: 'isULID',
