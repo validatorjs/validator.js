@@ -24,15 +24,15 @@ function fixFile(filePath) {
 }
 
 function walk(directory) {
-  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-    const entryPath = path.join(directory, entry.name);
+  for (const entryName of fs.readdirSync(directory)) {
+    const entryPath = path.join(directory, entryName);
 
-    if (entry.isDirectory()) {
+    if (fs.statSync(entryPath).isDirectory()) {
       walk(entryPath);
       continue;
     }
 
-    if (entry.name.endsWith('.js')) {
+    if (entryName.endsWith('.js')) {
       fixFile(entryPath);
     }
   }
