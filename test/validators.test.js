@@ -12521,6 +12521,35 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 8601 dates, with fractionalSecondsOnly = true', () => {
+    test({
+      validator: 'isISO8601',
+      args: [
+        { fractionalSecondsOnly: true },
+      ],
+      valid: [
+        '2009',
+        '2009-05-19',
+        '2009-05-19T14:39Z',
+        '2009-05-19 14:39:22',
+        '2010-02-18T16:23:48.5',
+        '2010-02-18T16:23:48,444',
+        '2010-02-18T16:23:48,3-06:00',
+        '2009-05-19 143922.500',
+      ],
+      invalid: [
+        // a fraction attached to minutes or hours (no seconds present) must be rejected
+        '2018-09-11T10:16.000Z',
+        '2010-02-18T16:23.4',
+        '2010-02-18T16:23,25',
+        '2010-02-18T16:23.33+0600',
+        '2010-02-18T16.23334444',
+        '2010-02-18T16,2283',
+        '2009-05-19 1439,55',
+      ],
+    });
+  });
+
   it('should validate ISO 15924 script codes', () => {
     test({
       validator: 'isISO15924',
