@@ -12820,6 +12820,28 @@ describe('Validators', () => {
   it('should validate postal code', () => {
     const fixtures = [
       {
+        locale: 'AR',
+        valid: [
+          'C1000WAM',
+          'B1900ABC',
+          'X5000XYZ',
+          'c1425cla',
+          '1000',
+          '9120',
+        ],
+        invalid: [
+          'C1000',
+          'C1000WA',
+          'C1000WAMZ',
+          'I1000ABC',
+          'O1000ABC',
+          'C1000 ABC',
+          '0123',
+          '123',
+          '12345',
+        ],
+      },
+      {
         locale: 'AU',
         valid: [
           '4000',
