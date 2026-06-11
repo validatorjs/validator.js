@@ -6388,6 +6388,7 @@ describe('Validators', () => {
       invalid: [
         'foo',
         'foo',
+        '5108',
         '5398228707871528',
         '2718760626256571',
         '2721465526338453',
@@ -6578,6 +6579,9 @@ describe('Validators', () => {
       ],
       invalid: [
         'foo',
+        // Luhn-valid 4-digit string that previously matched the unanchored
+        // mastercard regex branch (#2717)
+        '5108',
         '36050234196908',
         '375556917985515',
         '375556917985515999999993',
