@@ -15042,6 +15042,26 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
+      args: ['ja-JP'],
+      valid: [
+        '\u54C1\u5DDD 300 \u3055 12-34',
+        '\u8DB3\u7ACB500\u304D21-41',
+        '\u306A\u306B\u308F 580 \u3042 1234',
+        '\u5C3E\u5F35\u5C0F\u7267 50A \u308C 1',
+      ],
+      invalid: [
+        '',
+        '\u54C1\u5DDD 300 \u3057 12-34',
+        '\u54C1\u5DDD 3 \u3055 12-34',
+        'TOKYO 300 \u3055 12-34',
+        '\u54C1\u5DDD 300 \u3055 123-4',
+        '\u54C1\u5DDD 300 \u3055 12345',
+        '\u54C1\u5DDD_300_\u3055_12-34',
+        '\u54C1\u5DDD 300 a 12-34',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['any'],
       valid: [
         'FL 1',
