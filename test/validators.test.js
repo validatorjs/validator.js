@@ -13537,6 +13537,9 @@ describe('Validators', () => {
         'ECMJ4657496',
         'TBJA7176445',
         'AFFU5962593',
+        'ABCU1234567GARBAGE', // trailing garbage after a valid prefix
+        'GARBAGEZ123456', // leading garbage before a valid suffix
+        'XYZ,123456', // comma is not a valid category identifier
       ],
     });
   });
@@ -13562,6 +13565,9 @@ describe('Validators', () => {
         'ECMJ4657496',
         'TBJA7176445',
         'AFFU5962593',
+        'ABCU1234567GARBAGE', // trailing garbage after a valid prefix
+        'GARBAGEZ123456', // leading garbage before a valid suffix
+        'XYZ,123456', // comma is not a valid category identifier
       ],
     });
   });
