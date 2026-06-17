@@ -13537,6 +13537,10 @@ describe('Validators', () => {
         'ECMJ4657496',
         'TBJA7176445',
         'AFFU5962593',
+        'ABCU1234567HELLO',
+        'CSQU3054383XXX',
+        'hellozZ123456',
+        'AB,123456',
       ],
     });
   });
@@ -13562,6 +13566,10 @@ describe('Validators', () => {
         'ECMJ4657496',
         'TBJA7176445',
         'AFFU5962593',
+        'ABCU1234567HELLO',
+        'CSQU3054383XXX',
+        'hellozZ123456',
+        'AB,123456',
       ],
     });
   });
