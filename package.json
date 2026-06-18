@@ -63,7 +63,7 @@
     "clean": "run-p clean:*",
     "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
     "build:browser": "node --require @babel/register build-browser && npm run minify",
-    "build:es": "babel src -d es --env-name=es",
+    "build:es": "babel src -d es --env-name=es && node scripts/add-es-import-extensions.js",
     "build:node": "babel src -d .",
     "build": "run-p build:*",
     "pretest": "npm run build && npm run lint",
