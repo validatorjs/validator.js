@@ -7525,6 +7525,8 @@ describe('Validators', () => {
         '507f1f77bcf86cd79943901z',
         '',
         '507f1f77bcf86cd799439011 ',
+        '0xaaaaaaaaaaaaaaaaaaaaaa',
+        '0Xaaaaaaaaaaaaaaaaaaaaaa',
       ],
     });
   });
