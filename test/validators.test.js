@@ -12217,9 +12217,12 @@ describe('Validators', () => {
         'tb1qxhkl607frtvjsy9nlyeg03lf6fsq947pl2pe82',
         'bc1p5d7rjq7g6rdk2yhzks9smlaqtedr4dekq08ge8ztwac72sfr9rusxg3297',
         'tb1pzpelffrdh9ptpaqnurwx30dlewqv57rcxfeetp86hsssk30p4cws38tr9y',
+        'bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3',
+        'tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7',
       ],
       invalid: [
         '3J98t1WpEZ73CNmQviecrnyiWrnqh0WNL0',
+        'bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3q',
         '3J98t1WpEZ73CNmQviecrnyiWrnqh0WNLo',
         '3J98t1WpEZ73CNmQviecrnyiWrnqh0WNLI',
         '3J98t1WpEZ73CNmQviecrnyiWrnqh0WNLl',
