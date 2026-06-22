@@ -12370,6 +12370,10 @@ describe('Validators', () => {
     '2010-13-1',
     'nonsense2021-01-01T00:00:00Z',
     '2021-01-01T00:00:00Znonsense',
+    '2009-W00',
+    '2009-W00-1',
+    '2024-W00',
+    '2020-W00-7',
   ];
 
   it('should validate ISO 8601 dates', () => {
