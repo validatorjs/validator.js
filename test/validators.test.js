@@ -14972,6 +14972,10 @@ describe('Validators', () => {
         'ABCD123',
         'AB12345',
         'AB123DC',
+        'ABC1D23XYZ',
+        'ABC1D2345',
+        'XYZABC1234',
+        'fooABC1234',
       ],
     });
     test({
