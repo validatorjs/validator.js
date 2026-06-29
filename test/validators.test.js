@@ -5727,6 +5727,12 @@ describe('Validators', () => {
       valid: [''],
       invalid: ['ｇ', 'a'],
     });
+    test({
+      validator: 'isByteLength',
+      args: [undefined, 3],
+      valid: ['abc', 'de', 'ｇ', 'a', ''],
+      invalid: ['abcd', 'ｇｍ'],
+    });
   });
 
 
