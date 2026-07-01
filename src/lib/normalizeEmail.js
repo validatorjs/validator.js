@@ -14,7 +14,7 @@ const default_normalize_email_options = {
   gmail_remove_dots: true,
   // Removes the subaddress (e.g. "+foo") from the email address
   gmail_remove_subaddress: true,
-  // Conversts the googlemail.com domain to gmail.com
+  // Converts the googlemail.com domain to gmail.com
   gmail_convert_googlemaildotcom: true,
 
   // The following conversions are specific to Outlook.com / Windows Live / Hotmail
