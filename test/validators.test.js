@@ -15122,6 +15122,23 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
+      args: ['en-GB'],
+      valid: [
+        'AB12 CDE',
+        'AB12CDE',
+        'LA73 XYZ',
+      ],
+      invalid: [
+        '',
+        'A12 CDE',
+        'ABC 123',
+        'AB123 CDE',
+        'AB12-CDE',
+        'ab12 cde',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['en-SG'],
       valid: [
         'SGX 1234 A',
