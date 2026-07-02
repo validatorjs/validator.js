@@ -42,6 +42,7 @@ const patterns = {
   IR: /^(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}$/,
   IS: threeDigit,
   IT: fiveDigit,
+  JO: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
   KE: fiveDigit,
   KR: /^(\d{5}|\d{6})$/,
