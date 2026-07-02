@@ -7089,6 +7089,44 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate duration strings', () => {
+    test({
+      validator: 'isDuration',
+      valid: [
+        '123',
+        '123Yrs',
+        '123 Yrs',
+        '45min',
+        '45 MIN',
+        '100Ms',
+        '10 Days',
+        '7weeks',
+        '200 SEC',
+        '1d',
+        '-1.5 hours',
+        '0.5s',
+        '.5s',
+        '12.5 Hours',
+        '2h',
+        '1m',
+        '5s',
+        '1y',
+        '100ms',
+      ],
+      invalid: [
+        'abc',
+        '123bananas',
+        '123 Yards',
+        ' 123 Hrs',
+        '123Hrs ',
+        '123  Hrs',
+        '123-Hrs',
+        '',
+        '0x10Ms',
+      ],
+    });
+  });
+
   it('should validate ISINs', () => {
     test({
       validator: 'isISIN',
