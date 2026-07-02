@@ -14917,6 +14917,26 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
+      args: ['fr-FR'],
+      valid: [
+        'AB-123-CD',
+        'AB 123 CD',
+        'AB123CD',
+        'QZ-987-ZQ',
+      ],
+      invalid: [
+        '',
+        'AA-12-BB',
+        'AA-1234-BB',
+        'AI-123-BB',
+        'AO-123-BB',
+        'AU-123-BB',
+        'AB_123_CD',
+        'ab-123-cd',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['sq-AL'],
       valid: [
         'AA 000 AA',
