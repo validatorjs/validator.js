@@ -5757,6 +5757,34 @@ describe('Validators', () => {
     });
   });
 
+  it('should handle unpaired UTF-16 surrogates without throwing', () => {
+    test({
+      validator: 'isByteLength',
+      args: [{ min: 3, max: 3 }],
+      valid: ['\uD800', '\uDC00'],
+    });
+    test({
+      validator: 'isByteLength',
+      args: [{ max: 2 }],
+      invalid: ['\uD800', '\uDC00'],
+    });
+  });
+
+  it('should count UTF-16 surrogate pairs as four UTF-8 bytes', () => {
+    test({
+      validator: 'isByteLength',
+      args: [{ min: 4, max: 4 }],
+      valid: ['😀'],
+    });
+  });
+
+  it('should reject emails containing unpaired UTF-16 surrogates without throwing', () => {
+    test({
+      validator: 'isEmail',
+      invalid: ['\uD800@example.com', '\uDC00@example.com'],
+    });
+  });
+
   it('should validate ULIDs', () => {
     test({
       validator: 'isULID',
