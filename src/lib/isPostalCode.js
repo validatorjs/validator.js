@@ -77,6 +77,7 @@ const patterns = {
   TW: /^\d{3}(\d{2,3})?$/,
   UA: fiveDigit,
   US: /^\d{5}(-\d{4})?$/,
+  VN: sixDigit,
   ZA: fourDigit,
   ZM: fiveDigit,
 };
