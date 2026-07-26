@@ -801,7 +801,7 @@ function lvLvCheck(tin) {
     for (let i = 0; i < tin.length - 1; i++) {
       checksum -= parseInt(tin[i], 10) * multip_lookup[i];
     }
-    return (parseInt(tin[10], 10) === checksum % 11);
+    return (parseInt(tin[10], 10) === ((checksum % 11) % 10));
   }
   return true;
 }
@@ -902,7 +902,7 @@ function plPlCheck(tin) {
       multiplier += 2;
     }
   }
-  checksum = 10 - (checksum % 10);
+  checksum = (10 - (checksum % 10)) % 10;
   return checksum === parseInt(tin[10], 10);
 }
 
