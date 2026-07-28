@@ -5119,9 +5119,15 @@ describe('Validators', () => {
         'rgba(255,255,255,.1)',
         'rgba(255,255,255,0.1)',
         'rgba(255,255,255,.12)',
+        'rgba(255,255,255,.123)',
+        'rgba(0,0,0,1.00)',
+        'rgba(0,0,0,0.123)',
+        'rgba(255,255,255,1.00)',
         'rgb(5%,5%,5%)',
         'rgba(5%,5%,5%,.3)',
         'rgba(5%,5%,5%,.32)',
+        'rgba(5%,5%,5%,.321)',
+        'rgba(0%,0%,0%,0.123)',
       ],
       invalid: [
         'rgb(0,0,0,)',
@@ -5130,12 +5136,10 @@ describe('Validators', () => {
         'rgb()',
         'rgba(0,0,0)',
         'rgba(255,255,255,2)',
-        'rgba(255,255,255,.123)',
         'rgba(255,255,256,0.1)',
         'rgb(4,4,5%)',
         'rgba(5%,5%,5%)',
         'rgba(3,3,3%,.3)',
-        'rgba(5%,5%,5%,.321)',
         'rgb(101%,101%,101%)',
         'rgba(3%,3%,101%,0.3)',
         'rgb(101%,101%,101%) additional invalid string part',
@@ -5161,7 +5165,9 @@ describe('Validators', () => {
         'rgba(255,255,255,1)',
         'rgba(255,255,255,.1)',
         'rgba(255,255,255,.12)',
+        'rgba(255,255,255,.123)',
         'rgba(255,255,255,0.1)',
+        'rgba(0,0,0,1.00)',
         'rgb(5%,5%,5%)',
         'rgba(5%,5%,5%,.3)',
       ],
@@ -5754,6 +5760,34 @@ describe('Validators', () => {
       args: [{ max: 0 }],
       valid: [''],
       invalid: ['ｇ', 'a'],
+    });
+  });
+
+  it('should handle unpaired UTF-16 surrogates without throwing', () => {
+    test({
+      validator: 'isByteLength',
+      args: [{ min: 3, max: 3 }],
+      valid: ['\uD800', '\uDC00'],
+    });
+    test({
+      validator: 'isByteLength',
+      args: [{ max: 2 }],
+      invalid: ['\uD800', '\uDC00'],
+    });
+  });
+
+  it('should count UTF-16 surrogate pairs as four UTF-8 bytes', () => {
+    test({
+      validator: 'isByteLength',
+      args: [{ min: 4, max: 4 }],
+      valid: ['😀'],
+    });
+  });
+
+  it('should reject emails containing unpaired UTF-16 surrogates without throwing', () => {
+    test({
+      validator: 'isEmail',
+      invalid: ['\uD800@example.com', '\uDC00@example.com'],
     });
   });
 
@@ -12341,6 +12375,7 @@ describe('Validators', () => {
     '2009-10-10',
     '2020-366',
     '2000-366',
+    '2019-360',
   ];
 
   const invalidISO8601 = [
@@ -12370,6 +12405,10 @@ describe('Validators', () => {
     '2010-13-1',
     'nonsense2021-01-01T00:00:00Z',
     '2021-01-01T00:00:00Znonsense',
+    '2009-W00',
+    '2009-W00-1',
+    '2024-W00',
+    '2020-W00-7',
   ];
 
   it('should validate ISO 8601 dates', () => {
@@ -13269,6 +13308,23 @@ describe('Validators', () => {
           'NY540',
           '540CA',
           '540-0',
+        ],
+      },
+      {
+        locale: 'JO',
+        valid: [
+          '11110',
+          '11937',
+          '21110',
+          '77110',
+        ],
+        invalid: [
+          '1234',
+          '123456',
+          'abcd',
+          '1111A',
+          '11 110',
+          '11-110',
         ],
       },
       {
