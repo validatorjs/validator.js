@@ -8,6 +8,7 @@ const sixDigit = /^\d{6}$/;
 
 const patterns = {
   AD: /^AD\d{3}$/,
+  AR: /^([A-HJ-NP-Z]\d{4}[A-Z]{3}|[1-9]\d{3})$/i,
   AT: fourDigit,
   AU: fourDigit,
   AZ: /^AZ\d{4}$/,
