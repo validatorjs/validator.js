@@ -124,9 +124,9 @@ export const vatMatchers = {
   PA: str => /^(PA)?$/.test(str),
   PY: str => /^(PY)?\d{6,8}-\d{1}$/.test(str),
   PE: str => /^(PE)?\d{11}$/.test(str),
-  DO: str => /^(DO)?(\d{11}|(\d{3}-\d{7}-\d{1})|[1,4,5]{1}\d{8}|([1,4,5]{1})-\d{2}-\d{5}-\d{1})$/.test(str),
+  DO: str => /^(DO)?(\d{11}|(\d{3}-\d{7}-\d{1})|[145]{1}\d{8}|([145]{1})-\d{2}-\d{5}-\d{1})$/.test(str),
   UY: str => /^(UY)?\d{12}$/.test(str),
-  VE: str => /^(VE)?[J,G,V,E]{1}-(\d{9}|(\d{8}-\d{1}))$/.test(str),
+  VE: str => /^(VE)?[JGVE]{1}-(\d{9}|(\d{8}-\d{1}))$/.test(str),
 };
 
 export default function isVAT(str, countryCode) {
