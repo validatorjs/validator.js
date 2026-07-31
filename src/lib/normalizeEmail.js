@@ -173,6 +173,12 @@ export default function normalizeEmail(email, options) {
   options = merge(options, default_normalize_email_options);
 
   const raw_parts = email.split('@');
+  // Reject addresses without an '@' or with an empty local part.
+  // raw_parts.pop() below would otherwise turn '' into ('@','') and 'foo' into ('@','foo').
+  if (raw_parts.length < 2 || raw_parts.slice(0, -1).join('@') === '') {
+    return false;
+  }
+
   const domain = raw_parts.pop();
   const user = raw_parts.join('@');
   const parts = [user, domain];
