@@ -232,12 +232,10 @@ function dkDkCheck(tin) {
       }
       break;
     default:
-      if (year < 37) {
+      if (year < 58) {
         year = `20${year}`;
-      } else if (year > 58) {
-        year = `18${year}`;
       } else {
-        return false;
+        year = `18${year}`;
       }
       break;
   }
