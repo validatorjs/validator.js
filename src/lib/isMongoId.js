@@ -1,8 +1,8 @@
 import assertString from './util/assertString';
 
-import isHexadecimal from './isHexadecimal';
+const mongoId = /^[0-9a-f]{24}$/i;
 
 export default function isMongoId(str) {
   assertString(str);
-  return isHexadecimal(str) && str.length === 24;
+  return mongoId.test(str);
 }
