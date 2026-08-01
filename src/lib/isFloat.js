@@ -10,6 +10,9 @@ export default function isFloat(str, options) {
     return false;
   }
   const value = parseFloat(str.replace(',', '.'));
+  if (Number.isNaN(value)) {
+    return false;
+  }
   return float.test(str) &&
     (!options.hasOwnProperty('min') || isNullOrUndefined(options.min) || value >= options.min) &&
     (!options.hasOwnProperty('max') || isNullOrUndefined(options.max) || value <= options.max) &&
