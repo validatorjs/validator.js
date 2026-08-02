@@ -89,7 +89,7 @@ export const vatMatchers = {
   CA: str => /^(CA)?\d{9}$/.test(str),
   IS: str => /^(IS)?\d{5,6}$/.test(str),
   IN: str => /^(IN)?\d{15}$/.test(str),
-  ID: str => /^(ID)?(\d{15}|(\d{2}.\d{3}.\d{3}.\d{1}-\d{3}.\d{3}))$/.test(str),
+  ID: str => /^(ID)?(\d{15}|(\d{2}\.\d{3}\.\d{3}\.\d{1}-\d{3}\.\d{3}))$/.test(str),
   IL: str => /^(IL)?\d{9}$/.test(str),
   KZ: str => /^(KZ)?\d{12}$/.test(str),
   NZ: str => /^(NZ)?\d{9}$/.test(str),
@@ -111,7 +111,7 @@ export const vatMatchers = {
    */
   AR: str => /^(AR)?\d{11}$/.test(str),
   BO: str => /^(BO)?\d{7}$/.test(str),
-  BR: str => /^(BR)?((\d{2}.\d{3}.\d{3}\/\d{4}-\d{2})|(\d{3}.\d{3}.\d{3}-\d{2}))$/.test(str),
+  BR: str => /^(BR)?((\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})|(\d{3}\.\d{3}\.\d{3}-\d{2}))$/.test(str),
   CL: str => /^(CL)?\d{8}-\d{1}$/.test(str),
   CO: str => /^(CO)?\d{10}$/.test(str),
   CR: str => /^(CR)?\d{9,12}$/.test(str),
