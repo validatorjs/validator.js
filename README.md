@@ -191,6 +191,7 @@ Sanitizer                              | Description
 **toDate(input)**                      | convert the input string to a date, or `null` if the input is not a date.
 **toFloat(input)**                     | convert the input string to a float, or `NaN` if the input is not a float.
 **toInt(input [, radix])**             | convert the input string to an integer, or `NaN` if the input is not an integer.
+**toString(input)**                    | convert the input to a string. `null`, `undefined` and `NaN` are converted to an empty string, and objects are converted using their own `toString` method.
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
 **unescape(input)**                    | replace HTML encoded entities with `<`, `>`, `&`, `'`, `"`, `` ` ``, `\` and `/`.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.

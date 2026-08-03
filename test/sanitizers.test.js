@@ -153,6 +153,18 @@ describe('Sanitizers', () => {
     });
   });
 
+  it('should convert inputs to strings', () => {
+    test({
+      sanitizer: 'toString',
+      expect: {
+        foo: 'foo',
+        '': '',
+        123: '123',
+        ' bar ': ' bar ',
+      },
+    });
+  });
+
   it('should escape HTML', () => {
     test({
       sanitizer: 'escape',
