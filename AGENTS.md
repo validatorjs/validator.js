@@ -24,7 +24,7 @@ This file provides guidance to AI coding agents working with this repository.
 
 - Use npm for the official build and test path.
 - Install development dependencies with `npm install --legacy-peer-deps`, as documented in `CONTRIBUTING.md` and used by CI.
-- Prefer Node.js 24 for local work. CI also tests Node.js 8, 10, 12, 14, 16, 18, 20, and 22, so avoid syntax or runtime APIs unsupported by the intended compatibility range.
+- Prefer the latest Node.js LTS release for local development. When adding syntax or runtime APIs, follow the compatibility range declared in `package.json` and verify compatibility with the Node.js versions supported by CI.
 - Run `npm run build` to generate the Node, ES module, and browser distributions.
 - Do not infer a source change from generated output alone; inspect the corresponding file under `src/`.
 
