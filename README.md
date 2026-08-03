@@ -194,7 +194,7 @@ Sanitizer                              | Description
 **trim(input [, chars])**              | trim characters (whitespace by default) from both sides of the input.
 **unescape(input)**                    | replace HTML encoded entities with `<`, `>`, `&`, `'`, `"`, `` ` ``, `\` and `/`.
 **whitelist(input, chars)**            | remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
-
+**isPAN(str)** | check if the string is a valid Indian PAN number.
 ### XSS Sanitization
 
 XSS sanitization was removed from the library in [2d5d6999](https://github.com/validatorjs/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e).

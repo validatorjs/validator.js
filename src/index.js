@@ -129,6 +129,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
+import isPAN from './lib/isPAN';
 
 const version = '13.15.35';
 
@@ -244,6 +245,7 @@ const validator = {
   isTime,
   isLicensePlate,
   isVAT,
+  isPAN,
   ibanLocales,
 };
 
