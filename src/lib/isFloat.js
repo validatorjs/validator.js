@@ -5,12 +5,14 @@ import { decimal } from './alpha';
 export default function isFloat(str, options) {
   assertString(str);
   options = options || {};
-  const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${options.locale ? decimal[options.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`);
+  const decimalSeparator = options.locale ? decimal[options.locale] : '.';
+  const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${decimalSeparator}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`);
   if (str === '' || str === '.' || str === ',' || str === '-' || str === '+') {
     return false;
   }
-  const value = parseFloat(str.replace(',', '.'));
+  const value = parseFloat(str.replace(decimalSeparator, '.'));
   return float.test(str) &&
+    !Number.isNaN(value) &&
     (!options.hasOwnProperty('min') || isNullOrUndefined(options.min) || value >= options.min) &&
     (!options.hasOwnProperty('max') || isNullOrUndefined(options.max) || value <= options.max) &&
     (!options.hasOwnProperty('lt') || isNullOrUndefined(options.lt) || value < options.lt) &&
