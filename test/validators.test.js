@@ -5540,6 +5540,22 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should reject unsupported hash algorithms', () => {
+    test({
+      validator: 'isHash',
+      args: ['constructor'],
+      valid: [],
+      invalid: ['abcdef'],
+    });
+
+    test({
+      validator: 'isHash',
+      args: ['md5'],
+      valid: ['d94f3f016ae679c3008de268209132f2'],
+      invalid: [],
+    });
+  });
+
   it('should validate JWT tokens', () => {
     test({
       validator: 'isJWT',

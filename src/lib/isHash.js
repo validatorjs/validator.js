@@ -18,6 +18,9 @@ const lengths = {
 
 export default function isHash(str, algorithm) {
   assertString(str);
+  if (!Object.prototype.hasOwnProperty.call(lengths, algorithm)) {
+    return false;
+  }
   const hash = new RegExp(`^[a-fA-F0-9]{${lengths[algorithm]}}$`);
   return hash.test(str);
 }
