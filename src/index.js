@@ -88,6 +88,8 @@ import isEthereumAddress from './lib/isEthereumAddress';
 
 import isCurrency from './lib/isCurrency';
 
+import isCron from './lib/isCron';
+
 import isBtcAddress from './lib/isBtcAddress';
 
 import { isISO6346, isFreightContainerID } from './lib/isISO6346';
@@ -207,6 +209,7 @@ const validator = {
   isPostalCodeLocales,
   isEthereumAddress,
   isCurrency,
+  isCron,
   isBtcAddress,
   isISO6346,
   isFreightContainerID,
