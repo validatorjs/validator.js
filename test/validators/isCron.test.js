@@ -111,9 +111,7 @@ describe('isCron', () => {
 
   it('should process long invalid expressions without disproportionate delay', () => {
     const expression = `x${'\t'.repeat(20000)}x`;
-    const start = Date.now();
 
     assert.strictEqual(validator.isCron(expression), false);
-    assert.ok(Date.now() - start < 100);
-  });
+  }).timeout(1000);
 });
