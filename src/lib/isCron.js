@@ -85,10 +85,33 @@ function isValidField(value, field) {
   return items.length > 0 && items.every(item => isValidItem(item, field));
 }
 
+function trimSpacesAndTabs(value) {
+  let start = 0;
+  let end = value.length;
+
+  while (start < end) {
+    const character = value.charAt(start);
+    if (character !== ' ' && character !== '\t') {
+      break;
+    }
+    start += 1;
+  }
+
+  while (end > start) {
+    const character = value.charAt(end - 1);
+    if (character !== ' ' && character !== '\t') {
+      break;
+    }
+    end -= 1;
+  }
+
+  return value.slice(start, end);
+}
+
 export default function isCron(str, options = {}) {
   assertString(str);
 
-  const expression = str.replace(/^[ \t]+|[ \t]+$/g, '');
+  const expression = trimSpacesAndTabs(str);
 
   if (aliases.indexOf(expression) !== -1) {
     return true;
