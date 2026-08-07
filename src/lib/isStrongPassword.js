@@ -4,7 +4,6 @@ import assertString from './util/assertString';
 const upperCaseRegex = /^[A-Z]$/;
 const lowerCaseRegex = /^[a-z]$/;
 const numberRegex = /^[0-9]$/;
-const symbolRegex = /^[-#!$@£%^&*()_+|~=`{}\[\]:";'<>?,.\/\\ ]$/;
 
 const defaultOptions = {
   minLength: 8,
@@ -19,6 +18,7 @@ const defaultOptions = {
   pointsForContainingUpper: 10,
   pointsForContainingNumber: 10,
   pointsForContainingSymbol: 10,
+  symbolRegex: /^[-#!$@£€%^&*()_+|~=`{}\[\]:";'<>?,.\/\\ ]$/,
 };
 
 /* Counts number of occurrences of each char in a string
@@ -38,7 +38,7 @@ function countChars(str) {
 }
 
 /* Return information about a password */
-function analyzePassword(password) {
+function analyzePassword(password, symbolRegex) {
   let charMap = countChars(password);
   let analysis = {
     length: password.length,
@@ -84,8 +84,8 @@ function scorePassword(analysis, scoringOptions) {
 
 export default function isStrongPassword(str, options = null) {
   assertString(str);
-  const analysis = analyzePassword(str);
   options = merge(options || {}, defaultOptions);
+  const analysis = analyzePassword(str, options.symbolRegex);
   if (options.returnScore) {
     return scorePassword(analysis, options);
   }
