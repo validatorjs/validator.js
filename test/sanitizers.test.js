@@ -271,6 +271,20 @@ describe('Sanitizers', () => {
     });
   });
 
+  it('should score passwords with a custom symbolRegex', () => {
+    test({
+      sanitizer: 'isStrongPassword',
+      args: [{
+        returnScore: true,
+        symbolRegex: /^[!]$/,
+      }],
+      expect: {
+        'Abc123!': 47, // '!' still matches the custom regex
+        Abc123$: 37, // '$' no longer counts as a symbol
+      },
+    });
+  });
+
   it('should score passwords with default options', () => {
     test({
       sanitizer: 'isStrongPassword',
