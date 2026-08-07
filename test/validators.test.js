@@ -14378,6 +14378,7 @@ describe('Validators', () => {
         'etV*p%Nr6w&H%FeF',
         '£3.ndSau_7',
         'VaLIDWith\\Symb0l',
+        'AddNewSymb0l€',
       ],
       invalid: [
         '',
