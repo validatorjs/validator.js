@@ -17,7 +17,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
     - name: Install Dependencies
-      run: npm install --legacy-peer-deps
+      run: npm install
     - name: Run Tests
       run: npm test
     - name: Publish Package to NPM Registry
