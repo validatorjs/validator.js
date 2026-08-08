@@ -12668,6 +12668,8 @@ describe('Validators', () => {
         'USD',
         'VED',
         'SLE',
+        'XCG',
+        'ZWG',
       ],
       invalid: [
         '',

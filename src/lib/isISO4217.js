@@ -25,9 +25,9 @@ const validISO4217CurrencyCodes = new Set([
   'UAH', 'UGX', 'USD', 'USN', 'UYI', 'UYU', 'UYW', 'UZS',
   'VED', 'VES', 'VND', 'VUV',
   'WST',
-  'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XOF', 'XPD', 'XPF', 'XPT', 'XSU', 'XTS', 'XUA', 'XXX',
+  'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XCG', 'XDR', 'XOF', 'XPD', 'XPF', 'XPT', 'XSU', 'XTS', 'XUA', 'XXX',
   'YER',
-  'ZAR', 'ZMW', 'ZWL',
+  'ZAR', 'ZMW', 'ZWG', 'ZWL',
 ]);
 
 export default function isISO4217(str) {
