@@ -26,6 +26,9 @@ describe('isBase64', () => {
         'HQIDAQAB',
       ],
       invalid: [
+        'A',
+        'AAAAA',
+        'AAAAAAAAA',
         '12345',
         'Vml2YW11cyBmZXJtZtesting123',
         'Zg=',

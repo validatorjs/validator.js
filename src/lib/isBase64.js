@@ -12,6 +12,7 @@ export default function isBase64(str, options) {
 
   if (str === '') return true;
 
+  if (str.length % 4 === 1) return false;
   if (options.padding && str.length % 4 !== 0) return false;
 
   let regex;
@@ -21,5 +22,5 @@ export default function isBase64(str, options) {
     regex = options.padding ? base64WithPadding : base64WithoutPadding;
   }
 
-  return (!options.padding || str.length % 4 === 0) && regex.test(str);
+  return regex.test(str);
 }
