@@ -217,7 +217,8 @@ Remember, validating can be troublesome sometimes. See [A list of articles about
 
 ## Contributing
 
-We welcome contributions from the community! If you're interested in contributing to this project, please read our [Contribution Guide](CONTRIBUTING.md) to get started.
+
+Community contributions are highly valued! If you’re interested in helping us improve this project, please check out our [Contribution Guide](CONTRIBUTING.md) to get started.
 
 ## License
 
