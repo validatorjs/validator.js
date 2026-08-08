@@ -40,3 +40,5 @@ export default function isISO31661Alpha3(str, options = {}) {
 
   return validISO31661Alpha3CountriesCodes.has(str.toUpperCase());
 }
+
+export const CountryCodes = validISO31661Alpha3CountriesCodes;
