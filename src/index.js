@@ -130,6 +130,7 @@ import isLicensePlate from './lib/isLicensePlate';
 import isStrongPassword from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
+import isEmoji from './lib/isEmoji';
 
 const version = '13.15.35';
 
@@ -246,6 +247,7 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isEmoji,
 };
 
 export default validator;
