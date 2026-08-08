@@ -8,5 +8,5 @@ export default function isNumeric(str, options) {
   if (options && options.no_symbols) {
     return numericNoSymbols.test(str);
   }
-  return (new RegExp(`^[+-]?([0-9]*[${(options || {}).locale ? decimal[options.locale] : '.'}])?[0-9]+$`)).test(str);
+  return (new RegExp(`^[+-]?([0-9]*[${(options || {}).locale ? decimal[options.locale] : '.'}])?[0-9]+([eE][+-]?[0-9]+)?$`)).test(str);
 }
