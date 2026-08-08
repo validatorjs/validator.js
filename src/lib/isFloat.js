@@ -9,7 +9,8 @@ export default function isFloat(str, options) {
   if (str === '' || str === '.' || str === ',' || str === '-' || str === '+') {
     return false;
   }
-  const value = parseFloat(str.replace(',', '.'));
+  const decimalSeparator = options.locale ? decimal[options.locale] : '.';
+  const value = parseFloat(str.replace(decimalSeparator, '.'));
   return float.test(str) &&
     (!options.hasOwnProperty('min') || isNullOrUndefined(options.min) || value >= options.min) &&
     (!options.hasOwnProperty('max') || isNullOrUndefined(options.max) || value <= options.max) &&
