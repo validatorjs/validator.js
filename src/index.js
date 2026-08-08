@@ -123,6 +123,7 @@ import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
+import toString from './lib/util/toString';
 
 import isSlug from './lib/isSlug';
 import isLicensePlate from './lib/isLicensePlate';

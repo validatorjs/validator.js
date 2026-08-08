@@ -24,6 +24,14 @@ describe('Exports', () => {
     assert.strictEqual(typeof validator.toFloat, 'function');
   });
 
+  it('should export toString and not inherit Object.prototype.toString', () => {
+    assert.notStrictEqual(validator.toString, Object.prototype.toString);
+    assert.strictEqual(validator.toString('test'), 'test');
+    assert.strictEqual(validator.toString(123), '123');
+    assert.strictEqual(validator.toString(null), '');
+    assert.strictEqual(validator.toString(undefined), '');
+  });
+
   it('should export the version number', () => {
     /* eslint-disable global-require */
     assert.strictEqual(
