@@ -198,4 +198,24 @@ describe('isBase64', () => {
       ],
     });
   });
+
+  it('should not cause stack overflow on large strings', () => {
+    // Valid base64 ~1MB
+    const largeValid = Buffer.alloc(1000000).toString('base64');
+    if (!validator.isBase64(largeValid)) {
+      throw new Error('isBase64() failed for a large valid base64 string');
+    }
+
+    // Invalid: large base64 with an invalid character in the middle
+    const largeInvalid = `${largeValid.slice(0, 500000)}!${largeValid.slice(500001)}`;
+    if (validator.isBase64(largeInvalid)) {
+      throw new Error('isBase64() should have failed for a large invalid base64 string');
+    }
+
+    // URL-safe variant
+    const largeUrlSafe = largeValid.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+    if (!validator.isBase64(largeUrlSafe, { urlSafe: true })) {
+      throw new Error('isBase64() failed for a large valid base64url string');
+    }
+  });
 });
