@@ -1,4 +1,9 @@
 import assertString from './util/assertString';
+import merge from './util/merge';
+
+const defaultHashOptions = {
+  validateAlgorithm: true,
+};
 
 const lengths = {
   md5: 32,
@@ -16,8 +21,12 @@ const lengths = {
   crc32b: 8,
 };
 
-export default function isHash(str, algorithm) {
+export default function isHash(str, algorithm, options) {
   assertString(str);
+  const { validateAlgorithm } = merge(options, defaultHashOptions);
+  if (validateAlgorithm && !Object.prototype.hasOwnProperty.call(lengths, algorithm)) {
+    throw new Error(`Invalid algorithm '${algorithm}'`);
+  }
   const hash = new RegExp(`^[a-fA-F0-9]{${lengths[algorithm]}}$`);
   return hash.test(str);
 }
