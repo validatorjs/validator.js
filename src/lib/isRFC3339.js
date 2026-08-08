@@ -21,7 +21,18 @@ const fullTime = new RegExp(`${partialTime.source}${timeOffset.source}`);
 
 const rfc3339 = new RegExp(`^${fullDate.source}[ tT]${fullTime.source}$`);
 
+function daysInMonth(year, month) {
+  if (month === 2) {
+    return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ? 29 : 28;
+  }
+  return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+}
+
 export default function isRFC3339(str) {
   assertString(str);
-  return rfc3339.test(str);
+  if (!rfc3339.test(str)) {
+    return false;
+  }
+  const [, year, month, day] = str.match(/^(\d{4})-(\d{2})-(\d{2})/).map(Number);
+  return day <= daysInMonth(year, month);
 }
