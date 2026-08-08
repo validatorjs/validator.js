@@ -127,7 +127,7 @@ import toString from './lib/util/toString';
 
 import isSlug from './lib/isSlug';
 import isLicensePlate from './lib/isLicensePlate';
-import isStrongPassword from './lib/isStrongPassword';
+import isStrongPassword, { analyzePassword } from './lib/isStrongPassword';
 
 import isVAT from './lib/isVAT';
 
@@ -240,6 +240,7 @@ const validator = {
   toString,
   isSlug,
   isStrongPassword,
+  analyzePassword,
   isTaxID,
   isDate,
   isTime,
