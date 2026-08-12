@@ -76,7 +76,7 @@ export const vatMatchers = {
   RO: str => /^(RO)?\d{2,10}$/.test(str),
   SK: str => /^(SK)?\d{10}$/.test(str),
   SI: str => /^(SI)?\d{8}$/.test(str),
-  ES: str => /^(ES)?\w\d{7}[A-Z]$/.test(str),
+  ES: str => /^(ES)?(?:[ABEH]\d{8}|[NPQRSW]\d{7}[A-J]|[CDFGJUV]\d{7}[0-9A-J])$/.test(str),
   SE: str => /^(SE)?\d{12}$/.test(str),
 
   /**
