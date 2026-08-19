@@ -3,6 +3,7 @@
 [![CI][ci-image]][ci-url]
 [![Coverage][codecov-image]][codecov-url]
 [![Downloads][downloads-image]][npm-url]
+[![inspect.software](https://raw.githubusercontent.com/inspect-software/badges/main/v1/v/validatorjs/validator.js.svg)](https://inspect.software/software/validatorjs/validator.js)
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/validatorjs/validator.js/blob/master/LICENSE)
