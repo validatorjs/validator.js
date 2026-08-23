@@ -12420,6 +12420,22 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 8601 dates, rejecting whitespace other than a space as the date-time separator', () => {
+    test({
+      validator: 'isISO8601',
+      valid: [
+        '2009-05-19T14:39:22',
+        '2009-05-19 14:39:22',
+      ],
+      invalid: [
+        '2009-05-19\t14:39:22',
+        '2009-05-19\n14:39:22',
+        '2009-05-19\f14:39:22',
+        '2009-05-19\v14:39:22',
+      ],
+    });
+  });
+
   it('should validate ISO 8601 dates, with strict = true (regression)', () => {
     test({
       validator: 'isISO8601',
