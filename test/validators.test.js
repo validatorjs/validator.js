@@ -12453,6 +12453,22 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISO 8601 dates, validating signed ordinal dates in strict mode', () => {
+    test({
+      validator: 'isISO8601',
+      args: [
+        { strict: true },
+      ],
+      valid: [
+        '+2009-145',
+        '+2020-366',
+      ],
+      invalid: [
+        '+2009-366',
+      ],
+    });
+  });
+
   it('should validate ISO 8601 dates, with strictSeparator = true', () => {
     test({
       validator: 'isISO8601',

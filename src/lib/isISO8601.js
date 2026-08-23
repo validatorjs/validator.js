@@ -11,10 +11,10 @@ const isValidDate = (str) => {
   // this check is meant to catch invalid dates
   // like 2009-02-31
   // first check for ordinal dates
-  const ordinalMatch = str.match(/^(\d{4})-?(\d{3})([ T]{1}\.*|$)/);
+  const ordinalMatch = str.match(/^([+-]?)(\d{4})-?(\d{3})([ T]{1}\.*|$)/);
   if (ordinalMatch) {
-    const oYear = Number(ordinalMatch[1]);
-    const oDay = Number(ordinalMatch[2]);
+    const oYear = Number(ordinalMatch[2]);
+    const oDay = Number(ordinalMatch[3]);
     // if is leap year
     if ((oYear % 4 === 0 && oYear % 100 !== 0) || oYear % 400 === 0) return oDay <= 366;
     return oDay <= 365;
