@@ -246,7 +246,11 @@ export default function isURL(url, options) {
   }
 
   if (options.host_whitelist) {
-    return checkHost(host, options.host_whitelist);
+    // `host` is '' for bracket-wrapped hosts like '[::1]'; the actual
+    // target lives in `ipv6`. Evaluate the whitelist against it too,
+    // otherwise whitelisted bracketed hosts are always rejected and an
+    // empty-matching whitelist regex accepts arbitrary bracketed hosts.
+    return checkHost(host || ipv6, options.host_whitelist);
   }
 
   if (host === '' && !options.require_host) {

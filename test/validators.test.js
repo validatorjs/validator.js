@@ -879,6 +879,37 @@ describe('Validators', () => {
     });
   });
 
+  it('should evaluate the host whitelist against bracketed IPv6 hosts', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        host_whitelist: ['::1', /^2001:/],
+      }],
+      valid: [
+        'http://[::1]',
+        'http://[::1]:8080',
+        'http://[2001:db8::1]/',
+      ],
+      invalid: [
+        'http://example.com',
+        'http://qux.com',
+      ],
+    });
+  });
+
+  it('should not let an empty-matching whitelist regex accept bracketed garbage hosts', () => {
+    test({
+      validator: 'isURL',
+      args: [{
+        host_whitelist: [/^$/],
+      }],
+      valid: [],
+      invalid: [
+        'http://[not-an-ip]',
+      ],
+    });
+  });
+
   it('should let users specify a host blacklist', () => {
     test({
       validator: 'isURL',
