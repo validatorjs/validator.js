@@ -2,6 +2,7 @@
 [![NPM version][npm-image]][npm-url]
 [![CI][ci-image]][ci-url]
 [![Coverage][codecov-image]][codecov-url]
+[![Plumber Score][plumber-image]][plumber-url]
 [![Downloads][downloads-image]][npm-url]
 [![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
@@ -230,6 +231,8 @@ This project is licensed under the [MIT](LICENSE). See the [LICENSE](LICENSE) fi
 
 [codecov-url]: https://codecov.io/gh/validatorjs/validator.js
 [codecov-image]: https://codecov.io/gh/validatorjs/validator.js/branch/master/graph/badge.svg
+[plumber-image]: https://score.getplumber.io/github.com/validatorjs/validator.js.svg
+[plumber-url]: https://score.getplumber.io/github.com/validatorjs/validator.js
 
 [ci-url]: https://github.com/validatorjs/validator.js/actions?query=workflow%3ACI
 [ci-image]: https://github.com/validatorjs/validator.js/workflows/CI/badge.svg?branch=master

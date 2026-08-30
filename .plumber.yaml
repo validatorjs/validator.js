@@ -1,0 +1,15 @@
+# Plumber overlay: inherits every control from the CLI's built-in
+# baseline, only the differences for this repo are written here.
+# Run 'plumber config resolve' to see the full effective config.
+extends: plumber:default
+version: "2.0"
+
+github:
+  controls:
+    # The baseline also expects release/* branches to be protected;
+    # this repo's release branches are working branches. Keep the
+    # requirement on master, where the npm releases cut from.
+    branchMustBeProtected:
+      defaultMustBeProtected: true
+      namePatterns:
+        - master
