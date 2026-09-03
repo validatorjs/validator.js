@@ -3215,6 +3215,18 @@ describe('Validators', () => {
         '_123.000',
       ],
     });
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '.',
+      }],
+      valid: [
+        '123.123',
+      ],
+      invalid: [
+        '123a123',
+      ],
+    });
   });
 
   it('should validate numeric strings with thousand separator and locale', () => {
@@ -3277,6 +3289,26 @@ describe('Validators', () => {
       error: [
         '123',
         '1230123',
+      ],
+    });
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '*',
+      }],
+      error: [
+        '123',
+        '123*123',
+      ],
+    });
+    test({
+      validator: 'isNumeric',
+      args: [{
+        thousands_separator: '+',
+      }],
+      error: [
+        '123',
+        '123+123',
       ],
     });
   });
