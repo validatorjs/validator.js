@@ -11,5 +11,9 @@ export default function isJWT(str) {
     return false;
   }
 
+  if (dotSplit[0] === '' || dotSplit[1] === '') {
+    return false;
+  }
+
   return dotSplit.reduce((acc, currElem) => acc && isBase64(currElem, { urlSafe: true }), true);
 }
