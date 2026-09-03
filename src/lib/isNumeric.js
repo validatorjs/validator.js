@@ -1,18 +1,25 @@
 import assertString from './util/assertString';
+import merge from './util/merge';
 import { decimal } from './alpha';
 
 const numericNoSymbols = /^[0-9]+$/;
 
+const defaultNumericOptions = {
+  no_symbols: false,
+  thousands_separator: '',
+};
+
 export default function isNumeric(str, options) {
   assertString(str);
+  options = merge(options, defaultNumericOptions);
 
-  if (options && options.no_symbols) {
+  if (options.no_symbols) {
     return numericNoSymbols.test(str);
   }
 
-  const decimal_char = (options || {}).locale ? decimal[options.locale] : '.';
-  if (options && options.thousands_separator) {
-    const separator = `${options.thousands_separator || ''}`;
+  const decimal_char = options.locale ? decimal[options.locale] : '.';
+  if (options.thousands_separator) {
+    const separator = `${options.thousands_separator}`;
     if (separator.length > 1 || numericNoSymbols.test(separator)) {
       throw new TypeError(`Expected non-numeric single character. Received thousand_separator: ${separator}`);
     } else {
@@ -22,4 +29,3 @@ export default function isNumeric(str, options) {
 
   return (new RegExp(`^[+-]?([0-9]*[${decimal_char}])?[0-9]+$`)).test(str);
 }
-
