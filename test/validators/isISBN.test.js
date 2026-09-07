@@ -54,6 +54,7 @@ describe('isISBN', () => {
   });
 
   [
+    { description: 'null options', options: null },
     { description: 'empty options', options: {} },
     { description: 'an undefined version', options: { version: undefined } },
     { description: 'a null version', options: { version: null } },
