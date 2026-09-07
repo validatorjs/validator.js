@@ -9,12 +9,13 @@ export default function isISBN(isbn, options) {
 
   // For backwards compatibility:
   // isISBN(str [, version]), i.e. `options` could be used as argument for the legacy `version`
-  const version = String(options?.version || options);
+  let version = typeof options === 'object' ? options?.version : options;
 
-  if (!(options?.version || options)) {
+  if (!version) {
     return isISBN(isbn, { version: 10 }) || isISBN(isbn, { version: 13 });
   }
 
+  version = String(version);
   const sanitizedIsbn = isbn.replace(/[\s-]+/g, '');
 
   let checksum = 0;

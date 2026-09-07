@@ -53,6 +53,29 @@ describe('isISBN', () => {
     });
   });
 
+  [
+    { description: 'empty options', options: {} },
+    { description: 'an undefined version', options: { version: undefined } },
+    { description: 'a null version', options: { version: null } },
+  ].forEach(({ description, options }) => {
+    it(`should validate both ISBN versions with ${description}`, () => {
+      test({
+        validator: 'isISBN',
+        args: [options],
+        valid: [
+          '340101319X',
+          '9784873113685',
+        ],
+        invalid: [
+          '3423214121',
+          '9783836221190',
+          'foo',
+          '',
+        ],
+      });
+    });
+  });
+
   describe('(legacy syntax)', () => {
     it('should validate ISBNs', () => {
       test({
