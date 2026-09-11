@@ -7503,6 +7503,31 @@ describe('Validators', () => {
     });
   });
 
+  it('should reject base32 strings with an impossible number of padding characters', () => {
+    // RFC 4648 (section 6) pads the final group to 8 characters, so an encoder
+    // emits 0, 1, 3, 4 or 6 padding characters - never 2, 5 or 7.
+    test({
+      validator: 'isBase32',
+      valid: [
+        'ZG======',
+        'JBSQ====',
+        'JBSWY===',
+        'JBSWY3A=',
+        'JBSWY3DP',
+        'JBSWY3DPEA======',
+      ],
+      invalid: [
+        'JBSWY3==',
+        'JBS=====',
+        'J=======',
+        'JBSWY3DPJBSWY3==',
+        'JBSWY3DPJBS=====',
+        'JBSWY3DPJ=======',
+        'JBSWY3==========',
+      ],
+    });
+  });
+
   it('should validate base32 strings with crockford alternative', () => {
     test({
       validator: 'isBase32',
