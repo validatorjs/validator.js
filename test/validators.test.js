@@ -3896,12 +3896,14 @@ describe('Validators', () => {
       validator: 'isPassportNumber',
       args: ['PT'],
       valid: [
+        'CC332125',
         'I700044',
         'K453286',
       ],
       invalid: [
         '0700044',
         'K4532861',
+        'CCC332125',
       ],
     });
 
