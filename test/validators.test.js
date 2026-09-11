@@ -16228,4 +16228,17 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should not mutate the options object passed to a validator', () => {
+    const options = {};
+    validator.isEmail('foo@bar.com', options);
+    assert.deepStrictEqual(options, {}, 'options object was mutated');
+  });
+
+  it('should accept a frozen options object', () => {
+    assert.strictEqual(
+      validator.isURL('https://example.com', Object.freeze({ require_tld: true })),
+      true
+    );
+  });
 });
