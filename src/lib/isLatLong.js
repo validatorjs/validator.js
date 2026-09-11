@@ -1,6 +1,5 @@
 import assertString from './util/assertString';
 import merge from './util/merge';
-import includes from './util/includesString';
 
 const lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
 const long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
@@ -16,8 +15,8 @@ export default function isLatLong(str, options) {
   assertString(str);
   options = merge(options, defaultLatLongOptions);
 
-  if (!includes(str, ',')) return false;
   const pair = str.split(',');
+  if (pair.length !== 2) return false;
   if ((pair[0].startsWith('(') && !pair[1].endsWith(')'))
     || (pair[1].endsWith(')') && !pair[0].startsWith('('))) return false;
 

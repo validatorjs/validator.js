@@ -12856,6 +12856,33 @@ describe('Validators', () => {
     });
   });
 
+  it('should reject extra decimal LatLong components', () => {
+    test({
+      validator: 'isLatLong',
+      invalid: [
+        '0,0,',
+        '0,0,0',
+        '0,0,garbage',
+        '0, 0, 0, 0',
+        '(0, 0),',
+        '(0, 0),garbage',
+      ],
+    });
+  });
+
+  it('should reject extra DMS LatLong components', () => {
+    test({
+      validator: 'isLatLong',
+      args: [{ checkDMS: true }],
+      invalid: [
+        '40° 26′ 46″ N, 79° 58′ 56″ W,',
+        '40° 26′ 46″ N, 79° 58′ 56″ W,0',
+        '40° 26′ 46″ N, 79° 58′ 56″ W,garbage',
+        '40° 26′ 46″ N, 79° 58′ 56″ W,0,0',
+      ],
+    });
+  });
+
   it('should validate postal code', () => {
     const fixtures = [
       {
