@@ -5540,6 +5540,39 @@ describe('Validators', () => {
       ],
     });
   });
+
+  it('should validate the algorithm name by default', () => {
+    assert.throws(
+      () => validator.isHash('KYT0bf1c35032a71a14c2f719e5a14c1', 'sha0'),
+      /Invalid algorithm 'sha0'/
+    );
+    assert.throws(
+      () => validator.isHash('KYT0bf1c35032a71a14c2f719e5a14c1', undefined),
+      /Invalid algorithm 'undefined'/
+    );
+    // an inherited Object.prototype key is not a valid algorithm either
+    assert.throws(
+      () => validator.isHash('KYT0bf1c35032a71a14c2f719e5a14c1', 'toString'),
+      /Invalid algorithm 'toString'/
+    );
+  });
+
+  it('should not validate the algorithm name when validateAlgorithm is false', () => {
+    assert.strictEqual(
+      validator.isHash('KYT0bf1c35032a71a14c2f719e5a14c1', 'sha0', { validateAlgorithm: false }),
+      false
+    );
+    // a known algorithm still behaves the same either way
+    assert.strictEqual(
+      validator.isHash('d94f3f016ae679c3008de268209132f2', 'md5', { validateAlgorithm: false }),
+      true
+    );
+    assert.strictEqual(
+      validator.isHash('d94f3f016ae679c3008de268209132f2', 'md5', { validateAlgorithm: true }),
+      true
+    );
+  });
+
   it('should validate JWT tokens', () => {
     test({
       validator: 'isJWT',
