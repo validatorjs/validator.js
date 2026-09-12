@@ -1,3 +1,4 @@
+import isUsername from './lib/isUsername';
 import toDate from './lib/toDate';
 import toFloat from './lib/toFloat';
 import toInt from './lib/toInt';
@@ -246,6 +247,8 @@ const validator = {
   isLicensePlate,
   isVAT,
   ibanLocales,
+  isUsername,
+
 };
 
 export default validator;
