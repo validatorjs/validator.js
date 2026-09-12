@@ -13615,6 +13615,9 @@ describe('Validators', () => {
         'ECMJ4657496',
         'TBJA7176445',
         'AFFU5962593',
+        'HLXU2008419HELLO',
+        'HELLOHLXU2008419',
+        'QJR,123456',
       ],
     });
   });
