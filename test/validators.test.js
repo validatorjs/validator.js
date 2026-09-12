@@ -5361,6 +5361,34 @@ describe('Validators', () => {
     });
   });
 
+  it('should keep RGB color values contiguous when allowing spaces', () => {
+    [true, false].forEach((includePercentValues) => {
+      test({
+        validator: 'isRgbColor',
+        args: [{ allowSpaces: true, includePercentValues }],
+        valid: [
+          'rgb( 255 , 0 , 0 )',
+          'rgba(255,\t0,\n0, .125)',
+        ],
+        invalid: [
+          'rgb(2 55,0,0)',
+          'rgb(0,2\t55,0)',
+          'rgb(0,0,2\n55)',
+          'rgba(0,0,0,0 .5)',
+          'rgba(0,0,0,0. 5)',
+          'rgba(0,0,0,. 5)',
+        ],
+      });
+    });
+
+    test({
+      validator: 'isRgbColor',
+      args: [{ allowSpaces: true }],
+      valid: ['rgb( 25% , 50% , 100% )'],
+      invalid: ['rgb(2 5%,0%,0%)', 'rgb(25 %,0%,0%)'],
+    });
+  });
+
   it('should validate ISRC code strings', () => {
     test({
       validator: 'isISRC',
