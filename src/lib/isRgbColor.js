@@ -6,6 +6,7 @@ const rgbaColor = /^rgba\((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]),){
 const rgbColorPercent = /^rgb\((([0-9]%|[1-9][0-9]%|100%),){2}([0-9]%|[1-9][0-9]%|100%)\)$/;
 const rgbaColorPercent = /^rgba\((([0-9]%|[1-9][0-9]%|100%),){3}(0?\.\d+|1(\.0+)?|0(\.0+)?)\)$/;
 const startsWithRgb = /^rgba?/;
+const whitespaceWithinValue = /[\d.]\s+[\d.%]/;
 
 export default function isRgbColor(str, options) {
   assertString(str);
@@ -24,7 +25,7 @@ export default function isRgbColor(str, options) {
 
   if (allowSpaces) {
     // make sure it starts with continuous rgba? without spaces before stripping
-    if (!startsWithRgb.test(str)) {
+    if (!startsWithRgb.test(str) || whitespaceWithinValue.test(str)) {
       return false;
     }
     // strip all whitespace
