@@ -38,7 +38,7 @@ function countChars(str) {
 }
 
 /* Return information about a password */
-function analyzePassword(password) {
+export function analyzePassword(password) {
   let charMap = countChars(password);
   let analysis = {
     length: password.length,
