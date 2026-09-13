@@ -280,6 +280,23 @@ describe('Validators', () => {
     });
   });
 
+  it('should not validate email addresses with quotes in the local part', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ blacklisted_chars: '"' }],
+      valid: [
+        'foo@bar.com',
+        'test@example.com',
+      ],
+      invalid: [
+        '"foobar"@example.com',
+        '"foo"bar@example.com',
+        'foo"bar"@example.com',
+        '"  foo  m端ller "@example.com',
+        '"foo\\@bar"@example.com',
+      ],
+    });
+  });
 
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
