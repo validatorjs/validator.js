@@ -32,6 +32,8 @@ const default_normalize_email_options = {
   // The following conversions are specific to Yandex
   // Lowercases the local part of the Yandex address (known to be case-insensitive)
   yandex_lowercase: true,
+  // Removes the subaddress (e.g. "+foo") from the email address
+  yandex_remove_subaddress: true,
   // all yandex domains are equal, this explicitly sets the domain to 'yandex.ru'
   yandex_convert_yandexru: true,
 
@@ -40,6 +42,52 @@ const default_normalize_email_options = {
   icloud_lowercase: true,
   // Removes the subaddress (e.g. "+foo") from the email address
   icloud_remove_subaddress: true,
+
+  // The following conversions are specific to Comcast
+  // Lowercases the local part of the Comcast address (known to be case-insensitive)
+  comcast_lowercase: true,
+  // Removes the subaddress (e.g. "+foo") from the email address
+  comcast_remove_subaddress: true,
+
+  // The following conversions are specific to FastMail
+  // Lowercases the local part of the FastMail address (known to be case-insensitive)
+  fastmail_lowercase: true,
+  // Removes dots from the local part of the email address, as that's ignored by FastMail
+  fastmail_remove_dots: true,
+  // Removes the subaddress (e.g. "+foo") from the email address
+  fastmail_remove_subaddress: true,
+
+  // The following conversions are specific to GMX
+  // Lowercases the local part of the GMX address (known to be case-insensitive)
+  gmx_lowercase: true,
+  // Removes the subaddress (e.g. "-foo") from the email address
+  gmx_remove_subaddress: true,
+
+  // The following conversions are specific to Mailfence
+  // Lowercases the local part of the Mailfence address (known to be case-insensitive)
+  mailfence_lowercase: true,
+  // Removes the subaddress (e.g. "+foo") from the email address
+  mailfence_remove_subaddress: true,
+
+  // The following conversions are specific to Proton
+  // Lowercases the local part of the Proton address (known to be case-insensitive)
+  proton_lowercase: true,
+  // Removes the subaddress (e.g. "+foo") from the email address
+  proton_remove_subaddress: true,
+
+  // The following conversions are specific to Skiff
+  // Lowercases the local part of the Skiff address (known to be case-insensitive)
+  skiff_lowercase: true,
+  // Removes dots from the local part of the email address, as that's ignored by Skiff
+  skiff_remove_dots: true,
+  // Removes the subaddress (e.g. "+foo") from the email address
+  skiff_remove_subaddress: true,
+
+  // The following conversions are specific to Zoho
+  // Lowercases the local part of the Zoho address (known to be case-insensitive)
+  zoho_lowercase: true,
+  // Removes the subaddress (e.g. "+foo") from the email address
+  zoho_remove_subaddress: true,
 };
 
 // List of domains used by iCloud
@@ -149,6 +197,8 @@ const yahoo_domains = [
   'yahoo.in',
   'yahoo.it',
   'ymail.com',
+  'cox.net',
+  'sbcglobal.net',
 ];
 
 // List of domains used by yandex.ru
@@ -159,6 +209,72 @@ const yandex_domains = [
   'yandex.com',
   'yandex.by',
   'ya.ru',
+];
+
+// List of domains used by Comcast
+const comcast_domains = [
+  'comcast.com',
+  'comcast.net',
+];
+
+// List of domains used by FastMail
+const fastmail_domains = [
+  'fastmail.com',
+  'fastmail.cn',
+  'fastmail.co.uk',
+  'fastmail.com.au',
+  'fastmail.de',
+  'fastmail.es',
+  'fastmail.fm',
+  'fastmail.fr',
+  'fastmail.im',
+  'fastmail.in',
+  'fastmail.jp',
+  'fastmail.mx',
+  'fastmail.net',
+  'fastmail.nl',
+  'fastmail.org',
+  'fastmail.se',
+  'fastmail.to',
+  'fastmail.tw',
+  'fastmail.uk',
+  'fastmail.us',
+  'sent.com',
+];
+
+// List of domains used by GMX
+const gmx_domains = [
+  'gmx.at',
+  'gmx.ca',
+  'gmx.ch',
+  'gmx.co.uk',
+  'gmx.com',
+  'gmx.de',
+  'gmx.es',
+  'gmx.fr',
+  'gmx.net',
+  'gmx.us',
+];
+
+// List of domains used by Mailfence
+const mailfence_domains = [
+  'mailfence.com',
+];
+
+// List of domains used by Proton
+const proton_domains = [
+  'proton.me',
+  'protonmail.com',
+];
+
+// List of domains used by Skiff
+const skiff_domains = [
+  'skiff.com',
+];
+
+// List of domains used by Zoho
+const zoho_domains = [
+  'zohomail.com',
 ];
 
 // replace single dots, but not multiple consecutive dots
@@ -231,10 +347,101 @@ export default function normalizeEmail(email, options) {
       parts[0] = parts[0].toLowerCase();
     }
   } else if (yandex_domains.indexOf(parts[1]) >= 0) {
+    // Address is Yandex
+    if (options.yandex_remove_subaddress) {
+      parts[0] = parts[0].split('+')[0];
+    }
+    if (!parts[0].length) {
+      return false;
+    }
     if (options.all_lowercase || options.yandex_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
     parts[1] = options.yandex_convert_yandexru ? 'yandex.ru' : parts[1];
+  } else if (comcast_domains.indexOf(parts[1]) >= 0) {
+    // Address is Comcast
+    if (options.comcast_remove_subaddress) {
+      parts[0] = parts[0].split('+')[0];
+    }
+    if (!parts[0].length) {
+      return false;
+    }
+    if (options.all_lowercase || options.comcast_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+  } else if (fastmail_domains.indexOf(parts[1]) >= 0) {
+    // Address is FastMail
+    if (options.fastmail_remove_subaddress) {
+      parts[0] = parts[0].split('+')[0];
+    }
+    if (options.fastmail_remove_dots) {
+      parts[0] = parts[0].replace(/\.+/g, dotsReplacer);
+    }
+    if (!parts[0].length) {
+      return false;
+    }
+    if (options.all_lowercase || options.fastmail_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+  } else if (gmx_domains.indexOf(parts[1]) >= 0) {
+    // Address is GMX (uses - for subaddress like Yahoo)
+    if (options.gmx_remove_subaddress) {
+      let components = parts[0].split('-');
+      parts[0] = (components.length > 1) ? components.slice(0, -1).join('-') : components[0];
+    }
+    if (!parts[0].length) {
+      return false;
+    }
+    if (options.all_lowercase || options.gmx_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+  } else if (mailfence_domains.indexOf(parts[1]) >= 0) {
+    // Address is Mailfence
+    if (options.mailfence_remove_subaddress) {
+      parts[0] = parts[0].split('+')[0];
+    }
+    if (!parts[0].length) {
+      return false;
+    }
+    if (options.all_lowercase || options.mailfence_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+  } else if (proton_domains.indexOf(parts[1]) >= 0) {
+    // Address is Proton
+    if (options.proton_remove_subaddress) {
+      parts[0] = parts[0].split('+')[0];
+    }
+    if (!parts[0].length) {
+      return false;
+    }
+    if (options.all_lowercase || options.proton_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+  } else if (skiff_domains.indexOf(parts[1]) >= 0) {
+    // Address is Skiff
+    if (options.skiff_remove_subaddress) {
+      parts[0] = parts[0].split('+')[0];
+    }
+    if (options.skiff_remove_dots) {
+      parts[0] = parts[0].replace(/\.+/g, dotsReplacer);
+    }
+    if (!parts[0].length) {
+      return false;
+    }
+    if (options.all_lowercase || options.skiff_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
+  } else if (zoho_domains.indexOf(parts[1]) >= 0) {
+    // Address is Zoho
+    if (options.zoho_remove_subaddress) {
+      parts[0] = parts[0].split('+')[0];
+    }
+    if (!parts[0].length) {
+      return false;
+    }
+    if (options.all_lowercase || options.zoho_lowercase) {
+      parts[0] = parts[0].toLowerCase();
+    }
   } else if (options.all_lowercase) {
     // Any other address
     parts[0] = parts[0].toLowerCase();
