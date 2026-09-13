@@ -198,4 +198,48 @@ describe('isBase64', () => {
       ],
     });
   });
+
+
+  it('should reject strings whose length is not a valid base64 length when padding is off', () => {
+    // Regression: with padding: false, isBase64 was returning true for
+    // ANY length that matched the character regex, including 1 char
+    // ('A'), 5 chars ('AAAAA'), 9 chars, etc. A base64 string without
+    // padding must have length L where L % 4 is 0, 2, or 3 — never 1.
+    // A string whose length leaves remainder 1 when divided by 4 has
+    // no valid decoding.
+    test({
+      validator: 'isBase64',
+      args: [{ urlSafe: false, padding: false }],
+      valid: [
+        '',
+        'TQ',
+        'TWE',
+        'TWFu',
+        'TU0',
+        'TU1NTQ',
+        'TU1NTU0',
+        'TU1NTU1N',
+      ],
+      invalid: [
+        'A',
+        'AAAAA',
+        'AAAAAAAAA',
+        'AAAAAAAAAAAAA',
+      ],
+    });
+
+    test({
+      validator: 'isBase64',
+      args: [{ urlSafe: true, padding: false }],
+      valid: [
+        'PDw_Pz8-Pg',
+        'bGFkaWVz',
+      ],
+      invalid: [
+        'A',
+        'AAAAA',
+        'AAAAAAAAA',
+      ],
+    });
+  });
 });
