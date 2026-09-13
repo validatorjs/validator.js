@@ -325,6 +325,8 @@ describe('Sanitizers', () => {
         '@icloud.com': false,
         '@outlook.com': false,
         '@yahoo.com': false,
+        '': false,
+        'no-at-sign': false,
       },
     });
 
