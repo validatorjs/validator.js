@@ -4435,6 +4435,10 @@ describe('Validators', () => {
   });
 
   it('should validate integers', () => {
+    const options = Object.create(null);
+    options.min = 10;
+    assert.strictEqual(validator.isInt('10', options), true);
+    assert.strictEqual(validator.isInt('9', options), false);
     test({
       validator: 'isInt',
       valid: [
@@ -4631,6 +4635,10 @@ describe('Validators', () => {
   });
 
   it('should validate floats', () => {
+    const options = Object.create(null);
+    options.min = 1.5;
+    assert.strictEqual(validator.isFloat('1.5', options), true);
+    assert.strictEqual(validator.isFloat('1.4', options), false);
     test({
       validator: 'isFloat',
       valid: [
@@ -5761,6 +5769,11 @@ describe('Validators', () => {
       valid: [''],
       invalid: ['ｇ', 'a'],
     });
+    test({
+      validator: 'isByteLength',
+      args: [null],
+      valid: ['', 'a'],
+    });
   });
 
   it('should handle unpaired UTF-16 surrogates without throwing', () => {
@@ -6182,6 +6195,12 @@ describe('Validators', () => {
       valid: ['1', '2', '3'],
       invalid: ['4', ''],
     });
+    test({
+      validator: 'isIn',
+      args: [Object.create(null, { foo: { value: 1, enumerable: true } })],
+      valid: ['foo'],
+      invalid: ['bar', ''],
+    });
   });
 
   it('should validate ABA routing number', () => {
@@ -6450,6 +6469,13 @@ describe('Validators', () => {
         '6234917882863855suffix',
       ],
     });
+  });
+
+  it('rejects inherited credit card provider names', () => {
+    assert.throws(
+      () => validator.isCreditCard('375556917985515', { provider: '__proto__' }),
+      /__proto__ is not a valid credit card provider/
+    );
   });
 
 

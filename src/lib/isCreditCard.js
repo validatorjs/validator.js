@@ -26,12 +26,13 @@ export default function isCreditCard(card, options = {}) {
   assertString(card);
   const { provider } = options;
   const sanitized = card.replace(/[- ]+/g, '');
-  if (provider && provider.toLowerCase() in cards) {
+  const providerName = provider && provider.toLowerCase();
+  if (providerName && Object.prototype.hasOwnProperty.call(cards, providerName)) {
     // specific provider in the list
-    if (!(cards[provider.toLowerCase()].test(sanitized))) {
+    if (!(cards[providerName].test(sanitized))) {
       return false;
     }
-  } else if (provider && !(provider.toLowerCase() in cards)) {
+  } else if (providerName) {
     /* specific provider not in the list */
     throw new Error(`${provider} is not a valid credit card provider.`);
   } else if (!allCards.some(cardProvider => cardProvider.test(sanitized))) {
