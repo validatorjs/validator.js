@@ -23,11 +23,15 @@ const isValidDate = (str) => {
   const year = match[1];
   const month = match[2];
   const day = match[3];
+  // pad the year back to 4 digits, otherwise years before 1000 (e.g. `0001`)
+  // lose their leading zeros via the `Number` cast above and `new Date` then
+  // misparses the string (e.g. `1-01-01` instead of `0001-01-01`)
+  const yearString = `000${year}`.slice(-4);
   const monthString = month ? `0${month}`.slice(-2) : month;
   const dayString = day ? `0${day}`.slice(-2) : day;
 
   // create a date object and compare
-  const d = new Date(`${year}-${monthString || '01'}-${dayString || '01'}`);
+  const d = new Date(`${yearString}-${monthString || '01'}-${dayString || '01'}`);
   if (month && day) {
     return d.getUTCFullYear() === year
       && (d.getUTCMonth() + 1) === month
