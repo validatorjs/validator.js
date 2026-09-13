@@ -5108,6 +5108,31 @@ describe('Validators', () => {
     });
   });
 
+  it('should allow optional whitespace around the HSL alpha separator', () => {
+    test({
+      validator: 'isHSL',
+      valid: [
+        'hsl(120 100% 50%/0.5)',
+        'hsl(120 100% 50% /0.5)',
+        'hsl(120 100% 50%/ 0.5)',
+        'hsl(120 100% 50% / 0.5)',
+        'hsla(120 100% 50%/50%)',
+        'hsla(120 100% 50% /50%)',
+        'hsla(120 100% 50%/ 50%)',
+        'hsla(120 100% 50% / 50%)',
+        'hsl(120 100% 50%/.5)',
+        'hsl(120 100% 50%\t/\t0.5)',
+      ],
+      invalid: [
+        'hsl(120 100% 50%/)',
+        'hsl(120 100% 50%/ )',
+        'hsl(120 100% 50%//0.5)',
+        'hsl(120 100% 50%/0. 5)',
+        'hsl(120 100% 50%/50 %)',
+      ],
+    });
+  });
+
   it('should validate rgb color strings', () => {
     test({
       validator: 'isRgbColor',
