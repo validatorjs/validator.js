@@ -11,6 +11,7 @@ const validators = {
   'es-AR': str => /^(([A-Z]{2} ?[0-9]{3} ?[A-Z]{2})|([A-Z]{3} ?[0-9]{3}))$/.test(str),
   'fi-FI': str => /^(?=.{4,7})(([A-Z]{1,3}|[0-9]{1,3})[\s-]?([A-Z]{1,3}|[0-9]{1,5}))$/.test(str),
   'hu-HU': str => /^((((?!AAA)(([A-NPRSTVZWXY]{1})([A-PR-Z]{1})([A-HJ-NPR-Z]))|(A[ABC]I)|A[ABC]O|A[A-W]Q|BPI|BPO|UCO|UDO|XAO)-(?!000)\d{3})|(M\d{6})|((CK|DT|CD|HC|H[ABEFIKLMNPRSTVX]|MA|OT|R[A-Z]) \d{2}-\d{2})|(CD \d{3}-\d{3})|(C-(C|X) \d{4})|(X-(A|B|C) \d{4})|(([EPVZ]-\d{5}))|(S A[A-Z]{2} \d{2})|(SP \d{2}-\d{2}))$/.test(str),
+  'ja-JP': str => /^[\u3041-\u3096\u4E00-\u9FFF]{1,4}[ -]?\d{2,3}[A-Z]?[ -]?(?![\u304A\u3057\u3078\u3090\u3091\u3093])[\u3042-\u3096][ -]?(\d{1,4}|\d{1,2}-\d{2})$/.test(str),
   'pt-BR': str =>
     /^[A-Z]{3}[ -]?[0-9][A-Z][0-9]{2}|[A-Z]{3}[ -]?[0-9]{4}$/.test(str),
   'pt-PT': str =>
