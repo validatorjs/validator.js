@@ -4628,6 +4628,69 @@ describe('Validators', () => {
         '111987234i',
       ],
     });
+
+    // Regression: when the user passes a STRING for min/max/lt/gt (e.g.
+    // a value from a form POST body, a query string, or a JSON payload
+    // where the schema did not coerce numeric fields), the previous
+    // implementation did `str <= options.max` which is a string-vs-string
+    // comparison. `'100' <= '9'` is true because '1' < '9' lexicographically.
+    // Numeric parsing of both sides makes the bound checks robust.
+    test({
+      validator: 'isInt',
+      args: [{
+        max: '9',
+      }],
+      valid: [
+        '5',
+        '8',
+        '9',
+      ],
+      invalid: [
+        '10',
+        '50',
+        '99',
+        '100',
+        '1000',
+      ],
+    });
+    test({
+      validator: 'isInt',
+      args: [{
+        min: '5',
+        max: '9',
+      }],
+      valid: [
+        '5',
+        '6',
+        '9',
+      ],
+      invalid: [
+        '4',
+        '10',
+        '99',
+        '100',
+        '1000',
+      ],
+    });
+    test({
+      validator: 'isInt',
+      args: [{
+        gt: '1',
+        lt: '9',
+      }],
+      valid: [
+        '2',
+        '8',
+      ],
+      invalid: [
+        '1',
+        '9',
+        '10',
+        '99',
+        '100',
+      ],
+    });
+
   });
 
   it('should validate floats', () => {
