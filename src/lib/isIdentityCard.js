@@ -415,8 +415,12 @@ const validators = {
     }, 0);
   },
   PK: (str) => {
-    // Pakistani National Identity Number CNIC is 13 digits
-    const CNIC = /^[1-7][0-9]{4}-[0-9]{7}-[1-9]$/;
+    // Pakistani National Identity Number CNIC is 13 digits in the form
+    // XXXXX-XXXXXXX-X. The first digit is the province/administrative-unit
+    // code 1-8 (8 = Azad Kashmir) and the last digit encodes gender, using
+    // odd digits for men and even digits (including 0) for women.
+    // https://en.wikipedia.org/wiki/CNIC_(Pakistan)
+    const CNIC = /^[1-8][0-9]{4}-[0-9]{7}-[0-9]$/;
 
     // sanitize user input
     const sanitized = str.trim();
