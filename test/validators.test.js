@@ -13544,6 +13544,39 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate underscores in text MIME subtypes and charsets', () => {
+    test({
+      validator: 'isMimeType',
+      valid: [
+        'text/x_custom; charset=utf-8',
+        'text/plain; charset=ANSI_X3.4-1968',
+        'text/plain; charset="ISO_8859-1"',
+        'text/x_custom; charset="ISO_8859-1"',
+      ],
+      invalid: [
+        'text/x custom; charset=utf-8',
+        'text/plain; charset=ISO_8859 1',
+      ],
+    });
+  });
+
+  it('should validate underscores in multipart MIME subtypes and parameters', () => {
+    test({
+      validator: 'isMimeType',
+      valid: [
+        'multipart/x_custom; boundary=part',
+        'multipart/form-data; boundary=----Part_123',
+        'multipart/form-data; boundary="----Part_123"',
+        'multipart/mixed; charset=ISO_8859-1; boundary=part',
+        'multipart/mixed; boundary=part; charset="ISO_8859-1"',
+      ],
+      invalid: [
+        'multipart/form-data; boundary=----Part_123 other',
+        'multipart/form-data; boundary="----Part_123',
+      ],
+    });
+  });
+
   it('should validate MIME types', () => {
     test({
       validator: 'isMimeType',
