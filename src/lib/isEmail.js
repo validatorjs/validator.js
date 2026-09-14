@@ -6,6 +6,43 @@ import isFQDN from './isFQDN';
 import isIP from './isIP';
 import merge from './util/merge';
 
+/**
+ * @typedef {string|RegExp} EmailHostMatcher
+ */
+
+/**
+ * Options supported by isEmail.
+ *
+ * Every property is optional. When a property is omitted or set to undefined,
+ * isEmail falls back to the value described for that property.
+ *
+ * @typedef {Object} IsEmailOptions
+ * @property {boolean} [allow_display_name=false] - Accept
+ *   `Display Name <email-address>` input.
+ * @property {boolean} [require_display_name=false] - Require
+ *   `Display Name <email-address>` input.
+ * @property {boolean} [allow_utf8_local_part=true] - Allow UTF-8 characters
+ *   in the local part before the `@` symbol.
+ * @property {boolean} [require_tld=true] - Require the domain to include a
+ *   top-level domain unless an allowed IP domain is supplied.
+ * @property {boolean} [allow_ip_domain=false] - Allow the domain to be an IP
+ *   address, including bracket-wrapped IP literals.
+ * @property {boolean} [allow_underscores=false] - Allow underscores in the
+ *   domain part.
+ * @property {boolean} [domain_specific_validation=false] - Apply additional
+ *   provider-specific checks, currently including Gmail username rules.
+ * @property {string} [blacklisted_chars] - Defaults to ''. Reject local parts
+ *   containing any character from this RegExp character class fragment.
+ * @property {boolean} [ignore_max_length=false] - Skip standard email,
+ *   local-part, domain, and domain-label length checks.
+ * @property {EmailHostMatcher[]} [host_blacklist] - Defaults to []. Reject
+ *   emails whose lower-cased host matches one of these strings or regular
+ *   expressions.
+ * @property {EmailHostMatcher[]} [host_whitelist] - Defaults to []. Require
+ *   the lower-cased host to match one of these strings or regular expressions
+ *   when non-empty.
+ */
+
 const default_email_options = {
   allow_display_name: false,
   allow_underscores: false,
@@ -32,7 +69,8 @@ const defaultMaxEmailLength = 254;
 
 /**
  * Validate display name according to the RFC2822: https://tools.ietf.org/html/rfc2822#appendix-A.1.2
- * @param {String} display_name
+ * @param {string} display_name
+ * @returns {boolean} whether the display name is valid.
  */
 function validateDisplayName(display_name) {
   const display_name_without_quotes = display_name.replace(/^"(.+)"$/, '$1');
@@ -61,6 +99,13 @@ function validateDisplayName(display_name) {
   return true;
 }
 
+/**
+ * Check if a string is an email address.
+ *
+ * @param {string} str - The string to validate.
+ * @param {IsEmailOptions} [options] - Optional validation settings.
+ * @returns {boolean} whether the string is a valid email address.
+ */
 export default function isEmail(str, options) {
   assertString(str);
   options = merge(options, default_email_options);
