@@ -3243,6 +3243,28 @@ describe('Validators', () => {
       ],
     });
 
+    test({
+      validator: 'isPassportNumber',
+      args: ['am'],
+      valid: [
+        'AF0549358',
+      ],
+      invalid: [
+        'A1054935',
+      ],
+    });
+
+    test({
+      validator: 'isPassportNumber',
+      args: ['aM'],
+      valid: [
+        'AF0549358',
+      ],
+      invalid: [
+        'A1054935',
+      ],
+    });
+
 
     test({
       validator: 'isPassportNumber',
