@@ -12420,6 +12420,66 @@ describe('Validators', () => {
     });
   });
 
+  [{}, { strict: true }, { strictSeparator: true }, { strict: true, strictSeparator: true }]
+    .forEach((options) => {
+      it(`should validate ISO 8601 end-of-day times with ${JSON.stringify(options)}`, () => {
+        test({
+          validator: 'isISO8601',
+          args: [options],
+          valid: [
+            '2009-01-01T24',
+            '2009-01-01T24.0',
+            '2009-01-01T2400',
+            '2009-01-01T24:00',
+            '2009-01-01T240000',
+            '2009-01-01T24:00:00',
+            '2009-01-01T2400,000',
+            '2009-01-01T24:00.000',
+            '2009-01-01T240000.000',
+            '2009-01-01T24:00:00,000',
+            '2009-01-01T24:00:00Z',
+            '2009-01-01T240000+0530',
+            '2009-01-01T24:00:00.000-05:30',
+            '2009-01-01T24:00:00-01',
+          ],
+        });
+      });
+
+      it(`should reject invalid ISO 8601 end-of-day times with ${JSON.stringify(options)}`, () => {
+        test({
+          validator: 'isISO8601',
+          args: [options],
+          invalid: [
+            '2009-01-01T24:0000',
+            '2009-01-01T2400:00',
+            '2009-01-01T24:0030',
+            '2009-01-01T240030',
+            '2009-01-01T24:01',
+            '2009-01-01T2401',
+            '2009-01-01T24:00:01',
+            '2009-01-01T240001',
+            '2009-01-01T24.1',
+            '2009-01-01T24:00.0001',
+            '2009-01-01T2400,0001',
+            '2009-01-01T24:00:00.001Z',
+            '2009-01-01T240000.1+0530',
+            '2009-01-01T24:00.0:00',
+            '2009-01-01T24:00:00+24:00',
+          ],
+        });
+      });
+
+      it(`should preserve ISO 8601 date-time separator handling with ${JSON.stringify(options)}`, () => {
+        test({
+          validator: 'isISO8601',
+          args: [options],
+          [options.strictSeparator ? 'invalid' : 'valid']: [
+            '2009-01-01 24:00:00',
+          ],
+        });
+      });
+    });
+
   it('should validate ISO 8601 dates, with strict = true (regression)', () => {
     test({
       validator: 'isISO8601',
