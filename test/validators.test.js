@@ -3786,6 +3786,8 @@ describe('Validators', () => {
         '1AB011241',
         '1AB01121',
         'ABAB01121',
+        'AB0808212XXXX',
+        'ZZZZ08AB12123',
       ],
     });
     test({
@@ -3855,6 +3857,8 @@ describe('Validators', () => {
         'XY12345',
         'X12345Z',
         'XY12345Z',
+        'X123456ZZZ',
+        'ZZZXY123456',
       ],
     });
 

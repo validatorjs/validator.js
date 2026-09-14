@@ -48,12 +48,12 @@ const passportRegexByCountryCode = {
   LV: /^[A-Z0-9]{2}\d{7}$/, // LATVIA
   LY: /^[A-Z0-9]{8}$/, // LIBYA
   MT: /^\d{7}$/, // MALTA
-  MZ: /^([A-Z]{2}\d{7})|(\d{2}[A-Z]{2}\d{5})$/, // MOZAMBIQUE
+  MZ: /^([A-Z]{2}\d{7}|\d{2}[A-Z]{2}\d{5})$/, // MOZAMBIQUE
   MY: /^[AHK]\d{8}$/, // MALAYSIA
   MX: /^[A-Z]\d{8}$/, // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
   NZ: /^([Ll]([Aa]|[Dd]|[Ff]|[Hh])|[Ee]([Aa]|[Pp])|[Nn])\d{6}$/, // NEW ZEALAND
-  PH: /^([A-Z](\d{6}|\d{7}[A-Z]))|([A-Z]{2}(\d{6}|\d{7}))$/, // PHILIPPINES
+  PH: /^([A-Z](\d{6}|\d{7}[A-Z])|[A-Z]{2}(\d{6}|\d{7}))$/, // PHILIPPINES
   PK: /^[A-Z]{2}\d{7}$/, // PAKISTAN
   PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
