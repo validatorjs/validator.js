@@ -46,7 +46,12 @@ import validator from 'validator';
 Or, import only a subset of the library:
 
 ```javascript
+// For Bundlers (Webpack, Vite, etc.)
 import isEmail from 'validator/lib/isEmail';
+
+// For Native Node.js ESM
+// Note: Use /lib instead of /es/lib, and include the .js extension
+import isEmail from 'validator/lib/isEmail.js';
 ```
 
 #### Tree-shakeable ES imports
