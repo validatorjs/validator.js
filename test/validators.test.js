@@ -14389,6 +14389,54 @@ describe('Validators', () => {
         'PASSWORD!',
       ],
     });
+
+    // narrower symbol set: default symbols outside it stop counting
+    test({
+      validator: 'isStrongPassword',
+      args: [{ symbolRegex: /^[!@#]$/ }],
+      valid: [
+        'Password1!',
+        'Passw0rd@#',
+      ],
+      invalid: [
+        'Password1$',
+        'Password1€',
+      ],
+    });
+
+    // wider symbol set: characters outside the default class now count
+    test({
+      validator: 'isStrongPassword',
+      args: [{ symbolRegex: /^[§¥]$/ }],
+      valid: [
+        'Password1§',
+      ],
+      invalid: [
+        'Password1!',
+      ],
+    });
+
+    // symbolRegex cannot reclassify letters/digits - upper/lower/number are
+    // matched before symbolRegex in analyzePassword's else-if chain
+    test({
+      validator: 'isStrongPassword',
+      args: [{ symbolRegex: /^[a-z0-9]$/ }],
+      invalid: [
+        'Passwordabc1',
+      ],
+    });
+
+    // custom symbolRegex composes with the other thresholds
+    test({
+      validator: 'isStrongPassword',
+      args: [{ symbolRegex: /^[!]$/, minSymbols: 2, minLength: 6 }],
+      valid: [
+        'Ab1!c!',
+      ],
+      invalid: [
+        'Ab1!cd',
+      ],
+    });
   });
 
   it('should validate date', () => {
