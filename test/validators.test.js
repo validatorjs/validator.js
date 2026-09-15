@@ -6612,6 +6612,9 @@ describe('Validators', () => {
       ],
       invalid: [
         'foo',
+        '5108', // short partial string (was wrongly accepted due to missing group around the alternation)
+        '5108foo', // start-anchored only, trailing chars ignored
+        '5398228707871527x', // valid 16-digit Mastercard with trailing junk
         '36050234196908',
         '375556917985515',
         '375556917985515999999993',
