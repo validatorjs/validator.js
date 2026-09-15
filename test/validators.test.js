@@ -13615,6 +13615,10 @@ describe('Validators', () => {
         'ECMJ4657496',
         'TBJA7176445',
         'AFFU5962593',
+        'ABCU1234567HELLO', // leading prefix matched, trailing junk ignored (anchoring bug)
+        'CSQU3054383XXX', // valid container id with trailing junk
+        'hellozZ123456', // trailing digits matched, missing owner prefix
+        'AB,123456', // literal comma accepted by [J,Z] character class
       ],
     });
   });
