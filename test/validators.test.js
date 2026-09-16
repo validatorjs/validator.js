@@ -12443,12 +12443,30 @@ describe('Validators', () => {
         '2009-222',
         '2020-366',
         '2400-366',
+        // week 53 exists in these ISO week-numbering years (long years)
+        '2015-W53-1',
+        '2015-W53',
+        '2020-W53-7',
+        '2026-W53',
+        // weeks 01-52 exist in every ISO week-numbering year, long or short
+        '2020-W10',
+        '2020-W10-3',
       ],
       invalid: [
         '2010-02-30',
         '2009-02-29',
         '2009-366',
         '2019-02-31',
+        // week 53 does not exist in these ISO week-numbering years (short
+        // years) -- regression test for #2859: previously strict mode never
+        // validated week dates at all, so these were wrongly accepted.
+        '2019-W53-1',
+        '2019-W53',
+        '2021-W53-7',
+        '2022-W53',
+        // 31 December 2017 is a Sunday, so the ISO remap of getUTCDay() 0 -> 7
+        // runs here; 2017 is still a short year, so week 53 does not exist.
+        '2017-W53',
       ],
     });
   });
