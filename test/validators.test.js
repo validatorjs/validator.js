@@ -5785,9 +5785,26 @@ describe('Validators', () => {
   });
 
   it('should reject emails containing unpaired UTF-16 surrogates without throwing', () => {
-    test({
-      validator: 'isEmail',
-      invalid: ['\uD800@example.com', '\uDC00@example.com'],
+    [undefined, { ignore_max_length: true }].forEach((options) => {
+      test({
+        validator: 'isEmail',
+        args: [options],
+        valid: ['user@example.com', 'user@é.com', 'user@\uD83D\uDE00.com', 'user@a\uD83D\uDE00b.com'],
+        invalid: [
+          '\uD800@example.com',
+          '\uDC00@example.com',
+          'user@\uD800.com',
+          'user@\uDC00.com',
+          'user@\uD800abc.com',
+          'user@\uDC00abc.com',
+          'user@a\uD800b.com',
+          'user@a\uDC00b.com',
+          'user@abc\uD800.com',
+          'user@abc\uDC00.com',
+          'user@\uD83D\uDE00\uDC00.com',
+          'user@\uD800\uD83D\uDE00.com',
+        ],
+      });
     });
   });
 
