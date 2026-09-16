@@ -378,6 +378,61 @@ describe('Validators', () => {
     });
   });
 
+  it('should reject email addresses with zero-width characters when allow_zero_width is false', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ allow_zero_width: false }],
+      valid: [
+        'foo@bar.com',
+        'test@example.com',
+        'user+tag@domain.co.uk',
+      ],
+      invalid: [
+        'foo\u200B@bar.com',
+        'foo@bar\u200B.com',
+        'test\u200C@example.com',
+        'test@exam\u200Cple.com',
+        'user\u200D@domain.com',
+        'user@dom\u200Dain.com',
+        'admin\uFEFF@site.com',
+        'admin@si\uFEFFte.com',
+        // U+00AD SOFT HYPHEN
+        'foo\u00AD@bar.com',
+        // U+2060 WORD JOINER
+        'foo@bar\u2060.com',
+        // U+034F COMBINING GRAPHEME JOINER (category Mn, not Cf)
+        'foo\u034F@bar.com',
+        // U+061C ARABIC LETTER MARK
+        'foo@bar\u061C.com',
+        // U+202A LEFT-TO-RIGHT EMBEDDING (bidi control)
+        'foo\u202A@bar.com',
+      ],
+    });
+  });
+
+  it('should allow email addresses with zero-width characters by default', () => {
+    test({
+      validator: 'isEmail',
+      valid: [
+        'foo@bar.com',
+        'test@example.com',
+        'foo\u200B@bar.com',
+        'foo@bar\u200B.com',
+        'test\u200C@example.com',
+        'user\u200D@domain.com',
+        'admin\uFEFF@site.com',
+        'foo\u00AD@bar.com',
+        'foo@bar\u2060.com',
+        'foo\u034F@bar.com',
+      ],
+      invalid: [
+        'invalidemail@',
+        'invalid.com',
+        '@invalid.com',
+      ],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',
