@@ -12,6 +12,12 @@ const default_fqdn_options = {
 
 export default function isFQDN(str, options) {
   assertString(str);
+
+  // Reject unpaired surrogates while preserving valid surrogate pairs.
+  if (/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]/.test(str)) {
+    return false;
+  }
+
   options = merge(options, default_fqdn_options);
 
   /* Remove the optional trailing dot before checking validity */
