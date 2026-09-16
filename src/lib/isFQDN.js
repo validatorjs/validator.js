@@ -8,6 +8,7 @@ const default_fqdn_options = {
   allow_numeric_tld: false,
   allow_wildcard: false,
   ignore_max_length: false,
+  disallow_consecutive_hyphens: true,
 };
 
 export default function isFQDN(str, options) {
@@ -17,6 +18,11 @@ export default function isFQDN(str, options) {
   /* Remove the optional trailing dot before checking validity */
   if (options.allow_trailing_dot && str[str.length - 1] === '.') {
     str = str.substring(0, str.length - 1);
+  }
+
+  /* Check for consecutive hyphens in the domain part */
+  if (options.disallow_consecutive_hyphens && /--/.test(str)) {
+    return false;
   }
 
   /* Remove the optional wildcard before checking validity */
