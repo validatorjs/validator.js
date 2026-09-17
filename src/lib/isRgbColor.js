@@ -27,8 +27,11 @@ export default function isRgbColor(str, options) {
     if (!startsWithRgb.test(str)) {
       return false;
     }
-    // strip all whitespace
-    str = str.replace(/\s/g, '');
+    // collapse whitespace runs, then drop only the whitespace adjacent to the
+    // parentheses and commas; whitespace inside a channel/alpha/percent token is
+    // kept so malformed values such as 'rgb(2 55,0,0)' or 'rgb(25 %,0%,0%)' are
+    // still rejected. Two linear passes avoid polynomial backtracking (#2885)
+    str = str.replace(/\s+/g, ' ').replace(/ ?([(),]) ?/g, '$1');
   }
 
   if (!includePercentValues) {
