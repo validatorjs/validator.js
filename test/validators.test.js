@@ -12420,6 +12420,23 @@ describe('Validators', () => {
     });
   });
 
+  it('should only accept T or a space as the date-time separator', () => {
+    test({
+      validator: 'isISO8601',
+      valid: [
+        '2009-01-01T00:00:00',
+        '2009-01-01 00:00:00',
+      ],
+      invalid: [
+        '2009-01-01\t00:00:00',
+        '2009-01-01\n00:00:00',
+        '2009-01-01\f00:00:00',
+        '2009-01-01\v00:00:00',
+        '2009-01-01 00:00:00',
+      ],
+    });
+  });
+
   it('should validate ISO 8601 dates, with strict = true (regression)', () => {
     test({
       validator: 'isISO8601',
