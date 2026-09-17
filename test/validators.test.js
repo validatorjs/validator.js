@@ -4940,6 +4940,18 @@ describe('Validators', () => {
     });
   });
 
+  it('should error on invalid locale', () => {
+    test({
+      validator: 'isFloat',
+      args: [{ locale: 'is-NOT' }],
+      error: [
+        '123',
+        '3.5',
+        '3undefined5',
+      ],
+    });
+  });
+
   it('should validate hexadecimal strings', () => {
     test({
       validator: 'isHexadecimal',
