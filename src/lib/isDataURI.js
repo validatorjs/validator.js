@@ -14,7 +14,7 @@ export default function isDataURI(str) {
   }
   const attributes = data.shift().trim().split(';');
   const schemeAndMediaType = attributes.shift();
-  if (schemeAndMediaType.slice(0, 5) !== 'data:') {
+  if (schemeAndMediaType.slice(0, 5).toLowerCase() !== 'data:') {
     return false;
   }
   const mediaType = schemeAndMediaType.slice(5);
