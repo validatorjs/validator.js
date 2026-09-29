@@ -4938,6 +4938,14 @@ describe('Validators', () => {
         '22.3',
       ],
     });
+    test({
+      validator: 'isFloat',
+      args: [{ locale: 'de-CH' }],
+      error: [
+        '123.123',
+        '3undefined5',
+      ],
+    });
   });
 
   it('should validate hexadecimal strings', () => {
