@@ -1332,6 +1332,33 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should reject FQDNs longer than 253 characters unless ignore_max_length is set', () => {
+    const label = 'a'.repeat(63);
+    // Each label stays within the 63-char limit; only the overall length differs.
+    const atLimit = [label, label, label, 'a'.repeat(57), 'com'].join('.'); // 253
+    const tooLongByOne = [label, label, label, 'a'.repeat(58), 'com'].join('.'); // 254
+    const tooLong = [label, label, label, label, 'comm'].join('.'); // 260
+    test({
+      validator: 'isFQDN',
+      valid: [
+        atLimit,
+      ],
+      invalid: [
+        tooLongByOne,
+        tooLong,
+      ],
+    });
+    test({
+      validator: 'isFQDN',
+      args: [
+        { ignore_max_length: true },
+      ],
+      valid: [
+        tooLongByOne,
+        tooLong,
+      ],
+    });
+  });
   it('should validate FQDN with trailing dot option', () => {
     test({
       validator: 'isFQDN',
