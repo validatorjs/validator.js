@@ -15031,6 +15031,35 @@ describe('Validators', () => {
     });
     test({
       validator: 'isLicensePlate',
+      args: ['ro-RO'],
+      valid: [
+        'B 12 ABC',
+        'B 123 ABC',
+        'B 01 XYZ',
+        'B123ABC',
+        'CJ 12 ABC',
+        'CJ-05-XYZ',
+        'AB 01 AAA',
+        'VS99ZZZ',
+      ],
+      invalid: [
+        '',
+        'B 00 ABC',
+        'B 012 ABC',
+        'B 1234 ABC',
+        'CJ 00 ABC',
+        'CJ 123 ABC',
+        'CJ 12 AB',
+        'CJ 12 IAB',
+        'CJ 12 OAB',
+        'CJ 12 AQB',
+        'XX 12 ABC',
+        'cj 12 abc',
+        'CJ  12 ABC',
+      ],
+    });
+    test({
+      validator: 'isLicensePlate',
       args: ['cs-CZ'],
       valid: [
         'ALA4011',
