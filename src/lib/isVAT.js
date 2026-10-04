@@ -47,6 +47,22 @@ const PT = (str) => {
   return checksum === parseInt(tin[8], 10);
 };
 
+const RO = (str) => {
+  const match = str.match(/^(RO)?(\d{2,10})$/);
+  if (!match) {
+    return false;
+  }
+
+  // @see {@link https://ro.wikipedia.org/wiki/Cod_de_identificare_fiscal%C4%83}
+  const digits = match[2].split('').map(a => parseInt(a, 10));
+  const checkDigit = digits.pop();
+  // Shorter codes are left-padded with zeros, so they use the last weights
+  const weights = [7, 5, 3, 2, 1, 7, 5, 3, 2].slice(-digits.length);
+  const sum = digits.reduce((acc, digit, idx) => acc + (digit * weights[idx]), 0);
+  const remainder = (sum * 10) % 11;
+  return (remainder === 10 ? 0 : remainder) === checkDigit;
+};
+
 export const vatMatchers = {
   /**
    * European Union VAT identification numbers
@@ -73,7 +89,7 @@ export const vatMatchers = {
   NL: str => /^(NL)?\d{9}B\d{2}$/.test(str),
   PL: str => /^(PL)?(\d{10}|(\d{3}-\d{3}-\d{2}-\d{2})|(\d{3}-\d{2}-\d{2}-\d{3}))$/.test(str),
   PT,
-  RO: str => /^(RO)?\d{2,10}$/.test(str),
+  RO,
   SK: str => /^(SK)?\d{10}$/.test(str),
   SI: str => /^(SI)?\d{8}$/.test(str),
   ES: str => /^(ES)?(?:[ABEH]\d{8}|[NPQRSW]\d{7}[A-J]|[CDFGJUV]\d{7}[0-9A-J])$/.test(str),
