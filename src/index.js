@@ -4,9 +4,11 @@ import toInt from './lib/toInt';
 import toBoolean from './lib/toBoolean';
 import equals from './lib/equals';
 import contains from './lib/contains';
+import hasEmoji from './lib/hasEmoji';
 import matches from './lib/matches';
 
 import isEmail from './lib/isEmail';
+import isEmoji from './lib/isEmoji';
 import isURL from './lib/isURL';
 import isMACAddress from './lib/isMACAddress';
 import isIP from './lib/isIP';
@@ -141,8 +143,10 @@ const validator = {
   toBoolean,
   equals,
   contains,
+  hasEmoji,
   matches,
   isEmail,
+  isEmoji,
   isURL,
   isMACAddress,
   isIP,

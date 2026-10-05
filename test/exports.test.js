@@ -1,5 +1,7 @@
 import assert from 'assert';
 import validator from '../index';
+import isEmoji from '../lib/isEmoji';
+import hasEmoji from '../lib/hasEmoji';
 import { locales as isPostalCodeLocales } from '../src/lib/isPostalCode';
 import { locales as isAlphaLocales } from '../src/lib/isAlpha';
 import { locales as isAlphanumericLocales } from '../src/lib/isAlphanumeric';
@@ -17,6 +19,18 @@ describe('Exports', () => {
   it('should export validators', () => {
     assert.strictEqual(typeof validator.isEmail, 'function');
     assert.strictEqual(typeof validator.isAlpha, 'function');
+  });
+
+  it('should export isEmoji and its standalone CommonJS module', () => {
+    assert.strictEqual(validator.isEmoji, isEmoji);
+    assert.strictEqual(isEmoji('❤️'), true);
+    assert.strictEqual(isEmoji('🟢😆'), false);
+  });
+
+  it('should export hasEmoji and its standalone CommonJS module', () => {
+    assert.strictEqual(validator.hasEmoji, hasEmoji);
+    assert.strictEqual(hasEmoji('hello 🎉'), true);
+    assert.strictEqual(hasEmoji('hello'), false);
   });
 
   it('should export sanitizers', () => {
