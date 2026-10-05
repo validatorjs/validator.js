@@ -23,6 +23,14 @@ describe('Minified version', () => {
     assert.strictEqual(min.isEmail('foo'), false);
   });
 
+  it('should validate a single emoji in browser builds', () => {
+    [validator, min].forEach((build) => {
+      assert.strictEqual(build.isEmoji('❤️'), true);
+      assert.strictEqual(build.isEmoji('🟢😆'), false);
+      assert.strictEqual(build.isEmoji('😀\n'), false);
+    });
+  });
+
   it('should sanitize strings', () => {
     assert.strictEqual(min.toBoolean('1'), true);
   });

@@ -7,6 +7,7 @@ import contains from './lib/contains';
 import matches from './lib/matches';
 
 import isEmail from './lib/isEmail';
+import isEmoji from './lib/isEmoji';
 import isURL from './lib/isURL';
 import isMACAddress from './lib/isMACAddress';
 import isIP from './lib/isIP';
@@ -143,6 +144,7 @@ const validator = {
   contains,
   matches,
   isEmail,
+  isEmoji,
   isURL,
   isMACAddress,
   isIP,
