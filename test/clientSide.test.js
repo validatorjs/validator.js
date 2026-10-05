@@ -31,6 +31,14 @@ describe('Minified version', () => {
     });
   });
 
+  it('should detect emojis in browser builds', () => {
+    [validator, min].forEach((build) => {
+      assert.strictEqual(build.hasEmoji('hello 🎉'), true);
+      assert.strictEqual(build.hasEmoji('hello'), false);
+      assert.strictEqual(build.hasEmoji('🐱\u200D'), true);
+    });
+  });
+
   it('should sanitize strings', () => {
     assert.strictEqual(min.toBoolean('1'), true);
   });

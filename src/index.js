@@ -4,6 +4,7 @@ import toInt from './lib/toInt';
 import toBoolean from './lib/toBoolean';
 import equals from './lib/equals';
 import contains from './lib/contains';
+import hasEmoji from './lib/hasEmoji';
 import matches from './lib/matches';
 
 import isEmail from './lib/isEmail';
@@ -142,6 +143,7 @@ const validator = {
   toBoolean,
   equals,
   contains,
+  hasEmoji,
   matches,
   isEmail,
   isEmoji,
