@@ -86,6 +86,7 @@ Validator                               | Description
 --------------------------------------- | --------------------------------------
 **contains(str, seed [, options])**    | check if the string contains the seed.<br/><br/>`options` is an object that defaults to `{ ignoreCase: false, minOccurrences: 1 }`.<br />Options: <br/> `ignoreCase`: Ignore case when doing comparison, default false.<br/>`minOccurrences`: Minimum number of occurrences for the seed in the string. Defaults to 1.
 **equals(str, comparison)**             | check if the string matches the comparison.
+**hasEmoji(str)**                      | check if the string contains at least one RGI emoji character or sequence. Uses Unicode Emoji 18.0. See [Emoji validation](#emoji-validation).
 **isAbaRouting(str)**               | check if the string is an ABA routing number for US bank account / cheque.
 **isAfter(str [, options])**            | check if the string is a date that is after the specified date.<br/><br/>`options` is an object that defaults to `{ comparisonDate: Date().toString() }`.<br/>**Options:**<br/>`comparisonDate`: Date to compare to. Defaults to `Date().toString()` (now).
 **isAlpha(str [, locale, options])**    | check if the string contains only letters (a-zA-Z).<br/><br/>`locale` is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'bn', 'bn-IN', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'eo', 'es-ES', 'fa-IR', 'fi-FI', 'fr-CA', 'fr-FR', 'gu-IN', 'he', 'hi-IN', 'hu-HU', 'it-IT', 'ja-JP', 'kk-KZ', 'kn-IN', 'ko-KR', 'ku-IQ', 'ml-IN', 'nb-NO', 'nl-NL', 'nn-NO', 'or-IN', 'pa-IN', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'si-LK', 'sk-SK', 'sl-SI', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'ta-IN', 'te-IN', 'th-TH', 'tr-TR', 'uk-UA']` and defaults to `en-US`. Locale list is `validator.isAlphaLocales`. `options` is an optional object that can be supplied with the following key(s): `ignore` which can either be a String or RegExp of characters to be ignored e.g. " -" will ignore spaces and -'s.
@@ -107,6 +108,7 @@ Validator                               | Description
 **isDivisibleBy(str, number)**          | check if the string is a number that is divisible by another.
 **isEAN(str)**                          | check if the string is an [EAN (European Article Number)][European Article Number].
 **isEmail(str [, options])**            | check if the string is an email.<br/><br/>`options` is an object which defaults to `{ allow_display_name: false, require_display_name: false, allow_utf8_local_part: true, require_tld: true, allow_ip_domain: false, allow_underscores: false, domain_specific_validation: false, blacklisted_chars: '', host_blacklist: [] }`. If `allow_display_name` is set to true, the validator will also match `Display Name <email-address>`. If `require_display_name` is set to true, the validator will reject strings without the format `Display Name <email-address>`. If `allow_utf8_local_part` is set to false, the validator will not allow any non-English UTF8 character in email address' local part. If `require_tld` is set to false, email addresses without a TLD in their domain will also be matched. If `ignore_max_length` is set to true, the validator will not check for the standard max length of an email. If `allow_ip_domain` is set to true, the validator will allow IP addresses in the host part. If `domain_specific_validation` is true, some additional validation will be enabled, e.g. disallowing certain syntactically valid email addresses that are rejected by Gmail. If `blacklisted_chars` receives a string, then the validator will reject emails that include any of the characters in the string, in the name part. If `host_blacklist` is set to an array of strings or regexp, and the part of the email after the `@` symbol matches one of the strings defined in it, the validation fails. If `host_whitelist` is set to an array of strings or regexp, and the part of the email after the `@` symbol matches none of the strings defined in it, the validation fails.
+**isEmoji(str)**                       | check if the entire string is exactly one RGI emoji character or sequence. Uses Unicode Emoji 18.0. See [Emoji validation](#emoji-validation).
 **isEmpty(str [, options])**            | check if the string has a length of zero.<br/><br/>`options` is an object which defaults to `{ ignore_whitespace: false }`.
 **isEthereumAddress(str)**              | check if the string is an [Ethereum][Ethereum] address. Does not validate address checksums.
 **isFloat(str [, options])**            | check if the string is a float.<br/><br/>`options` is an object which can contain the keys `min`, `max`, `gt`, and/or `lt` to validate the float is within boundaries (e.g. `{ min: 7.22, max: 9.55 }`) it also has `locale` as an option.<br/><br/>`min` and `max` are equivalent to 'greater or equal' and 'less or equal', respectively while `gt` and `lt` are their strict counterparts.<br/><br/>`locale` determines the decimal separator and is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'eo', 'es-ES', 'fr-CA', 'fr-FR', 'hu-HU', 'it-IT', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sl-SI', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']`. Locale list is `validator.isFloatLocales`.
@@ -175,6 +177,39 @@ Validator                               | Description
 **isWhitelisted(str, chars)**           | check if the string consists only of characters that appear in the whitelist `chars`.
 **matches(str, pattern [, modifiers])** | check if the string matches the pattern.<br/><br/>Either `matches('foo', /foo/i)` or `matches('foo', 'foo', 'i')`.<br/>**Note:** The pattern is not checked for possible ReDoS attacks. We do not recommend that the user can provide their own pattern.
 
+### Emoji validation
+
+`isEmoji(str)` and `hasEmoji(str)` use the **Unicode Emoji 18.0 RGI (Recommended for General Interchange) set**, defined by [emoji-sequences.txt](https://www.unicode.org/Public/18.0.0/emoji/emoji-sequences.txt) and [emoji-zwj-sequences.txt](https://www.unicode.org/Public/18.0.0/emoji/emoji-zwj-sequences.txt). The supported version is fixed and does not depend on the JavaScript engine's Unicode version.
+
+One emoji may contain multiple Unicode code points, including flags, skin-tone sequences, family sequences, keycaps, and tag sequences. Standalone skin-tone and hair components included in the RGI set are also accepted. Text forms such as `❤` and `©`, and plain keycap bases such as `1`, `#`, and `*`, do not match; their complete emoji presentation forms can match.
+
+Both functions return `false` for an empty string. Neither function trims whitespace or performs Unicode normalization. `isEmoji` checks the entire original string, so surrounding spaces, tabs, and line terminators cause it to return `false`. Call `validator.isEmoji(validator.trim(str))` if you want to trim the input explicitly.
+
+`hasEmoji` checks for a valid RGI substring without validating the surrounding text. It can return `true` for an incomplete sequence that contains a valid emoji substring.
+
+```javascript
+validator.isEmoji('❤️'); // true
+validator.isEmoji('🇰🇷'); // true
+validator.isEmoji('👍🏽'); // true
+validator.isEmoji('🏽'); // true: an RGI component
+validator.isEmoji('🟢😆'); // false: two emojis
+validator.isEmoji(' 😀 '); // false: surrounding whitespace
+validator.isEmoji('😀\n'); // false: trailing line terminator
+validator.isEmoji(validator.trim(' 😀 ')); // true
+validator.isEmoji('❤'); // false: not an RGI emoji presentation
+validator.isEmoji('©️'); // true
+validator.isEmoji('ℹ️'); // true: the input is not normalized
+
+validator.hasEmoji('nice to meet you.'); // false
+validator.hasEmoji('hello, world! 🎉'); // true
+validator.hasEmoji('😃😆🥰'); // true
+validator.hasEmoji('✅'); // true
+validator.hasEmoji(' 😀 '); // true
+validator.hasEmoji('123'); // false
+validator.hasEmoji('🐱\u200D'); // true: contains the RGI emoji 🐱
+validator.isEmoji('🐱\u200D'); // false: the whole sequence is not RGI
+```
+
 ## Sanitizers
 
 Here is a list of the sanitizers currently available.
@@ -218,6 +253,14 @@ Remember, validating can be troublesome sometimes. See [A list of articles about
 ## Contributing
 
 We welcome contributions from the community! If you're interested in contributing to this project, please read our [Contribution Guide](CONTRIBUTING.md) to get started.
+
+### Updating emoji data
+
+The shared emoji pattern is generated and committed under `src/`. It introduces no runtime dependencies. To update the supported Unicode Emoji version:
+
+1. Pin matching `regexpu-core` and `regenerate-unicode-properties` development dependency versions, and update the version checks and metadata in `scripts/generate-emoji.js`.
+2. Replace the official sequence files and license under `test/fixtures/` with the target version's data. Update the fixture loader, the expected RGI count in the data test, and the documented Unicode Emoji version. These fixtures are independent of the generator's data and keep tests offline.
+3. Run `npm run generate:emoji`, then `npm run generate:emoji -- --check` and `npm test`. Commit the generated source pattern together with its generator and reference data. Do not commit generated distribution files.
 
 ## License
 
