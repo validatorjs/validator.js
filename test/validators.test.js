@@ -5714,6 +5714,32 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate private-use and grandfathered locale tags regardless of case', () => {
+    test({
+      validator: 'isLocale',
+      valid: [
+        'X-WHATEVER',
+        'X-pRiVaTe',
+        'de-CH-X-phonebk',
+        'en-US-u-islamcal-X-private',
+        'zh-CN-a-myext-X-private',
+        'I-AMI',
+        'I-KLINGON',
+        'i-EnOcHiAn',
+        'EN-gb-OED',
+        'SGN-be-fr',
+      ],
+      invalid: [
+        'X-',
+        'en-X',
+        'en-X-',
+        'X-123456789',
+        'I-UNKNOWN',
+        'I-AMI-extra',
+      ],
+    });
+  });
+
   it('should validate strings by byte length (deprecated api)', () => {
     test({
       validator: 'isByteLength',
