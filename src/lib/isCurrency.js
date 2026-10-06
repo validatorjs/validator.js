@@ -1,6 +1,16 @@
 import merge from './util/merge';
 import assertString from './util/assertString';
 
+// Intl.NumberFormat uses U+00A0 and U+202F where a locale uses a space.
+const unicodeSpaces = '[ \\u00A0\\u202F]';
+
+function separatorPattern(separator) {
+  if (separator === ' ' || separator === '\u00A0' || separator === '\u202F') {
+    return unicodeSpaces;
+  }
+  return `\\${separator}`;
+}
+
 function currencyRegex(options) {
   let decimal_digits = `\\d{${options.digits_after_decimal[0]}}`;
   options.digits_after_decimal.forEach((digit, index) => { if (index !== 0) decimal_digits = `${decimal_digits}|\\d{${digit}}`; });
@@ -9,11 +19,11 @@ function currencyRegex(options) {
     `(${options.symbol.replace(/\W/, m => `\\${m}`)})${(options.require_symbol ? '' : '?')}`,
     negative = '-?',
     whole_dollar_amount_without_sep = '[1-9]\\d*',
-    whole_dollar_amount_with_sep = `[1-9]\\d{0,2}(\\${options.thousands_separator}\\d{3})*`,
+    whole_dollar_amount_with_sep = `[1-9]\\d{0,2}(${separatorPattern(options.thousands_separator)}\\d{3})*`,
     valid_whole_dollar_amounts = [
       '0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
     whole_dollar_amount = `(${valid_whole_dollar_amounts.join('|')})?`,
-    decimal_amount = `(\\${options.decimal_separator}(${decimal_digits}))${options.require_decimal ? '' : '?'}`;
+    decimal_amount = `(${separatorPattern(options.decimal_separator)}(${decimal_digits}))${options.require_decimal ? '' : '?'}`;
   let pattern = whole_dollar_amount + (options.allow_decimal || options.require_decimal ? decimal_amount : '');
 
   // default is negative sign before symbol, but there are two other options (besides parens)
@@ -27,11 +37,11 @@ function currencyRegex(options) {
 
   // South African Rand, for example, uses R 123 (space) and R-123 (no space)
   if (options.allow_negative_sign_placeholder) {
-    pattern = `( (?!\\-))?${pattern}`;
+    pattern = `(${unicodeSpaces}(?!\\-))?${pattern}`;
   } else if (options.allow_space_after_symbol) {
-    pattern = ` ?${pattern}`;
+    pattern = `${unicodeSpaces}?${pattern}`;
   } else if (options.allow_space_after_digits) {
-    pattern += '( (?!$))?';
+    pattern += `(${unicodeSpaces}(?!$))?`;
   }
 
   if (options.symbol_after_digits) {
@@ -50,7 +60,7 @@ function currencyRegex(options) {
 
   // ensure there's a dollar and/or decimal amount, and that
   // it doesn't start with a space or a negative sign followed by a space
-  return new RegExp(`^(?!-? )(?=.*\\d)${pattern}$`);
+  return new RegExp(`^(?!-?${unicodeSpaces})(?=.*\\d)${pattern}$`);
 }
 
 
