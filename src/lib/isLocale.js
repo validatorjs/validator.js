@@ -103,7 +103,7 @@ const langtag = `${language}(${delimiter}${script})?(${delimiter}${region})?(${d
   Tags for Identifying Languages
   https://www.rfc-editor.org/rfc/rfc5646.html
  */
-const languageTagRegex = new RegExp(`(^${privateuse}$)|(^${grandfathered}$)|(^${langtag}$)`);
+const languageTagRegex = new RegExp(`(^${privateuse}$)|(^${grandfathered}$)|(^${langtag}$)`, 'i');
 
 export default function isLocale(str) {
   assertString(str);
