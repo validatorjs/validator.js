@@ -12214,6 +12214,39 @@ describe('Validators', () => {
     });
   });
 
+  it('should match every character in required currency symbols', () => {
+    test({
+      validator: 'isCurrency',
+      args: [{ symbol: 'S/.', require_symbol: true }],
+      valid: ['S/.10.00', '-S/.10.00'],
+      invalid: ['S/x10.00', 'S/10.00', 'S/.10x00', '10.00'],
+    });
+    test({
+      validator: 'isCurrency',
+      args: [{ symbol: 'د.إ', require_symbol: true }],
+      valid: ['د.إ10.00', '-د.إ10.00'],
+      invalid: ['دxإ10.00', 'دإ10.00', '10.00'],
+    });
+  });
+
+  it('should match every character in optional currency symbols', () => {
+    test({
+      validator: 'isCurrency',
+      args: [{ symbol: 'S/.' }],
+      valid: ['S/.10.00', '-S/.10.00', '10.00', '-10.00'],
+      invalid: ['S/x10.00', 'S/10.00', 'S/.10x00'],
+    });
+  });
+
+  it('should match every character in currency symbols after the amount', () => {
+    test({
+      validator: 'isCurrency',
+      args: [{ symbol: 'S/.', require_symbol: true, symbol_after_digits: true }],
+      valid: ['10.00S/.', '-10.00S/.'],
+      invalid: ['10.00S/x', '10.00S/', '10x00S/.', '10.00'],
+    });
+  });
+
   it('should validate Ethereum addresses', () => {
     test({
       validator: 'isEthereumAddress',
