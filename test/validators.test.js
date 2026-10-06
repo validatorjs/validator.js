@@ -12206,10 +12206,37 @@ describe('Validators', () => {
       valid: [
         'R$ 1.400,00',
         'R$ 400,00',
+        // Intl pt-BR uses U+00A0 between the symbol and the amount
+        'R$\u00A01.400,00',
       ],
       invalid: [
         '$ 1.400,00',
         '$R 1.400,00',
+        'R$\t1.400,00',
+      ],
+    });
+
+    // fr-FR Intl uses U+202F as the group separator and U+00A0 before €
+    test({
+      validator: 'isCurrency',
+      args: [
+        {
+          symbol: '€',
+          require_symbol: true,
+          allow_space_after_digits: true,
+          symbol_after_digits: true,
+          thousands_separator: ' ',
+          decimal_separator: ',',
+        },
+      ],
+      valid: [
+        '1 400,00 €',
+        '1\u202F400,00\u00A0€',
+        '1400,00\u00A0€',
+      ],
+      invalid: [
+        '1\t400,00 €',
+        '1\n400,00 €',
       ],
     });
   });
