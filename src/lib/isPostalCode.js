@@ -53,6 +53,8 @@ const patterns = {
   LV: /^LV\-\d{4}$/,
   LK: fiveDigit,
   MC: /^980\d{2}$/,
+  // https://en.wikipedia.org/wiki/Postal_codes_in_Moldova
+  MD: /^(MD-)?\d{4}$/,
   MG: threeDigit,
   MX: fiveDigit,
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
