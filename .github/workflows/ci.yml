@@ -27,6 +27,7 @@ jobs:
           name: build-artifacts
           path: |
             index.js
+            validator-main.js
             lib/
             es/
             validator.js

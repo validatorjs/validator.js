@@ -5,9 +5,22 @@ import { babel } from '@rollup/plugin-babel';
 import babelPresetEnv from '@babel/preset-env';
 import pkg from "./package.json" with { type: "json" };
 
+// Bundle from a default-only entry so Rollup keeps emitting the classic
+// single-export UMD wrapper (define(factory), module.exports = factory()),
+// leaving the browser bundle's surface unchanged by the named exports that
+// src/index.js adds for cjs-module-lexer.
+const browserEntry = {
+  name: 'browser-entry',
+  resolveId: id => (id === 'browser-entry' ? id : null),
+  load: id => (id === 'browser-entry'
+    ? "import * as validator from './src/validator-main'; export default validator;"
+    : null),
+};
+
 rollup({
-  input: 'src/index.js',
+  input: 'browser-entry',
   plugins: [
+    browserEntry,
     babel({
       presets: [[babelPresetEnv, { 
         modules: false,
