@@ -6,6 +6,7 @@
   "homepage": "https://github.com/validatorjs/validator.js",
   "files": [
     "index.js",
+    "validator-main.js",
     "es",
     "lib",
     "README.md",
@@ -43,6 +44,7 @@
     "@rollup/plugin-babel": "^6.1.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-add-module-exports": "^1.0.0",
+    "cjs-module-lexer": "^2.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
