@@ -2,6 +2,8 @@ import trim from './trim';
 import isEmail from './isEmail';
 import assertString from './util/assertString';
 
+const recipientControlCharacters = /[\x00-\x1F\x7F]/; // eslint-disable-line no-control-regex
+
 function parseMailtoQueryString(queryString) {
   const allowedParams = new Set(['subject', 'body', 'cc', 'bcc']),
     query = { cc: '', bcc: '' };
@@ -59,7 +61,12 @@ export default function isMailtoURI(url, options) {
       email = trim(email, ' ');
 
       if (email) {
-        return isEmail(email, options);
+        try {
+          email = decodeURIComponent(email);
+        } catch (e) {
+          return false;
+        }
+        return !recipientControlCharacters.test(email) && isEmail(email, options);
       }
 
       return true;

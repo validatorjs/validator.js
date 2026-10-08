@@ -16177,6 +16177,75 @@ describe('Validators', () => {
       ],
     });
   });
+  it('should decode percent-encoded mailto URI recipients', () => {
+    test({
+      validator: 'isMailtoURI',
+      valid: [
+        'mailto:user@%E7%B4%8D%E8%B1%86.example.org?subject=Test&body=NATTO',
+        'mailto:?cc=user@%E7%B4%8D%E8%B1%86.example.org',
+        'mailto:?bcc=user@%E7%B4%8D%E8%B1%86.example.org',
+        'mailto:user@%E7%B4%8D%E8%B1%86.example.org,other@example.com',
+        'mailto:%22last%2Cfirst%22@example.com',
+        'mailto:gorby%25kremvax@example.com',
+        'mailto:literal%2520name@example.com',
+        'mailto:bill+ietf@example.org',
+        'mailto:bill%2Bietf@example.org',
+      ],
+      invalid: [
+        'mailto:foo%20bar@example.com',
+        'mailto:?cc=foo%20bar@example.com',
+        'mailto:?bcc=foo%20bar@example.com',
+        'mailto:foo%00bar@example.com',
+        'mailto:foo%0D%0Abar@example.com',
+      ],
+    });
+  });
+
+  it('should reject malformed percent-encoding in mailto URI recipients', () => {
+    test({
+      validator: 'isMailtoURI',
+      invalid: [
+        'mailto:foo%@example.com',
+        'mailto:foo%2@example.com',
+        'mailto:foo%GG@example.com',
+        'mailto:foo%C3%28@example.com',
+        'mailto:?cc=foo%@example.com',
+        'mailto:?bcc=foo%GG@example.com',
+      ],
+    });
+  });
+
+  it('should reject decoded controls in quoted mailto URI recipients', () => {
+    const recipients = ['%00', '%01', '%09', '%0A', '%0D%0A', '%1F', '%7F']
+      .map(control => `%22first${control}last%22@%65xample.com`);
+
+    [true, false].forEach((allowUtf8) => {
+      test({
+        validator: 'isMailtoURI',
+        args: [{ allow_utf8_local_part: allowUtf8 }],
+        invalid: recipients.map(email => `mailto:${email}`)
+          .concat(recipients.map(email => `mailto:?cc=${email}`))
+          .concat(recipients.map(email => `mailto:?bcc=${email}`)),
+      });
+    });
+  });
+
+  it('should apply email options to decoded mailto URI recipients', () => {
+    test({
+      validator: 'isMailtoURI',
+      args: [{ allow_utf8_local_part: false }],
+      valid: [
+        'mailto:user@%E7%B4%8D%E8%B1%86.example.org',
+        'mailto:bill%2Bietf@example.org',
+      ],
+      invalid: [
+        'mailto:andr%C3%A9@example.com',
+        'mailto:?cc=andr%C3%A9@example.com',
+        'mailto:?bcc=andr%C3%A9@example.com',
+      ],
+    });
+  });
+
   it('should validate mailto URI', () => {
     test({
       validator: 'isMailtoURI',
