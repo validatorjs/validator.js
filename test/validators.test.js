@@ -1,4 +1,4 @@
-import assert from 'assert';
+sert from 'assert';
 import fs from 'fs';
 import timezone_mock from 'timezone-mock';
 import vm from 'vm';
@@ -20,7 +20,7 @@ describe('Validators', () => {
         'hans@m端ller.com',
         'test|123@m端ller.com',
         'test123+ext@gmail.com',
-        'some.name.midd.leNa.me.and.locality+extension@GoogleMail.com',
+        some.name.midd.leNa.me.and.locality+extension@GoogleMail.com',
         '"foobar"@example.com',
         '"  foo  m端ller "@example.com',
         '"foo\\@bar"@example.com',
@@ -9068,6 +9068,33 @@ describe('Validators', () => {
         ],
       },
       {
+        locale: 'en-FM',
+        valid: [
+          '+6919201234',
+          '6919201234',
+          '9201234',
+          '+6919299999',
+          '9301000',
+          '9499999',
+          '9501000',
+          '9599999',
+          '9600000',
+          '9619999',
+          '9701000',
+          '9799999',
+        ],
+        invalid: [
+          '+6913201234',
+          '3201234',
+          '9101234',
+          '9801234',
+          '920123',
+          '92012345',
+          '+691920123',
+          '+6909201234',
+          '9201234 ',
+          '',
+        ],
         locale: 'en-GB',
         valid: [
           '447789345856',
