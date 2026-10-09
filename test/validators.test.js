@@ -1115,6 +1115,32 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate MAC addresses with frozen EUI options', () => {
+    [48, '48', 64, '64'].forEach((eui) => {
+      const address = Number(eui) === 48 ? '01:23:45:67:89:ab' : '01:23:45:67:89:ab:cd:ef';
+      test({
+        validator: 'isMACAddress',
+        args: [Object.freeze({ eui })],
+        valid: [address, address.replace(/:/g, '-')],
+        invalid: ['invalid', Number(eui) === 48 ? '01:23:45:67:89:ab:cd:ef' : '01:23:45:67:89:ab'],
+      });
+      ['no_separators', 'no_colons'].forEach((option) => {
+        test({
+          validator: 'isMACAddress',
+          args: [Object.freeze({ eui, [option]: true })],
+          valid: [address.replace(/:/g, '')],
+          invalid: [address, 'invalid'],
+        });
+      });
+    });
+  });
+
+  it('should not modify MAC address options', () => {
+    const options = { eui: 48 };
+    validator.isMACAddress('01:23:45:67:89:ab', options);
+    assert.strictEqual(options.eui, 48);
+  });
+
   it('should validate MAC addresses without separator', () => {
     test({
       validator: 'isMACAddress',
