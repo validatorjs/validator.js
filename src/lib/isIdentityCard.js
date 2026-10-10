@@ -217,11 +217,7 @@ const validators = {
     // sanitize user input
     const sanitized = str.trim();
 
-    // validate the data structure
-    if (!NIN.test(sanitized)) {
-      return false;
-    }
-    return true;
+    return NIN.test(sanitized);
   },
   'ar-TN': (str) => {
     const DNI = /^\d{8}$/;
@@ -229,11 +225,7 @@ const validators = {
     // sanitize user input
     const sanitized = str.trim();
 
-    // validate the data structure
-    if (!DNI.test(sanitized)) {
-      return false;
-    }
-    return true;
+    return DNI.test(sanitized);
   },
   'zh-CN': (str) => {
     const provincesAndCities = [

@@ -123,6 +123,7 @@ import blacklist from './lib/blacklist';
 import isWhitelisted from './lib/isWhitelisted';
 
 import normalizeEmail from './lib/normalizeEmail';
+import toString from './lib/util/toString';
 
 import isSlug from './lib/isSlug';
 import isLicensePlate from './lib/isLicensePlate';
@@ -131,7 +132,7 @@ import isStrongPassword from './lib/isStrongPassword';
 import isVAT from './lib/isVAT';
 import isNanoID from './lib/isNanoID';
 
-const version = '13.15.15';
+const version = '13.15.35';
 
 const validator = {
   version,

@@ -16,9 +16,5 @@ export default function isBase32(str, options) {
     return crockfordBase32.test(str);
   }
 
-  const len = str.length;
-  if (len % 8 === 0 && base32.test(str)) {
-    return true;
-  }
-  return false;
+  return str.length % 8 === 0 && base32.test(str);
 }

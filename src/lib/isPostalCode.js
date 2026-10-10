@@ -8,6 +8,7 @@ const sixDigit = /^\d{6}$/;
 
 const patterns = {
   AD: /^AD\d{3}$/,
+  AR: /^([A-HJ-NP-Z]\d{4}[A-Z]{3}|[1-9]\d{3})$/i,
   AT: fourDigit,
   AU: fourDigit,
   AZ: /^AZ\d{4}$/,
@@ -42,6 +43,7 @@ const patterns = {
   IR: /^(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}$/,
   IS: threeDigit,
   IT: fiveDigit,
+  JO: fiveDigit,
   JP: /^\d{3}\-\d{4}$/,
   KE: fiveDigit,
   KR: /^(\d{5}|\d{6})$/,
@@ -50,6 +52,7 @@ const patterns = {
   LU: fourDigit,
   LV: /^LV\-\d{4}$/,
   LK: fiveDigit,
+  MC: /^980\d{2}$/,
   MG: threeDigit,
   MX: fiveDigit,
   MT: /^[A-Za-z]{3}\s{0,1}\d{4}$/,
