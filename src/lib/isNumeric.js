@@ -8,5 +8,8 @@ export default function isNumeric(str, options) {
   if (options && options.no_symbols) {
     return numericNoSymbols.test(str);
   }
+  if (options && options.locale && !Object.prototype.hasOwnProperty.call(decimal, options.locale)) {
+    throw new Error(`Invalid locale '${options.locale}'`);
+  }
   return (new RegExp(`^[+-]?([0-9]*[${(options || {}).locale ? decimal[options.locale] : '.'}])?[0-9]+$`)).test(str);
 }

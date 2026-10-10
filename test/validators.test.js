@@ -3210,6 +3210,25 @@ describe('Validators', () => {
     });
   });
 
+  it('should error on invalid numeric locales', () => {
+    ['de-CH', 'toString', 'constructor', '__proto__'].forEach((locale) => {
+      test({
+        validator: 'isNumeric',
+        args: [{ locale }],
+        error: ['n1', '12d34', '123', '3.5'],
+      });
+    });
+  });
+
+  it('should ignore the numeric locale when symbols are disabled', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{ locale: 'de-CH', no_symbols: true }],
+      valid: ['123'],
+      invalid: ['n1', '12d34', '3.5'],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
