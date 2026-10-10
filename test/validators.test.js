@@ -5714,6 +5714,14 @@ describe('Validators', () => {
     });
   });
 
+  it('should reject hyphens within digit-leading locale variants', () => {
+    test({
+      validator: 'isLocale',
+      valid: ['de-CH-1901', 'sl-rozaj-biske-1994', 'de_CH_1901'],
+      invalid: ['de-CH-190-', 'en-1--a', 'en-1-a-', 'en-1---'],
+    });
+  });
+
   it('should validate strings by byte length (deprecated api)', () => {
     test({
       validator: 'isByteLength',

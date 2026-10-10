@@ -30,7 +30,7 @@ const region = '([A-Za-z]{2}|\\d{3})';
   = 5*8alphanum         ; registered variants
   / (DIGIT 3alphanum)
  */
-const variant = '([A-Za-z0-9]{5,8}|(\\d[A-Z-a-z0-9]{3}))';
+const variant = '([A-Za-z0-9]{5,8}|(\\d[A-Za-z0-9]{3}))';
 
 /*
   = DIGIT               ; 0 - 9
