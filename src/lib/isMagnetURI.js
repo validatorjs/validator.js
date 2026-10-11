@@ -5,7 +5,7 @@ const magnetURIComponent = /(?:^magnet:\?|[^?&]&)xt(?:\.1)?=urn:(?:(?:aich|bitpr
 export default function isMagnetURI(url) {
   assertString(url);
 
-  if (url.indexOf('magnet:?') !== 0) {
+  if (!/^magnet:\?/i.test(url)) {
     return false;
   }
 

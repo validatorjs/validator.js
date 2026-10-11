@@ -12771,6 +12771,32 @@ describe('Validators', () => {
   });
 
 
+  it('should validate magnet URI schemes case-insensitively', () => {
+    const btih = '0123456789012345678901234567890123456789';
+    const btmh = `1220${'a'.repeat(64)}`;
+    test({
+      validator: 'isMagnetURI',
+      valid: [
+        `MAGNET:?xt=urn:btih:${btih}`,
+        `MaGnEt:?xt=urn:btih:${btih}`,
+        `MAGNET:?dn=example&xt=urn:btih:${btih}`,
+        `MaGnEt:?dn=example&xt=urn:btih:${btih}`,
+        `MAGNET:?xt=urn:btmh:${btmh}`,
+        `MaGnEt:?dn=example&xt=urn:btmh:${btmh}`,
+      ],
+      invalid: [
+        ` MAGNET:?xt=urn:btih:${btih}`,
+        `prefixMAGNET:?xt=urn:btih:${btih}`,
+        `MAGNETA:?xt=urn:btih:${btih}`,
+        `MAGNET::?xt=urn:btih:${btih}`,
+        `MAGNET:xt=urn:btih:${btih}`,
+        'MAGNET:?dn=example',
+        'MAGNET:?xt=urn:btih:1234',
+      ],
+    });
+  });
+
+
   it('should validate LatLong', () => {
     test({
       validator: 'isLatLong',
