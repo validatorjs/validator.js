@@ -6184,6 +6184,39 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate membership in objects with no prototype', () => {
+    const values = Object.create(null);
+    values.foo = 1;
+    values.bar = 2;
+    test({
+      validator: 'isIn',
+      args: [values],
+      valid: ['foo', 'bar'],
+      invalid: ['missing', 'toString', 'constructor', ''],
+    });
+  });
+
+  it('should validate membership when hasOwnProperty is an object key', () => {
+    test({
+      validator: 'isIn',
+      args: [{ foo: 1, hasOwnProperty: 2 }],
+      valid: ['foo', 'hasOwnProperty'],
+      invalid: ['missing', 'toString', 'constructor', ''],
+    });
+  });
+
+  it('should not call an object membership value as hasOwnProperty', () => {
+    const values = Object.create({ inherited: 1 });
+    values.foo = 1;
+    values.hasOwnProperty = () => true;
+    test({
+      validator: 'isIn',
+      args: [values],
+      valid: ['foo', 'hasOwnProperty'],
+      invalid: ['missing', 'inherited', 'toString', ''],
+    });
+  });
+
   it('should validate ABA routing number', () => {
     test({
       validator: 'isAbaRouting',
