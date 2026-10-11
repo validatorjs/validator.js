@@ -43,12 +43,14 @@ function analyzePassword(password) {
   let analysis = {
     length: password.length,
     uniqueChars: Object.keys(charMap).length,
+    repeatedChars: 0,
     uppercaseCount: 0,
     lowercaseCount: 0,
     numberCount: 0,
     symbolCount: 0,
   };
   Object.keys(charMap).forEach((char) => {
+    analysis.repeatedChars += charMap[char] - 1;
     /* istanbul ignore else */
     if (upperCaseRegex.test(char)) {
       analysis.uppercaseCount += charMap[char];
@@ -66,7 +68,7 @@ function analyzePassword(password) {
 function scorePassword(analysis, scoringOptions) {
   let points = 0;
   points += analysis.uniqueChars * scoringOptions.pointsPerUnique;
-  points += (analysis.length - analysis.uniqueChars) * scoringOptions.pointsPerRepeat;
+  points += analysis.repeatedChars * scoringOptions.pointsPerRepeat;
   if (analysis.lowercaseCount > 0) {
     points += scoringOptions.pointsForContainingLower;
   }

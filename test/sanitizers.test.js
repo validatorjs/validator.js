@@ -283,6 +283,66 @@ describe('Sanitizers', () => {
     });
   });
 
+  it('should score passwords with unique supplementary characters', () => {
+    test({
+      sanitizer: 'isStrongPassword',
+      args: [{ returnScore: true }],
+      expect: {
+        '😀': 1,
+        '😀😁': 2,
+        'Aa1!😀': 45,
+      },
+    });
+  });
+
+  it('should score passwords with repeated supplementary characters', () => {
+    test({
+      sanitizer: 'isStrongPassword',
+      args: [{ returnScore: true }],
+      expect: {
+        '😀😀': 1.5,
+        '😀😁😀': 2.5,
+        'Aa1!😀😀': 45.5,
+      },
+    });
+  });
+
+  it('should score passwords with custom supplementary character points', () => {
+    test({
+      sanitizer: 'isStrongPassword',
+      args: [{
+        returnScore: true,
+        pointsPerUnique: 3,
+        pointsPerRepeat: 2,
+        pointsForContainingLower: 7,
+        pointsForContainingUpper: 11,
+        pointsForContainingNumber: 13,
+        pointsForContainingSymbol: 17,
+      }],
+      expect: {
+        '😀': 3,
+        '😀😀': 5,
+        '😀😁😀': 8,
+        'Aa1!😀😀': 65,
+      },
+    });
+  });
+
+  it('should preserve password scoring for BMP characters and lone surrogates', () => {
+    test({
+      sanitizer: 'isStrongPassword',
+      args: [{ returnScore: true }],
+      expect: {
+        '': 0,
+        é: 1,
+        éé: 1.5,
+        '\uD83D': 1,
+        '\uDE00': 1,
+        '\uD83D\uD83D': 1.5,
+      },
+    });
+  });
+
   it('should score passwords with default options', () => {
     test({
       sanitizer: 'isStrongPassword',
