@@ -63,7 +63,7 @@ function validateDisplayName(display_name) {
 
 export default function isEmail(str, options) {
   assertString(str);
-  options = merge(options, default_email_options);
+  options = options ? merge(options, default_email_options) : default_email_options;
 
   if (options.require_display_name || options.allow_display_name) {
     const display_email = str.match(splitNameAddress);

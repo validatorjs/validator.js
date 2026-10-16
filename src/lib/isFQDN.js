@@ -12,7 +12,7 @@ const default_fqdn_options = {
 
 export default function isFQDN(str, options) {
   assertString(str);
-  options = merge(options, default_fqdn_options);
+  options = options ? merge(options, default_fqdn_options) : default_fqdn_options;
 
   /* Remove the optional trailing dot before checking validity */
   if (options.allow_trailing_dot && str[str.length - 1] === '.') {

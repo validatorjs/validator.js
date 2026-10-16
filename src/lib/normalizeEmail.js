@@ -170,7 +170,9 @@ function dotsReplacer(match) {
 }
 
 export default function normalizeEmail(email, options) {
-  options = merge(options, default_normalize_email_options);
+  options = options
+    ? merge(options, default_normalize_email_options)
+    : default_normalize_email_options;
 
   const raw_parts = email.split('@');
   const domain = raw_parts.pop();
