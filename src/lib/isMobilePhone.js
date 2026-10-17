@@ -66,6 +66,8 @@ const phones = {
   'en-PH': /^(09|\+639)\d{9}$/,
   'en-RW': /^(\+?250|0)?[7]\d{8}$/,
   'en-SG': /^(\+65)?[3689]\d{7}$/,
+  // ITU Tokelau numbering plan, communication of 6 December 2015.
+  'en-TK': /^(\+?690)?7[2-4]\d{2,5}$/,
   'en-SL': /^(\+?232|0)\d{8}$/,
   'en-TZ': /^(\+?255|0)?[67]\d{8}$/,
   'en-UG': /^(\+?256|0)?[7]\d{8}$/,
