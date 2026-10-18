@@ -12668,6 +12668,9 @@ describe('Validators', () => {
         'USD',
         'VED',
         'SLE',
+        'XAD',
+        'XCG',
+        'ZWG',
       ],
       invalid: [
         '',
@@ -12681,6 +12684,10 @@ describe('Validators', () => {
         'euro',
         'HRK',
         'CUC',
+        'ANG',
+        'BGN',
+        'SLL',
+        'ZWL',
       ],
     });
   });
