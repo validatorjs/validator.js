@@ -6366,6 +6366,26 @@ describe('Validators', () => {
     });
   });
 
+  it('should preserve divisors represented using exponent notation', () => {
+    test({
+      validator: 'isDivisibleBy',
+      args: [1e21],
+      valid: ['0', '1e21', '2e21'],
+      invalid: ['1', '2', '1e20'],
+    });
+  });
+
+  it('should reject zero, fractional and non-finite divisors', () => {
+    [0, 2.5, -2.5, 0.5, 1e-7, Infinity, -Infinity, NaN].forEach((divisor) => {
+      test({
+        validator: 'isDivisibleBy',
+        args: [divisor],
+        valid: [],
+        invalid: ['0', '1', '-1', '2', '5', '7.5'],
+      });
+    });
+  });
+
   it('should validate luhn numbers', () => {
     test({
       validator: 'isLuhnNumber',
