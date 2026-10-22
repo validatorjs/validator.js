@@ -6635,6 +6635,34 @@ describe('Validators', () => {
   });
 
 
+  it('should reject short and partial Mastercard numbers (#2717)', () => {
+    // The Mastercard pattern's unanchored alternation (`^5[1-5][0-9]{2}|...`)
+    // used to match any 51-55 prefix regardless of length (#2717).
+    test({
+      validator: 'isCreditCard',
+      valid: [
+        '5105105105105100',
+        '5398228707871527',
+      ],
+      invalid: [
+        '5108',
+        '5108 5108 5108 5108 5108',
+      ],
+    });
+    test({
+      validator: 'isCreditCard',
+      args: [{ provider: 'mastercard' }],
+      valid: [
+        '5105105105105100',
+      ],
+      invalid: [
+        '5108',
+        '5108 5108 5108 5108 5108',
+      ],
+    });
+  });
+
+
   it('should validate Union Pay provided credit cards', () => {
     test({
       validator: 'isCreditCard',
