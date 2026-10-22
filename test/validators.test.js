@@ -563,6 +563,79 @@ describe('Validators', () => {
     });
   });
 
+  it('should require slashes after an explicit protocol when requested', () => {
+    test({
+      validator: 'isURL',
+      args: [{ require_protocol_slashes: true }],
+      valid: [
+        'http://example.com',
+        'HTTPS://example.com/path?query=value#fragment',
+        'ftp://example.com',
+        'https://user:password@example.com',
+        'https://[::1]:8080/path',
+        'example.com:8080/path',
+        'user:password@example.com',
+      ],
+      invalid: [
+        'http:example.com',
+        'https:example.com',
+        'HTTPS:example.com/path?query=value#fragment',
+        'ftp:example.com',
+        'https:/example.com',
+        '//example.com',
+      ],
+    });
+  });
+
+  it('should combine protocol slashes with requiring a protocol', () => {
+    test({
+      validator: 'isURL',
+      args: [{ require_protocol_slashes: true, require_protocol: true }],
+      valid: ['https://example.com'],
+      invalid: ['https:example.com', 'example.com', 'user:password@example.com'],
+    });
+  });
+
+  it('should allow protocol-relative URLs when only protocol slashes are required', () => {
+    test({
+      validator: 'isURL',
+      args: [{ require_protocol_slashes: true, allow_protocol_relative_urls: true }],
+      valid: ['//example.com', 'example.com', 'https://example.com'],
+      invalid: ['https:example.com'],
+    });
+  });
+
+  it('should require slashes for custom protocols when requested', () => {
+    test({
+      validator: 'isURL',
+      args: [{ require_protocol_slashes: true, protocols: ['custom'] }],
+      valid: ['custom://example.com'],
+      invalid: ['custom:example.com'],
+    });
+    test({
+      validator: 'isURL',
+      args: [{ require_protocol_slashes: true, require_valid_protocol: false }],
+      valid: ['custom://example.com'],
+      invalid: ['custom:example.com'],
+    });
+  });
+
+  it('should keep accepting protocols without slashes by default', () => {
+    const optionsList = [
+      undefined,
+      { require_protocol_slashes: false },
+      { require_protocol: true },
+    ];
+    optionsList.forEach((options) => {
+      test({
+        validator: 'isURL',
+        args: [options],
+        valid: ['http:example.com', 'https:example.com', 'ftp:example.com'],
+        invalid: [],
+      });
+    });
+  });
+
   it('should validate file URLs without a host', () => {
     test({
       validator: 'isURL',

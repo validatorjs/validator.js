@@ -12,6 +12,7 @@ options for isURL method
 protocols - valid protocols can be modified with this option.
 require_tld - If set to false isURL will not check if the URL's host includes a top-level domain.
 require_protocol - if set to true isURL will return false if protocol is not present in the URL.
+require_protocol_slashes - if set to true, an explicit protocol must be followed by `//`.
 require_host - if set to false isURL will not check if host is present in the URL.
 require_port - if set to true isURL will check if port is present in the URL.
 require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option.
@@ -39,6 +40,7 @@ const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
   require_tld: true,
   require_protocol: false,
+  require_protocol_slashes: false,
   require_host: true,
   require_port: false,
   require_valid_protocol: true,
@@ -91,6 +93,11 @@ export default function isURL(url, options) {
   let had_explicit_protocol = false;
 
   const cleanUpProtocol = (potential_protocol) => {
+    const after_protocol = url.substring(protocol_match[0].length);
+    if (options.require_protocol_slashes && after_protocol.slice(0, 2) !== '//') {
+      return false;
+    }
+
     had_explicit_protocol = true;
     protocol = potential_protocol.toLowerCase();
 
@@ -100,7 +107,7 @@ export default function isURL(url, options) {
     }
 
     // Remove the protocol from the URL string.
-    return url.substring(protocol_match[0].length);
+    return after_protocol;
   };
 
   if (protocol_match) {
