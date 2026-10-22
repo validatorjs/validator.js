@@ -7319,6 +7319,7 @@ describe('Validators', () => {
     test({
       validator: 'isAscii',
       valid: [
+        '\x7F', // DEL is the highest ASCII code point.
         'foobar',
         '0987654321',
         'test@example.com',
