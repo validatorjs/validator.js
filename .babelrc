@@ -5,6 +5,9 @@
                 ["@babel/preset-env", {
                     "modules": false
                 }]
+            ],
+            "plugins": [
+                "./scripts/babel-plugin-fully-specified"
             ]
         },
         "development": {

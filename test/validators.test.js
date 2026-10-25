@@ -14396,7 +14396,9 @@ describe('Validators', () => {
       validator: 'isDate',
       valid: [
         new Date(),
-        new Date([2014, 2, 15]),
+        // Not new Date([2014, 2, 15]): parsing '2014,2,15' is implementation-defined
+        // and gives an Invalid Date in Safari (JavaScriptCore).
+        new Date(2014, 1, 15),
         new Date('2014-03-15'),
         '2020/02/29',
         '2020-02-19',
@@ -14583,7 +14585,7 @@ describe('Validators', () => {
         '2020-02-29',
         '15-07/2002',
         new Date(),
-        new Date([2014, 2, 15]),
+        new Date(2014, 1, 15),
         new Date('2014-03-15'),
         '-2020-04-19',
         '-2023/05/24',
@@ -14606,7 +14608,7 @@ describe('Validators', () => {
       args: [{ delimiters: ['/', ' '] }],
       valid: [
         new Date(),
-        new Date([2014, 2, 15]),
+        new Date(2014, 1, 15),
         new Date('2014-03-15'),
         '2020/02/29',
         '2020 02 29',
@@ -14655,7 +14657,7 @@ describe('Validators', () => {
         '2020-02-29',
         '15-07/2002',
         new Date(),
-        new Date([2014, 2, 15]),
+        new Date(2014, 1, 15),
         new Date('2014-03-15'),
         '29.02.2020',
         '02.29.2020.20',

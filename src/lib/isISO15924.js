@@ -1,7 +1,8 @@
 import assertString from './util/assertString';
+import lookupSet from './util/lookupSet';
 
 // from https://www.unicode.org/iso15924/iso15924-codes.html
-const validISO15924Codes = new Set([
+const validISO15924Codes = lookupSet([
   'Adlm', 'Afak', 'Aghb', 'Ahom', 'Arab', 'Aran', 'Armi', 'Armn', 'Avst',
   'Bali', 'Bamu', 'Bass', 'Batk', 'Beng', 'Bhks', 'Blis', 'Bopo', 'Brah', 'Brai', 'Bugi', 'Buhd',
   'Cakm', 'Cans', 'Cari', 'Cham', 'Cher', 'Chis', 'Chrs', 'Cirt', 'Copt', 'Cpmn', 'Cprt', 'Cyrl', 'Cyrs',

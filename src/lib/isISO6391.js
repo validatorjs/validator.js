@@ -1,6 +1,7 @@
 import assertString from './util/assertString';
+import lookupSet from './util/lookupSet';
 
-const isISO6391Set = new Set([
+const isISO6391Set = lookupSet([
   'aa', 'ab', 'ae', 'af', 'ak', 'am', 'an', 'ar', 'as', 'av', 'ay', 'az', 'az',
   'ba', 'be', 'bg', 'bh', 'bi', 'bm', 'bn', 'bo', 'br', 'bs',
   'ca', 'ce', 'ch', 'co', 'cr', 'cs', 'cu', 'cv', 'cy',

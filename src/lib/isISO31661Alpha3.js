@@ -1,7 +1,9 @@
 import assertString from './util/assertString';
+import lookupSet from './util/lookupSet';
+import includes from './util/includesArray';
 
 // from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
-const validISO31661Alpha3CountriesCodes = new Set([
+const validISO31661Alpha3CountriesCodes = lookupSet([
   'AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND', 'AGO', 'AIA', 'ATA', 'ATG', 'ARG', 'ARM', 'ABW', 'AUS', 'AUT', 'AZE',
   'BHS', 'BHR', 'BGD', 'BRB', 'BLR', 'BEL', 'BLZ', 'BEN', 'BMU', 'BTN', 'BOL', 'BES', 'BIH', 'BWA', 'BVT', 'BRA',
   'IOT', 'BRN', 'BGR', 'BFA', 'BDI', 'KHM', 'CMR', 'CAN', 'CPV', 'CYM', 'CAF', 'TCD', 'CHL', 'CHN', 'CXR', 'CCK',
@@ -34,7 +36,7 @@ export default function isISO31661Alpha3(str, options = {}) {
       return accumulator;
     }, []);
 
-  if (validUserAssignedCodes.includes(str.toUpperCase())) {
+  if (includes(validUserAssignedCodes, str.toUpperCase())) {
     return true;
   }
 

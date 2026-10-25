@@ -6,10 +6,10 @@ This file provides guidance to AI coding agents working with this repository.
 
 - validator.js is a single-package npm project for string validation and sanitization.
 - `src/index.js` defines the public exports, and `src/lib` contains validators, sanitizers, normalizers, converters, static format data, and shared utilities.
-- `test/validators.test.js` contains most API tests; additional test files cover browser builds and individual utilities.
+- `test/validators.test.js` contains most API tests; additional test files cover browser builds, package exports, ES modules and individual utilities. `test/browser/` runs the suite in real browsers, and `test/fixtures/consumers/` holds the projects used by `scripts/check-package.mjs`.
 - `README.md` is the primary public API reference. Update it when documented API behavior or options change.
-- `build-browser.js` creates the browser bundle. Babel creates the Node and ES module distributions.
-- `index.js`, `lib/`, `es/`, `validator.js`, and `validator.min.js` are generated. Do not edit or commit them manually.
+- `build-browser.mjs` creates the browser bundle. Babel creates the Node and ES module distributions; small post-build steps in `scripts/` add the Node ESM export-name hint to `index.js`, `.js` extensions to `es/` imports, and `es/package.json`.
+- `index.js`, `lib/`, `es/`, `validator.js`, `validator.min.js`, and `test-es5/` are generated. Do not edit or commit them manually.
 - The published package contains only the generated distributions, `README.md`, `LICENSE`, and package metadata listed in the `files` field of `package.json`.
 - validator.js has no runtime dependencies. The packages in `devDependencies` are used only to build, lint, and test the project.
 
@@ -31,8 +31,10 @@ This file provides guidance to AI coding agents working with this repository.
 ## Test
 
 - `npm test` is the broad local check. Its `pretest` lifecycle builds every distribution and runs ESLint before the Mocha suite.
-- `npm run lint` checks `src/` and `test/`.
+- `npm run lint` checks `src/`, `test/`, `scripts/` and `build-browser.mjs`. `src/` must stay free of ES2015+ built-ins (`src/.eslintrc.js`), because the library supports ES5 runtimes without polyfills.
+- `npm run build` also checks that the CommonJS and browser builds parse as ES5 (`check:es5`).
 - `npm run build` builds all published forms without running the tests.
+- CI also runs `npm run test:es5` (Node.js 0.10–6), `npm run test:browser` (Playwright), `scripts/check-package.mjs` (packed-package consumers), the suite on Deno and Bun, and a JSR dry run.
 - For a focused Mocha run, use `npm test -- --grep '<test name>'`; retain the broad `npm test` run before considering a code change complete.
 - Tests use Mocha, Babel, and nyc. Coverage output under `coverage/` and `.nyc_output/` is generated and should not be committed.
 - When changing a shared helper, identify and test its public callers. A helper-level test alone does not establish public API behavior.

@@ -26,7 +26,8 @@ const defaultOptions = {
 */
 function countChars(str) {
   let result = {};
-  Array.from(str).forEach((char) => {
+  // Iterate by code point like `Array.from(str)` (ES2015): keep surrogate pairs together.
+  (str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]|[\s\S]/g) || []).forEach((char) => {
     let curVal = result[char];
     if (curVal) {
       result[char] += 1;

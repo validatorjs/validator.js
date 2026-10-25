@@ -1,4 +1,5 @@
 import merge from './util/merge';
+import startsWith from './util/startsWith';
 
 const default_date_options = {
   format: 'YYYY/MM/DD',
@@ -21,7 +22,18 @@ function zip(date, format) {
   return zippedArr;
 }
 
+// ES5 equivalent of `array.find(predicate)`; Array.prototype.find is ES2015.
+function find(array, predicate) {
+  for (let i = 0; i < array.length; i++) {
+    if (predicate(array[i])) return array[i];
+  }
+  return undefined;
+}
+
 export default function isDate(input, options) {
+  // TODO(next major): throw on input that is neither a string nor a Date, like the other
+  // validators (assertString). Returning false is the current, documented behaviour
+  // (README, "Strings only").
   if (typeof options === 'string') { // Allow backward compatibility for old format isDate(input [, format])
     options = merge({ format: options }, default_date_options);
   } else {
@@ -29,11 +41,13 @@ export default function isDate(input, options) {
   }
   if (typeof input === 'string' && isValidFormat(options.format)) {
     if (options.strictMode && input.length !== options.format.length) return false;
-    const formatDelimiter = options.delimiters
-      .find(delimiter => options.format.indexOf(delimiter) !== -1);
+    const formatDelimiter = find(
+      options.delimiters,
+      delimiter => options.format.indexOf(delimiter) !== -1
+    );
     const dateDelimiter = options.strictMode
       ? formatDelimiter
-      : options.delimiters.find(delimiter => input.indexOf(delimiter) !== -1);
+      : find(options.delimiters, delimiter => input.indexOf(delimiter) !== -1);
     const dateAndFormat = zip(
       input.split(dateDelimiter),
       options.format.toLowerCase().split(formatDelimiter)
@@ -51,7 +65,7 @@ export default function isDate(input, options) {
     let fullYear = dateObj.y;
 
     // Check if the year starts with a hyphen
-    if (fullYear.startsWith('-')) {
+    if (startsWith(fullYear, '-')) {
       return false; // Hyphen before year is not allowed
     }
 

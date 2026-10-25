@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <title>validator.js standalone script: __BUNDLE__</title>
+</head>
+<body>
+  <!-- Served by test/browser/run.mjs, which replaces __BUNDLE__. -->
+  <script src="/__BUNDLE__"></script>
+  <script type="module">
+    import { check, checkValidator, runSmoke } from './smoke.mjs';
+
+    runSmoke((expected) => {
+      check(typeof window.define === 'undefined', 'no AMD loader expected on this page');
+      check(Object.getOwnPropertyDescriptor(window, 'validator'), 'the bundle did not define window.validator');
+      return checkValidator(window.validator, expected);
+    });
+  </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 import assertString from './util/assertString';
 import includes from './util/includesArray';
 import isInt from './isInt';
+import endsWith from './util/endsWith';
 
 const validators = {
   PL: (str) => {
@@ -62,7 +63,7 @@ const validators = {
     // validate the control digit
     const number = sanitized.slice(0, -1).replace(/[X,Y,Z]/g, char => charsValue[char]);
 
-    return sanitized.endsWith(controlDigits[number % 23]);
+    return endsWith(sanitized, controlDigits[number % 23]);
   },
   FI: (str) => {
     // https://dvv.fi/en/personal-identity-code#:~:text=control%20character%20for%20a-,personal,-identity%20code%20calculated
@@ -400,7 +401,7 @@ const validators = {
 
     if (!/^[A-Z][0-9]{9}$/.test(sanitized)) return false;
 
-    return Array.from(sanitized).reduce((sum, number, index) => {
+    return sanitized.split('').reduce((sum, number, index) => {
       if (index === 0) {
         const code = ALPHABET_CODES[number];
 

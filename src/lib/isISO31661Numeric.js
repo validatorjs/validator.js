@@ -1,7 +1,8 @@
 import assertString from './util/assertString';
+import lookupSet from './util/lookupSet';
 
 // from https://en.wikipedia.org/wiki/ISO_3166-1_numeric
-const validISO31661NumericCountriesCodes = new Set([
+const validISO31661NumericCountriesCodes = lookupSet([
   '004', '008', '010', '012', '016', '020', '024', '028', '031', '032', '036', '040', '044', '048', '050', '051',
   '052', '056', '060', '064', '068', '070', '072', '074', '076', '084', '086', '090', '092', '096', '100', '104',
   '108', '112', '116', '120', '124', '132', '136', '140', '144', '148', '152', '156', '158', '162', '166', '170',

@@ -22,7 +22,7 @@ export default function isISIN(str) {
     if (str[i] >= 'A' && str[i] <= 'Z') {
       const value = str[i].charCodeAt(0) - 55;
       const lo = value % 10;
-      const hi = Math.trunc(value / 10);
+      const hi = Math.floor(value / 10);
       // letters have two digits, so handle the low order
       // and high order digits separately.
       for (const digit of [lo, hi]) {
@@ -52,7 +52,7 @@ export default function isISIN(str) {
     }
   }
 
-  const check = (Math.trunc(((sum + 9) / 10)) * 10) - sum;
+  const check = (Math.floor(((sum + 9) / 10)) * 10) - sum;
 
   return +str[str.length - 1] === check;
 }

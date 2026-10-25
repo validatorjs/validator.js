@@ -1,4 +1,3 @@
-import { describe } from 'mocha';
 import test from '../testFunctions';
 
 describe('isBefore', () => {

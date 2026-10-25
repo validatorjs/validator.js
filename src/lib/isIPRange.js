@@ -1,5 +1,6 @@
 import assertString from './util/assertString';
 import isIP from './isIP';
+import startsWith from './util/startsWith';
 
 const subnetMaybe = /^\d{1,3}$/;
 const v4Subnet = 32;
@@ -19,7 +20,7 @@ export default function isIPRange(str, version = '') {
   }
 
   // Disallow preceding 0 i.e. 01, 02, ...
-  if (parts[1].length > 1 && parts[1].startsWith('0')) {
+  if (parts[1].length > 1 && startsWith(parts[1], '0')) {
     return false;
   }
 

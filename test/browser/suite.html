@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <title>validator.js test suite: __BUNDLE__</title>
+  <link rel="stylesheet" href="/vendor/mocha.css">
+</head>
+<body>
+  <!-- Served by test/browser/run.mjs, which replaces __BUNDLE__. -->
+  <div id="mocha"></div>
+  <script src="/vendor/mocha.js"></script>
+  <script>
+    mocha.setup({ ui: 'bdd', timeout: 10000 });
+  </script>
+  <script src="/__BUNDLE__"></script>
+  <script src="/build/tests.js"></script>
+  <script>
+    (function () {
+      var config = window.validatorTestConfig;
+      var excluded = config.excludedTests;
+      var defined = [];
+      (function collect(suite) {
+        suite.tests.forEach(function (test) { defined.push(test.fullTitle()); });
+        suite.suites.forEach(collect);
+      }(mocha.suite));
+
+      var result = {
+        done: false,
+        defined: defined.length,
+        excludedFound: excluded.filter(function (title) { return defined.indexOf(title) !== -1; }),
+        passes: 0,
+        pending: 0,
+        failures: [],
+      };
+      var escape = function (title) { return title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
+      mocha.grep(new RegExp('^(?!(?:' + excluded.map(escape).join('|') + ')$)'));
+
+      var runner = mocha.run();
+      runner.on('pass', function () { result.passes += 1; });
+      runner.on('pending', function () { result.pending += 1; });
+      runner.on('fail', function (test, error) {
+        var message = String((error && error.message) || error);
+        var stack = (error && error.stack) || '';
+        // Firefox and WebKit stacks do not start with the message.
+        result.failures.push({
+          title: test.fullTitle(),
+          message: stack.indexOf(message) === -1 ? message + '\n' + stack : stack,
+        });
+      });
+      runner.on('end', function () {
+        result.done = true;
+        window.validatorTestResult = result;
+      });
+    }());
+  </script>
+</body>
+</html>

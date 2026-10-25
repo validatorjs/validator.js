@@ -20,6 +20,8 @@ const formats = {
 
 export default function isTime(input, options) {
   options = merge(options, default_time_options);
+  // TODO(next major): throw on non-string input like the other validators (assertString).
+  // Returning false is the current, documented behaviour (README, "Strings only").
   if (typeof input !== 'string') return false;
   return formats[options.hourFormat][options.mode].test(input);
 }

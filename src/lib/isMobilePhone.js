@@ -1,4 +1,5 @@
 import assertString from './util/assertString';
+import startsWith from './util/startsWith';
 
 /* eslint-disable max-len */
 const phones = {
@@ -179,7 +180,7 @@ phones['en-CM'] = phones['fr-CM'];
 
 export default function isMobilePhone(str, locale, options) {
   assertString(str);
-  if (options && options.strictMode && !str.startsWith('+')) {
+  if (options && options.strictMode && !startsWith(str, '+')) {
     return false;
   }
   if (Array.isArray(locale)) {

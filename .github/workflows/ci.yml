@@ -10,19 +10,21 @@ jobs:
     name: Build on Node.js 24
     steps:
       - name: Setup Node.js 24
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 24
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install dependencies
         run: npm install
       - name: Build
         run: npm run build
       - name: Lint
         run: npm run lint
+      - name: Compile ES5 test suite
+        run: node scripts/build-es5-tests.js
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build-artifacts
           path: |
@@ -31,6 +33,7 @@ jobs:
             es/
             validator.js
             validator.min.js
+            test-es5/
           retention-days: 1
 
   test:
@@ -38,17 +41,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [24, 22, 20, 18, 16, 14, 12, 10, 8]
+        node-version: [26, 24, 22, 20, 18, 16, 14, 12, 10, 8]
     name: Run tests on Node.js ${{ matrix.node-version }}
     steps:
     - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ matrix.node-version }}
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Download build artifacts
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: build-artifacts
     - name: Install dependencies
@@ -57,6 +60,189 @@ jobs:
       run: npm run test:ci
     - if: matrix.node-version == 24
       name: Send coverage info to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v7
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+
+  # Mocha, nyc and npm install do not work on these Node.js versions, so the
+  # suite compiled to ES5 by the build job runs with its own dependency-free
+  # runner, against the built index.js, lib/ and validator(.min).js.
+  test-es5:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['0.10', '0.12', '4', '6']
+    name: Run ES5 test suite on Node.js ${{ matrix.node-version }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+    - name: Download build artifacts
+      uses: actions/download-artifact@v8
+      with:
+        name: build-artifacts
+    # actions/setup-node's version manifest starts at 6.17.1, so install with
+    # nvm like ljharb/actions does; it downloads and checksums nodejs.org builds.
+    - name: Install Node.js ${{ matrix.node-version }} with nvm
+      env:
+        NODE_VERSION: ${{ matrix.node-version }}
+      run: |
+        export NVM_DIR="$RUNNER_TEMP/nvm"
+        git -c advice.detachedHead=false clone --quiet --depth 1 --branch v0.40.3 https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+        . "$NVM_DIR/nvm.sh"
+        nvm install "$NODE_VERSION"
+        echo "$NVM_BIN" >> "$GITHUB_PATH"
+    - name: Run ES5 test suite
+      run: |
+        node --version
+        node test-es5/run.js
+
+  browser:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Run tests in Chromium, Firefox and WebKit
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      # Pinned; installed with --no-save because Playwright needs a newer
+      # Node.js than the development dependencies support.
+      PLAYWRIGHT_VERSION: 1.63.0
+      REQUIREJS_VERSION: 2.3.8
+    steps:
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build-artifacts
+      - name: Install dependencies, Playwright and RequireJS
+        run: npm install --legacy-peer-deps --no-save "playwright@$PLAYWRIGHT_VERSION" "requirejs@$REQUIREJS_VERSION"
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+      - name: Run tests in browsers
+        run: npm run test:browser
+
+  # Packs the package and checks it the way users install it: the tarball file
+  # list, publint, CommonJS/ESM/deep-import consumers installed with npm, pnpm
+  # and Yarn (Plug'n'Play), and esbuild bundles (tree-shaking and sizes).
+  # See scripts/check-package.mjs; its tools are pinned there and run with npx.
+  package:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [26, 24, 22, 20]
+    name: Check the package on Node.js ${{ matrix.node-version }}
+    steps:
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build-artifacts
+      - name: Check the packed package
+        run: node scripts/check-package.mjs
+
+  # Runs the Mocha suite on Deno's Node.js compatibility layer, then imports
+  # the packed package (CommonJS, ESM, deep es/ paths) from a node_modules
+  # install with Deno. Tracks the latest Deno 2.x release.
+  deno:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    name: Run tests on Deno 2.x
+    steps:
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Setup Deno 2.x
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build-artifacts
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: Run tests
+        run: deno run -A node_modules/mocha/bin/_mocha --require @babel/register --reporter dot --recursive
+      - name: Check the packed package
+        run: node scripts/check-package.mjs --runtime=deno
+
+  # Same for Bun: the Mocha suite (Mocha itself, since `bun test` does not
+  # support Mocha's `this.timeout()`/`this.skip()`), then the packed package
+  # installed with `bun install`. Tracks the latest Bun 1.x release.
+  bun:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    name: Run tests on Bun 1.x
+    steps:
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Setup Bun 1.x
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.x
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build-artifacts
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: Run tests
+        run: bun node_modules/mocha/bin/_mocha --require @babel/register --reporter dot --recursive
+      - name: Check the packed package
+        run: node scripts/check-package.mjs --runtime=bun
+
+  # Keeps jsr.json publishable to JSR (dry run only; nothing is published).
+  # jsr@0.14.3 downloads and verifies a pinned Deno (v2.6.7) to run
+  # `deno publish`. The `unsupported-javascript-entrypoint` warning is expected
+  # until the package ships type declarations.
+  jsr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    name: Check JSR publishing (dry run)
+    steps:
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Publish to JSR (dry run)
+        run: npx --yes jsr@0.14.3 publish --dry-run --allow-dirty

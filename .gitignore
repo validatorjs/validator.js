@@ -10,4 +10,6 @@ yarn.lock
 /index.js
 validator.js
 validator.min.js
+/test-es5
+/deno.lock
 

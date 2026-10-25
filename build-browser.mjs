@@ -3,25 +3,25 @@ import fs from 'fs';
 import { rollup } from 'rollup';
 import { babel } from '@rollup/plugin-babel';
 import babelPresetEnv from '@babel/preset-env';
-import pkg from "./package.json" with { type: "json" };
+import pkg from './package.json' with { type: 'json' };
 
 rollup({
   input: 'src/index.js',
   plugins: [
     babel({
-      presets: [[babelPresetEnv, { 
+      presets: [[babelPresetEnv, {
         modules: false,
         targets: {
           node: '0.10',
-          ie: '11'
-        }
+          ie: '11',
+        },
       }]],
       babelHelpers: 'bundled',
       babelrc: false,
     }),
   ],
 })
-  .then((bundle) =>
+  .then(bundle =>
     bundle.write({
       file: 'validator.js',
       format: 'umd',
@@ -29,10 +29,9 @@ rollup({
       banner: `/*!\n${String(fs.readFileSync('./LICENSE'))
         .trim()
         .split('\n')
-        .map((l) => ` * ${l}`)
+        .map(l => ` * ${l}`)
         .join('\n')}\n */`,
-    })
-  )
+    }))
   .catch((e) => {
     process.stderr.write(`${e.message}\n`);
     process.exit(1);

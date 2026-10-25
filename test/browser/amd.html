@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <title>validator.js through RequireJS: __BUNDLE__</title>
+</head>
+<body>
+  <!-- Served by test/browser/run.mjs, which replaces __BUNDLE__. -->
+  <script src="/vendor/require.js"></script>
+  <script>
+    requirejs.config({
+      baseUrl: '/',
+      paths: { validator: '__BUNDLE__'.replace(/\.js$/, '') },
+    });
+    define('app', ['validator'], function (validator) {
+      return { validEmail: validator.isEmail('foo@bar.com'), invalidEmail: validator.isEmail('foo') };
+    });
+  </script>
+  <script type="module">
+    import { amdRequire, check, checkValidator, runSmoke } from './smoke.mjs';
+
+    runSmoke(async (expected) => {
+      const [validator] = await amdRequire(['validator']);
+      const details = checkValidator(validator, expected);
+      check(!('validator' in window), 'the bundle defined a global `validator` although an AMD loader is present');
+
+      const [again, app] = await amdRequire(['validator', 'app']);
+      check(again === validator, 'RequireJS returned a different module object for a second require()');
+      check(app.validEmail === true && app.invalidEmail === false, 'an AMD module depending on validator got wrong results');
+      return details;
+    });
+  </script>
+</body>
+</html>

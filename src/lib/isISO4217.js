@@ -1,7 +1,8 @@
 import assertString from './util/assertString';
+import lookupSet from './util/lookupSet';
 
 // from https://en.wikipedia.org/wiki/ISO_4217
-const validISO4217CurrencyCodes = new Set([
+const validISO4217CurrencyCodes = lookupSet([
   'AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN',
   'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD',
   'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUP', 'CVE', 'CZK',

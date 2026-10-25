@@ -1,0 +1,14 @@
+{
+  "$schema": "https://jsr.io/schema/config-file.v1.json",
+  "name": "@validatorjs/validator",
+  "version": "13.15.35",
+  "license": "MIT",
+  "exports": "./src/index.js",
+  "publish": {
+    "include": [
+      "src/**/*.js",
+      "README.md",
+      "LICENSE"
+    ]
+  }
+}

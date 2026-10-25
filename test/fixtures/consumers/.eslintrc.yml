@@ -1,0 +1,13 @@
+# Consumer fixtures run by scripts/check-package.mjs against the packed
+# package, which is installed next to them only at test time. They import it
+# the way users do, so file extensions follow Node.js rather than our style.
+# (YAML rather than .js, so test runners that load test/**/*.js skip it.)
+rules:
+  import/no-unresolved: 'off'
+  import/extensions: 'off'
+overrides:
+  - files: ['*.cjs']
+    parserOptions:
+      sourceType: script
+    rules:
+      strict: ['error', 'global']

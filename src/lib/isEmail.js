@@ -5,6 +5,8 @@ import isByteLength from './isByteLength';
 import isFQDN from './isFQDN';
 import isIP from './isIP';
 import merge from './util/merge';
+import startsWith from './util/startsWith';
+import endsWith from './util/endsWith';
 
 const default_email_options = {
   allow_display_name: false,
@@ -78,7 +80,7 @@ export default function isEmail(str, options) {
       // because there may be a space between display name and email address
       // eg. myname <address@gmail.com>
       // the display name is `myname` instead of `myname `, so need to trim the last space
-      if (display_name.endsWith(' ')) {
+      if (endsWith(display_name, ' ')) {
         display_name = display_name.slice(0, -1);
       }
 
@@ -150,7 +152,7 @@ export default function isEmail(str, options) {
     }
 
     if (!isIP(domain)) {
-      if (!domain.startsWith('[') || !domain.endsWith(']')) {
+      if (!startsWith(domain, '[') || !endsWith(domain, ']')) {
         return false;
       }
 

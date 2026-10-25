@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <title>validator.js ES modules (es/)</title>
+</head>
+<body>
+  <!-- Served by test/browser/run.mjs. es/ is loaded as is: no bundler, no import map. -->
+  <script type="module">
+    import { check, checkValidator, runSmoke } from './smoke.mjs';
+    import validator from '/es/index.js';
+    import isEmail from '/es/lib/isEmail.js';
+    import isMobilePhone, { locales as mobilePhoneLocales } from '/es/lib/isMobilePhone.js';
+
+    runSmoke(async (expected) => {
+      const details = checkValidator(validator, expected);
+      check(validator.isEmail === isEmail, 'es/index.js and es/lib/isEmail.js export different isEmail functions');
+      check(validator.isMobilePhone === isMobilePhone, 'es/index.js and es/lib/isMobilePhone.js export different functions');
+      check(validator.isMobilePhoneLocales === mobilePhoneLocales, 'isMobilePhoneLocales is not the locales export of es/lib/isMobilePhone.js');
+      check(isEmail('foo@bar.com') === true && isEmail('foo') === false, 'es/lib/isEmail.js gives wrong results');
+      check(!('validator' in window), 'es/ defined a global `validator`');
+
+      const dynamic = await import('/es/lib/isMobilePhone.js');
+      check(dynamic.default === isMobilePhone, 'a dynamic import() of es/lib/isMobilePhone.js returned another module instance');
+      return details;
+    });
+  </script>
+</body>
+</html>

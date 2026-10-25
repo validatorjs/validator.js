@@ -17,6 +17,8 @@ A library of string validators and sanitizers.
 If you're not sure if your input is a string, coerce it using `input + ''`.
 Passing anything other than a string will result in an error.
 
+Exceptions: `toString` accepts any input, and `isDate` also accepts `Date` objects. For other input that is not a string, `isDate` and `isTime` currently return `false` instead of throwing an error. A future major version will change them to throw, like the other validators.
+
 ## Installation and Usage
 
 ### Server-side usage
@@ -43,6 +45,12 @@ validator.isEmail('foo@bar.com'); //=> true
 import validator from 'validator';
 ```
 
+Named imports are also supported, including from native ES modules in Node.js 12.20+ / 14.13+:
+
+```javascript
+import { isEmail } from 'validator';
+```
+
 Or, import only a subset of the library:
 
 ```javascript
@@ -51,9 +59,15 @@ import isEmail from 'validator/lib/isEmail';
 
 #### Tree-shakeable ES imports
 
+The `es` directory contains the library as ES modules. With the `.js` extension, these imports work in bundlers as well as in native ES modules in Node.js 12.17+, Deno, and browsers (using an import map for the bare `validator/...` specifier):
+
 ```javascript
-import isEmail from 'validator/es/lib/isEmail';
+import isEmail from 'validator/es/lib/isEmail.js';
+import isMobilePhone, { locales } from 'validator/es/lib/isMobilePhone.js';
+import validator from 'validator/es/index.js';
 ```
+
+In native ES modules, use `validator/es/lib/*.js` rather than `validator/lib/*.js`: CommonJS modules that also export `locales` (such as `isAlpha` and `isMobilePhone`) are imported as an object `{ default, locales }` instead of the function.
 
 ### Client-side usage
 
@@ -64,12 +78,6 @@ The library can be loaded either as a standalone script, or through an [AMD][amd
 <script type="text/javascript">
   validator.isEmail('foo@bar.com'); //=> true
 </script>
-```
-
-The library can also be installed through [bower][bower]
-
-```bash
-$ bower install validator-js
 ```
 
 CDN
@@ -118,7 +126,7 @@ Validator                               | Description
 **isHexadecimal(str)**                  | check if the string is a hexadecimal number.
 **isHexColor(str [, options])**         | check if the string is a hexadecimal color. <br/><br/>`options` is an object that defaults to `{ require_hashtag: false }`.<br />Options: <br/> `require_hashtag`: Enforce # prefix, default false.
 **isHSL(str)**                          | check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on [CSS Colors Level 4 specification][CSS Colors Level 4 Specification].<br/><br/>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: `hsl(200grad+.1%62%/1)`).
-**isIBAN(str, [, options])**            | check if the string is an IBAN (International Bank Account Number).<br/><br/>`options` is an object which accepts two attributes: `whitelist`: where you can restrict IBAN codes you want to receive data from and `blacklist`: where you can remove some of the countries from the current list. For both you can use an array with the following values `['AD','AE','AL','AT','AZ','BA','BE','BG','BH','BR','BY','CH','CR','CY','CZ','DE','DK','DO','EE','EG','ES','FI','FO','FR','GB','GE','GI','GL','GR','GT','HR','HU','IE','IL','IQ','IR','IS','IT','JO','KW','KZ','LB','LC','LI','LT','LU','LV','MC','MD','ME','MK','MR','MT','MU','MZ','NL','NO','PK','PL','PS','PT','QA','RO','RS','SA','SC','SE','SI','SK','SM','SV','TL','TN','TR','UA','VA','VG','XK']`.
+**isIBAN(str, [, options])**            | check if the string is an IBAN (International Bank Account Number).<br/><br/>`options` is an object which accepts two attributes: `whitelist`: where you can restrict IBAN codes you want to receive data from and `blacklist`: where you can remove some of the countries from the current list. For both you can use an array with the following values `['AD','AE','AL','AT','AZ','BA','BE','BG','BH','BR','BY','CH','CR','CY','CZ','DE','DK','DO','EE','EG','ES','FI','FO','FR','GB','GE','GI','GL','GR','GT','HR','HU','IE','IL','IQ','IR','IS','IT','JO','KW','KZ','LB','LC','LI','LT','LU','LV','MC','MD','ME','MK','MR','MT','MU','MZ','NL','NO','PK','PL','PS','PT','QA','RO','RS','SA','SC','SE','SI','SK','SM','SV','TL','TN','TR','UA','VA','VG','XK']`. Locale list is `validator.ibanLocales`.
 **isIdentityCard(str [, locale])**      | check if the string is a valid identity card code.<br/><br/>`locale` is one of `['LK', 'PL', 'ES', 'FI', 'IN', 'IT', 'IR', 'MZ', 'NO', 'TH', 'zh-TW', 'he-IL', 'ar-LY', 'ar-TN', 'zh-CN', 'zh-HK', 'PK']` OR `'any'`. If 'any' is used, function will check if any of the locales match.<br/><br/>Defaults to 'any'.
 **isIMEI(str [, options])**            | check if the string is a valid [IMEI number][IMEI]. IMEI should be of format `###############` or `##-######-######-#`.<br/><br/>`options` is an object which can contain the keys `allow_hyphens`. Defaults to first format. If `allow_hyphens` is set to true, the validator will validate the second format.
 **isIn(str, values)**                   | check if the string is in an array of allowed values.
@@ -241,7 +249,6 @@ This project is licensed under the [MIT](LICENSE). See the [LICENSE](LICENSE) fi
 [huntr-image]: https://cdn.huntr.dev/huntr_security_badge_mono.svg
 
 [amd]: http://requirejs.org/docs/whyamd.html
-[bower]: http://bower.io/
 
 [Crockford Base32]: http://www.crockford.com/base32.html
 [Base64 URL Safe]: https://base64.guru/standards/base64url

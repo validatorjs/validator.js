@@ -3,7 +3,7 @@ import isEmail from './isEmail';
 import assertString from './util/assertString';
 
 function parseMailtoQueryString(queryString) {
-  const allowedParams = new Set(['subject', 'body', 'cc', 'bcc']),
+  const allowedParams = ['subject', 'body', 'cc', 'bcc'],
     query = { cc: '', bcc: '' };
   let isParseFailed = false;
 
@@ -17,7 +17,7 @@ function parseMailtoQueryString(queryString) {
     const [key, value] = q.split('=');
 
     // checked for invalid and duplicated query params
-    if (key && !allowedParams.has(key)) {
+    if (key && allowedParams.indexOf(key) === -1) {
       isParseFailed = true;
       break;
     }
@@ -27,7 +27,7 @@ function parseMailtoQueryString(queryString) {
     }
 
     if (key) {
-      allowedParams.delete(key);
+      allowedParams.splice(allowedParams.indexOf(key), 1);
     }
   }
 
