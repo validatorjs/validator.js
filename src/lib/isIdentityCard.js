@@ -72,7 +72,7 @@ const validators = {
       return false;
     }
 
-    if (!str.match(/^\d{6}[\-A\+]\d{3}[0-9ABCDEFHJKLMNPRSTUVWXY]{1}$/)) {
+    if (!str.match(/^\d{6}[\-+A-FU-Y]\d{3}[0-9ABCDEFHJKLMNPRSTUVWXY]{1}$/)) {
       return false;
     }
 

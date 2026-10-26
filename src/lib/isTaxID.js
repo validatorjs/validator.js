@@ -501,12 +501,17 @@ function etEeCheck(tin) {
 function fiFiCheck(tin) {
   // Extract year and add century
   let full_year = tin.slice(4, 6);
-  const century_symbol = tin.slice(6, 7);
+  const century_symbol = tin.slice(6, 7).toUpperCase();
   switch (century_symbol) {
     case '+':
       full_year = `18${full_year}`;
       break;
     case '-':
+    case 'U':
+    case 'V':
+    case 'W':
+    case 'X':
+    case 'Y':
       full_year = `19${full_year}`;
       break;
     default:
@@ -1198,7 +1203,7 @@ const taxIdFormat = {
   'es-AR': /(20|23|24|27|30|33|34)[0-9]{8}[0-9]/,
   'es-ES': /^(\d{0,8}|[XYZKLM]\d{7})[A-HJ-NP-TV-Z]$/i,
   'et-EE': /^[1-6]\d{6}(00[1-9]|0[1-9][0-9]|[1-6][0-9]{2}|70[0-9]|710)\d$/,
-  'fi-FI': /^\d{6}[-+A]\d{3}[0-9A-FHJ-NPR-Y]$/i,
+  'fi-FI': /^\d{6}[-+A-FU-Y]\d{3}[0-9A-FHJ-NPR-Y]$/i,
   'fr-BE': /^\d{11}$/,
   'fr-FR': /^[0-3]\d{12}$|^[0-3]\d\s\d{2}(\s\d{3}){3}$/, // Conforms both to official spec and provided example
   'fr-LU': /^\d{13}$/,
