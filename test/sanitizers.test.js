@@ -121,6 +121,18 @@ describe('Sanitizers', () => {
     });
   });
 
+  [
+    { sanitizer: 'ltrim', expect: { '--azhello': 'hello', hello: 'hello' } },
+    { sanitizer: 'rtrim', expect: { 'helloza--': 'hello', hello: 'hello' } },
+    { sanitizer: 'trim', expect: { '--azhelloza--': 'hello', hello: 'hello' } },
+  ].forEach(({ sanitizer, expect }) => {
+    it(`should trim literal hyphens with ${sanitizer}`, () => {
+      ['a-z', 'z-a'].forEach((chars) => {
+        test({ sanitizer, args: [chars], expect });
+      });
+    });
+  });
+
   it('should convert strings to integers', () => {
     test({
       sanitizer: 'toInt',
