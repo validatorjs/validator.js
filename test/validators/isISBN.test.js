@@ -1,6 +1,24 @@
 import test from '../testFunctions';
 
 describe('isISBN', () => {
+  [undefined, 13, '13', { version: 13 }, { version: '13' }].forEach((options) => {
+    it(`should require an ISBN-13 prefix with options ${JSON.stringify(options)}`, () => {
+      test({
+        validator: 'isISBN',
+        args: options === undefined ? [] : [options],
+        valid: [
+          '9783836221191', '978-3-8362-2119-1', '978 3 8362 2119 1',
+          '9791090636071', '979-10-90636-07-1', '979 10 90636 07 1',
+        ],
+        invalid: [
+          '4006381333931', '400-6381333931', '400 6381333931',
+          '1234567890128', '0000000000000',
+          '9783836221190', '9791090636070',
+        ],
+      });
+    });
+  });
+
   it('should validate ISBNs', () => {
     test({
       validator: 'isISBN',
