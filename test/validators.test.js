@@ -7167,6 +7167,64 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate ISMN numbers', () => {
+    test({
+      validator: 'isISMN',
+      valid: [
+        // Modern 13-digit ISMNs
+        '9790260000438',
+        '9790000000001',
+        '9790692006282',
+        '9790345246805',
+
+        // ISMNs with spaces or hyphens
+        '979-0-2600-0043-8',
+        '979 0 2600 0043 8',
+        '979-0-69200-628-2',
+
+        // Older ISMNs starting with M
+        'M571100513',
+        'M692006282',
+        'M345246805',
+        'M-345-24680-5',
+        'M 345 24680 5',
+      ],
+      invalid: [
+        // Numbers with the wrong check digit
+        '9790260000439',
+        '9790692006283',
+        'M692006283',
+
+        // Numbers that start incorrectly
+        '9780260000438',
+        '9791260000438',
+        'A692006282',
+
+        // Numbers that are too short or too long
+        '979026000043',
+        '97902600004388',
+        'M69200628',
+        'M6920062822',
+
+        // Numbers with invalid characters
+        '9790A60000438',
+        'M69200A282',
+        '9790.2600.0043.8',
+        '',
+
+        // Incorrect spaces or hyphens
+        '-9790260000438',
+        '9790260000438-',
+        '979--0-2600-0043-8',
+        'M--345-24680-5',
+      ],
+      error: [
+        null,
+        9790260000438,
+      ],
+    });
+  });
+
   it('should validate ISSNs', () => {
     test({
       validator: 'isISSN',

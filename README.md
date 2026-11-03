@@ -127,6 +127,7 @@ Validator                               | Description
 **isIPRange(str [, version])**          | check if the string is an IP Range (version 4 or 6).
 **isISBN(str [, options])**             | check if the string is an [ISBN][ISBN].<br/><br/>`options` is an object that has no default.<br/>**Options:**<br/>`version`: ISBN version to compare to. Accepted values are '10' and '13'. If none provided, both will be tested.
 **isISIN(str)**                         | check if the string is an [ISIN][ISIN] (stock/security identifier).
+**isISMN(str)**                         | check if the string is a valid International Standard Music Number (ISMN). Supports both 13-digit and older 10-character ISMNs, allows spaces or hyphens, and checks the check digit.
 **isISO6346(str)**                      | check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
 **isISO6391(str)**                      | check if the string is a valid [ISO 639-1][ISO 639-1] language code.
 **isISO8601(str [, options])**          | check if the string is a valid [ISO 8601][ISO 8601] date. <br/>`options` is an object which defaults to `{ strict: false, strictSeparator: false }`. If `strict` is true, date strings with invalid dates like `2009-02-29` will be invalid. If `strictSeparator` is true, date strings with date and time separated by anything other than a T will be invalid.
