@@ -79,6 +79,7 @@ import isIdentityCard from './lib/isIdentityCard';
 import isEAN from './lib/isEAN';
 import isISIN from './lib/isISIN';
 import isISBN from './lib/isISBN';
+import isISMN from './lib/isISMN';
 import isISSN from './lib/isISSN';
 import isTaxID from './lib/isTaxID';
 
@@ -201,6 +202,7 @@ const validator = {
   isEAN,
   isISIN,
   isISBN,
+  isISMN,
   isISSN,
   isMobilePhone,
   isMobilePhoneLocales,
