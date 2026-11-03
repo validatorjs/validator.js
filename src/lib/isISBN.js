@@ -1,7 +1,7 @@
 import assertString from './util/assertString';
 
 const possibleIsbn10 = /^(?:[0-9]{9}X|[0-9]{10})$/;
-const possibleIsbn13 = /^(?:[0-9]{13})$/;
+const possibleIsbn13 = /^97[89][0-9]{10}$/;
 const factor = [1, 3];
 
 export default function isISBN(isbn, options) {
