@@ -14671,6 +14671,31 @@ describe('Validators', () => {
         'abc.04.05.2024',
       ],
     });
+    test({
+      validator: 'isDate',
+      args: [{ format: 'DD.MM.YYYY' }], // '.' is not in the default delimiters
+      invalid: [
+        '29.02.2020',
+        '29/02/2020',
+        '29-02-2020',
+      ],
+    });
+    test({
+      validator: 'isDate',
+      args: ['YYYY.MM.DD'], // old format for backward compatibility
+      invalid: [
+        '2020.02.29',
+        '2020/02/29',
+      ],
+    });
+    test({
+      validator: 'isDate',
+      args: [{ format: 'YYYY-MM-DD', delimiters: ['/'] }],
+      invalid: [
+        '2020-02-29',
+        '2020/02/29',
+      ],
+    });
     // emulating Pacific time zone offset & time
     // which could potentially result in UTC conversion issues
     timezone_mock.register('US/Pacific');
