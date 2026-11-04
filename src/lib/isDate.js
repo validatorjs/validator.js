@@ -31,6 +31,10 @@ export default function isDate(input, options) {
     if (options.strictMode && input.length !== options.format.length) return false;
     const formatDelimiter = options.delimiters
       .find(delimiter => options.format.indexOf(delimiter) !== -1);
+
+    // The format's delimiter is not one of the allowed delimiters, so no input can match it.
+    if (formatDelimiter === undefined) return false;
+
     const dateDelimiter = options.strictMode
       ? formatDelimiter
       : options.delimiters.find(delimiter => input.indexOf(delimiter) !== -1);
