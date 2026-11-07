@@ -12771,6 +12771,23 @@ describe('Validators', () => {
   });
 
 
+  it('should require hexadecimal BitTorrent v2 magnet hashes', () => {
+    const hash = '0123456789abcdef'.repeat(4);
+    test({
+      validator: 'isMagnetURI',
+      valid: [
+        `magnet:?xt=urn:btmh:1220${hash}`,
+        `magnet:?xt=urn:btmh:1220${hash.toUpperCase()}`,
+        `magnet:?dn=example&xt.1=urn:btmh:1220${hash}&tr=udp://example.com`,
+      ],
+      invalid: [
+        `magnet:?xt=urn:btmh:1220g${hash.slice(1)}`,
+        `magnet:?xt=urn:btmh:1220${hash.slice(0, -1)}Z`,
+        `magnet:?dn=example&xt.1=urn:btmh:1220${hash.slice(0, 32)}g${hash.slice(33)}&dn=test`,
+      ],
+    });
+  });
+
   it('should validate LatLong', () => {
     test({
       validator: 'isLatLong',
