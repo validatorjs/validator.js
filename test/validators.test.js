@@ -12241,6 +12241,7 @@ describe('Validators', () => {
       valid: [
         '1MUz4VMYui5qY1mxUiG8BQ1Luv6tqkvaiL',
         'mucFNhKMYoBQYUAEsrFVscQ1YaFQPekBpg',
+        'n1fprNxRhWrpkJ34A4cNsSZbHsnzhob2KL',
         '3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy',
         '2NFUBBRcTJbYc1D4HSCbJhKZp6YCV4PQFpQ',
         'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
