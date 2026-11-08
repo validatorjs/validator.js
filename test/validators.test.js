@@ -3231,6 +3231,19 @@ describe('Validators', () => {
     });
   });
 
+  it('should reject signed port numbers', () => {
+    test({
+      validator: 'isPort',
+      invalid: [
+        '+0',
+        '-0',
+        '+80',
+        '+443',
+        '+65535',
+      ],
+    });
+  });
+
   it('should validate passport number', () => {
     test({
       validator: 'isPassportNumber',
