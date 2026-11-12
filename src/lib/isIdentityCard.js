@@ -181,6 +181,20 @@ const validators = {
     }
     return str[12] === ((11 - (sum % 11)) % 10).toString();
   },
+  TR: (str) => {
+    // Turkish Republic Identity Number (T.C. Kimlik No):
+    // 11 digits, first digit non-zero, last two digits are check digits
+    if (!/^[1-9]\d{10}$/.test(str)) return false;
+
+    const digits = str.split('').map(Number);
+    const oddSum = digits[0] + digits[2] + digits[4] + digits[6] + digits[8];
+    const evenSum = digits[1] + digits[3] + digits[5] + digits[7];
+    const tenthDigit = ((((oddSum * 7) - evenSum) % 10) + 10) % 10;
+    if (digits[9] !== tenthDigit) return false;
+
+    const firstTenSum = digits.slice(0, 10).reduce((acc, digit) => acc + digit, 0);
+    return digits[10] === firstTenSum % 10;
+  },
   LK: (str) => {
     const old_nic = /^[1-9]\d{8}[vx]$/i;
     const new_nic = /^[1-9]\d{11}$/i;
