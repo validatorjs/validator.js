@@ -32,6 +32,24 @@ const CH = (str) => {
   return /^(CHE[- ]?)?(\d{9}|(\d{3}\.\d{3}\.\d{3})|(\d{3} \d{3} \d{3})) ?(TVA|MWST|IVA)?$/.test(str) && hasValidCheckNumber((str.match(/\d/g).map(el => +el)));
 };
 
+const TR = (str) => {
+  // Vergi Kimlik Numarası (VKN): 10 digits, the last one is a check digit
+  const match = str.match(/^(TR)?(\d{10})$/);
+  if (!match) {
+    return false;
+  }
+
+  const digits = match[2].split('').map(Number);
+  let sum = 0;
+  for (let i = 0; i < 9; i++) {
+    const shifted = (digits[i] + (9 - i)) % 10;
+    if (shifted !== 0) {
+      sum += ((shifted * (2 ** (9 - i))) % 9) || 9;
+    }
+  }
+  return digits[9] === (10 - (sum % 10)) % 10;
+};
+
 const PT = (str) => {
   const match = str.match(/^(PT)?(\d{9})$/);
   if (!match) {
@@ -101,7 +119,7 @@ export const vatMatchers = {
   SA: str => /^(SA)?\d{15}$/.test(str),
   RS: str => /^(RS)?\d{9}$/.test(str),
   CH,
-  TR: str => /^(TR)?\d{10}$/.test(str),
+  TR,
   UA: str => /^(UA)?\d{12}$/.test(str),
   GB: str => /^GB((\d{3} \d{4} ([0-8][0-9]|9[0-6]))|(\d{9} \d{3})|(((GD[0-4])|(HA[5-9]))[0-9]{2}))$/.test(str),
   UZ: str => /^(UZ)?\d{9}$/.test(str),
