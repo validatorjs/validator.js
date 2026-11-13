@@ -15237,6 +15237,39 @@ describe('Validators', () => {
         'GJ054GH4785',
       ],
     });
+    test({
+      validator: 'isLicensePlate',
+      args: ['tr-TR'],
+      valid: [
+        '34 A 1234',
+        '06 A 12345',
+        '35 AB 123',
+        '01 AB 1234',
+        '81 ABC 12',
+        '16 ABC 123',
+        '34ABC123',
+        '07 IR 123',
+      ],
+      invalid: [
+        '',
+        '00 A 1234',
+        '82 AB 123',
+        '34 A 123',
+        '34 A 123456',
+        '34 AB 12',
+        '34 AB 12345',
+        '34 ABC 1',
+        '34 ABC 1234',
+        '34 ABCD 12',
+        '34 QA 123',
+        '34 WX 123',
+        '34 ÇŞ 123',
+        '34 İA 123',
+        '34 ab 123',
+        '34-AB-123',
+        '4 AB 123',
+      ],
+    });
   });
   it('should validate VAT numbers', () => {
     test({
