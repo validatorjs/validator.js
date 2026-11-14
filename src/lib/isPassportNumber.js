@@ -40,7 +40,7 @@ const passportRegexByCountryCode = {
   IT: /^[A-Z0-9]{2}\d{7}$/, // ITALY
   JM: /^[Aa]\d{7}$/, // JAMAICA
   JP: /^[A-Z]{2}\d{7}$/, // JAPAN
-  KR: /^[MS]\d{8}$/, // SOUTH KOREA, REPUBLIC OF KOREA, [S=PS Passports, M=PM Passports]
+  KR: /^[MS](\d{8}|\d{3}[A-Z]\d{4})$/, // SOUTH KOREA, REPUBLIC OF KOREA, [S=PS Passports, M=PM Passports], M123A4567 since Dec 2021
   KZ: /^[a-zA-Z]\d{7}$/, // KAZAKHSTAN
   LI: /^[a-zA-Z]\d{5}$/, // LIECHTENSTEIN
   LT: /^[A-Z0-9]{8}$/, // LITHUANIA
