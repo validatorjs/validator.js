@@ -25,9 +25,12 @@ const isValidDate = (str) => {
   const day = match[3];
   const monthString = month ? `0${month}`.slice(-2) : month;
   const dayString = day ? `0${day}`.slice(-2) : day;
+  // Pad the year to four digits: `new Date('1-01-13')` is parsed as
+  // 2013-01-01, so years below 1000 would otherwise fail the check below.
+  const yearString = `000${year}`.slice(-4);
 
   // create a date object and compare
-  const d = new Date(`${year}-${monthString || '01'}-${dayString || '01'}`);
+  const d = new Date(`${yearString}-${monthString || '01'}-${dayString || '01'}`);
   if (month && day) {
     return d.getUTCFullYear() === year
       && (d.getUTCMonth() + 1) === month
