@@ -1,6 +1,28 @@
 import merge from './util/merge';
 import assertString from './util/assertString';
 
+/**
+ * Returns valid whole dollar amount patterns based on thousands_separator_mode.
+ * @param {string} mode - 'required', 'allowed', or 'forbidden'
+ * @param {string} withoutSep - regex pattern for amounts without separators
+ * @param {string} withSep - regex pattern for amounts with separators
+ * @returns {string[]} array of valid regex patterns
+ */
+function getValidWholeAmounts(mode, withoutSep, withSep) {
+  switch (mode) {
+    case 'required':
+      // For amounts >= 1000, require separators. Amounts 0-999 don't need them.
+      return ['0', '[1-9]\\d{0,2}', withSep];
+    case 'forbidden':
+      // Never allow thousands separators
+      return ['0', withoutSep];
+    case 'allowed':
+    default:
+      // Allow both with and without separators (current default behavior)
+      return ['0', withoutSep, withSep];
+  }
+}
+
 function currencyRegex(options) {
   let decimal_digits = `\\d{${options.digits_after_decimal[0]}}`;
   options.digits_after_decimal.forEach((digit, index) => { if (index !== 0) decimal_digits = `${decimal_digits}|\\d{${digit}}`; });
@@ -10,8 +32,11 @@ function currencyRegex(options) {
     negative = '-?',
     whole_dollar_amount_without_sep = '[1-9]\\d*',
     whole_dollar_amount_with_sep = `[1-9]\\d{0,2}(\\${options.thousands_separator}\\d{3})*`,
-    valid_whole_dollar_amounts = [
-      '0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep],
+    valid_whole_dollar_amounts = getValidWholeAmounts(
+      options.thousands_separator_mode,
+      whole_dollar_amount_without_sep,
+      whole_dollar_amount_with_sep
+    ),
     whole_dollar_amount = `(${valid_whole_dollar_amounts.join('|')})?`,
     decimal_amount = `(\\${options.decimal_separator}(${decimal_digits}))${options.require_decimal ? '' : '?'}`;
   let pattern = whole_dollar_amount + (options.allow_decimal || options.require_decimal ? decimal_amount : '');
@@ -70,6 +95,7 @@ const default_currency_options = {
   require_decimal: false,
   digits_after_decimal: [2],
   allow_space_after_digits: false,
+  thousands_separator_mode: 'allowed',
 };
 
 export default function isCurrency(str, options) {
