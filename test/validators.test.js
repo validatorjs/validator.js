@@ -3210,6 +3210,24 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate numeric strings with Nepali locale', () => {
+    test({
+      validator: 'isNumeric',
+      args: [{ locale: 'ne-NP' }],
+      valid: [
+        '123',
+        '-123',
+        '1.5',
+        '.5',
+      ],
+      invalid: [
+        '1,5',
+        '.',
+        '',
+      ],
+    });
+  });
+
   it('should validate ports', () => {
     test({
       validator: 'isPort',
@@ -4936,6 +4954,39 @@ describe('Validators', () => {
         '+.123',
         '7866.t',
         '22.3',
+      ],
+    });
+  });
+
+  it('should validate decimals and floats with Nepali locale', () => {
+    test({
+      validator: 'isDecimal',
+      args: [{ locale: 'ne-NP' }],
+      valid: [
+        '123',
+        '-0.01',
+        '1.5',
+        '.5',
+      ],
+      invalid: [
+        '1,5',
+        '.',
+        '',
+      ],
+    });
+    test({
+      validator: 'isFloat',
+      args: [{ locale: 'ne-NP' }],
+      valid: [
+        '123',
+        '-0.01',
+        '1.5',
+        '.5',
+      ],
+      invalid: [
+        '1,5',
+        '.',
+        '',
       ],
     });
   });
