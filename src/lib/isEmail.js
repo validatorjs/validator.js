@@ -163,7 +163,9 @@ export default function isEmail(str, options) {
   }
 
   if (options.blacklisted_chars) {
-    if (user.search(new RegExp(`[${options.blacklisted_chars}]+`, 'g')) !== -1) return false;
+    for (let i = 0; i < options.blacklisted_chars.length; i++) {
+      if (user.includes(options.blacklisted_chars[i])) return false;
+    }
   }
 
   if (user[0] === '"' && user[user.length - 1] === '"') {
