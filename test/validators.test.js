@@ -280,6 +280,22 @@ describe('Validators', () => {
     });
   });
 
+  it('should handle special characters in blacklisted_chars', () => {
+    test({
+      validator: 'isEmail',
+      args: [{ blacklisted_chars: '\\]^' }],
+      valid: [
+        'email@gmail.com',
+        '"foobar"@example.com',
+      ],
+      invalid: [
+        'em^ail@gmail.com',
+        '"foo\\@bar"@example.com',
+        '"foo]bar"@example.com',
+      ],
+    });
+  });
+
 
   it('should validate really long emails if ignore_max_length is set', () => {
     test({
