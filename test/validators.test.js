@@ -4938,6 +4938,12 @@ describe('Validators', () => {
         '22.3',
       ],
     });
+    test({
+      validator: 'isFloat',
+      args: [{ locale: 'xx-XX' }],
+      valid: ['1.5', '1', '-1.5'],
+      invalid: ['1,5', 'abc'],
+    });
   });
 
   it('should validate hexadecimal strings', () => {
