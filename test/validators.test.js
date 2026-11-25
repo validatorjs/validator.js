@@ -1723,6 +1723,31 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate tajik alpha strings', () => {
+    test({
+      validator: 'isAlpha',
+      args: ['tg-TJ'],
+      valid: [
+        'Салом',
+        'Тоҷикистон',
+        'Хуҷанд',
+        'Ҷумҳурӣ',
+        'ҒАЛАБА',
+        'ҶУМҲУРӢ',
+        'Кӯҳистон',
+        'мӯйсафед',
+        'ғалла',
+        'Ёрдам',
+      ],
+      invalid: [
+        'Салом1',
+        '  Салом дӯст  ',
+        'Salom',
+        'Тоҷикистон!',
+      ],
+    });
+  });
+
   it('should validate Vietnamese alpha strings', () => {
     test({
       validator: 'isAlpha',
@@ -2682,6 +2707,27 @@ describe('Validators', () => {
         ' кешіріңіз ',
         'abcағылшынша',
         'мүмкін!!',
+      ],
+    });
+  });
+
+  it('should validate tajik alphanumeric strings', () => {
+    test({
+      validator: 'isAlphanumeric',
+      args: ['tg-TJ'],
+      valid: [
+        'Салом777',
+        '123Ҷумъа',
+        'дӯст',
+        'Хуҷанд2026',
+        '5рӯз',
+        'ҒАЛАБА9',
+        'ДӮСТ2',
+      ],
+      invalid: [
+        ' салом ',
+        'abcҷумъа',
+        'хуб!!',
       ],
     });
   });
